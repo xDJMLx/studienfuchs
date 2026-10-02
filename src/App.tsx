@@ -34,7 +34,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/catchup', 'Aufholen'],
   ['/coach', 'KI'],
   ['/plan', 'Plan'],
-  ['/shop', 'Fuchs'],
+  ['/shop', 'Fuchs & Shop'],
   ['/practice/cards', 'Karteikarten'],
   ['/practice', 'Üben'],
   ['/review/play', 'Wiederholung'],

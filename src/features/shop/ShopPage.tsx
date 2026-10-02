@@ -1,7 +1,8 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useState } from 'react'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Check, Coin } from '../../components/ui/Icons'
+import { Link } from 'react-router-dom'
+import { Back, Check, Coin } from '../../components/ui/Icons'
 import { SPRING } from '../../components/ui/motion'
 import { ITEMS, SLOTS, type Slot } from '../../lib/shop'
 import { useStore } from '../../store/useStore'
@@ -17,7 +18,11 @@ export function ShopPage() {
   const worn = Object.keys(outfit).length
 
   return (
-    <div className="mx-auto max-w-2xl px-4 pb-6 pt-5">
+    <div className="mx-auto max-w-2xl px-4 pb-6 pt-3">
+      <Link to="/profile" className="press -ml-2 mb-1 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 font-semibold text-muted transition-colors hover:text-ink">
+        <Back size={20} /> Profil
+      </Link>
+      <h1 className="mb-3 text-2xl font-bold">Fuchs &amp; Shop</h1>
       <section className="card flex flex-col items-center px-5 pb-5 pt-6 text-center">
         <motion.div key={JSON.stringify(outfit)} initial={reduce ? false : { scale: 0.9 }} animate={{ scale: 1 }} transition={SPRING.bouncy}>
           <Mascot size={156} mood="cheer" blink outfit={outfit} label="Dein Fuchs" />

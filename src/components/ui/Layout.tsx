@@ -5,7 +5,7 @@ import { goalInfo, levelFromXp } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
 import { CourseChip } from './CoursePicker'
-import { Camera, Coin, Flame, Fox, Gear, Home, Repeat, Sparkle, Target, Trophy, User, Xp } from './Icons'
+import { Camera, Coin, Flame, Gear, TabHome, TabKi, TabRepeat, TabTarget, TabUser, Trophy, Xp } from './Icons'
 import { EASE } from './motion'
 import { useCoachComposer } from '../../lib/coachComposer'
 import { CoachComposer } from './CoachComposer'
@@ -21,15 +21,14 @@ interface NavItem {
 }
 
 // Fünf feste Tabs, kein "Mehr": Alles Wichtige ist immer mit einem Tipp erreichbar (Grammatik und Wörter im Üben-Tab,
-// Einstellungen über das Profil). Das Profil erreicht man über die Zahlen oben; am Desktop steht es zusätzlich in der Seitenleiste.
+// Einstellungen über das Profil). Fuchs anpassen und Shop liegen im Profil.
 const NAV: NavItem[] = [
-  { to: '/', label: 'Lernen', Icon: Home, end: true },
-  { to: '/practice', label: 'Üben', Icon: Repeat },
-  { to: '/coach', label: 'KI', Icon: Sparkle },
-  { to: '/plan', label: 'Plan', Icon: Target },
-  { to: '/shop', label: 'Fuchs', Icon: Fox },
+  { to: '/', label: 'Lernen', Icon: TabHome, end: true },
+  { to: '/practice', label: 'Üben', Icon: TabRepeat },
+  { to: '/coach', label: 'KI', Icon: TabKi },
+  { to: '/plan', label: 'Plan', Icon: TabTarget },
+  { to: '/profile', label: 'Profil', Icon: TabUser },
 ]
-const SIDE_NAV: NavItem[] = [...NAV, { to: '/profile', label: 'Profil', Icon: User }]
 
 export function Wordmark({ size = 'md', tone = 'default' }: { size?: 'md' | 'lg'; tone?: 'default' | 'light' }) {
   return (
@@ -82,7 +81,7 @@ export function Layout() {
           <Wordmark />
         </Link>
         <nav className="grid gap-1" aria-label="Hauptnavigation">
-          {SIDE_NAV.map(({ to, label, Icon, end }) => (
+          {NAV.map(({ to, label, Icon, end }) => (
             <NavLink key={to} to={to} end={end} className={({ isActive }) => `nav-link press relative ${isActive ? 'text-brand-dark' : ''}`}>
               {({ isActive }) => (
                 <>
@@ -127,7 +126,7 @@ export function Layout() {
             icon: <Icon size={26} />,
             badge: to === '/practice' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : undefined,
           }))}
-          activeIndex={NAV.findIndex((n) => (n.end ? location.pathname === n.to : location.pathname.startsWith(n.to)))}
+          activeIndex={NAV.findIndex((n) => (n.end ? location.pathname === n.to : location.pathname.startsWith(n.to) || (n.to === '/profile' && location.pathname.startsWith('/shop'))))}
           onSelect={(i) => {
             const to = NAV[i].to
             // Zweiter Tipp auf den aktiven Tab: nach oben scrollen (wie bei iOS-Apps)

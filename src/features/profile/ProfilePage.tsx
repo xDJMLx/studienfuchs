@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { COURSE_STATS } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
 import { IconChip } from '../../components/ui/controls'
-import { Bolt, Book, Check, Flame, Gear, Right, Shield, Trophy } from '../../components/ui/Icons'
+import { Bolt, Book, Check, Coin, Flame, Gear, Right, Shield, Trophy } from '../../components/ui/Icons'
 import { CountUp, EASE, Item, ItemLi, Stagger, StaggerList, SPRING } from '../../components/ui/motion'
 import { ProgressBar, ProgressRing, SegmentedBar } from '../../components/ui/widgets'
 import { achievements } from '../../lib/achievements'
@@ -23,7 +23,7 @@ const COURSE_WORDS = COURSE_STATS.words
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
-  const { xp, xpByDay, streak, dailyGoal, lessons, sets, outfit } = useStore()
+  const { xp, xpByDay, streak, dailyGoal, lessons, sets, outfit, coins } = useStore()
   const { learned, byMastery } = useLearned()
   const lvl = levelFromXp(xp)
   const streakDays = streakNow(streak)
@@ -103,6 +103,21 @@ export function ProfilePage() {
               <span className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1.5 text-sm font-semibold"><Bolt size={16} /> Heute {todayXp} / {goalInfo(dailyGoal, todayXp).goal} XP</span>
             </div>
           </section>
+        </Item>
+
+        {/* Fuchs anpassen und Shop */}
+        <Item>
+          <Link to="/shop" className="card lift mt-4 flex items-center gap-4 p-4">
+            <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-brand-soft">
+              <Mascot size={52} outfit={outfit} />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block font-semibold">Fuchs &amp; Shop</span>
+              <span className="block text-sm text-muted">Zubehör kaufen und anlegen</span>
+            </span>
+            <span className="flex shrink-0 items-center gap-1 rounded-full bg-gold/20 px-2.5 py-1 text-sm font-bold text-gold-dark"><Coin size={16} />{coins}</span>
+            <Right size={16} className="shrink-0 text-muted" />
+          </Link>
         </Item>
 
         {/* Zahlen */}
