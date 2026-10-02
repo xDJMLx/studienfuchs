@@ -232,6 +232,11 @@ export function BooksPage() {
                   </span>
                   {r.kind === 'book' && <Sparkle size={18} className="shrink-0 text-brand-dark" />}
                 </button>
+                {r.kind === 'book' && (
+                  <Link to={`/exam/new?type=arbeit&book=${r.bookId}&from=${r.from}&to=${r.to}`} className="press shrink-0 rounded-lg bg-brand-soft px-2.5 py-1.5 text-xs font-semibold text-brand-dark">
+                    Probe
+                  </Link>
+                )}
                 <button
                   type="button"
                   aria-label={`Termin für ${r.title} löschen`}

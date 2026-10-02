@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { STORAGE } from '../lib/migrate'
 import { booksSnapshot, useBooks } from './useBooks'
+import { examsSnapshot, useExams } from './useExams'
 import { reviewCard, type Grade, type SrsCard } from '../lib/srs'
 import { buy, coinsForSession, itemById, toggleEquip, type Outfit } from '../lib/shop'
 import { currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
@@ -195,7 +196,7 @@ export const useStore = create<Data & Actions>()(
       exportData: () => {
         const s = get()
         const data = Object.fromEntries(DATA_KEYS.map((k) => [k, s[k]]))
-        return JSON.stringify({ app: 'studienfuchs', version: 1, data, books: booksSnapshot() }, null, 2)
+        return JSON.stringify({ app: 'studienfuchs', version: 1, data, books: booksSnapshot(), exams: examsSnapshot() }, null, 2)
       },
 
       importData: (json) => {
@@ -207,11 +208,13 @@ export const useStore = create<Data & Actions>()(
         set({ ...initial, ...next })
         // Bücher (nur in neueren Sicherungen); ältere Sicherungen lassen die vorhandenen Bücher in Ruhe
         if (parsed.books && typeof parsed.books === 'object') useBooks.getState().replaceAll(parsed.books)
+        if (parsed.exams && typeof parsed.exams === 'object') useExams.getState().replaceAll(parsed.exams)
       },
 
       resetAll: () => {
         set({ ...initial })
         useBooks.getState().replaceAll({ books: [], exams: [] })
+        useExams.getState().replaceAll({ exams: [], results: {} })
       },
     }),
     {

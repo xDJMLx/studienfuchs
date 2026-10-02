@@ -8,6 +8,9 @@ import { useStore } from './store/useStore'
 import { GrammarTopicPage } from './features/grammar/GrammarPage'
 import { CatchUpPage } from './features/catchup/CatchUpPage'
 import { CoachPage } from './features/coach/CoachPage'
+import { ExamCreatePage } from './features/exam/ExamCreatePage'
+import { ExamPlayPage } from './features/exam/ExamPlayPage'
+import { SpeakTrainingPage } from './features/speak/SpeakTrainingPage'
 import { LessonPage } from './features/lesson/LessonPage'
 import { LearnPage } from './features/path/LearnPage'
 import { PlacementPage } from './features/placement/PlacementPage'
@@ -35,6 +38,9 @@ const TITLES: [prefix: string, title: string][] = [
   ['/catchup', 'Aufholen'],
   ['/coach', 'KI'],
   ['/books', 'Bücher'],
+  ['/speak', 'Sprechtraining'],
+  ['/exam/new', 'Test erstellen'],
+  ['/exam/', 'Test'],
   ['/shop', 'Fuchs & Shop'],
   ['/practice/cards', 'Karteikarten'],
   ['/practice', 'Üben'],
@@ -81,6 +87,7 @@ export default function App() {
             <Route path="catchup" element={<CatchUpPage />} />
             <Route path="coach" element={<CoachPage />} />
             <Route path="books" element={<BooksPage />} />
+            <Route path="exam/new" element={<ExamCreatePage />} />
             <Route path="books/:bookId" element={<BookPage />} />
             <Route path="plan" element={<Navigate to="/books" replace />} />
             <Route path="shop" element={<ShopPage />} />
@@ -98,6 +105,8 @@ export default function App() {
           {/* Lern-Sessions ohne Navigation, damit nichts ablenkt */}
           <Route path="lesson/:lessonId" element={<LessonPage />} />
           <Route path="placement" element={<PlacementPage />} />
+          <Route path="exam/:examId" element={<ExamPlayPage />} />
+          <Route path="speak" element={<SpeakTrainingPage />} />
           <Route path="practice/play" element={<PracticePlay />} />
           <Route path="practice/cards" element={<FlashcardsPage />} />
           <Route path="sets/:setId/cards" element={<FlashcardsPage />} />

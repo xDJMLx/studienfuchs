@@ -3,10 +3,12 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { grades, units } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Cards, Check, Headphones, Pencil, Repeat, Right, Sparkle, Star, Trophy } from '../../components/ui/Icons'
+import { Cards, Check, Headphones, Pencil, Repeat, Right, Sparkle, Speaker, Star, Trophy } from '../../components/ui/Icons'
 import { Segmented } from '../../components/ui/controls'
 import { EASE, Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { itemsForScope, type Scope } from '../../lib/scope'
+import { approxGrade } from '../../lib/exam'
+import { useExams } from '../../store/useExams'
 import { useStore } from '../../store/useStore'
 import { GrammarPage } from '../grammar/GrammarPage'
 import { WordsPage } from '../words/WordsPage'
@@ -23,6 +25,7 @@ const MODES = [
   { id: 'cards', title: 'Karteikarten', text: 'Wort anschauen, Bedeutung überlegen, umdrehen. Schnell und ohne Tippen.', to: (s: string) => `/practice/cards?scope=${s}`, icon: <Cards size={24} /> },
   { id: 'mix', title: 'Gemischtes Quiz', text: 'Auswahl, Tippen, Hören und Sätze bauen im Wechsel.', to: (s: string) => `/practice/play?mode=mix&scope=${s}`, icon: <Trophy size={24} /> },
   { id: 'write', title: 'Schreibtraining', text: 'Nur aus dem Gedächtnis schreiben, der stärkste Weg zum Behalten.', to: (s: string) => `/practice/play?mode=write&scope=${s}`, icon: <Pencil size={24} /> },
+  { id: 'speak', title: 'Sprechtraining', text: 'Wörter nachsprechen und die Aussprache verbessern, mit Lautschule.', to: (s: string) => `/speak?scope=${s}`, icon: <Speaker size={24} /> },
   { id: 'listen', title: 'Hörtraining', text: 'Wörter hören und verstehen oder aufschreiben.', to: (s: string) => `/practice/play?mode=listen&scope=${s}`, icon: <Headphones size={24} /> },
 ] as const
 
@@ -186,7 +189,11 @@ function PracticeTab() {
       </Item>
 
       <Item>
-        <Link to="/coach" className="card lift group mt-6 flex items-center gap-4 p-4">
+        <ExamCard />
+      </Item>
+
+      <Item>
+        <Link to="/coach" className="card lift group mt-4 flex items-center gap-4 p-4">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105"><Sparkle size={22} /></span>
           <span className="min-w-0 flex-1">
             <span className="block font-semibold">Frag die KI</span>
@@ -204,5 +211,43 @@ function PracticeTab() {
         </Item>
       )}
     </Stagger>
+  )
+}
+
+/** Test oder Klassenarbeit von der KI erstellen lassen, plus die schon erstellten. */
+function ExamCard() {
+  const exams = useExams((s) => s.exams)
+  const results = useExams((s) => s.results)
+  const deleteExam = useExams((s) => s.deleteExam)
+  return (
+    <section className="mt-6" aria-label="Tests und Klassenarbeiten">
+      <Link to="/exam/new" className="card lift group flex items-center gap-4 p-4">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-strong text-on-brand"><Pencil size={22} /></span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold">Test oder Klassenarbeit erstellen</span>
+          <span className="block text-sm text-muted">Kurztest aus deinen Wörtern oder eine ganze Arbeit mit Hören, Wortschatz, Grammatik und Text. Aus Buch, Kurs oder Thema.</span>
+        </span>
+        <Right size={16} className="shrink-0 text-muted" />
+      </Link>
+      {exams.length > 0 && (
+        <ul className="card mt-3 divide-y divide-line overflow-hidden">
+          {exams.slice(0, 6).map((e) => {
+            const last = results[e.id]?.[0]
+            return (
+              <li key={e.id} className="flex items-center gap-1 pr-2">
+                <Link to={'/exam/' + e.id} className="press flex min-w-0 flex-1 items-center gap-3 px-4 py-3">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-xs font-bold text-brand-dark">{e.type === 'arbeit' ? 'KA' : 'Test'}</span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate font-medium">{e.title}</span>
+                    <span className="block truncate text-sm text-muted">{last ? `Zuletzt ${last.percent} % (Note ${approxGrade(last.percent).note})` : e.source}</span>
+                  </span>
+                </Link>
+                <button type="button" aria-label={`${e.title} löschen`} onClick={() => deleteExam(e.id)} className="press flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-muted hover:bg-snow hover:text-bad">×</button>
+              </li>
+            )
+          })}
+        </ul>
+      )}
+    </section>
   )
 }

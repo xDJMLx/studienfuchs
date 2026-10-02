@@ -23,15 +23,15 @@ export async function shouldUseFree(hasImages: boolean): Promise<boolean> {
 }
 
 /** Eine Chat-Antwort von der kostenlosen Stufe holen. */
-export async function chatFree(system: string, messages: ChatMessage[], fetchImpl: typeof fetch = fetch): Promise<string> {
+export async function chatFree(system: string, messages: ChatMessage[], fetchImpl: typeof fetch = fetch, maxTokens = 1500): Promise<string> {
   const history = messages.slice(-24).map(({ role, content }) => ({ role, content }))
   let res: Response
   try {
     res = await fetchImpl(FREE_AI_URL, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ messages: [{ role: 'system', content: system }, ...history], max_tokens: 1500 }),
-      signal: AbortSignal.timeout(TIMEOUT_MS),
+      body: JSON.stringify({ messages: [{ role: 'system', content: system }, ...history], max_tokens: maxTokens }),
+      signal: AbortSignal.timeout(maxTokens > 2000 ? 120000 : TIMEOUT_MS),
     })
   } catch {
     throw new AiError('Keine Verbindung zur kostenlosen KI. Bist du online?', 'network')

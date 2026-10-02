@@ -24,7 +24,7 @@ const MODELS = [
 
 const MAX_CHARS = 40000
 const MAX_MESSAGES = 30
-const UPSTREAM_TIMEOUT_MS = 45000
+const UPSTREAM_TIMEOUT_MS = 100000
 
 const json = (data, status, cors) =>
   new Response(JSON.stringify(data), { status, headers: { 'content-type': 'application/json; charset=utf-8', ...cors } })
@@ -55,7 +55,7 @@ export default {
       chars += m.content.length
     }
     if (chars > MAX_CHARS) return json({ error: 'too_long' }, 413, cors)
-    const maxTokens = Math.min(2000, Math.max(100, Number(body.max_tokens) || 1500))
+    const maxTokens = Math.min(4000, Math.max(100, Number(body.max_tokens) || 1500))
 
     let lastStatus = 502
     for (const model of MODELS) {

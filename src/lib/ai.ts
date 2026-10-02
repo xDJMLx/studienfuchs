@@ -344,9 +344,9 @@ export interface ChatMessage {
  * Antwort im Gespräch mit der KI. `system` enthält Rolle und Kontext, `messages` den bisherigen Verlauf.
  * `pages` sind verkleinerte JPEGs (Base64) von Buchseiten, die die KI bei dieser Anfrage sehen soll.
  */
-export async function chatCoach(system: string, messages: ChatMessage[], pages: string[] = []): Promise<string> {
+export async function chatCoach(system: string, messages: ChatMessage[], pages: string[] = [], tokens?: number): Promise<string> {
   const history = messages.slice(-24)
-  const maxTokens = pages.length ? 4500 : 1500
+  const maxTokens = tokens ?? (pages.length ? 4500 : 1500)
   if (getAiConfig().provider === 'anthropic') {
     const cfg = getAiConfig()
     // Die Seiten hängen an der letzten Nachricht des Schülers
