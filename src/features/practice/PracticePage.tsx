@@ -60,9 +60,11 @@ function PracticeTab() {
   const { due, next, learnedCount } = useDue()
 
   const ctx = useMemo(() => ({ cards, favorites, sets }), [cards, favorites, sets])
-  const counts = useMemo(() => Object.fromEntries(SCOPES.map((s) => [s.id, itemsForScope(s.id, ctx).length])) as Record<Scope, number>, [ctx])
+  // Ganze Klasse ist immer wählbar: So geht das Üben auch, bevor etwas gelernt wurde
+  const scopes = useMemo(() => [...SCOPES, { id: `grade:${grade}` as Scope, label: `Klasse ${grade}` }], [grade])
+  const counts = useMemo(() => Object.fromEntries(scopes.map((s) => [s.id, itemsForScope(s.id, ctx).length])) as Record<Scope, number>, [ctx, scopes])
   // Beim ersten Öffnen gleich etwas Sinnvolles vorwählen: fällig, sonst schwierig, sonst alles Gelernte
-  const [scope, setScope] = useState<Scope>(() => (['due', 'weak', 'learned', 'favorites'] as Scope[]).find((s) => counts[s] > 0) ?? 'learned')
+  const [scope, setScope] = useState<Scope>(() => (['due', 'weak', 'learned', 'favorites'] as Scope[]).find((s) => counts[s] > 0) ?? (`grade:${grade}` as Scope))
   const count = useMemo(() => itemsForScope(scope, ctx).length, [scope, ctx])
   const gradeUnits = units.filter((u) => u.grade === grade)
 
@@ -117,7 +119,7 @@ function PracticeTab() {
         <p className="mb-3 text-sm text-muted">Such dir aus, was du trainieren willst und wie.</p>
         <p className="eyebrow mb-2">1 · Welche Wörter?</p>
         <div className="mb-3 flex flex-wrap gap-2" role="radiogroup" aria-label="Wörter auswählen">
-          {SCOPES.map((s) => (
+          {scopes.map((s) => (
             <button
               key={s.id}
               role="radio"

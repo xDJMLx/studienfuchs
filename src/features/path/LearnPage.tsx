@@ -187,7 +187,13 @@ export function LearnPage() {
         const states = unit.lessons.map(stateOf)
         const offsets = unit.lessons.map((_, li) => OFFSETS[(ui * 3 + li) % OFFSETS.length])
         return (
-          <section key={unit.id} className="mb-10" aria-labelledby={`h-${unit.id}`}>
+          <section
+            key={unit.id}
+            className="mb-10"
+            aria-labelledby={`h-${unit.id}`}
+            // Weit entfernte Einheiten werden erst beim Heranscrollen gezeichnet: spart viel Arbeit auf dem Handy
+            style={ui > 0 ? { contentVisibility: 'auto', containIntrinsicSize: `auto ${unit.lessons.length * 140 + 120}px` } : undefined}
+          >
             <button type="button" onClick={() => setUnitSheet(unit)} className={`card lift sticky top-2 z-10 flex w-full items-center gap-4 p-4 text-left ${unitLocked ? 'opacity-70' : ''}`}>
               <ProgressRing pct={pct} size={52} stroke={5}>
                 {unitLocked ? <Lock size={18} /> : <span className="text-sm font-bold">{ui + 1}</span>}

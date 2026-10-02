@@ -162,3 +162,12 @@ describe('Aufhol-Modus', () => {
     expect(daysUntil('2026-09-20', now)).toBe(1)
   })
 });
+
+describe('Üben ohne Lernstand', () => {
+  it('"Ganze Klasse" liefert Wörter, auch wenn noch nichts gelernt wurde', async () => {
+    const { itemsForScope } = await import('./scope')
+    const items = itemsForScope('grade:7', { cards: {}, favorites: [], sets: [] })
+    expect(items.length).toBeGreaterThan(500)
+    expect(itemsForScope('learned', { cards: {}, favorites: [], sets: [] })).toEqual([])
+  })
+})

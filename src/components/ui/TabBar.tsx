@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from 'framer-motion'
+import { motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from 'framer-motion'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 export interface TabDef {
@@ -48,7 +48,8 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
     })
   }
 
-  const lensLeft = useTransform(pos, (v) => `calc(${v} * 100% / ${n})`)
+  // Prozent bei translateX beziehen sich auf die Linse selbst (= ein Tab breit): reine GPU-Bewegung, kein Layout
+  const lensX = useTransform(pos, (v) => `${v * 100}%`)
   const lensShown = activeIndex >= 0 || pressed
 
   return (
@@ -57,21 +58,18 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
       className="glass fixed inset-x-3 z-40 flex flex-col rounded-[34px] p-1.5 lg:hidden"
       style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.6rem)' }}
     >
-      {/* Das Eingabefeld klappt weich aus der Leiste auf und wieder ein */}
-      <AnimatePresence initial={false}>
-        {extra && (
-          <motion.div
-            key="extra"
-            initial={reduce ? false : { height: 0, opacity: 0, y: 10 }}
-            animate={{ height: 'auto', opacity: 1, y: 0 }}
-            exit={reduce ? undefined : { height: 0, opacity: 0, y: 6, transition: { duration: 0.18, ease: 'easeIn' } }}
-            transition={{ height: { type: 'spring', stiffness: 380, damping: 34 }, opacity: { duration: 0.2, delay: 0.05 }, y: { type: 'spring', stiffness: 380, damping: 30 } }}
-            className="overflow-hidden"
-          >
-            <div className="px-1 pb-1.5 pt-0.5">{extra}</div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Das Eingabefeld gleitet beim Öffnen hoch und blendet ein (nur Transform und Deckkraft, das ist flüssig) */}
+      {extra && (
+        <motion.div
+          key="extra"
+          initial={reduce ? false : { opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: 'spring', stiffness: 420, damping: 30 }}
+          className="px-1 pb-1.5 pt-0.5"
+        >
+          {extra}
+        </motion.div>
+      )}
       <div
         ref={row}
         className="relative flex touch-none items-stretch"
@@ -111,7 +109,7 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
         <motion.span
           aria-hidden
           className="pointer-events-none absolute inset-y-0 rounded-[28px]"
-          style={{ left: lensLeft, width: `calc(100% / ${n})`, opacity: lensShown ? 1 : 0 }}
+          style={{ left: 0, x: lensX, width: `calc(100% / ${n})`, opacity: lensShown ? 1 : 0 }}
           animate={{ scale: pressed && !reduce ? 1.22 : 1, y: pressed && !reduce ? -4 : 0 }}
           transition={{ type: 'spring', stiffness: 420, damping: 24 }}
         >

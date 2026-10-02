@@ -40,24 +40,54 @@ export async function applyUpdate(): Promise<void> {
   location.replace(url.toString())
 }
 
-/** Prüft beim Start, beim Zurückkehren in die App (wichtig auf dem Handy, dort läuft sie im Hintergrund weiter) und alle 10 Minuten. */
+/** Prüft beim Start, beim Zurückkehren in die App (auf dem Handy läuft sie im Hintergrund weiter) und regelmäßig. */
 export function useUpdateAvailable(): boolean {
   const [available, setAvailable] = useState(false)
   useEffect(() => {
     if (import.meta.env.DEV) return
     let alive = true
+    const timers: number[] = []
     const run = () => void checkForUpdate().then((u) => alive && u && setAvailable(true))
-    const onVisible = () => document.visibilityState === 'visible' && run()
-    run()
+    // Direkt nach dem Zurückkehren ist das Netz auf dem Handy oft noch nicht bereit: mehrmals nachfragen
+    const onResume = () => {
+      timers.forEach((t) => window.clearTimeout(t))
+      timers.length = 0
+      run()
+      for (const ms of [1500, 5000, 12000]) timers.push(window.setTimeout(run, ms))
+    }
+    const onVisible = () => document.visibilityState === 'visible' && onResume()
+    onResume()
     document.addEventListener('visibilitychange', onVisible)
-    window.addEventListener('online', run)
-    const timer = window.setInterval(run, 10 * 60 * 1000)
+    window.addEventListener('focus', onResume)
+    window.addEventListener('pageshow', onResume)
+    window.addEventListener('online', onResume)
+    const timer = window.setInterval(run, 2 * 60 * 1000)
     return () => {
       alive = false
+      timers.forEach((t) => window.clearTimeout(t))
       document.removeEventListener('visibilitychange', onVisible)
-      window.removeEventListener('online', run)
+      window.removeEventListener('focus', onResume)
+      window.removeEventListener('pageshow', onResume)
+      window.removeEventListener('online', onResume)
       window.clearInterval(timer)
     }
   }, [])
   return available
+}
+
+const SEEN_KEY = 'studienfuchs-seen-build'
+
+/** Wahr, wenn diese Version zum ersten Mal läuft (nach einem Update); beim allerersten Start nie. */
+export function useJustUpdated(): boolean {
+  const [updated] = useState(() => {
+    if (import.meta.env.DEV) return false
+    try {
+      const prev = localStorage.getItem(SEEN_KEY)
+      localStorage.setItem(SEEN_KEY, BUILD_ID)
+      return !!prev && prev !== BUILD_ID
+    } catch {
+      return false
+    }
+  })
+  return updated
 }
