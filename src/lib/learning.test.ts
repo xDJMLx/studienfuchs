@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { blockingLesson, isLessonDone, isUnlocked, LESSON_PASS, TEST_PASS, units } from '../content'
 import { describePuterError, extractJson, getAiConfig, normalizeAiVocab, puterText, setAiConfig } from './ai'
-import { generateLesson, generateTest, generateWarmup, NEW_BATCH, WARMUP_SIZE } from './generateExercises'
+import { generateExercises, generateLesson, generateTest, generateWarmup, NEW_BATCH, WARMUP_SIZE } from './generateExercises'
 import { itemsForScope } from './scope'
 import { newCard } from './srs'
 
@@ -208,5 +208,18 @@ describe('Aufwärmen für Einsteiger', () => {
     expect(weak.every((e) => e.kind === 'type' && e.hint === true)).toBe(true)
     const strong = generateWarmup(old, regular[0].items, Math.random, () => 2)
     expect(strong.every((e) => e.kind === 'type' && !e.hint)).toBe(true)
+  })
+})
+
+describe('Buchstaben legen nur bei reinen Wörtern', () => {
+  const mk = (front: string) => ({ id: 'x', front, back: 'b' })
+  const run = (front: string) => generateExercises({ items: [mk(front)], pool: [mk(front)], mastery: () => 0, allowListen: false, maxExercises: 20 }).some((e) => e.kind === 'spell')
+  it('ja bei Wort und kurzer Wendung, nein bei Satzzeichen, Alternativen und Langem', () => {
+    expect(run('bonjour')).toBe(true)
+    expect(run("l'addition")).toBe(true)
+    expect(run('au revoir')).toBe(true)
+    expect(run('pour aller à … ?')).toBe(false)
+    expect(run('le serveur / la serveuse')).toBe(false)
+    expect(run('une alimentation équilibrée')).toBe(false)
   })
 })

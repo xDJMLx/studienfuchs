@@ -89,7 +89,8 @@ const DECOY_ACCENTS = 'éèêàâçîôûù'.split('')
 function spellEx(item: Item, rng: () => number): Exercise | null {
   const word = item.front.normalize('NFC').trim()
   const compact = word.replace(/\s+/g, '')
-  if (!compact || compact.length > 14 || word.split(/\s+/).length > 3) return null
+  // Nur reine Wörter und kurze Wendungen: keine Satzzeichen, Auslassungen, Klammern oder Alternativen mit Schrägstrich
+  if (!compact || compact.length > 14 || word.split(/\s+/).length > 3 || !/^[\p{L}'’-]+(?: [\p{L}'’-]+)*$/u.test(word)) return null
   const own = Array.from(compact.toLowerCase())
   const pool = shuffle([...DECOY_LETTERS.filter((c) => !own.includes(c)), ...DECOY_ACCENTS.filter((c) => !own.includes(c)).slice(0, 2)], rng)
   const decoys = pool.slice(0, compact.length >= 8 ? 3 : 2)
