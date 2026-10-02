@@ -235,7 +235,11 @@ export function CoachPage() {
           <AiNotice className="mb-4" />
           <p className="mb-3 text-sm text-muted">
             Die KI kennt deinen Lernstand (Klasse, Fortschritt, eingetragene Klassenarbeiten und Wörter, bei denen es hakt), aber nicht deinen Namen.{' '}
-            Mit dem <b className="text-ink">+</b> unten links kannst du Fotos von Buchseiten hochladen und der KI sagen, was sie daraus machen soll.
+            Mit dem <b className="text-ink">+</b> unten links kannst du Fotos von Buchseiten hochladen und der KI sagen, was sie daraus machen soll. Noch besser: Lege dein Buch im Tab{' '}
+            <Link to="/books" className="font-semibold text-brand-dark underline">
+              Bücher
+            </Link>{' '}
+            an, dann kennt die KI es immer.
           </p>
           <div className="grid gap-2">
             <button
