@@ -116,6 +116,10 @@ body,
 #root {
   height: 100%;
 }
+/* iPhone-Web-App: Inhalt beginnt unter der Statusleiste (Uhr, Akku), falls sie transparent über der Seite liegt */
+#root {
+  padding-top: env(safe-area-inset-top, 0px);
+}
 
 /* Keine sichtbaren Scrollbalken: gescrollt wird weiter mit Mausrad, Touchpad, Touch und Tastatur */
 * {

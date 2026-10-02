@@ -72,7 +72,6 @@ function PracticeTab() {
       {/* Wiederholung: das wirksamste, deshalb ganz oben */}
       <Item>
         <section className={`card relative mb-7 overflow-hidden p-5 ${due.length > 0 ? 'ring-1 ring-brand/30' : ''}`} aria-label="Wiederholung">
-          {due.length > 0 && <span aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-brand/10" />}
           <div className="relative flex items-start gap-4">
             <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${due.length > 0 ? 'bg-brand-soft text-brand-dark' : 'bg-good-soft text-good-dark'}`}>
               {due.length > 0 ? <Repeat size={26} /> : <Check size={24} />}

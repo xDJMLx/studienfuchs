@@ -83,7 +83,7 @@ export function SpeechSettings() {
                   }}
                   className="w-full rounded-xl border border-line bg-snow px-3 py-2.5 font-medium outline-none transition-shadow focus:border-brand focus:shadow-[0_0_0_3px_var(--brand-soft)]"
                 >
-                  <option value="">Studienfuchs-Stimme (empfohlen)</option>
+                  <option value="">Studienfuchs-Stimme</option>
                   {voices.map((v) => (
                     <option key={v.name} value={v.name}>
                       Gerät: {v.name}

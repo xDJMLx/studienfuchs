@@ -133,7 +133,7 @@ export function SettingsPage() {
       </div>
 
       {/* Schnellsprung: bleibt beim Scrollen oben kleben */}
-      <nav aria-label="Abschnitte" className="sticky top-0 z-10 -mx-4 mb-6 bg-page/90 px-4 py-2 backdrop-blur">
+      <nav aria-label="Abschnitte" className="sticky top-0 z-10 -mx-4 mb-6 bg-page px-4 py-2 shadow-[0_10px_12px_-10px_var(--page)]">
         <ul className="flex gap-2 overflow-x-auto [scrollbar-width:none]">
           {SECTIONS.map(({ id, label, Icon }) => (
             <li key={id} className="shrink-0">

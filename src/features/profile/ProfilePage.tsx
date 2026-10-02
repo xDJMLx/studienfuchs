@@ -70,8 +70,6 @@ export function ProfilePage() {
         {/* Kopfbereich */}
         <Item>
           <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand via-[#f7872c] to-[#ffb25e] p-6 text-white shadow-[0_18px_40px_-22px_rgba(242,105,15,0.8)]">
-            <span aria-hidden className="pointer-events-none absolute -right-10 -top-12 h-52 w-52 rounded-full bg-white/15 blur-sm" />
-            <span aria-hidden className="pointer-events-none absolute -bottom-16 left-1/3 h-44 w-44 rounded-full bg-white/10" />
             <Link to="/settings" aria-label="Einstellungen" className="press absolute right-4 top-4 rounded-xl bg-white/20 p-2.5 transition-colors hover:bg-white/30">
               <Gear size={20} />
             </Link>
@@ -178,9 +176,9 @@ export function ProfilePage() {
         {/* Wortschatz */}
         <Item>
           <section className="card mt-4 p-5">
-            <div className="mb-4 flex items-baseline justify-between">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
               <h2 className="font-semibold">Dein Wortschatz</h2>
-              <span className="flex items-center gap-3 text-sm text-muted">
+              <span className="flex items-center gap-3 whitespace-nowrap text-sm text-muted">
                 <span><span className="font-semibold text-ink"><CountUp to={learned.length} /></span> von {COURSE_WORDS}</span>
                 <Link to="/review" className="press flex min-h-9 items-center gap-1 rounded-lg px-2 font-semibold text-brand-dark hover:bg-brand-soft">Lernstand <Right size={12} /></Link>
               </span>
@@ -213,7 +211,6 @@ export function ProfilePage() {
                 const done = b.value >= b.goal
                 return (
                   <ItemLi key={b.id} className={`card relative flex items-center gap-4 overflow-hidden p-4 ${done ? 'ring-1 ring-brand/30' : ''}`}>
-                    {done && <span aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-brand/10" />}
                     <ProgressRing pct={b.value / b.goal} size={56} stroke={5} color={done ? 'var(--good)' : 'var(--brand)'}>
                       {done ? (
                         <motion.span initial={reduce ? false : { scale: 0, rotate: -40 }} whileInView={{ scale: 1, rotate: 0 }} viewport={{ once: true }} transition={{ ...SPRING.bouncy, delay: 0.3 }} className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand to-[#ffb25e] text-white">

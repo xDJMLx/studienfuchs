@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { COURSE_STATS, isLessonDone, isRegular, units } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Right, Sparkle, Trash } from '../../components/ui/Icons'
@@ -71,8 +71,18 @@ export function CoachPage() {
   const [input, setInput] = useState('')
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [params, setParams] = useSearchParams()
   const end = useRef<HTMLDivElement>(null)
   const box = useRef<HTMLTextAreaElement>(null)
+
+  // Vorgeschlagene Frage von der Startseite übernehmen
+  useEffect(() => {
+    const q = params.get('q')
+    if (!q) return
+    setInput(q)
+    setParams({}, { replace: true })
+    window.setTimeout(() => box.current?.focus(), 50)
+  }, [params, setParams])
 
   // KI-Bibliothek schon laden, damit das Anmeldefenster beim ersten Senden nicht blockiert wird
   useEffect(() => preloadAi(), [])
@@ -214,10 +224,14 @@ export function CoachPage() {
           </button>
         </div>
       )}
+      {/* Platz, damit die letzte Nachricht nicht hinter der festen Eingabeleiste verschwindet */}
+      <div className="h-28 shrink-0 lg:hidden" />
       <div ref={end} />
 
+      {/* Eingabeleiste: am Handy fest über der Tab-Leiste, am Computer unten im Inhalt */}
+      <div className="fixed inset-x-0 bottom-[calc(var(--tabbar-h)-0.2rem)] z-30 bg-page shadow-[0_-14px_14px_-8px_var(--page)] lg:sticky lg:inset-x-auto lg:bottom-0 lg:mt-auto lg:shadow-none">
       <form
-        className="above-tabbar sticky mt-auto flex items-end gap-2 rounded-2xl bg-page/90 pb-1 pt-4 backdrop-blur"
+        className="mx-auto flex max-w-2xl items-end gap-2 px-4 pb-2 pt-3 lg:px-0"
         onSubmit={(e) => {
           e.preventDefault()
           void send(input)
@@ -249,6 +263,7 @@ export function CoachPage() {
           <Right size={20} />
         </button>
       </form>
+      </div>
     </div>
   )
 }

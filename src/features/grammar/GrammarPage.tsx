@@ -171,7 +171,6 @@ export function GrammarTopicPage() {
       <Stagger stagger={0.08}>
         <Item>
           <header className="relative mb-6 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-soft to-surface p-6 ring-1 ring-brand/15">
-            <span aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-36 w-36 rounded-full bg-brand/15 blur-2xl" />
             <div className="relative flex flex-wrap items-center gap-2 text-xs font-semibold">
               <span className="rounded-full bg-surface/80 px-2.5 py-1 text-brand-dark">Klasse {unit.grade}</span>
               <span className="rounded-full bg-surface/80 px-2.5 py-1 text-muted">{unit.title}</span>
