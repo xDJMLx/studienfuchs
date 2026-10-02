@@ -1,12 +1,14 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useMemo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { grades, units } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Cards, Check, Headphones, Pencil, Repeat, Right, Sparkle, Star, Trophy } from '../../components/ui/Icons'
+import { Segmented } from '../../components/ui/controls'
 import { EASE, Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { itemsForScope, type Scope } from '../../lib/scope'
 import { useStore } from '../../store/useStore'
+import { WordsPage } from '../words/WordsPage'
 import { dueLabel, useDue } from '../review/ReviewPage'
 
 const SCOPES: { id: Scope; label: string }[] = [
@@ -23,8 +25,30 @@ const MODES = [
   { id: 'listen', title: 'Hörtraining', text: 'Wörter hören und verstehen oder aufschreiben.', to: (s: string) => `/practice/play?mode=listen&scope=${s}`, icon: <Headphones size={24} /> },
 ] as const
 
-/** Üben-Hub: oben die fällige Wiederholung (das Wichtigste), darunter freies Üben nach Wahl. */
+/** Üben und Wörterbuch an einem Ort: Umschalter oben, darunter je ein Bereich. */
 export function PracticePage() {
+  const [params, setParams] = useSearchParams()
+  const tab = params.get('tab') === 'words' ? 'words' : 'practice'
+  return (
+    <div className="mx-auto max-w-2xl px-4 py-6 lg:py-8">
+      <h1 className="page-title">Üben</h1>
+      <Segmented
+        label="Bereich"
+        className="mb-5 mt-3 w-full [&>button]:flex-1 [&>button]:py-2"
+        value={tab}
+        onChange={(v) => setParams(v === 'words' ? { tab: 'words' } : {}, { replace: true })}
+        options={[
+          { value: 'practice', label: 'Üben' },
+          { value: 'words', label: 'Wörterbuch' },
+        ]}
+      />
+      {tab === 'words' ? <WordsPage embedded /> : <PracticeTab />}
+    </div>
+  )
+}
+
+/** Üben-Hub: oben die fällige Wiederholung (das Wichtigste), darunter freies Üben nach Wahl. */
+function PracticeTab() {
   const navigate = useNavigate()
   const cards = useStore((s) => s.cards)
   const favorites = useStore((s) => s.favorites)
@@ -41,11 +65,7 @@ export function PracticePage() {
   const gradeUnits = units.filter((u) => u.grade === grade)
 
   return (
-    <Stagger className="mx-auto max-w-2xl px-4 py-6 lg:py-8" stagger={0.08}>
-      <Item>
-        <h1 className="page-title">Üben</h1>
-        <p className="mb-5 mt-1 text-muted">Wiederholen hält Wörter im Kopf. Frei üben geht jederzeit.</p>
-      </Item>
+    <Stagger stagger={0.08}>
 
       {/* Wiederholung: das wirksamste, deshalb ganz oben */}
       <Item>

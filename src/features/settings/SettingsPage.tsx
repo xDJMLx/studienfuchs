@@ -297,7 +297,7 @@ export function SettingsPage() {
             exit={{ opacity: 0, y: 12 }}
             transition={SPRING.snappy}
             role="status"
-            className={`fixed bottom-24 left-1/2 z-50 -translate-x-1/2 rounded-2xl px-5 py-3 text-sm font-semibold shadow-xl lg:bottom-8 ${toast.ok ? 'bg-ink text-surface' : 'bg-bad text-white'}`}
+            className={`above-tabbar fixed left-1/2 z-50 -translate-x-1/2 rounded-2xl px-5 py-3 text-sm font-semibold shadow-xl ${toast.ok ? 'bg-ink text-surface' : 'bg-bad text-white'}`}
           >
             {toast.text}
           </motion.div>

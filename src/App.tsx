@@ -22,7 +22,6 @@ import { SetDetailPage } from './features/sets/SetDetailPage'
 import { SetPlay } from './features/sets/SetPlay'
 import { SetsPage } from './features/sets/SetsPage'
 import { CreateSetPage } from './features/upload/CreateSetPage'
-import { WordsPage } from './features/words/WordsPage'
 import { Welcome } from './features/welcome/Welcome'
 
 /** Seitentitel pro Seite: wichtig für Tabs, Verlauf und Screenreader (die Adresse ändert sich nur nach dem #). */
@@ -77,7 +76,7 @@ export default function App() {
             <Route path="catchup" element={<CatchUpPage />} />
             <Route path="coach" element={<CoachPage />} />
             <Route path="practice" element={<PracticePage />} />
-            <Route path="words" element={<WordsPage />} />
+            <Route path="words" element={<Navigate to="/practice?tab=words" replace />} />
             <Route path="grammar" element={<GrammarPage />} />
             <Route path="grammar/:lessonId" element={<GrammarTopicPage />} />
             <Route path="sets" element={<SetsPage />} />

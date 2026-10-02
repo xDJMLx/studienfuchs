@@ -1,12 +1,12 @@
-import { AnimatePresence, motion, useDragControls, useReducedMotion } from 'framer-motion'
+import { animate, AnimatePresence, motion, useMotionValue, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { useMediaQuery } from '../../lib/useMediaQuery'
 import { Close } from './Icons'
 import { EASE } from './motion'
 
 /**
- * Overlay: auf dem Handy ein Sheet von unten (lässt sich am Griff nach unten wegziehen),
- * am Desktop ein zentriertes Fenster. Schließt mit Esc oder Klick auf den Hintergrund.
+ * Overlay: auf dem Handy ein Sheet von unten, am Desktop ein zentriertes Fenster. Schließt mit Esc oder Klick auf den Hintergrund.
+ * Auf dem Handy lässt sich das Sheet von überall nach unten wegziehen (wie bei iOS), solange der Inhalt oben steht.
  */
 export function Sheet({
   open,
@@ -23,9 +23,13 @@ export function Sheet({
 }) {
   const reduce = useReducedMotion()
   const desktop = useMediaQuery('(min-width: 640px)')
-  const controls = useDragControls()
+  const y = useMotionValue(0)
+  const panel = useRef<HTMLDivElement>(null)
+  const backdrop = useRef<HTMLDivElement>(null)
   // Nur schließen, wenn Drücken UND Loslassen auf dem Hintergrund passieren (nicht beim Markieren von Text im Fenster)
   const downOnBackdrop = useRef(false)
+  const onCloseRef = useRef(onClose)
+  onCloseRef.current = onClose
 
   useEffect(() => {
     if (!open) return
@@ -33,6 +37,69 @@ export function Sheet({
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [open, onClose])
+
+  // Ziehen per Touch: bewusst mit eigenen Ereignissen, weil das Fenster selbst scrollt und der Finger überall starten darf
+  useEffect(() => {
+    if (!open || desktop || reduce) return
+    const el = panel.current
+    const bd = backdrop.current
+    if (!el || !bd) return
+    let startY = 0
+    let startX = 0
+    let lastY = 0
+    let lastT = 0
+    let speed = 0
+    let dragging = false
+    const onStart = (e: TouchEvent) => {
+      const t = e.touches[0]
+      startY = lastY = t.clientY
+      startX = t.clientX
+      lastT = e.timeStamp
+      speed = 0
+      dragging = false
+    }
+    const onMove = (e: TouchEvent) => {
+      const t = e.touches[0]
+      if (el.scrollTop > 0) {
+        // Inhalt ist nicht oben: normal scrollen, Ziehen erst ab hier zählen
+        startY = t.clientY
+        return
+      }
+      const dy = t.clientY - startY
+      if (!dragging) {
+        if (dy > 8 && dy > Math.abs(t.clientX - startX)) dragging = true
+        else return
+      }
+      e.preventDefault()
+      const dt = e.timeStamp - lastT
+      if (dt > 0) speed = (t.clientY - lastY) / dt
+      lastY = t.clientY
+      lastT = e.timeStamp
+      y.set(Math.max(0, dy))
+    }
+    const onEnd = () => {
+      if (!dragging) return
+      dragging = false
+      if (y.get() > 90 || speed > 0.55) onCloseRef.current()
+      else animate(y, 0, { type: 'spring', stiffness: 420, damping: 36 })
+    }
+    // Der abgedunkelte Hintergrund soll die Seite dahinter nicht mitscrollen
+    const onBackdropMove = (e: TouchEvent) => {
+      if (e.target === bd) e.preventDefault()
+    }
+    el.addEventListener('touchstart', onStart, { passive: true })
+    el.addEventListener('touchmove', onMove, { passive: false })
+    el.addEventListener('touchend', onEnd)
+    el.addEventListener('touchcancel', onEnd)
+    bd.addEventListener('touchmove', onBackdropMove, { passive: false })
+    return () => {
+      el.removeEventListener('touchstart', onStart)
+      el.removeEventListener('touchmove', onMove)
+      el.removeEventListener('touchend', onEnd)
+      el.removeEventListener('touchcancel', onEnd)
+      bd.removeEventListener('touchmove', onBackdropMove)
+    }
+  }, [open, desktop, reduce, y])
 
   const panelMotion = reduce
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
@@ -48,7 +115,9 @@ export function Sheet({
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-end justify-center bg-black/45 backdrop-blur-[3px] sm:items-center sm:p-4"
+          ref={backdrop}
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 sm:items-center sm:p-4"
+          style={{ WebkitBackdropFilter: 'blur(3px)', backdropFilter: 'blur(3px)' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.2 } }}
@@ -65,24 +134,14 @@ export function Sheet({
           aria-label={title}
         >
           <motion.div
-            className={`safe-bottom relative max-h-[88vh] w-full overflow-y-auto overscroll-contain rounded-t-3xl bg-surface px-5 pb-5 pt-2 shadow-2xl sm:rounded-3xl sm:pt-5 ${wide ? 'sm:max-w-xl' : 'sm:max-w-md'}`}
+            ref={panel}
+            className={`relative max-h-[88dvh] w-full overflow-y-auto overscroll-contain rounded-t-[28px] bg-surface px-5 pt-2 shadow-2xl sm:rounded-3xl sm:pt-5 ${wide ? 'sm:max-w-xl' : 'sm:max-w-md'}`}
+            style={{ y, paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 1.25rem)' }}
             {...panelMotion}
             transition={desktop ? { duration: 0.28, ease: EASE } : { type: 'spring', stiffness: 380, damping: 38, mass: 0.9 }}
-            drag={desktop || reduce ? false : 'y'}
-            dragControls={controls}
-            dragListener={false}
-            dragConstraints={{ top: 0, bottom: 0 }}
-            dragElastic={{ top: 0, bottom: 0.7 }}
-            onDragEnd={(_, info) => {
-              if (info.offset.y > 90 || info.velocity.y > 520) onClose()
-            }}
           >
-            {/* Griff: hier lässt sich das Sheet nach unten ziehen */}
-            <div
-              onPointerDown={(e) => controls.start(e)}
-              className="-mx-5 mb-1 flex cursor-grab touch-none justify-center py-2.5 active:cursor-grabbing sm:hidden"
-              aria-hidden
-            >
+            {/* Griff als Hinweis: gezogen werden kann überall am Fenster */}
+            <div className="-mx-5 mb-1 flex justify-center py-2.5 sm:hidden" aria-hidden>
               <span className="h-1.5 w-12 rounded-full bg-line" />
             </div>
             {title && (

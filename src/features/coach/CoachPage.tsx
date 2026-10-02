@@ -217,7 +217,7 @@ export function CoachPage() {
       <div ref={end} />
 
       <form
-        className="sticky bottom-20 mt-auto flex items-end gap-2 rounded-2xl bg-page/90 pb-1 pt-4 backdrop-blur lg:bottom-0"
+        className="above-tabbar sticky mt-auto flex items-end gap-2 rounded-2xl bg-page/90 pb-1 pt-4 backdrop-blur"
         onSubmit={(e) => {
           e.preventDefault()
           void send(input)

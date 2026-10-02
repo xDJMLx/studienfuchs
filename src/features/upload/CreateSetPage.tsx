@@ -288,7 +288,7 @@ export function CreateSetPage() {
                 </button>
               </details>
             )}
-            <div className="sticky bottom-20 mt-6 flex gap-3 rounded-2xl bg-page/90 py-3 backdrop-blur lg:bottom-4">
+            <div className="above-tabbar sticky mt-6 flex gap-3 rounded-2xl bg-page/90 py-3 backdrop-blur">
               <button
                 className="btn btn-ghost"
                 onClick={() => {

@@ -34,7 +34,7 @@ function StatusPill({ mastery }: { mastery: 0 | 1 | 2 }) {
 }
 
 /** Wörterbuch: alle Wörter durchsuchen, nach Klasse, Einheit und Lernstand filtern, anhören und Details öffnen. */
-export function WordsPage() {
+export function WordsPage({ embedded = false }: { embedded?: boolean } = {}) {
   const reduce = useReducedMotion()
   const cards = useStore((s) => s.cards)
   const favorites = useStore((s) => s.favorites)
@@ -86,8 +86,8 @@ export function WordsPage() {
   }, [all, deferred, grade, unitId, status, cards, favorites])
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-6 lg:py-8">
-      <h1 className="page-title">Wörter</h1>
+    <div className={embedded ? '' : 'mx-auto max-w-2xl px-4 py-6 lg:py-8'}>
+      {!embedded && <h1 className="page-title">Wörter</h1>}
       <p className="mb-5 mt-1 text-muted">{all.length} Wörter und Wendungen zum Nachschlagen, Anhören und Merken.</p>
 
       <div className="relative mb-4">

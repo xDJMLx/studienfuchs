@@ -260,6 +260,58 @@ h1, h2, h3 {
 /* Platz für iPhone-Home-Indicator */
 .safe-bottom { padding-bottom: max(env(safe-area-inset-bottom), 0px); }
 
+/* ---------- Handy: Glas-Leiste und Bedienung ---------- */
+:root { --tabbar-h: calc(5.25rem + env(safe-area-inset-bottom, 0px)); }
+
+/* Nachbau des iOS-Glases im Browser: Unschärfe, Transparenz, Lichtkante. Das echte System-Glas gibt es nur in nativen Apps. */
+.glass {
+  background: color-mix(in srgb, var(--surface) 52%, transparent);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  backdrop-filter: blur(24px) saturate(190%);
+  border: 1px solid color-mix(in srgb, #ffffff 60%, transparent);
+  box-shadow:
+    0 10px 34px -8px rgba(16, 16, 20, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.18);
+}
+.dark .glass {
+  border-color: color-mix(in srgb, #ffffff 14%, transparent);
+  box-shadow:
+    0 12px 36px -8px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass { background: var(--surface); }
+}
+.tab-btn {
+  position: relative;
+  display: flex;
+  flex: 1;
+  min-height: 3.6rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  border-radius: 26px;
+  font-size: 11px;
+  font-weight: 600;
+  transition: color 0.2s, transform 0.18s var(--ease-out);
+}
+.tab-btn:active { transform: scale(0.93); }
+/* Dinge, die am unteren Rand kleben, müssen über der Tab-Leiste bleiben */
+.above-tabbar { bottom: calc(var(--tabbar-h) + 0.5rem); }
+@media (min-width: 1024px) { .above-tabbar { bottom: 1rem; } }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+/* Kein Doppeltipp-Zoom und keine Wartezeit beim Tippen */
+a, button, [role='button'], [role='tab'], [role='radio'], input, select, textarea, label, summary { touch-action: manipulation; }
+button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+/* iOS zoomt bei Eingabefeldern unter 16 px automatisch hinein: auf dem Handy verhindern */
+@media (max-width: 1023px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']), select, textarea { font-size: 16px; }
+}
+
 /* ---------- Bewegung ---------- */
 @layer components {
   /* Karten/Links, die sich beim Darüberfahren sanft heben und beim Drücken eindrücken */

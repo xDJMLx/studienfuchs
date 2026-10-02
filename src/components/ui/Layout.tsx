@@ -6,7 +6,7 @@ import { goalInfo, levelFromXp } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
 import { CourseChip } from './CoursePicker'
-import { Bolt, Book, Camera, Dots, Flame, Gear, Home, Repeat, Right, Search, Shield, Sparkle, Target, Trophy, User } from './Icons'
+import { Bolt, Book, Camera, Dots, Flame, Gear, Home, Repeat, Right, Shield, Sparkle, Target, Trophy, User } from './Icons'
 import { EASE, ItemLi, StaggerList } from './motion'
 import { Sheet } from './Sheet'
 import { useDue } from '../../features/review/ReviewPage'
@@ -22,13 +22,12 @@ interface NavItem {
 const NAV: NavItem[] = [
   { to: '/', label: 'Lernen', Icon: Home, end: true },
   { to: '/practice', label: 'Üben', Icon: Repeat },
-  { to: '/words', label: 'Wörter', Icon: Search },
   { to: '/grammar', label: 'Grammatik', Icon: Book },
   { to: '/sets', label: 'Meine Sets', Icon: Camera },
   { to: '/profile', label: 'Profil', Icon: User },
 ]
 // Auf dem Handy passen vier Einträge plus "Mehr" in die Leiste; der Rest liegt unter "Mehr"
-const MOBILE_NAV: NavItem[] = [NAV[0], NAV[1], NAV[2], NAV[4]]
+const MOBILE_NAV: NavItem[] = [NAV[0], NAV[1], NAV[3]]
 
 export function Wordmark({ size = 'md' }: { size?: 'md' | 'lg' }) {
   return (
@@ -102,7 +101,7 @@ export function Layout() {
 
       <div className="flex min-w-0 flex-1 flex-col">
         <TopBar className="lg:hidden" />
-        <main ref={scroller} tabIndex={-1} className="flex-1 overflow-y-auto overflow-x-hidden pb-24 outline-none lg:pb-10">
+        <main ref={scroller} tabIndex={-1} className="flex-1 overflow-y-auto overflow-x-hidden pb-[calc(var(--tabbar-h)+1rem)] outline-none lg:pb-10">
           <div className="mx-auto flex max-w-[1040px] justify-center gap-8 px-0 lg:px-8">
             <div className="min-w-0 flex-1">
               <AnimatedOutlet />
@@ -115,25 +114,40 @@ export function Layout() {
           </div>
         </main>
 
-        {/* Tab-Leiste (Mobil) */}
-        <nav className="safe-bottom fixed inset-x-0 bottom-0 z-40 flex border-t border-line bg-surface/90 backdrop-blur-md lg:hidden" aria-label="Hauptnavigation">
+        {/* Tab-Leiste (Mobil): schwebende Glas-Kapsel mit großen Tippflächen */}
+        <nav
+          className="glass fixed inset-x-3 z-40 flex items-stretch gap-1 rounded-[32px] p-1.5 lg:hidden"
+          style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.6rem)' }}
+          aria-label="Hauptnavigation"
+        >
           {MOBILE_NAV.map(({ to, label, Icon, end }) => (
-            <NavLink key={to} to={to} end={end} aria-label={label} className={({ isActive }) => `relative flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-medium transition-colors ${isActive ? 'text-brand-dark' : 'text-muted'}`}>
+            <NavLink
+              key={to}
+              to={to}
+              end={end}
+              aria-label={label}
+              onClick={() => {
+                // Zweiter Tipp auf den aktiven Tab: nach oben scrollen (wie bei iOS-Apps)
+                if (location.pathname === to) scroller.current?.scrollTo({ top: 0, behavior: 'smooth' })
+              }}
+              className={({ isActive }) => `tab-btn ${isActive ? 'text-brand-dark' : 'text-muted'}`}
+            >
               {({ isActive }) => (
                 <>
-                  {isActive && <motion.span layoutId="tab-active" className="absolute inset-x-3 top-1 h-9 rounded-xl bg-brand-soft" transition={{ type: 'spring', stiffness: 420, damping: 32 }} />}
-                  <motion.span className="relative" animate={{ scale: isActive ? 1.12 : 1, y: isActive ? -1 : 0 }} whileTap={{ scale: 0.85 }} transition={{ type: 'spring', stiffness: 500, damping: 18 }}>
-                    <Icon size={24} />
+                  {isActive && <TabCapsule />}
+                  <span className="relative">
+                    <Icon size={26} />
                     {to === '/practice' && dueCount > 0 && <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" />}
-                  </motion.span>
+                  </span>
                   <span className="relative">{label}</span>
                 </>
               )}
             </NavLink>
           ))}
-          <button type="button" onClick={() => setMoreOpen(true)} aria-haspopup="dialog" className="relative flex flex-1 flex-col items-center gap-0.5 py-2 text-[11px] font-medium text-muted">
-            <motion.span whileTap={{ scale: 0.85 }}><Dots size={24} /></motion.span>
-            Mehr
+          <button type="button" onClick={() => setMoreOpen(true)} aria-haspopup="dialog" aria-expanded={moreOpen} className={`tab-btn ${moreOpen ? 'text-brand-dark' : 'text-muted'}`}>
+            {moreOpen && <TabCapsule />}
+            <span className="relative"><Dots size={26} /></span>
+            <span className="relative">Mehr</span>
           </button>
         </nav>
 
@@ -145,6 +159,18 @@ export function Layout() {
         )}
       </div>
     </div>
+  )
+}
+
+/** Gleitende Markierung hinter dem aktiven Tab (Glas-Kapsel). */
+function TabCapsule() {
+  return (
+    <motion.span
+      layoutId="tab-capsule"
+      className="absolute inset-0 rounded-[26px] bg-brand/15 ring-1 ring-inset ring-brand/25"
+      style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.35)' }}
+      transition={{ type: 'spring', stiffness: 460, damping: 34 }}
+    />
   )
 }
 
