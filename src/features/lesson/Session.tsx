@@ -55,7 +55,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
   // Für welche Aufgabe wurde der Tipp geöffnet? (zählt dann nicht als "auf Anhieb richtig")
   const [hintFor, setHintFor] = useState<string | null>(null)
 
-  const total = exercises.filter((e) => e.kind !== 'teach').length
+  const total = exercises.filter((e) => e.kind !== 'teach' && !e.warm).length
   const firstTry = useRef(0)
   const retries = useRef(0)
   const retryNo = useRef<Record<string, number>>({})
@@ -94,7 +94,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
         }
       } else {
         playCorrect()
-        if (!isRetry && ev.status === 'correct') {
+        if (!isRetry && !ex.warm && ev.status === 'correct') {
           firstTry.current += 1
           setCombo((c) => c + 1)
         }
@@ -204,6 +204,11 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           </motion.div>
         </div>
         <AnimatePresence mode="popLayout" initial={false}>
+          {ex?.warm && !isRetry && (
+            <motion.span key="warm" initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.7 }} className="rounded-lg bg-gold/20 px-2 py-1 text-xs font-semibold text-gold-dark">
+              Aufwärmen
+            </motion.span>
+          )}
           {isRetry && (
             <motion.span key="retry" initial={{ opacity: 0, scale: 0.7 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.7 }} className="rounded-lg bg-brand-soft px-2 py-1 text-xs font-semibold text-brand-dark">
               Nochmal

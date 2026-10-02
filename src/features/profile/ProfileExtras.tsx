@@ -1,14 +1,12 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import { COURSE_STATS } from '../../content'
-import { Mascot } from '../../components/mascot/Mascot'
-import { Check, Lock, Right } from '../../components/ui/Icons'
+import { Right } from '../../components/ui/Icons'
 import { EASE } from '../../components/ui/motion'
 import { Sheet } from '../../components/ui/Sheet'
 import { BOX_NAMES, boxCounts } from '../../lib/boxes'
 import { daysTo } from '../../lib/coach'
 import { buildWeeklyReport } from '../../lib/report'
-import { ACCENT_SWATCH, ACCENTS, AVATARS, isRewardUnlocked, rewardHint, type Reward } from '../../lib/rewards'
 import { levelFromXp } from '../../lib/xp'
 import { streakNow, useStore } from '../../store/useStore'
 import { useDue, useLearned } from '../review/ReviewPage'
@@ -50,73 +48,6 @@ export function Karteikasten() {
       <p className="mt-3 rounded-xl bg-snow px-3 py-2 text-sm text-muted">
         Noch nicht gesehen: <b className="text-ink">{unseen}</b> von {COURSE_STATS.words} Wörtern.
       </p>
-    </section>
-  )
-}
-
-/** Sammlung: Zubehör für den Fuchs und Farben der App, freigeschaltet über Level und längste Serie. */
-export function Sammlung() {
-  const { xp, streak, bestStreak, avatar, accent, setAvatar, setAccent } = useStore()
-  const progress = { level: levelFromXp(xp).level, bestStreak: Math.max(bestStreak ?? 0, streakNow(streak)) }
-  const open = (r: Reward) => isRewardUnlocked(r, progress)
-
-  return (
-    <section className="card mt-4 p-5" aria-label="Sammlung">
-      <h2 className="font-semibold">Sammlung</h2>
-      <p className="mt-0.5 text-sm text-muted">Schalte Zubehör und Farben frei: mit Level und einer langen Serie.</p>
-
-      <h3 className="mb-2 mt-4 text-sm font-semibold">Fuchs</h3>
-      <ul className="grid grid-cols-5 gap-2" role="radiogroup" aria-label="Zubehör für den Fuchs">
-        {AVATARS.map((r) => {
-          const ok = open(r)
-          const on = avatar === r.id
-          return (
-            <li key={r.id}>
-              <button
-                type="button"
-                role="radio"
-                aria-checked={on}
-                disabled={!ok}
-                aria-label={ok ? r.label : `${r.label}, gesperrt: ${rewardHint(r)}`}
-                onClick={() => setAvatar(r.id)}
-                className={`press relative flex w-full flex-col items-center gap-1 rounded-2xl border-2 px-1 py-2 text-center transition-colors ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface'} ${ok ? '' : 'opacity-55'}`}
-              >
-                <Mascot size={44} accessory={r.id} />
-                <span className="text-[11px] font-semibold leading-tight">{r.label}</span>
-                <span className="text-[10px] leading-none text-muted">{ok ? (on ? 'aktiv' : ' ') : rewardHint(r)}</span>
-                {!ok && <Lock size={12} className="absolute right-1.5 top-1.5 text-muted" />}
-              </button>
-            </li>
-          )
-        })}
-      </ul>
-
-      <h3 className="mb-2 mt-5 text-sm font-semibold">Farbe der App</h3>
-      <ul className="grid grid-cols-5 gap-2" role="radiogroup" aria-label="Farbe der App">
-        {ACCENTS.map((r) => {
-          const ok = open(r)
-          const on = accent === r.id
-          return (
-            <li key={r.id}>
-              <button
-                type="button"
-                role="radio"
-                aria-checked={on}
-                disabled={!ok}
-                aria-label={ok ? r.label : `${r.label}, gesperrt: ${rewardHint(r)}`}
-                onClick={() => setAccent(r.id)}
-                className={`press relative flex w-full flex-col items-center gap-1 rounded-2xl border-2 px-1 py-2 text-center transition-colors ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface'} ${ok ? '' : 'opacity-55'}`}
-              >
-                <span className="flex h-9 w-9 items-center justify-center rounded-full text-white" style={{ background: ACCENT_SWATCH[r.id] }}>
-                  {on ? <Check size={16} /> : !ok ? <Lock size={14} /> : null}
-                </span>
-                <span className="text-[11px] font-semibold leading-tight">{r.label}</span>
-                <span className="text-[10px] leading-none text-muted">{ok ? (on ? 'aktiv' : ' ') : rewardHint(r)}</span>
-              </button>
-            </li>
-          )
-        })}
-      </ul>
     </section>
   )
 }

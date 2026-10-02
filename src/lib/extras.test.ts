@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { daysSince, backupDue, lastBackupText } from './backup'
 import { boxCounts, boxOf } from './boxes'
 import { buildWeeklyReport } from './report'
-import { isRewardUnlocked, rewardHint, AVATARS, ACCENTS } from './rewards'
+import { buy, coinsForSession, ITEMS, toggleEquip } from './shop'
 import type { SrsCard } from './srs'
 
 const card = (stability: number, reps = 2) => ({ stability, reps }) as unknown as SrsCard
@@ -23,21 +23,41 @@ describe('Karteikasten', () => {
   })
 })
 
-describe('Belohnungen', () => {
-  it('schaltet nach Level und längster Serie frei', () => {
-    const brille = AVATARS.find((a) => a.id === 'brille')!
-    const schal = AVATARS.find((a) => a.id === 'schal')!
-    expect(isRewardUnlocked(brille, { level: 1, bestStreak: 0 })).toBe(false)
-    expect(isRewardUnlocked(brille, { level: 2, bestStreak: 0 })).toBe(true)
-    expect(isRewardUnlocked(schal, { level: 9, bestStreak: 2 })).toBe(false)
-    expect(isRewardUnlocked(schal, { level: 1, bestStreak: 3 })).toBe(true)
-    expect(rewardHint(brille)).toBe('ab Level 2')
-    expect(rewardHint(schal)).toBe('3 Tage Serie')
+describe('Fuchs-Laden', () => {
+  it('gibt eine Münze je 2 XP', () => {
+    expect(coinsForSession({ xp: 17, dailyGoal: 100, todayBefore: 0, streakBefore: 0, streakAfter: 1 }).total).toBe(8)
   })
 
-  it('Standard-Fuchs und Standard-Farbe sind immer frei', () => {
-    expect(isRewardUnlocked(AVATARS[0], { level: 1, bestStreak: 0 })).toBe(true)
-    expect(isRewardUnlocked(ACCENTS[0], { level: 1, bestStreak: 0 })).toBe(true)
+  it('gibt Prämien für das Tagesziel und jedes Bonusziel', () => {
+    // Mindestziel (20) erreicht: +10
+    expect(coinsForSession({ xp: 20, dailyGoal: 20, todayBefore: 0, streakBefore: 1, streakAfter: 1 }).goal).toBe(10)
+    // schon über dem Mindestziel, nächstes Bonusziel (30) erreicht: +5
+    expect(coinsForSession({ xp: 12, dailyGoal: 20, todayBefore: 22, streakBefore: 1, streakAfter: 1 }).goal).toBe(5)
+    // nichts Neues erreicht
+    expect(coinsForSession({ xp: 3, dailyGoal: 20, todayBefore: 2, streakBefore: 1, streakAfter: 1 }).goal).toBe(0)
+  })
+
+  it('gibt 25 Münzen, wenn die Serie ein Vielfaches von 7 erreicht', () => {
+    expect(coinsForSession({ xp: 2, dailyGoal: 20, todayBefore: 0, streakBefore: 6, streakAfter: 7 }).streak).toBe(25)
+    expect(coinsForSession({ xp: 2, dailyGoal: 20, todayBefore: 5, streakBefore: 7, streakAfter: 7 }).streak).toBe(0)
+  })
+
+  it('Kauf klappt nur mit genug Münzen und nur einmal', () => {
+    const brille = ITEMS.find((i) => i.id === 'brille')!
+    expect(buy({ coins: brille.price - 1, owned: [] }, 'brille')).toBeNull()
+    expect(buy({ coins: brille.price, owned: [] }, 'brille')).toEqual({ coins: 0, owned: ['brille'] })
+    expect(buy({ coins: 999, owned: ['brille'] }, 'brille')).toBeNull()
+    expect(buy({ coins: 999, owned: [] }, 'gibtsnicht')).toBeNull()
+  })
+
+  it('legt ein Teil je Platz an und nimmt es beim zweiten Tippen wieder ab', () => {
+    const owned = ['muetze', 'krone']
+    let o = toggleEquip({}, owned, 'muetze')
+    expect(o).toEqual({ kopf: 'muetze' })
+    o = toggleEquip(o, owned, 'krone')
+    expect(o).toEqual({ kopf: 'krone' })
+    expect(toggleEquip(o, owned, 'krone')).toEqual({})
+    expect(toggleEquip({}, owned, 'schal')).toEqual({})
   })
 })
 

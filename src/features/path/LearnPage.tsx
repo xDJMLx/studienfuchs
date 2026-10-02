@@ -77,9 +77,12 @@ function TodayCard() {
       )}
       {due.length > 0 && (
         <button type="button" className="press mt-3 flex w-full items-center justify-between gap-3 rounded-xl bg-brand-soft px-4 py-3 text-left font-semibold text-brand-dark transition-colors hover:brightness-95" onClick={() => navigate('/review/play')}>
-          <span className="flex items-center gap-2.5">
-            <Repeat size={20} />
-            {due.length} {due.length === 1 ? 'Wort' : 'Wörter'} wiederholen
+          <span className="flex min-w-0 items-center gap-2.5">
+            <Repeat size={20} className="shrink-0" />
+            <span className="min-w-0">
+              <span className="block">{due.length} {due.length === 1 ? 'Wort' : 'Wörter'} wiederholen</span>
+              {due.length >= 20 && <span className="block text-xs font-normal text-muted">Erst das, dann Neues: So bleibt es länger hängen.</span>}
+            </span>
           </span>
           <span className="flex items-center gap-1 text-sm font-medium">Starten <Right size={14} /></span>
         </button>

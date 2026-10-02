@@ -5,7 +5,7 @@ import { goalInfo, levelFromXp } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
 import { CourseChip } from './CoursePicker'
-import { Bolt, Camera, Flame, Gear, Home, Repeat, Sparkle, Target, Trophy, User } from './Icons'
+import { Camera, Coin, Flame, Fox, Gear, Home, Repeat, Sparkle, Target, Trophy, User, Xp } from './Icons'
 import { EASE } from './motion'
 import { useCoachComposer } from '../../lib/coachComposer'
 import { CoachComposer } from './CoachComposer'
@@ -21,14 +21,15 @@ interface NavItem {
 }
 
 // Fünf feste Tabs, kein "Mehr": Alles Wichtige ist immer mit einem Tipp erreichbar (Grammatik und Wörter im Üben-Tab,
-// Einstellungen über das Profil).
+// Einstellungen über das Profil). Das Profil erreicht man über die Zahlen oben; am Desktop steht es zusätzlich in der Seitenleiste.
 const NAV: NavItem[] = [
   { to: '/', label: 'Lernen', Icon: Home, end: true },
   { to: '/practice', label: 'Üben', Icon: Repeat },
   { to: '/coach', label: 'KI', Icon: Sparkle },
   { to: '/plan', label: 'Plan', Icon: Target },
-  { to: '/profile', label: 'Profil', Icon: User },
+  { to: '/shop', label: 'Fuchs', Icon: Fox },
 ]
+const SIDE_NAV: NavItem[] = [...NAV, { to: '/profile', label: 'Profil', Icon: User }]
 
 export function Wordmark({ size = 'md', tone = 'default' }: { size?: 'md' | 'lg'; tone?: 'default' | 'light' }) {
   return (
@@ -81,7 +82,7 @@ export function Layout() {
           <Wordmark />
         </Link>
         <nav className="grid gap-1" aria-label="Hauptnavigation">
-          {NAV.map(({ to, label, Icon, end }) => (
+          {SIDE_NAV.map(({ to, label, Icon, end }) => (
             <NavLink key={to} to={to} end={end} className={({ isActive }) => `nav-link press relative ${isActive ? 'text-brand-dark' : ''}`}>
               {({ isActive }) => (
                 <>
@@ -157,16 +158,21 @@ function DueBadge({ n, className = '' }: { n: number; className?: string }) {
 
 /** Kopfzeile auf dem Handy: Kurs links, Serie und XP rechts (antippen öffnet das Profil). */
 function TopBar({ className = '' }: { className?: string }) {
-  const { streak, xpByDay, dailyGoal } = useStore()
+  const { streak, xpByDay, dailyGoal, coins } = useStore()
   const s = streakNow(streak)
   const today = xpToday(xpByDay)
   return (
     <header className={`flex items-center justify-between border-b border-line bg-surface px-3 py-2 ${className}`}>
       <CourseChip />
-      <Link to="/profile" className="press flex min-h-11 items-center gap-3 rounded-xl px-2 text-sm font-semibold transition-colors hover:bg-snow" aria-label="Profil öffnen">
-        <span className="flex items-center gap-1 text-fox-dark" title="Serie"><Flame size={20} />{s}</span>
-        <span className="flex items-center gap-1 text-gold-dark" title="Heute gesammelte XP"><Bolt size={20} />{today}/{goalInfo(dailyGoal, today).goal}</span>
-      </Link>
+      <div className="flex items-center">
+        <Link to="/profile" className="press flex min-h-11 items-center gap-3 rounded-xl px-2 text-sm font-semibold transition-colors hover:bg-snow" aria-label="Profil öffnen">
+          <span className="flex items-center gap-1 text-fox-dark" title="Serie"><Flame size={20} />{s}</span>
+          <span className="flex items-center gap-1 text-gold-dark" title="Heute gesammelte XP"><Xp size={20} />{today}/{goalInfo(dailyGoal, today).goal}</span>
+        </Link>
+        <Link to="/shop" className="press flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-gold-dark transition-colors hover:bg-snow" aria-label={`${coins} Münzen, zum Fuchs-Laden`} title="Münzen">
+          <Coin size={20} />{coins}
+        </Link>
+      </div>
     </header>
   )
 }
@@ -194,7 +200,7 @@ export function RightRail() {
 
       <Link to="/settings" className={`${card} flex items-center gap-4`} aria-label="Tagesziel anpassen">
         <ProgressRing pct={goalPct} size={72} color="var(--gold)">
-          <Bolt size={26} />
+          <Xp size={26} />
         </ProgressRing>
         <div>
           <p className="eyebrow">{g.baseReached ? 'Bonusziel' : 'Tagesziel'}</p>

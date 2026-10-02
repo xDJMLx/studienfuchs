@@ -189,7 +189,7 @@ export function CoachPage() {
   return (
     <div className="mx-auto flex min-h-full max-w-2xl flex-col px-4 py-6 lg:py-8">
       <div className="mb-5 flex items-center gap-4">
-        <Mascot size={64} mood={busy ? 'think' : 'cheer'} blink accessory={store.avatar} />
+        <Mascot size={64} mood={busy ? 'think' : 'cheer'} blink outfit={store.outfit} />
         <div className="min-w-0 flex-1">
           <h1 className="page-title">KI</h1>
           <p className="text-muted">Fragen stellen, Buchseiten hochladen, Tests bauen lassen.</p>

@@ -11,7 +11,7 @@ import { dayKey } from '../../lib/streak'
 import { goalInfo, levelFromXp } from '../../lib/xp'
 import { streakNow, useStore } from '../../store/useStore'
 import { useLearned } from '../review/ReviewPage'
-import { Karteikasten, Sammlung, WeeklyReport } from './ProfileExtras'
+import { Karteikasten, WeeklyReport } from './ProfileExtras'
 
 const WEEKDAYS = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
 const HEAT_DAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
@@ -23,7 +23,7 @@ const COURSE_WORDS = COURSE_STATS.words
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
-  const { xp, xpByDay, streak, dailyGoal, lessons, sets, avatar } = useStore()
+  const { xp, xpByDay, streak, dailyGoal, lessons, sets, outfit } = useStore()
   const { learned, byMastery } = useLearned()
   const lvl = levelFromXp(xp)
   const streakDays = streakNow(streak)
@@ -78,7 +78,7 @@ export function ProfilePage() {
             <div className="relative flex items-center gap-5">
               <ProgressRing pct={lvl.into / lvl.needed} size={108} stroke={7} color="#fff" track="rgba(255,255,255,0.28)">
                 <motion.span initial={reduce ? false : { scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ ...SPRING.bouncy, delay: 0.2 }} className="flex h-[84px] w-[84px] items-center justify-center rounded-full bg-white">
-                  <Mascot size={66} blink accessory={avatar} />
+                  <Mascot size={66} blink outfit={outfit} />
                 </motion.span>
               </ProgressRing>
               <div className="min-w-0 flex-1 pr-8">
@@ -199,10 +199,9 @@ export function ProfilePage() {
           </section>
         </Item>
 
-        {/* Karteikasten, Sammlung, Wochenbericht */}
+        {/* Karteikasten, Wochenbericht */}
         <Item>
           <Karteikasten />
-          <Sammlung />
           <WeeklyReport />
         </Item>
 

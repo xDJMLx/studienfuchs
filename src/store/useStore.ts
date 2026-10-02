@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { STORAGE } from '../lib/migrate'
 import { reviewCard, type Grade, type SrsCard } from '../lib/srs'
+import { buy, coinsForSession, itemById, toggleEquip, type Outfit } from '../lib/shop'
 import { currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
 import type { Item, VocabSet } from '../lib/types'
 
@@ -36,16 +37,21 @@ interface Data {
   classUnit: string | null
   /** Zieldatum des Aufholplans (YYYY-MM-DD), null = kein Plan */
   catchUpTarget: string | null
-  /** Gewähltes Zubehör für den Fuchs (siehe rewards.ts), 'none' = keins */
-  avatar: string
-  /** Gewählte Farbe der App (siehe rewards.ts), 'orange' = Standard */
-  accent: string
+  /** Münzen: gibt es fürs Lernen, ausgegeben werden sie im Fuchs-Laden (siehe shop.ts) */
+  coins: number
+  /** Gekaufte Zubehörteile */
+  owned: string[]
+  /** Angelegtes Zubehör, ein Teil je Platz */
+  outfit: Outfit
   /** Längste Serie in Tagen (die aktuelle Serie allein reicht für Belohnungen nicht, sie bricht ab) */
   bestStreak: number
 }
 
 interface Actions {
-  finishSession: (r: { xp: number; grades: Record<string, Grade>; lessonId?: string; accuracy: number }) => void
+  /** Gibt zurück, wie viele Münzen es für diese Einheit gab. */
+  finishSession: (r: { xp: number; grades: Record<string, Grade>; lessonId?: string; accuracy: number }) => number
+  buyItem: (id: string) => boolean
+  equipItem: (id: string) => void
   addSet: (title: string, items: Omit<Item, 'id'>[], book?: string) => string
   updateSet: (id: string, patch: { title?: string; items?: Item[]; book?: string }) => void
   deleteSet: (id: string) => void
@@ -59,8 +65,6 @@ interface Actions {
   setOnboarded: (v: boolean) => void
   setClassUnit: (unitId: string | null) => void
   setCatchUpTarget: (date: string | null) => void
-  setAvatar: (id: string) => void
-  setAccent: (id: string) => void
   setSpeech: (patch: Partial<Pick<Data, 'speechOn' | 'voiceName' | 'speechRate' | 'speakingOn'>>) => void
   exportData: () => string
   importData: (json: string) => void
@@ -87,8 +91,9 @@ const initial: Data = {
   onboarded: false,
   classUnit: null,
   catchUpTarget: null,
-  avatar: 'none',
-  accent: 'orange',
+  coins: 0,
+  owned: [],
+  outfit: {},
   bestStreak: 0,
 }
 
@@ -99,31 +104,45 @@ export const useStore = create<Data & Actions>()(
     (set, get) => ({
       ...initial,
 
-      finishSession: ({ xp, grades, lessonId, accuracy }) =>
-        set((s) => {
-          const now = new Date()
-          const cards = { ...s.cards }
-          for (const [itemId, grade] of Object.entries(grades)) cards[itemId] = reviewCard(cards[itemId], grade, now)
-          const today = dayKey(now)
-          const nextStreak = registerActivity(s.streak, now)
-          const lessons = { ...s.lessons }
-          if (lessonId) {
-            const prev = lessons[lessonId]
-            lessons[lessonId] = {
-              count: (prev?.count ?? 0) + 1,
-              bestAccuracy: Math.max(prev?.bestAccuracy ?? 0, accuracy),
-              lastDone: today,
-            }
+      finishSession: ({ xp, grades, lessonId, accuracy }) => {
+        const s = get()
+        const now = new Date()
+        const cards = { ...s.cards }
+        for (const [itemId, grade] of Object.entries(grades)) cards[itemId] = reviewCard(cards[itemId], grade, now)
+        const today = dayKey(now)
+        const nextStreak = registerActivity(s.streak, now)
+        const lessons = { ...s.lessons }
+        if (lessonId) {
+          const prev = lessons[lessonId]
+          lessons[lessonId] = {
+            count: (prev?.count ?? 0) + 1,
+            bestAccuracy: Math.max(prev?.bestAccuracy ?? 0, accuracy),
+            lastDone: today,
           }
-          return {
-            cards,
-            lessons,
-            xp: s.xp + xp,
-            xpByDay: { ...s.xpByDay, [today]: (s.xpByDay[today] ?? 0) + xp },
-            streak: nextStreak,
-            bestStreak: Math.max(s.bestStreak ?? 0, nextStreak.count),
-          }
-        }),
+        }
+        const gain = coinsForSession({ xp, dailyGoal: s.dailyGoal, todayBefore: s.xpByDay[today] ?? 0, streakBefore: s.streak.count, streakAfter: nextStreak.count }).total
+        set({
+          cards,
+          lessons,
+          xp: s.xp + xp,
+          xpByDay: { ...s.xpByDay, [today]: (s.xpByDay[today] ?? 0) + xp },
+          streak: nextStreak,
+          bestStreak: Math.max(s.bestStreak ?? 0, nextStreak.count),
+          coins: (s.coins ?? 0) + gain,
+        })
+        return gain
+      },
+
+      buyItem: (id) => {
+        const s = get()
+        const next = buy({ coins: s.coins ?? 0, owned: s.owned ?? [] }, id)
+        if (!next) return false
+        // Frisch gekauft heißt: gleich anlegen
+        set({ ...next, outfit: toggleEquip(s.outfit ?? {}, next.owned, id) })
+        return true
+      },
+
+      equipItem: (id) => set((s) => ({ outfit: toggleEquip(s.outfit ?? {}, s.owned ?? [], id) })),
 
       addSet: (title, items, book) => {
         const id = `set-${Date.now().toString(36)}`
@@ -168,8 +187,6 @@ export const useStore = create<Data & Actions>()(
       setGrade: (g) => set({ grade: g }),
       setSpeech: (patch) => set(patch),
       setTheme: (t) => set({ theme: t }),
-      setAvatar: (id) => set({ avatar: id }),
-      setAccent: (id) => set({ accent: id }),
       setOnboarded: (v) => set({ onboarded: v }),
       setClassUnit: (unitId) => set(unitId ? { classUnit: unitId } : { classUnit: null, catchUpTarget: null }),
       setCatchUpTarget: (date) => set({ catchUpTarget: date }),
@@ -191,7 +208,23 @@ export const useStore = create<Data & Actions>()(
 
       resetAll: () => set({ ...initial }),
     }),
-    { name: STORAGE.state, version: 1 },
+    {
+      name: STORAGE.state,
+      version: 1,
+      merge: (persisted, current) => {
+        const p = (persisted ?? {}) as Record<string, unknown>
+        const merged = { ...current, ...p } as Data & Actions
+        if (p.coins === undefined) {
+          // Stand aus der Zeit vor dem Fuchs-Laden: bisher gesammelte XP zählen rückwirkend als Münzen
+          merged.coins = Math.floor(((p.xp as number) ?? 0) / 2)
+          const old = typeof p.avatar === 'string' && p.avatar !== 'none' ? (p.avatar as string) : null
+          const item = old ? itemById(old) : undefined
+          merged.owned = item ? [item.id] : []
+          merged.outfit = item ? { [item.slot]: item.id } : {}
+        }
+        return merged
+      },
+    },
   ),
 )
 

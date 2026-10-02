@@ -77,16 +77,6 @@
   --shadow-lift: 0 14px 32px -16px rgba(0, 0, 0, 0.75);
 }
 
-/* Farb-Varianten der App (Belohnungen): überschreiben nur die Markenfarbe, Kontrast bleibt mindestens AA */
-html[data-accent='blau'] { --brand: #2f6fed; --brand-text: #1f56c4; --brand-soft: #e8f0ff; --shade-brand: #1b43a3; --brand-strong: #2459d6; --on-brand: #ffffff; }
-html.dark[data-accent='blau'] { --brand: #5b93ff; --brand-text: #8db3ff; --brand-soft: #14223f; --shade-brand: #2b57b3; --brand-strong: #5b93ff; --on-brand: #06122b; }
-html[data-accent='tuerkis'] { --brand: #0e8f9b; --brand-text: #0b6a73; --brand-soft: #dff4f5; --shade-brand: #09555c; --brand-strong: #0e7c86; --on-brand: #ffffff; }
-html.dark[data-accent='tuerkis'] { --brand: #35c2cf; --brand-text: #6fd9e3; --brand-soft: #0f2f33; --shade-brand: #1d7f88; --brand-strong: #35c2cf; --on-brand: #04262a; }
-html[data-accent='violett'] { --brand: #7c5cf0; --brand-text: #5a38c9; --brand-soft: #efeaff; --shade-brand: #4b2eb0; --brand-strong: #6d4ae0; --on-brand: #ffffff; }
-html.dark[data-accent='violett'] { --brand: #9b82ff; --brand-text: #bfaeff; --brand-soft: #251c4a; --shade-brand: #5a45b8; --brand-strong: #9b82ff; --on-brand: #12072e; }
-html[data-accent='rosa'] { --brand: #e0337f; --brand-text: #a61a5a; --brand-soft: #ffe6f1; --shade-brand: #8a1349; --brand-strong: #c21f6b; --on-brand: #ffffff; }
-html.dark[data-accent='rosa'] { --brand: #ff6fa8; --brand-text: #ff9bc4; --brand-soft: #3a1428; --shade-brand: #b23a73; --brand-strong: #ff6fa8; --on-brand: #2b0516; }
-
 @theme inline {
   --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
 

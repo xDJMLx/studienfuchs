@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { blockingLesson, isLessonDone, isUnlocked, LESSON_PASS, TEST_PASS, units } from '../content'
 import { describePuterError, extractJson, getAiConfig, normalizeAiVocab, puterText, setAiConfig } from './ai'
-import { generateLesson, NEW_BATCH } from './generateExercises'
+import { generateLesson, generateWarmup, NEW_BATCH, WARMUP_SIZE } from './generateExercises'
 import { itemsForScope } from './scope'
 import { newCard } from './srs'
 
@@ -137,5 +137,20 @@ describe('KI-Anbieter', () => {
     expect(describePuterError({ error: { code: 'token_auth_failed', message: 'bad token' } }).kind).toBe('auth')
     expect(describePuterError({ message: 'irgendwas kaputt' }).message).toContain('irgendwas kaputt')
     expect(describePuterError({}).kind).toBe('other')
+  })
+})
+
+describe('Aufwärmen mit fälligen alten Wörtern', () => {
+  const old = regular[0].items.slice(0, WARMUP_SIZE)
+
+  it('fragt jedes alte Wort genau einmal aus dem Gedächtnis ab und markiert die Aufgabe', () => {
+    const ex = generateWarmup(old, regular[0].items)
+    expect(ex).toHaveLength(old.length)
+    expect(ex.every((e) => e.warm && e.kind === 'type')).toBe(true)
+    expect(new Set(ex.map((e) => e.itemId)).size).toBe(old.length)
+  })
+
+  it('ohne fällige Wörter gibt es kein Aufwärmen', () => {
+    expect(generateWarmup([], [])).toEqual([])
   })
 })

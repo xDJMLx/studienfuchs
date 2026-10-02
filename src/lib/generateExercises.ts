@@ -229,6 +229,18 @@ export function generateTest(opts: { items: Item[]; pool: Item[]; count?: number
   return interleave(out.map((ex) => ({ round: 1 as const, priority: 0, ex })), rng).map((p) => p.ex)
 }
 
+/** Wie viele ältere, fällige Wörter eine neue Lektion zum Aufwärmen vorne einstreut. */
+export const WARMUP_SIZE = 3
+
+/**
+ * Aufwärmen: pro fälligem älterem Wort genau eine Abruf-Aufgabe (Tippen), vor dem neuen Stoff.
+ * So wird Wiederholen nach Plan (Spacing) mit dem Neulernen gemischt (Interleaving), statt dass fällige Wörter liegenbleiben.
+ */
+export function generateWarmup(items: Item[], pool: Item[], rng: () => number = Math.random): Exercise[] {
+  if (!items.length) return []
+  return generateExercises({ items, pool, mastery: () => 2, maxExercises: items.length, allowListen: false, focus: 'write', rng }).map((e) => ({ ...e, warm: true }))
+}
+
 /** Wie viele neue Wörter auf einmal gezeigt werden, bevor sie sofort abgefragt werden. */
 export const NEW_BATCH = 2
 

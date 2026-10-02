@@ -5,9 +5,9 @@ import { LESSON_PASS, nextLessonAfter, TEST_PASS } from '../../content'
 import { SpeakButton } from '../../components/exercises/common'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Confetti } from '../../components/ui/Confetti'
-import { Bolt, Bulb, Close, Flame, Right, Sparkle, Star, Target } from '../../components/ui/Icons'
+import { Bulb, Close, Coin, Flame, Right, Sparkle, Star, Target, Xp } from '../../components/ui/Icons'
 import { CountUp, EASE, Item as FadeItem, ItemLi, SPRING, Stagger, StaggerList } from '../../components/ui/motion'
-import { generateLesson, generateTest } from '../../lib/generateExercises'
+import { generateLesson, generateTest, generateWarmup } from '../../lib/generateExercises'
 import { recognitionAvailable } from '../../lib/recognition'
 import { playDone } from '../../lib/sound'
 import { hasFrenchVoice, loadAudioIndex } from '../../lib/speech'
@@ -32,6 +32,8 @@ interface Props {
   noPassMark?: boolean
   /** Schwerpunkt beim freien Üben */
   focus?: 'mix' | 'write' | 'listen'
+  /** Ältere, fällige Wörter, die vor dem neuen Stoff kurz abgefragt werden (zählt nicht fürs Bestehen). */
+  warmup?: Item[]
 }
 
 type Stage = 'explain' | 'practice' | 'done'
@@ -50,7 +52,7 @@ export function PracticeFlow(props: Props) {
   return ready ? <PracticeFlowInner key={attempt} {...props} onRetry={() => setAttempt((a) => a + 1)} attempt={attempt} /> : null
 }
 
-function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, exitTo, maxExercises, mode = 'learn', noPassMark = false, focus = 'mix', onRetry, attempt }: Props & { onRetry: () => void; attempt: number }) {
+function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, exitTo, maxExercises, mode = 'learn', noPassMark = false, focus = 'mix', warmup, onRetry, attempt }: Props & { onRetry: () => void; attempt: number }) {
   const isTest = mode === 'test'
   const navigate = useNavigate()
   const finishSession = useStore((s) => s.finishSession)
@@ -60,17 +62,18 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
     const cards = useStore.getState().cards
     const mastery = (id: string) => masteryOf(cards[id])
     const allowListen = hasFrenchVoice()
+    const warm = !isTest && warmup?.length ? generateWarmup(warmup, pool) : []
     const exercises = isTest
       ? generateTest({ items, pool, allowListen, focus, count: maxExercises })
-      : generateLesson({ items, pool, mastery, fills, maxExercises, allowListen, allowSpeak: recognitionAvailable && useStore.getState().speakingOn, focus })
+      : [...warm, ...generateLesson({ items, pool, mastery, fills, maxExercises, allowListen, allowSpeak: recognitionAvailable && useStore.getState().speakingOn, focus })]
     const st = useStore.getState()
     return { exercises, xpBefore: st.xp, todayBefore: xpToday(st.xpByDay), goal: st.dailyGoal }
   })
 
   // Erklärung nur beim ersten Versuch zeigen
   const [stage, setStage] = useState<Stage>(!isTest && explanation && attempt === 0 ? 'explain' : 'practice')
-  const [outcome, setOutcome] = useState<{ result: SessionResult; xp: number; leveledUp: boolean; goalReached: boolean; bonusTier: number } | null>(null)
-  const gradedIds = useMemo(() => new Set(items.map((i) => i.id)), [items])
+  const [outcome, setOutcome] = useState<{ result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number } | null>(null)
+  const gradedIds = useMemo(() => new Set([...items, ...(warmup ?? [])].map((i) => i.id)), [items, warmup])
   const finished = useRef(false)
 
   const onComplete = useCallback(
@@ -78,12 +81,12 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
       if (finished.current) return
       finished.current = true
       const xp = lessonXp(result.firstTry, result.total)
-      finishSession({ xp, grades: result.grades, lessonId, accuracy: result.accuracy })
+      const coins = finishSession({ xp, grades: result.grades, lessonId, accuracy: result.accuracy })
       const xpBefore = setup.xpBefore
       // Neue Stufe erreicht? (Mindestziel oder ein Bonusziel)
       const bonusTier = goalInfo(setup.goal, setup.todayBefore + xp).tier
       const goalReached = bonusTier > goalInfo(setup.goal, setup.todayBefore).tier
-      setOutcome({ result, xp, leveledUp: levelFromXp(xpBefore + xp).level > levelFromXp(xpBefore).level, goalReached, bonusTier })
+      setOutcome({ result, xp, coins, leveledUp: levelFromXp(xpBefore + xp).level > levelFromXp(xpBefore).level, goalReached, bonusTier })
       playDone()
       setStage('done')
     },
@@ -175,7 +178,7 @@ function ResultScreen({
   onNext,
 }: {
   title: string
-  outcome: { result: SessionResult; xp: number; leveledUp: boolean; goalReached: boolean; bonusTier: number }
+  outcome: { result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number }
   items: Item[]
   test: boolean
   free: boolean
@@ -187,7 +190,8 @@ function ResultScreen({
 }) {
   const reduce = useReducedMotion()
   const streak = streakNow(useStore.getState().streak)
-  const { result, xp, leveledUp, goalReached, bonusTier } = outcome
+  const { result, xp, coins, leveledUp, goalReached, bonusTier } = outcome
+  const outfit = useStore.getState().outfit
   const pct = Math.round(result.accuracy * 100)
   const missed = items.filter((i) => result.mistakeItemIds.includes(i.id))
   const passed = result.accuracy >= mark
@@ -233,7 +237,7 @@ function ResultScreen({
       {passed && <Confetti count={stars === 3 ? 64 : 36} />}
       <div className="flex flex-col items-center pt-2 text-center">
         <motion.div initial={reduce ? false : { scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 260, damping: 14 }}>
-          <Mascot mood={passed ? 'cheer' : 'think'} size={120} />
+          <Mascot mood={passed ? 'cheer' : 'think'} size={120} outfit={outfit} />
         </motion.div>
         {passed && (
           <div className="mt-3 flex gap-2" role="img" aria-label={`${stars} von 3 Sternen`}>
@@ -254,10 +258,20 @@ function ResultScreen({
         <motion.p initial={reduce ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: EASE, delay: 0.45 }} className="mt-1 max-w-sm text-sm text-muted">{sub}</motion.p>
         <p className="mt-1 text-sm font-medium text-muted">{title}</p>
         <div className="mt-6 grid w-full max-w-sm grid-cols-3 gap-3">
-          <Stat tone="gold" icon={<Bolt size={22} />} label="XP" delay={0.7}><CountUp to={xp} prefix="+" delay={0.8} /></Stat>
+          <Stat tone="gold" icon={<Xp size={22} />} label="XP" delay={0.7}><CountUp to={xp} prefix="+" delay={0.8} /></Stat>
           <Stat tone="good" label="Beim 1. Mal richtig" delay={0.85}><CountUp to={pct} suffix=" %" delay={0.95} /></Stat>
           <Stat tone="fox" icon={<Flame size={22} />} label="Serie" delay={1}><CountUp to={streak} delay={1.1} /></Stat>
         </div>
+        {coins > 0 && (
+          <motion.p
+            initial={reduce ? false : { opacity: 0, scale: 0.7, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ ...SPRING.bouncy, delay: 1.15 }}
+            className="mt-4 flex items-center gap-2 rounded-xl bg-gold/20 px-4 py-2 font-semibold text-gold-dark"
+          >
+            <Coin size={20} /> +{coins} {coins === 1 ? 'Münze' : 'Münzen'}
+          </motion.p>
+        )}
         {goalReached && (
           <motion.p
             initial={reduce ? false : { opacity: 0, scale: 0.7, y: 10 }}

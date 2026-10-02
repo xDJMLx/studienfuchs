@@ -17,6 +17,7 @@ import { PracticePage } from './features/practice/PracticePage'
 import { PracticePlay } from './features/practice/PracticePlay'
 import { AboutPage } from './features/profile/AboutPage'
 import { ProfilePage } from './features/profile/ProfilePage'
+import { ShopPage } from './features/shop/ShopPage'
 import { ReviewPage } from './features/review/ReviewPage'
 import { ReviewPlay } from './features/review/ReviewPlay'
 import { SettingsPage } from './features/settings/SettingsPage'
@@ -33,6 +34,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/catchup', 'Aufholen'],
   ['/coach', 'KI'],
   ['/plan', 'Plan'],
+  ['/shop', 'Fuchs'],
   ['/practice/cards', 'Karteikarten'],
   ['/practice', 'Üben'],
   ['/review/play', 'Wiederholung'],
@@ -78,6 +80,7 @@ export default function App() {
             <Route path="catchup" element={<CatchUpPage />} />
             <Route path="coach" element={<CoachPage />} />
             <Route path="plan" element={<PlanPage />} />
+            <Route path="shop" element={<ShopPage />} />
             <Route path="practice" element={<PracticePage />} />
             <Route path="words" element={<Navigate to="/practice?tab=words" replace />} />
             <Route path="grammar" element={<Navigate to="/practice?tab=grammar" replace />} />
