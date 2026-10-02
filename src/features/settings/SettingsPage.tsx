@@ -8,6 +8,7 @@ import { InstallHelp, useInstallFlow } from '../../components/ui/InstallApp'
 import { Check, Database, Download, Gear, Palette, Shield, Sparkle, Speaker, Target, Upload } from '../../components/ui/Icons'
 import { EASE, Item, Stagger, SPRING } from '../../components/ui/motion'
 import { dayKey } from '../../lib/streak'
+import { applyUpdate, BUILD_ID, checkForUpdate } from '../../lib/updates'
 import { useStore } from '../../store/useStore'
 import { SpeechSettings } from '../profile/SpeechSettings'
 import { AiSettings } from './AiSettings'
@@ -234,6 +235,18 @@ export function SettingsPage() {
                 ) : (
                   <button className="btn btn-primary press !px-4 !py-2 !text-sm" onClick={install.start}><Download size={16} /> Installieren</button>
                 )}
+              </Row>
+              <Row title="Version" hint={`Stand: ${BUILD_ID === 'dev' ? 'Entwicklung' : new Date(BUILD_ID).toLocaleString('de-DE', { dateStyle: 'medium', timeStyle: 'short' })}`}>
+                <button
+                  className="btn btn-ghost press !px-4 !py-2 !text-sm"
+                  onClick={async () => {
+                    setToast({ ok: true, text: 'Suche nach Updates …' })
+                    if (await checkForUpdate()) await applyUpdate()
+                    else setToast({ ok: true, text: 'Du hast schon die neueste Version.' })
+                  }}
+                >
+                  Nach Updates suchen
+                </button>
               </Row>
             </Section>
             <InstallHelp open={install.help} onClose={install.closeHelp} />

@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { HashRouter, Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import { ErrorBoundary } from './components/ui/ErrorBoundary'
 import { Layout } from './components/ui/Layout'
+import { UpdateBanner } from './components/ui/UpdateBanner'
 import { useApplyTheme } from './lib/theme'
 import { useStore } from './store/useStore'
 import { GrammarPage, GrammarTopicPage } from './features/grammar/GrammarPage'
@@ -66,6 +67,7 @@ export default function App() {
   return (
     <HashRouter>
       <RouteTitle />
+      <UpdateBanner />
       <ErrorBoundary>
       <Routes>
         <Route path="welcome" element={<Welcome />} />

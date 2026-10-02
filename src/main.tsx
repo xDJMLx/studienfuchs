@@ -14,6 +14,6 @@ createRoot(document.getElementById('root')!).render(
 // Offline-Fähigkeit nur im Produktionsbuild (im Dev-Server würde der Cache beim Entwickeln stören)
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register(import.meta.env.BASE_URL + 'sw.js').catch(() => {})
+    navigator.serviceWorker.register(import.meta.env.BASE_URL + 'sw.js', { updateViaCache: 'none' }).catch(() => {})
   })
 }
