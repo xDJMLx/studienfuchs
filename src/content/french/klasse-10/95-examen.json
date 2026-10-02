@@ -1,0 +1,234 @@
+{
+  "id": "f10-examen",
+  "title": "Préparer l'examen",
+  "description": "Textproduktion, formelle Briefe, mündliche Prüfung",
+  "grade": 10,
+  "subject": "french",
+  "order": 95,
+  "lessons": [
+    {
+      "id": "f10-examen-l1",
+      "title": "Einen Text wiedergeben",
+      "items": [
+        {
+          "front": "ce texte traite de",
+          "back": "dieser Text behandelt",
+          "example": "Ce texte traite de l'écologie.",
+          "exampleDe": "Dieser Text behandelt die Ökologie."
+        },
+        {
+          "front": "il s'agit de",
+          "back": "es geht um",
+          "example": "Dans ce texte, il s'agit de la mondialisation.",
+          "exampleDe": "In diesem Text geht es um die Globalisierung."
+        },
+        {
+          "front": "l'auteur affirme que",
+          "back": "der Autor behauptet, dass",
+          "example": "L'auteur affirme que tout change.",
+          "exampleDe": "Der Autor behauptet, dass sich alles verändert."
+        },
+        {
+          "front": "l'auteur souligne que",
+          "back": "der Autor betont, dass",
+          "example": "L'auteur souligne que les jeunes sont concernés.",
+          "exampleDe": "Der Autor betont, dass die Jugend betroffen ist."
+        },
+        {
+          "front": "l'auteur critique",
+          "back": "der Autor kritisiert",
+          "example": "L'auteur critique la société.",
+          "exampleDe": "Der Autor kritisiert die Gesellschaft."
+        },
+        {
+          "front": "en résumé",
+          "back": "zusammenfassend",
+          "example": "En résumé, le texte défend la liberté.",
+          "exampleDe": "Zusammenfassend verteidigt der Text die Freiheit."
+        }
+      ],
+      "explanation": {
+        "title": "Textzusammenfassung",
+        "paragraphs": [
+          "Eine Zusammenfassung beginnt mit Quelle und Thema: „Ce texte, publié dans …, traite de …“. Dann gibst du die Kernaussagen im Präsens wieder.",
+          "Nützliche Verben: l'auteur affirme / explique / montre / critique / souligne que …"
+        ],
+        "examples": [
+          {
+            "fr": "Dans ce texte, il s'agit de la mondialisation.",
+            "de": "In diesem Text geht es um die Globalisierung."
+          },
+          {
+            "fr": "L'auteur souligne que les jeunes sont concernés.",
+            "de": "Der Autor betont, dass die Jugend betroffen ist."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f10-examen-l2",
+      "title": "Zeitenwahl im Text",
+      "items": [
+        {
+          "front": "depuis deux ans",
+          "back": "seit zwei Jahren",
+          "example": "J'apprends le français depuis deux ans.",
+          "exampleDe": "Ich lerne seit zwei Jahren Französisch."
+        },
+        {
+          "front": "il y a deux ans",
+          "back": "vor zwei Jahren",
+          "example": "Il y a deux ans, nous avons déménagé.",
+          "exampleDe": "Vor zwei Jahren sind wir umgezogen."
+        },
+        {
+          "front": "dans deux ans",
+          "back": "in zwei Jahren",
+          "example": "Dans deux ans, j'aurai mon bac.",
+          "exampleDe": "In zwei Jahren habe ich mein Abitur."
+        },
+        {
+          "front": "pendant deux ans",
+          "back": "zwei Jahre lang",
+          "example": "J'ai habité à Lyon pendant deux ans.",
+          "exampleDe": "Ich habe zwei Jahre lang in Lyon gewohnt."
+        },
+        {
+          "front": "quand j'étais petit",
+          "back": "als ich klein war",
+          "example": "Quand j'étais petit, je jouais dehors.",
+          "exampleDe": "Als ich klein war, habe ich draußen gespielt."
+        },
+        {
+          "front": "dès que j'aurai fini",
+          "back": "sobald ich fertig bin",
+          "example": "Dès que j'aurai fini, je viendrai.",
+          "exampleDe": "Sobald ich fertig bin, komme ich."
+        }
+      ],
+      "explanation": {
+        "title": "Welche Zeit passt?",
+        "paragraphs": [
+          "In der Prüfung zeigst du, dass du Zeiten sicher wählst: Handlungen im Text im présent, Vorzeitiges im passé composé, Zukünftiges im futur simple.",
+          "Prüfe bei jedem Satz: Wann findet es statt? Ist es abgeschlossen? Gibt es Signalwörter wie hier, depuis, dans deux ans, quand?"
+        ],
+        "examples": [
+          {
+            "fr": "L'auteur raconte ce qui s'est passé hier.",
+            "de": "Der Autor erzählt, was gestern geschehen ist."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "J'habite ici ___ trois ans.",
+          "answer": "depuis",
+          "options": [
+            "depuis",
+            "il y a",
+            "dans",
+            "pendant"
+          ],
+          "translation": "Ich wohne seit drei Jahren hier.",
+          "why": "depuis + Präsens bezeichnet eine Dauer, die bis jetzt anhält."
+        },
+        {
+          "sentence": "Il est parti ___ trois jours.",
+          "answer": "il y a",
+          "options": [
+            "il y a",
+            "depuis",
+            "dans",
+            "pendant"
+          ],
+          "translation": "Er ist vor drei Tagen abgereist.",
+          "why": "il y a + Zeitraum = vor … (abgeschlossen)."
+        }
+      ]
+    },
+    {
+      "id": "f10-examen-l3",
+      "title": "Formelle E-Mails",
+      "items": [
+        {
+          "front": "Madame, Monsieur",
+          "back": "Sehr geehrte Damen und Herren",
+          "example": "Madame, Monsieur, je vous écris pour une demande.",
+          "exampleDe": "Sehr geehrte Damen und Herren, ich schreibe Ihnen wegen einer Anfrage."
+        },
+        {
+          "front": "je vous écris pour",
+          "back": "ich schreibe Ihnen, um",
+          "example": "Je vous écris pour poser une question.",
+          "exampleDe": "Ich schreibe Ihnen, um eine Frage zu stellen."
+        },
+        {
+          "front": "je vous serais reconnaissant de",
+          "back": "ich wäre Ihnen dankbar, wenn",
+          "example": "Je vous serais reconnaissant de répondre vite.",
+          "exampleDe": "Ich wäre Ihnen dankbar, wenn Sie schnell antworten."
+        },
+        {
+          "front": "veuillez trouver ci-joint",
+          "back": "anbei finden Sie",
+          "example": "Veuillez trouver ci-joint mon CV.",
+          "exampleDe": "Anbei finden Sie meinen Lebenslauf."
+        },
+        {
+          "front": "dans l'attente de votre réponse",
+          "back": "in Erwartung Ihrer Antwort",
+          "example": "Dans l'attente de votre réponse, je vous remercie d'avance.",
+          "exampleDe": "In Erwartung Ihrer Antwort danke ich Ihnen im Voraus."
+        },
+        {
+          "front": "cordialement",
+          "back": "mit freundlichen Grüßen",
+          "example": "Cordialement, Paul Martin.",
+          "exampleDe": "Mit freundlichen Grüßen, Paul Martin."
+        }
+      ]
+    },
+    {
+      "id": "f10-examen-l4",
+      "title": "Mündliche Prüfung",
+      "items": [
+        {
+          "front": "pourriez-vous répéter ?",
+          "back": "könnten Sie das wiederholen?",
+          "example": "Pardon, pourriez-vous répéter ?",
+          "exampleDe": "Entschuldigung, könnten Sie das wiederholen?"
+        },
+        {
+          "front": "je voudrais ajouter que",
+          "back": "ich möchte hinzufügen, dass",
+          "example": "Je voudrais ajouter que c'est important.",
+          "exampleDe": "Ich möchte hinzufügen, dass das wichtig ist."
+        },
+        {
+          "front": "je ne suis pas sûr, mais",
+          "back": "ich bin nicht sicher, aber",
+          "example": "Je ne suis pas sûr, mais je pense que oui.",
+          "exampleDe": "Ich bin nicht sicher, aber ich glaube schon."
+        },
+        {
+          "front": "comment dit-on … en français ?",
+          "back": "wie sagt man … auf Französisch?",
+          "example": "Comment dit-on « Schule » en français ?",
+          "exampleDe": "Wie sagt man „Schule“ auf Französisch?"
+        },
+        {
+          "front": "laissez-moi réfléchir",
+          "back": "lassen Sie mich überlegen",
+          "example": "Laissez-moi réfléchir un instant.",
+          "exampleDe": "Lassen Sie mich kurz überlegen."
+        },
+        {
+          "front": "si je comprends bien",
+          "back": "wenn ich richtig verstehe",
+          "example": "Si je comprends bien, vous êtes d'accord.",
+          "exampleDe": "Wenn ich richtig verstehe, sind Sie einverstanden."
+        }
+      ]
+    }
+  ]
+}

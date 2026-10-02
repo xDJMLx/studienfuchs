@@ -1,0 +1,41 @@
+id: f10-bien-etre
+title: Sport et bien-être
+desc: Sport, Ernährung, Stress, psychische Gesundheit, Verein und Gruppe
+order: 22
+
+= Sport und Verein
+- le club de sport = der Sportverein | Il s'est inscrit dans un club de sport. = Er hat sich in einem Sportverein angemeldet.
+- l'entraînement (m) = das Training | L'entraînement a lieu le mardi soir. = Das Training findet dienstagabends statt.
+- s'entraîner = trainieren | Elle s'entraîne trois fois par semaine. = Sie trainiert dreimal pro Woche.
+- la compétition = der Wettkampf | La compétition commence demain. = Der Wettkampf beginnt morgen.
+- gagner / perdre = gewinnen / verlieren | Notre équipe a gagné le match. = Unsere Mannschaft hat das Spiel gewonnen.
+- l'équipe (f) = die Mannschaft, das Team | Nous formons une bonne équipe. = Wir sind ein gutes Team.
+
+= Körper und Kopf
+? Ratschläge und Ziele
+p Mit „il faut“ und dem Infinitiv gibst du allgemeine Ratschläge: Il faut bien dormir. Il faut manger équilibré.
+p Mit „pour“ + Infinitiv nennst du das Ziel: Pour rester en forme, je fais du sport.
+e Pour rester en forme, je cours trois fois par semaine. = Um fit zu bleiben, laufe ich dreimal pro Woche.
+- en forme = fit | Après le sport, je me sens en forme. = Nach dem Sport fühle ich mich fit.
+- la santé mentale = die psychische Gesundheit | La santé mentale est aussi importante que la santé physique. = Die psychische Gesundheit ist genauso wichtig wie die körperliche.
+- se détendre = sich entspannen | Je me détends en écoutant de la musique. = Ich entspanne mich beim Musikhören.
+- le sommeil = der Schlaf | Le sommeil est essentiel pour les jeunes. = Schlaf ist für Jugendliche wesentlich.
+- l'angoisse (f) = die Angst | Il parle de ses angoisses à un ami. = Er spricht mit einem Freund über seine Ängste.
+- demander conseil = um Rat fragen | Elle demande conseil à son médecin. = Sie fragt ihren Arzt um Rat.
+f ___ rester en forme, il fait du sport. | Pour | Pour; Parce; Quand | Um fit zu bleiben, treibt er Sport. | „Pour“ + Infinitiv nennt das Ziel.
+
+= Stress und Druck
+- le stress = der Stress | Le stress augmente avant les examens. = Der Stress nimmt vor den Prüfungen zu.
+- la pression = der Druck | Les élèves subissent beaucoup de pression. = Die Schüler stehen unter viel Druck.
+- se sentir = sich fühlen | Je me sens fatigué aujourd'hui. = Ich fühle mich heute müde.
+- épuisé / épuisée = erschöpft | Après la semaine d'examens, il est épuisé. = Nach der Prüfungswoche ist er erschöpft.
+- une pause = eine Pause | Fais une pause toutes les heures. = Mach jede Stunde eine Pause.
+- respirer = atmen | Respire profondément pour te calmer. = Atme tief durch, um dich zu beruhigen.
+
+= Gesunde Gewohnheiten
+- équilibré / équilibrée = ausgewogen | Il mange de manière équilibrée. = Er isst ausgewogen.
+- éviter = vermeiden | Il faut éviter le sucre. = Man sollte Zucker vermeiden.
+- les écrans (m pl) = die Bildschirme | Trop d'écrans fatiguent les yeux. = Zu viele Bildschirme ermüden die Augen.
+- une habitude = eine Gewohnheit | Faire du sport est une bonne habitude. = Sport zu treiben ist eine gute Gewohnheit.
+- prendre soin de = sich kümmern um | Il faut prendre soin de sa santé. = Man muss sich um seine Gesundheit kümmern.
+- le mode de vie = der Lebensstil | Un mode de vie sain évite beaucoup de maladies. = Ein gesunder Lebensstil verhindert viele Krankheiten.

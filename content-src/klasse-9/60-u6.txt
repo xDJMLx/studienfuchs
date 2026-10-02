@@ -1,0 +1,64 @@
+id: f9-u6
+title: Il faut que …
+desc: Le subjonctif présent: Bildung und Auslöser
+order: 60
+
+= Subjonctif bilden (1/2)
+? So bildest du den subjonctif
+p Stamm der 3. Person Plural (ils parlent → parl-) + Endungen -e, -es, -e, -ions, -iez, -ent. Der subjonctif steht nach que: il faut que je parle.
+p Bei nous und vous sieht der subjonctif aus wie das imparfait: que nous parlions, que vous parliez.
+e Il faut que tu finisses tes devoirs. = Du musst deine Hausaufgaben beenden.
+e Je veux que vous veniez. = Ich will, dass ihr kommt.
+t Der subjonctif steht fast immer nach „que“ und nach einem Ausdruck von Wille, Gefühl oder Notwendigkeit.
+- que je parle = dass ich spreche | Il faut que je parle avec lui. = Ich muss mit ihm sprechen.
+- que tu finisses = dass du beendest | Il faut que tu finisses tes devoirs. = Du musst deine Hausaufgaben beenden.
+- qu'il attende = dass er wartet | Je veux qu'il attende ici. = Ich will, dass er hier wartet.
+- que nous partions = dass wir gehen | Il faut que nous partions maintenant. = Wir müssen jetzt gehen.
+
+= Subjonctif bilden (2/2)
+- que vous choisissiez = dass ihr wählt | Je veux que vous choisissiez un livre. = Ich will, dass ihr ein Buch auswählt.
+- qu'ils mangent = dass sie essen | Il faut qu'ils mangent plus de légumes. = Sie müssen mehr Gemüse essen.
+- il faut que je parte = ich muss gehen | Il faut que je parte maintenant. = Ich muss jetzt gehen.
+- il faut que tu écoutes = du musst zuhören | Il faut que tu écoutes bien. = Du musst gut zuhören.
+f Il faut que tu ___ tes devoirs. | finisses | finisses; finis; finiras; finirais | Du musst deine Hausaufgaben beenden. | il faut que + subjonctif; ils finissent → finiss- + es.
+f Il faut que nous ___ à huit heures. | partions | partions; partons; partirons; partirions | Wir müssen um acht Uhr gehen. | Subjonctif von nous: Stamm part- + ions.
+
+= Unregelmäßige Formen (1/2)
+? Sonderformen merken
+p Einige Verben haben im subjonctif eigene Formen: être → que je sois, que tu sois, qu'il soit, que nous soyons, que vous soyez, qu'ils soient. avoir → que j'aie, que tu aies, qu'il ait, que nous ayons …
+p Weitere: aller → que j'aille, faire → que je fasse, pouvoir → que je puisse, savoir → que je sache, vouloir → que je veuille.
+e Il faut que tu sois à l'heure. = Du musst pünktlich sein.
+e Je veux que tu fasses attention. = Ich will, dass du aufpasst.
+- que je sois = dass ich sei | Il faut que je sois à l'heure. = Ich muss pünktlich sein.
+- qu'il soit = dass er sei | Je veux qu'il soit heureux. = Ich will, dass er glücklich ist.
+- que nous soyons = dass wir seien | Il faut que nous soyons prudents. = Wir müssen vorsichtig sein.
+- que j'aie = dass ich habe | Il faut que j'aie mon passeport. = Ich muss meinen Pass haben.
+- que tu aies = dass du habest | Je veux que tu aies du courage. = Ich will, dass du Mut hast.
+
+= Unregelmäßige Formen (2/2)
+- que je fasse = dass ich mache | Il faut que je fasse mes devoirs. = Ich muss meine Hausaufgaben machen.
+- que j'aille = dass ich gehe | Il faut que j'aille chez le médecin. = Ich muss zum Arzt gehen.
+- que je puisse = dass ich könne | Je ne pense pas que je puisse venir. = Ich glaube nicht, dass ich kommen kann.
+- que je sache = dass ich wisse | Il faut que je sache la vérité. = Ich muss die Wahrheit wissen.
+- qu'ils veuillent = dass sie wollen | Je doute qu'ils veuillent venir. = Ich bezweifle, dass sie kommen wollen.
+f Il faut que tu ___ à l'heure. | sois | sois; es; seras; serais | Du musst pünktlich sein. | être im subjonctif: que tu sois.
+f Il faut qu'il ___ attention. | fasse | fasse; fait; fera; ferait | Er muss aufpassen. | faire im subjonctif: qu'il fasse.
+
+= Wann subjonctif? (1/2)
+? Auslöser des subjonctif
+p Der subjonctif folgt auf Wille (vouloir que, souhaiter que), Notwendigkeit (il faut que, il est nécessaire que), Gefühle (être content que, avoir peur que) und Zweifel (je ne pense pas que, il est possible que).
+p Nach Meinungsverben in der Bejahung steht der indicatif: Je pense qu'il vient. In der Verneinung subjonctif: Je ne pense pas qu'il vienne.
+e Je suis content que tu viennes. = Ich freue mich, dass du kommst.
+e Je ne crois pas qu'il soit malade. = Ich glaube nicht, dass er krank ist.
+- je veux que = ich will, dass | Je veux que tu viennes. = Ich will, dass du kommst.
+- je souhaite que = ich wünsche, dass | Je souhaite que tu réussisses. = Ich wünsche mir, dass du Erfolg hast.
+- il est possible que = es ist möglich, dass | Il est possible qu'il pleuve. = Es ist möglich, dass es regnet.
+- je suis content que = ich freue mich, dass | Je suis content que tu sois là. = Ich freue mich, dass du da bist.
+
+= Wann subjonctif? (2/2)
+- j'ai peur que = ich fürchte, dass | J'ai peur qu'il soit malade. = Ich fürchte, dass er krank ist.
+- je doute que = ich bezweifle, dass | Je doute qu'il vienne. = Ich bezweifle, dass er kommt.
+- je ne pense pas que = ich glaube nicht, dass | Je ne pense pas qu'il pleuve. = Ich glaube nicht, dass es regnet.
+- il est important que = es ist wichtig, dass | Il est important que tu dormes. = Es ist wichtig, dass du schläfst.
+f Je suis content que tu ___. | viennes | viennes; viens; viendras; viendrais | Ich freue mich, dass du kommst. | Gefühl (content que) → subjonctif.
+f Je pense qu'il ___ demain. | vient | vient; vienne; viendrait; venait | Ich glaube, dass er morgen kommt. | penser in der Bejahung → indicatif.

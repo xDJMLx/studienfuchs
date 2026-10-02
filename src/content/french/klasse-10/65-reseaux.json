@@ -1,0 +1,204 @@
+{
+  "id": "f10-reseaux",
+  "title": "Les réseaux sociaux",
+  "description": "Soziale Netzwerke, Identität im Netz, Cybermobbing, Medienkompetenz",
+  "grade": 10,
+  "subject": "french",
+  "order": 65,
+  "lessons": [
+    {
+      "id": "f10-reseaux-l1",
+      "title": "Soziale Netzwerke",
+      "items": [
+        {
+          "front": "le réseau social",
+          "back": "das soziale Netzwerk",
+          "example": "Beaucoup de jeunes utilisent les réseaux sociaux.",
+          "exampleDe": "Viele Jugendliche nutzen soziale Netzwerke."
+        },
+        {
+          "front": "le profil",
+          "back": "das Profil",
+          "example": "Elle crée un profil sur le réseau.",
+          "exampleDe": "Sie erstellt ein Profil im Netzwerk."
+        },
+        {
+          "front": "publier",
+          "back": "veröffentlichen, posten",
+          "example": "Il publie une photo tous les jours.",
+          "exampleDe": "Er postet jeden Tag ein Foto."
+        },
+        {
+          "front": "partager",
+          "back": "teilen",
+          "example": "Je partage souvent des vidéos.",
+          "exampleDe": "Ich teile oft Videos."
+        },
+        {
+          "front": "suivre",
+          "back": "folgen",
+          "example": "Elle suit plusieurs chanteurs sur le réseau.",
+          "exampleDe": "Sie folgt mehreren Sängern im Netzwerk."
+        },
+        {
+          "front": "l'abonné (m) / l'abonnée (f)",
+          "back": "der Follower / die Followerin",
+          "example": "Il a mille abonnés.",
+          "exampleDe": "Er hat tausend Follower."
+        }
+      ]
+    },
+    {
+      "id": "f10-reseaux-l2",
+      "title": "Identität und Image",
+      "items": [
+        {
+          "front": "l'image (f)",
+          "back": "das Bild, das Image",
+          "example": "Il soigne son image sur internet.",
+          "exampleDe": "Er pflegt sein Image im Internet."
+        },
+        {
+          "front": "l'identité (f)",
+          "back": "die Identität",
+          "example": "Chacun construit son identité en ligne.",
+          "exampleDe": "Jeder baut seine Identität online auf."
+        },
+        {
+          "front": "en ligne",
+          "back": "online",
+          "example": "Il passe beaucoup de temps en ligne.",
+          "exampleDe": "Er verbringt viel Zeit online."
+        },
+        {
+          "front": "le like",
+          "back": "das Like, der Daumen nach oben",
+          "example": "Elle compte ses likes.",
+          "exampleDe": "Sie zählt ihre Likes."
+        },
+        {
+          "front": "comparer",
+          "back": "vergleichen",
+          "example": "Il se compare aux autres sur internet.",
+          "exampleDe": "Er vergleicht sich im Internet mit anderen."
+        },
+        {
+          "front": "la pression sociale",
+          "back": "der gesellschaftliche Druck",
+          "example": "Les réseaux augmentent la pression sociale.",
+          "exampleDe": "Die Netzwerke verstärken den gesellschaftlichen Druck."
+        }
+      ],
+      "explanation": {
+        "title": "Bedingungen und Folgen",
+        "paragraphs": [
+          "Mit « si » + présent und futur simple sprichst du über mögliche Folgen: Si tu publies cette photo, tout le monde la verra.",
+          "Mit « à moins que » + subjonctif drückst du eine Ausnahme aus: Je ne publie rien, à moins que mes parents soient d'accord."
+        ],
+        "examples": [
+          {
+            "fr": "Si tu publies cette photo, tout le monde la verra.",
+            "de": "Wenn du dieses Foto postest, wird es jeder sehen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Si tu publies cette photo, tout le monde la ___.",
+          "answer": "verra",
+          "options": [
+            "verra",
+            "voit",
+            "verrait"
+          ],
+          "translation": "Wenn du dieses Foto postest, wird es jeder sehen.",
+          "why": "Nach „si“ + présent steht im Hauptsatz das futur simple."
+        }
+      ]
+    },
+    {
+      "id": "f10-reseaux-l3",
+      "title": "Cybermobbing",
+      "items": [
+        {
+          "front": "le harcèlement",
+          "back": "das Mobbing",
+          "example": "Le harcèlement en ligne est un vrai problème.",
+          "exampleDe": "Mobbing im Internet ist ein echtes Problem."
+        },
+        {
+          "front": "harceler",
+          "back": "mobben, belästigen",
+          "example": "On ne doit pas harceler les autres.",
+          "exampleDe": "Man darf andere nicht mobben."
+        },
+        {
+          "front": "la victime",
+          "back": "das Opfer",
+          "example": "La victime n'ose pas en parler.",
+          "exampleDe": "Das Opfer traut sich nicht, darüber zu sprechen."
+        },
+        {
+          "front": "signaler",
+          "back": "melden",
+          "example": "Il faut signaler les messages méchants.",
+          "exampleDe": "Man muss gemeine Nachrichten melden."
+        },
+        {
+          "front": "en parler",
+          "back": "darüber sprechen",
+          "example": "Il vaut mieux en parler à un adulte.",
+          "exampleDe": "Es ist besser, mit einem Erwachsenen darüber zu sprechen."
+        },
+        {
+          "front": "se moquer de",
+          "back": "sich lustig machen über",
+          "example": "Ils se moquent de lui en ligne.",
+          "exampleDe": "Sie machen sich online über ihn lustig."
+        }
+      ]
+    },
+    {
+      "id": "f10-reseaux-l4",
+      "title": "Medienkompetenz",
+      "items": [
+        {
+          "front": "une fausse information",
+          "back": "eine Falschmeldung",
+          "example": "Il y a beaucoup de fausses informations sur internet.",
+          "exampleDe": "Im Internet gibt es viele Falschmeldungen."
+        },
+        {
+          "front": "vérifier",
+          "back": "überprüfen",
+          "example": "Vérifie toujours la source.",
+          "exampleDe": "Überprüfe immer die Quelle."
+        },
+        {
+          "front": "la source",
+          "back": "die Quelle",
+          "example": "Quelle est la source de cette information ?",
+          "exampleDe": "Was ist die Quelle dieser Information?"
+        },
+        {
+          "front": "se méfier de",
+          "back": "misstrauisch sein gegenüber",
+          "example": "Il faut se méfier des inconnus en ligne.",
+          "exampleDe": "Man muss gegenüber Unbekannten im Netz misstrauisch sein."
+        },
+        {
+          "front": "critique",
+          "back": "kritisch",
+          "example": "Il faut garder un esprit critique.",
+          "exampleDe": "Man muss kritisch bleiben."
+        },
+        {
+          "front": "protéger",
+          "back": "schützen",
+          "example": "Protège tes données personnelles !",
+          "exampleDe": "Schütze deine persönlichen Daten!"
+        }
+      ]
+    }
+  ]
+}

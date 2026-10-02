@@ -1,0 +1,258 @@
+{
+  "id": "f10-u6",
+  "title": "Rapporter",
+  "description": "Indirekte Rede in der Vergangenheit, Zeitenfolge",
+  "grade": 10,
+  "subject": "french",
+  "order": 60,
+  "lessons": [
+    {
+      "id": "f10-u6-l1",
+      "title": "Indirekte Rede in der Vergangenheit (1/2)",
+      "items": [
+        {
+          "front": "il a dit qu'il était fatigué",
+          "back": "er sagte, er sei müde",
+          "example": "Il a dit qu'il était fatigué.",
+          "exampleDe": "Er sagte, er sei müde."
+        },
+        {
+          "front": "elle a dit qu'elle viendrait",
+          "back": "sie sagte, sie werde kommen",
+          "example": "Elle a dit qu'elle viendrait demain.",
+          "exampleDe": "Sie sagte, sie werde morgen kommen."
+        },
+        {
+          "front": "ils ont dit qu'ils avaient mangé",
+          "back": "sie sagten, sie hätten gegessen",
+          "example": "Ils ont dit qu'ils avaient déjà mangé.",
+          "exampleDe": "Sie sagten, sie hätten schon gegessen."
+        },
+        {
+          "front": "il a demandé si je venais",
+          "back": "er fragte, ob ich käme",
+          "example": "Il a demandé si je venais avec eux.",
+          "exampleDe": "Er fragte, ob ich mit ihnen käme."
+        }
+      ],
+      "explanation": {
+        "title": "Concordance des temps",
+        "paragraphs": [
+          "Steht das einleitende Verb in einer Vergangenheit (il a dit que …), verschieben sich die Zeiten im Nebensatz: présent → imparfait, passé composé → plus-que-parfait, futur simple → conditionnel présent, futur antérieur → conditionnel passé.",
+          "Auch Zeitangaben ändern sich: aujourd'hui → ce jour-là, hier → la veille, demain → le lendemain, maintenant → alors."
+        ],
+        "examples": [
+          {
+            "fr": "« Je suis fatigué. » → Il a dit qu'il était fatigué.",
+            "de": "Er sagte, er sei müde."
+          },
+          {
+            "fr": "« Je viendrai demain. » → Elle a dit qu'elle viendrait le lendemain.",
+            "de": "Sie sagte, sie werde am nächsten Tag kommen."
+          }
+        ],
+        "tip": "Eselsbrücke: Alles rutscht eine Zeitstufe nach hinten."
+      }
+    },
+    {
+      "id": "f10-u6-l2",
+      "title": "Indirekte Rede in der Vergangenheit (2/2)",
+      "items": [
+        {
+          "front": "ce jour-là",
+          "back": "an diesem Tag",
+          "example": "Ce jour-là, il pleuvait.",
+          "exampleDe": "An diesem Tag regnete es."
+        },
+        {
+          "front": "la veille",
+          "back": "am Vortag",
+          "example": "La veille, il avait neigé.",
+          "exampleDe": "Am Vortag hatte es geschneit."
+        },
+        {
+          "front": "le lendemain",
+          "back": "am nächsten Tag",
+          "example": "Le lendemain, nous sommes partis.",
+          "exampleDe": "Am nächsten Tag sind wir abgereist."
+        },
+        {
+          "front": "alors",
+          "back": "damals / dann",
+          "example": "Il pleuvait, alors nous sommes restés.",
+          "exampleDe": "Es regnete, also blieben wir."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Elle a dit qu'elle ___ le lendemain.",
+          "answer": "viendrait",
+          "options": [
+            "viendrait",
+            "viendra",
+            "vienne",
+            "viendrais"
+          ],
+          "translation": "Sie sagte, sie werde am nächsten Tag kommen.",
+          "why": "futur simple wird nach Vergangenheit zum conditionnel présent."
+        },
+        {
+          "sentence": "Il a dit qu'il ___ fatigué.",
+          "answer": "était",
+          "options": [
+            "était",
+            "est",
+            "serait",
+            "sera"
+          ],
+          "translation": "Er sagte, er sei müde.",
+          "why": "présent wird zum imparfait."
+        }
+      ]
+    },
+    {
+      "id": "f10-u6-l3",
+      "title": "Berichten und zitieren (1/2)",
+      "items": [
+        {
+          "front": "annoncer que",
+          "back": "ankündigen, dass",
+          "example": "Le ministre annonce que l'école ferme.",
+          "exampleDe": "Der Minister kündigt an, dass die Schule schließt."
+        },
+        {
+          "front": "prétendre que",
+          "back": "behaupten, dass",
+          "example": "Il prétend qu'il ne savait rien.",
+          "exampleDe": "Er behauptet, dass er nichts wusste."
+        },
+        {
+          "front": "reconnaître que",
+          "back": "zugeben, dass",
+          "example": "Je reconnais que j'ai tort.",
+          "exampleDe": "Ich gebe zu, dass ich Unrecht habe."
+        },
+        {
+          "front": "avouer que",
+          "back": "gestehen, dass",
+          "example": "Il avoue qu'il a menti.",
+          "exampleDe": "Er gesteht, dass er gelogen hat."
+        },
+        {
+          "front": "préciser que",
+          "back": "präzisieren, dass",
+          "example": "Elle précise que c'est gratuit.",
+          "exampleDe": "Sie präzisiert, dass es kostenlos ist."
+        }
+      ]
+    },
+    {
+      "id": "f10-u6-l4",
+      "title": "Berichten und zitieren (2/2)",
+      "items": [
+        {
+          "front": "conseiller de",
+          "back": "raten zu",
+          "example": "Je te conseille de lire ce livre.",
+          "exampleDe": "Ich rate dir, dieses Buch zu lesen."
+        },
+        {
+          "front": "interdire de",
+          "back": "verbieten zu",
+          "example": "On interdit de fumer ici.",
+          "exampleDe": "Es ist verboten, hier zu rauchen."
+        },
+        {
+          "front": "promettre de",
+          "back": "versprechen zu",
+          "example": "Il promet de revenir.",
+          "exampleDe": "Er verspricht zurückzukommen."
+        },
+        {
+          "front": "selon le journal",
+          "back": "laut der Zeitung",
+          "example": "Selon le journal, il va neiger.",
+          "exampleDe": "Laut der Zeitung wird es schneien."
+        },
+        {
+          "front": "d'après lui",
+          "back": "ihm zufolge",
+          "example": "D'après lui, c'est faux.",
+          "exampleDe": "Ihm zufolge ist das falsch."
+        }
+      ]
+    },
+    {
+      "id": "f10-u6-l5",
+      "title": "Presse und Nachrichten (1/2)",
+      "items": [
+        {
+          "front": "un article",
+          "back": "ein Artikel",
+          "example": "J'ai lu un article intéressant.",
+          "exampleDe": "Ich habe einen interessanten Artikel gelesen."
+        },
+        {
+          "front": "un titre",
+          "back": "eine Überschrift",
+          "example": "Le titre est très long.",
+          "exampleDe": "Die Überschrift ist sehr lang."
+        },
+        {
+          "front": "un journaliste",
+          "back": "ein Journalist",
+          "example": "Ce journaliste écrit sur la politique.",
+          "exampleDe": "Dieser Journalist schreibt über Politik."
+        },
+        {
+          "front": "une enquête",
+          "back": "eine Untersuchung / Umfrage",
+          "example": "Une enquête montre que les jeunes lisent moins.",
+          "exampleDe": "Eine Umfrage zeigt, dass Jugendliche weniger lesen."
+        },
+        {
+          "front": "un reportage",
+          "back": "eine Reportage",
+          "example": "J'ai vu un reportage sur la mer.",
+          "exampleDe": "Ich habe eine Reportage über das Meer gesehen."
+        }
+      ]
+    },
+    {
+      "id": "f10-u6-l6",
+      "title": "Presse und Nachrichten (2/2)",
+      "items": [
+        {
+          "front": "les actualités",
+          "back": "die aktuellen Nachrichten",
+          "example": "Je suis les actualités chaque jour.",
+          "exampleDe": "Ich verfolge täglich die aktuellen Nachrichten."
+        },
+        {
+          "front": "la une",
+          "back": "die Titelseite",
+          "example": "Cette photo est à la une.",
+          "exampleDe": "Dieses Foto ist auf der Titelseite."
+        },
+        {
+          "front": "une fausse information",
+          "back": "eine Falschmeldung",
+          "example": "Il ne faut pas partager une fausse information.",
+          "exampleDe": "Man darf keine Falschmeldung weiterverbreiten."
+        },
+        {
+          "front": "vérifier",
+          "back": "überprüfen",
+          "example": "Il faut vérifier les sources.",
+          "exampleDe": "Man muss die Quellen überprüfen."
+        },
+        {
+          "front": "une source",
+          "back": "eine Quelle",
+          "example": "Quelle est ta source ?",
+          "exampleDe": "Was ist deine Quelle?"
+        }
+      ]
+    }
+  ]
+}

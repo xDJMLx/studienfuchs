@@ -1,0 +1,209 @@
+{
+  "id": "f10-env",
+  "title": "Environnement et avenir",
+  "description": "Klima, Lösungen, Konsum, Debatte",
+  "grade": 10,
+  "subject": "french",
+  "order": 15,
+  "lessons": [
+    {
+      "id": "f10-env-l1",
+      "title": "Klimawandel",
+      "items": [
+        {
+          "front": "le changement climatique",
+          "back": "der Klimawandel",
+          "example": "Le changement climatique est un défi mondial.",
+          "exampleDe": "Der Klimawandel ist eine weltweite Herausforderung."
+        },
+        {
+          "front": "la planète",
+          "back": "der Planet",
+          "example": "Nous n'avons qu'une seule planète.",
+          "exampleDe": "Wir haben nur einen Planeten."
+        },
+        {
+          "front": "la canicule",
+          "back": "die Hitzewelle",
+          "example": "Pendant la canicule, il fait très chaud.",
+          "exampleDe": "Während der Hitzewelle ist es sehr heiß."
+        },
+        {
+          "front": "la sécheresse",
+          "back": "die Dürre",
+          "example": "La sécheresse détruit les récoltes.",
+          "exampleDe": "Die Dürre zerstört die Ernte."
+        },
+        {
+          "front": "les inondations",
+          "back": "die Überschwemmungen",
+          "example": "Les inondations ont détruit des maisons.",
+          "exampleDe": "Die Überschwemmungen haben Häuser zerstört."
+        },
+        {
+          "front": "la hausse des températures",
+          "back": "der Temperaturanstieg",
+          "example": "La hausse des températures fait fondre la glace.",
+          "exampleDe": "Der Temperaturanstieg lässt das Eis schmelzen."
+        },
+        {
+          "front": "fondre",
+          "back": "schmelzen",
+          "example": "La neige commence à fondre.",
+          "exampleDe": "Der Schnee beginnt zu schmelzen."
+        }
+      ]
+    },
+    {
+      "id": "f10-env-l2",
+      "title": "Lösungen",
+      "items": [
+        {
+          "front": "les transports en commun",
+          "back": "der öffentliche Nahverkehr",
+          "example": "Je prends les transports en commun.",
+          "exampleDe": "Ich nutze die öffentlichen Verkehrsmittel."
+        },
+        {
+          "front": "le covoiturage",
+          "back": "die Fahrgemeinschaft",
+          "example": "Le covoiturage réduit la pollution.",
+          "exampleDe": "Fahrgemeinschaften verringern die Verschmutzung."
+        },
+        {
+          "front": "l'énergie solaire",
+          "back": "die Sonnenenergie",
+          "example": "L'énergie solaire est propre.",
+          "exampleDe": "Sonnenenergie ist sauber."
+        },
+        {
+          "front": "l'énergie éolienne",
+          "back": "die Windenergie",
+          "example": "L'énergie éolienne vient du vent.",
+          "exampleDe": "Windenergie kommt vom Wind."
+        },
+        {
+          "front": "trier les déchets",
+          "back": "den Müll trennen",
+          "example": "Nous trions les déchets à la maison.",
+          "exampleDe": "Wir trennen zu Hause den Müll."
+        },
+        {
+          "front": "réduire",
+          "back": "reduzieren",
+          "example": "Il faut réduire la consommation.",
+          "exampleDe": "Man muss den Verbrauch reduzieren."
+        }
+      ],
+      "explanation": {
+        "title": "Was können wir tun?",
+        "paragraphs": [
+          "Vorschläge machst du mit „il faut que + subjonctif“ oder „il faut + Infinitiv“: Il faut réduire les déchets. Il faut que nous prenions le vélo.",
+          "Mit „pour que“ nennst du ein Ziel: Pour que la planète survive, nous devons changer."
+        ],
+        "examples": [
+          {
+            "fr": "Il faut trier les déchets.",
+            "de": "Man muss den Müll trennen."
+          },
+          {
+            "fr": "Il faut que nous prenions le vélo.",
+            "de": "Wir müssen das Fahrrad nehmen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Il faut que nous ___ le vélo.",
+          "answer": "prenions",
+          "options": [
+            "prenions",
+            "prenons",
+            "prendrons",
+            "prendrions"
+          ],
+          "translation": "Wir müssen das Fahrrad nehmen.",
+          "why": "il faut que + subjonctif (nous prenions)."
+        }
+      ]
+    },
+    {
+      "id": "f10-env-l3",
+      "title": "Konsum",
+      "items": [
+        {
+          "front": "la consommation",
+          "back": "der Konsum, der Verbrauch",
+          "example": "La consommation d'énergie augmente.",
+          "exampleDe": "Der Energieverbrauch steigt."
+        },
+        {
+          "front": "le gaspillage alimentaire",
+          "back": "die Lebensmittelverschwendung",
+          "example": "Le gaspillage alimentaire est un problème.",
+          "exampleDe": "Lebensmittelverschwendung ist ein Problem."
+        },
+        {
+          "front": "l'agriculture biologique",
+          "back": "der ökologische Landbau",
+          "example": "L'agriculture biologique respecte la nature.",
+          "exampleDe": "Der ökologische Landbau respektiert die Natur."
+        },
+        {
+          "front": "acheter local",
+          "back": "regional einkaufen",
+          "example": "Je préfère acheter local.",
+          "exampleDe": "Ich kaufe lieber regional ein."
+        },
+        {
+          "front": "un emballage",
+          "back": "eine Verpackung",
+          "example": "Cet emballage est en plastique.",
+          "exampleDe": "Diese Verpackung ist aus Plastik."
+        },
+        {
+          "front": "le plastique",
+          "back": "das Plastik",
+          "example": "Le plastique pollue les mers.",
+          "exampleDe": "Plastik verschmutzt die Meere."
+        }
+      ]
+    },
+    {
+      "id": "f10-env-l4",
+      "title": "Darüber diskutieren",
+      "items": [
+        {
+          "front": "à mon avis, il est urgent d'agir",
+          "back": "meiner Meinung nach ist Handeln dringend",
+          "example": "À mon avis, il est urgent d'agir.",
+          "exampleDe": "Meiner Meinung nach ist es dringend zu handeln."
+        },
+        {
+          "front": "chacun doit faire un effort",
+          "back": "jeder muss sich anstrengen",
+          "example": "Chacun doit faire un effort.",
+          "exampleDe": "Jeder muss sich anstrengen."
+        },
+        {
+          "front": "ce n'est pas seulement l'affaire des gouvernements",
+          "back": "das ist nicht nur Sache der Regierungen",
+          "example": "Ce n'est pas seulement l'affaire des gouvernements.",
+          "exampleDe": "Das ist nicht nur Sache der Regierungen."
+        },
+        {
+          "front": "les petits gestes comptent",
+          "back": "kleine Gesten zählen",
+          "example": "Les petits gestes comptent aussi.",
+          "exampleDe": "Auch kleine Gesten zählen."
+        },
+        {
+          "front": "il est trop tard pour hésiter",
+          "back": "es ist zu spät zum Zögern",
+          "example": "Il est trop tard pour hésiter.",
+          "exampleDe": "Es ist zu spät zum Zögern."
+        }
+      ]
+    }
+  ]
+}

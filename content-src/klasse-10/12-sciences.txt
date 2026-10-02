@@ -1,0 +1,43 @@
+id: f10-sciences
+title: Sciences et technologie
+desc: Forschung, Erfindungen, künstliche Intelligenz, Chancen und Risiken
+order: 12
+
+= Forschung und Erfindungen
+- la science = die Wissenschaft | La science change notre vie. = Die Wissenschaft verändert unser Leben.
+- le chercheur / la chercheuse = der Forscher / die Forscherin | La chercheuse présente ses résultats. = Die Forscherin stellt ihre Ergebnisse vor.
+- l'invention (f) = die Erfindung | Internet est une invention importante. = Das Internet ist eine wichtige Erfindung.
+- inventer = erfinden | Qui a inventé le téléphone ? = Wer hat das Telefon erfunden?
+- la découverte = die Entdeckung | Cette découverte a changé la médecine. = Diese Entdeckung hat die Medizin verändert.
+- l'expérience (f) = das Experiment | Nous faisons une expérience en physique. = Wir machen in Physik ein Experiment.
+- le laboratoire = das Labor | Les chercheurs travaillent dans un laboratoire. = Die Forscher arbeiten in einem Labor.
+
+= Digitale Welt
+? Fachwörter aus der Informatik
+p Viele Wörter aus der Technik sind englisch geprägt: un ordinateur, un site web, un mot de passe, télécharger. Die französischen Wörter findest du oft im Plural: les données (die Daten).
+p Verben mit -er folgen dem gewohnten Muster: télécharger → je télécharge, nous téléchargeons.
+e Je télécharge une application. = Ich lade eine App herunter.
+e Il faut protéger ses données personnelles. = Man muss seine persönlichen Daten schützen.
+- l'ordinateur (m) = der Computer | Mon ordinateur est très rapide. = Mein Computer ist sehr schnell.
+- le logiciel = die Software, das Programm | Ce logiciel est gratuit. = Diese Software ist kostenlos.
+- télécharger = herunterladen | Il télécharge un film. = Er lädt einen Film herunter.
+- le mot de passe = das Passwort | N'oublie pas ton mot de passe. = Vergiss dein Passwort nicht.
+- les données (f pl) = die Daten | Il faut protéger ses données personnelles. = Man muss seine persönlichen Daten schützen.
+- le réseau = das Netz, das Netzwerk | Le réseau ne marche pas ici. = Das Netz funktioniert hier nicht.
+f Il ___ une nouvelle application. | télécharge | télécharge; téléchargeons; télécharger | Er lädt eine neue App herunter. | Zu „il“ gehört die Form ohne -ons.
+
+= Künstliche Intelligenz
+- l'intelligence artificielle (f) = die künstliche Intelligenz | L'intelligence artificielle progresse vite. = Die künstliche Intelligenz macht schnelle Fortschritte.
+- le robot = der Roboter | Un robot aide les malades. = Ein Roboter hilft den Kranken.
+- automatique = automatisch | Cette machine est automatique. = Diese Maschine ist automatisch.
+- remplacer = ersetzen | Les machines remplacent certains métiers. = Die Maschinen ersetzen manche Berufe.
+- apprendre à une machine = einer Maschine etwas beibringen | On apprend à la machine à reconnaître des images. = Man bringt der Maschine bei, Bilder zu erkennen.
+- fiable = zuverlässig | Cette information n'est pas fiable. = Diese Information ist nicht zuverlässig.
+
+= Chancen und Risiken
+- l'avantage (m) = der Vorteil | Un avantage de l'internet est la rapidité. = Ein Vorteil des Internets ist die Schnelligkeit.
+- l'inconvénient (m) = der Nachteil | L'inconvénient, c'est le temps passé devant l'écran. = Der Nachteil ist die Zeit vor dem Bildschirm.
+- le danger = die Gefahr | Il y a un danger pour la vie privée. = Es gibt eine Gefahr für die Privatsphäre.
+- la vie privée = die Privatsphäre | Il faut respecter la vie privée. = Man muss die Privatsphäre respektieren.
+- dépendre de = abhängen von | Beaucoup de gens dépendent de leur téléphone. = Viele Menschen hängen von ihrem Handy ab.
+- améliorer = verbessern | La technologie améliore la vie des malades. = Die Technik verbessert das Leben der Kranken.

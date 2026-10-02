@@ -1,0 +1,48 @@
+id: f9-france
+title: La France et l'Allemagne
+desc: Länder, Sehenswürdigkeiten, Austausch, Unterschiede
+order: 25
+
+= Länder und Nationalitäten
+? Wer kommt woher?
+p Nationalitäten werden im Französischen kleingeschrieben, wenn sie Adjektive sind (un ami allemand), aber großgeschrieben, wenn sie Personen bezeichnen (un Allemand, une Allemande).
+p Das Femininum bekommt meist ein -e: allemand → allemande, français → française, italien → italienne.
+e C'est une amie allemande. = Das ist eine deutsche Freundin.
+e Les Français aiment le fromage. = Die Franzosen mögen Käse.
+- la France = Frankreich | La France est un grand pays. = Frankreich ist ein großes Land.
+- l'Allemagne = Deutschland | L'Allemagne est notre pays voisin. = Deutschland ist unser Nachbarland.
+- un Français / une Française = ein Franzose / eine Französin | Mon correspondant est un Français sympa. = Mein Austauschpartner ist ein netter Franzose.
+- un Allemand / une Allemande = ein Deutscher / eine Deutsche | Léa est une Allemande qui habite à Paris. = Léa ist eine Deutsche, die in Paris wohnt.
+- européen = europäisch | C'est un pays européen. = Das ist ein europäisches Land.
+- le pays voisin = das Nachbarland | La France est un pays voisin. = Frankreich ist ein Nachbarland.
+
+= Sehenswürdigkeiten
+- la tour Eiffel = der Eiffelturm | La tour Eiffel est à Paris. = Der Eiffelturm steht in Paris.
+- le Louvre = der Louvre (Museum) | Nous visitons le Louvre. = Wir besichtigen den Louvre.
+- l'Arc de triomphe = der Triumphbogen | L'Arc de triomphe est sur les Champs-Élysées. = Der Triumphbogen steht an den Champs-Élysées.
+- le château de Versailles = das Schloss Versailles | Le château de Versailles est immense. = Das Schloss Versailles ist riesig.
+- la Côte d'Azur = die Côte d'Azur | En été, la Côte d'Azur est pleine de touristes. = Im Sommer ist die Côte d'Azur voller Touristen.
+- les Alpes = die Alpen | Nous skions dans les Alpes. = Wir fahren in den Alpen Ski.
+- la Seine = die Seine | La Seine traverse Paris. = Die Seine fließt durch Paris.
+
+= Schüleraustausch
+- un échange scolaire = ein Schüleraustausch | J'ai fait un échange scolaire. = Ich habe einen Schüleraustausch gemacht.
+- la famille d'accueil = die Gastfamilie | Ma famille d'accueil est très gentille. = Meine Gastfamilie ist sehr nett.
+- un correspondant = ein Brieffreund / Austauschpartner | Mon correspondant habite à Lyon. = Mein Austauschpartner wohnt in Lyon.
+- le jumelage = die Städtepartnerschaft | Notre ville a un jumelage avec Lyon. = Unsere Stadt hat eine Partnerschaft mit Lyon.
+- l'amitié franco-allemande = die deutsch-französische Freundschaft | L'amitié franco-allemande est importante. = Die deutsch-französische Freundschaft ist wichtig.
+- se faire des amis = Freunde finden | Il est facile de se faire des amis. = Es ist leicht, Freunde zu finden.
+
+= Alltag im Vergleich
+? Unterschiede beschreiben
+p Mit „être différent de“, „ressembler à“ und „contrairement à“ vergleichst du. Beispiel: Contrairement à l'Allemagne, les repas sont plus longs en France.
+p „Alors que“ und „tandis que“ stellen Gegensätze gegenüber.
+e Les repas sont plus longs en France. = Die Mahlzeiten sind in Frankreich länger.
+e C'est différent de chez nous. = Das ist anders als bei uns.
+- être différent de = anders sein als | La vie ici est différente de chez nous. = Das Leben hier ist anders als bei uns.
+- ressembler à = ähneln | Il ressemble à son père. = Er sieht seinem Vater ähnlich.
+- contrairement à = im Gegensatz zu | Contrairement à moi, il aime le sport. = Im Gegensatz zu mir mag er Sport.
+- l'habitude = die Gewohnheit | C'est une bonne habitude. = Das ist eine gute Gewohnheit.
+- le repas = die Mahlzeit | Le repas dure deux heures. = Das Essen dauert zwei Stunden.
+- les horaires = die Zeiten, Öffnungszeiten | Les horaires sont différents. = Die Zeiten sind anders.
+f C'est ___ chez nous. | différent de | différent de; pareil à; ressembler; contrairement | Das ist anders als bei uns. | être différent de = anders sein als.

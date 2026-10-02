@@ -1,0 +1,61 @@
+id: f10-u2
+title: Dire ce qu'on pense
+desc: Indirekte Rede, Fragen, Meinung
+order: 20
+
+= Indirekte Rede (Gegenwart) (1/2)
+? Aussagen wiedergeben
+p Aussage: Il dit que + Satz. Frage mit Ja/Nein: Il demande si + Satz. Befehl: Il dit de + Infinitiv.
+p Wenn das einleitende Verb im Präsens steht, ändern sich die Zeiten nicht, nur Pronomen und Orts-/Zeitangaben passen sich an.
+e Paul dit : « Je suis fatigué. » → Paul dit qu'il est fatigué. = Paul sagt, dass er müde ist.
+e Elle demande : « Tu viens ? » → Elle demande si tu viens. = Sie fragt, ob du kommst.
+- il dit que = er sagt, dass | Il dit que tout va bien. = Er sagt, dass alles in Ordnung ist.
+- il demande si = er fragt, ob | Il demande si tu viens. = Er fragt, ob du kommst.
+- elle explique que = sie erklärt, dass | Elle explique que c'est difficile. = Sie erklärt, dass es schwierig ist.
+- ils répondent que = sie antworten, dass | Ils répondent qu'ils sont prêts. = Sie antworten, dass sie bereit sind.
+
+= Indirekte Rede (Gegenwart) (2/2)
+- il dit de partir = er sagt, man solle gehen | Le professeur dit de partir. = Der Lehrer sagt, wir sollen gehen.
+- elle raconte que = sie erzählt, dass | Elle raconte qu'elle a voyagé. = Sie erzählt, dass sie gereist ist.
+- il affirme que = er behauptet, dass | Il affirme que c'est vrai. = Er behauptet, dass es wahr ist.
+- elle ajoute que = sie fügt hinzu, dass | Elle ajoute que c'est urgent. = Sie fügt hinzu, dass es dringend ist.
+f Elle demande ___ tu viens. | si | si; que; qui; où | Sie fragt, ob du kommst. | Entscheidungsfrage → si.
+f Paul dit ___ il est fatigué. | qu' | qu'; si; de; que | Paul sagt, dass er müde ist. | que vor Vokal → qu'.
+
+= Fragen stellen (1/2)
+? Drei Arten zu fragen
+p Umgangssprache: Intonation (Tu viens ?). Neutral: est-ce que (Est-ce que tu viens ?). Formell: Inversion (Viens-tu ?).
+p Fragewörter: qui, que/qu'est-ce que, où, quand, comment, pourquoi, combien, quel(le).
+e Où habites-tu ? = Wo wohnst du?
+e Pourquoi est-ce qu'il part ? = Warum geht er?
+- est-ce que = (Einleitung einer Ja/Nein-Frage) | Est-ce que tu viens ce soir ? = Kommst du heute Abend?
+- où habites-tu ? = wo wohnst du? | Salut ! Où habites-tu ? = Hallo! Wo wohnst du?
+- pourquoi = warum | Pourquoi est-ce qu'il part ? = Warum geht er?
+- comment = wie | Comment tu t'appelles ? = Wie heißt du?
+- combien = wie viel | Combien de frères as-tu ? = Wie viele Brüder hast du?
+
+= Fragen stellen (2/2)
+- quand = wann | Quand est-ce que tu pars ? = Wann fährst du ab?
+- qui = wer | Qui est-ce ? = Wer ist das?
+- qu'est-ce que = was (Objekt) | Qu'est-ce que tu veux ? = Was willst du?
+- lequel = welcher (von mehreren) | J'ai deux frères. Lequel est le plus grand ? = Ich habe zwei Brüder. Welcher ist der größere?
+- à quoi = woran / wozu | À quoi sert cet outil ? = Wozu dient dieses Werkzeug?
+
+= Meinung äußern (1/2)
+? Zustimmen und widersprechen
+p Meinung: à mon avis, selon moi, je pense que, je trouve que. Zustimmung: je suis d'accord, c'est vrai. Widerspruch: je ne suis pas d'accord, je ne partage pas cet avis.
+p Auch für Argumentation: d'abord, de plus, en outre, enfin, en conclusion.
+e À mon avis, c'est une bonne idée. = Meiner Meinung nach ist das eine gute Idee.
+e Je ne suis pas d'accord avec toi. = Ich bin nicht deiner Meinung.
+- à mon avis = meiner Meinung nach | À mon avis, c'est une bonne idée. = Meiner Meinung nach ist das eine gute Idee.
+- selon moi = meiner Ansicht nach | Selon moi, tu as raison. = Meiner Ansicht nach hast du Recht.
+- je suis d'accord = ich bin einverstanden | Je suis d'accord avec toi. = Ich bin einverstanden mit dir.
+- je ne suis pas d'accord = ich bin nicht einverstanden | Je ne suis pas d'accord avec lui. = Ich bin nicht seiner Meinung.
+- c'est vrai = das stimmt | C'est vrai, tu as raison. = Das stimmt, du hast Recht.
+
+= Meinung äußern (2/2)
+- de plus = außerdem | De plus, c'est moins cher. = Außerdem ist es günstiger.
+- en outre = darüber hinaus | En outre, il est très patient. = Darüber hinaus ist er sehr geduldig.
+- en conclusion = abschließend | En conclusion, je suis pour ce projet. = Abschließend bin ich für dieses Projekt.
+- d'une part = einerseits | D'une part, c'est utile. = Einerseits ist es nützlich.
+- d'autre part = andererseits | D'autre part, c'est cher. = Andererseits ist es teuer.

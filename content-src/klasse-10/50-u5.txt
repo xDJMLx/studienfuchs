@@ -1,0 +1,64 @@
+id: f10-u5
+title: Pronoms avancés
+desc: dont, lequel, celui, Pronomen kombinieren
+order: 50
+
+= Das Relativpronomen dont (1/2)
+? dont = von dem/deren
+p dont ersetzt de + Nomen: Le livre dont je parle (je parle de ce livre). Es kann auch Besitz ausdrücken: La fille dont le père est médecin (deren Vater).
+p Nach dont folgt Subjekt + Verb (kein Artikelwechsel). ce dont = das, wovon: Voilà ce dont j'ai besoin.
+e Le livre dont je parle est excellent. = Das Buch, von dem ich spreche, ist hervorragend.
+e C'est tout ce dont j'ai besoin. = Das ist alles, was ich brauche.
+t Verben mit de: parler de, avoir besoin de, avoir peur de, se souvenir de → dont.
+- le livre dont je parle = das Buch, von dem ich spreche | Voici le livre dont je parle. = Hier ist das Buch, von dem ich spreche.
+- l'homme dont le fils = der Mann, dessen Sohn | C'est l'homme dont le fils est médecin. = Das ist der Mann, dessen Sohn Arzt ist.
+- ce dont j'ai besoin = das, was ich brauche | Voilà ce dont j'ai besoin. = Das ist es, was ich brauche.
+- la chose dont j'ai peur = das, wovor ich Angst habe | C'est la chose dont j'ai peur. = Das ist die Sache, vor der ich Angst habe.
+
+= Das Relativpronomen dont (2/2)
+- le pays dont je rêve = das Land, von dem ich träume | C'est le pays dont je rêve. = Das ist das Land, von dem ich träume.
+- ce dont il se souvient = woran er sich erinnert | Je ne sais pas ce dont il se souvient. = Ich weiß nicht, woran er sich erinnert.
+- la ville où j'habite = die Stadt, in der ich wohne | La ville où j'habite est petite. = Die Stadt, in der ich wohne, ist klein.
+- le jour où il est venu = der Tag, an dem er kam | Le jour où il est venu, il pleuvait. = An dem Tag, an dem er kam, regnete es.
+f Le livre ___ je parle est excellent. | dont | dont; que; qui; où | Das Buch, von dem ich spreche, ist hervorragend. | parler de → dont.
+f C'est la ville ___ j'habite. | où | où; dont; que; qui | Das ist die Stadt, in der ich wohne. | Ortsangabe → où.
+
+= lequel und celui (1/2)
+? Auswahl und Hinweis
+p lequel, laquelle, lesquels, lesquelles = welcher/welche (von mehreren). Mit à/de verschmelzen sie: auquel, duquel, auxquels, desquels.
+p celui, celle, ceux, celles = derjenige/diejenige: celui de Paul (der von Paul), celui qui parle (der, der spricht), celui-ci / celui-là (dieser hier / jener dort).
+e Tu préfères quel livre ? – Celui-ci. = Welches Buch magst du lieber? – Dieses hier.
+e Laquelle de ces robes te plaît ? = Welches dieser Kleider gefällt dir?
+- lequel = welcher (m) | J'ai deux frères. Lequel est le plus grand ? = Ich habe zwei Brüder. Welcher ist der größere?
+- laquelle = welche (f) | Laquelle de ces robes te plaît ? = Welches dieser Kleider gefällt dir?
+- lesquels = welche (m. Pl.) | Lesquels de ces livres as-tu lus ? = Welche dieser Bücher hast du gelesen?
+- celui-ci = dieser hier | Je préfère celui-ci. = Ich mag diesen hier lieber.
+- celle-là = jene dort | Je prends celle-là. = Ich nehme jene dort.
+
+= lequel und celui (2/2)
+- ceux qui = diejenigen, die | Ceux qui travaillent réussissent. = Diejenigen, die arbeiten, haben Erfolg.
+- celui de Paul = der von Paul | Mon vélo est vieux, celui de Paul est neuf. = Mein Fahrrad ist alt, das von Paul ist neu.
+- auquel = welchem (à + lequel) | C'est un problème auquel je pense souvent. = Das ist ein Problem, an das ich oft denke.
+- duquel = von welchem (de + lequel) | C'est le sujet duquel nous parlons. = Das ist das Thema, über das wir sprechen.
+f J'ai deux frères. ___ est le plus grand ? | Lequel | Lequel; Laquelle; Quel; Celui | Ich habe zwei Brüder. Welcher ist der größere? | Auswahl aus bekannten männlichen Personen → lequel.
+f Cette robe est belle, mais ___ de Léa est plus jolie. | celle | celle; celui; ceux; cela | Dieses Kleid ist schön, aber das von Léa ist hübscher. | robe ist weiblich → celle.
+
+= Zwei Pronomen kombinieren (1/2)
+? Die richtige Reihenfolge
+p Vor dem Verb gilt die Reihenfolge: me / te / se / nous / vous → le / la / les → lui / leur → y → en.
+p Beispiele: Il me le donne. Je le lui dis. Il y en a trois. Im Imperativ (bejaht) stehen sie hinter dem Verb: Donne-le-moi !
+e Je le lui ai dit. = Ich habe es ihm gesagt.
+e Donne-le-moi ! = Gib es mir!
+t me/te werden im bejahten Imperativ zu moi/toi: Donne-le-moi ! aber Ne me le donne pas !
+- il me le donne = er gibt es mir | Il me le donne demain. = Er gibt es mir morgen.
+- je te l'ai dit = ich habe es dir gesagt | Je te l'ai dit hier. = Ich habe es dir gestern gesagt.
+- je le lui dis = ich sage es ihm | Je le lui dis tout de suite. = Ich sage es ihm sofort.
+- je les leur montre = ich zeige sie ihnen | Je les leur montre demain. = Ich zeige sie ihnen morgen.
+
+= Zwei Pronomen kombinieren (2/2)
+- il y en a trois = es gibt drei davon | Il y en a trois sur la table. = Es gibt drei davon auf dem Tisch.
+- donne-le-moi = gib es mir | C'est mon livre, donne-le-moi. = Das ist mein Buch, gib es mir.
+- ne me le dis pas = sag es mir nicht | Ne me le dis pas ! = Sag es mir nicht!
+- parle-lui = sprich mit ihm | Il est triste, parle-lui. = Er ist traurig, sprich mit ihm.
+f Tu as mon livre ? Donne-___-moi ! | le | le; lui; y; en | Hast du mein Buch? Gib es mir! | Bejahter Imperativ: Verb – le – moi.
+f Il a dit la vérité ? – Oui, il me l'___ dite. | a | a; est; ai; as | Hat er die Wahrheit gesagt? – Ja, er hat sie mir gesagt. | passé composé mit avoir: il a dit.

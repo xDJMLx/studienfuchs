@@ -1,0 +1,52 @@
+id: f10-u6
+title: Rapporter
+desc: Indirekte Rede in der Vergangenheit, Zeitenfolge
+order: 60
+
+= Indirekte Rede in der Vergangenheit (1/2)
+? Concordance des temps
+p Steht das einleitende Verb in einer Vergangenheit (il a dit que …), verschieben sich die Zeiten im Nebensatz: présent → imparfait, passé composé → plus-que-parfait, futur simple → conditionnel présent, futur antérieur → conditionnel passé.
+p Auch Zeitangaben ändern sich: aujourd'hui → ce jour-là, hier → la veille, demain → le lendemain, maintenant → alors.
+e « Je suis fatigué. » → Il a dit qu'il était fatigué. = Er sagte, er sei müde.
+e « Je viendrai demain. » → Elle a dit qu'elle viendrait le lendemain. = Sie sagte, sie werde am nächsten Tag kommen.
+t Eselsbrücke: Alles rutscht eine Zeitstufe nach hinten.
+- il a dit qu'il était fatigué = er sagte, er sei müde | Il a dit qu'il était fatigué. = Er sagte, er sei müde.
+- elle a dit qu'elle viendrait = sie sagte, sie werde kommen | Elle a dit qu'elle viendrait demain. = Sie sagte, sie werde morgen kommen.
+- ils ont dit qu'ils avaient mangé = sie sagten, sie hätten gegessen | Ils ont dit qu'ils avaient déjà mangé. = Sie sagten, sie hätten schon gegessen.
+- il a demandé si je venais = er fragte, ob ich käme | Il a demandé si je venais avec eux. = Er fragte, ob ich mit ihnen käme.
+
+= Indirekte Rede in der Vergangenheit (2/2)
+- ce jour-là = an diesem Tag | Ce jour-là, il pleuvait. = An diesem Tag regnete es.
+- la veille = am Vortag | La veille, il avait neigé. = Am Vortag hatte es geschneit.
+- le lendemain = am nächsten Tag | Le lendemain, nous sommes partis. = Am nächsten Tag sind wir abgereist.
+- alors = damals / dann | Il pleuvait, alors nous sommes restés. = Es regnete, also blieben wir.
+f Elle a dit qu'elle ___ le lendemain. | viendrait | viendrait; viendra; vienne; viendrais | Sie sagte, sie werde am nächsten Tag kommen. | futur simple wird nach Vergangenheit zum conditionnel présent.
+f Il a dit qu'il ___ fatigué. | était | était; est; serait; sera | Er sagte, er sei müde. | présent wird zum imparfait.
+
+= Berichten und zitieren (1/2)
+- annoncer que = ankündigen, dass | Le ministre annonce que l'école ferme. = Der Minister kündigt an, dass die Schule schließt.
+- prétendre que = behaupten, dass | Il prétend qu'il ne savait rien. = Er behauptet, dass er nichts wusste.
+- reconnaître que = zugeben, dass | Je reconnais que j'ai tort. = Ich gebe zu, dass ich Unrecht habe.
+- avouer que = gestehen, dass | Il avoue qu'il a menti. = Er gesteht, dass er gelogen hat.
+- préciser que = präzisieren, dass | Elle précise que c'est gratuit. = Sie präzisiert, dass es kostenlos ist.
+
+= Berichten und zitieren (2/2)
+- conseiller de = raten zu | Je te conseille de lire ce livre. = Ich rate dir, dieses Buch zu lesen.
+- interdire de = verbieten zu | On interdit de fumer ici. = Es ist verboten, hier zu rauchen.
+- promettre de = versprechen zu | Il promet de revenir. = Er verspricht zurückzukommen.
+- selon le journal = laut der Zeitung | Selon le journal, il va neiger. = Laut der Zeitung wird es schneien.
+- d'après lui = ihm zufolge | D'après lui, c'est faux. = Ihm zufolge ist das falsch.
+
+= Presse und Nachrichten (1/2)
+- un article = ein Artikel | J'ai lu un article intéressant. = Ich habe einen interessanten Artikel gelesen.
+- un titre = eine Überschrift | Le titre est très long. = Die Überschrift ist sehr lang.
+- un journaliste = ein Journalist | Ce journaliste écrit sur la politique. = Dieser Journalist schreibt über Politik.
+- une enquête = eine Untersuchung / Umfrage | Une enquête montre que les jeunes lisent moins. = Eine Umfrage zeigt, dass Jugendliche weniger lesen.
+- un reportage = eine Reportage | J'ai vu un reportage sur la mer. = Ich habe eine Reportage über das Meer gesehen.
+
+= Presse und Nachrichten (2/2)
+- les actualités = die aktuellen Nachrichten | Je suis les actualités chaque jour. = Ich verfolge täglich die aktuellen Nachrichten.
+- la une = die Titelseite | Cette photo est à la une. = Dieses Foto ist auf der Titelseite.
+- une fausse information = eine Falschmeldung | Il ne faut pas partager une fausse information. = Man darf keine Falschmeldung weiterverbreiten.
+- vérifier = überprüfen | Il faut vérifier les sources. = Man muss die Quellen überprüfen.
+- une source = eine Quelle | Quelle est ta source ? = Was ist deine Quelle?

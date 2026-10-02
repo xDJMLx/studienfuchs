@@ -1,0 +1,214 @@
+{
+  "id": "f10-sciences",
+  "title": "Sciences et technologie",
+  "description": "Forschung, Erfindungen, künstliche Intelligenz, Chancen und Risiken",
+  "grade": 10,
+  "subject": "french",
+  "order": 12,
+  "lessons": [
+    {
+      "id": "f10-sciences-l1",
+      "title": "Forschung und Erfindungen",
+      "items": [
+        {
+          "front": "la science",
+          "back": "die Wissenschaft",
+          "example": "La science change notre vie.",
+          "exampleDe": "Die Wissenschaft verändert unser Leben."
+        },
+        {
+          "front": "le chercheur / la chercheuse",
+          "back": "der Forscher / die Forscherin",
+          "example": "La chercheuse présente ses résultats.",
+          "exampleDe": "Die Forscherin stellt ihre Ergebnisse vor."
+        },
+        {
+          "front": "l'invention (f)",
+          "back": "die Erfindung",
+          "example": "Internet est une invention importante.",
+          "exampleDe": "Das Internet ist eine wichtige Erfindung."
+        },
+        {
+          "front": "inventer",
+          "back": "erfinden",
+          "example": "Qui a inventé le téléphone ?",
+          "exampleDe": "Wer hat das Telefon erfunden?"
+        },
+        {
+          "front": "la découverte",
+          "back": "die Entdeckung",
+          "example": "Cette découverte a changé la médecine.",
+          "exampleDe": "Diese Entdeckung hat die Medizin verändert."
+        },
+        {
+          "front": "l'expérience (f)",
+          "back": "das Experiment",
+          "example": "Nous faisons une expérience en physique.",
+          "exampleDe": "Wir machen in Physik ein Experiment."
+        },
+        {
+          "front": "le laboratoire",
+          "back": "das Labor",
+          "example": "Les chercheurs travaillent dans un laboratoire.",
+          "exampleDe": "Die Forscher arbeiten in einem Labor."
+        }
+      ]
+    },
+    {
+      "id": "f10-sciences-l2",
+      "title": "Digitale Welt",
+      "items": [
+        {
+          "front": "l'ordinateur (m)",
+          "back": "der Computer",
+          "example": "Mon ordinateur est très rapide.",
+          "exampleDe": "Mein Computer ist sehr schnell."
+        },
+        {
+          "front": "le logiciel",
+          "back": "die Software, das Programm",
+          "example": "Ce logiciel est gratuit.",
+          "exampleDe": "Diese Software ist kostenlos."
+        },
+        {
+          "front": "télécharger",
+          "back": "herunterladen",
+          "example": "Il télécharge un film.",
+          "exampleDe": "Er lädt einen Film herunter."
+        },
+        {
+          "front": "le mot de passe",
+          "back": "das Passwort",
+          "example": "N'oublie pas ton mot de passe.",
+          "exampleDe": "Vergiss dein Passwort nicht."
+        },
+        {
+          "front": "les données (f pl)",
+          "back": "die Daten",
+          "example": "Il faut protéger ses données personnelles.",
+          "exampleDe": "Man muss seine persönlichen Daten schützen."
+        },
+        {
+          "front": "le réseau",
+          "back": "das Netz, das Netzwerk",
+          "example": "Le réseau ne marche pas ici.",
+          "exampleDe": "Das Netz funktioniert hier nicht."
+        }
+      ],
+      "explanation": {
+        "title": "Fachwörter aus der Informatik",
+        "paragraphs": [
+          "Viele Wörter aus der Technik sind englisch geprägt: un ordinateur, un site web, un mot de passe, télécharger. Die französischen Wörter findest du oft im Plural: les données (die Daten).",
+          "Verben mit -er folgen dem gewohnten Muster: télécharger → je télécharge, nous téléchargeons."
+        ],
+        "examples": [
+          {
+            "fr": "Je télécharge une application.",
+            "de": "Ich lade eine App herunter."
+          },
+          {
+            "fr": "Il faut protéger ses données personnelles.",
+            "de": "Man muss seine persönlichen Daten schützen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Il ___ une nouvelle application.",
+          "answer": "télécharge",
+          "options": [
+            "télécharge",
+            "téléchargeons",
+            "télécharger"
+          ],
+          "translation": "Er lädt eine neue App herunter.",
+          "why": "Zu „il“ gehört die Form ohne -ons."
+        }
+      ]
+    },
+    {
+      "id": "f10-sciences-l3",
+      "title": "Künstliche Intelligenz",
+      "items": [
+        {
+          "front": "l'intelligence artificielle (f)",
+          "back": "die künstliche Intelligenz",
+          "example": "L'intelligence artificielle progresse vite.",
+          "exampleDe": "Die künstliche Intelligenz macht schnelle Fortschritte."
+        },
+        {
+          "front": "le robot",
+          "back": "der Roboter",
+          "example": "Un robot aide les malades.",
+          "exampleDe": "Ein Roboter hilft den Kranken."
+        },
+        {
+          "front": "automatique",
+          "back": "automatisch",
+          "example": "Cette machine est automatique.",
+          "exampleDe": "Diese Maschine ist automatisch."
+        },
+        {
+          "front": "remplacer",
+          "back": "ersetzen",
+          "example": "Les machines remplacent certains métiers.",
+          "exampleDe": "Die Maschinen ersetzen manche Berufe."
+        },
+        {
+          "front": "apprendre à une machine",
+          "back": "einer Maschine etwas beibringen",
+          "example": "On apprend à la machine à reconnaître des images.",
+          "exampleDe": "Man bringt der Maschine bei, Bilder zu erkennen."
+        },
+        {
+          "front": "fiable",
+          "back": "zuverlässig",
+          "example": "Cette information n'est pas fiable.",
+          "exampleDe": "Diese Information ist nicht zuverlässig."
+        }
+      ]
+    },
+    {
+      "id": "f10-sciences-l4",
+      "title": "Chancen und Risiken",
+      "items": [
+        {
+          "front": "l'avantage (m)",
+          "back": "der Vorteil",
+          "example": "Un avantage de l'internet est la rapidité.",
+          "exampleDe": "Ein Vorteil des Internets ist die Schnelligkeit."
+        },
+        {
+          "front": "l'inconvénient (m)",
+          "back": "der Nachteil",
+          "example": "L'inconvénient, c'est le temps passé devant l'écran.",
+          "exampleDe": "Der Nachteil ist die Zeit vor dem Bildschirm."
+        },
+        {
+          "front": "le danger",
+          "back": "die Gefahr",
+          "example": "Il y a un danger pour la vie privée.",
+          "exampleDe": "Es gibt eine Gefahr für die Privatsphäre."
+        },
+        {
+          "front": "la vie privée",
+          "back": "die Privatsphäre",
+          "example": "Il faut respecter la vie privée.",
+          "exampleDe": "Man muss die Privatsphäre respektieren."
+        },
+        {
+          "front": "dépendre de",
+          "back": "abhängen von",
+          "example": "Beaucoup de gens dépendent de leur téléphone.",
+          "exampleDe": "Viele Menschen hängen von ihrem Handy ab."
+        },
+        {
+          "front": "améliorer",
+          "back": "verbessern",
+          "example": "La technologie améliore la vie des malades.",
+          "exampleDe": "Die Technik verbessert das Leben der Kranken."
+        }
+      ]
+    }
+  ]
+}

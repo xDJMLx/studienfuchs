@@ -1,0 +1,45 @@
+id: f9-relations
+title: Les relations
+desc: Gefühle, Freundschaft, Streit, Rat
+order: 65
+
+= Gefühle
+- heureux / heureuse = glücklich | Elle est heureuse de te voir. = Sie freut sich, dich zu sehen.
+- triste = traurig | Pourquoi tu es triste ? = Warum bist du traurig?
+- en colère = wütend | Il est en colère contre moi. = Er ist wütend auf mich.
+- jaloux / jalouse = eifersüchtig | Il est jaloux de son frère. = Er ist eifersüchtig auf seinen Bruder.
+- fier / fière = stolz | Je suis fier de toi. = Ich bin stolz auf dich.
+- déçu = enttäuscht | Je suis déçu du résultat. = Ich bin vom Ergebnis enttäuscht.
+- inquiet / inquiète = besorgt | Elle est inquiète pour sa mère. = Sie macht sich Sorgen um ihre Mutter.
+
+= Freundschaft
+- s'entendre bien = sich gut verstehen | Nous nous entendons bien. = Wir verstehen uns gut.
+- faire confiance = vertrauen | Je te fais confiance. = Ich vertraue dir.
+- dire la vérité = die Wahrheit sagen | Il faut dire la vérité. = Man muss die Wahrheit sagen.
+- mentir = lügen | Il ne faut pas mentir. = Man darf nicht lügen.
+- se confier = sich anvertrauen | Je me confie à mon meilleur ami. = Ich vertraue mich meinem besten Freund an.
+- un vrai ami = ein echter Freund | Paul est un vrai ami. = Paul ist ein echter Freund.
+
+= Streit und Versöhnung
+- se disputer = sich streiten | Ils se disputent souvent. = Sie streiten sich oft.
+- se réconcilier = sich versöhnen | Ils se sont réconciliés. = Sie haben sich versöhnt.
+- pardonner = verzeihen | Je te pardonne. = Ich verzeihe dir.
+- s'excuser = sich entschuldigen | Il s'excuse pour son retard. = Er entschuldigt sich für seine Verspätung.
+- un malentendu = ein Missverständnis | C'est un malentendu. = Das ist ein Missverständnis.
+- avoir tort = Unrecht haben | Je reconnais que j'ai tort. = Ich gebe zu, dass ich Unrecht habe.
+- avoir raison = Recht haben | Tu as raison. = Du hast Recht.
+
+= Rat geben
+? Ratschläge und subjonctif
+p Ratschläge gibst du mit Tu devrais … (Du solltest …) oder Il faut que + subjonctif: Il faut que tu lui parles.
+p Gefühle lösen oft den subjonctif aus: Je suis content que tu sois là. Je regrette qu'il soit parti.
+e Il faut que tu lui parles. = Du musst mit ihm sprechen.
+e Je suis content que tu sois là. = Ich freue mich, dass du da bist.
+- tu devrais = du solltest | Tu devrais lui parler. = Du solltest mit ihm sprechen.
+- il faut que tu lui parles = du musst mit ihm sprechen | Il faut que tu lui parles. = Du musst mit ihm sprechen.
+- je suis content que tu sois là = ich freue mich, dass du da bist | Je suis content que tu sois là. = Ich freue mich, dass du da bist.
+- je regrette qu'il soit parti = ich bedaure, dass er gegangen ist | Je regrette qu'il soit parti. = Ich bedaure, dass er gegangen ist.
+- demander conseil = um Rat fragen | Je demande conseil à ma mère. = Ich frage meine Mutter um Rat.
+- soutenir = unterstützen | Mes amis me soutiennent. = Meine Freunde unterstützen mich.
+f Il faut que tu lui ___. | parles | parles; parle; parleras; parlerais | Du musst mit ihm sprechen. | il faut que + subjonctif (tu parles).
+f Je suis content que tu ___ là. | sois | sois; es; seras; serais | Ich freue mich, dass du da bist. | Gefühl + que → subjonctif von être: que tu sois.

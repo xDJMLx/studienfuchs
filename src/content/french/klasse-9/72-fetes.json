@@ -1,0 +1,208 @@
+{
+  "id": "f9-fetes",
+  "title": "Fêtes et traditions",
+  "description": "Feste in Frankreich, Traditionen, Einladungen, Geschenke",
+  "grade": 9,
+  "subject": "french",
+  "order": 72,
+  "lessons": [
+    {
+      "id": "f9-fetes-l1",
+      "title": "Feste in Frankreich",
+      "items": [
+        {
+          "front": "la fête",
+          "back": "das Fest",
+          "example": "La fête de la musique a lieu le 21 juin.",
+          "exampleDe": "Das Fest der Musik findet am 21. Juni statt."
+        },
+        {
+          "front": "le jour de l'an",
+          "back": "der Neujahrstag",
+          "example": "Le jour de l'an, nous mangeons en famille.",
+          "exampleDe": "Am Neujahrstag essen wir in der Familie."
+        },
+        {
+          "front": "le quatorze juillet",
+          "back": "der 14. Juli (Nationalfeiertag)",
+          "example": "Le quatorze juillet, il y a un défilé.",
+          "exampleDe": "Am 14. Juli gibt es eine Parade."
+        },
+        {
+          "front": "Noël",
+          "back": "Weihnachten",
+          "example": "À Noël, nous décorons le sapin.",
+          "exampleDe": "An Weihnachten schmücken wir den Tannenbaum."
+        },
+        {
+          "front": "le feu d'artifice",
+          "back": "das Feuerwerk",
+          "example": "Le feu d'artifice commence à vingt-trois heures.",
+          "exampleDe": "Das Feuerwerk beginnt um dreiundzwanzig Uhr."
+        },
+        {
+          "front": "fêter",
+          "back": "feiern",
+          "example": "Nous fêtons l'anniversaire de ma sœur.",
+          "exampleDe": "Wir feiern den Geburtstag meiner Schwester."
+        }
+      ]
+    },
+    {
+      "id": "f9-fetes-l2",
+      "title": "Traditionen",
+      "items": [
+        {
+          "front": "la tradition",
+          "back": "die Tradition",
+          "example": "C'est une vieille tradition française.",
+          "exampleDe": "Das ist eine alte französische Tradition."
+        },
+        {
+          "front": "la galette des rois",
+          "back": "der Dreikönigskuchen",
+          "example": "Nous mangeons la galette des rois en janvier.",
+          "exampleDe": "Wir essen im Januar den Dreikönigskuchen."
+        },
+        {
+          "front": "la crêpe",
+          "back": "der Crêpe",
+          "example": "À la Chandeleur, on mange des crêpes.",
+          "exampleDe": "An Lichtmess isst man Crêpes."
+        },
+        {
+          "front": "le muguet",
+          "back": "das Maiglöckchen",
+          "example": "Le premier mai, on offre du muguet.",
+          "exampleDe": "Am ersten Mai verschenkt man Maiglöckchen."
+        },
+        {
+          "front": "le poisson d'avril",
+          "back": "der Aprilscherz",
+          "example": "Il m'a fait un poisson d'avril.",
+          "exampleDe": "Er hat mir einen Aprilscherz gespielt."
+        },
+        {
+          "front": "célébrer",
+          "back": "feiern, begehen",
+          "example": "Les Français célèbrent la fête nationale.",
+          "exampleDe": "Die Franzosen feiern den Nationalfeiertag."
+        }
+      ]
+    },
+    {
+      "id": "f9-fetes-l3",
+      "title": "Einladung und Party",
+      "items": [
+        {
+          "front": "inviter",
+          "back": "einladen",
+          "example": "J'invite tous mes amis.",
+          "exampleDe": "Ich lade alle meine Freunde ein."
+        },
+        {
+          "front": "l'invitation (f)",
+          "back": "die Einladung",
+          "example": "Elle a reçu une invitation.",
+          "exampleDe": "Sie hat eine Einladung bekommen."
+        },
+        {
+          "front": "la soirée",
+          "back": "der Abend, die Feier",
+          "example": "La soirée était très sympa.",
+          "exampleDe": "Die Feier war sehr nett."
+        },
+        {
+          "front": "danser",
+          "back": "tanzen",
+          "example": "Nous avons dansé toute la nuit.",
+          "exampleDe": "Wir haben die ganze Nacht getanzt."
+        },
+        {
+          "front": "accepter",
+          "back": "annehmen, zusagen",
+          "example": "J'accepte ton invitation avec plaisir.",
+          "exampleDe": "Ich nehme deine Einladung gerne an."
+        },
+        {
+          "front": "refuser",
+          "back": "ablehnen, absagen",
+          "example": "Il refuse l'invitation.",
+          "exampleDe": "Er lehnt die Einladung ab."
+        }
+      ],
+      "explanation": {
+        "title": "Einladen und zusagen",
+        "paragraphs": [
+          "Du lädst ein mit inviter: Je t'invite à ma fête. Zusagen: Avec plaisir ! Absagen höflich: Je suis désolé, je ne peux pas venir.",
+          "Vor einem Infinitiv steht „à“ oder „de“, nach „inviter“ meist à + Nomen oder à + Infinitiv: Il m'invite à dîner."
+        ],
+        "examples": [
+          {
+            "fr": "Je t'invite à mon anniversaire samedi.",
+            "de": "Ich lade dich am Samstag zu meinem Geburtstag ein."
+          },
+          {
+            "fr": "Avec plaisir, j'arrive à huit heures.",
+            "de": "Sehr gern, ich komme um acht Uhr."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Je t'___ à mon anniversaire.",
+          "answer": "invite",
+          "options": [
+            "invite",
+            "invites",
+            "invitons"
+          ],
+          "translation": "Ich lade dich zu meinem Geburtstag ein.",
+          "why": "Zum Subjekt „je“ gehört die Form „invite“."
+        }
+      ]
+    },
+    {
+      "id": "f9-fetes-l4",
+      "title": "Geschenke",
+      "items": [
+        {
+          "front": "le cadeau",
+          "back": "das Geschenk",
+          "example": "Je cherche un cadeau pour mon père.",
+          "exampleDe": "Ich suche ein Geschenk für meinen Vater."
+        },
+        {
+          "front": "offrir",
+          "back": "schenken",
+          "example": "Mes parents m'ont offert un vélo.",
+          "exampleDe": "Meine Eltern haben mir ein Fahrrad geschenkt."
+        },
+        {
+          "front": "l'emballage (m)",
+          "back": "die Verpackung",
+          "example": "L'emballage est très joli.",
+          "exampleDe": "Die Verpackung ist sehr hübsch."
+        },
+        {
+          "front": "le bouquet de fleurs",
+          "back": "der Blumenstrauß",
+          "example": "Il apporte un bouquet de fleurs.",
+          "exampleDe": "Er bringt einen Blumenstrauß mit."
+        },
+        {
+          "front": "surprendre",
+          "back": "überraschen",
+          "example": "Ce cadeau va la surprendre.",
+          "exampleDe": "Dieses Geschenk wird sie überraschen."
+        },
+        {
+          "front": "remercier",
+          "back": "danken",
+          "example": "Je te remercie pour ce beau cadeau.",
+          "exampleDe": "Ich danke dir für dieses schöne Geschenk."
+        }
+      ]
+    }
+  ]
+}

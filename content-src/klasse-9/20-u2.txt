@@ -1,0 +1,58 @@
+id: f9-u2
+title: Raconter
+desc: Imparfait und passé composé zusammen
+order: 20
+
+= Hintergrund und Handlung (1/2)
+? imparfait oder passé composé?
+p Imparfait = Hintergrund, Zustand, Dauer, Gewohnheit. Passé composé = einzelne abgeschlossene Ereignisse, die die Handlung voranbringen.
+p Typisch: Il pleuvait (Hintergrund) quand Paul est arrivé (Ereignis).
+e Je dormais quand le téléphone a sonné. = Ich schlief, als das Telefon klingelte.
+e Il faisait beau, alors nous sommes sortis. = Es war schönes Wetter, also gingen wir raus.
+t Frage dich: Ist es ein Moment (passé composé) oder eine Szene/ein Zustand (imparfait)?
+- soudain = plötzlich | Soudain, la porte s'ouvre. = Plötzlich geht die Tür auf.
+- tout à coup = auf einmal | Tout à coup, il a commencé à pleuvoir. = Auf einmal fing es an zu regnen.
+- pendant que = während | Pendant que je dormais, il est parti. = Während ich schlief, ist er gegangen.
+- quand = als / wenn | Quand il est arrivé, nous mangions. = Als er ankam, aßen wir gerade.
+- alors = also / dann | Il pleuvait, alors nous sommes restés. = Es regnete, also blieben wir.
+
+= Hintergrund und Handlung (2/2)
+- puis = dann | Il a mangé, puis il est sorti. = Er hat gegessen und ist dann ausgegangen.
+- un jour = eines Tages | Un jour, il a rencontré une fille. = Eines Tages traf er ein Mädchen.
+- à ce moment-là = in diesem Moment | À ce moment-là, le téléphone a sonné. = In diesem Moment klingelte das Telefon.
+- le lendemain = am nächsten Tag | Le lendemain, nous sommes partis. = Am nächsten Tag sind wir abgereist.
+- finalement = schließlich | Finalement, il a trouvé son sac. = Schließlich hat er seine Tasche gefunden.
+f Je dormais quand le téléphone ___. | a sonné | a sonné; sonnait; sonne; sonnera | Ich schlief, als das Telefon klingelte. | Plötzliches Ereignis → passé composé; „dormais“ ist der Hintergrund.
+f Il ___ beau quand nous sommes partis. | faisait | faisait; a fait; fait; fera | Es war schön, als wir losgingen. | Wetter als Hintergrund → imparfait.
+
+= Ein Unfall (1/2)
+- un accident = ein Unfall | Il y a eu un accident. = Es gab einen Unfall.
+- une voiture = ein Auto | Une voiture arrive trop vite. = Ein Auto kommt zu schnell.
+- un vélo = ein Fahrrad | Il roule à vélo. = Er fährt mit dem Fahrrad.
+- tomber = fallen | Elle est tombée de son vélo. = Sie ist von ihrem Fahrrad gefallen.
+- se blesser = sich verletzen | Il s'est blessé à la jambe. = Er hat sich am Bein verletzt.
+
+= Ein Unfall (2/2)
+- appeler les secours = den Notruf rufen | Nous avons appelé les secours. = Wir haben den Notruf gerufen.
+- heureusement = zum Glück | Heureusement, il n'a rien eu. = Zum Glück ist ihm nichts passiert.
+- malheureusement = leider | Malheureusement, il pleuvait. = Leider regnete es.
+- avoir peur = Angst haben | J'ai eu peur. = Ich hatte Angst.
+- un témoin = ein Zeuge | Un témoin a tout vu. = Ein Zeuge hat alles gesehen.
+
+= Plus-que-parfait (1/2)
+? Was vorher geschah
+p Das plus-que-parfait (Vorvergangenheit) = Hilfsverb im imparfait + Partizip: j'avais mangé, elle était partie.
+p Du brauchst es, wenn etwas schon vor einem anderen Ereignis in der Vergangenheit passiert war.
+e Quand je suis arrivé, il était déjà parti. = Als ich ankam, war er schon gegangen.
+e J'avais fini mes devoirs avant le dîner. = Ich hatte meine Hausaufgaben vor dem Abendessen fertig.
+- j'avais fini = ich hatte beendet | J'avais fini mes devoirs avant le dîner. = Ich hatte meine Hausaufgaben vor dem Abendessen fertig.
+- tu avais vu = du hattest gesehen | Tu avais vu ce film ? = Hattest du diesen Film gesehen?
+- il avait mangé = er hatte gegessen | Il avait déjà mangé. = Er hatte schon gegessen.
+- elle était partie = sie war gegangen | Elle était partie avant moi. = Sie war vor mir gegangen.
+
+= Plus-que-parfait (2/2)
+- nous étions arrivés = wir waren angekommen | Nous étions arrivés à midi. = Wir waren mittags angekommen.
+- ils avaient pris = sie hatten genommen | Ils avaient pris le train. = Sie hatten den Zug genommen.
+- déjà = schon | J'ai déjà fini. = Ich bin schon fertig.
+- avant = vorher / bevor | Je mange avant le cours. = Ich esse vor dem Unterricht.
+f Quand je suis arrivé, il ___ déjà parti. | était | était; a été; est; avait | Als ich ankam, war er schon gegangen. | partir + être im imparfait: il était parti (plus-que-parfait).

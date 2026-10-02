@@ -1,0 +1,60 @@
+id: f10-u4
+title: Si j'avais su
+desc: Conditionnel passé, Bedingungssätze Typ 3, Vergangenheitszeiten im Überblick
+order: 40
+
+= Conditionnel passé (1/2)
+? Was gewesen wäre
+p Conditionnel passé = Hilfsverb im conditionnel présent + Partizip: j'aurais mangé, elle serait venue.
+p Verwendung: unerfüllte Wünsche, Vorwürfe und höfliche Bedauern. J'aurais voulu vous aider.
+e J'aurais aimé venir. = Ich wäre gern gekommen.
+e Tu aurais dû me prévenir. = Du hättest mich warnen sollen.
+t Typisch: devoir + Infinitiv im Konditional Perfekt: tu aurais dû = du hättest sollen.
+- j'aurais aimé = ich hätte gern | J'aurais aimé venir. = Ich wäre gern gekommen.
+- tu aurais dû = du hättest müssen | Tu aurais dû me prévenir. = Du hättest mich warnen sollen.
+- il aurait pu = er hätte können | Il aurait pu nous aider. = Er hätte uns helfen können.
+- nous aurions voulu = wir hätten gewollt | Nous aurions voulu rester. = Wir hätten gern bleiben wollen.
+
+= Conditionnel passé (2/2)
+- elle serait venue = sie wäre gekommen | Elle serait venue avec plaisir. = Sie wäre gern gekommen.
+- ils seraient partis = sie wären gegangen | Ils seraient partis plus tôt. = Sie wären früher abgereist.
+- j'aurais fait = ich hätte gemacht | J'aurais fait la même chose. = Ich hätte dasselbe getan.
+- on aurait vu = man hätte gesehen | On aurait vu la mer d'ici. = Man hätte von hier das Meer gesehen.
+f J'___ aimé venir avec vous. | aurais | aurais; avais; ai; aurai | Ich wäre gern mit euch gekommen. | Conditionnel passé: avoir im Konditional (j'aurais) + Partizip.
+f Elle ___ venue si elle avait su. | serait | serait; aurait; était; sera | Sie wäre gekommen, wenn sie es gewusst hätte. | venir bildet die zusammengesetzten Zeiten mit être: elle serait venue.
+
+= Der dritte Bedingungssatz (1/2)
+? si + plus-que-parfait → conditionnel passé
+p Unerfüllbare Bedingung in der Vergangenheit: Si + plus-que-parfait, conditionnel passé. Si j'avais su, je serais venu.
+p Alle drei Typen im Überblick: si + présent → futur; si + imparfait → conditionnel présent; si + plus-que-parfait → conditionnel passé.
+e Si tu avais travaillé, tu aurais réussi. = Wenn du gearbeitet hättest, hättest du es geschafft.
+e Si nous étions partis plus tôt, nous serions arrivés à l'heure. = Wenn wir früher losgegangen wären, wären wir pünktlich gewesen.
+t Nach si steht nie ein Konditional und nie das futur.
+- si j'avais su = wenn ich gewusst hätte | Si j'avais su, je serais venu. = Wenn ich es gewusst hätte, wäre ich gekommen.
+- si tu avais travaillé = wenn du gearbeitet hättest | Si tu avais travaillé, tu aurais réussi. = Wenn du gearbeitet hättest, hättest du es geschafft.
+- si nous étions partis = wenn wir gegangen wären | Si nous étions partis plus tôt, nous serions arrivés. = Wenn wir früher losgefahren wären, wären wir angekommen.
+- je serais venu = ich wäre gekommen | Je serais venu si j'avais su. = Ich wäre gekommen, wenn ich es gewusst hätte.
+
+= Der dritte Bedingungssatz (2/2)
+- tu aurais réussi = du hättest es geschafft | Tu aurais réussi avec plus de travail. = Du hättest es mit mehr Arbeit geschafft.
+- il aurait gagné = er hätte gewonnen | Il aurait gagné avec un peu de chance. = Er hätte mit etwas Glück gewonnen.
+- si j'avais pu = wenn ich gekonnt hätte | Si j'avais pu, j'aurais aidé. = Wenn ich gekonnt hätte, hätte ich geholfen.
+- si elle avait voulu = wenn sie gewollt hätte | Si elle avait voulu, elle serait venue. = Wenn sie gewollt hätte, wäre sie gekommen.
+f Si tu avais travaillé, tu ___ réussi. | aurais | aurais; avais; auras; aies | Wenn du gearbeitet hättest, hättest du es geschafft. | si + plus-que-parfait → conditionnel passé.
+f Si j'___ su, je serais venu. | avais | avais; aurais; ai; aie | Wenn ich gewusst hätte, wäre ich gekommen. | Nach si: plus-que-parfait (j'avais su).
+
+= Zeiten erkennen und wählen (1/2)
+? Welche Zeit passt?
+p Überblick: présent (jetzt, allgemein), passé composé (Ereignis), imparfait (Hintergrund), plus-que-parfait (vorher), futur simple/futur composé (Zukunft), conditionnel (Wunsch, irreal), subjonctif (Wille, Gefühl, Notwendigkeit).
+p Im Text prüfst du: Gibt es Signalwörter? Welche Handlung war zuerst? Welche Haltung drückt der Sprecher aus?
+e Quand elle est arrivée, il avait déjà mangé. = Als sie ankam, hatte er schon gegessen.
+- avant que + subjonctif = bevor (Konjunktiv) | Rentre avant qu'il pleuve. = Komm heim, bevor es regnet.
+- après que + indicatif = nachdem (Indikativ) | Après qu'il est parti, j'ai mangé. = Nachdem er gegangen war, habe ich gegessen.
+- depuis que = seit(dem) | Depuis que j'habite ici, je suis heureux. = Seit ich hier wohne, bin ich glücklich.
+- au moment où = in dem Augenblick, als | Au moment où il est entré, j'ai ri. = In dem Augenblick, als er eintrat, habe ich gelacht.
+
+= Zeiten erkennen und wählen (2/2)
+- dès que = sobald | Dès que j'arrive, je t'appelle. = Sobald ich ankomme, rufe ich dich an.
+- à peine … que = kaum … als | À peine étions-nous arrivés qu'il a plu. = Kaum waren wir angekommen, da regnete es.
+- autrefois = früher | Autrefois, il n'y avait pas de téléphone. = Früher gab es keine Telefone.
+- désormais = von nun an | Désormais, je prends le vélo. = Von nun an nehme ich das Fahrrad.

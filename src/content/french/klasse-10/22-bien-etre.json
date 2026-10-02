@@ -1,0 +1,204 @@
+{
+  "id": "f10-bien-etre",
+  "title": "Sport et bien-être",
+  "description": "Sport, Ernährung, Stress, psychische Gesundheit, Verein und Gruppe",
+  "grade": 10,
+  "subject": "french",
+  "order": 22,
+  "lessons": [
+    {
+      "id": "f10-bien-etre-l1",
+      "title": "Sport und Verein",
+      "items": [
+        {
+          "front": "le club de sport",
+          "back": "der Sportverein",
+          "example": "Il s'est inscrit dans un club de sport.",
+          "exampleDe": "Er hat sich in einem Sportverein angemeldet."
+        },
+        {
+          "front": "l'entraînement (m)",
+          "back": "das Training",
+          "example": "L'entraînement a lieu le mardi soir.",
+          "exampleDe": "Das Training findet dienstagabends statt."
+        },
+        {
+          "front": "s'entraîner",
+          "back": "trainieren",
+          "example": "Elle s'entraîne trois fois par semaine.",
+          "exampleDe": "Sie trainiert dreimal pro Woche."
+        },
+        {
+          "front": "la compétition",
+          "back": "der Wettkampf",
+          "example": "La compétition commence demain.",
+          "exampleDe": "Der Wettkampf beginnt morgen."
+        },
+        {
+          "front": "gagner / perdre",
+          "back": "gewinnen / verlieren",
+          "example": "Notre équipe a gagné le match.",
+          "exampleDe": "Unsere Mannschaft hat das Spiel gewonnen."
+        },
+        {
+          "front": "l'équipe (f)",
+          "back": "die Mannschaft, das Team",
+          "example": "Nous formons une bonne équipe.",
+          "exampleDe": "Wir sind ein gutes Team."
+        }
+      ]
+    },
+    {
+      "id": "f10-bien-etre-l2",
+      "title": "Körper und Kopf",
+      "items": [
+        {
+          "front": "en forme",
+          "back": "fit",
+          "example": "Après le sport, je me sens en forme.",
+          "exampleDe": "Nach dem Sport fühle ich mich fit."
+        },
+        {
+          "front": "la santé mentale",
+          "back": "die psychische Gesundheit",
+          "example": "La santé mentale est aussi importante que la santé physique.",
+          "exampleDe": "Die psychische Gesundheit ist genauso wichtig wie die körperliche."
+        },
+        {
+          "front": "se détendre",
+          "back": "sich entspannen",
+          "example": "Je me détends en écoutant de la musique.",
+          "exampleDe": "Ich entspanne mich beim Musikhören."
+        },
+        {
+          "front": "le sommeil",
+          "back": "der Schlaf",
+          "example": "Le sommeil est essentiel pour les jeunes.",
+          "exampleDe": "Schlaf ist für Jugendliche wesentlich."
+        },
+        {
+          "front": "l'angoisse (f)",
+          "back": "die Angst",
+          "example": "Il parle de ses angoisses à un ami.",
+          "exampleDe": "Er spricht mit einem Freund über seine Ängste."
+        },
+        {
+          "front": "demander conseil",
+          "back": "um Rat fragen",
+          "example": "Elle demande conseil à son médecin.",
+          "exampleDe": "Sie fragt ihren Arzt um Rat."
+        }
+      ],
+      "explanation": {
+        "title": "Ratschläge und Ziele",
+        "paragraphs": [
+          "Mit „il faut“ und dem Infinitiv gibst du allgemeine Ratschläge: Il faut bien dormir. Il faut manger équilibré.",
+          "Mit „pour“ + Infinitiv nennst du das Ziel: Pour rester en forme, je fais du sport."
+        ],
+        "examples": [
+          {
+            "fr": "Pour rester en forme, je cours trois fois par semaine.",
+            "de": "Um fit zu bleiben, laufe ich dreimal pro Woche."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "___ rester en forme, il fait du sport.",
+          "answer": "Pour",
+          "options": [
+            "Pour",
+            "Parce",
+            "Quand"
+          ],
+          "translation": "Um fit zu bleiben, treibt er Sport.",
+          "why": "„Pour“ + Infinitiv nennt das Ziel."
+        }
+      ]
+    },
+    {
+      "id": "f10-bien-etre-l3",
+      "title": "Stress und Druck",
+      "items": [
+        {
+          "front": "le stress",
+          "back": "der Stress",
+          "example": "Le stress augmente avant les examens.",
+          "exampleDe": "Der Stress nimmt vor den Prüfungen zu."
+        },
+        {
+          "front": "la pression",
+          "back": "der Druck",
+          "example": "Les élèves subissent beaucoup de pression.",
+          "exampleDe": "Die Schüler stehen unter viel Druck."
+        },
+        {
+          "front": "se sentir",
+          "back": "sich fühlen",
+          "example": "Je me sens fatigué aujourd'hui.",
+          "exampleDe": "Ich fühle mich heute müde."
+        },
+        {
+          "front": "épuisé / épuisée",
+          "back": "erschöpft",
+          "example": "Après la semaine d'examens, il est épuisé.",
+          "exampleDe": "Nach der Prüfungswoche ist er erschöpft."
+        },
+        {
+          "front": "une pause",
+          "back": "eine Pause",
+          "example": "Fais une pause toutes les heures.",
+          "exampleDe": "Mach jede Stunde eine Pause."
+        },
+        {
+          "front": "respirer",
+          "back": "atmen",
+          "example": "Respire profondément pour te calmer.",
+          "exampleDe": "Atme tief durch, um dich zu beruhigen."
+        }
+      ]
+    },
+    {
+      "id": "f10-bien-etre-l4",
+      "title": "Gesunde Gewohnheiten",
+      "items": [
+        {
+          "front": "équilibré / équilibrée",
+          "back": "ausgewogen",
+          "example": "Il mange de manière équilibrée.",
+          "exampleDe": "Er isst ausgewogen."
+        },
+        {
+          "front": "éviter",
+          "back": "vermeiden",
+          "example": "Il faut éviter le sucre.",
+          "exampleDe": "Man sollte Zucker vermeiden."
+        },
+        {
+          "front": "les écrans (m pl)",
+          "back": "die Bildschirme",
+          "example": "Trop d'écrans fatiguent les yeux.",
+          "exampleDe": "Zu viele Bildschirme ermüden die Augen."
+        },
+        {
+          "front": "une habitude",
+          "back": "eine Gewohnheit",
+          "example": "Faire du sport est une bonne habitude.",
+          "exampleDe": "Sport zu treiben ist eine gute Gewohnheit."
+        },
+        {
+          "front": "prendre soin de",
+          "back": "sich kümmern um",
+          "example": "Il faut prendre soin de sa santé.",
+          "exampleDe": "Man muss sich um seine Gesundheit kümmern."
+        },
+        {
+          "front": "le mode de vie",
+          "back": "der Lebensstil",
+          "example": "Un mode de vie sain évite beaucoup de maladies.",
+          "exampleDe": "Ein gesunder Lebensstil verhindert viele Krankheiten."
+        }
+      ]
+    }
+  ]
+}

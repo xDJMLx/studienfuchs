@@ -3,7 +3,8 @@ import { persist } from 'zustand/middleware'
 import { STORAGE } from '../lib/migrate'
 import { booksSnapshot, useBooks } from './useBooks'
 import { examsSnapshot, useExams } from './useExams'
-import { reviewCard, type Grade, type SrsCard } from '../lib/srs'
+import { reviewCard, seedKnownCard, type Grade, type SrsCard } from '../lib/srs'
+import { findLesson } from '../content'
 import { buy, coinsForSession, itemById, toggleEquip, type Outfit } from '../lib/shop'
 import { currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
 import type { Item, VocabSet } from '../lib/types'
@@ -39,6 +40,8 @@ interface Data {
   classUnit: string | null
   /** Zieldatum des Aufholplans (YYYY-MM-DD), null = kein Plan */
   catchUpTarget: string | null
+  /** Aufholen: auch alle früheren Klassen komplett nachholen */
+  catchUpAll: boolean
   /** Münzen: gibt es fürs Lernen, ausgegeben werden sie im Fuchs-Laden (siehe shop.ts) */
   coins: number
   /** Gekaufte Zubehörteile */
@@ -67,6 +70,7 @@ interface Actions {
   setOnboarded: (v: boolean) => void
   setClassUnit: (unitId: string | null) => void
   setCatchUpTarget: (date: string | null) => void
+  setCatchUpAll: (v: boolean) => void
   setSpeech: (patch: Partial<Pick<Data, 'speechOn' | 'voiceName' | 'speechRate' | 'speakingOn'>>) => void
   exportData: () => string
   importData: (json: string) => void
@@ -93,6 +97,7 @@ const initial: Data = {
   onboarded: false,
   classUnit: null,
   catchUpTarget: null,
+  catchUpAll: false,
   coins: 0,
   owned: [],
   outfit: {},
@@ -168,12 +173,20 @@ export const useStore = create<Data & Actions>()(
       toggleFavorite: (itemId) =>
         set((s) => ({ favorites: s.favorites.includes(itemId) ? s.favorites.filter((x) => x !== itemId) : [...s.favorites, itemId] })),
 
+      // Übersprungene Lektionen (Einstufungstest): Die Wörter bekommen einen ersten Wiederholungstermin in 3 bis 14 Tagen,
+      // damit sie nicht für immer unbeachtet bleiben, aber auch nicht alle auf einmal fällig werden.
       markLessonsDone: (lessonIds) =>
         set((s) => {
           const today = dayKey(new Date())
           const lessons = { ...s.lessons }
-          for (const id of lessonIds) if (!lessons[id]) lessons[id] = { count: 1, bestAccuracy: 1, lastDone: today }
-          return { lessons }
+          const cards = { ...s.cards }
+          const now = new Date()
+          for (const id of lessonIds) {
+            if (!lessons[id]) lessons[id] = { count: 1, bestAccuracy: 1, lastDone: today }
+            const found = findLesson(id)
+            if (found && !found.lesson.review && !found.lesson.test) for (const it of found.lesson.items) if (!cards[it.id]) cards[it.id] = seedKnownCard(now)
+          }
+          return { lessons, cards }
         }),
 
       setExamDate: (setId, date) =>
@@ -192,6 +205,7 @@ export const useStore = create<Data & Actions>()(
       setOnboarded: (v) => set({ onboarded: v }),
       setClassUnit: (unitId) => set(unitId ? { classUnit: unitId } : { classUnit: null, catchUpTarget: null }),
       setCatchUpTarget: (date) => set({ catchUpTarget: date }),
+      setCatchUpAll: (v) => set({ catchUpAll: v }),
 
       exportData: () => {
         const s = get()

@@ -1,0 +1,42 @@
+id: f10-franco
+title: La francophonie
+desc: Französisch in der Welt: Länder, Sprache, Kultur
+order: 85
+
+= Französisch in der Welt
+? Die Frankophonie
+p Französisch wird auf allen Kontinenten gesprochen: in Europa (Frankreich, Belgien, Schweiz), in Nordamerika (Québec), in Afrika (Senegal, Elfenbeinküste, Marokko, Algerien) und im Pazifik.
+p „La francophonie“ bezeichnet die Gemeinschaft der französischsprachigen Länder.
+e Au Québec, on parle français. = In Québec spricht man Französisch.
+e Le français est une langue officielle dans de nombreux pays. = Französisch ist in vielen Ländern Amtssprache.
+- la francophonie = die Frankophonie | La francophonie réunit de nombreux pays. = Die Frankophonie vereint viele Länder.
+- le Québec = Québec | Au Québec, on parle français. = In Québec spricht man Französisch.
+- la Belgique = Belgien | En Belgique, on parle aussi français. = In Belgien spricht man auch Französisch.
+- la Suisse = die Schweiz | Le français est parlé en Suisse. = In der Schweiz wird Französisch gesprochen.
+- le Sénégal = Senegal | Le Sénégal est un pays d'Afrique. = Senegal ist ein Land in Afrika.
+- le Maroc = Marokko | Au Maroc, beaucoup de gens parlent français. = In Marokko sprechen viele Menschen Französisch.
+- la Côte d'Ivoire = die Elfenbeinküste | La Côte d'Ivoire est un pays francophone. = Die Elfenbeinküste ist ein frankophones Land.
+
+= Sprache und Varianten
+- la langue maternelle = die Muttersprache | Ma langue maternelle est l'allemand. = Meine Muttersprache ist Deutsch.
+- la langue officielle = die Amtssprache | Le français est une langue officielle. = Französisch ist eine Amtssprache.
+- bilingue = zweisprachig | Elle est bilingue. = Sie ist zweisprachig.
+- l'accent = der Akzent | Il a un petit accent. = Er hat einen leichten Akzent.
+- traduire = übersetzen | Peux-tu traduire cette phrase ? = Kannst du diesen Satz übersetzen?
+- l'orthographe = die Rechtschreibung | L'orthographe française est difficile. = Die französische Rechtschreibung ist schwierig.
+
+= Kultur und Erbe
+- le patrimoine = das Kulturerbe | Ce château fait partie du patrimoine. = Dieses Schloss gehört zum Kulturerbe.
+- la littérature francophone = die frankophone Literatur | J'étudie la littérature francophone. = Ich beschäftige mich mit frankophoner Literatur.
+- la gastronomie = die Gastronomie, Esskultur | La gastronomie française est célèbre. = Die französische Esskultur ist berühmt.
+- le cinéma = das Kino, der Film | Le cinéma français est connu. = Das französische Kino ist bekannt.
+- un écrivain = ein Schriftsteller | Cet écrivain est très célèbre. = Dieser Schriftsteller ist sehr berühmt.
+- un échange culturel = ein Kulturaustausch | Un échange culturel ouvre l'esprit. = Ein Kulturaustausch öffnet den Geist.
+
+= Geschichte und Erinnerung
+- la colonisation = die Kolonialisierung | La colonisation a marqué l'histoire. = Die Kolonialisierung hat die Geschichte geprägt.
+- l'indépendance = die Unabhängigkeit | Le pays a gagné son indépendance. = Das Land hat seine Unabhängigkeit gewonnen.
+- le passé = die Vergangenheit | Il faut connaître le passé. = Man muss die Vergangenheit kennen.
+- la mémoire = das Gedächtnis, die Erinnerung | La mémoire du passé est importante. = Die Erinnerung an die Vergangenheit ist wichtig.
+- reconnaître = anerkennen | Il faut reconnaître ses erreurs. = Man muss seine Fehler anerkennen.
+- un témoignage = eine Zeugenaussage, ein Zeugnis | Ce témoignage est très touchant. = Dieses Zeugnis ist sehr berührend.

@@ -1,0 +1,325 @@
+{
+  "id": "f9-table",
+  "title": "À table !",
+  "description": "Restaurant, Essen und Trinken, Kochen, Ernährung",
+  "grade": 9,
+  "subject": "french",
+  "order": 22,
+  "lessons": [
+    {
+      "id": "f9-table-l1",
+      "title": "Im Restaurant",
+      "items": [
+        {
+          "front": "le menu",
+          "back": "die Speisekarte, das Menü",
+          "example": "Le serveur apporte le menu.",
+          "exampleDe": "Der Kellner bringt die Speisekarte."
+        },
+        {
+          "front": "le serveur / la serveuse",
+          "back": "der Kellner / die Kellnerin",
+          "example": "La serveuse est très aimable.",
+          "exampleDe": "Die Kellnerin ist sehr freundlich."
+        },
+        {
+          "front": "l'entrée (f)",
+          "back": "die Vorspeise",
+          "example": "Comme entrée, je prends une salade.",
+          "exampleDe": "Als Vorspeise nehme ich einen Salat."
+        },
+        {
+          "front": "le plat principal",
+          "back": "das Hauptgericht",
+          "example": "Le plat principal est délicieux.",
+          "exampleDe": "Das Hauptgericht ist köstlich."
+        },
+        {
+          "front": "le dessert",
+          "back": "der Nachtisch",
+          "example": "Qu'est-ce que vous avez comme dessert ?",
+          "exampleDe": "Was haben Sie als Nachtisch?"
+        },
+        {
+          "front": "l'addition (f)",
+          "back": "die Rechnung",
+          "example": "L'addition, s'il vous plaît !",
+          "exampleDe": "Die Rechnung, bitte!"
+        }
+      ],
+      "explanation": {
+        "title": "Höflich bestellen",
+        "paragraphs": [
+          "Im Restaurant bestellst du höflich mit dem conditionnel: Je voudrais … (Ich möchte …) oder Je prendrai … (Ich nehme …).",
+          "Zu Beginn sagt man: Une table pour deux, s'il vous plaît. Am Ende: L'addition, s'il vous plaît."
+        ],
+        "examples": [
+          {
+            "fr": "Je voudrais un steak-frites, s'il vous plaît.",
+            "de": "Ich möchte ein Steak mit Pommes, bitte."
+          },
+          {
+            "fr": "L'addition, s'il vous plaît !",
+            "de": "Die Rechnung, bitte!"
+          }
+        ],
+        "tip": "Das „s'il vous plaît“ gehört immer dazu, wenn du etwas bestellst."
+      },
+      "fills": [
+        {
+          "sentence": "Je ___ une pizza, s'il vous plaît.",
+          "answer": "voudrais",
+          "options": [
+            "voudrais",
+            "voulez",
+            "veux"
+          ],
+          "translation": "Ich möchte eine Pizza, bitte.",
+          "why": "Höflich bestellt man mit „je voudrais“."
+        }
+      ]
+    },
+    {
+      "id": "f9-table-l2",
+      "title": "Fleisch, Fisch und Beilagen",
+      "items": [
+        {
+          "front": "la viande",
+          "back": "das Fleisch",
+          "example": "Je ne mange pas de viande.",
+          "exampleDe": "Ich esse kein Fleisch."
+        },
+        {
+          "front": "le poisson",
+          "back": "der Fisch",
+          "example": "Le poisson est frais aujourd'hui.",
+          "exampleDe": "Der Fisch ist heute frisch."
+        },
+        {
+          "front": "le poulet",
+          "back": "das Hähnchen",
+          "example": "Le poulet rôti est excellent.",
+          "exampleDe": "Das Brathähnchen ist ausgezeichnet."
+        },
+        {
+          "front": "le riz",
+          "back": "der Reis",
+          "example": "Je prends du riz avec le poulet.",
+          "exampleDe": "Ich nehme Reis zum Hähnchen."
+        },
+        {
+          "front": "les pâtes (f pl)",
+          "back": "die Nudeln",
+          "example": "Mes enfants adorent les pâtes.",
+          "exampleDe": "Meine Kinder lieben Nudeln."
+        },
+        {
+          "front": "les frites (f pl)",
+          "back": "die Pommes frites",
+          "example": "Il mange des frites tous les samedis.",
+          "exampleDe": "Er isst jeden Samstag Pommes."
+        }
+      ]
+    },
+    {
+      "id": "f9-table-l3",
+      "title": "Gemüse und Obst",
+      "items": [
+        {
+          "front": "les légumes (m pl)",
+          "back": "das Gemüse",
+          "example": "Les légumes sont bons pour la santé.",
+          "exampleDe": "Gemüse ist gut für die Gesundheit."
+        },
+        {
+          "front": "les fruits (m pl)",
+          "back": "das Obst",
+          "example": "Je mange des fruits au petit-déjeuner.",
+          "exampleDe": "Ich esse zum Frühstück Obst."
+        },
+        {
+          "front": "la tomate",
+          "back": "die Tomate",
+          "example": "La salade de tomates est fraîche.",
+          "exampleDe": "Der Tomatensalat ist frisch."
+        },
+        {
+          "front": "la carotte",
+          "back": "die Karotte",
+          "example": "Les carottes sont bonnes crues.",
+          "exampleDe": "Karotten sind roh gut."
+        },
+        {
+          "front": "la pomme de terre",
+          "back": "die Kartoffel",
+          "example": "Les pommes de terre cuisent vingt minutes.",
+          "exampleDe": "Die Kartoffeln kochen zwanzig Minuten."
+        },
+        {
+          "front": "la fraise",
+          "back": "die Erdbeere",
+          "example": "Les fraises sont de saison en mai.",
+          "exampleDe": "Erdbeeren haben im Mai Saison."
+        }
+      ]
+    },
+    {
+      "id": "f9-table-l4",
+      "title": "Getränke und Mengen",
+      "items": [
+        {
+          "front": "une boisson",
+          "back": "ein Getränk",
+          "example": "Quelle boisson voulez-vous ?",
+          "exampleDe": "Welches Getränk möchten Sie?"
+        },
+        {
+          "front": "le jus d'orange",
+          "back": "der Orangensaft",
+          "example": "Un jus d'orange, s'il vous plaît.",
+          "exampleDe": "Einen Orangensaft, bitte."
+        },
+        {
+          "front": "l'eau minérale (f)",
+          "back": "das Mineralwasser",
+          "example": "Nous buvons de l'eau minérale.",
+          "exampleDe": "Wir trinken Mineralwasser."
+        },
+        {
+          "front": "un verre de",
+          "back": "ein Glas",
+          "example": "Je voudrais un verre de lait.",
+          "exampleDe": "Ich möchte ein Glas Milch."
+        },
+        {
+          "front": "une bouteille de",
+          "back": "eine Flasche",
+          "example": "Il achète une bouteille d'eau.",
+          "exampleDe": "Er kauft eine Flasche Wasser."
+        },
+        {
+          "front": "un peu de",
+          "back": "ein bisschen",
+          "example": "Il y a un peu de sel dans la soupe.",
+          "exampleDe": "In der Suppe ist ein bisschen Salz."
+        },
+        {
+          "front": "beaucoup de",
+          "back": "viel",
+          "example": "Elle boit beaucoup d'eau.",
+          "exampleDe": "Sie trinkt viel Wasser."
+        }
+      ]
+    },
+    {
+      "id": "f9-table-l5",
+      "title": "Kochen und Rezepte",
+      "items": [
+        {
+          "front": "la recette",
+          "back": "das Rezept",
+          "example": "J'ai une recette de crêpes.",
+          "exampleDe": "Ich habe ein Rezept für Crêpes."
+        },
+        {
+          "front": "couper",
+          "back": "schneiden",
+          "example": "Coupe les carottes en petits morceaux.",
+          "exampleDe": "Schneide die Karotten in kleine Stücke."
+        },
+        {
+          "front": "mélanger",
+          "back": "mischen",
+          "example": "Mélange la farine et les œufs.",
+          "exampleDe": "Mische das Mehl und die Eier."
+        },
+        {
+          "front": "cuire",
+          "back": "kochen, garen",
+          "example": "Les pâtes cuisent dix minutes.",
+          "exampleDe": "Die Nudeln kochen zehn Minuten."
+        },
+        {
+          "front": "ajouter",
+          "back": "hinzufügen",
+          "example": "Ajoute un peu de sel.",
+          "exampleDe": "Gib ein bisschen Salz dazu."
+        },
+        {
+          "front": "la farine",
+          "back": "das Mehl",
+          "example": "Il faut deux cents grammes de farine.",
+          "exampleDe": "Man braucht zweihundert Gramm Mehl."
+        }
+      ],
+      "explanation": {
+        "title": "Rezepte und Befehle",
+        "paragraphs": [
+          "In Rezepten stehen oft Imperative oder der Infinitiv: Coupez les tomates. Ajoutez du sel. Mélangez bien.",
+          "Mengen werden mit „de“ ohne Artikel angegeben: 200 grammes de farine, un kilo de pommes."
+        ],
+        "examples": [
+          {
+            "fr": "Coupez les légumes et ajoutez du sel.",
+            "de": "Schneidet das Gemüse und gebt Salz dazu."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "___ les légumes en petits morceaux !",
+          "answer": "Coupez",
+          "options": [
+            "Coupez",
+            "Coupons",
+            "Couper"
+          ],
+          "translation": "Schneidet das Gemüse in kleine Stücke!",
+          "why": "Der Imperativ in der 2. Person Plural endet auf -ez."
+        }
+      ]
+    },
+    {
+      "id": "f9-table-l6",
+      "title": "Gewohnheiten und Ernährung",
+      "items": [
+        {
+          "front": "une alimentation équilibrée",
+          "back": "eine ausgewogene Ernährung",
+          "example": "Une alimentation équilibrée est importante.",
+          "exampleDe": "Eine ausgewogene Ernährung ist wichtig."
+        },
+        {
+          "front": "végétarien / végétarienne",
+          "back": "vegetarisch",
+          "example": "Ma sœur est végétarienne.",
+          "exampleDe": "Meine Schwester ist Vegetarierin."
+        },
+        {
+          "front": "le petit-déjeuner",
+          "back": "das Frühstück",
+          "example": "Le petit-déjeuner est servi à huit heures.",
+          "exampleDe": "Das Frühstück gibt es um acht Uhr."
+        },
+        {
+          "front": "le goûter",
+          "back": "der Nachmittagsimbiss",
+          "example": "Les enfants prennent le goûter à quatre heures.",
+          "exampleDe": "Die Kinder essen um vier Uhr ihren Imbiss."
+        },
+        {
+          "front": "avoir faim",
+          "back": "Hunger haben",
+          "example": "Après le sport, j'ai très faim.",
+          "exampleDe": "Nach dem Sport habe ich großen Hunger."
+        },
+        {
+          "front": "avoir soif",
+          "back": "Durst haben",
+          "example": "Il fait chaud, j'ai soif.",
+          "exampleDe": "Es ist heiß, ich habe Durst."
+        }
+      ]
+    }
+  ]
+}

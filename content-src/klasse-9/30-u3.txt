@@ -1,0 +1,58 @@
+id: f9-u3
+title: Demain
+desc: Le futur simple, Zukunftspläne
+order: 30
+
+= Futur simple bilden (1/2)
+? Die Zukunftsform
+p Infinitiv + Endungen von avoir: -ai, -as, -a, -ons, -ez, -ont. parler → je parlerai, tu parleras, il parlera, nous parlerons, vous parlerez, ils parleront.
+p Bei Verben auf -re fällt das -e weg: prendre → je prendrai.
+e Demain, je parlerai avec lui. = Morgen werde ich mit ihm sprechen.
+e Nous finirons à midi. = Wir werden mittags fertig sein.
+- je parlerai = ich werde sprechen | Demain, je parlerai avec lui. = Morgen werde ich mit ihm sprechen.
+- tu finiras = du wirst beenden | Tu finiras demain. = Du wirst morgen fertig sein.
+- il prendra = er wird nehmen | Il prendra le train de huit heures. = Er wird den Zug um acht Uhr nehmen.
+- nous mangerons = wir werden essen | Nous mangerons chez toi. = Wir werden bei dir essen.
+
+= Futur simple bilden (2/2)
+- vous partirez = ihr werdet abreisen | Vous partirez à midi. = Ihr werdet mittags abreisen.
+- ils joueront = sie werden spielen | Ils joueront demain. = Sie werden morgen spielen.
+- je donnerai = ich werde geben | Je te donnerai mon livre. = Ich werde dir mein Buch geben.
+- elle écrira = sie wird schreiben | Elle écrira une lettre. = Sie wird einen Brief schreiben.
+f Demain, nous ___ au cinéma. | irons | irons; allons; allerons; ironts | Morgen werden wir ins Kino gehen. | aller hat den unregelmäßigen Futurstamm ir-.
+f Tu ___ ton travail demain. | finiras | finiras; finis; finira; finirons | Du wirst deine Arbeit morgen beenden. | Infinitiv finir + -as.
+
+= Unregelmäßige Futurstämme (1/2)
+? Stämme auswendig lernen
+p Einige Verben haben besondere Stämme, die Endungen bleiben gleich: être → ser-, avoir → aur-, aller → ir-, faire → fer-, venir → viendr-, pouvoir → pourr-, vouloir → voudr-, voir → verr-, devoir → devr-.
+p Merke: Der Stamm endet immer auf -r, vor den Endungen hört man „r“.
+e Je serai à l'heure. = Ich werde pünktlich sein.
+e Il fera beau demain. = Morgen wird es schön sein.
+- je serai = ich werde sein | Je serai à l'heure. = Ich werde pünktlich sein.
+- tu auras = du wirst haben | Tu auras un cadeau. = Du wirst ein Geschenk bekommen.
+- il ira = er wird gehen | Il ira au cinéma. = Er wird ins Kino gehen.
+- nous ferons = wir werden machen | Nous ferons une fête. = Wir werden ein Fest machen.
+- vous viendrez = ihr werdet kommen | Vous viendrez avec nous ? = Werdet ihr mit uns kommen?
+
+= Unregelmäßige Futurstämme (2/2)
+- ils pourront = sie werden können | Ils pourront venir samedi. = Sie werden am Samstag kommen können.
+- je voudrai = ich werde wollen | Un jour, je voudrai voyager. = Eines Tages werde ich reisen wollen.
+- elle verra = sie wird sehen | Elle verra ses amis demain. = Sie wird morgen ihre Freunde sehen.
+- nous devrons = wir werden müssen | Nous devrons travailler beaucoup. = Wir werden viel arbeiten müssen.
+- il faudra = man wird müssen | Il faudra partir tôt. = Man wird früh aufbrechen müssen.
+f Demain, il ___ beau. | fera | fera; fait; ferra; faira | Morgen wird es schön. | faire → Futurstamm fer-.
+f Vous ___ à la fête ? | viendrez | viendrez; venirez; viendez; venez | Werdet ihr zur Feier kommen? | venir → Stamm viendr-.
+
+= Zukunft und Berufe (1/2)
+- l'avenir = die Zukunft | Je pense à mon avenir. = Ich denke an meine Zukunft.
+- le métier = der Beruf | Quel métier tu veux faire ? = Welchen Beruf möchtest du ergreifen?
+- le médecin = der Arzt | Je vais chez le médecin. = Ich gehe zum Arzt.
+- l'infirmière = die Krankenschwester | L'infirmière aide les malades. = Die Krankenschwester hilft den Kranken.
+- l'ingénieur = der Ingenieur | Mon père est ingénieur. = Mein Vater ist Ingenieur.
+
+= Zukunft und Berufe (2/2)
+- le professeur = der Lehrer | Le professeur explique la leçon. = Der Lehrer erklärt die Lektion.
+- le boulanger = der Bäcker | Le boulanger fait du pain. = Der Bäcker backt Brot.
+- devenir = werden | Je veux devenir médecin. = Ich möchte Arzt werden.
+- plus tard = später | Plus tard, je serai pilote. = Später werde ich Pilot.
+- dans dix ans = in zehn Jahren | Dans dix ans, j'habiterai à Paris. = In zehn Jahren werde ich in Paris wohnen.

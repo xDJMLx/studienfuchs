@@ -1,0 +1,204 @@
+{
+  "id": "f10-ville-campagne",
+  "title": "Ville et campagne",
+  "description": "Stadtleben, Landleben, Wohnen, Mobilität, Vergleiche",
+  "grade": 10,
+  "subject": "french",
+  "order": 45,
+  "lessons": [
+    {
+      "id": "f10-ville-campagne-l1",
+      "title": "Stadtleben",
+      "items": [
+        {
+          "front": "la métropole",
+          "back": "die Großstadt, die Metropole",
+          "example": "Paris est une grande métropole.",
+          "exampleDe": "Paris ist eine große Metropole."
+        },
+        {
+          "front": "le quartier",
+          "back": "das Viertel",
+          "example": "Mon quartier est très animé.",
+          "exampleDe": "Mein Viertel ist sehr belebt."
+        },
+        {
+          "front": "les transports en commun (m pl)",
+          "back": "der öffentliche Nahverkehr",
+          "example": "Les transports en commun sont efficaces.",
+          "exampleDe": "Der öffentliche Nahverkehr ist effizient."
+        },
+        {
+          "front": "la banlieue",
+          "back": "der Vorort",
+          "example": "Beaucoup de gens habitent en banlieue.",
+          "exampleDe": "Viele Menschen wohnen in den Vororten."
+        },
+        {
+          "front": "le bruit",
+          "back": "der Lärm",
+          "example": "Le bruit de la rue me dérange.",
+          "exampleDe": "Der Straßenlärm stört mich."
+        },
+        {
+          "front": "l'offre culturelle (f)",
+          "back": "das Kulturangebot",
+          "example": "L'offre culturelle est riche en ville.",
+          "exampleDe": "Das Kulturangebot ist in der Stadt groß."
+        }
+      ]
+    },
+    {
+      "id": "f10-ville-campagne-l2",
+      "title": "Landleben",
+      "items": [
+        {
+          "front": "le village",
+          "back": "das Dorf",
+          "example": "Mes grands-parents vivent dans un petit village.",
+          "exampleDe": "Meine Großeltern leben in einem kleinen Dorf."
+        },
+        {
+          "front": "l'agriculteur / l'agricultrice",
+          "back": "der Landwirt / die Landwirtin",
+          "example": "L'agriculteur se lève à cinq heures.",
+          "exampleDe": "Der Landwirt steht um fünf Uhr auf."
+        },
+        {
+          "front": "le calme",
+          "back": "die Ruhe",
+          "example": "Je cherche le calme de la nature.",
+          "exampleDe": "Ich suche die Ruhe der Natur."
+        },
+        {
+          "front": "l'espace (m)",
+          "back": "der Platz, der Raum",
+          "example": "À la campagne, il y a plus d'espace.",
+          "exampleDe": "Auf dem Land gibt es mehr Platz."
+        },
+        {
+          "front": "isolé / isolée",
+          "back": "abgelegen",
+          "example": "Cette ferme est très isolée.",
+          "exampleDe": "Dieser Hof liegt sehr abgelegen."
+        },
+        {
+          "front": "le jardin",
+          "back": "der Garten",
+          "example": "Ils ont un grand jardin avec des arbres.",
+          "exampleDe": "Sie haben einen großen Garten mit Bäumen."
+        }
+      ],
+      "explanation": {
+        "title": "Vergleichen",
+        "paragraphs": [
+          "Vergleiche bildest du mit plus … que, moins … que und aussi … que: La ville est plus bruyante que la campagne.",
+          "Mit « le plus » und « le moins » drückst du den Superlativ aus: C'est la région la plus belle de France."
+        ],
+        "examples": [
+          {
+            "fr": "La vie à la campagne est plus calme que la vie en ville.",
+            "de": "Das Leben auf dem Land ist ruhiger als das Leben in der Stadt."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "La ville est ___ bruyante que la campagne.",
+          "answer": "plus",
+          "options": [
+            "plus",
+            "aussi",
+            "moins"
+          ],
+          "translation": "Die Stadt ist lauter als das Land.",
+          "why": "Für einen Vergleich nach oben steht „plus … que“."
+        }
+      ]
+    },
+    {
+      "id": "f10-ville-campagne-l3",
+      "title": "Wohnen und Preise",
+      "items": [
+        {
+          "front": "le logement",
+          "back": "die Unterkunft, die Wohnung",
+          "example": "Le logement coûte cher dans les grandes villes.",
+          "exampleDe": "Wohnraum ist in Großstädten teuer."
+        },
+        {
+          "front": "louer",
+          "back": "mieten",
+          "example": "Ils louent un petit appartement.",
+          "exampleDe": "Sie mieten eine kleine Wohnung."
+        },
+        {
+          "front": "acheter",
+          "back": "kaufen",
+          "example": "Elle veut acheter une maison.",
+          "exampleDe": "Sie möchte ein Haus kaufen."
+        },
+        {
+          "front": "le prix",
+          "back": "der Preis",
+          "example": "Les prix augmentent chaque année.",
+          "exampleDe": "Die Preise steigen jedes Jahr."
+        },
+        {
+          "front": "déménager",
+          "back": "umziehen",
+          "example": "Nous allons déménager en juillet.",
+          "exampleDe": "Wir werden im Juli umziehen."
+        },
+        {
+          "front": "la colocation",
+          "back": "die Wohngemeinschaft",
+          "example": "Beaucoup d'étudiants vivent en colocation.",
+          "exampleDe": "Viele Studenten leben in einer WG."
+        }
+      ]
+    },
+    {
+      "id": "f10-ville-campagne-l4",
+      "title": "Mobilität",
+      "items": [
+        {
+          "front": "le trajet",
+          "back": "der Weg, die Strecke",
+          "example": "Mon trajet dure quarante minutes.",
+          "exampleDe": "Mein Weg dauert vierzig Minuten."
+        },
+        {
+          "front": "les embouteillages (m pl)",
+          "back": "der Stau",
+          "example": "Il y a des embouteillages le matin.",
+          "exampleDe": "Morgens gibt es Stau."
+        },
+        {
+          "front": "la voiture électrique",
+          "back": "das Elektroauto",
+          "example": "La voiture électrique ne pollue pas l'air.",
+          "exampleDe": "Das Elektroauto verschmutzt die Luft nicht."
+        },
+        {
+          "front": "le covoiturage",
+          "back": "die Fahrgemeinschaft",
+          "example": "Le covoiturage est pratique à la campagne.",
+          "exampleDe": "Fahrgemeinschaften sind auf dem Land praktisch."
+        },
+        {
+          "front": "dépendre de la voiture",
+          "back": "vom Auto abhängig sein",
+          "example": "À la campagne, on dépend de la voiture.",
+          "exampleDe": "Auf dem Land ist man vom Auto abhängig."
+        },
+        {
+          "front": "se déplacer",
+          "back": "sich fortbewegen",
+          "example": "Il se déplace à vélo.",
+          "exampleDe": "Er bewegt sich mit dem Rad fort."
+        }
+      ]
+    }
+  ]
+}

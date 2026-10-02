@@ -1,0 +1,208 @@
+{
+  "id": "f10-arts",
+  "title": "Arts et littérature",
+  "description": "Malerei, Theater, Literatur, Film, über Kunst sprechen",
+  "grade": 10,
+  "subject": "french",
+  "order": 55,
+  "lessons": [
+    {
+      "id": "f10-arts-l1",
+      "title": "Malerei und Museum",
+      "items": [
+        {
+          "front": "l'art (m)",
+          "back": "die Kunst",
+          "example": "Elle étudie l'histoire de l'art.",
+          "exampleDe": "Sie studiert Kunstgeschichte."
+        },
+        {
+          "front": "le tableau",
+          "back": "das Gemälde",
+          "example": "Ce tableau est très célèbre.",
+          "exampleDe": "Dieses Gemälde ist sehr berühmt."
+        },
+        {
+          "front": "le peintre",
+          "back": "der Maler",
+          "example": "Monet est un peintre impressionniste.",
+          "exampleDe": "Monet ist ein impressionistischer Maler."
+        },
+        {
+          "front": "l'exposition (f)",
+          "back": "die Ausstellung",
+          "example": "L'exposition dure jusqu'en mars.",
+          "exampleDe": "Die Ausstellung läuft bis März."
+        },
+        {
+          "front": "le musée",
+          "back": "das Museum",
+          "example": "Le musée du Louvre est gigantesque.",
+          "exampleDe": "Das Louvre-Museum ist riesig."
+        },
+        {
+          "front": "l'œuvre (f)",
+          "back": "das Werk",
+          "example": "Cette œuvre date du dix-neuvième siècle.",
+          "exampleDe": "Dieses Werk stammt aus dem neunzehnten Jahrhundert."
+        }
+      ]
+    },
+    {
+      "id": "f10-arts-l2",
+      "title": "Literatur",
+      "items": [
+        {
+          "front": "le roman",
+          "back": "der Roman",
+          "example": "J'ai lu un roman policier.",
+          "exampleDe": "Ich habe einen Kriminalroman gelesen."
+        },
+        {
+          "front": "l'auteur / l'autrice",
+          "back": "der Autor / die Autorin",
+          "example": "L'auteur est connu dans le monde entier.",
+          "exampleDe": "Der Autor ist weltweit bekannt."
+        },
+        {
+          "front": "le personnage",
+          "back": "die Figur, die Person (im Buch)",
+          "example": "Le personnage principal s'appelle Paul.",
+          "exampleDe": "Die Hauptfigur heißt Paul."
+        },
+        {
+          "front": "l'intrigue (f)",
+          "back": "die Handlung",
+          "example": "L'intrigue est pleine de suspense.",
+          "exampleDe": "Die Handlung ist voller Spannung."
+        },
+        {
+          "front": "le thème",
+          "back": "das Thema",
+          "example": "Le thème du livre est l'amitié.",
+          "exampleDe": "Das Thema des Buchs ist die Freundschaft."
+        },
+        {
+          "front": "toucher",
+          "back": "berühren, bewegen",
+          "example": "Cette histoire m'a profondément touché.",
+          "exampleDe": "Diese Geschichte hat mich tief berührt."
+        }
+      ],
+      "explanation": {
+        "title": "Über ein Buch sprechen",
+        "paragraphs": [
+          "Du fasst ein Buch im Präsens zusammen: L'histoire raconte la vie d'un jeune garçon. Dann gibst du deine Meinung: Ce roman m'a beaucoup touché.",
+          "Nützlich sind: l'auteur, le personnage principal, l'intrigue, le thème."
+        ],
+        "examples": [
+          {
+            "fr": "L'auteur raconte la vie d'un jeune garçon.",
+            "de": "Der Autor erzählt das Leben eines Jungen."
+          },
+          {
+            "fr": "Ce roman m'a beaucoup touché.",
+            "de": "Dieser Roman hat mich sehr berührt."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "L'___ du roman est très originale.",
+          "answer": "intrigue",
+          "options": [
+            "intrigue",
+            "peintre",
+            "musée"
+          ],
+          "translation": "Die Handlung des Romans ist sehr originell.",
+          "why": "Die Handlung einer Geschichte heißt „l'intrigue“."
+        }
+      ]
+    },
+    {
+      "id": "f10-arts-l3",
+      "title": "Theater und Film",
+      "items": [
+        {
+          "front": "le théâtre",
+          "back": "das Theater",
+          "example": "Nous allons au théâtre ce soir.",
+          "exampleDe": "Wir gehen heute Abend ins Theater."
+        },
+        {
+          "front": "la pièce",
+          "back": "das Theaterstück",
+          "example": "La pièce dure deux heures.",
+          "exampleDe": "Das Stück dauert zwei Stunden."
+        },
+        {
+          "front": "l'acteur / l'actrice",
+          "back": "der Schauspieler / die Schauspielerin",
+          "example": "L'actrice joue le rôle principal.",
+          "exampleDe": "Die Schauspielerin spielt die Hauptrolle."
+        },
+        {
+          "front": "le metteur en scène",
+          "back": "der Regisseur",
+          "example": "Le metteur en scène est très créatif.",
+          "exampleDe": "Der Regisseur ist sehr kreativ."
+        },
+        {
+          "front": "le spectateur / la spectatrice",
+          "back": "der Zuschauer / die Zuschauerin",
+          "example": "Les spectateurs applaudissent.",
+          "exampleDe": "Die Zuschauer klatschen."
+        },
+        {
+          "front": "la scène",
+          "back": "die Bühne, die Szene",
+          "example": "La scène finale est émouvante.",
+          "exampleDe": "Die Schlussszene ist bewegend."
+        }
+      ]
+    },
+    {
+      "id": "f10-arts-l4",
+      "title": "Seine Meinung zur Kunst",
+      "items": [
+        {
+          "front": "admirer",
+          "back": "bewundern",
+          "example": "J'admire le talent de cet artiste.",
+          "exampleDe": "Ich bewundere das Talent dieses Künstlers."
+        },
+        {
+          "front": "original / originale",
+          "back": "originell",
+          "example": "Son style est très original.",
+          "exampleDe": "Sein Stil ist sehr originell."
+        },
+        {
+          "front": "ennuyeux / ennuyeuse",
+          "back": "langweilig",
+          "example": "Le film était un peu ennuyeux.",
+          "exampleDe": "Der Film war ein bisschen langweilig."
+        },
+        {
+          "front": "émouvant / émouvante",
+          "back": "bewegend",
+          "example": "C'est une histoire très émouvante.",
+          "exampleDe": "Das ist eine sehr bewegende Geschichte."
+        },
+        {
+          "front": "critiquer",
+          "back": "kritisieren",
+          "example": "Les journalistes critiquent le film.",
+          "exampleDe": "Die Journalisten kritisieren den Film."
+        },
+        {
+          "front": "à mon avis",
+          "back": "meiner Meinung nach",
+          "example": "À mon avis, ce livre vaut la peine.",
+          "exampleDe": "Meiner Meinung nach lohnt sich dieses Buch."
+        }
+      ]
+    }
+  ]
+}

@@ -62,9 +62,9 @@ export function Welcome() {
     setStep(to)
   }
 
-  const finish = () => {
+  const finish = (to = '/') => {
     setOnboarded(true)
-    navigate('/', { replace: true })
+    navigate(to, { replace: true })
   }
 
   const doImport = async (file: File | undefined) => {
@@ -90,7 +90,7 @@ export function Welcome() {
             <header className="relative mx-auto flex w-full max-w-md items-center justify-center px-6 pt-4">
               <Wordmark />
               {hasProgress && (
-                <button type="button" onClick={finish} className="press absolute right-4 top-4 flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold text-brand-dark">
+                <button type="button" onClick={() => finish()} className="press absolute right-4 top-4 flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold text-brand-dark">
                   Zur App <Right size={14} />
                 </button>
               )}
@@ -224,6 +224,11 @@ export function Welcome() {
                           </li>
                         )
                       })}
+                      <li className="min-w-0">
+                        <p className="rounded-2xl bg-snow p-3.5 text-sm leading-relaxed text-muted">
+                          {grade > grades[0] ? `Hast du die früheren Klassen nicht gemacht? Französisch beginnt in Klasse ${grades[0]} bei null. Mit „Aufholen“ kannst du später alles nachholen, auch von früheren Klassen.` : 'Du fängst bei null an. Es geht Schritt für Schritt, ohne Vorwissen.'}
+                        </p>
+                      </li>
                     </ul>
                   )}
 
@@ -270,8 +275,11 @@ export function Welcome() {
                           </div>
                         </div>
                       </div>
-                      <p className="mt-4 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">
-                        Tipp: Ist der Unterricht schon weiter? Auf der Startseite findest du „Aufholen“. In der „KI“ kannst du Fotos deiner Buchseiten hochladen und dir einen Vokabeltest daraus machen lassen.
+                      <button type="button" className="btn btn-ghost press mt-4 w-full" onClick={() => finish('/catchup')}>
+                        Meine Klasse ist schon weiter: Aufholen
+                      </button>
+                      <p className="mt-3 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">
+                        Tipp: Ist der Unterricht schon weiter? Dafür gibt es „Aufholen". In der „KI“ kannst du Fotos deiner Buchseiten hochladen und dir einen Vokabeltest daraus machen lassen.
                       </p>
                     </div>
                   )}
@@ -281,7 +289,7 @@ export function Welcome() {
 
             <footer className="border-t border-line bg-bg" style={{ paddingBottom: 'max(0px, env(safe-area-inset-bottom))' }}>
               <div className="mx-auto flex w-full max-w-3xl justify-end px-5 py-4">
-                <button className="btn btn-primary press w-full !py-4 text-base sm:w-64" onClick={step === 'ready' ? finish : next} autoFocus>
+                <button className="btn btn-primary press w-full !py-4 text-base sm:w-64" onClick={step === 'ready' ? () => finish() : next} autoFocus>
                   {step === 'ready' ? 'Los geht’s' : 'Weiter'}
                 </button>
               </div>

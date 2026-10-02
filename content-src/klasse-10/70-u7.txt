@@ -1,0 +1,59 @@
+id: f10-u7
+title: Le monde du travail
+desc: Berufswelt, Bewerbung, höfliche Briefe
+order: 70
+
+= Berufe und Arbeit (1/2)
+- le travail = die Arbeit | Mon travail est intéressant. = Meine Arbeit ist interessant.
+- un emploi = eine Stelle | Il cherche un emploi. = Er sucht eine Stelle.
+- un salaire = ein Gehalt | Le salaire est bon. = Das Gehalt ist gut.
+- un patron = ein Chef | Mon patron est sympa. = Mein Chef ist nett.
+- un collègue = ein Kollege | Mon collègue m'aide. = Mein Kollege hilft mir.
+
+= Berufe und Arbeit (2/2)
+- le chômage = die Arbeitslosigkeit | Le chômage augmente. = Die Arbeitslosigkeit steigt.
+- une entreprise = ein Unternehmen | Il travaille dans une grande entreprise. = Er arbeitet in einem großen Unternehmen.
+- un apprentissage = eine Ausbildung | Elle fait un apprentissage. = Sie macht eine Ausbildung.
+- un diplôme = ein Abschluss | Il a un diplôme d'ingénieur. = Er hat einen Ingenieurabschluss.
+- un stage = ein Praktikum | Je cherche un stage pour l'été. = Ich suche ein Praktikum für den Sommer.
+
+= Die Bewerbung (1/2)
+? Formelle Briefe
+p Anrede: Madame, Monsieur, … Schluss: Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.
+p Höfliche Bitten mit dem Konditional: Je souhaiterais postuler … / Pourriez-vous m'envoyer …
+e Je souhaiterais effectuer un stage dans votre entreprise. = Ich würde gern ein Praktikum in Ihrem Unternehmen machen.
+e Je reste à votre disposition pour un entretien. = Ich stehe Ihnen für ein Gespräch zur Verfügung.
+- la lettre de motivation = das Bewerbungsschreiben | J'écris une lettre de motivation. = Ich schreibe ein Bewerbungsschreiben.
+- le curriculum vitae = der Lebenslauf | Voici mon curriculum vitae. = Hier ist mein Lebenslauf.
+- postuler = sich bewerben | Je voudrais postuler pour ce poste. = Ich möchte mich auf diese Stelle bewerben.
+- un entretien = ein Vorstellungsgespräch | J'ai un entretien demain. = Ich habe morgen ein Vorstellungsgespräch.
+- je souhaiterais = ich würde gern | Je souhaiterais faire un stage chez vous. = Ich würde gern bei Ihnen ein Praktikum machen.
+
+= Die Bewerbung (2/2)
+- pourriez-vous = könnten Sie | Pourriez-vous m'envoyer des informations ? = Könnten Sie mir Informationen schicken?
+- je reste à votre disposition = ich stehe Ihnen zur Verfügung | Je reste à votre disposition pour un entretien. = Ich stehe Ihnen für ein Gespräch zur Verfügung.
+- veuillez agréer = mit freundlichen Grüßen (formell) | Veuillez agréer mes salutations distinguées. = Mit freundlichen Grüßen.
+- les compétences = die Fähigkeiten | Elle a beaucoup de compétences. = Sie hat viele Fähigkeiten.
+- l'expérience = die Erfahrung | Il a de l'expérience. = Er hat Erfahrung.
+f Je ___ effectuer un stage dans votre entreprise. | souhaiterais | souhaiterais; souhaite; souhaitais; souhaiterai | Ich würde gern ein Praktikum in Ihrem Unternehmen machen. | Höfliche Bitte: conditionnel présent.
+f ___-vous m'envoyer des informations ? | Pourriez | Pourriez; Pouvez; Pourrez; Puissiez | Könnten Sie mir Informationen schicken? | Höfliche Frage im Konditional: pourriez-vous.
+
+= Zukunftspläne (1/2)
+? Futur antérieur
+p Das futur antérieur (Vorzukunft) = Hilfsverb im futur simple + Partizip: j'aurai fini, elle sera partie. Es drückt aus, was bis zu einem Zeitpunkt in der Zukunft schon geschehen sein wird.
+p Nach quand, dès que, aussitôt que, lorsque steht es, wenn etwas vor einer anderen künftigen Handlung abgeschlossen ist.
+e Quand j'aurai fini mes études, je chercherai un emploi. = Wenn ich mein Studium beendet habe, suche ich eine Stelle.
+e Dès qu'elle sera arrivée, nous mangerons. = Sobald sie angekommen ist, essen wir.
+- j'aurai fini = ich werde fertig sein | Quand j'aurai fini, je t'appellerai. = Wenn ich fertig bin, rufe ich dich an.
+- tu auras terminé = du wirst beendet haben | Tu auras terminé avant midi. = Du wirst vor Mittag fertig sein.
+- il aura trouvé = er wird gefunden haben | Il aura trouvé un emploi avant l'été. = Er wird vor dem Sommer eine Stelle gefunden haben.
+- nous aurons fait = wir werden gemacht haben | Nous aurons fait le travail à midi. = Wir werden die Arbeit mittags gemacht haben.
+- elle sera partie = sie wird gegangen sein | Elle sera partie avant huit heures. = Sie wird vor acht Uhr abgereist sein.
+
+= Zukunftspläne (2/2)
+- ils seront arrivés = sie werden angekommen sein | Ils seront arrivés à midi. = Sie werden mittags angekommen sein.
+- dès que = sobald | Dès que j'arrive, je t'appelle. = Sobald ich ankomme, rufe ich dich an.
+- aussitôt que = sobald (formell) | Aussitôt qu'il arrivera, nous mangerons. = Sobald er ankommt, essen wir.
+- lorsque = wenn / als | Lorsque j'étais petit, j'habitais ici. = Als ich klein war, wohnte ich hier.
+- d'ici là = bis dahin | D'ici là, tout sera prêt. = Bis dahin wird alles fertig sein.
+f Quand j'___ fini, je t'appellerai. | aurai | aurai; aurais; ai; avais | Wenn ich fertig bin, rufe ich dich an. | futur antérieur: avoir im futur simple (j'aurai) + Partizip.

@@ -1,0 +1,47 @@
+id: f10-examen
+title: Préparer l'examen
+desc: Textproduktion, formelle Briefe, mündliche Prüfung
+order: 95
+
+= Einen Text wiedergeben
+? Textzusammenfassung
+p Eine Zusammenfassung beginnt mit Quelle und Thema: „Ce texte, publié dans …, traite de …“. Dann gibst du die Kernaussagen im Präsens wieder.
+p Nützliche Verben: l'auteur affirme / explique / montre / critique / souligne que …
+e Dans ce texte, il s'agit de la mondialisation. = In diesem Text geht es um die Globalisierung.
+e L'auteur souligne que les jeunes sont concernés. = Der Autor betont, dass die Jugend betroffen ist.
+- ce texte traite de = dieser Text behandelt | Ce texte traite de l'écologie. = Dieser Text behandelt die Ökologie.
+- il s'agit de = es geht um | Dans ce texte, il s'agit de la mondialisation. = In diesem Text geht es um die Globalisierung.
+- l'auteur affirme que = der Autor behauptet, dass | L'auteur affirme que tout change. = Der Autor behauptet, dass sich alles verändert.
+- l'auteur souligne que = der Autor betont, dass | L'auteur souligne que les jeunes sont concernés. = Der Autor betont, dass die Jugend betroffen ist.
+- l'auteur critique = der Autor kritisiert | L'auteur critique la société. = Der Autor kritisiert die Gesellschaft.
+- en résumé = zusammenfassend | En résumé, le texte défend la liberté. = Zusammenfassend verteidigt der Text die Freiheit.
+
+= Zeitenwahl im Text
+? Welche Zeit passt?
+p In der Prüfung zeigst du, dass du Zeiten sicher wählst: Handlungen im Text im présent, Vorzeitiges im passé composé, Zukünftiges im futur simple.
+p Prüfe bei jedem Satz: Wann findet es statt? Ist es abgeschlossen? Gibt es Signalwörter wie hier, depuis, dans deux ans, quand?
+e L'auteur raconte ce qui s'est passé hier. = Der Autor erzählt, was gestern geschehen ist.
+- depuis deux ans = seit zwei Jahren | J'apprends le français depuis deux ans. = Ich lerne seit zwei Jahren Französisch.
+- il y a deux ans = vor zwei Jahren | Il y a deux ans, nous avons déménagé. = Vor zwei Jahren sind wir umgezogen.
+- dans deux ans = in zwei Jahren | Dans deux ans, j'aurai mon bac. = In zwei Jahren habe ich mein Abitur.
+- pendant deux ans = zwei Jahre lang | J'ai habité à Lyon pendant deux ans. = Ich habe zwei Jahre lang in Lyon gewohnt.
+- quand j'étais petit = als ich klein war | Quand j'étais petit, je jouais dehors. = Als ich klein war, habe ich draußen gespielt.
+- dès que j'aurai fini = sobald ich fertig bin | Dès que j'aurai fini, je viendrai. = Sobald ich fertig bin, komme ich.
+f J'habite ici ___ trois ans. | depuis | depuis; il y a; dans; pendant | Ich wohne seit drei Jahren hier. | depuis + Präsens bezeichnet eine Dauer, die bis jetzt anhält.
+f Il est parti ___ trois jours. | il y a | il y a; depuis; dans; pendant | Er ist vor drei Tagen abgereist. | il y a + Zeitraum = vor … (abgeschlossen).
+
+= Formelle E-Mails
+- Madame, Monsieur = Sehr geehrte Damen und Herren | Madame, Monsieur, je vous écris pour une demande. = Sehr geehrte Damen und Herren, ich schreibe Ihnen wegen einer Anfrage.
+- je vous écris pour = ich schreibe Ihnen, um | Je vous écris pour poser une question. = Ich schreibe Ihnen, um eine Frage zu stellen.
+- je vous serais reconnaissant de = ich wäre Ihnen dankbar, wenn | Je vous serais reconnaissant de répondre vite. = Ich wäre Ihnen dankbar, wenn Sie schnell antworten.
+- veuillez trouver ci-joint = anbei finden Sie | Veuillez trouver ci-joint mon CV. = Anbei finden Sie meinen Lebenslauf.
+- dans l'attente de votre réponse = in Erwartung Ihrer Antwort | Dans l'attente de votre réponse, je vous remercie d'avance. = In Erwartung Ihrer Antwort danke ich Ihnen im Voraus.
+- cordialement = mit freundlichen Grüßen | Cordialement, Paul Martin. = Mit freundlichen Grüßen, Paul Martin.
+
+= Mündliche Prüfung
+- pourriez-vous répéter ? = könnten Sie das wiederholen? | Pardon, pourriez-vous répéter ? = Entschuldigung, könnten Sie das wiederholen?
+- je voudrais ajouter que = ich möchte hinzufügen, dass | Je voudrais ajouter que c'est important. = Ich möchte hinzufügen, dass das wichtig ist.
+- je ne suis pas sûr, mais = ich bin nicht sicher, aber | Je ne suis pas sûr, mais je pense que oui. = Ich bin nicht sicher, aber ich glaube schon.
+- comment dit-on … en français ? = wie sagt man … auf Französisch? | Comment dit-on « Schule » en français ? = Wie sagt man „Schule“ auf Französisch?
+- laissez-moi réfléchir = lassen Sie mich überlegen | Laissez-moi réfléchir un instant. = Lassen Sie mich kurz überlegen.
+- si je comprends bien = wenn ich richtig verstehe | Si je comprends bien, vous êtes d'accord. = Wenn ich richtig verstehe, sind Sie einverstanden.

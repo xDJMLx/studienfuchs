@@ -13,6 +13,8 @@ import { Session, type SessionResult } from '../lesson/Session'
 
 /** Pro Einheit: eine Auswahlfrage und eine Tippaufgabe. Tippen lässt sich nicht erraten, deshalb zählt nur, wer beides kann. */
 const PER_UNIT = 2
+/** Bei sehr vielen Einheiten (z. B. mehrere Klassen auf einmal) nur eine Tippaufgabe pro Einheit, sonst wird der Test zu lang */
+const MANY_UNITS = 16
 
 /** Einstufungstest: wer pro Einheit beide Aufgaben richtig hat, kann die Einheit überspringen. */
 export function PlacementPage() {
@@ -21,8 +23,10 @@ export function PlacementPage() {
   const storedGrade = useStore((s) => s.grade)
   const markLessonsDone = useStore((s) => s.markLessonsDone)
   // Aus dem Aufhol-Modus: nur Einheiten bis zum Stand der Klasse abfragen
-  const upTo = useSearchParams()[0].get('upTo')
-  const limited = useMemo(() => (upTo ? unitsUpTo(upTo) : []), [upTo])
+  const query = useSearchParams()[0]
+  const upTo = query.get('upTo')
+  const onlyGrade = Number(query.get('g')) || null
+  const limited = useMemo(() => (upTo ? unitsUpTo(upTo, query.get('all') === '1').filter((u) => !onlyGrade || u.grade === onlyGrade) : []), [upTo, query, onlyGrade])
   const grade = limited.length ? limited[0].grade : grades.includes(storedGrade) ? storedGrade : grades[0]
   const gradeUnits = useMemo(() => (limited.length ? limited : units.filter((u) => u.grade === grade)), [grade, limited])
 
@@ -34,12 +38,13 @@ export function PlacementPage() {
     const byUnit = new Map<string, VocabItem[]>()
     const exercises: Exercise[] = []
     const allUnitItems = gradeUnits.flatMap((u) => u.lessons.filter(isRegular).flatMap((l) => l.items))
+    const perUnit = gradeUnits.length > MANY_UNITS ? 1 : PER_UNIT
     for (const unit of gradeUnits) {
       const items = unit.lessons.filter(isRegular).flatMap((l) => l.items)
-      const picked = shuffle(items).slice(0, PER_UNIT)
+      const picked = shuffle(items).slice(0, perUnit)
       byUnit.set(unit.id, picked)
       picked.forEach((item, i) => {
-        if (i % 2 === 1) {
+        if (perUnit === 1 || i % 2 === 1) {
           // Deutsch → Französisch eintippen (Erinnern aus dem Gedächtnis)
           exercises.push({ kind: 'type', id: `placement:${item.id}`, itemId: item.id, prompt: item.back, promptLang: 'de', answer: item.front })
           return
@@ -154,13 +159,13 @@ export function PlacementPage() {
             <Mascot mood="think" size={88} className="shrink-0" blink />
             <div>
               <h1 className="page-title">Einstufungstest</h1>
-              <p className="text-muted">Klasse {grade} · {gradeUnits.length * PER_UNIT} Fragen</p>
+              <p className="text-muted">Klasse {grade} · {gradeUnits.length * (gradeUnits.length > MANY_UNITS ? 1 : PER_UNIT)} Fragen</p>
             </div>
           </div>
         </Item>
         <Item>
           <p className="mb-3 leading-relaxed">
-            Du kennst schon etwas? Aus jeder Einheit stelle ich dir zwei Fragen: eine zum Auswählen und eine zum Eintippen. Hast du beide richtig, kannst du die Einheit überspringen.
+            Du kennst schon etwas? {gradeUnits.length > MANY_UNITS ? 'Aus jeder Einheit stelle ich dir eine Frage zum Eintippen. Hast du sie richtig, kannst du die Einheit überspringen.' : 'Aus jeder Einheit stelle ich dir zwei Fragen: eine zum Auswählen und eine zum Eintippen. Hast du beide richtig, kannst du die Einheit überspringen.'}
           </p>
           <p className="mb-6 text-sm text-muted">Es gibt keine zweite Chance pro Frage und keine Strafe. Weil du eine Antwort selbst schreiben musst, reicht Raten nicht: übersprungen wird nur, was wirklich sitzt.</p>
           <button className="btn btn-primary btn-shine press justify-between sm:w-64" onClick={() => setStage('test')} autoFocus>

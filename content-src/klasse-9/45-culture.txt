@@ -1,0 +1,42 @@
+id: f9-culture
+title: Culture et loisirs
+desc: Kino, Musik, Bücher, Meinung zu Kultur
+order: 45
+
+= Im Kino
+- le film = der Film | Ce film est très drôle. = Dieser Film ist sehr lustig.
+- le réalisateur = der Regisseur | Le réalisateur est français. = Der Regisseur ist Franzose.
+- l'acteur / l'actrice = der Schauspieler / die Schauspielerin | L'actrice joue très bien. = Die Schauspielerin spielt sehr gut.
+- la séance = die Vorstellung | La séance commence à huit heures. = Die Vorstellung beginnt um acht Uhr.
+- la comédie = die Komödie | J'aime regarder une comédie. = Ich schaue gern eine Komödie.
+- le film d'horreur = der Horrorfilm | Je n'aime pas les films d'horreur. = Ich mag keine Horrorfilme.
+
+= Musik
+- le concert = das Konzert | Nous allons au concert samedi. = Wir gehen am Samstag zum Konzert.
+- la chanson = das Lied | Cette chanson est très connue. = Dieses Lied ist sehr bekannt.
+- le chanteur / la chanteuse = der Sänger / die Sängerin | La chanteuse a une belle voix. = Die Sängerin hat eine schöne Stimme.
+- le groupe = die Band, die Gruppe | Mon groupe préféré joue ce soir. = Meine Lieblingsband spielt heute Abend.
+- le festival = das Festival | Le festival dure trois jours. = Das Festival dauert drei Tage.
+- jouer d'un instrument = ein Instrument spielen | J'aimerais jouer d'un instrument. = Ich würde gern ein Instrument spielen.
+
+= Bücher und Lesen
+- le roman = der Roman | Je lis un roman policier. = Ich lese einen Kriminalroman.
+- la bande dessinée = der Comic | Il adore les bandes dessinées. = Er liebt Comics.
+- l'auteur = der Autor | L'auteur est très connu. = Der Autor ist sehr bekannt.
+- la bibliothèque = die Bibliothek | Je vais à la bibliothèque. = Ich gehe in die Bibliothek.
+- emprunter = ausleihen | Je veux emprunter ce livre. = Ich möchte dieses Buch ausleihen.
+- le recueil de poèmes = der Gedichtband | Elle lit un recueil de poèmes. = Sie liest einen Gedichtband.
+
+= Seine Meinung sagen
+? Gefallen und Missfallen
+p Über Filme und Bücher sprichst du in der Vergangenheit: J'ai adoré ce film. Ce livre m'a beaucoup plu. Mit Adjektiven wie passionnant, émouvant, ennuyeux, drôle begründest du.
+p Empfehlung: Je le recommande ! oder Je ne te le conseille pas.
+e J'ai adoré ce film, il est très drôle. = Ich habe diesen Film geliebt, er ist sehr lustig.
+e Ce livre m'a plu. = Das Buch hat mir gefallen.
+- j'ai adoré = ich habe es geliebt | J'ai adoré ce film. = Ich habe diesen Film geliebt.
+- ça m'a plu = das hat mir gefallen | Ce livre, ça m'a plu. = Das Buch hat mir gefallen.
+- passionnant = spannend, fesselnd | Ce livre est passionnant. = Dieses Buch ist spannend.
+- émouvant = bewegend | Le film est très émouvant. = Der Film ist sehr bewegend.
+- ennuyeux = langweilig | Ce cours est ennuyeux. = Dieser Unterricht ist langweilig.
+- je le recommande = ich empfehle es | Ce film est super, je le recommande. = Dieser Film ist super, ich empfehle ihn.
+f Ce livre m'___ plu. | a | a; ai; est; as | Das Buch hat mir gefallen. | plaire bildet das passé composé mit avoir: il/ça a plu.

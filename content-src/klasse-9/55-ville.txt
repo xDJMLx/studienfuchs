@@ -1,0 +1,52 @@
+id: f9-ville
+title: La vie en ville
+desc: Geschäfte, Einkaufen, Kleidung, Verkehr, Wohnen
+order: 55
+
+= Geschäfte und Einkaufen
+- le magasin = das Geschäft | Le magasin ferme à sept heures. = Das Geschäft schließt um sieben Uhr.
+- la boulangerie = die Bäckerei | Je vais à la boulangerie pour le pain. = Ich gehe in die Bäckerei, um Brot zu holen.
+- le supermarché = der Supermarkt | Nous faisons les courses au supermarché. = Wir kaufen im Supermarkt ein.
+- le marché = der Markt | Le marché a lieu le samedi matin. = Der Markt findet samstagmorgens statt.
+- faire les courses = einkaufen gehen | Je fais les courses le vendredi. = Ich gehe freitags einkaufen.
+- la caisse = die Kasse | Il y a du monde à la caisse. = An der Kasse ist viel los.
+- payer = bezahlen | Je paie par carte. = Ich bezahle mit Karte.
+f Ma mère ___ les courses le samedi. | fait | fait; fais; faites | Meine Mutter geht samstags einkaufen. | Die 3. Person Singular von „faire“ heißt „fait“.
+
+= Kleidung
+- les vêtements (m pl) = die Kleidung | Elle achète des vêtements pour l'école. = Sie kauft Kleidung für die Schule.
+- le pantalon = die Hose | Ce pantalon est trop long. = Diese Hose ist zu lang.
+- la chemise = das Hemd | Il porte une chemise blanche. = Er trägt ein weißes Hemd.
+- la robe = das Kleid | Cette robe te va très bien. = Dieses Kleid steht dir sehr gut.
+- les chaussures (f pl) = die Schuhe | Mes chaussures sont neuves. = Meine Schuhe sind neu.
+- porter = tragen | Elle porte un manteau rouge. = Sie trägt einen roten Mantel.
+- essayer = anprobieren | Je peux essayer cette veste ? = Kann ich diese Jacke anprobieren?
+
+= Mode und Preise
+? Preise und Größen
+p Nach dem Preis fragst du mit Combien ça coûte ? oder C'est combien ? Zu teuer ist trop cher, günstig ist bon marché.
+p Bei Kleidung fragt man nach der Größe: Vous faites quelle taille ? Bei Schuhen: Quelle pointure ?
+e Combien coûte ce pull ? = Was kostet dieser Pullover?
+e C'est trop cher pour moi. = Das ist zu teuer für mich.
+- la mode = die Mode | La mode change chaque année. = Die Mode ändert sich jedes Jahr.
+- la taille = die Größe | Quelle taille faites-vous ? = Welche Größe haben Sie?
+- cher / chère = teuer | Ce sac est trop cher. = Diese Tasche ist zu teuer.
+- bon marché = günstig | Ces baskets sont bon marché. = Diese Turnschuhe sind günstig.
+- le prix = der Preis | Quel est le prix de ce livre ? = Was ist der Preis dieses Buchs?
+- les soldes (m pl) = der Ausverkauf | Pendant les soldes, tout est moins cher. = Beim Ausverkauf ist alles billiger.
+
+= Verkehr in der Stadt
+- le métro = die U-Bahn | Je prends le métro pour aller au travail. = Ich nehme die U-Bahn zur Arbeit.
+- la station = die Haltestelle, die Station | La station de métro est près d'ici. = Die U-Bahn-Station ist hier in der Nähe.
+- la circulation = der Verkehr | La circulation est dense le matin. = Der Verkehr ist morgens dicht.
+- la piste cyclable = der Radweg | Il roule sur la piste cyclable. = Er fährt auf dem Radweg.
+- le feu rouge = die rote Ampel | Attention, le feu est rouge ! = Achtung, die Ampel ist rot!
+- le piéton / la piétonne = der Fußgänger / die Fußgängerin | Les piétons traversent la rue. = Die Fußgänger überqueren die Straße.
+
+= Wohnen
+- l'appartement (m) = die Wohnung | Notre appartement est au troisième étage. = Unsere Wohnung ist im dritten Stock.
+- la maison = das Haus | Ils habitent dans une grande maison. = Sie wohnen in einem großen Haus.
+- l'étage (m) = das Stockwerk | Nous habitons au premier étage. = Wir wohnen im ersten Stock.
+- l'ascenseur (m) = der Aufzug | L'ascenseur est en panne. = Der Aufzug ist kaputt.
+- le voisin / la voisine = der Nachbar / die Nachbarin | Notre voisine est très gentille. = Unsere Nachbarin ist sehr nett.
+- le loyer = die Miete | Le loyer est cher à Paris. = Die Miete ist in Paris teuer.

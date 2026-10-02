@@ -1,0 +1,42 @@
+id: f9-fetes
+title: Fêtes et traditions
+desc: Feste in Frankreich, Traditionen, Einladungen, Geschenke
+order: 72
+
+= Feste in Frankreich
+- la fête = das Fest | La fête de la musique a lieu le 21 juin. = Das Fest der Musik findet am 21. Juni statt.
+- le jour de l'an = der Neujahrstag | Le jour de l'an, nous mangeons en famille. = Am Neujahrstag essen wir in der Familie.
+- le quatorze juillet = der 14. Juli (Nationalfeiertag) | Le quatorze juillet, il y a un défilé. = Am 14. Juli gibt es eine Parade.
+- Noël = Weihnachten | À Noël, nous décorons le sapin. = An Weihnachten schmücken wir den Tannenbaum.
+- le feu d'artifice = das Feuerwerk | Le feu d'artifice commence à vingt-trois heures. = Das Feuerwerk beginnt um dreiundzwanzig Uhr.
+- fêter = feiern | Nous fêtons l'anniversaire de ma sœur. = Wir feiern den Geburtstag meiner Schwester.
+
+= Traditionen
+- la tradition = die Tradition | C'est une vieille tradition française. = Das ist eine alte französische Tradition.
+- la galette des rois = der Dreikönigskuchen | Nous mangeons la galette des rois en janvier. = Wir essen im Januar den Dreikönigskuchen.
+- la crêpe = der Crêpe | À la Chandeleur, on mange des crêpes. = An Lichtmess isst man Crêpes.
+- le muguet = das Maiglöckchen | Le premier mai, on offre du muguet. = Am ersten Mai verschenkt man Maiglöckchen.
+- le poisson d'avril = der Aprilscherz | Il m'a fait un poisson d'avril. = Er hat mir einen Aprilscherz gespielt.
+- célébrer = feiern, begehen | Les Français célèbrent la fête nationale. = Die Franzosen feiern den Nationalfeiertag.
+
+= Einladung und Party
+? Einladen und zusagen
+p Du lädst ein mit inviter: Je t'invite à ma fête. Zusagen: Avec plaisir ! Absagen höflich: Je suis désolé, je ne peux pas venir.
+p Vor einem Infinitiv steht „à“ oder „de“, nach „inviter“ meist à + Nomen oder à + Infinitiv: Il m'invite à dîner.
+e Je t'invite à mon anniversaire samedi. = Ich lade dich am Samstag zu meinem Geburtstag ein.
+e Avec plaisir, j'arrive à huit heures. = Sehr gern, ich komme um acht Uhr.
+- inviter = einladen | J'invite tous mes amis. = Ich lade alle meine Freunde ein.
+- l'invitation (f) = die Einladung | Elle a reçu une invitation. = Sie hat eine Einladung bekommen.
+- la soirée = der Abend, die Feier | La soirée était très sympa. = Die Feier war sehr nett.
+- danser = tanzen | Nous avons dansé toute la nuit. = Wir haben die ganze Nacht getanzt.
+- accepter = annehmen, zusagen | J'accepte ton invitation avec plaisir. = Ich nehme deine Einladung gerne an.
+- refuser = ablehnen, absagen | Il refuse l'invitation. = Er lehnt die Einladung ab.
+f Je t'___ à mon anniversaire. | invite | invite; invites; invitons | Ich lade dich zu meinem Geburtstag ein. | Zum Subjekt „je“ gehört die Form „invite“.
+
+= Geschenke
+- le cadeau = das Geschenk | Je cherche un cadeau pour mon père. = Ich suche ein Geschenk für meinen Vater.
+- offrir = schenken | Mes parents m'ont offert un vélo. = Meine Eltern haben mir ein Fahrrad geschenkt.
+- l'emballage (m) = die Verpackung | L'emballage est très joli. = Die Verpackung ist sehr hübsch.
+- le bouquet de fleurs = der Blumenstrauß | Il apporte un bouquet de fleurs. = Er bringt einen Blumenstrauß mit.
+- surprendre = überraschen | Ce cadeau va la surprendre. = Dieses Geschenk wird sie überraschen.
+- remercier = danken | Je te remercie pour ce beau cadeau. = Ich danke dir für dieses schöne Geschenk.

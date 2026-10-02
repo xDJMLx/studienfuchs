@@ -1,0 +1,59 @@
+id: f9-u1
+title: Il était une fois
+desc: L'imparfait: Bildung und Gebrauch
+order: 10
+
+= Imparfait bilden (1/2)
+? So bildest du das imparfait
+p Nimm die nous-Form im Präsens, streiche -ons und hänge an: -ais, -ais, -ait, -ions, -iez, -aient.
+p nous parlons → parl- → je parlais, tu parlais, il parlait, nous parlions, vous parliez, ils parlaient. Einzige Ausnahme beim Stamm: être → ét- (j'étais).
+e Quand j'étais petit, je jouais dehors. = Als ich klein war, spielte ich draußen.
+e Nous habitions à Lyon. = Wir wohnten in Lyon.
+t Die Endungen -ais, -ais, -ait, -aient klingen gleich; achte beim Schreiben auf die Person.
+- je parlais = ich sprach / ich sprach früher | Quand j'étais petit, je parlais peu. = Als ich klein war, sprach ich wenig.
+- tu finissais = du beendetest | Tu finissais toujours tes devoirs. = Du hast deine Hausaufgaben immer beendet.
+- il faisait = er machte | Il faisait ses devoirs le soir. = Er machte abends seine Hausaufgaben.
+- nous avions = wir hatten | Nous avions un chien. = Wir hatten einen Hund.
+- vous étiez = ihr wart | Vous étiez très jeunes. = Ihr wart sehr jung.
+
+= Imparfait bilden (2/2)
+- ils allaient = sie gingen | Ils allaient à l'école à pied. = Sie gingen zu Fuß zur Schule.
+- j'étais = ich war | J'étais très timide. = Ich war sehr schüchtern.
+- elle prenait = sie nahm | Elle prenait le bus tous les jours. = Sie nahm jeden Tag den Bus.
+- nous mangions = wir aßen | Nous mangions à midi. = Wir aßen mittags.
+- ils voulaient = sie wollten | Ils voulaient jouer dehors. = Sie wollten draußen spielen.
+f Quand j'___ petit, je jouais dehors. | étais | étais; était; ai été; étions | Als ich klein war, spielte ich draußen. | être im imparfait: j'étais.
+f Nous ___ à Lyon. | habitions | habitions; habitons; habitaient; habitiez | Wir wohnten in Lyon. | nous habitons → habit- + -ions.
+
+= Wann imparfait? (1/2)
+? Gewohnheit, Zustand, Hintergrund
+p Das imparfait benutzt du für Gewohnheiten (tous les jours, souvent), Zustände und Beschreibungen (il faisait beau) sowie für Handlungen, die gerade im Gange waren.
+p Typische Signalwörter: toujours, souvent, d'habitude, chaque jour, autrefois, à cette époque.
+e Autrefois, nous allions à la plage chaque été. = Früher gingen wir jeden Sommer an den Strand.
+e Il pleuvait et il faisait froid. = Es regnete und es war kalt.
+- autrefois = früher | Autrefois, il n'y avait pas de téléphone. = Früher gab es keine Telefone.
+- d'habitude = gewöhnlich | D'habitude, je me lève à sept heures. = Gewöhnlich stehe ich um sieben Uhr auf.
+- toujours = immer | Il est toujours à l'heure. = Er ist immer pünktlich.
+- souvent = oft | Nous allons souvent au parc. = Wir gehen oft in den Park.
+- chaque été = jeden Sommer | Chaque été, nous allions à la mer. = Jeden Sommer fuhren wir ans Meer.
+
+= Wann imparfait? (2/2)
+- à cette époque = zu dieser Zeit | À cette époque, nous habitions à Lyon. = Zu dieser Zeit wohnten wir in Lyon.
+- tous les jours = jeden Tag | Je lis tous les jours. = Ich lese jeden Tag.
+- quand j'étais enfant = als ich Kind war | Quand j'étais enfant, j'aimais dessiner. = Als ich Kind war, zeichnete ich gern.
+- il faisait beau = das Wetter war schön | Ce jour-là, il faisait beau. = An diesem Tag war schönes Wetter.
+- il y avait = es gab | Il y avait beaucoup de monde. = Es waren viele Leute da.
+
+= Märchen und Geschichten (1/2)
+- il était une fois = es war einmal | Il était une fois un roi. = Es war einmal ein König.
+- le roi = der König | Le roi habite dans un grand château. = Der König wohnt in einem großen Schloss.
+- la reine = die Königin | La reine est très gentille. = Die Königin ist sehr nett.
+- le château = das Schloss | Le château est sur la colline. = Das Schloss steht auf dem Hügel.
+- le chevalier = der Ritter | Le chevalier combat le dragon. = Der Ritter kämpft gegen den Drachen.
+
+= Märchen und Geschichten (2/2)
+- le dragon = der Drache | Le dragon garde le trésor. = Der Drache bewacht den Schatz.
+- la forêt = der Wald | Ils marchent dans la forêt. = Sie gehen durch den Wald.
+- la sorcière = die Hexe | La sorcière habite dans la forêt. = Die Hexe wohnt im Wald.
+- heureux = glücklich | Ils sont heureux ensemble. = Sie sind zusammen glücklich.
+- vivre = leben | Ils vivent dans un château. = Sie leben in einem Schloss.

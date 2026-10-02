@@ -1,0 +1,286 @@
+{
+  "id": "f9-voyage",
+  "title": "En voyage",
+  "description": "Reisen planen, Gepäck, Hotel, Urlaubsorte, Wetter, Probleme unterwegs",
+  "grade": 9,
+  "subject": "french",
+  "order": 35,
+  "lessons": [
+    {
+      "id": "f9-voyage-l1",
+      "title": "Eine Reise planen",
+      "items": [
+        {
+          "front": "les vacances (f pl)",
+          "back": "die Ferien, der Urlaub",
+          "example": "Nous passons les vacances à la mer.",
+          "exampleDe": "Wir verbringen die Ferien am Meer."
+        },
+        {
+          "front": "réserver",
+          "back": "buchen, reservieren",
+          "example": "Je réserve une chambre pour trois nuits.",
+          "exampleDe": "Ich buche ein Zimmer für drei Nächte."
+        },
+        {
+          "front": "le billet d'avion",
+          "back": "das Flugticket",
+          "example": "Elle a acheté un billet d'avion.",
+          "exampleDe": "Sie hat ein Flugticket gekauft."
+        },
+        {
+          "front": "partir en vacances",
+          "back": "in den Urlaub fahren",
+          "example": "Nous partons en vacances demain.",
+          "exampleDe": "Wir fahren morgen in den Urlaub."
+        },
+        {
+          "front": "le séjour",
+          "back": "der Aufenthalt",
+          "example": "Notre séjour dure une semaine.",
+          "exampleDe": "Unser Aufenthalt dauert eine Woche."
+        },
+        {
+          "front": "l'aéroport (m)",
+          "back": "der Flughafen",
+          "example": "L'aéroport est loin de la ville.",
+          "exampleDe": "Der Flughafen ist weit von der Stadt entfernt."
+        }
+      ],
+      "explanation": {
+        "title": "Über die Zukunft sprechen",
+        "paragraphs": [
+          "Reisepläne beschreibst du mit dem futur simple oder mit aller + Infinitiv: Nous partirons en juillet. Je vais réserver l'hôtel.",
+          "Mit „en“ nennst du das Verkehrsmittel (en train, en avion, en voiture), mit „à“ bei Rad und zu Fuß (à vélo, à pied)."
+        ],
+        "examples": [
+          {
+            "fr": "En été, nous partirons en vacances.",
+            "de": "Im Sommer fahren wir in den Urlaub."
+          },
+          {
+            "fr": "Je vais réserver un billet de train.",
+            "de": "Ich werde eine Zugfahrkarte buchen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Nous ___ en juillet.",
+          "answer": "partirons",
+          "options": [
+            "partirons",
+            "partons",
+            "partions"
+          ],
+          "translation": "Wir fahren im Juli.",
+          "why": "Das futur simple drückt einen Plan für später aus."
+        }
+      ]
+    },
+    {
+      "id": "f9-voyage-l2",
+      "title": "Gepäck und Papiere",
+      "items": [
+        {
+          "front": "la valise",
+          "back": "der Koffer",
+          "example": "Ma valise est trop lourde.",
+          "exampleDe": "Mein Koffer ist zu schwer."
+        },
+        {
+          "front": "le sac à dos",
+          "back": "der Rucksack",
+          "example": "Il porte un sac à dos.",
+          "exampleDe": "Er trägt einen Rucksack."
+        },
+        {
+          "front": "le passeport",
+          "back": "der Reisepass",
+          "example": "N'oublie pas ton passeport !",
+          "exampleDe": "Vergiss deinen Reisepass nicht!"
+        },
+        {
+          "front": "la carte d'identité",
+          "back": "der Personalausweis",
+          "example": "J'ai ma carte d'identité dans la poche.",
+          "exampleDe": "Ich habe meinen Personalausweis in der Tasche."
+        },
+        {
+          "front": "oublier",
+          "back": "vergessen",
+          "example": "J'ai oublié mon maillot de bain.",
+          "exampleDe": "Ich habe meine Badehose vergessen."
+        },
+        {
+          "front": "emporter",
+          "back": "mitnehmen",
+          "example": "Qu'est-ce que tu emportes ?",
+          "exampleDe": "Was nimmst du mit?"
+        }
+      ]
+    },
+    {
+      "id": "f9-voyage-l3",
+      "title": "Im Hotel",
+      "items": [
+        {
+          "front": "l'hôtel (m)",
+          "back": "das Hotel",
+          "example": "L'hôtel se trouve près de la plage.",
+          "exampleDe": "Das Hotel liegt in der Nähe des Strandes."
+        },
+        {
+          "front": "la chambre",
+          "back": "das Zimmer",
+          "example": "Nous avons une chambre avec balcon.",
+          "exampleDe": "Wir haben ein Zimmer mit Balkon."
+        },
+        {
+          "front": "la réception",
+          "back": "die Rezeption",
+          "example": "La réception ouvre à sept heures.",
+          "exampleDe": "Die Rezeption öffnet um sieben Uhr."
+        },
+        {
+          "front": "la clé",
+          "back": "der Schlüssel",
+          "example": "Je laisse la clé à la réception.",
+          "exampleDe": "Ich lasse den Schlüssel an der Rezeption."
+        },
+        {
+          "front": "l'auberge de jeunesse (f)",
+          "back": "die Jugendherberge",
+          "example": "Nous dormons à l'auberge de jeunesse.",
+          "exampleDe": "Wir schlafen in der Jugendherberge."
+        },
+        {
+          "front": "le camping",
+          "back": "der Campingplatz",
+          "example": "Le camping est au bord du lac.",
+          "exampleDe": "Der Campingplatz liegt am See."
+        }
+      ]
+    },
+    {
+      "id": "f9-voyage-l4",
+      "title": "Urlaubsorte",
+      "items": [
+        {
+          "front": "la plage",
+          "back": "der Strand",
+          "example": "Les enfants jouent sur la plage.",
+          "exampleDe": "Die Kinder spielen am Strand."
+        },
+        {
+          "front": "la montagne",
+          "back": "das Gebirge, der Berg",
+          "example": "En hiver, nous allons à la montagne.",
+          "exampleDe": "Im Winter fahren wir in die Berge."
+        },
+        {
+          "front": "la campagne",
+          "back": "das Land",
+          "example": "Ma grand-mère habite à la campagne.",
+          "exampleDe": "Meine Großmutter wohnt auf dem Land."
+        },
+        {
+          "front": "le lac",
+          "back": "der See",
+          "example": "Nous nous baignons dans le lac.",
+          "exampleDe": "Wir baden im See."
+        },
+        {
+          "front": "la forêt",
+          "back": "der Wald",
+          "example": "Nous nous promenons dans la forêt.",
+          "exampleDe": "Wir spazieren im Wald."
+        },
+        {
+          "front": "la visite",
+          "back": "die Besichtigung, der Besuch",
+          "example": "La visite du château dure deux heures.",
+          "exampleDe": "Die Besichtigung des Schlosses dauert zwei Stunden."
+        }
+      ]
+    },
+    {
+      "id": "f9-voyage-l5",
+      "title": "Wetter im Urlaub",
+      "items": [
+        {
+          "front": "le temps",
+          "back": "das Wetter",
+          "example": "Quel temps fait-il à Nice ?",
+          "exampleDe": "Wie ist das Wetter in Nizza?"
+        },
+        {
+          "front": "il fait beau",
+          "back": "es ist schönes Wetter",
+          "example": "Aujourd'hui, il fait beau.",
+          "exampleDe": "Heute ist schönes Wetter."
+        },
+        {
+          "front": "il pleut",
+          "back": "es regnet",
+          "example": "En automne, il pleut souvent.",
+          "exampleDe": "Im Herbst regnet es oft."
+        },
+        {
+          "front": "il y a du soleil",
+          "back": "die Sonne scheint",
+          "example": "Il y a du soleil sur toute la côte.",
+          "exampleDe": "An der ganzen Küste scheint die Sonne."
+        },
+        {
+          "front": "il neige",
+          "back": "es schneit",
+          "example": "À la montagne, il neige beaucoup.",
+          "exampleDe": "In den Bergen schneit es viel."
+        },
+        {
+          "front": "la température",
+          "back": "die Temperatur",
+          "example": "La température est de trente degrés.",
+          "exampleDe": "Die Temperatur beträgt dreißig Grad."
+        }
+      ]
+    },
+    {
+      "id": "f9-voyage-l6",
+      "title": "Probleme unterwegs",
+      "items": [
+        {
+          "front": "perdre",
+          "back": "verlieren",
+          "example": "J'ai perdu mon billet.",
+          "exampleDe": "Ich habe meine Fahrkarte verloren."
+        },
+        {
+          "front": "le retard",
+          "back": "die Verspätung",
+          "example": "Le train a une heure de retard.",
+          "exampleDe": "Der Zug hat eine Stunde Verspätung."
+        },
+        {
+          "front": "la panne",
+          "back": "die Panne",
+          "example": "La voiture est en panne.",
+          "exampleDe": "Das Auto hat eine Panne."
+        },
+        {
+          "front": "rater",
+          "back": "verpassen",
+          "example": "J'ai raté mon train.",
+          "exampleDe": "Ich habe meinen Zug verpasst."
+        },
+        {
+          "front": "demander de l'aide",
+          "back": "um Hilfe bitten",
+          "example": "Je demande de l'aide à un passant.",
+          "exampleDe": "Ich bitte einen Passanten um Hilfe."
+        }
+      ]
+    }
+  ]
+}

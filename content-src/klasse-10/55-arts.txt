@@ -1,0 +1,42 @@
+id: f10-arts
+title: Arts et littérature
+desc: Malerei, Theater, Literatur, Film, über Kunst sprechen
+order: 55
+
+= Malerei und Museum
+- l'art (m) = die Kunst | Elle étudie l'histoire de l'art. = Sie studiert Kunstgeschichte.
+- le tableau = das Gemälde | Ce tableau est très célèbre. = Dieses Gemälde ist sehr berühmt.
+- le peintre = der Maler | Monet est un peintre impressionniste. = Monet ist ein impressionistischer Maler.
+- l'exposition (f) = die Ausstellung | L'exposition dure jusqu'en mars. = Die Ausstellung läuft bis März.
+- le musée = das Museum | Le musée du Louvre est gigantesque. = Das Louvre-Museum ist riesig.
+- l'œuvre (f) = das Werk | Cette œuvre date du dix-neuvième siècle. = Dieses Werk stammt aus dem neunzehnten Jahrhundert.
+
+= Literatur
+? Über ein Buch sprechen
+p Du fasst ein Buch im Präsens zusammen: L'histoire raconte la vie d'un jeune garçon. Dann gibst du deine Meinung: Ce roman m'a beaucoup touché.
+p Nützlich sind: l'auteur, le personnage principal, l'intrigue, le thème.
+e L'auteur raconte la vie d'un jeune garçon. = Der Autor erzählt das Leben eines Jungen.
+e Ce roman m'a beaucoup touché. = Dieser Roman hat mich sehr berührt.
+- le roman = der Roman | J'ai lu un roman policier. = Ich habe einen Kriminalroman gelesen.
+- l'auteur / l'autrice = der Autor / die Autorin | L'auteur est connu dans le monde entier. = Der Autor ist weltweit bekannt.
+- le personnage = die Figur, die Person (im Buch) | Le personnage principal s'appelle Paul. = Die Hauptfigur heißt Paul.
+- l'intrigue (f) = die Handlung | L'intrigue est pleine de suspense. = Die Handlung ist voller Spannung.
+- le thème = das Thema | Le thème du livre est l'amitié. = Das Thema des Buchs ist die Freundschaft.
+- toucher = berühren, bewegen | Cette histoire m'a profondément touché. = Diese Geschichte hat mich tief berührt.
+f L'___ du roman est très originale. | intrigue | intrigue; peintre; musée | Die Handlung des Romans ist sehr originell. | Die Handlung einer Geschichte heißt „l'intrigue“.
+
+= Theater und Film
+- le théâtre = das Theater | Nous allons au théâtre ce soir. = Wir gehen heute Abend ins Theater.
+- la pièce = das Theaterstück | La pièce dure deux heures. = Das Stück dauert zwei Stunden.
+- l'acteur / l'actrice = der Schauspieler / die Schauspielerin | L'actrice joue le rôle principal. = Die Schauspielerin spielt die Hauptrolle.
+- le metteur en scène = der Regisseur | Le metteur en scène est très créatif. = Der Regisseur ist sehr kreativ.
+- le spectateur / la spectatrice = der Zuschauer / die Zuschauerin | Les spectateurs applaudissent. = Die Zuschauer klatschen.
+- la scène = die Bühne, die Szene | La scène finale est émouvante. = Die Schlussszene ist bewegend.
+
+= Seine Meinung zur Kunst
+- admirer = bewundern | J'admire le talent de cet artiste. = Ich bewundere das Talent dieses Künstlers.
+- original / originale = originell | Son style est très original. = Sein Stil ist sehr originell.
+- ennuyeux / ennuyeuse = langweilig | Le film était un peu ennuyeux. = Der Film war ein bisschen langweilig.
+- émouvant / émouvante = bewegend | C'est une histoire très émouvante. = Das ist eine sehr bewegende Geschichte.
+- critiquer = kritisieren | Les journalistes critiquent le film. = Die Journalisten kritisieren den Film.
+- à mon avis = meiner Meinung nach | À mon avis, ce livre vaut la peine. = Meiner Meinung nach lohnt sich dieses Buch.

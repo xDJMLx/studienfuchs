@@ -22,9 +22,9 @@ const longDate = (d: string) => new Date(d).toLocaleDateString('de-DE', { weekda
  */
 export function BooksPage() {
   const navigate = useNavigate()
-  const { classUnit, catchUpTarget, lessons, sets, examDates, setExamDate, grade } = useStore()
+  const { classUnit, catchUpTarget, catchUpAll, lessons, sets, examDates, setExamDate, grade } = useStore()
   const { books, exams, addBook, addExam, deleteExam } = useBooks()
-  const status = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons) : null
+  const status = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll) : null
 
   const [newOpen, setNewOpen] = useState(false)
   const [title, setTitle] = useState('')

@@ -23,6 +23,16 @@ export function reviewCard(card: SrsCard | undefined, grade: Grade, now = new Da
   return scheduler.next(base as Card, now, RATING[grade]).card
 }
 
+/**
+ * Karte für ein Wort, das jemand schon kann (z. B. nach dem Einstufungstest): Der erste Termin liegt je nach Zufall
+ * 3 bis 14 Tage in der Zukunft, damit nicht alles auf einmal fällig wird.
+ */
+export function seedKnownCard(now = new Date(), rng: () => number = Math.random): Card {
+  const card = scheduler.next(newCard(now), now, Rating.Easy).card
+  card.due = new Date(now.getTime() + (3 + Math.floor(rng() * 12)) * 86_400_000)
+  return card
+}
+
 export function isDue(card: SrsCard | undefined, now = new Date()): boolean {
   if (!card) return false
   return new Date(card.due).getTime() <= now.getTime()

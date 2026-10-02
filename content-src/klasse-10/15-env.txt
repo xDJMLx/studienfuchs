@@ -1,0 +1,42 @@
+id: f10-env
+title: Environnement et avenir
+desc: Klima, Lösungen, Konsum, Debatte
+order: 15
+
+= Klimawandel
+- le changement climatique = der Klimawandel | Le changement climatique est un défi mondial. = Der Klimawandel ist eine weltweite Herausforderung.
+- la planète = der Planet | Nous n'avons qu'une seule planète. = Wir haben nur einen Planeten.
+- la canicule = die Hitzewelle | Pendant la canicule, il fait très chaud. = Während der Hitzewelle ist es sehr heiß.
+- la sécheresse = die Dürre | La sécheresse détruit les récoltes. = Die Dürre zerstört die Ernte.
+- les inondations = die Überschwemmungen | Les inondations ont détruit des maisons. = Die Überschwemmungen haben Häuser zerstört.
+- la hausse des températures = der Temperaturanstieg | La hausse des températures fait fondre la glace. = Der Temperaturanstieg lässt das Eis schmelzen.
+- fondre = schmelzen | La neige commence à fondre. = Der Schnee beginnt zu schmelzen.
+
+= Lösungen
+? Was können wir tun?
+p Vorschläge machst du mit „il faut que + subjonctif“ oder „il faut + Infinitiv“: Il faut réduire les déchets. Il faut que nous prenions le vélo.
+p Mit „pour que“ nennst du ein Ziel: Pour que la planète survive, nous devons changer.
+e Il faut trier les déchets. = Man muss den Müll trennen.
+e Il faut que nous prenions le vélo. = Wir müssen das Fahrrad nehmen.
+- les transports en commun = der öffentliche Nahverkehr | Je prends les transports en commun. = Ich nutze die öffentlichen Verkehrsmittel.
+- le covoiturage = die Fahrgemeinschaft | Le covoiturage réduit la pollution. = Fahrgemeinschaften verringern die Verschmutzung.
+- l'énergie solaire = die Sonnenenergie | L'énergie solaire est propre. = Sonnenenergie ist sauber.
+- l'énergie éolienne = die Windenergie | L'énergie éolienne vient du vent. = Windenergie kommt vom Wind.
+- trier les déchets = den Müll trennen | Nous trions les déchets à la maison. = Wir trennen zu Hause den Müll.
+- réduire = reduzieren | Il faut réduire la consommation. = Man muss den Verbrauch reduzieren.
+f Il faut que nous ___ le vélo. | prenions | prenions; prenons; prendrons; prendrions | Wir müssen das Fahrrad nehmen. | il faut que + subjonctif (nous prenions).
+
+= Konsum
+- la consommation = der Konsum, der Verbrauch | La consommation d'énergie augmente. = Der Energieverbrauch steigt.
+- le gaspillage alimentaire = die Lebensmittelverschwendung | Le gaspillage alimentaire est un problème. = Lebensmittelverschwendung ist ein Problem.
+- l'agriculture biologique = der ökologische Landbau | L'agriculture biologique respecte la nature. = Der ökologische Landbau respektiert die Natur.
+- acheter local = regional einkaufen | Je préfère acheter local. = Ich kaufe lieber regional ein.
+- un emballage = eine Verpackung | Cet emballage est en plastique. = Diese Verpackung ist aus Plastik.
+- le plastique = das Plastik | Le plastique pollue les mers. = Plastik verschmutzt die Meere.
+
+= Darüber diskutieren
+- à mon avis, il est urgent d'agir = meiner Meinung nach ist Handeln dringend | À mon avis, il est urgent d'agir. = Meiner Meinung nach ist es dringend zu handeln.
+- chacun doit faire un effort = jeder muss sich anstrengen | Chacun doit faire un effort. = Jeder muss sich anstrengen.
+- ce n'est pas seulement l'affaire des gouvernements = das ist nicht nur Sache der Regierungen | Ce n'est pas seulement l'affaire des gouvernements. = Das ist nicht nur Sache der Regierungen.
+- les petits gestes comptent = kleine Gesten zählen | Les petits gestes comptent aussi. = Auch kleine Gesten zählen.
+- il est trop tard pour hésiter = es ist zu spät zum Zögern | Il est trop tard pour hésiter. = Es ist zu spät zum Zögern.

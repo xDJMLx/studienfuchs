@@ -1,0 +1,57 @@
+id: f9-u5
+title: Les médias
+desc: Medien, Relativsätze, y und en
+order: 50
+
+= Medien und Internet (1/2)
+- un portable = ein Handy | Mon portable est neuf. = Mein Handy ist neu.
+- un ordinateur = ein Computer | J'utilise un ordinateur. = Ich benutze einen Computer.
+- internet = das Internet | Internet est très utile. = Das Internet ist sehr nützlich.
+- un réseau social = ein soziales Netzwerk | Il utilise un réseau social. = Er benutzt ein soziales Netzwerk.
+- un site web = eine Webseite | Ce site web est intéressant. = Diese Webseite ist interessant.
+
+= Medien und Internet (2/2)
+- envoyer un message = eine Nachricht schicken | Je vais envoyer un message à Léa. = Ich werde Léa eine Nachricht schicken.
+- télécharger = herunterladen | Je veux télécharger cette application. = Ich möchte diese App herunterladen.
+- un mot de passe = ein Passwort | N'oublie pas ton mot de passe. = Vergiss dein Passwort nicht.
+- les infos = die Nachrichten | Je regarde les infos le soir. = Abends schaue ich die Nachrichten.
+- un journal = eine Zeitung | Mon père lit le journal. = Mein Vater liest die Zeitung.
+
+= qui und que (1/2)
+? Relativsätze
+p qui ersetzt das Subjekt: Le garçon qui joue est mon frère. que ersetzt das Objekt: Le livre que je lis est intéressant.
+p Vor Vokal wird que zu qu'. Qui bleibt immer qui.
+e J'ai un ami qui habite à Paris. = Ich habe einen Freund, der in Paris wohnt.
+e Voici le film que j'aime. = Hier ist der Film, den ich mag.
+t Frage: Wer/Was macht die Handlung? Dann qui. Wen/Was betrifft sie? Dann que.
+- le garçon qui joue = der Junge, der spielt | Le garçon qui joue est mon frère. = Der Junge, der spielt, ist mein Bruder.
+- le livre que je lis = das Buch, das ich lese | Le livre que je lis est drôle. = Das Buch, das ich lese, ist lustig.
+- la fille qui chante = das Mädchen, das singt | La fille qui chante s'appelle Léa. = Das Mädchen, das singt, heißt Léa.
+- le film qu'il regarde = der Film, den er anschaut | Le film qu'il regarde est vieux. = Der Film, den er anschaut, ist alt.
+
+= qui und que (2/2)
+- l'ami que je connais = der Freund, den ich kenne | C'est l'ami que je connais bien. = Das ist der Freund, den ich gut kenne.
+- les gens qui parlent = die Leute, die sprechen | Les gens qui parlent fort me gênent. = Leute, die laut sprechen, stören mich.
+- ce que = das, was (Objekt) | Je ne comprends pas ce que tu dis. = Ich verstehe nicht, was du sagst.
+- ce qui = das, was (Subjekt) | Dis-moi ce qui se passe. = Sag mir, was los ist.
+f Le garçon ___ joue est mon frère. | qui | qui; que; qu'; dont | Der Junge, der spielt, ist mein Bruder. | „garçon“ ist das Subjekt von joue → qui.
+f Le livre ___ je lis est drôle. | que | que; qui; où; dont | Das Buch, das ich lese, ist lustig. | „livre“ ist das Objekt von lis → que.
+
+= Die Pronomen y und en (1/2)
+? Ersatz für Ort und Menge
+p y ersetzt Orte mit à/dans/en: Tu vas à Paris ? – Oui, j'y vais. en ersetzt de + Nomen und Mengen: Tu veux du pain ? – Oui, j'en veux.
+p Beide stehen vor dem Verb. Bei Zahlen bleibt die Zahl: J'en ai deux.
+e Tu vas au cinéma ? – Oui, j'y vais. = Gehst du ins Kino? – Ja, ich gehe dorthin.
+e Tu as des frères ? – Oui, j'en ai deux. = Hast du Brüder? – Ja, ich habe zwei.
+- j'y vais = ich gehe dorthin | Tu vas au parc ? — Oui, j'y vais. = Gehst du in den Park? — Ja, ich gehe hin.
+- nous y allons = wir gehen dorthin | Nous y allons en bus. = Wir fahren mit dem Bus dorthin.
+- il y est = er ist dort | Où est Paul ? — Il y est déjà. = Wo ist Paul? — Er ist schon dort.
+- j'en veux = ich möchte davon | Du gâteau ? Oui, j'en veux. = Kuchen? Ja, ich möchte welchen.
+
+= Die Pronomen y und en (2/2)
+- j'en ai deux = ich habe zwei davon | Des frères ? J'en ai deux. = Brüder? Ich habe zwei.
+- il en mange = er isst davon | Il adore le chocolat, il en mange souvent. = Er liebt Schokolade, er isst oft davon.
+- je n'y vais pas = ich gehe nicht dorthin | Je n'y vais pas aujourd'hui. = Ich gehe heute nicht dorthin.
+- je n'en ai pas = ich habe keine davon | Des frères ? Je n'en ai pas. = Brüder? Ich habe keine.
+f Tu vas à la piscine ? – Oui, j'___ vais. | y | y; en; le; la | Gehst du ins Schwimmbad? – Ja, ich gehe hin. | Ortsangabe mit à → y.
+f Tu veux du gâteau ? – Oui, j'___ veux. | en | en; y; le; lui | Willst du Kuchen? – Ja, ich möchte welchen. | Teilungsartikel du/de la → en.

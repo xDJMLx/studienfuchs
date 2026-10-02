@@ -1,0 +1,64 @@
+id: f9-u7
+title: Connecteurs logiques
+desc: Konjunktionen, Gegensatz, Grund, Ziel
+order: 70
+
+= Grund und Folge (1/2)
+? Weil, deshalb, also
+p Grund: parce que, car, puisque, comme. Folge: donc, alors, c'est pourquoi, par conséquent.
+p Comme steht am Satzanfang: Comme il pleuvait, nous sommes restés.
+e Il pleuvait, donc nous sommes restés. = Es regnete, also blieben wir.
+e Je suis fatigué parce que j'ai peu dormi. = Ich bin müde, weil ich wenig geschlafen habe.
+- parce que = weil | Je suis content parce que c'est samedi. = Ich freue mich, weil Samstag ist.
+- car = denn | Je reste, car il pleut. = Ich bleibe, denn es regnet.
+- puisque = da (ja) | Puisque tu es là, aide-moi. = Da du schon da bist, hilf mir.
+- comme = da / weil (Satzanfang) | Comme il pleuvait, nous sommes restés. = Weil es regnete, sind wir geblieben.
+- donc = also / deshalb | Il pleuvait, donc nous sommes restés. = Es regnete, also sind wir geblieben.
+
+= Grund und Folge (2/2)
+- c'est pourquoi = deshalb | Il est malade, c'est pourquoi il reste au lit. = Er ist krank, deshalb bleibt er im Bett.
+- par conséquent = folglich | Il a menti, par conséquent personne ne le croit. = Er hat gelogen, folglich glaubt ihm niemand.
+- grâce à = dank | Grâce à toi, j'ai réussi. = Dank dir habe ich es geschafft.
+- à cause de = wegen (negativ) | À cause de la pluie, nous restons ici. = Wegen des Regens bleiben wir hier.
+- en raison de = aufgrund von | En raison de la grève, il n'y a pas de train. = Aufgrund des Streiks fährt kein Zug.
+
+= Gegensatz (1/2)
+? Aber, obwohl, trotzdem
+p mais (aber), pourtant (dennoch), cependant (jedoch), alors que / tandis que (während, wohingegen), malgré (trotz).
+p bien que (obwohl) verlangt den subjonctif: Bien qu'il soit petit, il est fort.
+e Bien qu'il pleuve, nous sortons. = Obwohl es regnet, gehen wir raus.
+e Il est riche, pourtant il n'est pas heureux. = Er ist reich, dennoch ist er nicht glücklich.
+t bien que + subjonctif; malgré + Nomen.
+- pourtant = dennoch | Il est riche, pourtant il n'est pas heureux. = Er ist reich, dennoch ist er nicht glücklich.
+- cependant = jedoch | Il est jeune, cependant il est sage. = Er ist jung, jedoch ist er vernünftig.
+- alors que = während / obwohl | Il travaille alors que je joue. = Er arbeitet, während ich spiele.
+- tandis que = wohingegen | Elle lit tandis qu'il dort. = Sie liest, während er schläft.
+- malgré = trotz | Malgré la pluie, nous sortons. = Trotz des Regens gehen wir raus.
+
+= Gegensatz (2/2)
+- bien que = obwohl | Bien qu'il pleuve, nous sortons. = Obwohl es regnet, gehen wir raus.
+- au contraire = im Gegenteil | Je ne suis pas triste, au contraire ! = Ich bin nicht traurig, im Gegenteil!
+- en revanche = dagegen | Il est nul en maths, en revanche il est bon en sport. = In Mathe ist er schlecht, dagegen ist er gut im Sport.
+- d'un côté … de l'autre = einerseits … andererseits | D'un côté, il aime le sport, de l'autre, il lit beaucoup. = Einerseits mag er Sport, andererseits liest er viel.
+- toutefois = allerdings | Le film est long, toutefois il est bon. = Der Film ist lang, allerdings ist er gut.
+f Bien qu'il ___ froid, nous sortons. | fasse | fasse; fait; fera; ferait | Obwohl es kalt ist, gehen wir raus. | bien que verlangt den subjonctif.
+f ___ la pluie, ils ont joué dehors. | Malgré | Malgré; Bien que; Parce que; Donc | Trotz des Regens spielten sie draußen. | malgré + Nomen (la pluie).
+
+= Ziel und Zeit (1/2)
+? Damit, bevor, nachdem
+p Ziel: pour que + subjonctif (damit), pour + Infinitiv (um zu). Zeit: avant que + subjonctif, après que + indicatif, quand, dès que, pendant que.
+p Gleiche Person im Haupt- und Nebensatz → Infinitiv: Je travaille pour réussir.
+e J'explique pour que tu comprennes. = Ich erkläre, damit du verstehst.
+e Avant que tu partes, appelle-moi. = Bevor du gehst, ruf mich an.
+- pour que = damit | J'explique pour que tu comprennes. = Ich erkläre es, damit du verstehst.
+- afin de = um zu | Il travaille afin de réussir. = Er arbeitet, um Erfolg zu haben.
+- avant que = bevor | Avant que tu partes, appelle-moi. = Bevor du gehst, ruf mich an.
+- après que = nachdem | Après qu'il est parti, nous avons mangé. = Nachdem er gegangen war, haben wir gegessen.
+
+= Ziel und Zeit (2/2)
+- dès que = sobald | Dès que j'arrive, je t'appelle. = Sobald ich ankomme, rufe ich dich an.
+- jusqu'à ce que = bis | Reste ici jusqu'à ce que je revienne. = Bleib hier, bis ich zurückkomme.
+- en attendant = in der Zwischenzeit | En attendant, lis ce livre. = In der Zwischenzeit lies dieses Buch.
+- pendant que = während | Pendant que je dormais, il est parti. = Während ich schlief, ist er gegangen.
+f J'explique pour que tu ___. | comprennes | comprennes; comprends; comprendras; comprenais | Ich erkläre, damit du verstehst. | pour que verlangt den subjonctif.
+f Après qu'il ___ parti, nous avons mangé. | est | est; soit; serait; sera | Nachdem er gegangen war, aßen wir. | après que steht mit dem indicatif.

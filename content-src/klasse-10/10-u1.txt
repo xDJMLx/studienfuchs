@@ -1,0 +1,58 @@
+id: f10-u1
+title: En même temps
+desc: Gérondif und participe présent
+order: 10
+
+= Das gérondif (1/2)
+? Gleichzeitig und auf welche Art
+p Gérondif = en + participe présent (Stamm der nous-Form + -ant): en parlant, en mangeant, en finissant. Es drückt Gleichzeitigkeit, Art und Weise oder Mittel aus.
+p Das Subjekt von Gérondif und Hauptsatz muss dasselbe sein: Il chante en travaillant.
+e Il chante en travaillant. = Er singt bei der Arbeit.
+e On apprend en pratiquant. = Man lernt durch Üben.
+t Ausnahmen: être → étant, avoir → ayant, savoir → sachant. Beim gérondif: en étant, en ayant, en sachant.
+- en parlant = beim Sprechen / indem man spricht | Il apprend en parlant. = Er lernt beim Sprechen.
+- en mangeant = beim Essen | Il lit en mangeant. = Er liest beim Essen.
+- en finissant = indem man beendet | En finissant tôt, tu auras du temps libre. = Wenn du früh fertig wirst, hast du freie Zeit.
+- en marchant = beim Gehen | Elle écoute de la musique en marchant. = Sie hört beim Gehen Musik.
+- en lisant = beim Lesen | On apprend du vocabulaire en lisant. = Man lernt Vokabeln durch Lesen.
+
+= Das gérondif (2/2)
+- en écoutant = beim Zuhören | En écoutant, tu comprends mieux. = Wenn du zuhörst, verstehst du besser.
+- en étant = indem man ist | En étant patient, tu réussiras. = Wenn du geduldig bist, wirst du es schaffen.
+- en ayant = indem man hat | En ayant du courage, il a gagné. = Mit Mut hat er gewonnen.
+- en sachant = indem man weiß | En sachant la vérité, il a ri. = Da er die Wahrheit wusste, lachte er.
+f Il chante ___ travaillant. | en | en; au; dans; par | Er singt bei der Arbeit. | Gérondif = en + -ant.
+f On apprend en ___. | pratiquant | pratiquant; pratiquer; pratiqué; pratiquons | Man lernt durch Üben. | en + Stamm der nous-Form (pratiqu-) + -ant.
+
+= Participe présent und Passiv (1/2)
+? Zwei Formen im Vergleich
+p Das participe présent ohne „en“ ersetzt oft einen Relativsatz (un homme parlant français = qui parle français). Es ist unveränderlich.
+p Passiv: être + participe passé (+ par). La lettre est écrite par Léa. Das Partizip richtet sich nach dem Subjekt.
+e Cette église est visitée par des milliers de touristes. = Diese Kirche wird von Tausenden Touristen besucht.
+e Les devoirs sont faits. = Die Hausaufgaben sind gemacht.
+- il est invité = er wird eingeladen | Il est invité à la fête. = Er ist zur Feier eingeladen.
+- elle est invitée = sie wird eingeladen | Elle est invitée chez Léa. = Sie ist zu Léa eingeladen.
+- ils sont vus = sie werden gesehen | Ils sont vus dans la rue. = Sie werden auf der Straße gesehen.
+- le livre est lu = das Buch wird gelesen | Le livre est lu par beaucoup d'élèves. = Das Buch wird von vielen Schülern gelesen.
+
+= Participe présent und Passiv (2/2)
+- par = von, durch (beim Passiv) | La lettre est écrite par Léa. = Der Brief wird von Léa geschrieben.
+- la lettre est écrite = der Brief wird geschrieben | La lettre est écrite à la main. = Der Brief wird von Hand geschrieben.
+- il a été invité = er wurde eingeladen | Il a été invité à la fête. = Er wurde zur Feier eingeladen.
+- le film sera présenté = der Film wird vorgestellt werden | Le film sera présenté demain. = Der Film wird morgen vorgestellt.
+f La lettre est ___ par Léa. | écrite | écrite; écrit; écrits; écrire | Der Brief wird von Léa geschrieben. | Passiv: Partizip richtet sich nach lettre (f).
+f Les élèves sont ___ par le professeur. | invités | invités; invité; invitée; inviter | Die Schüler werden vom Lehrer eingeladen. | Plural männlich → invités.
+
+= Umwelt (1/2)
+- l'environnement = die Umwelt | Nous devons protéger l'environnement. = Wir müssen die Umwelt schützen.
+- la pollution = die Verschmutzung | La pollution est un grand problème. = Die Verschmutzung ist ein großes Problem.
+- le réchauffement climatique = die Klimaerwärmung | Le réchauffement climatique inquiète beaucoup de gens. = Die Klimaerwärmung beunruhigt viele Menschen.
+- les déchets = der Müll / Abfall | Il faut réduire les déchets. = Man muss den Müll reduzieren.
+- recycler = recyceln | Nous recyclons le papier. = Wir recyceln das Papier.
+
+= Umwelt (2/2)
+- économiser l'énergie = Energie sparen | Il faut économiser l'énergie. = Man muss Energie sparen.
+- les énergies renouvelables = erneuerbare Energien | Les énergies renouvelables sont l'avenir. = Erneuerbare Energien sind die Zukunft.
+- protéger = schützen | Nous voulons protéger la nature. = Wir wollen die Natur schützen.
+- gaspiller = verschwenden | Il ne faut pas gaspiller l'eau. = Man darf kein Wasser verschwenden.
+- durable = nachhaltig | Il faut une économie durable. = Man braucht eine nachhaltige Wirtschaft.

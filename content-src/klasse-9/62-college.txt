@@ -1,0 +1,41 @@
+id: f9-college
+title: Au collège et après
+desc: Schulfächer, Noten, Prüfungen, Praktikum, Zukunft nach der Schule
+order: 62
+
+= Fächer und Noten
+- la matière = das Schulfach | Ma matière préférée est l'histoire. = Mein Lieblingsfach ist Geschichte.
+- la note = die Note | J'ai une bonne note en maths. = Ich habe eine gute Note in Mathe.
+- le bulletin = das Zeugnis | Le bulletin arrive en février. = Das Zeugnis kommt im Februar.
+- la moyenne = der Durchschnitt | Sa moyenne est de quinze sur vingt. = Sein Durchschnitt beträgt fünfzehn von zwanzig.
+- s'améliorer = besser werden | Je dois m'améliorer en anglais. = Ich muss in Englisch besser werden.
+- facile / difficile = leicht / schwierig | Cet exercice est difficile. = Diese Aufgabe ist schwierig.
+
+= Prüfungen
+- l'examen (m) = die Prüfung | L'examen commence à neuf heures. = Die Prüfung beginnt um neun Uhr.
+- le contrôle = die Klassenarbeit, der Test | Nous avons un contrôle de français demain. = Wir schreiben morgen eine Französischarbeit.
+- réviser = wiederholen, lernen | Je révise mes leçons le soir. = Ich wiederhole abends meinen Stoff.
+- réussir = bestehen, Erfolg haben | Elle a réussi son examen. = Sie hat ihre Prüfung bestanden.
+- échouer = durchfallen, scheitern | Il a échoué à l'examen. = Er ist durch die Prüfung gefallen.
+- la réponse = die Antwort | Je connais la réponse. = Ich kenne die Antwort.
+f Elle ___ ses leçons tous les soirs. | révise | révise; révises; révisons | Sie wiederholt jeden Abend ihren Stoff. | Zur 3. Person Singular gehört -e.
+
+= Schulleben
+- le professeur = der Lehrer, die Lehrerin | Notre professeur explique bien. = Unser Lehrer erklärt gut.
+- le délégué / la déléguée = der Klassensprecher / die Klassensprecherin | La déléguée parle au directeur. = Die Klassensprecherin spricht mit dem Direktor.
+- le règlement = die Schulordnung, die Regeln | Le règlement interdit les portables. = Die Schulordnung verbietet Handys.
+- le cours = die Unterrichtsstunde | Le cours d'EPS commence à deux heures. = Der Sportunterricht beginnt um zwei Uhr.
+- la récréation = die Pause | À la récréation, nous jouons au foot. = In der Pause spielen wir Fußball.
+- la sortie scolaire = der Klassenausflug | La sortie scolaire a lieu en juin. = Der Klassenausflug findet im Juni statt.
+
+= Praktikum
+? Das Betriebspraktikum
+p Ein Praktikum heißt un stage, wer es macht un stagiaire. Man sagt: faire un stage dans une entreprise.
+p Beschreibe deine Aufgaben im présent und im passé composé: J'ai répondu au téléphone. J'ai aidé les clients.
+e J'ai fait un stage dans une boulangerie. = Ich habe ein Praktikum in einer Bäckerei gemacht.
+- le stage = das Praktikum | Mon stage dure deux semaines. = Mein Praktikum dauert zwei Wochen.
+- l'entreprise (f) = das Unternehmen | Elle travaille dans une grande entreprise. = Sie arbeitet in einem großen Unternehmen.
+- le métier = der Beruf | Quel métier veux-tu faire ? = Welchen Beruf willst du ergreifen?
+- le collègue / la collègue = der Kollege / die Kollegin | Mes collègues sont sympathiques. = Meine Kollegen sind sympathisch.
+- apprendre = lernen | J'apprends beaucoup pendant mon stage. = Ich lerne viel während meines Praktikums.
+- le client / la cliente = der Kunde / die Kundin | La cliente cherche un cadeau. = Die Kundin sucht ein Geschenk.

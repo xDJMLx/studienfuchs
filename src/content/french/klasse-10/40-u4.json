@@ -1,0 +1,291 @@
+{
+  "id": "f10-u4",
+  "title": "Si j'avais su",
+  "description": "Conditionnel passé, Bedingungssätze Typ 3, Vergangenheitszeiten im Überblick",
+  "grade": 10,
+  "subject": "french",
+  "order": 40,
+  "lessons": [
+    {
+      "id": "f10-u4-l1",
+      "title": "Conditionnel passé (1/2)",
+      "items": [
+        {
+          "front": "j'aurais aimé",
+          "back": "ich hätte gern",
+          "example": "J'aurais aimé venir.",
+          "exampleDe": "Ich wäre gern gekommen."
+        },
+        {
+          "front": "tu aurais dû",
+          "back": "du hättest müssen",
+          "example": "Tu aurais dû me prévenir.",
+          "exampleDe": "Du hättest mich warnen sollen."
+        },
+        {
+          "front": "il aurait pu",
+          "back": "er hätte können",
+          "example": "Il aurait pu nous aider.",
+          "exampleDe": "Er hätte uns helfen können."
+        },
+        {
+          "front": "nous aurions voulu",
+          "back": "wir hätten gewollt",
+          "example": "Nous aurions voulu rester.",
+          "exampleDe": "Wir hätten gern bleiben wollen."
+        }
+      ],
+      "explanation": {
+        "title": "Was gewesen wäre",
+        "paragraphs": [
+          "Conditionnel passé = Hilfsverb im conditionnel présent + Partizip: j'aurais mangé, elle serait venue.",
+          "Verwendung: unerfüllte Wünsche, Vorwürfe und höfliche Bedauern. J'aurais voulu vous aider."
+        ],
+        "examples": [
+          {
+            "fr": "J'aurais aimé venir.",
+            "de": "Ich wäre gern gekommen."
+          },
+          {
+            "fr": "Tu aurais dû me prévenir.",
+            "de": "Du hättest mich warnen sollen."
+          }
+        ],
+        "tip": "Typisch: devoir + Infinitiv im Konditional Perfekt: tu aurais dû = du hättest sollen."
+      }
+    },
+    {
+      "id": "f10-u4-l2",
+      "title": "Conditionnel passé (2/2)",
+      "items": [
+        {
+          "front": "elle serait venue",
+          "back": "sie wäre gekommen",
+          "example": "Elle serait venue avec plaisir.",
+          "exampleDe": "Sie wäre gern gekommen."
+        },
+        {
+          "front": "ils seraient partis",
+          "back": "sie wären gegangen",
+          "example": "Ils seraient partis plus tôt.",
+          "exampleDe": "Sie wären früher abgereist."
+        },
+        {
+          "front": "j'aurais fait",
+          "back": "ich hätte gemacht",
+          "example": "J'aurais fait la même chose.",
+          "exampleDe": "Ich hätte dasselbe getan."
+        },
+        {
+          "front": "on aurait vu",
+          "back": "man hätte gesehen",
+          "example": "On aurait vu la mer d'ici.",
+          "exampleDe": "Man hätte von hier das Meer gesehen."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "J'___ aimé venir avec vous.",
+          "answer": "aurais",
+          "options": [
+            "aurais",
+            "avais",
+            "ai",
+            "aurai"
+          ],
+          "translation": "Ich wäre gern mit euch gekommen.",
+          "why": "Conditionnel passé: avoir im Konditional (j'aurais) + Partizip."
+        },
+        {
+          "sentence": "Elle ___ venue si elle avait su.",
+          "answer": "serait",
+          "options": [
+            "serait",
+            "aurait",
+            "était",
+            "sera"
+          ],
+          "translation": "Sie wäre gekommen, wenn sie es gewusst hätte.",
+          "why": "venir bildet die zusammengesetzten Zeiten mit être: elle serait venue."
+        }
+      ]
+    },
+    {
+      "id": "f10-u4-l3",
+      "title": "Der dritte Bedingungssatz (1/2)",
+      "items": [
+        {
+          "front": "si j'avais su",
+          "back": "wenn ich gewusst hätte",
+          "example": "Si j'avais su, je serais venu.",
+          "exampleDe": "Wenn ich es gewusst hätte, wäre ich gekommen."
+        },
+        {
+          "front": "si tu avais travaillé",
+          "back": "wenn du gearbeitet hättest",
+          "example": "Si tu avais travaillé, tu aurais réussi.",
+          "exampleDe": "Wenn du gearbeitet hättest, hättest du es geschafft."
+        },
+        {
+          "front": "si nous étions partis",
+          "back": "wenn wir gegangen wären",
+          "example": "Si nous étions partis plus tôt, nous serions arrivés.",
+          "exampleDe": "Wenn wir früher losgefahren wären, wären wir angekommen."
+        },
+        {
+          "front": "je serais venu",
+          "back": "ich wäre gekommen",
+          "example": "Je serais venu si j'avais su.",
+          "exampleDe": "Ich wäre gekommen, wenn ich es gewusst hätte."
+        }
+      ],
+      "explanation": {
+        "title": "si + plus-que-parfait → conditionnel passé",
+        "paragraphs": [
+          "Unerfüllbare Bedingung in der Vergangenheit: Si + plus-que-parfait, conditionnel passé. Si j'avais su, je serais venu.",
+          "Alle drei Typen im Überblick: si + présent → futur; si + imparfait → conditionnel présent; si + plus-que-parfait → conditionnel passé."
+        ],
+        "examples": [
+          {
+            "fr": "Si tu avais travaillé, tu aurais réussi.",
+            "de": "Wenn du gearbeitet hättest, hättest du es geschafft."
+          },
+          {
+            "fr": "Si nous étions partis plus tôt, nous serions arrivés à l'heure.",
+            "de": "Wenn wir früher losgegangen wären, wären wir pünktlich gewesen."
+          }
+        ],
+        "tip": "Nach si steht nie ein Konditional und nie das futur."
+      }
+    },
+    {
+      "id": "f10-u4-l4",
+      "title": "Der dritte Bedingungssatz (2/2)",
+      "items": [
+        {
+          "front": "tu aurais réussi",
+          "back": "du hättest es geschafft",
+          "example": "Tu aurais réussi avec plus de travail.",
+          "exampleDe": "Du hättest es mit mehr Arbeit geschafft."
+        },
+        {
+          "front": "il aurait gagné",
+          "back": "er hätte gewonnen",
+          "example": "Il aurait gagné avec un peu de chance.",
+          "exampleDe": "Er hätte mit etwas Glück gewonnen."
+        },
+        {
+          "front": "si j'avais pu",
+          "back": "wenn ich gekonnt hätte",
+          "example": "Si j'avais pu, j'aurais aidé.",
+          "exampleDe": "Wenn ich gekonnt hätte, hätte ich geholfen."
+        },
+        {
+          "front": "si elle avait voulu",
+          "back": "wenn sie gewollt hätte",
+          "example": "Si elle avait voulu, elle serait venue.",
+          "exampleDe": "Wenn sie gewollt hätte, wäre sie gekommen."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Si tu avais travaillé, tu ___ réussi.",
+          "answer": "aurais",
+          "options": [
+            "aurais",
+            "avais",
+            "auras",
+            "aies"
+          ],
+          "translation": "Wenn du gearbeitet hättest, hättest du es geschafft.",
+          "why": "si + plus-que-parfait → conditionnel passé."
+        },
+        {
+          "sentence": "Si j'___ su, je serais venu.",
+          "answer": "avais",
+          "options": [
+            "avais",
+            "aurais",
+            "ai",
+            "aie"
+          ],
+          "translation": "Wenn ich gewusst hätte, wäre ich gekommen.",
+          "why": "Nach si: plus-que-parfait (j'avais su)."
+        }
+      ]
+    },
+    {
+      "id": "f10-u4-l5",
+      "title": "Zeiten erkennen und wählen (1/2)",
+      "items": [
+        {
+          "front": "avant que + subjonctif",
+          "back": "bevor (Konjunktiv)",
+          "example": "Rentre avant qu'il pleuve.",
+          "exampleDe": "Komm heim, bevor es regnet."
+        },
+        {
+          "front": "après que + indicatif",
+          "back": "nachdem (Indikativ)",
+          "example": "Après qu'il est parti, j'ai mangé.",
+          "exampleDe": "Nachdem er gegangen war, habe ich gegessen."
+        },
+        {
+          "front": "depuis que",
+          "back": "seit(dem)",
+          "example": "Depuis que j'habite ici, je suis heureux.",
+          "exampleDe": "Seit ich hier wohne, bin ich glücklich."
+        },
+        {
+          "front": "au moment où",
+          "back": "in dem Augenblick, als",
+          "example": "Au moment où il est entré, j'ai ri.",
+          "exampleDe": "In dem Augenblick, als er eintrat, habe ich gelacht."
+        }
+      ],
+      "explanation": {
+        "title": "Welche Zeit passt?",
+        "paragraphs": [
+          "Überblick: présent (jetzt, allgemein), passé composé (Ereignis), imparfait (Hintergrund), plus-que-parfait (vorher), futur simple/futur composé (Zukunft), conditionnel (Wunsch, irreal), subjonctif (Wille, Gefühl, Notwendigkeit).",
+          "Im Text prüfst du: Gibt es Signalwörter? Welche Handlung war zuerst? Welche Haltung drückt der Sprecher aus?"
+        ],
+        "examples": [
+          {
+            "fr": "Quand elle est arrivée, il avait déjà mangé.",
+            "de": "Als sie ankam, hatte er schon gegessen."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f10-u4-l6",
+      "title": "Zeiten erkennen und wählen (2/2)",
+      "items": [
+        {
+          "front": "dès que",
+          "back": "sobald",
+          "example": "Dès que j'arrive, je t'appelle.",
+          "exampleDe": "Sobald ich ankomme, rufe ich dich an."
+        },
+        {
+          "front": "à peine … que",
+          "back": "kaum … als",
+          "example": "À peine étions-nous arrivés qu'il a plu.",
+          "exampleDe": "Kaum waren wir angekommen, da regnete es."
+        },
+        {
+          "front": "autrefois",
+          "back": "früher",
+          "example": "Autrefois, il n'y avait pas de téléphone.",
+          "exampleDe": "Früher gab es keine Telefone."
+        },
+        {
+          "front": "désormais",
+          "back": "von nun an",
+          "example": "Désormais, je prends le vélo.",
+          "exampleDe": "Von nun an nehme ich das Fahrrad."
+        }
+      ]
+    }
+  ]
+}

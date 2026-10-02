@@ -1,0 +1,58 @@
+id: f9-u4
+title: Si j'avais le temps
+desc: Bedingungssätze, conditionnel présent
+order: 40
+
+= Wenn es regnet … (1/2)
+? Reale Bedingung: si + présent
+p Reale Bedingung: si + présent → futur simple (oder présent/impératif im Hauptsatz). Si tu viens, je serai content.
+p Wichtig: Nach „si“ steht nie das futur simple! Falsch: Si tu viendras …
+e S'il pleut, nous resterons à la maison. = Wenn es regnet, bleiben wir zu Hause.
+e Si tu as faim, mange ! = Wenn du Hunger hast, iss!
+t si + il → s'il, aber si + elle bleibt si elle.
+- si tu viens = wenn du kommst | Si tu viens, je serai content. = Wenn du kommst, freue ich mich.
+- s'il pleut = wenn es regnet | S'il pleut, nous restons à la maison. = Wenn es regnet, bleiben wir zu Hause.
+- si j'ai le temps = wenn ich Zeit habe | Si j'ai le temps, je viendrai. = Wenn ich Zeit habe, komme ich.
+- je serai content = ich werde froh sein | Je serai content de te voir. = Ich werde mich freuen, dich zu sehen.
+
+= Wenn es regnet … (2/2)
+- nous resterons = wir werden bleiben | Nous resterons à la maison. = Wir werden zu Hause bleiben.
+- si elle veut = wenn sie will | Si elle veut, elle peut venir. = Wenn sie will, kann sie kommen.
+- à condition que = unter der Bedingung, dass | Je viens, à condition que tu viennes aussi. = Ich komme, unter der Bedingung, dass du auch kommst.
+- sinon = sonst | Dépêche-toi, sinon nous serons en retard. = Beeil dich, sonst kommen wir zu spät.
+f Si tu ___, je serai content. | viens | viens; viendras; viendrais; venais | Wenn du kommst, werde ich froh sein. | si + présent, nie si + futur.
+f S'il ___, nous resterons ici. | pleut | pleut; pleuvra; pleuvait; pleuvrait | Wenn es regnet, bleiben wir hier. | Nach si steht das Präsens.
+
+= Conditionnel présent (1/2)
+? Wünsche und irreale Bedingungen
+p Konditional = Futurstamm + Endungen des imparfait: je parlerais, tu parlerais, il parlerait, nous parlerions, vous parleriez, ils parleraient.
+p Irreale Bedingung: si + imparfait → conditionnel présent. Si j'avais le temps, je voyagerais.
+e Si j'étais riche, j'achèterais une maison. = Wenn ich reich wäre, würde ich ein Haus kaufen.
+e Je voudrais un café. = Ich hätte gern einen Kaffee.
+t Stamm wie im Futur (ir-, fer-, ser-, aur-), Endung wie im imparfait (-ais, -ait …).
+- je voudrais = ich möchte | Je voudrais un café, s'il vous plaît. = Ich hätte gern einen Kaffee, bitte.
+- tu pourrais = du könntest | Tu pourrais m'aider ? = Könntest du mir helfen?
+- il serait = er wäre | Il serait content de venir. = Er wäre froh zu kommen.
+- nous aurions = wir hätten | Nous aurions plus de temps. = Wir hätten mehr Zeit.
+
+= Conditionnel présent (2/2)
+- vous iriez = ihr würdet gehen | Vous iriez où en vacances ? = Wohin würdet ihr in den Ferien fahren?
+- ils feraient = sie würden machen | Ils feraient un voyage. = Sie würden eine Reise machen.
+- j'aimerais = ich würde gern | J'aimerais voyager en Asie. = Ich würde gern nach Asien reisen.
+- on devrait = man sollte | On devrait partir plus tôt. = Man sollte früher losgehen.
+f Si j'avais le temps, je ___. | voyagerais | voyagerais; voyagerai; voyageais; voyage | Wenn ich Zeit hätte, würde ich reisen. | si + imparfait → conditionnel présent.
+f Si nous étions riches, nous ___ une maison. | achèterions | achèterions; achèterons; achetions; achetons | Wenn wir reich wären, würden wir ein Haus kaufen. | Konditional: Futurstamm achèter- + -ions.
+
+= Wünsche und Träume (1/2)
+- un rêve = ein Traum | Voyager est mon rêve. = Reisen ist mein Traum.
+- riche = reich | Il n'est pas riche. = Er ist nicht reich.
+- célèbre = berühmt | Cet acteur est très célèbre. = Dieser Schauspieler ist sehr berühmt.
+- gagner = gewinnen / verdienen | Je voudrais gagner le match. = Ich möchte das Spiel gewinnen.
+- voyager = reisen | J'aime voyager en train. = Ich reise gern mit dem Zug.
+
+= Wünsche und Träume (2/2)
+- le monde = die Welt | Je veux voir le monde. = Ich möchte die Welt sehen.
+- faire le tour du monde = eine Weltreise machen | Un jour, je ferai le tour du monde. = Eines Tages mache ich eine Weltreise.
+- espérer = hoffen | J'espère réussir mon examen. = Ich hoffe, meine Prüfung zu bestehen.
+- souhaiter = wünschen | Je souhaite te revoir bientôt. = Ich wünsche mir, dich bald wiederzusehen.
+- réaliser un rêve = einen Traum verwirklichen | Il a réalisé un rêve. = Er hat sich einen Traum erfüllt.

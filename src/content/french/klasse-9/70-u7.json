@@ -1,0 +1,318 @@
+{
+  "id": "f9-u7",
+  "title": "Connecteurs logiques",
+  "description": "Konjunktionen, Gegensatz, Grund, Ziel",
+  "grade": 9,
+  "subject": "french",
+  "order": 70,
+  "lessons": [
+    {
+      "id": "f9-u7-l1",
+      "title": "Grund und Folge (1/2)",
+      "items": [
+        {
+          "front": "parce que",
+          "back": "weil",
+          "example": "Je suis content parce que c'est samedi.",
+          "exampleDe": "Ich freue mich, weil Samstag ist."
+        },
+        {
+          "front": "car",
+          "back": "denn",
+          "example": "Je reste, car il pleut.",
+          "exampleDe": "Ich bleibe, denn es regnet."
+        },
+        {
+          "front": "puisque",
+          "back": "da (ja)",
+          "example": "Puisque tu es là, aide-moi.",
+          "exampleDe": "Da du schon da bist, hilf mir."
+        },
+        {
+          "front": "comme",
+          "back": "da / weil (Satzanfang)",
+          "example": "Comme il pleuvait, nous sommes restés.",
+          "exampleDe": "Weil es regnete, sind wir geblieben."
+        },
+        {
+          "front": "donc",
+          "back": "also / deshalb",
+          "example": "Il pleuvait, donc nous sommes restés.",
+          "exampleDe": "Es regnete, also sind wir geblieben."
+        }
+      ],
+      "explanation": {
+        "title": "Weil, deshalb, also",
+        "paragraphs": [
+          "Grund: parce que, car, puisque, comme. Folge: donc, alors, c'est pourquoi, par conséquent.",
+          "Comme steht am Satzanfang: Comme il pleuvait, nous sommes restés."
+        ],
+        "examples": [
+          {
+            "fr": "Il pleuvait, donc nous sommes restés.",
+            "de": "Es regnete, also blieben wir."
+          },
+          {
+            "fr": "Je suis fatigué parce que j'ai peu dormi.",
+            "de": "Ich bin müde, weil ich wenig geschlafen habe."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f9-u7-l2",
+      "title": "Grund und Folge (2/2)",
+      "items": [
+        {
+          "front": "c'est pourquoi",
+          "back": "deshalb",
+          "example": "Il est malade, c'est pourquoi il reste au lit.",
+          "exampleDe": "Er ist krank, deshalb bleibt er im Bett."
+        },
+        {
+          "front": "par conséquent",
+          "back": "folglich",
+          "example": "Il a menti, par conséquent personne ne le croit.",
+          "exampleDe": "Er hat gelogen, folglich glaubt ihm niemand."
+        },
+        {
+          "front": "grâce à",
+          "back": "dank",
+          "example": "Grâce à toi, j'ai réussi.",
+          "exampleDe": "Dank dir habe ich es geschafft."
+        },
+        {
+          "front": "à cause de",
+          "back": "wegen (negativ)",
+          "example": "À cause de la pluie, nous restons ici.",
+          "exampleDe": "Wegen des Regens bleiben wir hier."
+        },
+        {
+          "front": "en raison de",
+          "back": "aufgrund von",
+          "example": "En raison de la grève, il n'y a pas de train.",
+          "exampleDe": "Aufgrund des Streiks fährt kein Zug."
+        }
+      ]
+    },
+    {
+      "id": "f9-u7-l3",
+      "title": "Gegensatz (1/2)",
+      "items": [
+        {
+          "front": "pourtant",
+          "back": "dennoch",
+          "example": "Il est riche, pourtant il n'est pas heureux.",
+          "exampleDe": "Er ist reich, dennoch ist er nicht glücklich."
+        },
+        {
+          "front": "cependant",
+          "back": "jedoch",
+          "example": "Il est jeune, cependant il est sage.",
+          "exampleDe": "Er ist jung, jedoch ist er vernünftig."
+        },
+        {
+          "front": "alors que",
+          "back": "während / obwohl",
+          "example": "Il travaille alors que je joue.",
+          "exampleDe": "Er arbeitet, während ich spiele."
+        },
+        {
+          "front": "tandis que",
+          "back": "wohingegen",
+          "example": "Elle lit tandis qu'il dort.",
+          "exampleDe": "Sie liest, während er schläft."
+        },
+        {
+          "front": "malgré",
+          "back": "trotz",
+          "example": "Malgré la pluie, nous sortons.",
+          "exampleDe": "Trotz des Regens gehen wir raus."
+        }
+      ],
+      "explanation": {
+        "title": "Aber, obwohl, trotzdem",
+        "paragraphs": [
+          "mais (aber), pourtant (dennoch), cependant (jedoch), alors que / tandis que (während, wohingegen), malgré (trotz).",
+          "bien que (obwohl) verlangt den subjonctif: Bien qu'il soit petit, il est fort."
+        ],
+        "examples": [
+          {
+            "fr": "Bien qu'il pleuve, nous sortons.",
+            "de": "Obwohl es regnet, gehen wir raus."
+          },
+          {
+            "fr": "Il est riche, pourtant il n'est pas heureux.",
+            "de": "Er ist reich, dennoch ist er nicht glücklich."
+          }
+        ],
+        "tip": "bien que + subjonctif; malgré + Nomen."
+      }
+    },
+    {
+      "id": "f9-u7-l4",
+      "title": "Gegensatz (2/2)",
+      "items": [
+        {
+          "front": "bien que",
+          "back": "obwohl",
+          "example": "Bien qu'il pleuve, nous sortons.",
+          "exampleDe": "Obwohl es regnet, gehen wir raus."
+        },
+        {
+          "front": "au contraire",
+          "back": "im Gegenteil",
+          "example": "Je ne suis pas triste, au contraire !",
+          "exampleDe": "Ich bin nicht traurig, im Gegenteil!"
+        },
+        {
+          "front": "en revanche",
+          "back": "dagegen",
+          "example": "Il est nul en maths, en revanche il est bon en sport.",
+          "exampleDe": "In Mathe ist er schlecht, dagegen ist er gut im Sport."
+        },
+        {
+          "front": "d'un côté … de l'autre",
+          "back": "einerseits … andererseits",
+          "example": "D'un côté, il aime le sport, de l'autre, il lit beaucoup.",
+          "exampleDe": "Einerseits mag er Sport, andererseits liest er viel."
+        },
+        {
+          "front": "toutefois",
+          "back": "allerdings",
+          "example": "Le film est long, toutefois il est bon.",
+          "exampleDe": "Der Film ist lang, allerdings ist er gut."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Bien qu'il ___ froid, nous sortons.",
+          "answer": "fasse",
+          "options": [
+            "fasse",
+            "fait",
+            "fera",
+            "ferait"
+          ],
+          "translation": "Obwohl es kalt ist, gehen wir raus.",
+          "why": "bien que verlangt den subjonctif."
+        },
+        {
+          "sentence": "___ la pluie, ils ont joué dehors.",
+          "answer": "Malgré",
+          "options": [
+            "Malgré",
+            "Bien que",
+            "Parce que",
+            "Donc"
+          ],
+          "translation": "Trotz des Regens spielten sie draußen.",
+          "why": "malgré + Nomen (la pluie)."
+        }
+      ]
+    },
+    {
+      "id": "f9-u7-l5",
+      "title": "Ziel und Zeit (1/2)",
+      "items": [
+        {
+          "front": "pour que",
+          "back": "damit",
+          "example": "J'explique pour que tu comprennes.",
+          "exampleDe": "Ich erkläre es, damit du verstehst."
+        },
+        {
+          "front": "afin de",
+          "back": "um zu",
+          "example": "Il travaille afin de réussir.",
+          "exampleDe": "Er arbeitet, um Erfolg zu haben."
+        },
+        {
+          "front": "avant que",
+          "back": "bevor",
+          "example": "Avant que tu partes, appelle-moi.",
+          "exampleDe": "Bevor du gehst, ruf mich an."
+        },
+        {
+          "front": "après que",
+          "back": "nachdem",
+          "example": "Après qu'il est parti, nous avons mangé.",
+          "exampleDe": "Nachdem er gegangen war, haben wir gegessen."
+        }
+      ],
+      "explanation": {
+        "title": "Damit, bevor, nachdem",
+        "paragraphs": [
+          "Ziel: pour que + subjonctif (damit), pour + Infinitiv (um zu). Zeit: avant que + subjonctif, après que + indicatif, quand, dès que, pendant que.",
+          "Gleiche Person im Haupt- und Nebensatz → Infinitiv: Je travaille pour réussir."
+        ],
+        "examples": [
+          {
+            "fr": "J'explique pour que tu comprennes.",
+            "de": "Ich erkläre, damit du verstehst."
+          },
+          {
+            "fr": "Avant que tu partes, appelle-moi.",
+            "de": "Bevor du gehst, ruf mich an."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f9-u7-l6",
+      "title": "Ziel und Zeit (2/2)",
+      "items": [
+        {
+          "front": "dès que",
+          "back": "sobald",
+          "example": "Dès que j'arrive, je t'appelle.",
+          "exampleDe": "Sobald ich ankomme, rufe ich dich an."
+        },
+        {
+          "front": "jusqu'à ce que",
+          "back": "bis",
+          "example": "Reste ici jusqu'à ce que je revienne.",
+          "exampleDe": "Bleib hier, bis ich zurückkomme."
+        },
+        {
+          "front": "en attendant",
+          "back": "in der Zwischenzeit",
+          "example": "En attendant, lis ce livre.",
+          "exampleDe": "In der Zwischenzeit lies dieses Buch."
+        },
+        {
+          "front": "pendant que",
+          "back": "während",
+          "example": "Pendant que je dormais, il est parti.",
+          "exampleDe": "Während ich schlief, ist er gegangen."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "J'explique pour que tu ___.",
+          "answer": "comprennes",
+          "options": [
+            "comprennes",
+            "comprends",
+            "comprendras",
+            "comprenais"
+          ],
+          "translation": "Ich erkläre, damit du verstehst.",
+          "why": "pour que verlangt den subjonctif."
+        },
+        {
+          "sentence": "Après qu'il ___ parti, nous avons mangé.",
+          "answer": "est",
+          "options": [
+            "est",
+            "soit",
+            "serait",
+            "sera"
+          ],
+          "translation": "Nachdem er gegangen war, aßen wir.",
+          "why": "après que steht mit dem indicatif."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+{
+  "id": "f9-ville",
+  "title": "La vie en ville",
+  "description": "Geschäfte, Einkaufen, Kleidung, Verkehr, Wohnen",
+  "grade": 9,
+  "subject": "french",
+  "order": 55,
+  "lessons": [
+    {
+      "id": "f9-ville-l1",
+      "title": "Geschäfte und Einkaufen",
+      "items": [
+        {
+          "front": "le magasin",
+          "back": "das Geschäft",
+          "example": "Le magasin ferme à sept heures.",
+          "exampleDe": "Das Geschäft schließt um sieben Uhr."
+        },
+        {
+          "front": "la boulangerie",
+          "back": "die Bäckerei",
+          "example": "Je vais à la boulangerie pour le pain.",
+          "exampleDe": "Ich gehe in die Bäckerei, um Brot zu holen."
+        },
+        {
+          "front": "le supermarché",
+          "back": "der Supermarkt",
+          "example": "Nous faisons les courses au supermarché.",
+          "exampleDe": "Wir kaufen im Supermarkt ein."
+        },
+        {
+          "front": "le marché",
+          "back": "der Markt",
+          "example": "Le marché a lieu le samedi matin.",
+          "exampleDe": "Der Markt findet samstagmorgens statt."
+        },
+        {
+          "front": "faire les courses",
+          "back": "einkaufen gehen",
+          "example": "Je fais les courses le vendredi.",
+          "exampleDe": "Ich gehe freitags einkaufen."
+        },
+        {
+          "front": "la caisse",
+          "back": "die Kasse",
+          "example": "Il y a du monde à la caisse.",
+          "exampleDe": "An der Kasse ist viel los."
+        },
+        {
+          "front": "payer",
+          "back": "bezahlen",
+          "example": "Je paie par carte.",
+          "exampleDe": "Ich bezahle mit Karte."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Ma mère ___ les courses le samedi.",
+          "answer": "fait",
+          "options": [
+            "fait",
+            "fais",
+            "faites"
+          ],
+          "translation": "Meine Mutter geht samstags einkaufen.",
+          "why": "Die 3. Person Singular von „faire“ heißt „fait“."
+        }
+      ]
+    },
+    {
+      "id": "f9-ville-l2",
+      "title": "Kleidung",
+      "items": [
+        {
+          "front": "les vêtements (m pl)",
+          "back": "die Kleidung",
+          "example": "Elle achète des vêtements pour l'école.",
+          "exampleDe": "Sie kauft Kleidung für die Schule."
+        },
+        {
+          "front": "le pantalon",
+          "back": "die Hose",
+          "example": "Ce pantalon est trop long.",
+          "exampleDe": "Diese Hose ist zu lang."
+        },
+        {
+          "front": "la chemise",
+          "back": "das Hemd",
+          "example": "Il porte une chemise blanche.",
+          "exampleDe": "Er trägt ein weißes Hemd."
+        },
+        {
+          "front": "la robe",
+          "back": "das Kleid",
+          "example": "Cette robe te va très bien.",
+          "exampleDe": "Dieses Kleid steht dir sehr gut."
+        },
+        {
+          "front": "les chaussures (f pl)",
+          "back": "die Schuhe",
+          "example": "Mes chaussures sont neuves.",
+          "exampleDe": "Meine Schuhe sind neu."
+        },
+        {
+          "front": "porter",
+          "back": "tragen",
+          "example": "Elle porte un manteau rouge.",
+          "exampleDe": "Sie trägt einen roten Mantel."
+        },
+        {
+          "front": "essayer",
+          "back": "anprobieren",
+          "example": "Je peux essayer cette veste ?",
+          "exampleDe": "Kann ich diese Jacke anprobieren?"
+        }
+      ]
+    },
+    {
+      "id": "f9-ville-l3",
+      "title": "Mode und Preise",
+      "items": [
+        {
+          "front": "la mode",
+          "back": "die Mode",
+          "example": "La mode change chaque année.",
+          "exampleDe": "Die Mode ändert sich jedes Jahr."
+        },
+        {
+          "front": "la taille",
+          "back": "die Größe",
+          "example": "Quelle taille faites-vous ?",
+          "exampleDe": "Welche Größe haben Sie?"
+        },
+        {
+          "front": "cher / chère",
+          "back": "teuer",
+          "example": "Ce sac est trop cher.",
+          "exampleDe": "Diese Tasche ist zu teuer."
+        },
+        {
+          "front": "bon marché",
+          "back": "günstig",
+          "example": "Ces baskets sont bon marché.",
+          "exampleDe": "Diese Turnschuhe sind günstig."
+        },
+        {
+          "front": "le prix",
+          "back": "der Preis",
+          "example": "Quel est le prix de ce livre ?",
+          "exampleDe": "Was ist der Preis dieses Buchs?"
+        },
+        {
+          "front": "les soldes (m pl)",
+          "back": "der Ausverkauf",
+          "example": "Pendant les soldes, tout est moins cher.",
+          "exampleDe": "Beim Ausverkauf ist alles billiger."
+        }
+      ],
+      "explanation": {
+        "title": "Preise und Größen",
+        "paragraphs": [
+          "Nach dem Preis fragst du mit Combien ça coûte ? oder C'est combien ? Zu teuer ist trop cher, günstig ist bon marché.",
+          "Bei Kleidung fragt man nach der Größe: Vous faites quelle taille ? Bei Schuhen: Quelle pointure ?"
+        ],
+        "examples": [
+          {
+            "fr": "Combien coûte ce pull ?",
+            "de": "Was kostet dieser Pullover?"
+          },
+          {
+            "fr": "C'est trop cher pour moi.",
+            "de": "Das ist zu teuer für mich."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f9-ville-l4",
+      "title": "Verkehr in der Stadt",
+      "items": [
+        {
+          "front": "le métro",
+          "back": "die U-Bahn",
+          "example": "Je prends le métro pour aller au travail.",
+          "exampleDe": "Ich nehme die U-Bahn zur Arbeit."
+        },
+        {
+          "front": "la station",
+          "back": "die Haltestelle, die Station",
+          "example": "La station de métro est près d'ici.",
+          "exampleDe": "Die U-Bahn-Station ist hier in der Nähe."
+        },
+        {
+          "front": "la circulation",
+          "back": "der Verkehr",
+          "example": "La circulation est dense le matin.",
+          "exampleDe": "Der Verkehr ist morgens dicht."
+        },
+        {
+          "front": "la piste cyclable",
+          "back": "der Radweg",
+          "example": "Il roule sur la piste cyclable.",
+          "exampleDe": "Er fährt auf dem Radweg."
+        },
+        {
+          "front": "le feu rouge",
+          "back": "die rote Ampel",
+          "example": "Attention, le feu est rouge !",
+          "exampleDe": "Achtung, die Ampel ist rot!"
+        },
+        {
+          "front": "le piéton / la piétonne",
+          "back": "der Fußgänger / die Fußgängerin",
+          "example": "Les piétons traversent la rue.",
+          "exampleDe": "Die Fußgänger überqueren die Straße."
+        }
+      ]
+    },
+    {
+      "id": "f9-ville-l5",
+      "title": "Wohnen",
+      "items": [
+        {
+          "front": "l'appartement (m)",
+          "back": "die Wohnung",
+          "example": "Notre appartement est au troisième étage.",
+          "exampleDe": "Unsere Wohnung ist im dritten Stock."
+        },
+        {
+          "front": "la maison",
+          "back": "das Haus",
+          "example": "Ils habitent dans une grande maison.",
+          "exampleDe": "Sie wohnen in einem großen Haus."
+        },
+        {
+          "front": "l'étage (m)",
+          "back": "das Stockwerk",
+          "example": "Nous habitons au premier étage.",
+          "exampleDe": "Wir wohnen im ersten Stock."
+        },
+        {
+          "front": "l'ascenseur (m)",
+          "back": "der Aufzug",
+          "example": "L'ascenseur est en panne.",
+          "exampleDe": "Der Aufzug ist kaputt."
+        },
+        {
+          "front": "le voisin / la voisine",
+          "back": "der Nachbar / die Nachbarin",
+          "example": "Notre voisine est très gentille.",
+          "exampleDe": "Unsere Nachbarin ist sehr nett."
+        },
+        {
+          "front": "le loyer",
+          "back": "die Miete",
+          "example": "Le loyer est cher à Paris.",
+          "exampleDe": "Die Miete ist in Paris teuer."
+        }
+      ]
+    }
+  ]
+}

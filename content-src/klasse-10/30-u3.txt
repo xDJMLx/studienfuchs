@@ -1,0 +1,51 @@
+id: f10-u3
+title: Jeunes d'aujourd'hui
+desc: Jugend, Schule, Zusammenleben, Pronomen
+order: 30
+
+= Schule und Leben (1/2)
+- le collège = die Mittelstufe (Schule) | Mon frère va au collège. = Mein Bruder besucht die Mittelstufe.
+- le lycée = das Gymnasium (Oberstufe) | Elle est au lycée. = Sie ist auf dem Gymnasium.
+- le bac = das Abitur | Il passe le bac cette année. = Er macht dieses Jahr das Abitur.
+- une note = eine Note | J'ai eu une bonne note. = Ich habe eine gute Note bekommen.
+- un examen = eine Prüfung | Demain, j'ai un examen. = Morgen habe ich eine Prüfung.
+
+= Schule und Leben (2/2)
+- réussir = bestehen / Erfolg haben | Je veux réussir mon examen. = Ich möchte meine Prüfung bestehen.
+- échouer = durchfallen / scheitern | Il a échoué à l'examen. = Er ist durch die Prüfung gefallen.
+- le stage = das Praktikum | Je fais un stage en juin. = Ich mache im Juni ein Praktikum.
+- le stress = der Stress | Avant l'examen, j'ai du stress. = Vor der Prüfung bin ich gestresst.
+- la pression = der Druck | La pression à l'école est forte. = Der Druck in der Schule ist hoch.
+
+= Zusammen leben (1/2)
+- la société = die Gesellschaft | La société change vite. = Die Gesellschaft verändert sich schnell.
+- la tolérance = die Toleranz | La tolérance est importante. = Toleranz ist wichtig.
+- le racisme = der Rassismus | Il faut lutter contre le racisme. = Man muss gegen Rassismus kämpfen.
+- l'égalité = die Gleichheit | L'égalité est un droit. = Gleichheit ist ein Recht.
+- la liberté = die Freiheit | La liberté est précieuse. = Freiheit ist kostbar.
+
+= Zusammen leben (2/2)
+- le respect = der Respekt | Le respect est la base de tout. = Respekt ist die Grundlage für alles.
+- s'engager = sich engagieren | Il s'engage pour l'environnement. = Er engagiert sich für die Umwelt.
+- le bénévolat = das Ehrenamt | Elle fait du bénévolat le week-end. = Sie macht am Wochenende ehrenamtliche Arbeit.
+- un immigré = ein Einwanderer | Cet immigré cherche du travail. = Dieser Einwanderer sucht Arbeit.
+- vivre ensemble = zusammenleben | Nous devons apprendre à vivre ensemble. = Wir müssen lernen zusammenzuleben.
+
+= Pronomen lui und leur (1/2)
+? Das indirekte Objekt
+p lui (ihm/ihr) und leur (ihnen) ersetzen à + Person: Je parle à Paul → Je lui parle. Je donne le livre à mes amis → Je leur donne le livre.
+p Bei Dingen nimmst du y: Je pense à ça → J'y pense. Reihenfolge bei zwei Pronomen: me/te/nous/vous – le/la/les – lui/leur – y – en.
+e Je lui parle tous les jours. = Ich spreche täglich mit ihm/ihr.
+e Il leur a donné le livre. = Er hat ihnen das Buch gegeben.
+- je lui parle = ich spreche mit ihm/ihr | Je lui parle tous les jours. = Ich spreche täglich mit ihm.
+- je leur parle = ich spreche mit ihnen | Je leur parle souvent. = Ich spreche oft mit ihnen.
+- il lui répond = er antwortet ihm/ihr | Il lui répond tout de suite. = Er antwortet ihm sofort.
+- elle leur écrit = sie schreibt ihnen | Elle leur écrit une carte. = Sie schreibt ihnen eine Karte.
+
+= Pronomen lui und leur (2/2)
+- je le lui donne = ich gebe es ihm/ihr | Je le lui donne demain. = Ich gebe es ihm morgen.
+- je les leur montre = ich zeige sie ihnen | Je les leur montre demain. = Ich zeige sie ihnen morgen.
+- je te le dis = ich sage es dir | Je te le dis, c'est vrai. = Ich sage es dir, es ist wahr.
+- il me l'a donné = er hat es mir gegeben | Il me l'a donné hier. = Er hat es mir gestern gegeben.
+f Je parle à Paul : je ___ parle. | lui | lui; le; leur; y | Ich spreche mit Paul: ich spreche mit ihm. | parler à + Person → lui.
+f Il donne le livre à ses amis : il ___ donne le livre. | leur | leur; lui; les; en | Er gibt das Buch seinen Freunden. | à + mehrere Personen → leur.

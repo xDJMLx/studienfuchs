@@ -1,0 +1,289 @@
+{
+  "id": "f9-u5",
+  "title": "Les médias",
+  "description": "Medien, Relativsätze, y und en",
+  "grade": 9,
+  "subject": "french",
+  "order": 50,
+  "lessons": [
+    {
+      "id": "f9-u5-l1",
+      "title": "Medien und Internet (1/2)",
+      "items": [
+        {
+          "front": "un portable",
+          "back": "ein Handy",
+          "example": "Mon portable est neuf.",
+          "exampleDe": "Mein Handy ist neu."
+        },
+        {
+          "front": "un ordinateur",
+          "back": "ein Computer",
+          "example": "J'utilise un ordinateur.",
+          "exampleDe": "Ich benutze einen Computer."
+        },
+        {
+          "front": "internet",
+          "back": "das Internet",
+          "example": "Internet est très utile.",
+          "exampleDe": "Das Internet ist sehr nützlich."
+        },
+        {
+          "front": "un réseau social",
+          "back": "ein soziales Netzwerk",
+          "example": "Il utilise un réseau social.",
+          "exampleDe": "Er benutzt ein soziales Netzwerk."
+        },
+        {
+          "front": "un site web",
+          "back": "eine Webseite",
+          "example": "Ce site web est intéressant.",
+          "exampleDe": "Diese Webseite ist interessant."
+        }
+      ]
+    },
+    {
+      "id": "f9-u5-l2",
+      "title": "Medien und Internet (2/2)",
+      "items": [
+        {
+          "front": "envoyer un message",
+          "back": "eine Nachricht schicken",
+          "example": "Je vais envoyer un message à Léa.",
+          "exampleDe": "Ich werde Léa eine Nachricht schicken."
+        },
+        {
+          "front": "télécharger",
+          "back": "herunterladen",
+          "example": "Je veux télécharger cette application.",
+          "exampleDe": "Ich möchte diese App herunterladen."
+        },
+        {
+          "front": "un mot de passe",
+          "back": "ein Passwort",
+          "example": "N'oublie pas ton mot de passe.",
+          "exampleDe": "Vergiss dein Passwort nicht."
+        },
+        {
+          "front": "les infos",
+          "back": "die Nachrichten",
+          "example": "Je regarde les infos le soir.",
+          "exampleDe": "Abends schaue ich die Nachrichten."
+        },
+        {
+          "front": "un journal",
+          "back": "eine Zeitung",
+          "example": "Mon père lit le journal.",
+          "exampleDe": "Mein Vater liest die Zeitung."
+        }
+      ]
+    },
+    {
+      "id": "f9-u5-l3",
+      "title": "qui und que (1/2)",
+      "items": [
+        {
+          "front": "le garçon qui joue",
+          "back": "der Junge, der spielt",
+          "example": "Le garçon qui joue est mon frère.",
+          "exampleDe": "Der Junge, der spielt, ist mein Bruder."
+        },
+        {
+          "front": "le livre que je lis",
+          "back": "das Buch, das ich lese",
+          "example": "Le livre que je lis est drôle.",
+          "exampleDe": "Das Buch, das ich lese, ist lustig."
+        },
+        {
+          "front": "la fille qui chante",
+          "back": "das Mädchen, das singt",
+          "example": "La fille qui chante s'appelle Léa.",
+          "exampleDe": "Das Mädchen, das singt, heißt Léa."
+        },
+        {
+          "front": "le film qu'il regarde",
+          "back": "der Film, den er anschaut",
+          "example": "Le film qu'il regarde est vieux.",
+          "exampleDe": "Der Film, den er anschaut, ist alt."
+        }
+      ],
+      "explanation": {
+        "title": "Relativsätze",
+        "paragraphs": [
+          "qui ersetzt das Subjekt: Le garçon qui joue est mon frère. que ersetzt das Objekt: Le livre que je lis est intéressant.",
+          "Vor Vokal wird que zu qu'. Qui bleibt immer qui."
+        ],
+        "examples": [
+          {
+            "fr": "J'ai un ami qui habite à Paris.",
+            "de": "Ich habe einen Freund, der in Paris wohnt."
+          },
+          {
+            "fr": "Voici le film que j'aime.",
+            "de": "Hier ist der Film, den ich mag."
+          }
+        ],
+        "tip": "Frage: Wer/Was macht die Handlung? Dann qui. Wen/Was betrifft sie? Dann que."
+      }
+    },
+    {
+      "id": "f9-u5-l4",
+      "title": "qui und que (2/2)",
+      "items": [
+        {
+          "front": "l'ami que je connais",
+          "back": "der Freund, den ich kenne",
+          "example": "C'est l'ami que je connais bien.",
+          "exampleDe": "Das ist der Freund, den ich gut kenne."
+        },
+        {
+          "front": "les gens qui parlent",
+          "back": "die Leute, die sprechen",
+          "example": "Les gens qui parlent fort me gênent.",
+          "exampleDe": "Leute, die laut sprechen, stören mich."
+        },
+        {
+          "front": "ce que",
+          "back": "das, was (Objekt)",
+          "example": "Je ne comprends pas ce que tu dis.",
+          "exampleDe": "Ich verstehe nicht, was du sagst."
+        },
+        {
+          "front": "ce qui",
+          "back": "das, was (Subjekt)",
+          "example": "Dis-moi ce qui se passe.",
+          "exampleDe": "Sag mir, was los ist."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Le garçon ___ joue est mon frère.",
+          "answer": "qui",
+          "options": [
+            "qui",
+            "que",
+            "qu'",
+            "dont"
+          ],
+          "translation": "Der Junge, der spielt, ist mein Bruder.",
+          "why": "„garçon“ ist das Subjekt von joue → qui."
+        },
+        {
+          "sentence": "Le livre ___ je lis est drôle.",
+          "answer": "que",
+          "options": [
+            "que",
+            "qui",
+            "où",
+            "dont"
+          ],
+          "translation": "Das Buch, das ich lese, ist lustig.",
+          "why": "„livre“ ist das Objekt von lis → que."
+        }
+      ]
+    },
+    {
+      "id": "f9-u5-l5",
+      "title": "Die Pronomen y und en (1/2)",
+      "items": [
+        {
+          "front": "j'y vais",
+          "back": "ich gehe dorthin",
+          "example": "Tu vas au parc ? — Oui, j'y vais.",
+          "exampleDe": "Gehst du in den Park? — Ja, ich gehe hin."
+        },
+        {
+          "front": "nous y allons",
+          "back": "wir gehen dorthin",
+          "example": "Nous y allons en bus.",
+          "exampleDe": "Wir fahren mit dem Bus dorthin."
+        },
+        {
+          "front": "il y est",
+          "back": "er ist dort",
+          "example": "Où est Paul ? — Il y est déjà.",
+          "exampleDe": "Wo ist Paul? — Er ist schon dort."
+        },
+        {
+          "front": "j'en veux",
+          "back": "ich möchte davon",
+          "example": "Du gâteau ? Oui, j'en veux.",
+          "exampleDe": "Kuchen? Ja, ich möchte welchen."
+        }
+      ],
+      "explanation": {
+        "title": "Ersatz für Ort und Menge",
+        "paragraphs": [
+          "y ersetzt Orte mit à/dans/en: Tu vas à Paris ? – Oui, j'y vais. en ersetzt de + Nomen und Mengen: Tu veux du pain ? – Oui, j'en veux.",
+          "Beide stehen vor dem Verb. Bei Zahlen bleibt die Zahl: J'en ai deux."
+        ],
+        "examples": [
+          {
+            "fr": "Tu vas au cinéma ? – Oui, j'y vais.",
+            "de": "Gehst du ins Kino? – Ja, ich gehe dorthin."
+          },
+          {
+            "fr": "Tu as des frères ? – Oui, j'en ai deux.",
+            "de": "Hast du Brüder? – Ja, ich habe zwei."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f9-u5-l6",
+      "title": "Die Pronomen y und en (2/2)",
+      "items": [
+        {
+          "front": "j'en ai deux",
+          "back": "ich habe zwei davon",
+          "example": "Des frères ? J'en ai deux.",
+          "exampleDe": "Brüder? Ich habe zwei."
+        },
+        {
+          "front": "il en mange",
+          "back": "er isst davon",
+          "example": "Il adore le chocolat, il en mange souvent.",
+          "exampleDe": "Er liebt Schokolade, er isst oft davon."
+        },
+        {
+          "front": "je n'y vais pas",
+          "back": "ich gehe nicht dorthin",
+          "example": "Je n'y vais pas aujourd'hui.",
+          "exampleDe": "Ich gehe heute nicht dorthin."
+        },
+        {
+          "front": "je n'en ai pas",
+          "back": "ich habe keine davon",
+          "example": "Des frères ? Je n'en ai pas.",
+          "exampleDe": "Brüder? Ich habe keine."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Tu vas à la piscine ? – Oui, j'___ vais.",
+          "answer": "y",
+          "options": [
+            "y",
+            "en",
+            "le",
+            "la"
+          ],
+          "translation": "Gehst du ins Schwimmbad? – Ja, ich gehe hin.",
+          "why": "Ortsangabe mit à → y."
+        },
+        {
+          "sentence": "Tu veux du gâteau ? – Oui, j'___ veux.",
+          "answer": "en",
+          "options": [
+            "en",
+            "y",
+            "le",
+            "lui"
+          ],
+          "translation": "Willst du Kuchen? – Ja, ich möchte welchen.",
+          "why": "Teilungsartikel du/de la → en."
+        }
+      ]
+    }
+  ]
+}

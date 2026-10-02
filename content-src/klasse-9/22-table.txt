@@ -1,0 +1,65 @@
+id: f9-table
+title: À table !
+desc: Restaurant, Essen und Trinken, Kochen, Ernährung
+order: 22
+
+= Im Restaurant
+? Höflich bestellen
+p Im Restaurant bestellst du höflich mit dem conditionnel: Je voudrais … (Ich möchte …) oder Je prendrai … (Ich nehme …).
+p Zu Beginn sagt man: Une table pour deux, s'il vous plaît. Am Ende: L'addition, s'il vous plaît.
+e Je voudrais un steak-frites, s'il vous plaît. = Ich möchte ein Steak mit Pommes, bitte.
+e L'addition, s'il vous plaît ! = Die Rechnung, bitte!
+t Das „s'il vous plaît“ gehört immer dazu, wenn du etwas bestellst.
+- le menu = die Speisekarte, das Menü | Le serveur apporte le menu. = Der Kellner bringt die Speisekarte.
+- le serveur / la serveuse = der Kellner / die Kellnerin | La serveuse est très aimable. = Die Kellnerin ist sehr freundlich.
+- l'entrée (f) = die Vorspeise | Comme entrée, je prends une salade. = Als Vorspeise nehme ich einen Salat.
+- le plat principal = das Hauptgericht | Le plat principal est délicieux. = Das Hauptgericht ist köstlich.
+- le dessert = der Nachtisch | Qu'est-ce que vous avez comme dessert ? = Was haben Sie als Nachtisch?
+- l'addition (f) = die Rechnung | L'addition, s'il vous plaît ! = Die Rechnung, bitte!
+f Je ___ une pizza, s'il vous plaît. | voudrais | voudrais; voulez; veux | Ich möchte eine Pizza, bitte. | Höflich bestellt man mit „je voudrais“.
+
+= Fleisch, Fisch und Beilagen
+- la viande = das Fleisch | Je ne mange pas de viande. = Ich esse kein Fleisch.
+- le poisson = der Fisch | Le poisson est frais aujourd'hui. = Der Fisch ist heute frisch.
+- le poulet = das Hähnchen | Le poulet rôti est excellent. = Das Brathähnchen ist ausgezeichnet.
+- le riz = der Reis | Je prends du riz avec le poulet. = Ich nehme Reis zum Hähnchen.
+- les pâtes (f pl) = die Nudeln | Mes enfants adorent les pâtes. = Meine Kinder lieben Nudeln.
+- les frites (f pl) = die Pommes frites | Il mange des frites tous les samedis. = Er isst jeden Samstag Pommes.
+
+= Gemüse und Obst
+- les légumes (m pl) = das Gemüse | Les légumes sont bons pour la santé. = Gemüse ist gut für die Gesundheit.
+- les fruits (m pl) = das Obst | Je mange des fruits au petit-déjeuner. = Ich esse zum Frühstück Obst.
+- la tomate = die Tomate | La salade de tomates est fraîche. = Der Tomatensalat ist frisch.
+- la carotte = die Karotte | Les carottes sont bonnes crues. = Karotten sind roh gut.
+- la pomme de terre = die Kartoffel | Les pommes de terre cuisent vingt minutes. = Die Kartoffeln kochen zwanzig Minuten.
+- la fraise = die Erdbeere | Les fraises sont de saison en mai. = Erdbeeren haben im Mai Saison.
+
+= Getränke und Mengen
+- une boisson = ein Getränk | Quelle boisson voulez-vous ? = Welches Getränk möchten Sie?
+- le jus d'orange = der Orangensaft | Un jus d'orange, s'il vous plaît. = Einen Orangensaft, bitte.
+- l'eau minérale (f) = das Mineralwasser | Nous buvons de l'eau minérale. = Wir trinken Mineralwasser.
+- un verre de = ein Glas | Je voudrais un verre de lait. = Ich möchte ein Glas Milch.
+- une bouteille de = eine Flasche | Il achète une bouteille d'eau. = Er kauft eine Flasche Wasser.
+- un peu de = ein bisschen | Il y a un peu de sel dans la soupe. = In der Suppe ist ein bisschen Salz.
+- beaucoup de = viel | Elle boit beaucoup d'eau. = Sie trinkt viel Wasser.
+
+= Kochen und Rezepte
+? Rezepte und Befehle
+p In Rezepten stehen oft Imperative oder der Infinitiv: Coupez les tomates. Ajoutez du sel. Mélangez bien.
+p Mengen werden mit „de“ ohne Artikel angegeben: 200 grammes de farine, un kilo de pommes.
+e Coupez les légumes et ajoutez du sel. = Schneidet das Gemüse und gebt Salz dazu.
+- la recette = das Rezept | J'ai une recette de crêpes. = Ich habe ein Rezept für Crêpes.
+- couper = schneiden | Coupe les carottes en petits morceaux. = Schneide die Karotten in kleine Stücke.
+- mélanger = mischen | Mélange la farine et les œufs. = Mische das Mehl und die Eier.
+- cuire = kochen, garen | Les pâtes cuisent dix minutes. = Die Nudeln kochen zehn Minuten.
+- ajouter = hinzufügen | Ajoute un peu de sel. = Gib ein bisschen Salz dazu.
+- la farine = das Mehl | Il faut deux cents grammes de farine. = Man braucht zweihundert Gramm Mehl.
+f ___ les légumes en petits morceaux ! | Coupez | Coupez; Coupons; Couper | Schneidet das Gemüse in kleine Stücke! | Der Imperativ in der 2. Person Plural endet auf -ez.
+
+= Gewohnheiten und Ernährung
+- une alimentation équilibrée = eine ausgewogene Ernährung | Une alimentation équilibrée est importante. = Eine ausgewogene Ernährung ist wichtig.
+- végétarien / végétarienne = vegetarisch | Ma sœur est végétarienne. = Meine Schwester ist Vegetarierin.
+- le petit-déjeuner = das Frühstück | Le petit-déjeuner est servi à huit heures. = Das Frühstück gibt es um acht Uhr.
+- le goûter = der Nachmittagsimbiss | Les enfants prennent le goûter à quatre heures. = Die Kinder essen um vier Uhr ihren Imbiss.
+- avoir faim = Hunger haben | Après le sport, j'ai très faim. = Nach dem Sport habe ich großen Hunger.
+- avoir soif = Durst haben | Il fait chaud, j'ai soif. = Es ist heiß, ich habe Durst.

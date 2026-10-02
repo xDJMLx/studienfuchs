@@ -1,0 +1,41 @@
+id: f10-ville-campagne
+title: Ville et campagne
+desc: Stadtleben, Landleben, Wohnen, Mobilität, Vergleiche
+order: 45
+
+= Stadtleben
+- la métropole = die Großstadt, die Metropole | Paris est une grande métropole. = Paris ist eine große Metropole.
+- le quartier = das Viertel | Mon quartier est très animé. = Mein Viertel ist sehr belebt.
+- les transports en commun (m pl) = der öffentliche Nahverkehr | Les transports en commun sont efficaces. = Der öffentliche Nahverkehr ist effizient.
+- la banlieue = der Vorort | Beaucoup de gens habitent en banlieue. = Viele Menschen wohnen in den Vororten.
+- le bruit = der Lärm | Le bruit de la rue me dérange. = Der Straßenlärm stört mich.
+- l'offre culturelle (f) = das Kulturangebot | L'offre culturelle est riche en ville. = Das Kulturangebot ist in der Stadt groß.
+
+= Landleben
+? Vergleichen
+p Vergleiche bildest du mit plus … que, moins … que und aussi … que: La ville est plus bruyante que la campagne.
+p Mit « le plus » und « le moins » drückst du den Superlativ aus: C'est la région la plus belle de France.
+e La vie à la campagne est plus calme que la vie en ville. = Das Leben auf dem Land ist ruhiger als das Leben in der Stadt.
+- le village = das Dorf | Mes grands-parents vivent dans un petit village. = Meine Großeltern leben in einem kleinen Dorf.
+- l'agriculteur / l'agricultrice = der Landwirt / die Landwirtin | L'agriculteur se lève à cinq heures. = Der Landwirt steht um fünf Uhr auf.
+- le calme = die Ruhe | Je cherche le calme de la nature. = Ich suche die Ruhe der Natur.
+- l'espace (m) = der Platz, der Raum | À la campagne, il y a plus d'espace. = Auf dem Land gibt es mehr Platz.
+- isolé / isolée = abgelegen | Cette ferme est très isolée. = Dieser Hof liegt sehr abgelegen.
+- le jardin = der Garten | Ils ont un grand jardin avec des arbres. = Sie haben einen großen Garten mit Bäumen.
+f La ville est ___ bruyante que la campagne. | plus | plus; aussi; moins | Die Stadt ist lauter als das Land. | Für einen Vergleich nach oben steht „plus … que“.
+
+= Wohnen und Preise
+- le logement = die Unterkunft, die Wohnung | Le logement coûte cher dans les grandes villes. = Wohnraum ist in Großstädten teuer.
+- louer = mieten | Ils louent un petit appartement. = Sie mieten eine kleine Wohnung.
+- acheter = kaufen | Elle veut acheter une maison. = Sie möchte ein Haus kaufen.
+- le prix = der Preis | Les prix augmentent chaque année. = Die Preise steigen jedes Jahr.
+- déménager = umziehen | Nous allons déménager en juillet. = Wir werden im Juli umziehen.
+- la colocation = die Wohngemeinschaft | Beaucoup d'étudiants vivent en colocation. = Viele Studenten leben in einer WG.
+
+= Mobilität
+- le trajet = der Weg, die Strecke | Mon trajet dure quarante minutes. = Mein Weg dauert vierzig Minuten.
+- les embouteillages (m pl) = der Stau | Il y a des embouteillages le matin. = Morgens gibt es Stau.
+- la voiture électrique = das Elektroauto | La voiture électrique ne pollue pas l'air. = Das Elektroauto verschmutzt die Luft nicht.
+- le covoiturage = die Fahrgemeinschaft | Le covoiturage est pratique à la campagne. = Fahrgemeinschaften sind auf dem Land praktisch.
+- dépendre de la voiture = vom Auto abhängig sein | À la campagne, on dépend de la voiture. = Auf dem Land ist man vom Auto abhängig.
+- se déplacer = sich fortbewegen | Il se déplace à vélo. = Er bewegt sich mit dem Rad fort.

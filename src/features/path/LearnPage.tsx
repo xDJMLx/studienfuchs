@@ -44,9 +44,9 @@ function PathLines({ states, offsets }: { states: NodeState[]; offsets: number[]
 /** Oben auf der Startseite: Tagesziel, Serie und fällige Wiederholungen auf einen Blick. */
 function TodayCard() {
   const navigate = useNavigate()
-  const { xpByDay, dailyGoal, streak, classUnit, catchUpTarget, lessons } = useStore()
+  const { xpByDay, dailyGoal, streak, classUnit, catchUpTarget, catchUpAll, lessons } = useStore()
   const { due } = useDue()
-  const plan = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons) : null
+  const plan = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll) : null
   const today = xpToday(xpByDay)
   const g = goalInfo(dailyGoal, today)
   const pct = g.pct

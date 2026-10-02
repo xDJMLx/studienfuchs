@@ -1,0 +1,52 @@
+id: f9-sante
+title: La santé
+desc: Körper, Arzt, Krankheiten, Apotheke, gesund leben
+order: 48
+
+= Der Körper
+- la tête = der Kopf | J'ai mal à la tête. = Ich habe Kopfschmerzen.
+- le bras = der Arm | Il s'est cassé le bras. = Er hat sich den Arm gebrochen.
+- la jambe = das Bein | Elle a mal à la jambe. = Ihr tut das Bein weh.
+- la main = die Hand | Lave-toi les mains avant de manger. = Wasch dir vor dem Essen die Hände.
+- le dos = der Rücken | Mon dos me fait mal. = Mein Rücken tut mir weh.
+- le ventre = der Bauch | J'ai mal au ventre. = Ich habe Bauchschmerzen.
+- les yeux (m pl) = die Augen | Tu as de beaux yeux. = Du hast schöne Augen.
+
+= Beim Arzt
+? Schmerzen ausdrücken
+p Mit „avoir mal à“ sagst du, wo es wehtut: J'ai mal à la tête, au dos, aux pieds (à + le = au, à + les = aux).
+p Der Arzt fragt: Qu'est-ce qui ne va pas ? Où avez-vous mal ?
+e J'ai mal au ventre depuis hier. = Ich habe seit gestern Bauchschmerzen.
+e Où avez-vous mal ? = Wo tut es Ihnen weh?
+t Bei Körperteilen im Plural heißt es aux: J'ai mal aux dents.
+- le médecin = der Arzt | Je vais chez le médecin. = Ich gehe zum Arzt.
+- le rendez-vous = der Termin | J'ai un rendez-vous à dix heures. = Ich habe um zehn Uhr einen Termin.
+- avoir mal à = Schmerzen haben in | Il a mal à la gorge. = Er hat Halsschmerzen.
+- l'ordonnance (f) = das Rezept (vom Arzt) | Le médecin écrit une ordonnance. = Der Arzt schreibt ein Rezept.
+- examiner = untersuchen | Le médecin examine le patient. = Der Arzt untersucht den Patienten.
+- le cabinet = die Praxis | Le cabinet est au deuxième étage. = Die Praxis ist im zweiten Stock.
+f J'ai mal ___ pieds. | aux | aux; au; à la | Ich habe Schmerzen in den Füßen. | À + les wird zu „aux“.
+
+= Krankheiten und Symptome
+- malade = krank | Mon frère est malade depuis lundi. = Mein Bruder ist seit Montag krank.
+- la fièvre = das Fieber | Elle a de la fièvre. = Sie hat Fieber.
+- la toux = der Husten | Il a une toux depuis trois jours. = Er hat seit drei Tagen Husten.
+- le rhume = der Schnupfen, die Erkältung | J'ai un gros rhume. = Ich habe einen starken Schnupfen.
+- la grippe = die Grippe | Toute la famille a la grippe. = Die ganze Familie hat die Grippe.
+- fatigué / fatiguée = müde | Je suis très fatigué ce soir. = Ich bin heute Abend sehr müde.
+
+= In der Apotheke
+- la pharmacie = die Apotheke | La pharmacie est ouverte jusqu'à huit heures. = Die Apotheke ist bis acht Uhr geöffnet.
+- le médicament = das Medikament | Il prend un médicament deux fois par jour. = Er nimmt zweimal am Tag ein Medikament.
+- le sirop = der Sirup, der Hustensaft | Ce sirop est bon pour la toux. = Dieser Hustensaft ist gut gegen Husten.
+- le comprimé = die Tablette | Prenez un comprimé le matin. = Nehmen Sie morgens eine Tablette.
+- le pansement = das Pflaster | Je mets un pansement sur mon doigt. = Ich klebe ein Pflaster auf meinen Finger.
+
+= Gesund leben
+- le sport = der Sport | Le sport est bon pour la santé. = Sport ist gut für die Gesundheit.
+- bouger = sich bewegen | Il faut bouger tous les jours. = Man muss sich jeden Tag bewegen.
+- dormir = schlafen | Il faut dormir huit heures par nuit. = Man muss acht Stunden pro Nacht schlafen.
+- se reposer = sich ausruhen | Après la maladie, il se repose. = Nach der Krankheit ruht er sich aus.
+- le stress = der Stress | Le stress rend malade. = Stress macht krank.
+- en bonne santé = gesund | Elle est en bonne santé. = Sie ist gesund.
+- se soigner = sich pflegen, sich behandeln | Tu dois te soigner. = Du musst dich auskurieren.

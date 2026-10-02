@@ -1,0 +1,55 @@
+id: f10-u8
+title: Débattre et analyser
+desc: Argumentation, Europa, Textanalyse
+order: 80
+
+= Argumentieren (1/2)
+? Eine Position aufbauen
+p Ein guter Argumentationstext hat: Einleitung (Thema, These), Hauptteil (Argumente mit Beispielen, Gegenargument) und Schluss (Fazit, eigene Meinung).
+p Nutze Verknüpfer: tout d'abord, ensuite, par ailleurs, certes … mais, il est vrai que … cependant, en somme.
+e Certes, les réseaux sociaux sont pratiques, mais ils présentent aussi des dangers. = Zwar sind soziale Netzwerke praktisch, aber sie haben auch Gefahren.
+- un argument = ein Argument | C'est un bon argument. = Das ist ein gutes Argument.
+- une thèse = eine These | Il défend une thèse claire. = Er vertritt eine klare These.
+- un exemple = ein Beispiel | Donne-moi un exemple. = Gib mir ein Beispiel.
+- certes … mais = zwar … aber | Certes, c'est cher, mais c'est bien. = Zwar ist es teuer, aber es ist gut.
+- par ailleurs = außerdem | Par ailleurs, il est très gentil. = Außerdem ist er sehr nett.
+
+= Argumentieren (2/2)
+- en somme = insgesamt | En somme, le projet est utile. = Insgesamt ist das Projekt nützlich.
+- il est évident que = es ist offensichtlich, dass | Il est évident que tu as raison. = Es ist offensichtlich, dass du Recht hast.
+- on peut se demander si = man kann sich fragen, ob | On peut se demander si c'est utile. = Man kann sich fragen, ob es nützlich ist.
+- pour conclure = zum Schluss | Pour conclure, je suis pour. = Zum Schluss: Ich bin dafür.
+- défendre une opinion = eine Meinung vertreten | Il sait défendre une opinion. = Er kann eine Meinung vertreten.
+
+= Europa und die Welt (1/2)
+- l'Union européenne = die Europäische Union | L'Union européenne compte vingt-sept pays. = Die Europäische Union hat siebenundzwanzig Länder.
+- un pays membre = ein Mitgliedsland | La France est un pays membre. = Frankreich ist ein Mitgliedsland.
+- la frontière = die Grenze | Nous passons la frontière en train. = Wir überqueren die Grenze mit dem Zug.
+- la monnaie = die Währung | L'euro est la monnaie commune. = Der Euro ist die gemeinsame Währung.
+- la paix = der Frieden | Tout le monde veut la paix. = Alle wollen Frieden.
+
+= Europa und die Welt (2/2)
+- la mondialisation = die Globalisierung | La mondialisation change le monde. = Die Globalisierung verändert die Welt.
+- les échanges = der Austausch | Les échanges entre jeunes sont importants. = Der Austausch zwischen Jugendlichen ist wichtig.
+- voter = wählen / abstimmen | On peut voter à dix-huit ans. = Man darf mit achtzehn Jahren wählen.
+- un citoyen = ein Bürger | Chaque citoyen peut voter. = Jeder Bürger kann wählen.
+- la démocratie = die Demokratie | La démocratie a besoin de citoyens informés. = Die Demokratie braucht informierte Bürger.
+
+= Texte analysieren (1/2)
+? Literarische Texte verstehen
+p Beschreibe zuerst Handlung (l'intrigue), Figuren (les personnages), Erzähler (le narrateur) und Atmosphäre. Danach deutest du: Was will der Text sagen (le message, le thème)?
+p In literarischen Erzähltexten findest du oft das passé simple (il parla, ils furent). Du musst es erkennen, nicht selbst bilden.
+e Le narrateur raconte l'histoire à la première personne. = Der Erzähler erzählt die Geschichte in der Ich-Form.
+e L'auteur veut dénoncer l'injustice. = Der Autor will die Ungerechtigkeit anprangern.
+- l'intrigue = die Handlung | L'intrigue du roman est compliquée. = Die Handlung des Romans ist kompliziert.
+- le personnage = die Figur | Le personnage principal est courageux. = Die Hauptfigur ist mutig.
+- le narrateur = der Erzähler | Le narrateur raconte à la première personne. = Der Erzähler erzählt in der Ich-Form.
+- le thème = das Thema | Le thème du texte est la liberté. = Das Thema des Textes ist die Freiheit.
+- l'auteur = der Autor | L'auteur est très connu. = Der Autor ist sehr bekannt.
+
+= Texte analysieren (2/2)
+- le passage = die Textstelle | Ce passage est très émouvant. = Diese Textstelle ist sehr bewegend.
+- dénoncer = anprangern | L'auteur veut dénoncer l'injustice. = Der Autor will die Ungerechtigkeit anprangern.
+- décrire = beschreiben | Décris le personnage principal. = Beschreibe die Hauptfigur.
+- interpréter = interpretieren | Il faut interpréter ce poème. = Man muss dieses Gedicht interpretieren.
+- le passé simple = die literarische Vergangenheitsform | Le passé simple est utilisé dans les romans. = Das Passé simple wird in Romanen benutzt.

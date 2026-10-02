@@ -1,0 +1,204 @@
+{
+  "id": "f10-voyager",
+  "title": "Voyager et échanger",
+  "description": "Tourismus, Auslandsaufenthalt, Austausch, interkulturelle Erfahrungen",
+  "grade": 10,
+  "subject": "french",
+  "order": 35,
+  "lessons": [
+    {
+      "id": "f10-voyager-l1",
+      "title": "Tourismus",
+      "items": [
+        {
+          "front": "le tourisme",
+          "back": "der Tourismus",
+          "example": "Le tourisme est important pour l'économie.",
+          "exampleDe": "Der Tourismus ist für die Wirtschaft wichtig."
+        },
+        {
+          "front": "le touriste",
+          "back": "der Tourist",
+          "example": "Beaucoup de touristes visitent Paris.",
+          "exampleDe": "Viele Touristen besuchen Paris."
+        },
+        {
+          "front": "le guide",
+          "back": "der Reiseführer, der Guide",
+          "example": "Le guide explique l'histoire du château.",
+          "exampleDe": "Der Guide erklärt die Geschichte des Schlosses."
+        },
+        {
+          "front": "les bagages (m pl)",
+          "back": "das Gepäck",
+          "example": "Les bagages sont dans le coffre.",
+          "exampleDe": "Das Gepäck ist im Kofferraum."
+        },
+        {
+          "front": "la destination",
+          "back": "das Reiseziel",
+          "example": "Quelle est votre destination ?",
+          "exampleDe": "Was ist Ihr Reiseziel?"
+        },
+        {
+          "front": "le patrimoine",
+          "back": "das Kulturerbe",
+          "example": "Ce site fait partie du patrimoine mondial.",
+          "exampleDe": "Diese Stätte gehört zum Weltkulturerbe."
+        }
+      ]
+    },
+    {
+      "id": "f10-voyager-l2",
+      "title": "Ein Auslandsjahr",
+      "items": [
+        {
+          "front": "l'échange (m)",
+          "back": "der Austausch",
+          "example": "L'échange scolaire dure trois mois.",
+          "exampleDe": "Der Schüleraustausch dauert drei Monate."
+        },
+        {
+          "front": "la famille d'accueil",
+          "back": "die Gastfamilie",
+          "example": "Ma famille d'accueil est très gentille.",
+          "exampleDe": "Meine Gastfamilie ist sehr nett."
+        },
+        {
+          "front": "s'adapter",
+          "back": "sich anpassen",
+          "example": "Je me suis vite adapté à la vie en France.",
+          "exampleDe": "Ich habe mich schnell an das Leben in Frankreich angepasst."
+        },
+        {
+          "front": "le mal du pays",
+          "back": "das Heimweh",
+          "example": "Au début, j'avais le mal du pays.",
+          "exampleDe": "Am Anfang hatte ich Heimweh."
+        },
+        {
+          "front": "faire des progrès",
+          "back": "Fortschritte machen",
+          "example": "Elle fait des progrès en français.",
+          "exampleDe": "Sie macht Fortschritte in Französisch."
+        },
+        {
+          "front": "grâce à",
+          "back": "dank",
+          "example": "Grâce à toi, j'ai compris.",
+          "exampleDe": "Dank dir habe ich verstanden."
+        }
+      ],
+      "explanation": {
+        "title": "Erfahrungen berichten",
+        "paragraphs": [
+          "Über vergangene Erlebnisse berichtest du mit passé composé und imparfait: J'ai passé un an en France. Au début, je ne comprenais pas tout.",
+          "Mit „grâce à“ nennst du etwas Positives als Ursache: Grâce à cet échange, j'ai fait des progrès."
+        ],
+        "examples": [
+          {
+            "fr": "Grâce à cet échange, j'ai fait beaucoup de progrès.",
+            "de": "Dank dieses Austauschs habe ich viele Fortschritte gemacht."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "___ à cet échange, il parle mieux français.",
+          "answer": "Grâce",
+          "options": [
+            "Grâce",
+            "Malgré",
+            "À cause"
+          ],
+          "translation": "Dank dieses Austauschs spricht er besser Französisch.",
+          "why": "„Grâce à“ nennt einen positiven Grund."
+        }
+      ]
+    },
+    {
+      "id": "f10-voyager-l3",
+      "title": "Andere Kulturen",
+      "items": [
+        {
+          "front": "la culture",
+          "back": "die Kultur",
+          "example": "Chaque pays a sa culture.",
+          "exampleDe": "Jedes Land hat seine Kultur."
+        },
+        {
+          "front": "la coutume",
+          "back": "der Brauch",
+          "example": "C'est une coutume locale.",
+          "exampleDe": "Das ist ein lokaler Brauch."
+        },
+        {
+          "front": "étranger / étrangère",
+          "back": "ausländisch, fremd",
+          "example": "Il apprend plusieurs langues étrangères.",
+          "exampleDe": "Er lernt mehrere Fremdsprachen."
+        },
+        {
+          "front": "la différence",
+          "back": "der Unterschied",
+          "example": "Il y a beaucoup de différences entre les deux pays.",
+          "exampleDe": "Es gibt viele Unterschiede zwischen den beiden Ländern."
+        },
+        {
+          "front": "le préjugé",
+          "back": "das Vorurteil",
+          "example": "Il faut combattre les préjugés.",
+          "exampleDe": "Man muss Vorurteile bekämpfen."
+        },
+        {
+          "front": "s'ouvrir à",
+          "back": "sich öffnen für",
+          "example": "Voyager permet de s'ouvrir aux autres.",
+          "exampleDe": "Reisen ermöglicht es, sich anderen gegenüber zu öffnen."
+        }
+      ]
+    },
+    {
+      "id": "f10-voyager-l4",
+      "title": "Nachhaltig reisen",
+      "items": [
+        {
+          "front": "le voyage en train",
+          "back": "die Bahnreise",
+          "example": "Le voyage en train pollue moins.",
+          "exampleDe": "Die Bahnreise belastet die Umwelt weniger."
+        },
+        {
+          "front": "polluer",
+          "back": "verschmutzen",
+          "example": "L'avion pollue beaucoup.",
+          "exampleDe": "Das Flugzeug verschmutzt die Umwelt stark."
+        },
+        {
+          "front": "l'empreinte carbone (f)",
+          "back": "der CO₂-Fußabdruck",
+          "example": "Voyager à vélo réduit l'empreinte carbone.",
+          "exampleDe": "Radreisen verringert den CO₂-Fußabdruck."
+        },
+        {
+          "front": "le tourisme durable",
+          "back": "der nachhaltige Tourismus",
+          "example": "Le tourisme durable protège la nature.",
+          "exampleDe": "Nachhaltiger Tourismus schützt die Natur."
+        },
+        {
+          "front": "séjourner",
+          "back": "sich aufhalten, übernachten",
+          "example": "Nous avons séjourné chez l'habitant.",
+          "exampleDe": "Wir haben bei Einheimischen übernachtet."
+        },
+        {
+          "front": "rencontrer",
+          "back": "treffen, kennenlernen",
+          "example": "En voyage, on rencontre des gens intéressants.",
+          "exampleDe": "Auf Reisen lernt man interessante Menschen kennen."
+        }
+      ]
+    }
+  ]
+}

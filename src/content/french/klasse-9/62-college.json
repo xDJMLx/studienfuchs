@@ -1,0 +1,204 @@
+{
+  "id": "f9-college",
+  "title": "Au collège et après",
+  "description": "Schulfächer, Noten, Prüfungen, Praktikum, Zukunft nach der Schule",
+  "grade": 9,
+  "subject": "french",
+  "order": 62,
+  "lessons": [
+    {
+      "id": "f9-college-l1",
+      "title": "Fächer und Noten",
+      "items": [
+        {
+          "front": "la matière",
+          "back": "das Schulfach",
+          "example": "Ma matière préférée est l'histoire.",
+          "exampleDe": "Mein Lieblingsfach ist Geschichte."
+        },
+        {
+          "front": "la note",
+          "back": "die Note",
+          "example": "J'ai une bonne note en maths.",
+          "exampleDe": "Ich habe eine gute Note in Mathe."
+        },
+        {
+          "front": "le bulletin",
+          "back": "das Zeugnis",
+          "example": "Le bulletin arrive en février.",
+          "exampleDe": "Das Zeugnis kommt im Februar."
+        },
+        {
+          "front": "la moyenne",
+          "back": "der Durchschnitt",
+          "example": "Sa moyenne est de quinze sur vingt.",
+          "exampleDe": "Sein Durchschnitt beträgt fünfzehn von zwanzig."
+        },
+        {
+          "front": "s'améliorer",
+          "back": "besser werden",
+          "example": "Je dois m'améliorer en anglais.",
+          "exampleDe": "Ich muss in Englisch besser werden."
+        },
+        {
+          "front": "facile / difficile",
+          "back": "leicht / schwierig",
+          "example": "Cet exercice est difficile.",
+          "exampleDe": "Diese Aufgabe ist schwierig."
+        }
+      ]
+    },
+    {
+      "id": "f9-college-l2",
+      "title": "Prüfungen",
+      "items": [
+        {
+          "front": "l'examen (m)",
+          "back": "die Prüfung",
+          "example": "L'examen commence à neuf heures.",
+          "exampleDe": "Die Prüfung beginnt um neun Uhr."
+        },
+        {
+          "front": "le contrôle",
+          "back": "die Klassenarbeit, der Test",
+          "example": "Nous avons un contrôle de français demain.",
+          "exampleDe": "Wir schreiben morgen eine Französischarbeit."
+        },
+        {
+          "front": "réviser",
+          "back": "wiederholen, lernen",
+          "example": "Je révise mes leçons le soir.",
+          "exampleDe": "Ich wiederhole abends meinen Stoff."
+        },
+        {
+          "front": "réussir",
+          "back": "bestehen, Erfolg haben",
+          "example": "Elle a réussi son examen.",
+          "exampleDe": "Sie hat ihre Prüfung bestanden."
+        },
+        {
+          "front": "échouer",
+          "back": "durchfallen, scheitern",
+          "example": "Il a échoué à l'examen.",
+          "exampleDe": "Er ist durch die Prüfung gefallen."
+        },
+        {
+          "front": "la réponse",
+          "back": "die Antwort",
+          "example": "Je connais la réponse.",
+          "exampleDe": "Ich kenne die Antwort."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Elle ___ ses leçons tous les soirs.",
+          "answer": "révise",
+          "options": [
+            "révise",
+            "révises",
+            "révisons"
+          ],
+          "translation": "Sie wiederholt jeden Abend ihren Stoff.",
+          "why": "Zur 3. Person Singular gehört -e."
+        }
+      ]
+    },
+    {
+      "id": "f9-college-l3",
+      "title": "Schulleben",
+      "items": [
+        {
+          "front": "le professeur",
+          "back": "der Lehrer, die Lehrerin",
+          "example": "Notre professeur explique bien.",
+          "exampleDe": "Unser Lehrer erklärt gut."
+        },
+        {
+          "front": "le délégué / la déléguée",
+          "back": "der Klassensprecher / die Klassensprecherin",
+          "example": "La déléguée parle au directeur.",
+          "exampleDe": "Die Klassensprecherin spricht mit dem Direktor."
+        },
+        {
+          "front": "le règlement",
+          "back": "die Schulordnung, die Regeln",
+          "example": "Le règlement interdit les portables.",
+          "exampleDe": "Die Schulordnung verbietet Handys."
+        },
+        {
+          "front": "le cours",
+          "back": "die Unterrichtsstunde",
+          "example": "Le cours d'EPS commence à deux heures.",
+          "exampleDe": "Der Sportunterricht beginnt um zwei Uhr."
+        },
+        {
+          "front": "la récréation",
+          "back": "die Pause",
+          "example": "À la récréation, nous jouons au foot.",
+          "exampleDe": "In der Pause spielen wir Fußball."
+        },
+        {
+          "front": "la sortie scolaire",
+          "back": "der Klassenausflug",
+          "example": "La sortie scolaire a lieu en juin.",
+          "exampleDe": "Der Klassenausflug findet im Juni statt."
+        }
+      ]
+    },
+    {
+      "id": "f9-college-l4",
+      "title": "Praktikum",
+      "items": [
+        {
+          "front": "le stage",
+          "back": "das Praktikum",
+          "example": "Mon stage dure deux semaines.",
+          "exampleDe": "Mein Praktikum dauert zwei Wochen."
+        },
+        {
+          "front": "l'entreprise (f)",
+          "back": "das Unternehmen",
+          "example": "Elle travaille dans une grande entreprise.",
+          "exampleDe": "Sie arbeitet in einem großen Unternehmen."
+        },
+        {
+          "front": "le métier",
+          "back": "der Beruf",
+          "example": "Quel métier veux-tu faire ?",
+          "exampleDe": "Welchen Beruf willst du ergreifen?"
+        },
+        {
+          "front": "le collègue / la collègue",
+          "back": "der Kollege / die Kollegin",
+          "example": "Mes collègues sont sympathiques.",
+          "exampleDe": "Meine Kollegen sind sympathisch."
+        },
+        {
+          "front": "apprendre",
+          "back": "lernen",
+          "example": "J'apprends beaucoup pendant mon stage.",
+          "exampleDe": "Ich lerne viel während meines Praktikums."
+        },
+        {
+          "front": "le client / la cliente",
+          "back": "der Kunde / die Kundin",
+          "example": "La cliente cherche un cadeau.",
+          "exampleDe": "Die Kundin sucht ein Geschenk."
+        }
+      ],
+      "explanation": {
+        "title": "Das Betriebspraktikum",
+        "paragraphs": [
+          "Ein Praktikum heißt un stage, wer es macht un stagiaire. Man sagt: faire un stage dans une entreprise.",
+          "Beschreibe deine Aufgaben im présent und im passé composé: J'ai répondu au téléphone. J'ai aidé les clients."
+        ],
+        "examples": [
+          {
+            "fr": "J'ai fait un stage dans une boulangerie.",
+            "de": "Ich habe ein Praktikum in einer Bäckerei gemacht."
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+id: f9-voyage
+title: En voyage
+desc: Reisen planen, Gepäck, Hotel, Urlaubsorte, Wetter, Probleme unterwegs
+order: 35
+
+= Eine Reise planen
+? Über die Zukunft sprechen
+p Reisepläne beschreibst du mit dem futur simple oder mit aller + Infinitiv: Nous partirons en juillet. Je vais réserver l'hôtel.
+p Mit „en“ nennst du das Verkehrsmittel (en train, en avion, en voiture), mit „à“ bei Rad und zu Fuß (à vélo, à pied).
+e En été, nous partirons en vacances. = Im Sommer fahren wir in den Urlaub.
+e Je vais réserver un billet de train. = Ich werde eine Zugfahrkarte buchen.
+- les vacances (f pl) = die Ferien, der Urlaub | Nous passons les vacances à la mer. = Wir verbringen die Ferien am Meer.
+- réserver = buchen, reservieren | Je réserve une chambre pour trois nuits. = Ich buche ein Zimmer für drei Nächte.
+- le billet d'avion = das Flugticket | Elle a acheté un billet d'avion. = Sie hat ein Flugticket gekauft.
+- partir en vacances = in den Urlaub fahren | Nous partons en vacances demain. = Wir fahren morgen in den Urlaub.
+- le séjour = der Aufenthalt | Notre séjour dure une semaine. = Unser Aufenthalt dauert eine Woche.
+- l'aéroport (m) = der Flughafen | L'aéroport est loin de la ville. = Der Flughafen ist weit von der Stadt entfernt.
+f Nous ___ en juillet. | partirons | partirons; partons; partions | Wir fahren im Juli. | Das futur simple drückt einen Plan für später aus.
+
+= Gepäck und Papiere
+- la valise = der Koffer | Ma valise est trop lourde. = Mein Koffer ist zu schwer.
+- le sac à dos = der Rucksack | Il porte un sac à dos. = Er trägt einen Rucksack.
+- le passeport = der Reisepass | N'oublie pas ton passeport ! = Vergiss deinen Reisepass nicht!
+- la carte d'identité = der Personalausweis | J'ai ma carte d'identité dans la poche. = Ich habe meinen Personalausweis in der Tasche.
+- oublier = vergessen | J'ai oublié mon maillot de bain. = Ich habe meine Badehose vergessen.
+- emporter = mitnehmen | Qu'est-ce que tu emportes ? = Was nimmst du mit?
+
+= Im Hotel
+- l'hôtel (m) = das Hotel | L'hôtel se trouve près de la plage. = Das Hotel liegt in der Nähe des Strandes.
+- la chambre = das Zimmer | Nous avons une chambre avec balcon. = Wir haben ein Zimmer mit Balkon.
+- la réception = die Rezeption | La réception ouvre à sept heures. = Die Rezeption öffnet um sieben Uhr.
+- la clé = der Schlüssel | Je laisse la clé à la réception. = Ich lasse den Schlüssel an der Rezeption.
+- l'auberge de jeunesse (f) = die Jugendherberge | Nous dormons à l'auberge de jeunesse. = Wir schlafen in der Jugendherberge.
+- le camping = der Campingplatz | Le camping est au bord du lac. = Der Campingplatz liegt am See.
+
+= Urlaubsorte
+- la plage = der Strand | Les enfants jouent sur la plage. = Die Kinder spielen am Strand.
+- la montagne = das Gebirge, der Berg | En hiver, nous allons à la montagne. = Im Winter fahren wir in die Berge.
+- la campagne = das Land | Ma grand-mère habite à la campagne. = Meine Großmutter wohnt auf dem Land.
+- le lac = der See | Nous nous baignons dans le lac. = Wir baden im See.
+- la forêt = der Wald | Nous nous promenons dans la forêt. = Wir spazieren im Wald.
+- la visite = die Besichtigung, der Besuch | La visite du château dure deux heures. = Die Besichtigung des Schlosses dauert zwei Stunden.
+
+= Wetter im Urlaub
+- le temps = das Wetter | Quel temps fait-il à Nice ? = Wie ist das Wetter in Nizza?
+- il fait beau = es ist schönes Wetter | Aujourd'hui, il fait beau. = Heute ist schönes Wetter.
+- il pleut = es regnet | En automne, il pleut souvent. = Im Herbst regnet es oft.
+- il y a du soleil = die Sonne scheint | Il y a du soleil sur toute la côte. = An der ganzen Küste scheint die Sonne.
+- il neige = es schneit | À la montagne, il neige beaucoup. = In den Bergen schneit es viel.
+- la température = die Temperatur | La température est de trente degrés. = Die Temperatur beträgt dreißig Grad.
+
+= Probleme unterwegs
+- perdre = verlieren | J'ai perdu mon billet. = Ich habe meine Fahrkarte verloren.
+- le retard = die Verspätung | Le train a une heure de retard. = Der Zug hat eine Stunde Verspätung.
+- la panne = die Panne | La voiture est en panne. = Das Auto hat eine Panne.
+- rater = verpassen | J'ai raté mon train. = Ich habe meinen Zug verpasst.
+- demander de l'aide = um Hilfe bitten | Je demande de l'aide à un passant. = Ich bitte einen Passanten um Hilfe.

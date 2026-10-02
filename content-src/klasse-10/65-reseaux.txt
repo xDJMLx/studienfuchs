@@ -1,0 +1,41 @@
+id: f10-reseaux
+title: Les réseaux sociaux
+desc: Soziale Netzwerke, Identität im Netz, Cybermobbing, Medienkompetenz
+order: 65
+
+= Soziale Netzwerke
+- le réseau social = das soziale Netzwerk | Beaucoup de jeunes utilisent les réseaux sociaux. = Viele Jugendliche nutzen soziale Netzwerke.
+- le profil = das Profil | Elle crée un profil sur le réseau. = Sie erstellt ein Profil im Netzwerk.
+- publier = veröffentlichen, posten | Il publie une photo tous les jours. = Er postet jeden Tag ein Foto.
+- partager = teilen | Je partage souvent des vidéos. = Ich teile oft Videos.
+- suivre = folgen | Elle suit plusieurs chanteurs sur le réseau. = Sie folgt mehreren Sängern im Netzwerk.
+- l'abonné (m) / l'abonnée (f) = der Follower / die Followerin | Il a mille abonnés. = Er hat tausend Follower.
+
+= Identität und Image
+? Bedingungen und Folgen
+p Mit « si » + présent und futur simple sprichst du über mögliche Folgen: Si tu publies cette photo, tout le monde la verra.
+p Mit « à moins que » + subjonctif drückst du eine Ausnahme aus: Je ne publie rien, à moins que mes parents soient d'accord.
+e Si tu publies cette photo, tout le monde la verra. = Wenn du dieses Foto postest, wird es jeder sehen.
+- l'image (f) = das Bild, das Image | Il soigne son image sur internet. = Er pflegt sein Image im Internet.
+- l'identité (f) = die Identität | Chacun construit son identité en ligne. = Jeder baut seine Identität online auf.
+- en ligne = online | Il passe beaucoup de temps en ligne. = Er verbringt viel Zeit online.
+- le like = das Like, der Daumen nach oben | Elle compte ses likes. = Sie zählt ihre Likes.
+- comparer = vergleichen | Il se compare aux autres sur internet. = Er vergleicht sich im Internet mit anderen.
+- la pression sociale = der gesellschaftliche Druck | Les réseaux augmentent la pression sociale. = Die Netzwerke verstärken den gesellschaftlichen Druck.
+f Si tu publies cette photo, tout le monde la ___. | verra | verra; voit; verrait | Wenn du dieses Foto postest, wird es jeder sehen. | Nach „si“ + présent steht im Hauptsatz das futur simple.
+
+= Cybermobbing
+- le harcèlement = das Mobbing | Le harcèlement en ligne est un vrai problème. = Mobbing im Internet ist ein echtes Problem.
+- harceler = mobben, belästigen | On ne doit pas harceler les autres. = Man darf andere nicht mobben.
+- la victime = das Opfer | La victime n'ose pas en parler. = Das Opfer traut sich nicht, darüber zu sprechen.
+- signaler = melden | Il faut signaler les messages méchants. = Man muss gemeine Nachrichten melden.
+- en parler = darüber sprechen | Il vaut mieux en parler à un adulte. = Es ist besser, mit einem Erwachsenen darüber zu sprechen.
+- se moquer de = sich lustig machen über | Ils se moquent de lui en ligne. = Sie machen sich online über ihn lustig.
+
+= Medienkompetenz
+- une fausse information = eine Falschmeldung | Il y a beaucoup de fausses informations sur internet. = Im Internet gibt es viele Falschmeldungen.
+- vérifier = überprüfen | Vérifie toujours la source. = Überprüfe immer die Quelle.
+- la source = die Quelle | Quelle est la source de cette information ? = Was ist die Quelle dieser Information?
+- se méfier de = misstrauisch sein gegenüber | Il faut se méfier des inconnus en ligne. = Man muss gegenüber Unbekannten im Netz misstrauisch sein.
+- critique = kritisch | Il faut garder un esprit critique. = Man muss kritisch bleiben.
+- protéger = schützen | Protège tes données personnelles ! = Schütze deine persönlichen Daten!

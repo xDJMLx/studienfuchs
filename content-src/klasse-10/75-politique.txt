@@ -1,0 +1,37 @@
+id: f10-politique
+title: Politique et société
+desc: Staat, Rechte, Migration, Medien und Demokratie
+order: 75
+
+= Staat und Wahlen
+- le gouvernement = die Regierung | Le gouvernement annonce une nouvelle loi. = Die Regierung kündigt ein neues Gesetz an.
+- le président = der Präsident | Le président parle à la télévision. = Der Präsident spricht im Fernsehen.
+- le Parlement = das Parlament | Le Parlement vote la loi. = Das Parlament stimmt über das Gesetz ab.
+- une élection = eine Wahl | Il y a une élection en mai. = Im Mai gibt es eine Wahl.
+- voter = wählen | On peut voter à dix-huit ans. = Man darf mit achtzehn Jahren wählen.
+- la loi = das Gesetz | Tout le monde doit respecter la loi. = Alle müssen das Gesetz respektieren.
+- la majorité = die Mehrheit | La majorité a voté oui. = Die Mehrheit hat mit Ja gestimmt.
+
+= Rechte und Freiheiten
+- les droits de l'homme = die Menschenrechte | Les droits de l'homme sont universels. = Die Menschenrechte sind universell.
+- la liberté d'expression = die Meinungsfreiheit | La liberté d'expression est essentielle. = Die Meinungsfreiheit ist wesentlich.
+- l'égalité des chances = die Chancengleichheit | L'égalité des chances est un objectif. = Chancengleichheit ist ein Ziel.
+- la discrimination = die Diskriminierung | La discrimination est interdite. = Diskriminierung ist verboten.
+- manifester = demonstrieren | Les élèves manifestent pour le climat. = Die Schüler demonstrieren fürs Klima.
+- la grève = der Streik | Il y a une grève des trains. = Es gibt einen Zugstreik.
+
+= Migration und Integration
+- l'immigration = die Einwanderung | L'immigration est un sujet important. = Einwanderung ist ein wichtiges Thema.
+- un réfugié = ein Flüchtling | Ce réfugié cherche un logement. = Dieser Flüchtling sucht eine Unterkunft.
+- l'intégration = die Integration | L'intégration demande du temps. = Integration braucht Zeit.
+- accueillir = aufnehmen, willkommen heißen | La ville veut accueillir les réfugiés. = Die Stadt will die Flüchtlinge aufnehmen.
+- demander l'asile = Asyl beantragen | Il demande l'asile en France. = Er beantragt Asyl in Frankreich.
+- la diversité = die Vielfalt | La diversité enrichit la société. = Vielfalt bereichert die Gesellschaft.
+
+= Medien und Demokratie
+- la presse libre = die freie Presse | La presse libre est importante. = Eine freie Presse ist wichtig.
+- la désinformation = die Desinformation | La désinformation est dangereuse. = Desinformation ist gefährlich.
+- l'opinion publique = die öffentliche Meinung | L'opinion publique change. = Die öffentliche Meinung ändert sich.
+- influencer = beeinflussen | Les médias peuvent influencer les gens. = Medien können Menschen beeinflussen.
+- un débat = eine Debatte | Il y a un débat à la télé. = Im Fernsehen gibt es eine Debatte.
+- s'informer = sich informieren | Je m'informe avec le journal. = Ich informiere mich mit der Zeitung.

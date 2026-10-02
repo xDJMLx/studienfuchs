@@ -1,0 +1,41 @@
+id: f10-voyager
+title: Voyager et échanger
+desc: Tourismus, Auslandsaufenthalt, Austausch, interkulturelle Erfahrungen
+order: 35
+
+= Tourismus
+- le tourisme = der Tourismus | Le tourisme est important pour l'économie. = Der Tourismus ist für die Wirtschaft wichtig.
+- le touriste = der Tourist | Beaucoup de touristes visitent Paris. = Viele Touristen besuchen Paris.
+- le guide = der Reiseführer, der Guide | Le guide explique l'histoire du château. = Der Guide erklärt die Geschichte des Schlosses.
+- les bagages (m pl) = das Gepäck | Les bagages sont dans le coffre. = Das Gepäck ist im Kofferraum.
+- la destination = das Reiseziel | Quelle est votre destination ? = Was ist Ihr Reiseziel?
+- le patrimoine = das Kulturerbe | Ce site fait partie du patrimoine mondial. = Diese Stätte gehört zum Weltkulturerbe.
+
+= Ein Auslandsjahr
+? Erfahrungen berichten
+p Über vergangene Erlebnisse berichtest du mit passé composé und imparfait: J'ai passé un an en France. Au début, je ne comprenais pas tout.
+p Mit „grâce à“ nennst du etwas Positives als Ursache: Grâce à cet échange, j'ai fait des progrès.
+e Grâce à cet échange, j'ai fait beaucoup de progrès. = Dank dieses Austauschs habe ich viele Fortschritte gemacht.
+- l'échange (m) = der Austausch | L'échange scolaire dure trois mois. = Der Schüleraustausch dauert drei Monate.
+- la famille d'accueil = die Gastfamilie | Ma famille d'accueil est très gentille. = Meine Gastfamilie ist sehr nett.
+- s'adapter = sich anpassen | Je me suis vite adapté à la vie en France. = Ich habe mich schnell an das Leben in Frankreich angepasst.
+- le mal du pays = das Heimweh | Au début, j'avais le mal du pays. = Am Anfang hatte ich Heimweh.
+- faire des progrès = Fortschritte machen | Elle fait des progrès en français. = Sie macht Fortschritte in Französisch.
+- grâce à = dank | Grâce à toi, j'ai compris. = Dank dir habe ich verstanden.
+f ___ à cet échange, il parle mieux français. | Grâce | Grâce; Malgré; À cause | Dank dieses Austauschs spricht er besser Französisch. | „Grâce à“ nennt einen positiven Grund.
+
+= Andere Kulturen
+- la culture = die Kultur | Chaque pays a sa culture. = Jedes Land hat seine Kultur.
+- la coutume = der Brauch | C'est une coutume locale. = Das ist ein lokaler Brauch.
+- étranger / étrangère = ausländisch, fremd | Il apprend plusieurs langues étrangères. = Er lernt mehrere Fremdsprachen.
+- la différence = der Unterschied | Il y a beaucoup de différences entre les deux pays. = Es gibt viele Unterschiede zwischen den beiden Ländern.
+- le préjugé = das Vorurteil | Il faut combattre les préjugés. = Man muss Vorurteile bekämpfen.
+- s'ouvrir à = sich öffnen für | Voyager permet de s'ouvrir aux autres. = Reisen ermöglicht es, sich anderen gegenüber zu öffnen.
+
+= Nachhaltig reisen
+- le voyage en train = die Bahnreise | Le voyage en train pollue moins. = Die Bahnreise belastet die Umwelt weniger.
+- polluer = verschmutzen | L'avion pollue beaucoup. = Das Flugzeug verschmutzt die Umwelt stark.
+- l'empreinte carbone (f) = der CO₂-Fußabdruck | Voyager à vélo réduit l'empreinte carbone. = Radreisen verringert den CO₂-Fußabdruck.
+- le tourisme durable = der nachhaltige Tourismus | Le tourisme durable protège la nature. = Nachhaltiger Tourismus schützt die Natur.
+- séjourner = sich aufhalten, übernachten | Nous avons séjourné chez l'habitant. = Wir haben bei Einheimischen übernachtet.
+- rencontrer = treffen, kennenlernen | En voyage, on rencontre des gens intéressants. = Auf Reisen lernt man interessante Menschen kennen.

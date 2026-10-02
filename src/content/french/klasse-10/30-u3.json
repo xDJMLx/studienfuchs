@@ -1,0 +1,257 @@
+{
+  "id": "f10-u3",
+  "title": "Jeunes d'aujourd'hui",
+  "description": "Jugend, Schule, Zusammenleben, Pronomen",
+  "grade": 10,
+  "subject": "french",
+  "order": 30,
+  "lessons": [
+    {
+      "id": "f10-u3-l1",
+      "title": "Schule und Leben (1/2)",
+      "items": [
+        {
+          "front": "le collège",
+          "back": "die Mittelstufe (Schule)",
+          "example": "Mon frère va au collège.",
+          "exampleDe": "Mein Bruder besucht die Mittelstufe."
+        },
+        {
+          "front": "le lycée",
+          "back": "das Gymnasium (Oberstufe)",
+          "example": "Elle est au lycée.",
+          "exampleDe": "Sie ist auf dem Gymnasium."
+        },
+        {
+          "front": "le bac",
+          "back": "das Abitur",
+          "example": "Il passe le bac cette année.",
+          "exampleDe": "Er macht dieses Jahr das Abitur."
+        },
+        {
+          "front": "une note",
+          "back": "eine Note",
+          "example": "J'ai eu une bonne note.",
+          "exampleDe": "Ich habe eine gute Note bekommen."
+        },
+        {
+          "front": "un examen",
+          "back": "eine Prüfung",
+          "example": "Demain, j'ai un examen.",
+          "exampleDe": "Morgen habe ich eine Prüfung."
+        }
+      ]
+    },
+    {
+      "id": "f10-u3-l2",
+      "title": "Schule und Leben (2/2)",
+      "items": [
+        {
+          "front": "réussir",
+          "back": "bestehen / Erfolg haben",
+          "example": "Je veux réussir mon examen.",
+          "exampleDe": "Ich möchte meine Prüfung bestehen."
+        },
+        {
+          "front": "échouer",
+          "back": "durchfallen / scheitern",
+          "example": "Il a échoué à l'examen.",
+          "exampleDe": "Er ist durch die Prüfung gefallen."
+        },
+        {
+          "front": "le stage",
+          "back": "das Praktikum",
+          "example": "Je fais un stage en juin.",
+          "exampleDe": "Ich mache im Juni ein Praktikum."
+        },
+        {
+          "front": "le stress",
+          "back": "der Stress",
+          "example": "Avant l'examen, j'ai du stress.",
+          "exampleDe": "Vor der Prüfung bin ich gestresst."
+        },
+        {
+          "front": "la pression",
+          "back": "der Druck",
+          "example": "La pression à l'école est forte.",
+          "exampleDe": "Der Druck in der Schule ist hoch."
+        }
+      ]
+    },
+    {
+      "id": "f10-u3-l3",
+      "title": "Zusammen leben (1/2)",
+      "items": [
+        {
+          "front": "la société",
+          "back": "die Gesellschaft",
+          "example": "La société change vite.",
+          "exampleDe": "Die Gesellschaft verändert sich schnell."
+        },
+        {
+          "front": "la tolérance",
+          "back": "die Toleranz",
+          "example": "La tolérance est importante.",
+          "exampleDe": "Toleranz ist wichtig."
+        },
+        {
+          "front": "le racisme",
+          "back": "der Rassismus",
+          "example": "Il faut lutter contre le racisme.",
+          "exampleDe": "Man muss gegen Rassismus kämpfen."
+        },
+        {
+          "front": "l'égalité",
+          "back": "die Gleichheit",
+          "example": "L'égalité est un droit.",
+          "exampleDe": "Gleichheit ist ein Recht."
+        },
+        {
+          "front": "la liberté",
+          "back": "die Freiheit",
+          "example": "La liberté est précieuse.",
+          "exampleDe": "Freiheit ist kostbar."
+        }
+      ]
+    },
+    {
+      "id": "f10-u3-l4",
+      "title": "Zusammen leben (2/2)",
+      "items": [
+        {
+          "front": "le respect",
+          "back": "der Respekt",
+          "example": "Le respect est la base de tout.",
+          "exampleDe": "Respekt ist die Grundlage für alles."
+        },
+        {
+          "front": "s'engager",
+          "back": "sich engagieren",
+          "example": "Il s'engage pour l'environnement.",
+          "exampleDe": "Er engagiert sich für die Umwelt."
+        },
+        {
+          "front": "le bénévolat",
+          "back": "das Ehrenamt",
+          "example": "Elle fait du bénévolat le week-end.",
+          "exampleDe": "Sie macht am Wochenende ehrenamtliche Arbeit."
+        },
+        {
+          "front": "un immigré",
+          "back": "ein Einwanderer",
+          "example": "Cet immigré cherche du travail.",
+          "exampleDe": "Dieser Einwanderer sucht Arbeit."
+        },
+        {
+          "front": "vivre ensemble",
+          "back": "zusammenleben",
+          "example": "Nous devons apprendre à vivre ensemble.",
+          "exampleDe": "Wir müssen lernen zusammenzuleben."
+        }
+      ]
+    },
+    {
+      "id": "f10-u3-l5",
+      "title": "Pronomen lui und leur (1/2)",
+      "items": [
+        {
+          "front": "je lui parle",
+          "back": "ich spreche mit ihm/ihr",
+          "example": "Je lui parle tous les jours.",
+          "exampleDe": "Ich spreche täglich mit ihm."
+        },
+        {
+          "front": "je leur parle",
+          "back": "ich spreche mit ihnen",
+          "example": "Je leur parle souvent.",
+          "exampleDe": "Ich spreche oft mit ihnen."
+        },
+        {
+          "front": "il lui répond",
+          "back": "er antwortet ihm/ihr",
+          "example": "Il lui répond tout de suite.",
+          "exampleDe": "Er antwortet ihm sofort."
+        },
+        {
+          "front": "elle leur écrit",
+          "back": "sie schreibt ihnen",
+          "example": "Elle leur écrit une carte.",
+          "exampleDe": "Sie schreibt ihnen eine Karte."
+        }
+      ],
+      "explanation": {
+        "title": "Das indirekte Objekt",
+        "paragraphs": [
+          "lui (ihm/ihr) und leur (ihnen) ersetzen à + Person: Je parle à Paul → Je lui parle. Je donne le livre à mes amis → Je leur donne le livre.",
+          "Bei Dingen nimmst du y: Je pense à ça → J'y pense. Reihenfolge bei zwei Pronomen: me/te/nous/vous – le/la/les – lui/leur – y – en."
+        ],
+        "examples": [
+          {
+            "fr": "Je lui parle tous les jours.",
+            "de": "Ich spreche täglich mit ihm/ihr."
+          },
+          {
+            "fr": "Il leur a donné le livre.",
+            "de": "Er hat ihnen das Buch gegeben."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f10-u3-l6",
+      "title": "Pronomen lui und leur (2/2)",
+      "items": [
+        {
+          "front": "je le lui donne",
+          "back": "ich gebe es ihm/ihr",
+          "example": "Je le lui donne demain.",
+          "exampleDe": "Ich gebe es ihm morgen."
+        },
+        {
+          "front": "je les leur montre",
+          "back": "ich zeige sie ihnen",
+          "example": "Je les leur montre demain.",
+          "exampleDe": "Ich zeige sie ihnen morgen."
+        },
+        {
+          "front": "je te le dis",
+          "back": "ich sage es dir",
+          "example": "Je te le dis, c'est vrai.",
+          "exampleDe": "Ich sage es dir, es ist wahr."
+        },
+        {
+          "front": "il me l'a donné",
+          "back": "er hat es mir gegeben",
+          "example": "Il me l'a donné hier.",
+          "exampleDe": "Er hat es mir gestern gegeben."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Je parle à Paul : je ___ parle.",
+          "answer": "lui",
+          "options": [
+            "lui",
+            "le",
+            "leur",
+            "y"
+          ],
+          "translation": "Ich spreche mit Paul: ich spreche mit ihm.",
+          "why": "parler à + Person → lui."
+        },
+        {
+          "sentence": "Il donne le livre à ses amis : il ___ donne le livre.",
+          "answer": "leur",
+          "options": [
+            "leur",
+            "lui",
+            "les",
+            "en"
+          ],
+          "translation": "Er gibt das Buch seinen Freunden.",
+          "why": "à + mehrere Personen → leur."
+        }
+      ]
+    }
+  ]
+}

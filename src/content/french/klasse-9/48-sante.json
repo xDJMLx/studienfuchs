@@ -1,0 +1,257 @@
+{
+  "id": "f9-sante",
+  "title": "La santé",
+  "description": "Körper, Arzt, Krankheiten, Apotheke, gesund leben",
+  "grade": 9,
+  "subject": "french",
+  "order": 48,
+  "lessons": [
+    {
+      "id": "f9-sante-l1",
+      "title": "Der Körper",
+      "items": [
+        {
+          "front": "la tête",
+          "back": "der Kopf",
+          "example": "J'ai mal à la tête.",
+          "exampleDe": "Ich habe Kopfschmerzen."
+        },
+        {
+          "front": "le bras",
+          "back": "der Arm",
+          "example": "Il s'est cassé le bras.",
+          "exampleDe": "Er hat sich den Arm gebrochen."
+        },
+        {
+          "front": "la jambe",
+          "back": "das Bein",
+          "example": "Elle a mal à la jambe.",
+          "exampleDe": "Ihr tut das Bein weh."
+        },
+        {
+          "front": "la main",
+          "back": "die Hand",
+          "example": "Lave-toi les mains avant de manger.",
+          "exampleDe": "Wasch dir vor dem Essen die Hände."
+        },
+        {
+          "front": "le dos",
+          "back": "der Rücken",
+          "example": "Mon dos me fait mal.",
+          "exampleDe": "Mein Rücken tut mir weh."
+        },
+        {
+          "front": "le ventre",
+          "back": "der Bauch",
+          "example": "J'ai mal au ventre.",
+          "exampleDe": "Ich habe Bauchschmerzen."
+        },
+        {
+          "front": "les yeux (m pl)",
+          "back": "die Augen",
+          "example": "Tu as de beaux yeux.",
+          "exampleDe": "Du hast schöne Augen."
+        }
+      ]
+    },
+    {
+      "id": "f9-sante-l2",
+      "title": "Beim Arzt",
+      "items": [
+        {
+          "front": "le médecin",
+          "back": "der Arzt",
+          "example": "Je vais chez le médecin.",
+          "exampleDe": "Ich gehe zum Arzt."
+        },
+        {
+          "front": "le rendez-vous",
+          "back": "der Termin",
+          "example": "J'ai un rendez-vous à dix heures.",
+          "exampleDe": "Ich habe um zehn Uhr einen Termin."
+        },
+        {
+          "front": "avoir mal à",
+          "back": "Schmerzen haben in",
+          "example": "Il a mal à la gorge.",
+          "exampleDe": "Er hat Halsschmerzen."
+        },
+        {
+          "front": "l'ordonnance (f)",
+          "back": "das Rezept (vom Arzt)",
+          "example": "Le médecin écrit une ordonnance.",
+          "exampleDe": "Der Arzt schreibt ein Rezept."
+        },
+        {
+          "front": "examiner",
+          "back": "untersuchen",
+          "example": "Le médecin examine le patient.",
+          "exampleDe": "Der Arzt untersucht den Patienten."
+        },
+        {
+          "front": "le cabinet",
+          "back": "die Praxis",
+          "example": "Le cabinet est au deuxième étage.",
+          "exampleDe": "Die Praxis ist im zweiten Stock."
+        }
+      ],
+      "explanation": {
+        "title": "Schmerzen ausdrücken",
+        "paragraphs": [
+          "Mit „avoir mal à“ sagst du, wo es wehtut: J'ai mal à la tête, au dos, aux pieds (à + le = au, à + les = aux).",
+          "Der Arzt fragt: Qu'est-ce qui ne va pas ? Où avez-vous mal ?"
+        ],
+        "examples": [
+          {
+            "fr": "J'ai mal au ventre depuis hier.",
+            "de": "Ich habe seit gestern Bauchschmerzen."
+          },
+          {
+            "fr": "Où avez-vous mal ?",
+            "de": "Wo tut es Ihnen weh?"
+          }
+        ],
+        "tip": "Bei Körperteilen im Plural heißt es aux: J'ai mal aux dents."
+      },
+      "fills": [
+        {
+          "sentence": "J'ai mal ___ pieds.",
+          "answer": "aux",
+          "options": [
+            "aux",
+            "au",
+            "à la"
+          ],
+          "translation": "Ich habe Schmerzen in den Füßen.",
+          "why": "À + les wird zu „aux“."
+        }
+      ]
+    },
+    {
+      "id": "f9-sante-l3",
+      "title": "Krankheiten und Symptome",
+      "items": [
+        {
+          "front": "malade",
+          "back": "krank",
+          "example": "Mon frère est malade depuis lundi.",
+          "exampleDe": "Mein Bruder ist seit Montag krank."
+        },
+        {
+          "front": "la fièvre",
+          "back": "das Fieber",
+          "example": "Elle a de la fièvre.",
+          "exampleDe": "Sie hat Fieber."
+        },
+        {
+          "front": "la toux",
+          "back": "der Husten",
+          "example": "Il a une toux depuis trois jours.",
+          "exampleDe": "Er hat seit drei Tagen Husten."
+        },
+        {
+          "front": "le rhume",
+          "back": "der Schnupfen, die Erkältung",
+          "example": "J'ai un gros rhume.",
+          "exampleDe": "Ich habe einen starken Schnupfen."
+        },
+        {
+          "front": "la grippe",
+          "back": "die Grippe",
+          "example": "Toute la famille a la grippe.",
+          "exampleDe": "Die ganze Familie hat die Grippe."
+        },
+        {
+          "front": "fatigué / fatiguée",
+          "back": "müde",
+          "example": "Je suis très fatigué ce soir.",
+          "exampleDe": "Ich bin heute Abend sehr müde."
+        }
+      ]
+    },
+    {
+      "id": "f9-sante-l4",
+      "title": "In der Apotheke",
+      "items": [
+        {
+          "front": "la pharmacie",
+          "back": "die Apotheke",
+          "example": "La pharmacie est ouverte jusqu'à huit heures.",
+          "exampleDe": "Die Apotheke ist bis acht Uhr geöffnet."
+        },
+        {
+          "front": "le médicament",
+          "back": "das Medikament",
+          "example": "Il prend un médicament deux fois par jour.",
+          "exampleDe": "Er nimmt zweimal am Tag ein Medikament."
+        },
+        {
+          "front": "le sirop",
+          "back": "der Sirup, der Hustensaft",
+          "example": "Ce sirop est bon pour la toux.",
+          "exampleDe": "Dieser Hustensaft ist gut gegen Husten."
+        },
+        {
+          "front": "le comprimé",
+          "back": "die Tablette",
+          "example": "Prenez un comprimé le matin.",
+          "exampleDe": "Nehmen Sie morgens eine Tablette."
+        },
+        {
+          "front": "le pansement",
+          "back": "das Pflaster",
+          "example": "Je mets un pansement sur mon doigt.",
+          "exampleDe": "Ich klebe ein Pflaster auf meinen Finger."
+        }
+      ]
+    },
+    {
+      "id": "f9-sante-l5",
+      "title": "Gesund leben",
+      "items": [
+        {
+          "front": "le sport",
+          "back": "der Sport",
+          "example": "Le sport est bon pour la santé.",
+          "exampleDe": "Sport ist gut für die Gesundheit."
+        },
+        {
+          "front": "bouger",
+          "back": "sich bewegen",
+          "example": "Il faut bouger tous les jours.",
+          "exampleDe": "Man muss sich jeden Tag bewegen."
+        },
+        {
+          "front": "dormir",
+          "back": "schlafen",
+          "example": "Il faut dormir huit heures par nuit.",
+          "exampleDe": "Man muss acht Stunden pro Nacht schlafen."
+        },
+        {
+          "front": "se reposer",
+          "back": "sich ausruhen",
+          "example": "Après la maladie, il se repose.",
+          "exampleDe": "Nach der Krankheit ruht er sich aus."
+        },
+        {
+          "front": "le stress",
+          "back": "der Stress",
+          "example": "Le stress rend malade.",
+          "exampleDe": "Stress macht krank."
+        },
+        {
+          "front": "en bonne santé",
+          "back": "gesund",
+          "example": "Elle est en bonne santé.",
+          "exampleDe": "Sie ist gesund."
+        },
+        {
+          "front": "se soigner",
+          "back": "sich pflegen, sich behandeln",
+          "example": "Tu dois te soigner.",
+          "exampleDe": "Du musst dich auskurieren."
+        }
+      ]
+    }
+  ]
+}
