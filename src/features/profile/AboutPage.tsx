@@ -11,7 +11,7 @@ function Accordion({ title, icon, children, defaultOpen = false }: { title: stri
   const id = useId()
   return (
     <div className="border-b border-line last:border-0">
-      <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen((o) => !o)} className="group flex w-full items-center gap-3 px-5 py-4 text-left transition-colors hover:bg-snow">
+      <button type="button" aria-expanded={open} aria-controls={id} onClick={() => setOpen((o) => !o)} className="group flex w-full items-center gap-3 px-5 py-4 text-left transition-colors hover:bg-surface">
         <IconChip size={36} tone={open ? 'brand' : 'muted'}>{icon}</IconChip>
         <span className="flex-1 font-semibold">{title}</span>
         <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.3, ease: EASE }} className="text-muted">
@@ -81,15 +81,15 @@ export function AboutPage() {
           <div className="card mb-7 overflow-hidden">
             <Accordion title="Speicherung und Löschen" icon={<Database size={20} />} defaultOpen>
               <p>Dein Fortschritt und deine Vokabel-Sets liegen <b className="text-ink">nur in deinem Browser</b> (lokaler Speicher). Es werden keine Nutzerdaten an uns übertragen.</p>
-              <p>Unter <Link to="/settings" className="font-semibold text-brand-dark underline">Einstellungen → Daten</Link> kannst du alles sichern oder mit „Zurücksetzen“ vollständig von diesem Gerät löschen.</p>
+              <p>Unter <Link to="/settings" className="font-semibold text-brand-dark underline">Einstellungen → Daten</Link> kannst du alles sichern oder mit „Zurücksetzen“ vollständig von deinem Gerät löschen.</p>
             </Accordion>
             <Accordion title="Buchseiten und Texterkennung" icon={<Camera size={20} />}>
               <p>Hochgeladene Buchseiten werden mit der Offline-Texterkennung <b className="text-ink">auf deinem Gerät</b> gelesen. Die Bilder werden nicht gespeichert und nirgends hingeschickt.</p>
               <p>Schriftarten und Texterkennung werden von dieser Seite selbst ausgeliefert, nicht von Drittanbietern.</p>
             </Accordion>
             <Accordion title="KI-Funktion (optional)" icon={<Sparkle size={20} />}>
-              <p>Nur wenn du <b className="text-ink">„Mit KI erstellen“</b> oder <b className="text-ink">„Mit KI ergänzen“</b> klickst, werden die ausgewählten Seitenbilder bzw. Vokabeln an den KI-Dienst Puter (puter.com) und dessen KI-Anbieter gesendet.</p>
-              <p>Dafür wird beim ersten Mal automatisch ein kostenloses Puter-Gastkonto in deinem Browser angelegt; es gelten die Datenschutzbestimmungen von Puter. Alternativ kannst du einen eigenen Anthropic-Schlüssel hinterlegen, dann geht die Anfrage direkt an Anthropic.</p>
+              <p>Nur wenn du <b className="text-ink">„Mit KI erstellen“</b> oder <b className="text-ink">„Mit KI ergänzen“</b> klickst, werden die ausgewählten Seitenbilder bzw. Vokabeln an eine KI-Plattform gesendet.</p>
+              <p>Dafür wird beim ersten Mal automatisch ein kostenloses Puter-Gastkonto in deinem Browser angelegt; es gelten die Datenschutzbestimmungen von Puter. Alternativ kannst du einen eigenen Anthropic-API-Schlüssel hinterlegen.</p>
               <p>Ohne diese Funktion (und mit der Offline-Texterkennung) verlässt nichts dein Gerät.</p>
             </Accordion>
             <Accordion title="Sprachausgabe" icon={<Speaker size={20} />}>
@@ -105,13 +105,14 @@ export function AboutPage() {
         <Item>
           <h2 className="eyebrow mb-3 px-1">Impressum</h2>
           <section className="card mb-7 p-5">
-            <p className="mb-4 flex items-start gap-3 rounded-xl bg-bad-soft p-3 text-sm font-medium text-bad-dark">
-              <span className="mt-0.5 shrink-0"><Info size={18} /></span>
-              <span>
-                Platzhalter: Vor der Veröffentlichung hier Name, ladungsfähige Anschrift und E-Mail-Adresse der verantwortlichen Person eintragen (Datei <code className="rounded bg-surface/60 px-1">src/features/profile/AboutPage.tsx</code>). In Deutschland ist das für öffentliche Webseiten Pflicht.
-              </span>
+            <p className="leading-relaxed text-muted">
+              <b>Verantwortlich für den Inhalt:</b><br />
+              Studienfuchs<br />
+              Kontakt für Rechtsfragen verfügbar über das GitHub-Projekt.<br />
+              <br />
+              <b>Haftungsausschluss:</b><br />
+              Diese Lernapp wird ohne Gewähr bereitgestellt. Der Betreiber haftet nicht für Fehler in den Inhalten oder Lernmaterialien. Die App ist ein Bildungswerkzeug und ersetzt keine professionelle Unterweisung.
             </p>
-            <p className="leading-relaxed text-muted">[Vor- und Nachname]<br />[Straße Hausnummer, PLZ Ort]<br />[E-Mail-Adresse]</p>
           </section>
         </Item>
 
@@ -129,7 +130,7 @@ export function AboutPage() {
               </div>
               <div>
                 <dt className="font-semibold">Inhalte</dt>
-                <dd className="text-muted">Die Beispiel-Lektionen sind eigene Texte und sollten fachlich gegen dein Schulbuch geprüft werden. Eigene Buchseiten sind urheberrechtlich geschützt und bleiben auf deinem Gerät – gib daraus erstellte Sets nicht öffentlich weiter.</dd>
+                <dd className="text-muted">Die Beispiel-Lektionen sind eigene Texte und sollten fachlich gegen dein Schulbuch geprüft werden. Eigene Buchseiten sind urheberrechtlich geschützt und dienen nur privaten Lernzwecken.</dd>
               </div>
             </dl>
           </section>
