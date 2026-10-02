@@ -16,7 +16,7 @@ export function ProgressBar({ pct, color = 'bg-brand', className = '', delay = 0
         animate={{ width: `${w}%` }}
         transition={{ duration: reduce ? 0 : 0.9, ease: EASE, delay }}
       >
-        {w > 6 && !reduce && <span className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-transparent via-white/35 to-transparent" style={{ animation: 'shimmer 2.8s ease-in-out 1.2s infinite' }} />}
+        {w > 6 && !reduce && <span className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-transparent via-white/35 to-transparent" style={{ animation: 'shimmer 1.6s ease-out 1s 1' }} />}
       </motion.div>
     </div>
   )

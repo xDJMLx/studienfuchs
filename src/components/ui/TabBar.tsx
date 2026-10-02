@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from 'framer-motion'
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from 'framer-motion'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 export interface TabDef {
@@ -57,7 +57,21 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
       className="glass fixed inset-x-3 z-40 flex flex-col rounded-[34px] p-1.5 lg:hidden"
       style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.6rem)' }}
     >
-      {extra && <div className="px-1 pb-1.5 pt-0.5">{extra}</div>}
+      {/* Das Eingabefeld klappt weich aus der Leiste auf und wieder ein */}
+      <AnimatePresence initial={false}>
+        {extra && (
+          <motion.div
+            key="extra"
+            initial={reduce ? false : { height: 0, opacity: 0, y: 10 }}
+            animate={{ height: 'auto', opacity: 1, y: 0 }}
+            exit={reduce ? undefined : { height: 0, opacity: 0, y: 6, transition: { duration: 0.18, ease: 'easeIn' } }}
+            transition={{ height: { type: 'spring', stiffness: 380, damping: 34 }, opacity: { duration: 0.2, delay: 0.05 }, y: { type: 'spring', stiffness: 380, damping: 30 } }}
+            className="overflow-hidden"
+          >
+            <div className="px-1 pb-1.5 pt-0.5">{extra}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div
         ref={row}
         className="relative flex touch-none items-stretch"
@@ -109,8 +123,6 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
                     background: 'color-mix(in srgb, var(--brand) 14%, rgba(255,255,255,0.22))',
                     border: '1px solid rgba(255,255,255,0.5)',
                     boxShadow: '0 14px 30px -10px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.65), inset 0 -8px 16px -8px rgba(255,255,255,0.18)',
-                    backdropFilter: 'blur(6px) saturate(190%)',
-                    WebkitBackdropFilter: 'blur(6px) saturate(190%)',
                   }
                 : {
                     background: 'color-mix(in srgb, var(--brand) 17%, transparent)',

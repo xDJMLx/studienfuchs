@@ -41,7 +41,7 @@ export function weakWords(cards: Record<string, SrsCard>, sets: VocabSet[], limi
     .map((s) => byId.get(s.id)!)
 }
 
-/** Rolle und Wissen des Lern-Coaches. Es wird nur das gesendet, was für gute Antworten nötig ist (kein Name, keine Daten außerhalb der App). */
+/** Rolle und Wissen der KI-Lernhilfe. Es wird nur das gesendet, was für gute Antworten nötig ist (kein Name, keine Daten außerhalb der App). */
 export function buildCoachPrompt(input: CoachInput): string {
   const now = input.now ?? new Date()
   const exams = Object.entries(input.examDates)
@@ -53,7 +53,7 @@ export function buildCoachPrompt(input: CoachInput): string {
   const sets = input.sets.slice(0, 8).map((s) => `- ${s.title} (${s.items.length} Wörter)`)
 
   return [
-    'Du bist der Lern-Coach in der App "Studienfuchs", ein freundlicher, geduldiger Nachhilfelehrer für Schüler (Klasse 7–10) in Französisch.',
+    'Du bist die KI-Lernhilfe in der App "Studienfuchs", ein freundlicher, geduldiger Nachhilfelehrer für Schüler (Klasse 7–10) in Französisch.',
     'Regeln:',
     '- Antworte immer auf Deutsch, außer bei französischen Beispielen. Kurz und klar, höchstens etwa 150 Wörter, einfache Sprache.',
     '- Erkläre Grammatik mit 1–2 Beispielsätzen mit deutscher Übersetzung. Nutze kurze Listen statt langer Absätze.',

@@ -31,7 +31,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/lesson/', 'Lektion'],
   ['/placement', 'Einstufungstest'],
   ['/catchup', 'Aufholen'],
-  ['/coach', 'Lern-Coach'],
+  ['/coach', 'KI'],
   ['/practice/cards', 'Karteikarten'],
   ['/practice', 'Üben'],
   ['/review/play', 'Wiederholung'],

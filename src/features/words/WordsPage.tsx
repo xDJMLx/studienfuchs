@@ -1,10 +1,8 @@
-import { motion, useReducedMotion } from 'framer-motion'
 import { useDeferredValue, useMemo, useState } from 'react'
 import { allItems, grades, itemMeta, units } from '../../content'
 import { Fr, SpeakButton } from '../../components/exercises/common'
 import { ChipTabs } from '../../components/ui/controls'
 import { Check, Close, Search, Star } from '../../components/ui/Icons'
-import { EASE } from '../../components/ui/motion'
 import { masteryOf } from '../../lib/srs'
 import type { Item } from '../../lib/types'
 import { useStore } from '../../store/useStore'
@@ -35,7 +33,6 @@ function StatusPill({ mastery }: { mastery: 0 | 1 | 2 }) {
 
 /** Wörterbuch: alle Wörter durchsuchen, nach Klasse, Einheit und Lernstand filtern, anhören und Details öffnen. */
 export function WordsPage({ embedded = false }: { embedded?: boolean } = {}) {
-  const reduce = useReducedMotion()
   const cards = useStore((s) => s.cards)
   const favorites = useStore((s) => s.favorites)
   const sets = useStore((s) => s.sets)
@@ -159,17 +156,11 @@ export function WordsPage({ embedded = false }: { embedded?: boolean } = {}) {
 
       <ul className="card divide-y divide-line overflow-hidden">
         {list.length === 0 && <li className="px-4 py-10 text-center text-muted">Nichts gefunden. Versuch es mit einem anderen Begriff oder Filter.</li>}
-        {list.slice(0, shown).map(({ item }, i) => {
+        {list.slice(0, shown).map(({ item }) => {
           const m = masteryOf(cards[item.id])
           const fav = favorites.includes(item.id)
           return (
-            <motion.li
-              key={item.id}
-              initial={reduce ? false : { opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, ease: EASE, delay: reduce ? 0 : Math.min(i, 10) * 0.025 }}
-              className="flex items-center gap-3 px-3 py-2 transition-colors hover:bg-snow"
-            >
+            <li key={item.id} className="flex items-center gap-3 px-3 py-2">
               <SpeakButton text={item.front} quiet />
               <button type="button" onClick={() => setSelected(item)} className="min-w-0 flex-1 py-1.5 text-left" aria-label={`${item.front}, Details öffnen`}>
                 <Fr className="block truncate font-medium">{item.front}</Fr>
@@ -177,7 +168,7 @@ export function WordsPage({ embedded = false }: { embedded?: boolean } = {}) {
               </button>
               {fav && <Star size={18} className="shrink-0 text-gold" />}
               <StatusPill mastery={m} />
-            </motion.li>
+            </li>
           )
         })}
       </ul>

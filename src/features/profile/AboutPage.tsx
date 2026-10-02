@@ -88,7 +88,7 @@ export function AboutPage() {
               <p>Schriftarten und Texterkennung werden von dieser Seite selbst ausgeliefert, nicht von Drittanbietern.</p>
             </Accordion>
             <Accordion title="KI-Funktion (optional)" icon={<Sparkle size={20} />}>
-              <p>Nur wenn du <b className="text-ink">„Mit KI erstellen“</b> oder <b className="text-ink">„Mit KI ergänzen“</b> klickst oder im <b className="text-ink">Lern-Coach</b> eine Nachricht sendest, werden die ausgewählten Seitenbilder, Vokabeln bzw. deine Nachricht an eine KI-Plattform gesendet. Beim Lern-Coach gehören dazu dein Lernstand (Klasse, Fortschritt, Klassenarbeits-Termine, Wörter, bei denen es hakt), aber kein Name.</p>
+              <p>Nur wenn du <b className="text-ink">„Mit KI erstellen“</b> oder <b className="text-ink">„Mit KI ergänzen“</b> klickst oder im <b className="text-ink">KI-Chat</b> eine Nachricht sendest, werden die ausgewählten Seitenbilder, Vokabeln bzw. deine Nachricht an eine KI-Plattform gesendet. Beim KI-Chat gehören dazu dein Lernstand (Klasse, Fortschritt, Klassenarbeits-Termine, Wörter, bei denen es hakt), aber kein Name.</p>
               <p>Dafür wird beim ersten Mal automatisch ein kostenloses Puter-Gastkonto in deinem Browser angelegt; es gelten die Datenschutzbestimmungen von Puter. Alternativ kannst du einen eigenen Anthropic-API-Schlüssel hinterlegen.</p>
               <p>Ohne diese Funktion (und mit der Offline-Texterkennung) verlässt nichts dein Gerät.</p>
             </Accordion>

@@ -1,13 +1,13 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { COURSE_STATS, gradeStats, grades, units } from '../../content'
+import { CountUp, EASE, SPRING } from '../../components/ui/motion'
+import { gradeStats, grades, units } from '../../content'
 import { Mascot, type Mood } from '../../components/mascot/Mascot'
 import { Confetti } from '../../components/ui/Confetti'
 import { FrenchFlag } from '../../components/ui/CoursePicker'
-import { Back, Bolt, Camera, Check, Flame, Lock, Repeat, Right, Target } from '../../components/ui/Icons'
+import { Back, Check, Lock, Right } from '../../components/ui/Icons'
 import { Wordmark } from '../../components/ui/Layout'
-import { CountUp, EASE, Reveal, SPRING } from '../../components/ui/motion'
 import { useStore } from '../../store/useStore'
 
 type Step = 'hero' | 'course' | 'grade' | 'goal' | 'ready'
@@ -31,13 +31,6 @@ const COURSES = [
   { id: 'bio', name: 'Biologie', ready: false },
 ]
 
-const FEATURES = [
-  { Icon: Target, title: 'Kleine Schritte', text: 'Immer nur zwei neue Wörter, sofort abgefragt. Nichts wird einfach durchgeklickt, und weiter geht es erst, wenn es sitzt.' },
-  { Icon: Repeat, title: 'Echte Wiederholung', text: 'Ein Lernplan fragt jedes Wort genau dann ab, wenn du es fast vergessen hättest. So bleibt es im Kopf.' },
-  { Icon: Camera, title: 'Dein Schulbuch', text: 'Seiten abfotografieren, die KI macht Lernkarten mit Beispielsätzen daraus. Oder Wörter selbst eintippen, Akzente ergänzt die App. Kostenlos.' },
-]
-
-
 const SPEECH: Record<FlowStep, string> = {
   course: 'Was möchtest du lernen?',
   grade: 'In welche Klasse gehst du?',
@@ -46,34 +39,13 @@ const SPEECH: Record<FlowStep, string> = {
 }
 const MOOD: Record<FlowStep, Mood> = { course: 'happy', grade: 'think', goal: 'happy', ready: 'cheer' }
 
-/** Weiche Farbflächen im Hintergrund, die langsam atmen. */
-function Ambient() {
-  return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <div className="animate-blob absolute -left-28 -top-28 h-[440px] w-[440px] rounded-full bg-brand/15 blur-3xl" />
-      <div className="animate-blob absolute -bottom-40 -right-28 h-[480px] w-[480px] rounded-full bg-gold/15 blur-3xl" style={{ animationDelay: '-7s' }} />
-    </div>
-  )
-}
-
-/** Schwebender Chip um das Maskottchen. */
-function FloatChip({ children, className, delay, tilt }: { children: React.ReactNode; className: string; delay: number; tilt: number }) {
-  const reduce = useReducedMotion()
-  return (
-    <motion.div className={`absolute ${className}`} initial={reduce ? false : { opacity: 0, scale: 0.4 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...SPRING.bouncy, delay }}>
-      <div className="animate-float flex items-center gap-1.5 rounded-2xl bg-surface px-3.5 py-2 text-sm font-semibold shadow-lg ring-1 ring-line" style={{ ['--r' as string]: `${tilt}deg`, animationDelay: `${-delay * 3}s` }}>
-        {children}
-      </div>
-    </motion.div>
-  )
-}
-
 const slide = {
-  enter: (d: number) => ({ opacity: 0, x: d * 56 }),
-  center: { opacity: 1, x: 0, transition: { duration: 0.4, ease: EASE } },
-  exit: (d: number) => ({ opacity: 0, x: d * -56, transition: { duration: 0.18 } }),
+  enter: (d: number) => ({ opacity: 0, x: d * 40 }),
+  center: { opacity: 1, x: 0, transition: { duration: 0.32, ease: EASE } },
+  exit: (d: number) => ({ opacity: 0, x: d * -40, transition: { duration: 0.14 } }),
 }
 
+/** Einführung: ein Bildschirm pro Schritt, ohne Scrollen, wie bei einer richtigen App. */
 export function Welcome() {
   const navigate = useNavigate()
   const reduce = useReducedMotion()
@@ -111,130 +83,97 @@ export function Welcome() {
   const back = () => go(idx <= 0 ? 'hero' : FLOW[idx - 1])
 
   return (
-    <div className="relative isolate flex min-h-full flex-col overflow-x-hidden bg-bg">
-      <Ambient />
-      <AnimatePresence mode="wait">
+    <div className="flex h-full flex-col overflow-hidden bg-bg">
+      <AnimatePresence mode="wait" initial={false}>
         {step === 'hero' ? (
-          <motion.div key="hero" className="flex flex-1 flex-col" initial={false} exit={reduce ? undefined : { opacity: 0, scale: 0.98, transition: { duration: 0.2 } }}>
-            <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4">
+          <motion.div key="hero" className="flex min-h-0 flex-1 flex-col" exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.14 } }}>
+            <header className="relative mx-auto flex w-full max-w-md items-center justify-center px-6 pt-4">
               <Wordmark />
               {hasProgress && (
-                <button type="button" onClick={finish} className="press flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold text-brand-dark hover:bg-brand-soft">
+                <button type="button" onClick={finish} className="press absolute right-4 top-4 flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold text-brand-dark">
                   Zur App <Right size={14} />
                 </button>
               )}
             </header>
 
-            <main className="mx-auto grid w-full max-w-6xl flex-1 items-center gap-6 px-5 pb-10 pt-2 md:grid-cols-2 md:gap-12">
-              {/* Maskottchen-Bühne */}
-              <motion.div initial={reduce ? false : { opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...SPRING.soft, delay: 0.05 }} className="relative order-1 mx-auto flex h-[260px] w-[300px] items-center justify-center md:order-2 md:h-[420px] md:w-[460px]">
-                <span aria-hidden className="absolute inset-4 rounded-full bg-gradient-to-br from-brand-soft to-transparent ring-1 ring-brand/15" />
-                <span aria-hidden className="absolute inset-12 rounded-full bg-gradient-to-br from-brand/10 to-transparent ring-1 ring-brand/10" />
-                <div className="animate-float relative" style={{ animationDuration: '7s' }}>
-                  <Mascot mood="cheer" size={230} blink className="drop-shadow-xl md:!h-[330px] md:!w-[330px]" />
-                </div>
-                <FloatChip className="left-0 top-6 md:left-2 md:top-14" delay={0.5} tilt={-6}><span className="text-brand-dark">Bonjour !</span></FloatChip>
-                <FloatChip className="right-0 top-12 md:right-0 md:top-24" delay={0.7} tilt={5}><Bolt size={16} /> +15 XP</FloatChip>
-                <FloatChip className="bottom-8 left-2 md:bottom-16 md:left-0" delay={0.9} tilt={4}><Flame size={16} /> 7 Tage Serie</FloatChip>
-                <FloatChip className="bottom-2 right-4 md:bottom-10 md:right-6" delay={1.1} tilt={-4}><span className="text-good-dark">la maison</span><Check size={14} className="text-good" /></FloatChip>
+            {/* Fuchs mit Sprechblase */}
+            <main className="mx-auto flex min-h-0 w-full max-w-md flex-1 flex-col items-center justify-center px-6 text-center">
+              <motion.div
+                initial={reduce ? false : { opacity: 0, y: 10, scale: 0.94 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ ...SPRING.snappy, delay: 0.35 }}
+                className="relative mb-5 max-w-[19rem] rounded-3xl border-2 border-line bg-surface px-5 py-3.5 text-[17px] font-semibold leading-snug"
+              >
+                Hallo! Ich bin Fenni. Ich zeige dir, wie Französisch hängen bleibt.
+                <span aria-hidden className="absolute -bottom-[9px] left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-b-2 border-r-2 border-line bg-surface" />
               </motion.div>
-
-              <div className="order-2 text-center md:order-1 md:text-left">
-                <motion.span initial={reduce ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: EASE }} className="mb-4 inline-block rounded-full bg-brand-soft px-3.5 py-1.5 text-xs font-semibold text-brand-dark">
-                  Kostenlos · ohne Konto · ohne Herzen
-                </motion.span>
-                <h1 className="mb-4 text-4xl font-bold leading-[1.1] tracking-tight md:text-6xl" aria-label="Lernen, das hängen bleibt.">
-                  {['Lernen,', 'das', 'hängen', 'bleibt.'].map((w, i) => (
-                    <motion.span
-                      key={w}
-                      aria-hidden
-                      className={`mr-[0.28em] inline-block ${i >= 2 ? 'text-brand' : ''}`}
-                      initial={reduce ? false : { opacity: 0, y: 28 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.7, ease: EASE, delay: 0.15 + i * 0.09 }}
-                    >
-                      {w}
-                    </motion.span>
-                  ))}
-                </h1>
-                <motion.p initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE, delay: 0.55 }} className="mx-auto mb-7 max-w-md text-lg leading-relaxed text-muted md:mx-0">
-                  Kurze Lektionen, echte Wiederholung und dein Schulbuch als Quiz. Für Französisch in Klasse 7 bis 10, weitere Fächer folgen.
-                </motion.p>
-                <motion.div initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE, delay: 0.7 }} className="mx-auto grid max-w-sm gap-3 md:mx-0">
-                  <button className="btn btn-primary btn-shine press w-full justify-between !py-4 text-base" onClick={() => go('course')} autoFocus>
-                    Jetzt starten <Right size={18} />
-                  </button>
-                  <button className="btn btn-ghost press w-full" onClick={() => fileRef.current?.click()}>
-                    Ich habe schon Fortschritt
-                  </button>
-                  <input ref={fileRef} type="file" accept="application/json" className="sr-only" onChange={(e) => doImport(e.target.files?.[0])} />
-                  {importMsg && <p className="text-sm font-semibold text-bad-dark" role="alert">{importMsg}</p>}
-                </motion.div>
-                <p className="mt-5 text-sm text-muted">Dein Fortschritt bleibt auf deinem Gerät. Keine Werbung, kein Tracking.</p>
-              </div>
+              <motion.div initial={reduce ? false : { opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...SPRING.soft, delay: 0.05 }}>
+                <div className="animate-float" style={{ animationDuration: '6s' }}>
+                  <Mascot mood="cheer" size={220} blink className="!h-[min(30dvh,230px)] !w-[min(30dvh,230px)]" />
+                </div>
+              </motion.div>
+              <motion.h1
+                initial={reduce ? false : { opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, ease: EASE, delay: 0.5 }}
+                className="mt-5 text-[28px] font-bold leading-tight tracking-tight"
+              >
+                Lernen für die Schule,
+                <br />
+                das hängen bleibt.
+              </motion.h1>
+              <motion.p initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: 0.6 }} className="mt-2 text-[15px] text-muted">
+                Französisch Klasse 7 bis 10 · kostenlos · ohne Konto
+              </motion.p>
             </main>
 
-            {/* Was die App anders macht */}
-            <section className="mx-auto w-full max-w-6xl px-5 pb-16">
-              <Reveal className="mb-6 text-center">
-                <p className="eyebrow mb-2">Was anders ist</p>
-                <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Lernen nach dem, was die Forschung sagt</h2>
-              </Reveal>
-              <div className="grid gap-4 md:grid-cols-3">
-                {FEATURES.map(({ Icon, title, text }, i) => (
-                  <Reveal key={title} delay={i * 0.1}>
-                    <div className="card lift h-full p-6">
-                      <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-soft text-brand-dark"><Icon size={26} /></span>
-                      <h3 className="mb-1.5 text-lg font-semibold">{title}</h3>
-                      <p className="leading-relaxed text-muted">{text}</p>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
-              <Reveal className="mt-8 grid grid-cols-3 gap-3 text-center">
-                {[
-                  { n: COURSE_STATS.grades, label: 'Klassenstufen' },
-                  { n: COURSE_STATS.lessons, label: 'Lektionen' },
-                  { n: COURSE_STATS.words, label: 'Wörter und Wendungen' },
-                ].map((s) => (
-                  <div key={s.label} className="rounded-2xl bg-snow px-2 py-5">
-                    <div className="text-3xl font-bold text-brand-dark md:text-4xl"><CountUp to={s.n} duration={1.4} /></div>
-                    <div className="mt-1 text-xs font-medium text-muted md:text-sm">{s.label}</div>
-                  </div>
-                ))}
-              </Reveal>
-            </section>
+            <footer className="mx-auto w-full max-w-md px-6 pt-3" style={{ paddingBottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}>
+              <motion.div initial={reduce ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: EASE, delay: 0.65 }} className="grid gap-3">
+                <button className="btn btn-primary press w-full !py-4 text-base" onClick={() => go('course')} autoFocus>
+                  Jetzt starten
+                </button>
+                <button className="btn btn-ghost press w-full !py-3.5" onClick={() => fileRef.current?.click()}>
+                  Ich habe schon Fortschritt
+                </button>
+                <input ref={fileRef} type="file" accept="application/json" className="sr-only" onChange={(e) => doImport(e.target.files?.[0])} />
+                {importMsg && (
+                  <p className="text-center text-sm font-semibold text-bad-dark" role="alert">
+                    {importMsg}
+                  </p>
+                )}
+              </motion.div>
+            </footer>
           </motion.div>
         ) : (
-          <motion.div key="flow" className="flex flex-1 flex-col" initial={reduce ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, transition: { duration: 0.15 } }} transition={{ duration: 0.4, ease: EASE }}>
+          <motion.div key="flow" className="flex min-h-0 flex-1 flex-col" initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.12 } }} transition={{ duration: 0.25 }}>
             <header className="mx-auto flex w-full max-w-3xl items-center gap-4 px-5 py-4">
-              <button type="button" onClick={back} aria-label="Zurück" className="press -ml-1 rounded-xl p-1 text-muted transition-colors hover:text-ink">
+              <button type="button" onClick={back} aria-label="Zurück" className="press -ml-1 flex h-11 w-11 items-center justify-center rounded-xl text-muted transition-colors hover:text-ink">
                 <Back size={28} />
               </button>
               <div className="flex flex-1 gap-1.5" role="progressbar" aria-valuemin={0} aria-valuemax={FLOW.length} aria-valuenow={idx + 1} aria-label="Einrichtung">
                 {FLOW.map((s, i) => (
                   <span key={s} className="relative h-2.5 flex-1 overflow-hidden rounded-full bg-line">
-                    <motion.span className="absolute inset-0 origin-left rounded-full bg-brand" initial={false} animate={{ scaleX: i <= idx ? 1 : 0 }} transition={{ duration: 0.55, ease: EASE }} />
+                    <motion.span className="absolute inset-0 origin-left rounded-full bg-brand" initial={false} animate={{ scaleX: i <= idx ? 1 : 0 }} transition={{ duration: 0.45, ease: EASE }} />
                   </span>
                 ))}
               </div>
               <span className="w-12 text-right text-xs font-semibold text-muted">{idx + 1} / {FLOW.length}</span>
             </header>
 
-            <main className="relative mx-auto w-full max-w-3xl flex-1 px-5 pb-6">
-              <div className="mb-6 flex items-center gap-4">
-                <motion.div key={step} initial={reduce ? false : { rotate: -8, scale: 0.85 }} animate={{ rotate: 0, scale: 1 }} transition={SPRING.bouncy} className="shrink-0">
-                  <Mascot mood={MOOD[step as FlowStep]} size={104} blink />
+            <main className="mx-auto min-h-0 w-full max-w-3xl flex-1 overflow-y-auto px-5 pb-4">
+              <div className="mb-5 flex items-center gap-4">
+                <motion.div key={step} initial={reduce ? false : { scale: 0.85 }} animate={{ scale: 1 }} transition={SPRING.bouncy} className="shrink-0">
+                  <Mascot mood={MOOD[step as FlowStep]} size={92} blink />
                 </motion.div>
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={step}
-                    initial={reduce ? false : { opacity: 0, scale: 0.92, x: -10 }}
-                    animate={{ opacity: 1, scale: 1, x: 0 }}
-                    exit={{ opacity: 0, transition: { duration: 0.1 } }}
+                    initial={reduce ? false : { opacity: 0, scale: 0.94 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, transition: { duration: 0.08 } }}
                     transition={SPRING.snappy}
                     style={{ transformOrigin: 'left center' }}
-                    className="relative rounded-3xl border-2 border-line bg-surface px-5 py-4 text-lg font-semibold"
+                    className="relative rounded-3xl border-2 border-line bg-surface px-5 py-3.5 text-[17px] font-semibold leading-snug"
                   >
                     {SPEECH[step as FlowStep]}
                     <span aria-hidden className="absolute -left-[9px] top-1/2 h-4 w-4 -translate-y-1/2 rotate-45 border-b-2 border-l-2 border-line bg-surface" />
@@ -246,45 +185,43 @@ export function Welcome() {
                 <motion.div key={step} custom={dir} variants={slide} initial="enter" animate="center" exit="exit">
                   {step === 'course' && (
                     <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                      {COURSES.map((c, i) => (
-                        <motion.li key={c.id} initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE, delay: 0.05 + i * 0.05 }}>
+                      {COURSES.map((c) => (
+                        <li key={c.id}>
                           <motion.button
                             type="button"
                             onClick={() => (c.ready ? next() : setShake(c.id))}
                             animate={shake === c.id && !reduce ? { x: [0, -7, 7, -5, 5, 0] } : { x: 0 }}
                             onAnimationComplete={() => shake === c.id && setShake(null)}
-                            whileTap={{ scale: 0.97 }}
-                            className={`tile relative h-full w-full flex-col justify-center !px-3 !py-6 text-center ${c.ready ? 'tile-selected' : 'opacity-60'}`}
+                            className={`tile relative h-full w-full flex-col justify-center !gap-1.5 !px-3 !py-2.5 text-center ${c.ready ? 'tile-selected' : 'opacity-60'}`}
                             aria-label={c.ready ? c.name : `${c.name}, kommt bald`}
                           >
-                            {c.ready ? <FrenchFlag size={56} /> : <Lock size={40} className="text-muted" />}
-                            <span className="text-lg">{c.name}</span>
+                            {c.ready ? <FrenchFlag size={38} /> : <Lock size={28} className="text-muted" />}
+                            <span className="text-base font-semibold">{c.name}</span>
                             {!c.ready && <span className="text-xs font-semibold">{shake === c.id ? 'kommt bald!' : 'bald'}</span>}
-                            {c.ready && <span className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white"><Check size={13} /></span>}
+                            {c.ready && <span className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-brand text-on-brand"><Check size={13} /></span>}
                           </motion.button>
-                        </motion.li>
+                        </li>
                       ))}
                     </ul>
                   )}
 
                   {step === 'grade' && (
                     <ul className="grid grid-cols-1 gap-3" role="radiogroup" aria-label="Klasse">
-                      {grades.map((g, i) => {
+                      {grades.map((g) => {
                         const on = grade === g
                         const gu = units.filter((u) => u.grade === g)
                         const lessonCount = gradeStats(g).lessons
                         return (
-                          <motion.li key={g} className="min-w-0" initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE, delay: 0.05 + i * 0.06 }}>
-                            <button type="button" role="radio" aria-checked={on} onClick={() => setGrade(g)} className="press relative flex w-full items-center gap-4 rounded-2xl border-2 border-line bg-surface p-4 text-left transition-colors hover:bg-snow">
-                              {on && <motion.span layoutId="grade-ring" className="absolute -inset-0.5 rounded-2xl border-2 border-brand bg-brand-soft" transition={SPRING.snappy} />}
-                              <span className={`relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl text-2xl font-bold transition-colors duration-300 ${on ? 'bg-brand text-white' : 'bg-snow text-ink'}`}>{g}</span>
-                              <span className="relative min-w-0 flex-1">
+                          <li key={g} className="min-w-0">
+                            <button type="button" role="radio" aria-checked={on} onClick={() => setGrade(g)} className={`press relative flex w-full items-center gap-4 rounded-2xl border-2 p-3.5 text-left transition-colors ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface'}`}>
+                              <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl font-bold transition-colors duration-200 ${on ? 'bg-brand text-on-brand' : 'bg-snow text-ink'}`}>{g}</span>
+                              <span className="min-w-0 flex-1">
                                 <span className={`block text-lg font-semibold ${on ? 'text-brand-dark' : ''}`}>Klasse {g} <span className="text-sm font-medium text-muted">· Lernjahr {g - 6}</span></span>
                                 <span className="block truncate text-sm text-muted">{gu.slice(0, 3).map((u) => u.title).join(' · ')}</span>
                               </span>
-                              <span className="relative shrink-0 text-right text-xs font-semibold text-muted">{lessonCount}<br />Lektionen</span>
+                              <span className="shrink-0 text-right text-xs font-semibold text-muted">{lessonCount}<br />Lektionen</span>
                             </button>
-                          </motion.li>
+                          </li>
                         )
                       })}
                     </ul>
@@ -292,24 +229,23 @@ export function Welcome() {
 
                   {step === 'goal' && (
                     <ul className="grid gap-3" role="radiogroup" aria-label="Tagesziel">
-                      {GOALS.map((g, i) => {
+                      {GOALS.map((g) => {
                         const on = dailyGoal === g.xp
                         return (
-                          <motion.li key={g.xp} className="min-w-0" initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE, delay: 0.05 + i * 0.06 }}>
-                            <button type="button" role="radio" aria-checked={on} onClick={() => setDailyGoal(g.xp)} className="press relative flex w-full items-center gap-4 rounded-2xl border-2 border-line bg-surface p-4 text-left transition-colors hover:bg-snow">
-                              {on && <motion.span layoutId="goal-ring" className="absolute -inset-0.5 rounded-2xl border-2 border-brand bg-brand-soft" transition={SPRING.snappy} />}
-                              <span className="relative flex h-14 w-14 shrink-0 items-end justify-center gap-1 rounded-2xl bg-snow pb-3" aria-hidden>
+                          <li key={g.xp} className="min-w-0">
+                            <button type="button" role="radio" aria-checked={on} onClick={() => setDailyGoal(g.xp)} className={`press relative flex w-full items-center gap-4 rounded-2xl border-2 p-3.5 text-left transition-colors ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface'}`}>
+                              <span className="flex h-12 w-12 shrink-0 items-end justify-center gap-1 rounded-2xl bg-snow pb-2.5" aria-hidden>
                                 {[0, 1, 2, 3].map((b) => (
-                                  <span key={b} className={`w-2 rounded-sm transition-colors duration-300 ${b < g.bars ? 'bg-brand' : 'bg-line'}`} style={{ height: 8 + b * 6 }} />
+                                  <span key={b} className={`w-2 rounded-sm transition-colors duration-200 ${b < g.bars ? 'bg-brand' : 'bg-line'}`} style={{ height: 8 + b * 6 }} />
                                 ))}
                               </span>
-                              <span className="relative min-w-0 flex-1">
+                              <span className="min-w-0 flex-1">
                                 <span className={`block text-lg font-semibold ${on ? 'text-brand-dark' : ''}`}>{g.label}</span>
                                 <span className="block text-sm text-muted">{g.time}</span>
                               </span>
-                              <span className="relative shrink-0 text-sm font-semibold text-muted">{g.xp} XP</span>
+                              <span className="shrink-0 text-sm font-semibold text-muted">{g.xp} XP</span>
                             </button>
-                          </motion.li>
+                          </li>
                         )
                       })}
                     </ul>
@@ -317,9 +253,9 @@ export function Welcome() {
 
                   {step === 'ready' && (
                     <div className="relative">
-                      <Confetti count={44} />
+                      <Confetti count={36} />
                       <div className="card overflow-hidden">
-                        <div className="bg-gradient-to-br from-brand-soft to-surface p-6 text-center">
+                        <div className="p-5 text-center">
                           <p className="mb-1 text-xl font-bold">Französisch · Klasse {grade}</p>
                           <p className="text-muted">Mindestens {dailyGoal} XP pro Tag · {GOALS.find((g) => g.xp === dailyGoal)?.time}</p>
                         </div>
@@ -335,7 +271,7 @@ export function Welcome() {
                         </div>
                       </div>
                       <p className="mt-4 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">
-                        Tipp: Ist der Unterricht schon weiter? Unter „Mehr → Aufholen“ holst du den Stoff mit Tagesplan nach. Mit „Meine Sets“ machst du aus Fotos deiner Buchseiten Lernkarten.
+                        Tipp: Ist der Unterricht schon weiter? Auf der Startseite findest du „Aufholen“. Unter „Sets“ machst du aus Fotos deiner Buchseiten Lernkarten, und die KI hilft dir bei Fragen zu Klassenarbeiten.
                       </p>
                     </div>
                   )}
@@ -343,9 +279,9 @@ export function Welcome() {
               </AnimatePresence>
             </main>
 
-            <footer className="sticky bottom-0 border-t border-line bg-bg/90 backdrop-blur">
+            <footer className="border-t border-line bg-bg" style={{ paddingBottom: 'max(0px, env(safe-area-inset-bottom))' }}>
               <div className="mx-auto flex w-full max-w-3xl justify-end px-5 py-4">
-                <button className={`btn btn-primary press w-full sm:w-64 ${step === 'ready' ? 'btn-shine !py-4 text-base' : ''}`} onClick={step === 'ready' ? finish : next} autoFocus>
+                <button className="btn btn-primary press w-full !py-4 text-base sm:w-64" onClick={step === 'ready' ? finish : next} autoFocus>
                   {step === 'ready' ? 'Los geht’s' : 'Weiter'}
                 </button>
               </div>

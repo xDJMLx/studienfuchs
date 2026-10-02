@@ -65,7 +65,7 @@ function Markdownish({ text }: { text: string }) {
   return <div className="grid gap-2 leading-relaxed">{blocks}</div>
 }
 
-/** Lern-Coach: Chat mit der KI über Klassenarbeiten, schwache Wörter und Grammatik. Die KI kennt deinen Lernstand. */
+/** KI-Chat: Gespräch mit der KI über Klassenarbeiten, schwache Wörter und Grammatik. Die KI kennt deinen Lernstand. */
 export function CoachPage() {
   const reduce = useReducedMotion()
   const store = useStore()
@@ -162,7 +162,7 @@ export function CoachPage() {
       <div className="mb-5 flex items-center gap-4">
         <Mascot size={64} mood={busy ? 'think' : 'cheer'} blink />
         <div className="min-w-0 flex-1">
-          <h1 className="page-title">Lern-Coach</h1>
+          <h1 className="page-title">KI</h1>
           <p className="text-muted">Frag zu Arbeiten, Grammatik und Wörtern.</p>
         </div>
         {!empty && (
@@ -185,7 +185,7 @@ export function CoachPage() {
         <motion.div initial={reduce ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE }}>
           <AiNotice className="mb-4" />
           <p className="mb-3 text-sm text-muted">
-            Der Coach kennt deinen Lernstand (Klasse, Fortschritt, eingetragene Klassenarbeiten und Wörter, bei denen es hakt), aber nicht deinen Namen.{' '}
+            Die KI kennt deinen Lernstand (Klasse, Fortschritt, eingetragene Klassenarbeiten und Wörter, bei denen es hakt), aber nicht deinen Namen.{' '}
             <Link to="/sets" className="font-medium text-brand-dark underline">
               Klassenarbeit bei einem Set eintragen
             </Link>
@@ -220,7 +220,7 @@ export function CoachPage() {
         ))}
         <AnimatePresence>
           {busy && (
-            <motion.li key="typing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mr-6" role="status" aria-label="Der Coach schreibt">
+            <motion.li key="typing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mr-6" role="status" aria-label="Die KI schreibt">
               <div className="card inline-flex gap-1.5 rounded-bl-md px-4 py-3.5">
                 {[0, 1, 2].map((d) => (
                   <span key={d} className="h-2 w-2 animate-bounce rounded-full bg-muted" style={{ animationDelay: `${d * 0.15}s` }} />

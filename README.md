@@ -15,7 +15,7 @@ Lern-App für die Schule im Stil moderner Sprach-Apps (Start: Französisch, Klas
 - **Tagesziel = Minimum**: Ist das Ziel (z. B. 20 XP) geschafft, wird das Bonusziel 30, dann 40 usw. Am nächsten Tag beginnt es wieder beim Grundziel.
 - **Aufholen**: Unter „Mehr → Aufholen“ wählt man, wo die Klasse im Buch steht. Die App zeigt den Rückstand, macht einen Tagesplan bis zu einem Wunschdatum und bietet einen Test, der Sitzendes überspringen lässt.
 - **Handy-Bedienung**: schwebende Glas-Tab-Leiste (Nachbau des iOS-Glases per CSS), Sheets lassen sich von überall wegwischen, Wörterbuch ist Tab im Üben-Bereich, Eingabefelder lösen kein iOS-Zoomen aus.
-- **Lern-Coach**: Chat mit der KI (Puter) über Klassenarbeiten, Grammatik und Wörter, bei denen es hakt. Der Coach bekommt Klasse, Fortschritt, Termine und schwache Wörter, aber keinen Namen.
+- **KI-Chat**: Gespräch mit der KI (Puter) über Klassenarbeiten, Grammatik und Wörter, bei denen es hakt. Der Coach bekommt Klasse, Fortschritt, Termine und schwache Wörter, aber keinen Namen.
 - **Als App installieren**: Banner auf der Startseite und Einstellungen → App (Chrome/Edge/Android per Knopf, iPhone per Anleitung „Zum Home-Bildschirm“).
 - **Akzent-Autokorrektur**: Beim Eintippen eigener Wörter ergänzt `src/lib/accents.ts` fehlende Akzente (Wörterbuch aus dem Kurswortschatz; mehrdeutige Wörter wie a/à, ou/où bleiben unverändert); dazu Akzent-Tasten für den PC.
 - **Eigene Sets**: Fotos von Buchseiten (optional mit Hinweis, welche Vokabeln) oder Wörter von Hand → KI oder Offline-Texterkennung → Tabelle prüfen (fehlende Akzente werden automatisch ergänzt) → Quiz. Mit Klassenarbeits-Datum werden neue Wörter auf die Tage verteilt.

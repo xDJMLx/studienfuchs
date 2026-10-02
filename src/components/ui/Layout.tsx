@@ -24,7 +24,7 @@ interface NavItem {
 const NAV: NavItem[] = [
   { to: '/', label: 'Lernen', Icon: Home, end: true },
   { to: '/practice', label: 'Üben', Icon: Repeat },
-  { to: '/coach', label: 'Coach', Icon: Sparkle },
+  { to: '/coach', label: 'KI', Icon: Sparkle },
   { to: '/sets', label: 'Sets', Icon: Camera },
   { to: '/profile', label: 'Profil', Icon: User },
 ]
@@ -47,7 +47,7 @@ function AnimatedOutlet() {
   const { pathname } = useLocation()
   const reduce = useReducedMotion()
   return (
-    <motion.div key={pathname} initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.38, ease: EASE }}>
+    <motion.div key={pathname} initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2, ease: EASE }}>
       {outlet}
     </motion.div>
   )

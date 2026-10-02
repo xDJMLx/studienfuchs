@@ -116,8 +116,7 @@ export function Sheet({
       {open && (
         <motion.div
           ref={backdrop}
-          className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 sm:items-center sm:p-4"
-          style={{ WebkitBackdropFilter: 'blur(3px)', backdropFilter: 'blur(3px)' }}
+          className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center sm:p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.2 } }}

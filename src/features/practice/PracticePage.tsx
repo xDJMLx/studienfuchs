@@ -187,7 +187,7 @@ function PracticeTab() {
         <Link to="/coach" className="card lift group mt-6 flex items-center gap-4 p-4">
           <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105"><Sparkle size={22} /></span>
           <span className="min-w-0 flex-1">
-            <span className="block font-semibold">Lern-Coach</span>
+            <span className="block font-semibold">Frag die KI</span>
             <span className="block text-sm text-muted">Mit der KI über deine nächste Klassenarbeit, Grammatik und schwierige Wörter sprechen.</span>
           </span>
         </Link>

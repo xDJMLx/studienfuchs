@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { useCoachComposer } from '../../lib/coachComposer'
 import { Right } from './Icons'
@@ -25,7 +26,7 @@ export function CoachComposer({ className = '' }: { className?: string }) {
       }}
     >
       <label htmlFor="coach-input" className="sr-only">
-        Nachricht an den Lern-Coach
+        Nachricht an die KI
       </label>
       <textarea
         id="coach-input"
@@ -39,18 +40,21 @@ export function CoachComposer({ className = '' }: { className?: string }) {
             if (can) submit?.()
           }
         }}
-        placeholder="Frag deinen Coach …"
+        placeholder="Frag die KI …"
         enterKeyHint="send"
         className="max-h-[120px] min-h-11 min-w-0 flex-1 resize-none rounded-[22px] border border-black/5 bg-white/55 px-4 py-2.5 text-ink outline-none placeholder:text-muted focus:bg-white/80 dark:border-white/10 dark:bg-white/10 dark:focus:bg-white/15"
       />
-      <button
+      <motion.button
         type="submit"
+        initial={{ scale: 0.4 }}
+        animate={{ scale: 1 }}
+        transition={{ type: 'spring', stiffness: 520, damping: 20, delay: 0.14 }}
         disabled={!can}
         aria-label="Senden"
         className="press flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-strong text-on-brand shadow-[0_6px_16px_-6px_var(--brand)] transition-opacity disabled:opacity-40 disabled:shadow-none"
       >
         <Right size={20} />
-      </button>
+      </motion.button>
     </form>
   )
 }

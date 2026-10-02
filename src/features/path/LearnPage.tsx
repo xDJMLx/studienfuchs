@@ -86,7 +86,7 @@ function TodayCard() {
     </section>
   )
 }
-/** Lern-Coach direkt auf der Startseite: Ein Tipp auf eine Frage öffnet den Coach mit der Frage schon im Eingabefeld. */
+/** KI direkt auf der Startseite: Ein Tipp auf eine Frage öffnet die KI mit der Frage schon im Eingabefeld. */
 const COACH_QUESTIONS = [
   { label: 'Klassenarbeit planen', q: 'Hilf mir, mich auf meine nächste Klassenarbeit vorzubereiten.' },
   { label: 'Wörter abfragen', q: 'Frag mich Vokabeln ab, bei denen es bei mir hakt.' },
@@ -94,18 +94,18 @@ const COACH_QUESTIONS = [
 ]
 function CoachCard() {
   return (
-    <section className="card mb-4 p-4" aria-label="Lern-Coach">
+    <section className="card mb-4 p-4" aria-label="KI">
       <Link to="/coach" className="press group flex items-center gap-3.5">
         <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-strong text-on-brand shadow-[0_6px_16px_-6px_var(--brand)] transition-transform group-hover:scale-105 group-hover:-rotate-3">
           <Sparkle size={24} />
         </span>
         <span className="min-w-0 flex-1">
-          <span className="block font-semibold leading-tight">Lern-Coach</span>
-          <span className="block text-sm text-muted">Deine KI für Klassenarbeiten, Grammatik und schwierige Wörter</span>
+          <span className="block font-semibold leading-tight">Frag die KI</span>
+          <span className="block text-sm text-muted">Für Klassenarbeiten, Grammatik und schwierige Wörter</span>
         </span>
         <Right size={16} className="shrink-0 text-muted transition-transform group-hover:translate-x-0.5" />
       </Link>
-      <div className="-mx-4 mt-3.5 flex gap-2 overflow-x-auto px-4 pb-0.5" role="list" aria-label="Fragen an den Coach">
+      <div className="-mx-4 mt-3.5 flex gap-2 overflow-x-auto px-4 pb-0.5" role="list" aria-label="Fragen an die KI">
         {COACH_QUESTIONS.map((c) => (
           <Link key={c.label} role="listitem" to={`/coach?q=${encodeURIComponent(c.q)}`} className="press shrink-0 rounded-full border border-line bg-snow px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:border-brand/40 hover:bg-brand-soft">
             {c.label}
