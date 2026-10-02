@@ -1,0 +1,83 @@
+# Studienfuchs – Lernen für die Schule
+
+Lern-App für die Schule im Stil moderner Sprach-Apps (Start: Französisch, Klasse 7–10 = Lernjahr 1–4, ca. 340 Lektionen; Klasse 7 und 8 sind entlang von À plus! (Cornelsen) Band 1 und 2 gegliedert). Läuft komplett im Browser und lässt sich kostenlos über GitHub Pages hosten.
+
+**Was anders ist als bei Duolingo:** Erst erklären, dann üben · keine Herzen, keine Werbung, keine Bezahlschranke · Lernpfad nach Lehrplanthemen · eigene Buchseiten hochladen und daraus ein Quiz machen.
+
+## Lernmethode (kurz)
+- **Abrufen statt Wiederlesen**: jede Lektion besteht aus aktiven Aufgaben (Dunlosky et al. 2013: Selbsttest + verteiltes Üben haben den größten Nutzen).
+- **Erkennen → Produzieren**: neue Wörter erst per Auswahl/Zuordnen, danach aus dem Gedächtnis tippen, hören, Sätze bauen.
+- **Fehler kommen am Ende der Runde nochmal**, danach plant **FSRS** (`ts-fsrs`) die Wiederholungen in wachsenden Abständen.
+- **Verschränkung**: Reihenfolge wird gemischt, dasselbe Wort nie direkt hintereinander.
+- **Wiederholung ist überall sichtbar**: „Heute“-Karte auf der Startseite, Zahl am Üben-Tab, fällige Wörter ganz oben im Üben-Bereich. Nach einer Lektion geht es mit „Nächste: …“ direkt weiter.
+- **Tipps statt Frust**: Bei Tippaufgaben zeigt „Tipp anzeigen“ Länge und ersten Buchstaben; ein Treffer mit Tipp zählt nicht als „auf Anhieb richtig“.
+- **Kleine Schritte, echte Freischaltung**: neue Wörter kommen nur zu zweit und werden sofort abgefragt; falsche Aufgaben wiederholen sich, bis sie sitzen. Die nächste Lektion/Einheit öffnet erst, wenn die vorige gut geschafft ist (≥ 70 % beim ersten Versuch, Einheitentest ≥ 80 %). Raten bringt nichts.
+- **Tagesziel = Minimum**: Ist das Ziel (z. B. 20 XP) geschafft, wird das Bonusziel 30, dann 40 usw. Am nächsten Tag beginnt es wieder beim Grundziel.
+- **Aufholen**: Unter „Mehr → Aufholen“ wählt man, wo die Klasse im Buch steht. Die App zeigt den Rückstand, macht einen Tagesplan bis zu einem Wunschdatum und bietet einen Test, der Sitzendes überspringen lässt.
+- **Eigene Sets**: Fotos oder PDF-Seiten (von Seite … bis Seite …, optional mit Hinweis, welche Vokabeln) → KI oder Offline-Texterkennung → Tabelle prüfen → Quiz. Mit Klassenarbeits-Datum werden neue Wörter auf die Tage verteilt.
+
+## KI für eigene Lernsets (ohne eigenen Schlüssel)
+Jeder Besucher bekommt die KI automatisch: Beim ersten Klick auf „Mit KI erstellen“ legt **Puter.js** ein kostenloses Gastkonto im Browser an (kurzes Fenster, Pop-ups erlauben). Die Nutzung läuft über das Puter-Konto des Besuchers, im Code und auf GitHub Pages liegt **kein** Schlüssel. Die Bibliothek wird erst bei Bedarf geladen (eigener Chunk).
+- Gesendet wird nur beim Klick, und zwar die gewählten Seitenbilder bzw. Vokabeln an Puter und dessen KI-Anbieter (steht im Datenschutz-Text der App).
+- Optional unter Einstellungen → KI: eigener Anthropic-Schlüssel (nur lokal gespeichert, nicht in der Sicherung).
+- Ohne KI geht es weiter offline mit Texterkennung (Tesseract.js) oder Text einfügen.
+- Modelle, Fallback-Reihenfolge und Fehlertexte stehen in `src/lib/ai.ts`. Modellnamen bei Puter ändern sich gelegentlich; bei Fehlern dort `PUTER_MODELS` anpassen.
+
+## Übungen und Tests
+- **Aufgabentypen:** Auswahl, Zuordnen, Tippen, Hören + Tippen, **Hören + Bedeutung wählen**, Satzbau aus Wortbausteinen (aus Beispielsätzen und Lückensätzen), Lückensätze mit Begründung und optional **Sprechübungen** (Mikrofon + Spracherkennung des Browsers, in den Einstellungen einschaltbar).
+- **Einheit wiederholen:** am Ende jeder Einheit eine Lektion mit den schwächsten Wörtern.
+- **Einheitentest:** 15 gemischte Fragen ohne Hilfen und ohne zweiten Versuch, bestanden ab 80 %.
+- **Einstufungstest:** je Einheit eine Auswahl- und eine Tippaufgabe; nur wer beide richtig hat, kann die Einheit überspringen (Raten reicht nicht).
+- Jedes Wort hat einen Beispielsatz mit Übersetzung (wird in Tests geprüft).
+
+## Sprachausgabe (gleich gut auf jedem Gerät)
+Alle französischen Wörter und Sätze (ca. 2560 Dateien, 19 MB) liegen als fertige Aufnahmen unter `public/audio` (mit dem offline laufenden Sprachmodell **Piper**, Stimme `fr_FR-siwis-medium`, CC BY 4.0). Die App spielt diese Dateien ab; nur für eigene Sets ohne Aufnahme springt die Stimme des Geräts ein.
+Nach Änderungen an den Inhalten neu erzeugen (bestehende Dateien werden übersprungen):
+```bash
+python -m venv venv && venv/Scripts/pip install piper-tts    # einmalig; Linux/Mac: venv/bin/...
+venv/Scripts/python -m piper.download_voices fr_FR-siwis-medium
+node scripts/export-texts.mjs audio-texts.json
+venv/Scripts/python scripts/generate_audio.py --texts audio-texts.json --model fr_FR-siwis-medium.onnx
+```
+(ffmpeg muss installiert sein.)
+
+## Entwickeln
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm test         # Vitest (Antwortprüfung, FSRS, Streak, Generator, Freischaltung, Seitenbereich, KI-Hilfen, Inhalte)
+npm run build    # Produktions-Build nach dist/
+```
+`node scripts/make-icons.mjs` erzeugt die App-Symbole (PNG) neu aus der Maskottchen-Zeichnung.
+
+`npm run dev`/`build` kopieren automatisch die Texterkennungs-Dateien nach `public/ocr` (siehe `scripts/copy-ocr.mjs`, nicht eingecheckt).
+
+## Auf GitHub Pages veröffentlichen
+1. Neues GitHub-Repo anlegen (z. B. `studienfuchs`) und diesen Ordner pushen (Branch `main`).
+2. Im Repo: **Settings → Pages → Source: GitHub Actions**.
+3. Der Workflow `.github/workflows/deploy.yml` baut bei jedem Push und veröffentlicht unter `https://<username>.github.io/<repo>/`.
+4. Vorher unter `src/features/profile/AboutPage.tsx` das **Impressum** ausfüllen (Pflicht bei öffentlichen Seiten in Deutschland).
+
+## Struktur
+```
+content-src/klasse-7|8/*.txt          Quelltext (einfaches Format) für Klasse 7 und 8; `node scripts/build-content.mjs` erzeugt daraus die JSON-Dateien
+src/content/french/klasse-7…10/*.json  Kursinhalte (Klasse 9/10 direkt als JSON gepflegt) (Einheiten → Lektionen → Wörter, Erklärungen, Lückensätze)
+src/content/schema.ts                Zod-Schema, prüft Inhalte beim Start
+src/lib/                             answerCheck, srs (FSRS), streak, xp, generateExercises, parseVocab, plan
+src/features/{path,lesson,review,sets,upload,profile}/
+src/components/{exercises,ui,mascot}/
+src/store/useStore.ts                Zustand + localStorage (Fortschritt, Karten, Sets)
+```
+
+### Neue Lektion hinzufügen
+Klasse 7 und 8: Textdatei in `content-src/klasse-N/` bearbeiten (Kopf `id/title/book/desc/order`, `= Lektion`, Wörter als `- vorne = hinten | Beispiel = Übersetzung`, Lückensätze mit `f`), dann `node scripts/build-content.mjs` und `node scripts/check-content.mjs`. Danach Audio neu erzeugen (`scripts/generate_audio.py`, siehe Kopf der Datei). Klasse 9/10 und neue Fächer:
+Eine neue Datei in `src/content/french/klasse-N/` anlegen (Feld `order` bestimmt die Position innerhalb der Klasse; am Ende jeder Einheit entsteht automatisch eine Wiederholungs-Lektion) – Format siehe vorhandene Dateien. Wort-IDs entstehen automatisch aus dem Wort, Lernfortschritt bleibt beim Umsortieren erhalten. Neue Fächer funktionieren genauso (`front` = Lernbegriff, `back` = Antwort).
+
+Den ausführlichen Prüfbericht (was schlecht war und was geändert wurde) findest du in [AUDIT.md](AUDIT.md).
+
+## Offen / nächste Schritte
+- Klasse 7/8 folgen den Themen und der Reihenfolge von À plus! 1/2, die Wörter sind aber eigene Zusammenstellungen und nicht die exakte Vokabelliste des Buchs (Annahme: Band 1–4 = Klasse 7–10). Klasse 9/10 sind noch nicht an À plus! 3/4 ausgerichtet; dafür am besten das Inhalts- bzw. Vokabelverzeichnis fotografieren und unter „Meine Sets“ nutzen.
+- Inhalte fachlich gegen dein Lehrwerk/den Lehrplan deines Bundeslandes prüfen; ab Klasse 6 gibt es noch kaum Beispielsätze (daher selten „Satz bauen“-Aufgaben).
+- Weitere Fächer (Mathe, Deutsch, Englisch, …) mit eigenen Übungstypen (z. B. Rechenaufgaben).
+- Die KI-Anbindung (Puter) ist programmiert und typgeprüft, aber ein echter Durchlauf braucht ein Puter-Gastkonto: einmal selbst unter „Neues Set → Mit KI“ mit einem Foto ausprobieren.
+- Optional: Login/Backend für geräteübergreifenden Fortschritt.

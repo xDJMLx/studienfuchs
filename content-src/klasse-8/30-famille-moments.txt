@@ -1,0 +1,194 @@
+id: f8-u3
+title: Famille : les moments qui comptent
+book: À plus ! 2 · Unité 3
+desc: Familie, Streit, Feste, Meinung äußern, Objektpronomen, Relativsatz mit que, Konsum und Umwelt
+order: 30
+
+= Streit in der Familie (1/2)
+- la dispute = der Streit | Il y a une dispute à la maison. = Es gibt Streit zu Hause.
+- avoir raison = recht haben | Tu as raison ! = Du hast recht!
+- avoir tort = unrecht haben | Non, tu as tort. = Nein, du hast unrecht.
+- ce n'est pas juste = das ist nicht fair | Ce n'est pas juste ! = Das ist nicht fair!
+- le désaccord = die Meinungsverschiedenheit | Nous avons un désaccord. = Wir sind uneinig.
+- la faute = die Schuld / der Fehler | C'est ta faute ! = Das ist deine Schuld!
+
+= Streit in der Familie (2/2)
+- arrête ! = hör auf! | Arrête, s'il te plaît ! = Hör bitte auf!
+- ça suffit ! = es reicht! | Ça suffit, maintenant ! = Es reicht jetzt!
+- tu exagères = du übertreibst | Tu exagères, Paul ! = Du übertreibst, Paul!
+- j'en ai marre = ich habe die Nase voll | J'en ai marre des devoirs. = Ich habe die Hausaufgaben satt.
+- excuse-moi = entschuldige | Excuse-moi, c'est ma faute. = Entschuldige, das ist meine Schuld.
+- je suis désolé(e) = es tut mir leid | Je suis désolée, Léa. = Es tut mir leid, Léa.
+- ce n'est pas grave = das ist nicht schlimm | Ce n'est pas grave. = Das ist nicht schlimm.
+
+= Direkte Objektpronomen
+? me, te, le, la, nous, vous, les
+p Das direkte Objekt beantwortet „wen oder was?“. Statt das Nomen zu wiederholen, nimmst du ein Pronomen: Je vois Léa → Je la vois.
+p le (ihn, es), la (sie), l' (vor Vokal), les (sie Plural), me, te, nous, vous. Sie stehen vor dem konjugierten Verb.
+e Je vois Paul. → Je le vois. = Ich sehe Paul. → Ich sehe ihn.
+e Elle regarde les photos. → Elle les regarde. = Sie schaut die Fotos an. → Sie schaut sie an.
+t Das Pronomen steht VOR dem Verb, im Deutschen steht es dahinter.
+- me / m' = mich | Tu m'écoutes ? = Hörst du mir zu?
+- te / t' = dich | Je t'aime. = Ich habe dich lieb.
+- le / l' = ihn / es | Je le vois. = Ich sehe ihn.
+- la / l' = sie (f) | Je la connais. = Ich kenne sie.
+- nous = uns | Il nous regarde. = Er schaut uns an.
+- vous = euch / Sie | Je vous écoute. = Ich höre euch zu.
+- les = sie (Plural) | Je les vois. = Ich sehe sie.
+f Je vois Léa. Je ___ vois. | la | la; le; les | Ich sehe Léa. Ich sehe sie. | „Léa“ ist weiblich → la.
+f Il regarde les photos. Il ___ regarde. | les | les; le; la | Er schaut die Fotos an. Er schaut sie an. | Plural → les.
+
+= Objektpronomen im Satz
+? Wo steht das Pronomen?
+p Mit Verneinung: Je ne le vois pas. Mit einem zweiten Verb steht es vor dem Infinitiv: Je veux le voir. Im passé composé steht es vor „avoir“: Je l'ai vu.
+e Je ne le vois pas. = Ich sehe ihn nicht.
+e Je veux la voir. = Ich will sie sehen.
+e Je les ai vus. = Ich habe sie gesehen.
+- je le vois = ich sehe ihn | Je le vois dans la rue. = Ich sehe ihn auf der Straße.
+- je ne la vois pas = ich sehe sie nicht | Je ne la vois pas ici. = Ich sehe sie hier nicht.
+- je veux le voir = ich will ihn sehen | Je veux le voir demain. = Ich will ihn morgen sehen.
+- je l'ai vu = ich habe ihn gesehen | Je l'ai vu hier. = Ich habe ihn gestern gesehen.
+- je les aime = ich mag sie | Je les aime beaucoup. = Ich mag sie sehr.
+f Je ne ___ vois pas. | le | le; la; les | Ich sehe ihn nicht. | Das Pronomen steht zwischen „ne“ und dem Verb.
+
+= Relativsätze mit que
+? Das Relativpronomen que
+p „Que“ ersetzt ein Objekt: Le livre que j'aime est ici. (Das Buch, das ich mag, ist hier.) Vor Vokal wird es zu „qu'“.
+p Der Unterschied zu „qui“: Nach „qui“ folgt das Verb, nach „que“ ein Subjekt (je, tu, il …).
+e Le livre que j'aime est ici. = Das Buch, das ich mag, ist hier.
+e La fille que je connais s'appelle Léa. = Das Mädchen, das ich kenne, heißt Léa.
+t qui = Subjekt (Verb folgt), que = Objekt (Subjekt folgt).
+- que / qu' = den / die / das (Objekt) | Le film que j'aime est drôle. = Der Film, den ich mag, ist lustig.
+- connaître = kennen | Je connais Léa. = Ich kenne Léa.
+- le film que je regarde = der Film, den ich anschaue | Le film que je regarde est drôle. = Der Film, den ich anschaue, ist lustig.
+- la fille que je connais = das Mädchen, das ich kenne | La fille que je connais est gentille. = Das Mädchen, das ich kenne, ist nett.
+- la chose que je veux = das, was ich will | La chose que je veux est un vélo. = Was ich will, ist ein Fahrrad.
+f Le livre ___ j'aime est ici. | que | que; qui; où | Das Buch, das ich mag, ist hier. | Nach dem Relativpronomen folgt „j'aime“ (Subjekt) → que.
+
+= Demonstrativbegleiter
+? ce, cet, cette, ces
+p „Ce“ + männlich: ce livre. „Cet“ + männlich vor Vokal: cet ami. „Cette“ + weiblich: cette fille. „Ces“ + Plural: ces amis.
+p Mit „-ci“ und „-là“ unterscheidest du: ce livre-ci (dieses hier), ce livre-là (jenes da).
+e ce garçon, cet ami, cette fille, ces amis = dieser Junge, dieser Freund, dieses Mädchen, diese Freunde
+- ce = dieser / dieses (m) | Ce garçon est sympa. = Dieser Junge ist nett.
+- cet = dieser (m vor Vokal) | Cet ami est drôle. = Dieser Freund ist lustig.
+- cette = diese (f) | Cette fille est gentille. = Dieses Mädchen ist nett.
+- ces = diese (Plural) | Ces livres sont bons. = Diese Bücher sind gut.
+- -ci / -là = hier / da | Je prends ce livre-ci. = Ich nehme dieses Buch hier.
+f ___ fille est sympa. | Cette | Cette; Ce; Cet | Dieses Mädchen ist nett. | „fille“ ist weiblich → cette.
+f ___ ami est drôle. | Cet | Cet; Ce; Cette | Dieser Freund ist lustig. | Männlich vor Vokal → cet.
+
+= ne … rien und ne … jamais
+? Verneinung mit rien und jamais
+p „Ne … rien“ heißt „nichts“, „ne … jamais“ heißt „nie“: Je ne mange rien. Je ne joue jamais.
+p Im passé composé stehen sie um „avoir“: Je n'ai rien vu. Je n'ai jamais joué.
+e Je ne mange rien. = Ich esse nichts.
+e Il n'est jamais là. = Er ist nie da.
+t „Rien“ und „jamais“ stehen allein auch als Antwort: – Tu fais quoi ? – Rien.
+- ne … rien = nichts | Je n'ai rien vu. = Ich habe nichts gesehen.
+- ne … jamais = nie | Il ne joue jamais. = Er spielt nie.
+- rien = nichts | Je ne sais rien. = Ich weiß nichts.
+- pas du tout = überhaupt nicht | Je n'aime pas du tout ça. = Ich mag das überhaupt nicht.
+- toujours = immer | Elle est toujours là. = Sie ist immer da.
+f Je ne vois ___. | rien | rien; jamais; plus | Ich sehe nichts. | „ne … rien“ = nichts.
+
+= Das Verb mettre
+? mettre (setzen, stellen, legen, anziehen)
+p mettre ist unregelmäßig: je mets, tu mets, il/elle met, nous mettons, vous mettez, ils/elles mettent. Partizip: mis.
+e Je mets la table. = Ich decke den Tisch.
+e Elle met un pull. = Sie zieht einen Pullover an.
+- je mets = ich lege / ich ziehe an | Je mets mon sac sur la chaise. = Ich lege meine Tasche auf den Stuhl.
+- tu mets = du legst | Tu mets la table ? = Deckst du den Tisch?
+- il / elle met = er / sie legt | Elle met un livre sur la table. = Sie legt ein Buch auf den Tisch.
+- nous mettons = wir legen | Nous mettons les assiettes. = Wir stellen die Teller hin.
+- vous mettez = ihr legt | Vous mettez la musique ? = Macht ihr die Musik an?
+- ils / elles mettent = sie legen | Ils mettent la table. = Sie decken den Tisch.
+f Je ___ la table. | mets | mets; met; mettons | Ich decke den Tisch. | Zu „je“ passt „mets“.
+
+= Adjektive auf -if und -ive
+? Adjektive mit besonderer weiblicher Form
+p Endet ein Adjektiv männlich auf -if, wird es weiblich zu -ive: sportif → sportive, actif → active.
+e un garçon sportif, une fille sportive = ein sportlicher Junge, ein sportliches Mädchen
+- sportif / sportive = sportlich | Mon frère est sportif. = Mein Bruder ist sportlich.
+- actif / active = aktiv | Ma mère est très active. = Meine Mutter ist sehr aktiv.
+- créatif / créative = kreativ | Elle est créative. = Sie ist kreativ.
+- naïf / naïve = naiv | Il est un peu naïf. = Er ist ein bisschen naiv.
+- vif / vive = lebhaft | Cette fille est très vive. = Dieses Mädchen ist sehr lebhaft.
+f Ma sœur est ___. | sportive | sportive; sportif; sportifs | Meine Schwester ist sportlich. | Weiblich: -if wird zu -ive.
+
+= Adjektive auf -eux und -euse
+? Adjektive mit besonderer weiblicher Form
+p Endet ein Adjektiv männlich auf -eux, wird es weiblich zu -euse: heureux → heureuse, curieux → curieuse.
+e un garçon heureux, une fille heureuse = ein glücklicher Junge, ein glückliches Mädchen
+- heureux / heureuse = glücklich | Elle est heureuse. = Sie ist glücklich.
+- curieux / curieuse = neugierig | Mon frère est curieux. = Mein Bruder ist neugierig.
+- courageux / courageuse = mutig | Cette fille est courageuse. = Dieses Mädchen ist mutig.
+- paresseux / paresseuse = faul | Il est un peu paresseux. = Er ist ein bisschen faul.
+- ennuyeux / ennuyeuse = langweilig | Le film est ennuyeux. = Der Film ist langweilig.
+f Léa est ___. | heureuse | heureuse; heureux; heureuses | Léa ist glücklich. | Weiblich: -eux wird zu -euse.
+
+= Feste und Traditionen
+- la tradition = die Tradition | C'est une tradition de famille. = Das ist eine Familientradition.
+- Noël = Weihnachten | À Noël, nous sommes ensemble. = Weihnachten sind wir zusammen.
+- le réveillon = das Festessen an Heiligabend / Silvester | Le réveillon est une grande fête. = Das Reveillon ist ein großes Fest.
+- le mariage = die Hochzeit | Le mariage de ma cousine est en juin. = Die Hochzeit meiner Cousine ist im Juni.
+- fêter = feiern | Nous fêtons Noël. = Wir feiern Weihnachten.
+- la famille nombreuse = die Großfamilie | Nous sommes une famille nombreuse. = Wir sind eine Großfamilie.
+
+= Zeit in der Familie
+- le repas = die Mahlzeit | Le repas est prêt. = Das Essen ist fertig.
+- le dîner = das Abendessen | Le dîner est à huit heures. = Das Abendessen ist um acht Uhr.
+- le petit-déjeuner = das Frühstück | Le petit-déjeuner est à sept heures. = Das Frühstück ist um sieben Uhr.
+- le jeu de société = das Gesellschaftsspiel | Nous jouons à un jeu de société. = Wir spielen ein Gesellschaftsspiel.
+- la soirée = der Abend (Abendveranstaltung) | La soirée est sympa. = Der Abend ist nett.
+- le dimanche en famille = der Sonntag mit der Familie | Le dimanche en famille est ma tradition. = Der Sonntag mit der Familie ist meine Tradition.
+
+= Was die Familie zusammenhält
+- aider = helfen | J'aide ma mère. = Ich helfe meiner Mutter.
+- la confiance = das Vertrauen | J'ai confiance en toi. = Ich vertraue dir.
+- l'amour (m) = die Liebe | L'amour est important. = Liebe ist wichtig.
+- le lien = die Verbindung | Il y a un lien fort. = Es gibt eine starke Verbindung.
+- respecter = respektieren | Je respecte mes parents. = Ich respektiere meine Eltern.
+- partager = teilen | Nous partageons le repas. = Wir teilen die Mahlzeit.
+
+= Familienmitglieder (erweitert)
+- le jumeau / la jumelle = der Zwilling | Mon frère est mon jumeau. = Mein Bruder ist mein Zwilling.
+- le beau-père = der Stiefvater | Mon beau-père est sympa. = Mein Stiefvater ist nett.
+- la belle-mère = die Stiefmutter | Ma belle-mère cuisine bien. = Meine Stiefmutter kocht gut.
+- le neveu / la nièce = der Neffe / die Nichte | Mon neveu a deux ans. = Mein Neffe ist zwei.
+- le petit-fils / la petite-fille = der Enkel / die Enkelin | Mon grand-père adore sa petite-fille. = Mein Opa liebt seine Enkelin.
+- l'adolescent (m) / l'adolescente (f) = der / die Jugendliche | L'adolescent a quatorze ans. = Der Jugendliche ist vierzehn.
+
+= Seine Meinung sagen
+- à mon avis = meiner Meinung nach | À mon avis, c'est super. = Meiner Meinung nach ist das super.
+- je pense que … = ich denke, dass … | Je pense que tu as raison. = Ich denke, du hast recht.
+- je crois que … = ich glaube, dass … | Je crois que c'est vrai. = Ich glaube, das ist wahr.
+- d'après moi = nach meiner Meinung | D'après moi, il a tort. = Nach meiner Meinung hat er unrecht.
+- être d'accord = einverstanden sein | Je suis d'accord avec toi. = Ich bin einverstanden mit dir.
+- ne pas être d'accord = nicht einverstanden sein | Je ne suis pas d'accord. = Ich bin nicht einverstanden.
+
+= Argumentieren
+- de plus = außerdem | De plus, c'est gratuit. = Außerdem ist es gratis.
+- par exemple = zum Beispiel | Par exemple, j'aime le sport. = Zum Beispiel mag ich Sport.
+- en effet = tatsächlich | En effet, tu as raison. = Tatsächlich, du hast recht.
+- donc = also / deshalb | Il pleut, donc je reste ici. = Es regnet, also bleibe ich hier.
+- c'est pourquoi = deshalb | C'est pourquoi je reste. = Deshalb bleibe ich.
+- cependant = jedoch | Il est petit, cependant il est fort. = Er ist klein, jedoch stark.
+
+= Konsum
+- acheter = kaufen | J'achète un vêtement. = Ich kaufe ein Kleidungsstück.
+- le vêtement = das Kleidungsstück | Ce vêtement est cher. = Dieses Kleidungsstück ist teuer.
+- la marque = die Marke | La marque est connue. = Die Marke ist bekannt.
+- la mode = die Mode | La mode change vite. = Die Mode ändert sich schnell.
+- l'argent (m) = das Geld | Je n'ai pas d'argent. = Ich habe kein Geld.
+- l'argent de poche = das Taschengeld | J'ai dix euros d'argent de poche. = Ich habe zehn Euro Taschengeld.
+- dépenser = ausgeben | Je dépense mon argent. = Ich gebe mein Geld aus.
+
+= Umweltschutz
+- l'environnement (m) = die Umwelt | Je protège l'environnement. = Ich schütze die Umwelt.
+- recycler = recyceln | Nous recyclons le papier. = Wir recyceln das Papier.
+- jeter = wegwerfen | Je jette le papier dans la poubelle. = Ich werfe das Papier in den Mülleimer.
+- la poubelle = der Mülleimer | La poubelle est pleine. = Der Mülleimer ist voll.
+- le déchet = der Abfall | Il y a trop de déchets. = Es gibt zu viel Abfall.
+- le plastique = das Plastik | Le plastique est un problème. = Plastik ist ein Problem.
+- protéger = schützen | Je protège la nature. = Ich schütze die Natur.

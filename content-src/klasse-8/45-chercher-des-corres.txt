@@ -1,0 +1,37 @@
+id: f8-m4
+title: Chercher des corres en France
+book: À plus ! 2 · Module 4 Chercher des corres en France
+desc: Sich vorstellen: Aussehen, Charakter, Hobbys, Austauschpartner suchen
+order: 45
+
+= Aussehen
+- les cheveux (m pl) = die Haare | Elle a de longs cheveux. = Sie hat lange Haare.
+- les yeux (m pl) = die Augen | Il a les yeux bleus. = Er hat blaue Augen.
+- blond(e) = blond | Elle est blonde. = Sie ist blond.
+- brun(e) = dunkelhaarig / braun | Il est brun. = Er ist dunkelhaarig.
+- roux / rousse = rothaarig | Ma sœur est rousse. = Meine Schwester ist rothaarig.
+- mince = schlank | Il est grand et mince. = Er ist groß und schlank.
+
+= Charakter
+- calme = ruhig | Il est calme. = Er ist ruhig.
+- ouvert(e) = offen | Elle est ouverte. = Sie ist offen.
+- fidèle = treu | Mon ami est fidèle. = Mein Freund ist treu.
+- patient(e) = geduldig | Ma mère est patiente. = Meine Mutter ist geduldig.
+- généreux / généreuse = großzügig | Elle est généreuse. = Sie ist großzügig.
+- drôle = lustig | Il est très drôle. = Er ist sehr lustig.
+
+= Ernährung und Hobbys
+- végétarien / végétarienne = Vegetarier(in) | Ma sœur est végétarienne. = Meine Schwester ist Vegetarierin.
+- mon plat préféré = mein Lieblingsgericht | Mon plat préféré, ce sont les pâtes. = Mein Lieblingsgericht sind Nudeln.
+- allergique = allergisch | Je suis allergique aux noix. = Ich bin allergisch gegen Nüsse.
+- la passion = die Leidenschaft | Ma passion, c'est la musique. = Meine Leidenschaft ist Musik.
+- passionné(e) de = begeistert von | Je suis passionné de foot. = Ich bin begeistert von Fußball.
+- le loisir = die Freizeitbeschäftigung | Mes loisirs sont le sport et la musique. = Meine Hobbys sind Sport und Musik.
+
+= Austauschpartner suchen
+- le correspondant / la correspondante = der Brieffreund / Austauschpartner | Je cherche un correspondant. = Ich suche einen Austauschpartner.
+- le corres = der Austauschpartner (kurz) | Mon corres habite à Lyon. = Mein Austauschpartner wohnt in Lyon.
+- l'échange (m) = der Austausch | L'échange est en avril. = Der Austausch ist im April.
+- l'annonce (f) = die Anzeige | J'écris une annonce. = Ich schreibe eine Anzeige.
+- se présenter = sich vorstellen | Je me présente : je m'appelle Léa. = Ich stelle mich vor: Ich heiße Léa.
+- j'aimerais = ich würde gern | J'aimerais correspondre avec toi. = Ich würde gern mit dir schreiben.

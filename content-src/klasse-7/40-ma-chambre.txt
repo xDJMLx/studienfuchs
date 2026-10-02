@@ -1,0 +1,184 @@
+id: f7-u3
+title: Ma chambre et moi
+book: À plus ! 1 · Unité 3
+desc: Zimmer und Wohnung, Orte beschreiben, Hobbys, faire, Verneinung, begründen
+order: 40
+
+= Mein Zimmer (1/3)
+- la chambre = das Zimmer / das Schlafzimmer | Ma chambre est petite. = Mein Zimmer ist klein.
+- le lit = das Bett | Mon lit est grand. = Mein Bett ist groß.
+- le bureau = der Schreibtisch | Mon bureau est ici. = Mein Schreibtisch ist hier.
+- l'armoire (f) = der Schrank | L'armoire est blanche. = Der Schrank ist weiß.
+- la chaise = der Stuhl | La chaise est rouge. = Der Stuhl ist rot.
+- la table = der Tisch | La table est grande. = Der Tisch ist groß.
+
+= Mein Zimmer (2/3)
+- l'étagère (f) = das Regal | L'étagère est pleine de livres. = Das Regal ist voller Bücher.
+- la lampe = die Lampe | La lampe est sur le bureau. = Die Lampe steht auf dem Schreibtisch.
+- la fenêtre = das Fenster | La fenêtre est ouverte. = Das Fenster ist offen.
+- la porte = die Tür | La porte est fermée. = Die Tür ist geschlossen.
+- le mur = die Wand | Le mur est bleu. = Die Wand ist blau.
+- le tapis = der Teppich | Le tapis est doux. = Der Teppich ist weich.
+
+= Mein Zimmer (3/3)
+- l'ordinateur (m) = der Computer | L'ordinateur est sur le bureau. = Der Computer steht auf dem Schreibtisch.
+- la télé = der Fernseher | La télé est dans le salon. = Der Fernseher steht im Wohnzimmer.
+- le poster = das Poster | Le poster est sur le mur. = Das Poster hängt an der Wand.
+- la BD = der Comic | J'adore les BD. = Ich liebe Comics.
+- la console = die Spielekonsole | Ma console est neuve. = Meine Konsole ist neu.
+- la guitare = die Gitarre | La guitare est dans ma chambre. = Die Gitarre ist in meinem Zimmer.
+
+= Die Wohnung
+- l'appartement (m) = die Wohnung | Notre appartement est grand. = Unsere Wohnung ist groß.
+- le salon = das Wohnzimmer | Le salon est grand. = Das Wohnzimmer ist groß.
+- la cuisine = die Küche | La cuisine est petite. = Die Küche ist klein.
+- la salle de bains = das Badezimmer | La salle de bains est ici. = Das Badezimmer ist hier.
+- le balcon = der Balkon | Le balcon est petit. = Der Balkon ist klein.
+- le jardin = der Garten | Le jardin est grand. = Der Garten ist groß.
+
+= Wo ist etwas? (1/2)
+? Orte angeben
+p Mit Präpositionen sagst du, wo etwas ist: sur (auf), sous (unter), dans (in), devant (vor), derrière (hinter).
+e Le livre est sur la table. = Das Buch liegt auf dem Tisch.
+e Le chat est sous le lit. = Die Katze ist unter dem Bett.
+- sur = auf | Le livre est sur la table. = Das Buch liegt auf dem Tisch.
+- sous = unter | Le chat est sous le lit. = Die Katze ist unter dem Bett.
+- dans = in | Mon sac est dans ma chambre. = Meine Tasche ist in meinem Zimmer.
+- devant = vor | Le chien est devant la porte. = Der Hund ist vor der Tür.
+- derrière = hinter | Le chat est derrière l'armoire. = Die Katze ist hinter dem Schrank.
+f Le chat est ___ le lit. | sous | sous; sur; dans | Die Katze ist unter dem Bett. | „sous“ heißt „unter“.
+
+= Wo ist etwas? (2/2)
+? Weitere Ortsangaben
+p „À côté de“, „entre“, „en face de“, „près de“ und „loin de“ brauchen eine Ergänzung: „à côté de la porte“.
+e à côté de la fenêtre = neben dem Fenster
+e entre le lit et l'armoire = zwischen dem Bett und dem Schrank
+- à côté de = neben | Le bureau est à côté de la fenêtre. = Der Schreibtisch ist neben dem Fenster.
+- entre = zwischen | La lampe est entre le lit et l'armoire. = Die Lampe steht zwischen Bett und Schrank.
+- en face de = gegenüber von | Le café est en face de la gare. = Das Café ist gegenüber vom Bahnhof.
+- près de = nahe bei | Mon école est près de chez moi. = Meine Schule ist nahe bei mir zu Hause.
+- loin de = weit weg von | Le parc est loin de la gare. = Der Park ist weit vom Bahnhof entfernt.
+f Le café est ___ de la gare. | à côté | à côté; entre; sous | Das Café ist neben dem Bahnhof. | „à côté de“ = neben.
+
+= de und der Artikel
+? Zusammengezogener Artikel mit de
+p „De“ + le wird zu „du“, „de“ + les zu „des“. Vor la und l' bleibt es: de la, de l'.
+p Damit sagst du, wem etwas gehört: la chambre du garçon, la voiture de la mère.
+e le livre du garçon = das Buch des Jungen
+e la chambre de la fille = das Zimmer des Mädchens
+e le chat des voisins = die Katze der Nachbarn
+t de + le = du, de + les = des. Nur bei le und les wird zusammengezogen.
+- du = von dem | Voilà le livre du garçon. = Da ist das Buch des Jungen.
+- de la = von der | C'est la chambre de la fille. = Das ist das Zimmer des Mädchens.
+- de l' = von dem / von der (vor Vokal) | C'est le vélo de l'ami de Léo. = Das ist das Fahrrad von Léos Freund.
+- des = von den | Voici les livres des élèves. = Hier sind die Bücher der Schüler.
+- chez moi = bei mir / zu Hause | Chez moi, il y a un chat. = Bei mir gibt es eine Katze.
+f C'est le livre ___ garçon. | du | du; de la; des | Das ist das Buch des Jungen. | de + le = du.
+f La chambre ___ fille est jolie. | de la | de la; du; des | Das Zimmer des Mädchens ist hübsch. | „fille“ ist weiblich → de la.
+
+= Adjektive passen sich an
+? Angleichung der Adjektive
+p Adjektive richten sich nach dem Nomen. Weiblich bekommen sie oft ein -e: grand → grande. Im Plural kommt ein -s dazu: grands, grandes.
+p Endet das Adjektiv schon auf -e, ändert es sich nicht: sympa, rouge, jaune.
+e un grand lit, une grande chambre = ein großes Bett, ein großes Zimmer
+e des chaises rouges = rote Stühle
+t Sprechen hörst du den Unterschied nur manchmal: grand [grã] – grande [grãd].
+- confortable = bequem | Mon lit est très confortable. = Mein Bett ist sehr bequem.
+- propre = sauber | Ma chambre est propre. = Mein Zimmer ist sauber.
+- sale = schmutzig | Mon sac est sale. = Meine Tasche ist schmutzig.
+- rangé(e) = aufgeräumt | Ma chambre est rangée. = Mein Zimmer ist aufgeräumt.
+- neuf / neuve = neu (nicht gebraucht) | Mon vélo est neuf. = Mein Fahrrad ist neu.
+f Ma chambre est ___. | grande | grande; grand; grands | Mein Zimmer ist groß. | „chambre“ ist weiblich → grande.
+f Les chaises sont ___. | rouges | rouges; rouge; rougent | Die Stühle sind rot. | Plural → rouges.
+
+= Farben (1/2)
+- rouge = rot | La chaise est rouge. = Der Stuhl ist rot.
+- bleu(e) = blau | Mon mur est bleu. = Meine Wand ist blau.
+- vert(e) = grün | La lampe est verte. = Die Lampe ist grün.
+- jaune = gelb | Le poster est jaune. = Das Poster ist gelb.
+- noir(e) = schwarz | Mon chat est noir. = Meine Katze ist schwarz.
+
+= Farben (2/2)
+- blanc / blanche = weiß | L'armoire est blanche. = Der Schrank ist weiß.
+- gris(e) = grau | Le tapis est gris. = Der Teppich ist grau.
+- rose = rosa | Ma chambre est rose. = Mein Zimmer ist rosa.
+- orange = orange | Ma lampe est orange. = Meine Lampe ist orange.
+- marron = braun | Mon bureau est marron. = Mein Schreibtisch ist braun.
+f La table est ___. | blanche | blanche; blanc; blancs | Der Tisch ist weiß. | „table“ ist weiblich → blanche.
+
+= Das Verb faire
+? faire (machen)
+p faire ist unregelmäßig: je fais, tu fais, il/elle fait, nous faisons, vous faites, ils/elles font.
+p Hobbys: faire du sport, faire de la danse, faire de l'escrime, faire des photos. Nach faire steht der Teilungsartikel du, de la, de l', des.
+e Je fais du sport. = Ich mache Sport.
+e Elle fait de la danse. = Sie tanzt.
+t „Faites“ (ihr macht) sprichst du anders als geschrieben: [fɛt].
+- je fais = ich mache | Je fais du sport. = Ich mache Sport.
+- tu fais = du machst | Qu'est-ce que tu fais ? = Was machst du?
+- il / elle fait = er / sie macht | Il fait du sport. = Er macht Sport.
+- nous faisons = wir machen | Nous faisons du vélo. = Wir fahren Rad.
+- vous faites = ihr macht / Sie machen | Vous faites de la musique ? = Macht ihr Musik?
+- ils / elles font = sie machen | Elles font de la danse. = Sie tanzen.
+f Elle ___ du sport. | fait | fait; fais; font | Sie macht Sport. | Zu „elle“ passt „fait“.
+f Nous ___ du vélo. | faisons | faisons; faites; font | Wir fahren Rad. | Zu „nous“ passt „faisons“.
+
+= Hobbys (1/2)
+- le hobby = das Hobby | Mon hobby, c'est la musique. = Mein Hobby ist Musik.
+- faire du sport = Sport machen | Je fais du sport avec Léo. = Ich mache Sport mit Léo.
+- faire du vélo = Rad fahren | Nous faisons du vélo. = Wir fahren Rad.
+- faire de la musique = Musik machen | Il fait de la musique. = Er macht Musik.
+- faire de la danse = tanzen (als Hobby) | Elle fait de la danse. = Sie tanzt (als Hobby).
+- faire des photos = fotografieren | Je fais des photos de Paris. = Ich mache Fotos von Paris.
+
+= Hobbys (2/2)
+- le tennis = Tennis | Ma sœur joue au tennis. = Meine Schwester spielt Tennis.
+- le basket = Basketball | Je joue au basket. = Ich spiele Basketball.
+- la natation = das Schwimmen | Il fait de la natation. = Er schwimmt als Sport.
+- le jeu vidéo = das Videospiel | J'aime les jeux vidéo. = Ich mag Videospiele.
+- le piano = das Klavier | Je joue du piano. = Ich spiele Klavier.
+- la flûte = die Flöte | Elle joue de la flûte. = Sie spielt Flöte.
+
+= Stars und Medien
+- la star = der Star | C'est ma star. = Das ist mein Star.
+- le chanteur / la chanteuse = der Sänger / die Sängerin | Ma chanteuse est française. = Meine Sängerin ist Französin.
+- l'acteur / l'actrice = der Schauspieler / die Schauspielerin | L'acteur est drôle. = Der Schauspieler ist lustig.
+- le film = der Film | J'adore les films. = Ich liebe Filme.
+- la série = die Serie | La série est super. = Die Serie ist super.
+- le fan = der Fan | Je suis fan de foot. = Ich bin Fußballfan.
+
+= Verneinung
+? ne … pas und ne … plus
+p Die Verneinung steht um das Verb herum: je ne joue pas. Vor Vokal wird „ne“ zu „n'“: je n'aime pas.
+p „Ne … plus“ heißt „nicht mehr“: Je ne joue plus. Nach der Verneinung steht „de“ statt un/une/des: Je n'ai pas de chien.
+e Je ne joue pas au foot. = Ich spiele nicht Fußball.
+e Je n'ai plus de chien. = Ich habe keinen Hund mehr.
+t Im Alltag fällt „ne“ oft weg, geschrieben bleibt es aber Pflicht.
+- ne … pas = nicht | Je ne fais pas de sport. = Ich mache keinen Sport.
+- ne … plus = nicht mehr | Il ne joue plus au foot. = Er spielt nicht mehr Fußball.
+- pas de = kein(e) | Je n'ai pas de console. = Ich habe keine Konsole.
+- non plus = auch nicht | Moi non plus, je n'aime pas ça. = Ich mag das auch nicht.
+- jamais = nie | Je ne fais jamais de sport. = Ich mache nie Sport.
+f Je ___ joue pas au tennis. | ne | ne; n'; pas | Ich spiele nicht Tennis. | Vor Konsonant: ne … pas.
+f Je ___ ai pas de console. | n' | n'; ne; pas | Ich habe keine Konsole. | Vor Vokal: n'.
+
+= Gründe nennen
+? parce que
+p „Pourquoi ?“ fragt nach dem Grund. Du antwortest mit „parce que …“ (weil …). Vor Vokal: parce qu'.
+e Pourquoi tu aimes ta chambre ? – Parce qu'elle est grande. = Warum magst du dein Zimmer? – Weil es groß ist.
+- pourquoi ? = warum? | Pourquoi tu aimes la musique ? = Warum magst du Musik?
+- parce que = weil | J'aime ma chambre parce qu'elle est grande. = Ich mag mein Zimmer, weil es groß ist.
+- alors = also / dann | Alors, tu aimes ça ? = Also, magst du das?
+- c'est pour ça que = deshalb | C'est pour ça que j'aime le foot. = Deshalb mag ich Fußball.
+- trop = zu / zu sehr | C'est trop petit ! = Das ist zu klein!
+f J'aime ma chambre ___ elle est grande. | parce qu' | parce qu'; parce que; pourquoi | Ich mag mein Zimmer, weil es groß ist. | Vor Vokal: „parce qu'“.
+
+= pour + Infinitiv
+? Wozu?
+p „Pour“ + Infinitiv heißt „um … zu“: Le lit, c'est pour dormir. Der Infinitiv bleibt unverändert.
+e Le lit, c'est pour dormir. = Das Bett ist zum Schlafen.
+- pour = für / um … zu | Le bureau est pour travailler. = Der Schreibtisch ist zum Arbeiten.
+- dormir = schlafen | Le lit est pour dormir. = Das Bett ist zum Schlafen.
+- lire = lesen | J'aime lire des BD. = Ich lese gern Comics.
+- ranger = aufräumen | Je range ma chambre. = Ich räume mein Zimmer auf.
+- rester = bleiben | Je reste dans ma chambre. = Ich bleibe in meinem Zimmer.
+f Le lit, c'est pour ___. | dormir | dormir; dors; dort | Das Bett ist zum Schlafen. | Nach „pour“ steht der Infinitiv.

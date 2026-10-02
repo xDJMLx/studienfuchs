@@ -1,0 +1,85 @@
+{
+  "id": "f10-u5",
+  "title": "Pronoms avancés",
+  "description": "dont, lequel, celui, Pronomen kombinieren",
+  "grade": 10,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f10-u5-l1",
+      "title": "Das Relativpronomen dont (1/2)",
+      "explanation": {"title":"dont = von dem/deren","paragraphs":["dont ersetzt de + Nomen: Le livre dont je parle (je parle de ce livre). Es kann auch Besitz ausdrücken: La fille dont le père est médecin (deren Vater).","Nach dont folgt Subjekt + Verb (kein Artikelwechsel). ce dont = das, wovon: Voilà ce dont j'ai besoin."],"examples":[{"fr":"Le livre dont je parle est excellent.","de":"Das Buch, von dem ich spreche, ist hervorragend."},{"fr":"C'est tout ce dont j'ai besoin.","de":"Das ist alles, was ich brauche."}],"tip":"Verben mit de: parler de, avoir besoin de, avoir peur de, se souvenir de → dont."},
+      "items": [
+        {"front":"le livre dont je parle","back":"das Buch, von dem ich spreche","example":"Voici le livre dont je parle.","exampleDe":"Hier ist das Buch, von dem ich spreche."},
+        {"front":"l'homme dont le fils","back":"der Mann, dessen Sohn","example":"C'est l'homme dont le fils est médecin.","exampleDe":"Das ist der Mann, dessen Sohn Arzt ist."},
+        {"front":"ce dont j'ai besoin","back":"das, was ich brauche","example":"Voilà ce dont j'ai besoin.","exampleDe":"Das ist es, was ich brauche."},
+        {"front":"la chose dont j'ai peur","back":"das, wovor ich Angst habe","example":"C'est la chose dont j'ai peur.","exampleDe":"Das ist die Sache, vor der ich Angst habe."}
+      ]
+    },
+    {
+      "id": "f10-u5-l2",
+      "title": "Das Relativpronomen dont (2/2)",
+      "items": [
+        {"front":"le pays dont je rêve","back":"das Land, von dem ich träume","example":"C'est le pays dont je rêve.","exampleDe":"Das ist das Land, von dem ich träume."},
+        {"front":"ce dont il se souvient","back":"woran er sich erinnert","example":"Je ne sais pas ce dont il se souvient.","exampleDe":"Ich weiß nicht, woran er sich erinnert."},
+        {"front":"la ville où j'habite","back":"die Stadt, in der ich wohne","example":"La ville où j'habite est petite.","exampleDe":"Die Stadt, in der ich wohne, ist klein."},
+        {"front":"le jour où il est venu","back":"der Tag, an dem er kam","example":"Le jour où il est venu, il pleuvait.","exampleDe":"An dem Tag, an dem er kam, regnete es."}
+      ],
+      "fills": [
+        {"sentence":"Le livre ___ je parle est excellent.","answer":"dont","options":["dont","que","qui","où"],"translation":"Das Buch, von dem ich spreche, ist hervorragend.","why":"parler de → dont."},
+        {"sentence":"C'est la ville ___ j'habite.","answer":"où","options":["où","dont","que","qui"],"translation":"Das ist die Stadt, in der ich wohne.","why":"Ortsangabe → où."}
+      ]
+    },
+    {
+      "id": "f10-u5-l3",
+      "title": "lequel und celui (1/2)",
+      "explanation": {"title":"Auswahl und Hinweis","paragraphs":["lequel, laquelle, lesquels, lesquelles = welcher/welche (von mehreren). Mit à/de verschmelzen sie: auquel, duquel, auxquels, desquels.","celui, celle, ceux, celles = derjenige/diejenige: celui de Paul (der von Paul), celui qui parle (der, der spricht), celui-ci / celui-là (dieser hier / jener dort)."],"examples":[{"fr":"Tu préfères quel livre ? – Celui-ci.","de":"Welches Buch magst du lieber? – Dieses hier."},{"fr":"Laquelle de ces robes te plaît ?","de":"Welches dieser Kleider gefällt dir?"}]},
+      "items": [
+        {"front":"lequel","back":"welcher (m)","example":"J'ai deux frères. Lequel est le plus grand ?","exampleDe":"Ich habe zwei Brüder. Welcher ist der größere?"},
+        {"front":"laquelle","back":"welche (f)","example":"Laquelle de ces robes te plaît ?","exampleDe":"Welches dieser Kleider gefällt dir?"},
+        {"front":"lesquels","back":"welche (m. Pl.)","example":"Lesquels de ces livres as-tu lus ?","exampleDe":"Welche dieser Bücher hast du gelesen?"},
+        {"front":"celui-ci","back":"dieser hier","example":"Je préfère celui-ci.","exampleDe":"Ich mag diesen hier lieber."},
+        {"front":"celle-là","back":"jene dort","example":"Je prends celle-là.","exampleDe":"Ich nehme jene dort."}
+      ]
+    },
+    {
+      "id": "f10-u5-l4",
+      "title": "lequel und celui (2/2)",
+      "items": [
+        {"front":"ceux qui","back":"diejenigen, die","example":"Ceux qui travaillent réussissent.","exampleDe":"Diejenigen, die arbeiten, haben Erfolg."},
+        {"front":"celui de Paul","back":"der von Paul","example":"Mon vélo est vieux, celui de Paul est neuf.","exampleDe":"Mein Fahrrad ist alt, das von Paul ist neu."},
+        {"front":"auquel","back":"welchem (à + lequel)","example":"C'est un problème auquel je pense souvent.","exampleDe":"Das ist ein Problem, an das ich oft denke."},
+        {"front":"duquel","back":"von welchem (de + lequel)","example":"C'est le sujet duquel nous parlons.","exampleDe":"Das ist das Thema, über das wir sprechen."}
+      ],
+      "fills": [
+        {"sentence":"J'ai deux frères. ___ est le plus grand ?","answer":"Lequel","options":["Lequel","Laquelle","Quel","Celui"],"translation":"Ich habe zwei Brüder. Welcher ist der größere?","why":"Auswahl aus bekannten männlichen Personen → lequel."},
+        {"sentence":"Cette robe est belle, mais ___ de Léa est plus jolie.","answer":"celle","options":["celle","celui","ceux","cela"],"translation":"Dieses Kleid ist schön, aber das von Léa ist hübscher.","why":"robe ist weiblich → celle."}
+      ]
+    },
+    {
+      "id": "f10-u5-l5",
+      "title": "Zwei Pronomen kombinieren (1/2)",
+      "explanation": {"title":"Die richtige Reihenfolge","paragraphs":["Vor dem Verb gilt die Reihenfolge: me / te / se / nous / vous → le / la / les → lui / leur → y → en.","Beispiele: Il me le donne. Je le lui dis. Il y en a trois. Im Imperativ (bejaht) stehen sie hinter dem Verb: Donne-le-moi !"],"examples":[{"fr":"Je le lui ai dit.","de":"Ich habe es ihm gesagt."},{"fr":"Donne-le-moi !","de":"Gib es mir!"}],"tip":"me/te werden im bejahten Imperativ zu moi/toi: Donne-le-moi ! aber Ne me le donne pas !"},
+      "items": [
+        {"front":"il me le donne","back":"er gibt es mir","example":"Il me le donne demain.","exampleDe":"Er gibt es mir morgen."},
+        {"front":"je te l'ai dit","back":"ich habe es dir gesagt","example":"Je te l'ai dit hier.","exampleDe":"Ich habe es dir gestern gesagt."},
+        {"front":"je le lui dis","back":"ich sage es ihm","example":"Je le lui dis tout de suite.","exampleDe":"Ich sage es ihm sofort."},
+        {"front":"je les leur montre","back":"ich zeige sie ihnen","example":"Je les leur montre demain.","exampleDe":"Ich zeige sie ihnen morgen."}
+      ]
+    },
+    {
+      "id": "f10-u5-l6",
+      "title": "Zwei Pronomen kombinieren (2/2)",
+      "items": [
+        {"front":"il y en a trois","back":"es gibt drei davon","example":"Il y en a trois sur la table.","exampleDe":"Es gibt drei davon auf dem Tisch."},
+        {"front":"donne-le-moi","back":"gib es mir","example":"C'est mon livre, donne-le-moi.","exampleDe":"Das ist mein Buch, gib es mir."},
+        {"front":"ne me le dis pas","back":"sag es mir nicht","example":"Ne me le dis pas !","exampleDe":"Sag es mir nicht!"},
+        {"front":"parle-lui","back":"sprich mit ihm","example":"Il est triste, parle-lui.","exampleDe":"Er ist traurig, sprich mit ihm."}
+      ],
+      "fills": [
+        {"sentence":"Tu as mon livre ? Donne-___-moi !","answer":"le","options":["le","lui","y","en"],"translation":"Hast du mein Buch? Gib es mir!","why":"Bejahter Imperativ: Verb – le – moi."},
+        {"sentence":"Il a dit la vérité ? – Oui, il me l'___ dite.","answer":"a","options":["a","est","ai","as"],"translation":"Hat er die Wahrheit gesagt? – Ja, er hat sie mir gesagt.","why":"passé composé mit avoir: il a dit."}
+      ]
+    }
+  ]
+}

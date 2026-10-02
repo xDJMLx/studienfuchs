@@ -1,0 +1,1128 @@
+{
+  "id": "f7-u5",
+  "title": "Un pique-nique à Paris",
+  "description": "Nahrungsmittel, Einkaufen, Teilungsartikel, pouvoir und vouloir, Verabredungen, Zahlen bis 1000",
+  "grade": 7,
+  "subject": "french",
+  "order": 60,
+  "book": "À plus ! 1 · Unité 5",
+  "lessons": [
+    {
+      "id": "f7-u5-l1",
+      "title": "Obst",
+      "items": [
+        {
+          "front": "la pomme",
+          "back": "der Apfel",
+          "example": "La pomme est rouge.",
+          "exampleDe": "Der Apfel ist rot."
+        },
+        {
+          "front": "la banane",
+          "back": "die Banane",
+          "example": "La banane est jaune.",
+          "exampleDe": "Die Banane ist gelb."
+        },
+        {
+          "front": "l'orange (f)",
+          "back": "die Orange",
+          "example": "L'orange est bonne.",
+          "exampleDe": "Die Orange schmeckt gut."
+        },
+        {
+          "front": "la fraise",
+          "back": "die Erdbeere",
+          "example": "La fraise est rouge.",
+          "exampleDe": "Die Erdbeere ist rot."
+        },
+        {
+          "front": "le raisin",
+          "back": "die Trauben",
+          "example": "Le raisin est sucré.",
+          "exampleDe": "Die Trauben sind süß."
+        },
+        {
+          "front": "la poire",
+          "back": "die Birne",
+          "example": "La poire est verte.",
+          "exampleDe": "Die Birne ist grün."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l2",
+      "title": "Gemüse",
+      "items": [
+        {
+          "front": "la tomate",
+          "back": "die Tomate",
+          "example": "La tomate est rouge.",
+          "exampleDe": "Die Tomate ist rot."
+        },
+        {
+          "front": "la carotte",
+          "back": "die Karotte",
+          "example": "La carotte est orange.",
+          "exampleDe": "Die Karotte ist orange."
+        },
+        {
+          "front": "la pomme de terre",
+          "back": "die Kartoffel",
+          "example": "Je mange une pomme de terre.",
+          "exampleDe": "Ich esse eine Kartoffel."
+        },
+        {
+          "front": "l'oignon (m)",
+          "back": "die Zwiebel",
+          "example": "L'oignon est blanc.",
+          "exampleDe": "Die Zwiebel ist weiß."
+        },
+        {
+          "front": "le concombre",
+          "back": "die Gurke",
+          "example": "Le concombre est vert.",
+          "exampleDe": "Die Gurke ist grün."
+        },
+        {
+          "front": "le champignon",
+          "back": "der Pilz",
+          "example": "Le champignon est bon.",
+          "exampleDe": "Der Pilz schmeckt gut."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l3",
+      "title": "Brot, Käse, Wurst",
+      "items": [
+        {
+          "front": "le pain",
+          "back": "das Brot",
+          "example": "Le pain est chaud.",
+          "exampleDe": "Das Brot ist warm."
+        },
+        {
+          "front": "la baguette",
+          "back": "das Baguette",
+          "example": "Je prends une baguette.",
+          "exampleDe": "Ich nehme ein Baguette."
+        },
+        {
+          "front": "le fromage",
+          "back": "der Käse",
+          "example": "J'adore le fromage.",
+          "exampleDe": "Ich liebe Käse."
+        },
+        {
+          "front": "le jambon",
+          "back": "der Schinken",
+          "example": "Le jambon est bon.",
+          "exampleDe": "Der Schinken ist gut."
+        },
+        {
+          "front": "le beurre",
+          "back": "die Butter",
+          "example": "Le beurre est sur la table.",
+          "exampleDe": "Die Butter steht auf dem Tisch."
+        },
+        {
+          "front": "l'œuf (m)",
+          "back": "das Ei",
+          "example": "L'œuf est blanc.",
+          "exampleDe": "Das Ei ist weiß."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l4",
+      "title": "Weitere Lebensmittel",
+      "items": [
+        {
+          "front": "la viande",
+          "back": "das Fleisch",
+          "example": "Je ne mange pas de viande.",
+          "exampleDe": "Ich esse kein Fleisch."
+        },
+        {
+          "front": "le sandwich",
+          "back": "das Sandwich",
+          "example": "Le sandwich est grand.",
+          "exampleDe": "Das Sandwich ist groß."
+        },
+        {
+          "front": "le saucisson",
+          "back": "die Wurst",
+          "example": "Le saucisson est bon.",
+          "exampleDe": "Die Wurst ist gut."
+        },
+        {
+          "front": "le yaourt",
+          "back": "der Joghurt",
+          "example": "Le yaourt est froid.",
+          "exampleDe": "Der Joghurt ist kalt."
+        },
+        {
+          "front": "la confiture",
+          "back": "die Marmelade",
+          "example": "La confiture est sucrée.",
+          "exampleDe": "Die Marmelade ist süß."
+        },
+        {
+          "front": "le sucre",
+          "back": "der Zucker",
+          "example": "Le sucre est blanc.",
+          "exampleDe": "Der Zucker ist weiß."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l5",
+      "title": "Getränke",
+      "items": [
+        {
+          "front": "le jus de pomme",
+          "back": "der Apfelsaft",
+          "example": "Le jus de pomme est frais.",
+          "exampleDe": "Der Apfelsaft ist frisch."
+        },
+        {
+          "front": "le thé",
+          "back": "der Tee",
+          "example": "Le thé est chaud.",
+          "exampleDe": "Der Tee ist heiß."
+        },
+        {
+          "front": "le chocolat chaud",
+          "back": "die heiße Schokolade",
+          "example": "Le chocolat chaud est super.",
+          "exampleDe": "Die heiße Schokolade ist super."
+        },
+        {
+          "front": "la limonade",
+          "back": "die Limonade",
+          "example": "La limonade est froide.",
+          "exampleDe": "Die Limonade ist kalt."
+        },
+        {
+          "front": "boire",
+          "back": "trinken",
+          "example": "Je bois de l'eau.",
+          "exampleDe": "Ich trinke Wasser."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l6",
+      "title": "Der Teilungsartikel",
+      "items": [
+        {
+          "front": "du pain",
+          "back": "Brot",
+          "example": "Je mange du pain.",
+          "exampleDe": "Ich esse Brot."
+        },
+        {
+          "front": "de la confiture",
+          "back": "Marmelade",
+          "example": "Elle prend de la confiture.",
+          "exampleDe": "Sie nimmt Marmelade."
+        },
+        {
+          "front": "de l'eau",
+          "back": "Wasser",
+          "example": "Je bois de l'eau.",
+          "exampleDe": "Ich trinke Wasser."
+        },
+        {
+          "front": "des fraises",
+          "back": "Erdbeeren",
+          "example": "Nous mangeons des fraises.",
+          "exampleDe": "Wir essen Erdbeeren."
+        },
+        {
+          "front": "ne … pas de",
+          "back": "kein(e)",
+          "example": "Je ne mange pas de viande.",
+          "exampleDe": "Ich esse kein Fleisch."
+        }
+      ],
+      "explanation": {
+        "title": "du, de la, de l', des",
+        "paragraphs": [
+          "Für eine unbestimmte Menge, die man nicht zählt, brauchst du den Teilungsartikel: du pain, de la salade, de l'eau, des fraises.",
+          "Nach einer Verneinung steht nur „de“: Je ne mange pas de pain. Nach einer Mengenangabe auch: un kilo de pommes."
+        ],
+        "examples": [
+          {
+            "fr": "Je mange du pain.",
+            "de": "Ich esse Brot."
+          },
+          {
+            "fr": "Elle prend de la salade.",
+            "de": "Sie nimmt Salat."
+          },
+          {
+            "fr": "Je ne bois pas de lait.",
+            "de": "Ich trinke keine Milch."
+          }
+        ],
+        "tip": "„Du“ heißt hier nicht „von dem“, sondern „etwas“. Im Deutschen lässt man es einfach weg."
+      },
+      "fills": [
+        {
+          "sentence": "Je mange ___ pain.",
+          "answer": "du",
+          "options": [
+            "du",
+            "de la",
+            "des"
+          ],
+          "translation": "Ich esse Brot.",
+          "why": "„pain“ ist männlich → du."
+        },
+        {
+          "sentence": "Elle boit ___ eau.",
+          "answer": "de l'",
+          "options": [
+            "de l'",
+            "du",
+            "de la"
+          ],
+          "translation": "Sie trinkt Wasser.",
+          "why": "Vor Vokal: de l'."
+        },
+        {
+          "sentence": "Je ne mange pas ___ viande.",
+          "answer": "de",
+          "options": [
+            "de",
+            "du",
+            "de la"
+          ],
+          "translation": "Ich esse kein Fleisch.",
+          "why": "Nach der Verneinung steht nur „de“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l7",
+      "title": "Verben mit Besonderheiten",
+      "items": [
+        {
+          "front": "acheter",
+          "back": "kaufen",
+          "example": "J'achète du pain.",
+          "exampleDe": "Ich kaufe Brot."
+        },
+        {
+          "front": "préférer",
+          "back": "lieber mögen",
+          "example": "Je préfère le fromage.",
+          "exampleDe": "Ich mag Käse lieber."
+        },
+        {
+          "front": "appeler",
+          "back": "rufen / anrufen",
+          "example": "J'appelle mon ami.",
+          "exampleDe": "Ich rufe meinen Freund an."
+        },
+        {
+          "front": "payer",
+          "back": "bezahlen",
+          "example": "Je paie la glace.",
+          "exampleDe": "Ich bezahle das Eis."
+        },
+        {
+          "front": "goûter",
+          "back": "probieren",
+          "example": "Je goûte la tarte.",
+          "exampleDe": "Ich probiere die Torte."
+        }
+      ],
+      "explanation": {
+        "title": "Kleine Veränderungen bei Verben auf -er",
+        "paragraphs": [
+          "Bei manchen Verben ändert sich die Schreibung: manger → nous mangeons (mit e), acheter → j'achète (mit è), préférer → je préfère (mit è), appeler → j'appelle (mit ll).",
+          "Die Veränderung steht in den Formen, die du hörst: je, tu, il, ils – nicht bei nous und vous."
+        ],
+        "examples": [
+          {
+            "fr": "j'achète, nous achetons",
+            "de": "ich kaufe, wir kaufen"
+          },
+          {
+            "fr": "je préfère, nous préférons",
+            "de": "ich bevorzuge, wir bevorzugen"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "J'___ du pain.",
+          "answer": "achète",
+          "options": [
+            "achète",
+            "achetons",
+            "achetez"
+          ],
+          "translation": "Ich kaufe Brot.",
+          "why": "Bei „je“ wird aus e ein è."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l8",
+      "title": "Einkaufen gehen",
+      "items": [
+        {
+          "front": "le supermarché",
+          "back": "der Supermarkt",
+          "example": "Le supermarché est près d'ici.",
+          "exampleDe": "Der Supermarkt ist in der Nähe."
+        },
+        {
+          "front": "la boulangerie",
+          "back": "die Bäckerei",
+          "example": "La boulangerie est à côté.",
+          "exampleDe": "Die Bäckerei ist nebenan."
+        },
+        {
+          "front": "le marché",
+          "back": "der Markt",
+          "example": "Nous allons au marché.",
+          "exampleDe": "Wir gehen auf den Markt."
+        },
+        {
+          "front": "le magasin",
+          "back": "das Geschäft",
+          "example": "Le magasin est fermé.",
+          "exampleDe": "Das Geschäft ist geschlossen."
+        },
+        {
+          "front": "faire les courses",
+          "back": "einkaufen gehen",
+          "example": "Je fais les courses.",
+          "exampleDe": "Ich gehe einkaufen."
+        },
+        {
+          "front": "le prix",
+          "back": "der Preis",
+          "example": "Le prix est bas.",
+          "exampleDe": "Der Preis ist niedrig."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l9",
+      "title": "Mengenangaben",
+      "items": [
+        {
+          "front": "un kilo de",
+          "back": "ein Kilo",
+          "example": "Un kilo de pommes, s'il vous plaît.",
+          "exampleDe": "Ein Kilo Äpfel, bitte."
+        },
+        {
+          "front": "un litre de",
+          "back": "ein Liter",
+          "example": "Un litre de lait, s'il vous plaît.",
+          "exampleDe": "Einen Liter Milch, bitte."
+        },
+        {
+          "front": "une bouteille de",
+          "back": "eine Flasche",
+          "example": "Une bouteille d'eau, s'il vous plaît.",
+          "exampleDe": "Eine Flasche Wasser, bitte."
+        },
+        {
+          "front": "un paquet de",
+          "back": "eine Packung",
+          "example": "Un paquet de sucre, s'il vous plaît.",
+          "exampleDe": "Eine Packung Zucker, bitte."
+        },
+        {
+          "front": "une boîte de",
+          "back": "eine Dose / eine Schachtel",
+          "example": "Une boîte de thé, s'il vous plaît.",
+          "exampleDe": "Eine Schachtel Tee, bitte."
+        },
+        {
+          "front": "cent grammes de",
+          "back": "hundert Gramm",
+          "example": "Cent grammes de jambon, s'il vous plaît.",
+          "exampleDe": "Hundert Gramm Schinken, bitte."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l10",
+      "title": "Zahlen 61 bis 79",
+      "items": [
+        {
+          "front": "soixante et un",
+          "back": "einundsechzig",
+          "example": "Il y a soixante et un euros.",
+          "exampleDe": "Es sind einundsechzig Euro."
+        },
+        {
+          "front": "soixante-cinq",
+          "back": "fünfundsechzig",
+          "example": "Ça coûte soixante-cinq euros.",
+          "exampleDe": "Das kostet fünfundsechzig Euro."
+        },
+        {
+          "front": "soixante-dix",
+          "back": "siebzig",
+          "example": "Soixante-dix, c'est soixante plus dix.",
+          "exampleDe": "Siebzig ist sechzig plus zehn."
+        },
+        {
+          "front": "soixante et onze",
+          "back": "einundsiebzig",
+          "example": "Mon grand-père a soixante et onze ans.",
+          "exampleDe": "Mein Opa ist einundsiebzig."
+        },
+        {
+          "front": "soixante-quinze",
+          "back": "fünfundsiebzig",
+          "example": "La baguette coûte soixante-quinze centimes.",
+          "exampleDe": "Das Baguette kostet fünfundsiebzig Cent."
+        }
+      ],
+      "explanation": {
+        "title": "Zahlen über 60",
+        "paragraphs": [
+          "Ab 70 zählt man im Französischen „sechzig und zehn“: soixante-dix (70), soixante et onze (71), soixante-douze (72) …"
+        ],
+        "examples": [
+          {
+            "fr": "soixante-dix, soixante et onze",
+            "de": "siebzig, einundsiebzig"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Soixante-neuf, ___",
+          "answer": "soixante-dix",
+          "options": [
+            "soixante-dix",
+            "soixante",
+            "quatre-vingts"
+          ],
+          "translation": "Neunundsechzig, siebzig",
+          "why": "Nach 69 kommt 70."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l11",
+      "title": "Zahlen 80 bis 100",
+      "items": [
+        {
+          "front": "quatre-vingts",
+          "back": "achtzig",
+          "example": "Quatre-vingts élèves sont ici.",
+          "exampleDe": "Achtzig Schüler sind hier."
+        },
+        {
+          "front": "quatre-vingt-un",
+          "back": "einundachtzig",
+          "example": "Il y a quatre-vingt-un livres.",
+          "exampleDe": "Es gibt einundachtzig Bücher."
+        },
+        {
+          "front": "quatre-vingt-dix",
+          "back": "neunzig",
+          "example": "Ça coûte quatre-vingt-dix euros.",
+          "exampleDe": "Das kostet neunzig Euro."
+        },
+        {
+          "front": "quatre-vingt-quinze",
+          "back": "fünfundneunzig",
+          "example": "J'ai quatre-vingt-quinze points.",
+          "exampleDe": "Ich habe fünfundneunzig Punkte."
+        },
+        {
+          "front": "cent",
+          "back": "hundert",
+          "example": "Cent euros, c'est beaucoup.",
+          "exampleDe": "Hundert Euro sind viel."
+        },
+        {
+          "front": "mille",
+          "back": "tausend",
+          "example": "Mille élèves sont au collège.",
+          "exampleDe": "Tausend Schüler sind in der Schule."
+        }
+      ],
+      "explanation": {
+        "title": "Achtzig ist „vier mal zwanzig“",
+        "paragraphs": [
+          "quatre-vingts (80) heißt wörtlich „vier Zwanziger“. Dazu: quatre-vingt-un (81), quatre-vingt-dix (90), quatre-vingt-onze (91) …"
+        ],
+        "tip": "Bei 80 steht ein -s: quatre-vingts. Mit einer weiteren Zahl fällt es weg: quatre-vingt-deux."
+      }
+    },
+    {
+      "id": "f7-u5-l12",
+      "title": "Preise",
+      "items": [
+        {
+          "front": "l'euro (m)",
+          "back": "der Euro",
+          "example": "Ça coûte cinq euros.",
+          "exampleDe": "Das kostet fünf Euro."
+        },
+        {
+          "front": "le centime",
+          "back": "der Cent",
+          "example": "Ça coûte cinquante centimes.",
+          "exampleDe": "Das kostet fünfzig Cent."
+        },
+        {
+          "front": "ça coûte …",
+          "back": "das kostet …",
+          "example": "Ça coûte combien ?",
+          "exampleDe": "Wie viel kostet das?"
+        },
+        {
+          "front": "cher / chère",
+          "back": "teuer",
+          "example": "La glace est chère.",
+          "exampleDe": "Das Eis ist teuer."
+        },
+        {
+          "front": "bon marché",
+          "back": "günstig",
+          "example": "Le pain est bon marché.",
+          "exampleDe": "Das Brot ist günstig."
+        },
+        {
+          "front": "la monnaie",
+          "back": "das Wechselgeld",
+          "example": "Voilà la monnaie.",
+          "exampleDe": "Hier ist das Wechselgeld."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l13",
+      "title": "Das braucht man",
+      "items": [
+        {
+          "front": "il faut",
+          "back": "man braucht / man muss",
+          "example": "Il faut du sucre.",
+          "exampleDe": "Man braucht Zucker."
+        },
+        {
+          "front": "il ne faut pas",
+          "back": "man darf nicht",
+          "example": "Il ne faut pas trop manger.",
+          "exampleDe": "Man soll nicht zu viel essen."
+        },
+        {
+          "front": "avoir besoin de",
+          "back": "brauchen",
+          "example": "J'ai besoin de pain.",
+          "exampleDe": "Ich brauche Brot."
+        },
+        {
+          "front": "chercher",
+          "back": "suchen",
+          "example": "Je cherche le fromage.",
+          "exampleDe": "Ich suche den Käse."
+        },
+        {
+          "front": "tout de suite",
+          "back": "sofort",
+          "example": "J'arrive tout de suite.",
+          "exampleDe": "Ich komme sofort."
+        }
+      ],
+      "explanation": {
+        "title": "il faut",
+        "paragraphs": [
+          "„Il faut“ + Nomen heißt „man braucht“: Il faut du pain. „Il faut“ + Infinitiv heißt „man muss“: Il faut manger.",
+          "Verneint: „Il ne faut pas“ heißt „man darf nicht“."
+        ],
+        "examples": [
+          {
+            "fr": "Il faut du pain.",
+            "de": "Man braucht Brot."
+          },
+          {
+            "fr": "Il faut acheter du fromage.",
+            "de": "Man muss Käse kaufen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Il ___ du pain.",
+          "answer": "faut",
+          "options": [
+            "faut",
+            "fait",
+            "fais"
+          ],
+          "translation": "Man braucht Brot.",
+          "why": "„Il faut“ = man braucht."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l14",
+      "title": "Das Verb pouvoir (1/2)",
+      "items": [
+        {
+          "front": "je peux",
+          "back": "ich kann / darf",
+          "example": "Je peux venir.",
+          "exampleDe": "Ich kann kommen."
+        },
+        {
+          "front": "tu peux",
+          "back": "du kannst",
+          "example": "Tu peux acheter du pain ?",
+          "exampleDe": "Kannst du Brot kaufen?"
+        },
+        {
+          "front": "il / elle peut",
+          "back": "er / sie kann",
+          "example": "Elle peut jouer.",
+          "exampleDe": "Sie kann spielen."
+        }
+      ],
+      "explanation": {
+        "title": "pouvoir (können / dürfen)",
+        "paragraphs": [
+          "pouvoir ist unregelmäßig: je peux, tu peux, il/elle peut, nous pouvons, vous pouvez, ils/elles peuvent.",
+          "Nach „pouvoir“ steht der Infinitiv: Je peux venir. Du bittest höflich: „Je peux … ?“"
+        ],
+        "examples": [
+          {
+            "fr": "Je peux prendre un sandwich ?",
+            "de": "Kann ich ein Sandwich nehmen?"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Tu ___ acheter du pain ?",
+          "answer": "peux",
+          "options": [
+            "peux",
+            "peut",
+            "pouvons"
+          ],
+          "translation": "Kannst du Brot kaufen?",
+          "why": "Zu „tu“ passt „peux“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l15",
+      "title": "Das Verb pouvoir (2/2)",
+      "items": [
+        {
+          "front": "nous pouvons",
+          "back": "wir können",
+          "example": "Nous pouvons manger ici.",
+          "exampleDe": "Wir können hier essen."
+        },
+        {
+          "front": "vous pouvez",
+          "back": "ihr könnt / Sie können",
+          "example": "Vous pouvez venir.",
+          "exampleDe": "Ihr könnt kommen."
+        },
+        {
+          "front": "ils / elles peuvent",
+          "back": "sie können",
+          "example": "Ils peuvent jouer.",
+          "exampleDe": "Sie können spielen."
+        },
+        {
+          "front": "venir",
+          "back": "kommen",
+          "example": "Tu peux venir au pique-nique ?",
+          "exampleDe": "Kannst du zum Picknick kommen?"
+        },
+        {
+          "front": "ensuite",
+          "back": "dann",
+          "example": "Ensuite, nous mangeons.",
+          "exampleDe": "Dann essen wir."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Nous ___ manger ici.",
+          "answer": "pouvons",
+          "options": [
+            "pouvons",
+            "pouvez",
+            "peuvent"
+          ],
+          "translation": "Wir können hier essen.",
+          "why": "Zu „nous“ passt „pouvons“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l16",
+      "title": "Das Verb vouloir",
+      "items": [
+        {
+          "front": "je veux",
+          "back": "ich will",
+          "example": "Je veux un sandwich.",
+          "exampleDe": "Ich will ein Sandwich."
+        },
+        {
+          "front": "tu veux",
+          "back": "du willst",
+          "example": "Tu veux de la tarte ?",
+          "exampleDe": "Willst du Torte?"
+        },
+        {
+          "front": "il / elle veut",
+          "back": "er / sie will",
+          "example": "Il veut du jus.",
+          "exampleDe": "Er will Saft."
+        },
+        {
+          "front": "nous voulons",
+          "back": "wir wollen",
+          "example": "Nous voulons un pique-nique.",
+          "exampleDe": "Wir wollen ein Picknick."
+        },
+        {
+          "front": "vous voulez",
+          "back": "ihr wollt / Sie wollen",
+          "example": "Vous voulez du pain ?",
+          "exampleDe": "Wollt ihr Brot?"
+        },
+        {
+          "front": "ils / elles veulent",
+          "back": "sie wollen",
+          "example": "Elles veulent des fraises.",
+          "exampleDe": "Sie wollen Erdbeeren."
+        }
+      ],
+      "explanation": {
+        "title": "vouloir (wollen)",
+        "paragraphs": [
+          "vouloir ist unregelmäßig: je veux, tu veux, il/elle veut, nous voulons, vous voulez, ils/elles veulent.",
+          "„Je veux“ klingt direkt. Höflicher ist „je voudrais“ (ich möchte)."
+        ],
+        "examples": [
+          {
+            "fr": "Je veux un sandwich.",
+            "de": "Ich will ein Sandwich."
+          },
+          {
+            "fr": "Tu veux venir ?",
+            "de": "Willst du kommen?"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Tu ___ de la tarte ?",
+          "answer": "veux",
+          "options": [
+            "veux",
+            "veut",
+            "voulez"
+          ],
+          "translation": "Willst du Torte?",
+          "why": "Zu „tu“ passt „veux“."
+        },
+        {
+          "sentence": "Ils ___ des fraises.",
+          "answer": "veulent",
+          "options": [
+            "veulent",
+            "veut",
+            "voulons"
+          ],
+          "translation": "Sie wollen Erdbeeren.",
+          "why": "Zu „ils“ passt „veulent“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l17",
+      "title": "Vorschläge machen",
+      "items": [
+        {
+          "front": "on peut …",
+          "back": "wir können …",
+          "example": "On peut faire un pique-nique.",
+          "exampleDe": "Wir können ein Picknick machen."
+        },
+        {
+          "front": "c'est une bonne idée",
+          "back": "das ist eine gute Idee",
+          "example": "Un pique-nique ? C'est une bonne idée !",
+          "exampleDe": "Ein Picknick? Gute Idee!"
+        },
+        {
+          "front": "d'accord",
+          "back": "einverstanden",
+          "example": "D'accord, on y va.",
+          "exampleDe": "Einverstanden, wir gehen."
+        },
+        {
+          "front": "avec plaisir",
+          "back": "gern",
+          "example": "Tu viens ? – Avec plaisir.",
+          "exampleDe": "Kommst du? – Gern."
+        },
+        {
+          "front": "on y va",
+          "back": "los geht's / wir gehen",
+          "example": "D'accord, on y va !",
+          "exampleDe": "Einverstanden, los geht's!"
+        },
+        {
+          "front": "l'idée (f)",
+          "back": "die Idee",
+          "example": "J'ai une idée.",
+          "exampleDe": "Ich habe eine Idee."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l18",
+      "title": "Sich verabreden",
+      "items": [
+        {
+          "front": "le rendez-vous",
+          "back": "die Verabredung",
+          "example": "J'ai un rendez-vous avec Léa.",
+          "exampleDe": "Ich habe eine Verabredung mit Léa."
+        },
+        {
+          "front": "on se retrouve …",
+          "back": "wir treffen uns …",
+          "example": "On se retrouve devant la gare.",
+          "exampleDe": "Wir treffen uns vor dem Bahnhof."
+        },
+        {
+          "front": "à tout à l'heure",
+          "back": "bis gleich",
+          "example": "À tout à l'heure, Paul !",
+          "exampleDe": "Bis gleich, Paul!"
+        },
+        {
+          "front": "à demain",
+          "back": "bis morgen",
+          "example": "À demain, Léa !",
+          "exampleDe": "Bis morgen, Léa!"
+        },
+        {
+          "front": "à quelle heure ?",
+          "back": "um wie viel Uhr?",
+          "example": "On se retrouve à quelle heure ?",
+          "exampleDe": "Wann treffen wir uns?"
+        },
+        {
+          "front": "bien sûr",
+          "back": "natürlich",
+          "example": "Tu viens ? – Bien sûr !",
+          "exampleDe": "Kommst du? – Natürlich!"
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l19",
+      "title": "Das Picknick",
+      "items": [
+        {
+          "front": "le pique-nique",
+          "back": "das Picknick",
+          "example": "Nous faisons un pique-nique.",
+          "exampleDe": "Wir machen ein Picknick."
+        },
+        {
+          "front": "le panier",
+          "back": "der Korb",
+          "example": "Le panier est lourd.",
+          "exampleDe": "Der Korb ist schwer."
+        },
+        {
+          "front": "la couverture",
+          "back": "die Decke",
+          "example": "La couverture est sur l'herbe.",
+          "exampleDe": "Die Decke liegt auf dem Gras."
+        },
+        {
+          "front": "l'herbe (f)",
+          "back": "das Gras",
+          "example": "L'herbe est verte.",
+          "exampleDe": "Das Gras ist grün."
+        },
+        {
+          "front": "le verre",
+          "back": "das Glas",
+          "example": "Le verre est plein.",
+          "exampleDe": "Das Glas ist voll."
+        },
+        {
+          "front": "la bouteille",
+          "back": "die Flasche",
+          "example": "La bouteille est vide.",
+          "exampleDe": "Die Flasche ist leer."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l20",
+      "title": "Das Besteck",
+      "items": [
+        {
+          "front": "la fourchette",
+          "back": "die Gabel",
+          "example": "La fourchette est sur la table.",
+          "exampleDe": "Die Gabel liegt auf dem Tisch."
+        },
+        {
+          "front": "le couteau",
+          "back": "das Messer",
+          "example": "Le couteau est là.",
+          "exampleDe": "Das Messer ist da."
+        },
+        {
+          "front": "la cuillère",
+          "back": "der Löffel",
+          "example": "La cuillère est petite.",
+          "exampleDe": "Der Löffel ist klein."
+        },
+        {
+          "front": "l'assiette (f)",
+          "back": "der Teller",
+          "example": "L'assiette est blanche.",
+          "exampleDe": "Der Teller ist weiß."
+        },
+        {
+          "front": "la serviette",
+          "back": "die Serviette",
+          "example": "La serviette est sur la table.",
+          "exampleDe": "Die Serviette liegt auf dem Tisch."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l21",
+      "title": "Ein Rezept verstehen",
+      "items": [
+        {
+          "front": "la recette",
+          "back": "das Rezept",
+          "example": "La recette est facile.",
+          "exampleDe": "Das Rezept ist leicht."
+        },
+        {
+          "front": "l'ingrédient (m)",
+          "back": "die Zutat",
+          "example": "Voici les ingrédients.",
+          "exampleDe": "Hier sind die Zutaten."
+        },
+        {
+          "front": "couper",
+          "back": "schneiden",
+          "example": "Je coupe le pain.",
+          "exampleDe": "Ich schneide das Brot."
+        },
+        {
+          "front": "mélanger",
+          "back": "mischen",
+          "example": "Nous mélangeons les fruits.",
+          "exampleDe": "Wir mischen das Obst."
+        },
+        {
+          "front": "ajouter",
+          "back": "hinzufügen",
+          "example": "J'ajoute du sucre.",
+          "exampleDe": "Ich gebe Zucker dazu."
+        },
+        {
+          "front": "préparer",
+          "back": "vorbereiten / zubereiten",
+          "example": "Je prépare un sandwich.",
+          "exampleDe": "Ich mache ein Sandwich."
+        }
+      ]
+    },
+    {
+      "id": "f7-u5-l22",
+      "title": "Unbestimmte Wörter",
+      "items": [
+        {
+          "front": "quelque chose",
+          "back": "etwas",
+          "example": "Je voudrais quelque chose à boire.",
+          "exampleDe": "Ich möchte etwas zu trinken."
+        },
+        {
+          "front": "quelqu'un",
+          "back": "jemand",
+          "example": "Quelqu'un veut du pain ?",
+          "exampleDe": "Will jemand Brot?"
+        },
+        {
+          "front": "tout",
+          "back": "alles",
+          "example": "J'aime tout.",
+          "exampleDe": "Ich mag alles."
+        },
+        {
+          "front": "quelques",
+          "back": "einige",
+          "example": "J'ai quelques fraises.",
+          "exampleDe": "Ich habe einige Erdbeeren."
+        },
+        {
+          "front": "chaque",
+          "back": "jede(r)",
+          "example": "Chaque élève a un panier.",
+          "exampleDe": "Jeder Schüler hat einen Korb."
+        }
+      ],
+      "explanation": {
+        "title": "Indefinitpronomen",
+        "paragraphs": [
+          "„Quelque chose“ heißt „etwas“, „quelqu'un“ heißt „jemand“. „Tout“ heißt „alles“.",
+          "„Quelques“ steht vor Nomen im Plural und bedeutet „einige“: quelques fraises."
+        ],
+        "examples": [
+          {
+            "fr": "Tu veux quelque chose ?",
+            "de": "Willst du etwas?"
+          },
+          {
+            "fr": "Il y a quelqu'un ?",
+            "de": "Ist jemand da?"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Tu veux ___ à boire ?",
+          "answer": "quelque chose",
+          "options": [
+            "quelque chose",
+            "quelqu'un",
+            "quelques"
+          ],
+          "translation": "Willst du etwas zu trinken?",
+          "why": "„etwas“ = quelque chose."
+        }
+      ]
+    }
+  ]
+}

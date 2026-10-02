@@ -1,0 +1,65 @@
+{
+  "id": "f9-relations",
+  "title": "Les relations",
+  "description": "Gefühle, Freundschaft, Streit, Rat",
+  "grade": 9,
+  "order": 65,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f9-relations-l1",
+      "title": "Gefühle",
+      "items": [
+        {"front":"heureux / heureuse","back":"glücklich","example":"Elle est heureuse de te voir.","exampleDe":"Sie freut sich, dich zu sehen."},
+        {"front":"triste","back":"traurig","example":"Pourquoi tu es triste ?","exampleDe":"Warum bist du traurig?"},
+        {"front":"en colère","back":"wütend","example":"Il est en colère contre moi.","exampleDe":"Er ist wütend auf mich."},
+        {"front":"jaloux / jalouse","back":"eifersüchtig","example":"Il est jaloux de son frère.","exampleDe":"Er ist eifersüchtig auf seinen Bruder."},
+        {"front":"fier / fière","back":"stolz","example":"Je suis fier de toi.","exampleDe":"Ich bin stolz auf dich."},
+        {"front":"déçu","back":"enttäuscht","example":"Je suis déçu du résultat.","exampleDe":"Ich bin vom Ergebnis enttäuscht."},
+        {"front":"inquiet / inquiète","back":"besorgt","example":"Elle est inquiète pour sa mère.","exampleDe":"Sie macht sich Sorgen um ihre Mutter."}
+      ]
+    },
+    {
+      "id": "f9-relations-l2",
+      "title": "Freundschaft",
+      "items": [
+        {"front":"s'entendre bien","back":"sich gut verstehen","example":"Nous nous entendons bien.","exampleDe":"Wir verstehen uns gut."},
+        {"front":"faire confiance","back":"vertrauen","example":"Je te fais confiance.","exampleDe":"Ich vertraue dir."},
+        {"front":"dire la vérité","back":"die Wahrheit sagen","example":"Il faut dire la vérité.","exampleDe":"Man muss die Wahrheit sagen."},
+        {"front":"mentir","back":"lügen","example":"Il ne faut pas mentir.","exampleDe":"Man darf nicht lügen."},
+        {"front":"se confier","back":"sich anvertrauen","example":"Je me confie à mon meilleur ami.","exampleDe":"Ich vertraue mich meinem besten Freund an."},
+        {"front":"un vrai ami","back":"ein echter Freund","example":"Paul est un vrai ami.","exampleDe":"Paul ist ein echter Freund."}
+      ]
+    },
+    {
+      "id": "f9-relations-l3",
+      "title": "Streit und Versöhnung",
+      "items": [
+        {"front":"se disputer","back":"sich streiten","example":"Ils se disputent souvent.","exampleDe":"Sie streiten sich oft."},
+        {"front":"se réconcilier","back":"sich versöhnen","example":"Ils se sont réconciliés.","exampleDe":"Sie haben sich versöhnt."},
+        {"front":"pardonner","back":"verzeihen","example":"Je te pardonne.","exampleDe":"Ich verzeihe dir."},
+        {"front":"s'excuser","back":"sich entschuldigen","example":"Il s'excuse pour son retard.","exampleDe":"Er entschuldigt sich für seine Verspätung."},
+        {"front":"un malentendu","back":"ein Missverständnis","example":"C'est un malentendu.","exampleDe":"Das ist ein Missverständnis."},
+        {"front":"avoir tort","back":"Unrecht haben","example":"Je reconnais que j'ai tort.","exampleDe":"Ich gebe zu, dass ich Unrecht habe."},
+        {"front":"avoir raison","back":"Recht haben","example":"Tu as raison.","exampleDe":"Du hast Recht."}
+      ]
+    },
+    {
+      "id": "f9-relations-l4",
+      "title": "Rat geben",
+      "explanation": {"title":"Ratschläge und subjonctif","paragraphs":["Ratschläge gibst du mit Tu devrais … (Du solltest …) oder Il faut que + subjonctif: Il faut que tu lui parles.","Gefühle lösen oft den subjonctif aus: Je suis content que tu sois là. Je regrette qu'il soit parti."],"examples":[{"fr":"Il faut que tu lui parles.","de":"Du musst mit ihm sprechen."},{"fr":"Je suis content que tu sois là.","de":"Ich freue mich, dass du da bist."}]},
+      "items": [
+        {"front":"tu devrais","back":"du solltest","example":"Tu devrais lui parler.","exampleDe":"Du solltest mit ihm sprechen."},
+        {"front":"il faut que tu lui parles","back":"du musst mit ihm sprechen","example":"Il faut que tu lui parles.","exampleDe":"Du musst mit ihm sprechen."},
+        {"front":"je suis content que tu sois là","back":"ich freue mich, dass du da bist","example":"Je suis content que tu sois là.","exampleDe":"Ich freue mich, dass du da bist."},
+        {"front":"je regrette qu'il soit parti","back":"ich bedaure, dass er gegangen ist","example":"Je regrette qu'il soit parti.","exampleDe":"Ich bedaure, dass er gegangen ist."},
+        {"front":"demander conseil","back":"um Rat fragen","example":"Je demande conseil à ma mère.","exampleDe":"Ich frage meine Mutter um Rat."},
+        {"front":"soutenir","back":"unterstützen","example":"Mes amis me soutiennent.","exampleDe":"Meine Freunde unterstützen mich."}
+      ],
+      "fills": [
+        {"sentence":"Il faut que tu lui ___.","answer":"parles","options":["parles","parle","parleras","parlerais"],"translation":"Du musst mit ihm sprechen.","why":"il faut que + subjonctif (tu parles)."},
+        {"sentence":"Je suis content que tu ___ là.","answer":"sois","options":["sois","es","seras","serais"],"translation":"Ich freue mich, dass du da bist.","why":"Gefühl + que → subjonctif von être: que tu sois."}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+id: f7-m2
+title: En cours de français (2)
+book: À plus ! 1 · Module 2 En cours de français
+desc: Arbeitsanweisungen im Buch verstehen, im Unterricht nachfragen
+order: 35
+
+= Arbeitsanweisungen (1/2)
+? Aufgaben im Buch
+p Im Lehrbuch stehen die Aufgaben als kurze Aufforderungen. Du erkennst sie an der Endung -ez oder -e.
+e Complétez les phrases ! = Ergänzt die Sätze!
+e Choisissez la bonne réponse ! = Wählt die richtige Antwort!
+- complétez ! = ergänzt! | Complétez la phrase. = Ergänzt den Satz.
+- choisissez ! = wählt! | Choisissez un mot. = Wählt ein Wort.
+- notez ! = notiert! | Notez les réponses. = Notiert die Antworten.
+- cherchez ! = sucht! | Cherchez le mot dans le texte. = Sucht das Wort im Text.
+- associez ! = ordnet zu! | Associez les mots. = Ordnet die Wörter zu.
+
+= Arbeitsanweisungen (2/2)
+- corrigez ! = verbessert! | Corrigez les fautes. = Verbessert die Fehler.
+- comparez ! = vergleicht! | Comparez vos réponses. = Vergleicht eure Antworten.
+- racontez ! = erzählt! | Racontez l'histoire. = Erzählt die Geschichte.
+- discutez ! = diskutiert! | Discutez avec votre voisin. = Diskutiert mit eurem Nachbarn.
+- la faute = der Fehler | Il y a une faute ici. = Hier ist ein Fehler.
+- l'exercice (m) = die Übung | L'exercice est facile. = Die Übung ist leicht.
+
+= Beim Arbeiten
+- travailler à deux = zu zweit arbeiten | On travaille à deux. = Wir arbeiten zu zweit.
+- le voisin / la voisine = der Nachbar / die Nachbarin | Parle avec ton voisin. = Sprich mit deinem Nachbarn.
+- facile = leicht | La question est facile. = Die Frage ist leicht.
+- difficile = schwer | Le texte est difficile. = Der Text ist schwer.
+- la solution = die Lösung | Voici la solution. = Hier ist die Lösung.
+- le texte = der Text | Le texte est court. = Der Text ist kurz.

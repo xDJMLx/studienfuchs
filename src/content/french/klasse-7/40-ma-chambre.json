@@ -1,0 +1,964 @@
+{
+  "id": "f7-u3",
+  "title": "Ma chambre et moi",
+  "description": "Zimmer und Wohnung, Orte beschreiben, Hobbys, faire, Verneinung, begründen",
+  "grade": 7,
+  "subject": "french",
+  "order": 40,
+  "book": "À plus ! 1 · Unité 3",
+  "lessons": [
+    {
+      "id": "f7-u3-l1",
+      "title": "Mein Zimmer (1/3)",
+      "items": [
+        {
+          "front": "la chambre",
+          "back": "das Zimmer / das Schlafzimmer",
+          "example": "Ma chambre est petite.",
+          "exampleDe": "Mein Zimmer ist klein."
+        },
+        {
+          "front": "le lit",
+          "back": "das Bett",
+          "example": "Mon lit est grand.",
+          "exampleDe": "Mein Bett ist groß."
+        },
+        {
+          "front": "le bureau",
+          "back": "der Schreibtisch",
+          "example": "Mon bureau est ici.",
+          "exampleDe": "Mein Schreibtisch ist hier."
+        },
+        {
+          "front": "l'armoire (f)",
+          "back": "der Schrank",
+          "example": "L'armoire est blanche.",
+          "exampleDe": "Der Schrank ist weiß."
+        },
+        {
+          "front": "la chaise",
+          "back": "der Stuhl",
+          "example": "La chaise est rouge.",
+          "exampleDe": "Der Stuhl ist rot."
+        },
+        {
+          "front": "la table",
+          "back": "der Tisch",
+          "example": "La table est grande.",
+          "exampleDe": "Der Tisch ist groß."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l2",
+      "title": "Mein Zimmer (2/3)",
+      "items": [
+        {
+          "front": "l'étagère (f)",
+          "back": "das Regal",
+          "example": "L'étagère est pleine de livres.",
+          "exampleDe": "Das Regal ist voller Bücher."
+        },
+        {
+          "front": "la lampe",
+          "back": "die Lampe",
+          "example": "La lampe est sur le bureau.",
+          "exampleDe": "Die Lampe steht auf dem Schreibtisch."
+        },
+        {
+          "front": "la fenêtre",
+          "back": "das Fenster",
+          "example": "La fenêtre est ouverte.",
+          "exampleDe": "Das Fenster ist offen."
+        },
+        {
+          "front": "la porte",
+          "back": "die Tür",
+          "example": "La porte est fermée.",
+          "exampleDe": "Die Tür ist geschlossen."
+        },
+        {
+          "front": "le mur",
+          "back": "die Wand",
+          "example": "Le mur est bleu.",
+          "exampleDe": "Die Wand ist blau."
+        },
+        {
+          "front": "le tapis",
+          "back": "der Teppich",
+          "example": "Le tapis est doux.",
+          "exampleDe": "Der Teppich ist weich."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l3",
+      "title": "Mein Zimmer (3/3)",
+      "items": [
+        {
+          "front": "l'ordinateur (m)",
+          "back": "der Computer",
+          "example": "L'ordinateur est sur le bureau.",
+          "exampleDe": "Der Computer steht auf dem Schreibtisch."
+        },
+        {
+          "front": "la télé",
+          "back": "der Fernseher",
+          "example": "La télé est dans le salon.",
+          "exampleDe": "Der Fernseher steht im Wohnzimmer."
+        },
+        {
+          "front": "le poster",
+          "back": "das Poster",
+          "example": "Le poster est sur le mur.",
+          "exampleDe": "Das Poster hängt an der Wand."
+        },
+        {
+          "front": "la BD",
+          "back": "der Comic",
+          "example": "J'adore les BD.",
+          "exampleDe": "Ich liebe Comics."
+        },
+        {
+          "front": "la console",
+          "back": "die Spielekonsole",
+          "example": "Ma console est neuve.",
+          "exampleDe": "Meine Konsole ist neu."
+        },
+        {
+          "front": "la guitare",
+          "back": "die Gitarre",
+          "example": "La guitare est dans ma chambre.",
+          "exampleDe": "Die Gitarre ist in meinem Zimmer."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l4",
+      "title": "Die Wohnung",
+      "items": [
+        {
+          "front": "l'appartement (m)",
+          "back": "die Wohnung",
+          "example": "Notre appartement est grand.",
+          "exampleDe": "Unsere Wohnung ist groß."
+        },
+        {
+          "front": "le salon",
+          "back": "das Wohnzimmer",
+          "example": "Le salon est grand.",
+          "exampleDe": "Das Wohnzimmer ist groß."
+        },
+        {
+          "front": "la cuisine",
+          "back": "die Küche",
+          "example": "La cuisine est petite.",
+          "exampleDe": "Die Küche ist klein."
+        },
+        {
+          "front": "la salle de bains",
+          "back": "das Badezimmer",
+          "example": "La salle de bains est ici.",
+          "exampleDe": "Das Badezimmer ist hier."
+        },
+        {
+          "front": "le balcon",
+          "back": "der Balkon",
+          "example": "Le balcon est petit.",
+          "exampleDe": "Der Balkon ist klein."
+        },
+        {
+          "front": "le jardin",
+          "back": "der Garten",
+          "example": "Le jardin est grand.",
+          "exampleDe": "Der Garten ist groß."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l5",
+      "title": "Wo ist etwas? (1/2)",
+      "items": [
+        {
+          "front": "sur",
+          "back": "auf",
+          "example": "Le livre est sur la table.",
+          "exampleDe": "Das Buch liegt auf dem Tisch."
+        },
+        {
+          "front": "sous",
+          "back": "unter",
+          "example": "Le chat est sous le lit.",
+          "exampleDe": "Die Katze ist unter dem Bett."
+        },
+        {
+          "front": "dans",
+          "back": "in",
+          "example": "Mon sac est dans ma chambre.",
+          "exampleDe": "Meine Tasche ist in meinem Zimmer."
+        },
+        {
+          "front": "devant",
+          "back": "vor",
+          "example": "Le chien est devant la porte.",
+          "exampleDe": "Der Hund ist vor der Tür."
+        },
+        {
+          "front": "derrière",
+          "back": "hinter",
+          "example": "Le chat est derrière l'armoire.",
+          "exampleDe": "Die Katze ist hinter dem Schrank."
+        }
+      ],
+      "explanation": {
+        "title": "Orte angeben",
+        "paragraphs": [
+          "Mit Präpositionen sagst du, wo etwas ist: sur (auf), sous (unter), dans (in), devant (vor), derrière (hinter)."
+        ],
+        "examples": [
+          {
+            "fr": "Le livre est sur la table.",
+            "de": "Das Buch liegt auf dem Tisch."
+          },
+          {
+            "fr": "Le chat est sous le lit.",
+            "de": "Die Katze ist unter dem Bett."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Le chat est ___ le lit.",
+          "answer": "sous",
+          "options": [
+            "sous",
+            "sur",
+            "dans"
+          ],
+          "translation": "Die Katze ist unter dem Bett.",
+          "why": "„sous“ heißt „unter“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l6",
+      "title": "Wo ist etwas? (2/2)",
+      "items": [
+        {
+          "front": "à côté de",
+          "back": "neben",
+          "example": "Le bureau est à côté de la fenêtre.",
+          "exampleDe": "Der Schreibtisch ist neben dem Fenster."
+        },
+        {
+          "front": "entre",
+          "back": "zwischen",
+          "example": "La lampe est entre le lit et l'armoire.",
+          "exampleDe": "Die Lampe steht zwischen Bett und Schrank."
+        },
+        {
+          "front": "en face de",
+          "back": "gegenüber von",
+          "example": "Le café est en face de la gare.",
+          "exampleDe": "Das Café ist gegenüber vom Bahnhof."
+        },
+        {
+          "front": "près de",
+          "back": "nahe bei",
+          "example": "Mon école est près de chez moi.",
+          "exampleDe": "Meine Schule ist nahe bei mir zu Hause."
+        },
+        {
+          "front": "loin de",
+          "back": "weit weg von",
+          "example": "Le parc est loin de la gare.",
+          "exampleDe": "Der Park ist weit vom Bahnhof entfernt."
+        }
+      ],
+      "explanation": {
+        "title": "Weitere Ortsangaben",
+        "paragraphs": [
+          "„À côté de“, „entre“, „en face de“, „près de“ und „loin de“ brauchen eine Ergänzung: „à côté de la porte“."
+        ],
+        "examples": [
+          {
+            "fr": "à côté de la fenêtre",
+            "de": "neben dem Fenster"
+          },
+          {
+            "fr": "entre le lit et l'armoire",
+            "de": "zwischen dem Bett und dem Schrank"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Le café est ___ de la gare.",
+          "answer": "à côté",
+          "options": [
+            "à côté",
+            "entre",
+            "sous"
+          ],
+          "translation": "Das Café ist neben dem Bahnhof.",
+          "why": "„à côté de“ = neben."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l7",
+      "title": "de und der Artikel",
+      "items": [
+        {
+          "front": "du",
+          "back": "von dem",
+          "example": "Voilà le livre du garçon.",
+          "exampleDe": "Da ist das Buch des Jungen."
+        },
+        {
+          "front": "de la",
+          "back": "von der",
+          "example": "C'est la chambre de la fille.",
+          "exampleDe": "Das ist das Zimmer des Mädchens."
+        },
+        {
+          "front": "de l'",
+          "back": "von dem / von der (vor Vokal)",
+          "example": "C'est le vélo de l'ami de Léo.",
+          "exampleDe": "Das ist das Fahrrad von Léos Freund."
+        },
+        {
+          "front": "des",
+          "back": "von den",
+          "example": "Voici les livres des élèves.",
+          "exampleDe": "Hier sind die Bücher der Schüler."
+        },
+        {
+          "front": "chez moi",
+          "back": "bei mir / zu Hause",
+          "example": "Chez moi, il y a un chat.",
+          "exampleDe": "Bei mir gibt es eine Katze."
+        }
+      ],
+      "explanation": {
+        "title": "Zusammengezogener Artikel mit de",
+        "paragraphs": [
+          "„De“ + le wird zu „du“, „de“ + les zu „des“. Vor la und l' bleibt es: de la, de l'.",
+          "Damit sagst du, wem etwas gehört: la chambre du garçon, la voiture de la mère."
+        ],
+        "examples": [
+          {
+            "fr": "le livre du garçon",
+            "de": "das Buch des Jungen"
+          },
+          {
+            "fr": "la chambre de la fille",
+            "de": "das Zimmer des Mädchens"
+          },
+          {
+            "fr": "le chat des voisins",
+            "de": "die Katze der Nachbarn"
+          }
+        ],
+        "tip": "de + le = du, de + les = des. Nur bei le und les wird zusammengezogen."
+      },
+      "fills": [
+        {
+          "sentence": "C'est le livre ___ garçon.",
+          "answer": "du",
+          "options": [
+            "du",
+            "de la",
+            "des"
+          ],
+          "translation": "Das ist das Buch des Jungen.",
+          "why": "de + le = du."
+        },
+        {
+          "sentence": "La chambre ___ fille est jolie.",
+          "answer": "de la",
+          "options": [
+            "de la",
+            "du",
+            "des"
+          ],
+          "translation": "Das Zimmer des Mädchens ist hübsch.",
+          "why": "„fille“ ist weiblich → de la."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l8",
+      "title": "Adjektive passen sich an",
+      "items": [
+        {
+          "front": "confortable",
+          "back": "bequem",
+          "example": "Mon lit est très confortable.",
+          "exampleDe": "Mein Bett ist sehr bequem."
+        },
+        {
+          "front": "propre",
+          "back": "sauber",
+          "example": "Ma chambre est propre.",
+          "exampleDe": "Mein Zimmer ist sauber."
+        },
+        {
+          "front": "sale",
+          "back": "schmutzig",
+          "example": "Mon sac est sale.",
+          "exampleDe": "Meine Tasche ist schmutzig."
+        },
+        {
+          "front": "rangé(e)",
+          "back": "aufgeräumt",
+          "example": "Ma chambre est rangée.",
+          "exampleDe": "Mein Zimmer ist aufgeräumt."
+        },
+        {
+          "front": "neuf / neuve",
+          "back": "neu (nicht gebraucht)",
+          "example": "Mon vélo est neuf.",
+          "exampleDe": "Mein Fahrrad ist neu."
+        }
+      ],
+      "explanation": {
+        "title": "Angleichung der Adjektive",
+        "paragraphs": [
+          "Adjektive richten sich nach dem Nomen. Weiblich bekommen sie oft ein -e: grand → grande. Im Plural kommt ein -s dazu: grands, grandes.",
+          "Endet das Adjektiv schon auf -e, ändert es sich nicht: sympa, rouge, jaune."
+        ],
+        "examples": [
+          {
+            "fr": "un grand lit, une grande chambre",
+            "de": "ein großes Bett, ein großes Zimmer"
+          },
+          {
+            "fr": "des chaises rouges",
+            "de": "rote Stühle"
+          }
+        ],
+        "tip": "Sprechen hörst du den Unterschied nur manchmal: grand [grã] – grande [grãd]."
+      },
+      "fills": [
+        {
+          "sentence": "Ma chambre est ___.",
+          "answer": "grande",
+          "options": [
+            "grande",
+            "grand",
+            "grands"
+          ],
+          "translation": "Mein Zimmer ist groß.",
+          "why": "„chambre“ ist weiblich → grande."
+        },
+        {
+          "sentence": "Les chaises sont ___.",
+          "answer": "rouges",
+          "options": [
+            "rouges",
+            "rouge",
+            "rougent"
+          ],
+          "translation": "Die Stühle sind rot.",
+          "why": "Plural → rouges."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l9",
+      "title": "Farben (1/2)",
+      "items": [
+        {
+          "front": "rouge",
+          "back": "rot",
+          "example": "La chaise est rouge.",
+          "exampleDe": "Der Stuhl ist rot."
+        },
+        {
+          "front": "bleu(e)",
+          "back": "blau",
+          "example": "Mon mur est bleu.",
+          "exampleDe": "Meine Wand ist blau."
+        },
+        {
+          "front": "vert(e)",
+          "back": "grün",
+          "example": "La lampe est verte.",
+          "exampleDe": "Die Lampe ist grün."
+        },
+        {
+          "front": "jaune",
+          "back": "gelb",
+          "example": "Le poster est jaune.",
+          "exampleDe": "Das Poster ist gelb."
+        },
+        {
+          "front": "noir(e)",
+          "back": "schwarz",
+          "example": "Mon chat est noir.",
+          "exampleDe": "Meine Katze ist schwarz."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l10",
+      "title": "Farben (2/2)",
+      "items": [
+        {
+          "front": "blanc / blanche",
+          "back": "weiß",
+          "example": "L'armoire est blanche.",
+          "exampleDe": "Der Schrank ist weiß."
+        },
+        {
+          "front": "gris(e)",
+          "back": "grau",
+          "example": "Le tapis est gris.",
+          "exampleDe": "Der Teppich ist grau."
+        },
+        {
+          "front": "rose",
+          "back": "rosa",
+          "example": "Ma chambre est rose.",
+          "exampleDe": "Mein Zimmer ist rosa."
+        },
+        {
+          "front": "orange",
+          "back": "orange",
+          "example": "Ma lampe est orange.",
+          "exampleDe": "Meine Lampe ist orange."
+        },
+        {
+          "front": "marron",
+          "back": "braun",
+          "example": "Mon bureau est marron.",
+          "exampleDe": "Mein Schreibtisch ist braun."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "La table est ___.",
+          "answer": "blanche",
+          "options": [
+            "blanche",
+            "blanc",
+            "blancs"
+          ],
+          "translation": "Der Tisch ist weiß.",
+          "why": "„table“ ist weiblich → blanche."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l11",
+      "title": "Das Verb faire",
+      "items": [
+        {
+          "front": "je fais",
+          "back": "ich mache",
+          "example": "Je fais du sport.",
+          "exampleDe": "Ich mache Sport."
+        },
+        {
+          "front": "tu fais",
+          "back": "du machst",
+          "example": "Qu'est-ce que tu fais ?",
+          "exampleDe": "Was machst du?"
+        },
+        {
+          "front": "il / elle fait",
+          "back": "er / sie macht",
+          "example": "Il fait du sport.",
+          "exampleDe": "Er macht Sport."
+        },
+        {
+          "front": "nous faisons",
+          "back": "wir machen",
+          "example": "Nous faisons du vélo.",
+          "exampleDe": "Wir fahren Rad."
+        },
+        {
+          "front": "vous faites",
+          "back": "ihr macht / Sie machen",
+          "example": "Vous faites de la musique ?",
+          "exampleDe": "Macht ihr Musik?"
+        },
+        {
+          "front": "ils / elles font",
+          "back": "sie machen",
+          "example": "Elles font de la danse.",
+          "exampleDe": "Sie tanzen."
+        }
+      ],
+      "explanation": {
+        "title": "faire (machen)",
+        "paragraphs": [
+          "faire ist unregelmäßig: je fais, tu fais, il/elle fait, nous faisons, vous faites, ils/elles font.",
+          "Hobbys: faire du sport, faire de la danse, faire de l'escrime, faire des photos. Nach faire steht der Teilungsartikel du, de la, de l', des."
+        ],
+        "examples": [
+          {
+            "fr": "Je fais du sport.",
+            "de": "Ich mache Sport."
+          },
+          {
+            "fr": "Elle fait de la danse.",
+            "de": "Sie tanzt."
+          }
+        ],
+        "tip": "„Faites“ (ihr macht) sprichst du anders als geschrieben: [fɛt]."
+      },
+      "fills": [
+        {
+          "sentence": "Elle ___ du sport.",
+          "answer": "fait",
+          "options": [
+            "fait",
+            "fais",
+            "font"
+          ],
+          "translation": "Sie macht Sport.",
+          "why": "Zu „elle“ passt „fait“."
+        },
+        {
+          "sentence": "Nous ___ du vélo.",
+          "answer": "faisons",
+          "options": [
+            "faisons",
+            "faites",
+            "font"
+          ],
+          "translation": "Wir fahren Rad.",
+          "why": "Zu „nous“ passt „faisons“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l12",
+      "title": "Hobbys (1/2)",
+      "items": [
+        {
+          "front": "le hobby",
+          "back": "das Hobby",
+          "example": "Mon hobby, c'est la musique.",
+          "exampleDe": "Mein Hobby ist Musik."
+        },
+        {
+          "front": "faire du sport",
+          "back": "Sport machen",
+          "example": "Je fais du sport avec Léo.",
+          "exampleDe": "Ich mache Sport mit Léo."
+        },
+        {
+          "front": "faire du vélo",
+          "back": "Rad fahren",
+          "example": "Nous faisons du vélo.",
+          "exampleDe": "Wir fahren Rad."
+        },
+        {
+          "front": "faire de la musique",
+          "back": "Musik machen",
+          "example": "Il fait de la musique.",
+          "exampleDe": "Er macht Musik."
+        },
+        {
+          "front": "faire de la danse",
+          "back": "tanzen (als Hobby)",
+          "example": "Elle fait de la danse.",
+          "exampleDe": "Sie tanzt (als Hobby)."
+        },
+        {
+          "front": "faire des photos",
+          "back": "fotografieren",
+          "example": "Je fais des photos de Paris.",
+          "exampleDe": "Ich mache Fotos von Paris."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l13",
+      "title": "Hobbys (2/2)",
+      "items": [
+        {
+          "front": "le tennis",
+          "back": "Tennis",
+          "example": "Ma sœur joue au tennis.",
+          "exampleDe": "Meine Schwester spielt Tennis."
+        },
+        {
+          "front": "le basket",
+          "back": "Basketball",
+          "example": "Je joue au basket.",
+          "exampleDe": "Ich spiele Basketball."
+        },
+        {
+          "front": "la natation",
+          "back": "das Schwimmen",
+          "example": "Il fait de la natation.",
+          "exampleDe": "Er schwimmt als Sport."
+        },
+        {
+          "front": "le jeu vidéo",
+          "back": "das Videospiel",
+          "example": "J'aime les jeux vidéo.",
+          "exampleDe": "Ich mag Videospiele."
+        },
+        {
+          "front": "le piano",
+          "back": "das Klavier",
+          "example": "Je joue du piano.",
+          "exampleDe": "Ich spiele Klavier."
+        },
+        {
+          "front": "la flûte",
+          "back": "die Flöte",
+          "example": "Elle joue de la flûte.",
+          "exampleDe": "Sie spielt Flöte."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l14",
+      "title": "Stars und Medien",
+      "items": [
+        {
+          "front": "la star",
+          "back": "der Star",
+          "example": "C'est ma star.",
+          "exampleDe": "Das ist mein Star."
+        },
+        {
+          "front": "le chanteur / la chanteuse",
+          "back": "der Sänger / die Sängerin",
+          "example": "Ma chanteuse est française.",
+          "exampleDe": "Meine Sängerin ist Französin."
+        },
+        {
+          "front": "l'acteur / l'actrice",
+          "back": "der Schauspieler / die Schauspielerin",
+          "example": "L'acteur est drôle.",
+          "exampleDe": "Der Schauspieler ist lustig."
+        },
+        {
+          "front": "le film",
+          "back": "der Film",
+          "example": "J'adore les films.",
+          "exampleDe": "Ich liebe Filme."
+        },
+        {
+          "front": "la série",
+          "back": "die Serie",
+          "example": "La série est super.",
+          "exampleDe": "Die Serie ist super."
+        },
+        {
+          "front": "le fan",
+          "back": "der Fan",
+          "example": "Je suis fan de foot.",
+          "exampleDe": "Ich bin Fußballfan."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l15",
+      "title": "Verneinung",
+      "items": [
+        {
+          "front": "ne … pas",
+          "back": "nicht",
+          "example": "Je ne fais pas de sport.",
+          "exampleDe": "Ich mache keinen Sport."
+        },
+        {
+          "front": "ne … plus",
+          "back": "nicht mehr",
+          "example": "Il ne joue plus au foot.",
+          "exampleDe": "Er spielt nicht mehr Fußball."
+        },
+        {
+          "front": "pas de",
+          "back": "kein(e)",
+          "example": "Je n'ai pas de console.",
+          "exampleDe": "Ich habe keine Konsole."
+        },
+        {
+          "front": "non plus",
+          "back": "auch nicht",
+          "example": "Moi non plus, je n'aime pas ça.",
+          "exampleDe": "Ich mag das auch nicht."
+        },
+        {
+          "front": "jamais",
+          "back": "nie",
+          "example": "Je ne fais jamais de sport.",
+          "exampleDe": "Ich mache nie Sport."
+        }
+      ],
+      "explanation": {
+        "title": "ne … pas und ne … plus",
+        "paragraphs": [
+          "Die Verneinung steht um das Verb herum: je ne joue pas. Vor Vokal wird „ne“ zu „n'“: je n'aime pas.",
+          "„Ne … plus“ heißt „nicht mehr“: Je ne joue plus. Nach der Verneinung steht „de“ statt un/une/des: Je n'ai pas de chien."
+        ],
+        "examples": [
+          {
+            "fr": "Je ne joue pas au foot.",
+            "de": "Ich spiele nicht Fußball."
+          },
+          {
+            "fr": "Je n'ai plus de chien.",
+            "de": "Ich habe keinen Hund mehr."
+          }
+        ],
+        "tip": "Im Alltag fällt „ne“ oft weg, geschrieben bleibt es aber Pflicht."
+      },
+      "fills": [
+        {
+          "sentence": "Je ___ joue pas au tennis.",
+          "answer": "ne",
+          "options": [
+            "ne",
+            "n'",
+            "pas"
+          ],
+          "translation": "Ich spiele nicht Tennis.",
+          "why": "Vor Konsonant: ne … pas."
+        },
+        {
+          "sentence": "Je ___ ai pas de console.",
+          "answer": "n'",
+          "options": [
+            "n'",
+            "ne",
+            "pas"
+          ],
+          "translation": "Ich habe keine Konsole.",
+          "why": "Vor Vokal: n'."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l16",
+      "title": "Gründe nennen",
+      "items": [
+        {
+          "front": "pourquoi ?",
+          "back": "warum?",
+          "example": "Pourquoi tu aimes la musique ?",
+          "exampleDe": "Warum magst du Musik?"
+        },
+        {
+          "front": "parce que",
+          "back": "weil",
+          "example": "J'aime ma chambre parce qu'elle est grande.",
+          "exampleDe": "Ich mag mein Zimmer, weil es groß ist."
+        },
+        {
+          "front": "alors",
+          "back": "also / dann",
+          "example": "Alors, tu aimes ça ?",
+          "exampleDe": "Also, magst du das?"
+        },
+        {
+          "front": "c'est pour ça que",
+          "back": "deshalb",
+          "example": "C'est pour ça que j'aime le foot.",
+          "exampleDe": "Deshalb mag ich Fußball."
+        },
+        {
+          "front": "trop",
+          "back": "zu / zu sehr",
+          "example": "C'est trop petit !",
+          "exampleDe": "Das ist zu klein!"
+        }
+      ],
+      "explanation": {
+        "title": "parce que",
+        "paragraphs": [
+          "„Pourquoi ?“ fragt nach dem Grund. Du antwortest mit „parce que …“ (weil …). Vor Vokal: parce qu'."
+        ],
+        "examples": [
+          {
+            "fr": "Pourquoi tu aimes ta chambre ? – Parce qu'elle est grande.",
+            "de": "Warum magst du dein Zimmer? – Weil es groß ist."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "J'aime ma chambre ___ elle est grande.",
+          "answer": "parce qu'",
+          "options": [
+            "parce qu'",
+            "parce que",
+            "pourquoi"
+          ],
+          "translation": "Ich mag mein Zimmer, weil es groß ist.",
+          "why": "Vor Vokal: „parce qu'“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u3-l17",
+      "title": "pour + Infinitiv",
+      "items": [
+        {
+          "front": "pour",
+          "back": "für / um … zu",
+          "example": "Le bureau est pour travailler.",
+          "exampleDe": "Der Schreibtisch ist zum Arbeiten."
+        },
+        {
+          "front": "dormir",
+          "back": "schlafen",
+          "example": "Le lit est pour dormir.",
+          "exampleDe": "Das Bett ist zum Schlafen."
+        },
+        {
+          "front": "lire",
+          "back": "lesen",
+          "example": "J'aime lire des BD.",
+          "exampleDe": "Ich lese gern Comics."
+        },
+        {
+          "front": "ranger",
+          "back": "aufräumen",
+          "example": "Je range ma chambre.",
+          "exampleDe": "Ich räume mein Zimmer auf."
+        },
+        {
+          "front": "rester",
+          "back": "bleiben",
+          "example": "Je reste dans ma chambre.",
+          "exampleDe": "Ich bleibe in meinem Zimmer."
+        }
+      ],
+      "explanation": {
+        "title": "Wozu?",
+        "paragraphs": [
+          "„Pour“ + Infinitiv heißt „um … zu“: Le lit, c'est pour dormir. Der Infinitiv bleibt unverändert."
+        ],
+        "examples": [
+          {
+            "fr": "Le lit, c'est pour dormir.",
+            "de": "Das Bett ist zum Schlafen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Le lit, c'est pour ___.",
+          "answer": "dormir",
+          "options": [
+            "dormir",
+            "dors",
+            "dort"
+          ],
+          "translation": "Das Bett ist zum Schlafen.",
+          "why": "Nach „pour“ steht der Infinitiv."
+        }
+      ]
+    }
+  ]
+}

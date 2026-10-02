@@ -1,0 +1,86 @@
+{
+  "id": "f9-u6",
+  "title": "Il faut que …",
+  "description": "Le subjonctif présent: Bildung und Auslöser",
+  "grade": 9,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f9-u6-l1",
+      "title": "Subjonctif bilden (1/2)",
+      "explanation": {"title":"So bildest du den subjonctif","paragraphs":["Stamm der 3. Person Plural (ils parlent → parl-) + Endungen -e, -es, -e, -ions, -iez, -ent. Der subjonctif steht nach que: il faut que je parle.","Bei nous und vous sieht der subjonctif aus wie das imparfait: que nous parlions, que vous parliez."],"examples":[{"fr":"Il faut que tu finisses tes devoirs.","de":"Du musst deine Hausaufgaben beenden."},{"fr":"Je veux que vous veniez.","de":"Ich will, dass ihr kommt."}],"tip":"Der subjonctif steht fast immer nach „que“ und nach einem Ausdruck von Wille, Gefühl oder Notwendigkeit."},
+      "items": [
+        {"front":"que je parle","back":"dass ich spreche","example":"Il faut que je parle avec lui.","exampleDe":"Ich muss mit ihm sprechen."},
+        {"front":"que tu finisses","back":"dass du beendest","example":"Il faut que tu finisses tes devoirs.","exampleDe":"Du musst deine Hausaufgaben beenden."},
+        {"front":"qu'il attende","back":"dass er wartet","example":"Je veux qu'il attende ici.","exampleDe":"Ich will, dass er hier wartet."},
+        {"front":"que nous partions","back":"dass wir gehen","example":"Il faut que nous partions maintenant.","exampleDe":"Wir müssen jetzt gehen."}
+      ]
+    },
+    {
+      "id": "f9-u6-l2",
+      "title": "Subjonctif bilden (2/2)",
+      "items": [
+        {"front":"que vous choisissiez","back":"dass ihr wählt","example":"Je veux que vous choisissiez un livre.","exampleDe":"Ich will, dass ihr ein Buch auswählt."},
+        {"front":"qu'ils mangent","back":"dass sie essen","example":"Il faut qu'ils mangent plus de légumes.","exampleDe":"Sie müssen mehr Gemüse essen."},
+        {"front":"il faut que je parte","back":"ich muss gehen","example":"Il faut que je parte maintenant.","exampleDe":"Ich muss jetzt gehen."},
+        {"front":"il faut que tu écoutes","back":"du musst zuhören","example":"Il faut que tu écoutes bien.","exampleDe":"Du musst gut zuhören."}
+      ],
+      "fills": [
+        {"sentence":"Il faut que tu ___ tes devoirs.","answer":"finisses","options":["finisses","finis","finiras","finirais"],"translation":"Du musst deine Hausaufgaben beenden.","why":"il faut que + subjonctif; ils finissent → finiss- + es."},
+        {"sentence":"Il faut que nous ___ à huit heures.","answer":"partions","options":["partions","partons","partirons","partirions"],"translation":"Wir müssen um acht Uhr gehen.","why":"Subjonctif von nous: Stamm part- + ions."}
+      ]
+    },
+    {
+      "id": "f9-u6-l3",
+      "title": "Unregelmäßige Formen (1/2)",
+      "explanation": {"title":"Sonderformen merken","paragraphs":["Einige Verben haben im subjonctif eigene Formen: être → que je sois, que tu sois, qu'il soit, que nous soyons, que vous soyez, qu'ils soient. avoir → que j'aie, que tu aies, qu'il ait, que nous ayons …","Weitere: aller → que j'aille, faire → que je fasse, pouvoir → que je puisse, savoir → que je sache, vouloir → que je veuille."],"examples":[{"fr":"Il faut que tu sois à l'heure.","de":"Du musst pünktlich sein."},{"fr":"Je veux que tu fasses attention.","de":"Ich will, dass du aufpasst."}]},
+      "items": [
+        {"front":"que je sois","back":"dass ich sei","example":"Il faut que je sois à l'heure.","exampleDe":"Ich muss pünktlich sein."},
+        {"front":"qu'il soit","back":"dass er sei","example":"Je veux qu'il soit heureux.","exampleDe":"Ich will, dass er glücklich ist."},
+        {"front":"que nous soyons","back":"dass wir seien","example":"Il faut que nous soyons prudents.","exampleDe":"Wir müssen vorsichtig sein."},
+        {"front":"que j'aie","back":"dass ich habe","example":"Il faut que j'aie mon passeport.","exampleDe":"Ich muss meinen Pass haben."},
+        {"front":"que tu aies","back":"dass du habest","example":"Je veux que tu aies du courage.","exampleDe":"Ich will, dass du Mut hast."}
+      ]
+    },
+    {
+      "id": "f9-u6-l4",
+      "title": "Unregelmäßige Formen (2/2)",
+      "items": [
+        {"front":"que je fasse","back":"dass ich mache","example":"Il faut que je fasse mes devoirs.","exampleDe":"Ich muss meine Hausaufgaben machen."},
+        {"front":"que j'aille","back":"dass ich gehe","example":"Il faut que j'aille chez le médecin.","exampleDe":"Ich muss zum Arzt gehen."},
+        {"front":"que je puisse","back":"dass ich könne","example":"Je ne pense pas que je puisse venir.","exampleDe":"Ich glaube nicht, dass ich kommen kann."},
+        {"front":"que je sache","back":"dass ich wisse","example":"Il faut que je sache la vérité.","exampleDe":"Ich muss die Wahrheit wissen."},
+        {"front":"qu'ils veuillent","back":"dass sie wollen","example":"Je doute qu'ils veuillent venir.","exampleDe":"Ich bezweifle, dass sie kommen wollen."}
+      ],
+      "fills": [
+        {"sentence":"Il faut que tu ___ à l'heure.","answer":"sois","options":["sois","es","seras","serais"],"translation":"Du musst pünktlich sein.","why":"être im subjonctif: que tu sois."},
+        {"sentence":"Il faut qu'il ___ attention.","answer":"fasse","options":["fasse","fait","fera","ferait"],"translation":"Er muss aufpassen.","why":"faire im subjonctif: qu'il fasse."}
+      ]
+    },
+    {
+      "id": "f9-u6-l5",
+      "title": "Wann subjonctif? (1/2)",
+      "explanation": {"title":"Auslöser des subjonctif","paragraphs":["Der subjonctif folgt auf Wille (vouloir que, souhaiter que), Notwendigkeit (il faut que, il est nécessaire que), Gefühle (être content que, avoir peur que) und Zweifel (je ne pense pas que, il est possible que).","Nach Meinungsverben in der Bejahung steht der indicatif: Je pense qu'il vient. In der Verneinung subjonctif: Je ne pense pas qu'il vienne."],"examples":[{"fr":"Je suis content que tu viennes.","de":"Ich freue mich, dass du kommst."},{"fr":"Je ne crois pas qu'il soit malade.","de":"Ich glaube nicht, dass er krank ist."}]},
+      "items": [
+        {"front":"je veux que","back":"ich will, dass","example":"Je veux que tu viennes.","exampleDe":"Ich will, dass du kommst."},
+        {"front":"je souhaite que","back":"ich wünsche, dass","example":"Je souhaite que tu réussisses.","exampleDe":"Ich wünsche mir, dass du Erfolg hast."},
+        {"front":"il est possible que","back":"es ist möglich, dass","example":"Il est possible qu'il pleuve.","exampleDe":"Es ist möglich, dass es regnet."},
+        {"front":"je suis content que","back":"ich freue mich, dass","example":"Je suis content que tu sois là.","exampleDe":"Ich freue mich, dass du da bist."}
+      ]
+    },
+    {
+      "id": "f9-u6-l6",
+      "title": "Wann subjonctif? (2/2)",
+      "items": [
+        {"front":"j'ai peur que","back":"ich fürchte, dass","example":"J'ai peur qu'il soit malade.","exampleDe":"Ich fürchte, dass er krank ist."},
+        {"front":"je doute que","back":"ich bezweifle, dass","example":"Je doute qu'il vienne.","exampleDe":"Ich bezweifle, dass er kommt."},
+        {"front":"je ne pense pas que","back":"ich glaube nicht, dass","example":"Je ne pense pas qu'il pleuve.","exampleDe":"Ich glaube nicht, dass es regnet."},
+        {"front":"il est important que","back":"es ist wichtig, dass","example":"Il est important que tu dormes.","exampleDe":"Es ist wichtig, dass du schläfst."}
+      ],
+      "fills": [
+        {"sentence":"Je suis content que tu ___.","answer":"viennes","options":["viennes","viens","viendras","viendrais"],"translation":"Ich freue mich, dass du kommst.","why":"Gefühl (content que) → subjonctif."},
+        {"sentence":"Je pense qu'il ___ demain.","answer":"vient","options":["vient","vienne","viendrait","venait"],"translation":"Ich glaube, dass er morgen kommt.","why":"penser in der Bejahung → indicatif."}
+      ]
+    }
+  ]
+}

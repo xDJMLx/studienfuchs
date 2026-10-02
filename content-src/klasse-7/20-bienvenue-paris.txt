@@ -1,0 +1,178 @@
+id: f7-u1
+title: Bienvenue à Paris
+book: À plus ! 1 · Unité 1
+desc: Personen, sich und andere vorstellen, woher man kommt, Orte in Paris, être und Artikel
+order: 20
+
+= Personen (1/2)
+- le garçon = der Junge | Le garçon s'appelle Léo. = Der Junge heißt Léo.
+- la fille = das Mädchen / die Tochter | La fille habite à Paris. = Das Mädchen wohnt in Paris.
+- l'ami (m) = der Freund | Mon ami habite à Lyon. = Mein Freund wohnt in Lyon.
+- l'amie (f) = die Freundin | Mon amie s'appelle Lina. = Meine Freundin heißt Lina.
+- le copain = der Kumpel / der Freund | Mon copain adore le foot. = Mein Kumpel liebt Fußball.
+- la copine = die Kumpelin / die Freundin | Ma copine est sympa. = Meine Freundin ist nett.
+
+= Personen (2/2)
+- l'élève (m/f) = der Schüler / die Schülerin | L'élève est dans la classe. = Der Schüler ist in der Klasse.
+- la personne = die Person | C'est une personne sympa. = Das ist eine nette Person.
+- le monsieur = der Herr | Le monsieur s'appelle Martin. = Der Herr heißt Martin.
+- la dame = die Dame | La dame habite ici. = Die Dame wohnt hier.
+- le prénom = der Vorname | Mon prénom est Alex. = Mein Vorname ist Alex.
+- le nom = der Name | Ton nom, s'il te plaît ? = Dein Name, bitte?
+
+= Das Verb être (1/2)
+? Das Verb être (sein)
+p être ist unregelmäßig: je suis, tu es, il est, elle est, on est.
+p Vor „il / elle / on“ steht „est“: „Elle est sympa.“ Mit „on“ sagt man im Alltag oft „wir“.
+e Je suis Léa. = Ich bin Léa.
+e Tu es de Berlin ? = Kommst du aus Berlin?
+t „Tu es“ und „il est“ klingen fast gleich, der Pronomen-Unterschied zählt.
+- je suis = ich bin | Je suis élève. = Ich bin Schüler.
+- tu es = du bist | Tu es sympa. = Du bist nett.
+- il est = er ist | Il est au collège. = Er ist in der Schule.
+- elle est = sie ist | Elle est à Paris. = Sie ist in Paris.
+- on est = man ist / wir sind | On est ici. = Wir sind hier.
+f Je ___ à Paris. | suis | suis; es; est | Ich bin in Paris. | Zu „je“ passt „suis“.
+f Tu ___ sympa. | es | es; est; suis | Du bist nett. | Zu „tu“ passt „es“.
+
+= Das Verb être (2/2)
+? être im Plural
+p Im Plural: nous sommes, vous êtes, ils sont, elles sont.
+p „Vous“ bedeutet „ihr“ und auch höflich „Sie“. „Ils“ gilt für Jungen oder gemischte Gruppen.
+e Nous sommes amis. = Wir sind Freunde.
+e Vous êtes de Paris ? = Kommen Sie aus Paris?
+- nous sommes = wir sind | Nous sommes en classe. = Wir sind in der Klasse.
+- vous êtes = ihr seid / Sie sind | Vous êtes sympas ! = Ihr seid nett!
+- ils sont = sie sind (m / gemischt) | Ils sont ici. = Sie sind hier.
+- elles sont = sie sind (nur Mädchen) | Elles sont à la gare. = Sie sind am Bahnhof.
+f Nous ___ à Paris. | sommes | sommes; sont; êtes | Wir sind in Paris. | Zu „nous“ passt „sommes“.
+f Elles ___ amies. | sont | sont; sommes; êtes | Sie sind Freundinnen. | Zu „elles“ passt „sont“.
+
+= Woher kommst du?
+? Nationalität und Herkunft
+p Mit „être de“ sagst du, woher jemand kommt: „Je suis de Berlin.“
+p Das Adjektiv richtet sich nach dem Geschlecht: allemand (m), allemande (f).
+e Je suis de Berlin. = Ich komme aus Berlin.
+e Elle est française. = Sie ist Französin.
+t Nationalitäten schreibst du klein: un garçon allemand.
+- tu es d'où ? = woher kommst du? | Salut ! Tu es d'où ? = Hallo! Woher kommst du?
+- je suis de … = ich komme aus … | Je suis de Munich. = Ich komme aus München.
+- allemand(e) = deutsch | Léa est allemande. = Léa ist Deutsche.
+- français(e) = französisch / Franzose, Französin | Paul est français. = Paul ist Franzose.
+- le pays = das Land | Le pays est grand. = Das Land ist groß.
+f Léa est ___. | allemande | allemande; allemand; allemands | Léa ist Deutsche. | „Léa“ ist weiblich → allemande.
+
+= Länder und Sprachen
+- l'Italie (f) = Italien | Il habite en Italie. = Er wohnt in Italien.
+- l'Espagne (f) = Spanien | Ma tante habite en Espagne. = Meine Tante wohnt in Spanien.
+- la Suisse = die Schweiz | La Suisse est petite. = Die Schweiz ist klein.
+- la langue = die Sprache | J'aime la langue française. = Ich mag die französische Sprache.
+- parler = sprechen | Tu parles français ? = Sprichst du Französisch?
+- le français = Französisch | J'aime le français. = Ich mag Französisch.
+
+= In der Stadt
+- la rue = die Straße | La rue est grande. = Die Straße ist groß.
+- la place = der Platz | La place est jolie. = Der Platz ist hübsch.
+- le parc = der Park | Le parc est grand. = Der Park ist groß.
+- le café = das Café | Le café est ici. = Das Café ist hier.
+- la gare = der Bahnhof | La gare est là. = Der Bahnhof ist da.
+- le musée = das Museum | Le musée est super. = Das Museum ist toll.
+
+= Sehenswürdigkeiten in Paris
+- Paris = Paris | Paris est la capitale. = Paris ist die Hauptstadt.
+- la capitale = die Hauptstadt | Berlin est la capitale. = Berlin ist die Hauptstadt.
+- la tour Eiffel = der Eiffelturm | La tour Eiffel est grande. = Der Eiffelturm ist groß.
+- la Seine = die Seine | La Seine est à Paris. = Die Seine fließt durch Paris.
+- le pont = die Brücke | Le pont est vieux. = Die Brücke ist alt.
+- le métro = die Metro / die U-Bahn | Voilà le métro ! = Da ist die Metro!
+
+= Wo ist …?
+? Fragen und zeigen
+p „Où est …?“ fragt nach dem Ort: „Où est la gare ?“ Du antwortest mit „C'est ici.“ oder „Voilà la gare.“
+p „Voici“ und „voilà“ zeigen etwas: „Voici ma copine !“
+e Où est le parc ? = Wo ist der Park?
+e Voilà la gare ! = Da ist der Bahnhof!
+- où = wo | Où est la rue ? = Wo ist die Straße?
+- ici = hier | Le café est ici. = Das Café ist hier.
+- là = da | La gare est là. = Der Bahnhof ist da.
+- voilà = da ist / da sind | Voilà ma copine ! = Da ist meine Freundin!
+- voici = hier ist / hier sind | Voici mon ami Paul. = Hier ist mein Freund Paul.
+f ___ est la gare ? | Où | Où; Qui; Comment | Wo ist der Bahnhof? | „Où“ fragt nach dem Ort.
+
+= C'est oder ce sont?
+? c'est und ce sont
+p „C'est“ steht vor einer Person oder Sache im Singular: „C'est un parc.“
+p „Ce sont“ steht im Plural: „Ce sont des amis.“ Im Alltag hört man oft auch „c'est“ mit Plural.
+e C'est la tour Eiffel. = Das ist der Eiffelturm.
+e Ce sont mes amis. = Das sind meine Freunde.
+t „C'est“ und „ce sont“ verwendest du, um etwas oder jemanden zu benennen.
+- c'est = das ist | C'est un café. = Das ist ein Café.
+- ce sont = das sind | Ce sont des élèves. = Das sind Schüler.
+- qui est-ce ? = wer ist das? | Qui est-ce ? C'est Anna. = Wer ist das? Das ist Anna.
+- qu'est-ce que c'est ? = was ist das? | Qu'est-ce que c'est ? Un métro. = Was ist das? Eine Metro.
+- voilà un ami = da ist ein Freund | Voilà un ami de Paris. = Da ist ein Freund aus Paris.
+f ___ un parc. | C'est | C'est; Ce sont; Il est | Das ist ein Park. | Singular → „c'est“.
+f ___ des élèves. | Ce sont | Ce sont; C'est; Je suis | Das sind Schüler. | Plural → „ce sont“.
+
+= Der unbestimmte Artikel
+? un, une, des
+p „Un“ steht vor männlichen, „une“ vor weiblichen Nomen. Im Plural heißt es „des“.
+p Der bestimmte Artikel: le (m), la (f), l' (vor Vokal), les (Plural).
+e un parc, une rue, des parcs = ein Park, eine Straße, Parks
+e le café, la gare, l'ami, les amis = das Café, der Bahnhof, der Freund, die Freunde
+t Lerne jedes Nomen mit Artikel. So merkst du dir das Geschlecht gleich mit.
+- un garçon = ein Junge | C'est un garçon. = Das ist ein Junge.
+- une fille = ein Mädchen | C'est une fille. = Das ist ein Mädchen.
+- des amis = Freunde | Ce sont des amis. = Das sind Freunde.
+- un café = ein Café | Voilà un café. = Da ist ein Café.
+- une ville = eine Stadt | Paris est une ville. = Paris ist eine Stadt.
+f C'est ___ rue. | une | une; un; des | Das ist eine Straße. | „rue“ ist weiblich → une.
+f Voilà ___ parc. | un | un; une; des | Da ist ein Park. | „parc“ ist männlich → un.
+
+= Es gibt …
+? il y a
+p „Il y a“ bedeutet „es gibt“ und gilt für Singular und Plural: „Il y a un parc.“ „Il y a des cafés.“
+p Mit „ne … pas de“ verneinst du: „Il n'y a pas de métro.“
+e Il y a un musée. = Es gibt ein Museum.
+e Il y a des parcs. = Es gibt Parks.
+- il y a = es gibt | Il y a un café ici. = Hier gibt es ein Café.
+- beaucoup de = viel / viele | Il y a beaucoup de cafés. = Es gibt viele Cafés.
+- le monde = die Leute / die Welt | Il y a beaucoup de monde. = Es sind viele Leute da.
+- le quartier = das Viertel | Mon quartier est calme. = Mein Viertel ist ruhig.
+- la photo = das Foto | Voici une photo de Paris. = Hier ist ein Foto von Paris.
+f Il ___ un parc. | y a | y a; est; a | Es gibt einen Park. | „Il y a“ = es gibt.
+
+= Adjektive für die Stadt
+- grand(e) = groß | Paris est grand. = Paris ist groß.
+- petit(e) = klein | Ma ville est petite. = Meine Stadt ist klein.
+- joli(e) = hübsch | La place est jolie. = Der Platz ist hübsch.
+- moderne = modern | Le musée est moderne. = Das Museum ist modern.
+- sympa = nett | Léo est très sympa. = Léo ist sehr nett.
+- super = super | Le parc est super ! = Der Park ist super!
+- très = sehr | La ville est très grande. = Die Stadt ist sehr groß.
+
+= Das Alphabet
+? Buchstabieren
+p Das Alphabet hat 26 Buchstaben wie im Deutschen, sie klingen aber anders: A (a), B (be), C (se), D (de) …
+p Du fragst: „Comment ça s'écrit ?“ (Wie schreibt man das?)
+e Comment ça s'écrit ? = Wie schreibt man das?
+e Ça s'écrit L-É-O. = Das schreibt man L-É-O.
+- l'alphabet (m) = das Alphabet | L'alphabet a vingt-six lettres. = Das Alphabet hat sechsundzwanzig Buchstaben.
+- la lettre = der Buchstabe | « A » est une lettre. = „A“ ist ein Buchstabe.
+- comment ça s'écrit ? = wie schreibt man das? | Comment ça s'écrit, « Paris » ? = Wie schreibt man „Paris“?
+- épeler = buchstabieren | Épelle ton nom, s'il te plaît. = Buchstabiere deinen Namen, bitte.
+- l'accent (m) = der Akzent | « é » a un accent. = „é“ hat einen Akzent.
+
+= Fragewörter
+- qui ? = wer? | Qui est-ce ? = Wer ist das?
+- comment ? = wie? | Comment tu t'appelles ? = Wie heißt du?
+- combien ? = wie viel? | C'est combien ? = Wie viel kostet das?
+- quoi ? = was? | C'est quoi ? = Was ist das?
+- pourquoi ? = warum? | Pourquoi tu es là ? = Warum bist du hier?
+
+= Nachrichten schreiben
+- le message = die Nachricht | Voilà un message de Léa. = Da ist eine Nachricht von Léa.
+- le portable = das Handy | Mon portable est ici. = Mein Handy ist hier.
+- le SMS = die SMS | Mon SMS est court. = Meine SMS ist kurz.
+- l'adresse (f) = die Adresse | Voici mon adresse. = Hier ist meine Adresse.
+- le numéro = die Nummer | Ton numéro, s'il te plaît ? = Deine Nummer, bitte?

@@ -1,0 +1,218 @@
+id: f7-u5
+title: Un pique-nique à Paris
+book: À plus ! 1 · Unité 5
+desc: Nahrungsmittel, Einkaufen, Teilungsartikel, pouvoir und vouloir, Verabredungen, Zahlen bis 1000
+order: 60
+
+= Obst
+- la pomme = der Apfel | La pomme est rouge. = Der Apfel ist rot.
+- la banane = die Banane | La banane est jaune. = Die Banane ist gelb.
+- l'orange (f) = die Orange | L'orange est bonne. = Die Orange schmeckt gut.
+- la fraise = die Erdbeere | La fraise est rouge. = Die Erdbeere ist rot.
+- le raisin = die Trauben | Le raisin est sucré. = Die Trauben sind süß.
+- la poire = die Birne | La poire est verte. = Die Birne ist grün.
+
+= Gemüse
+- la tomate = die Tomate | La tomate est rouge. = Die Tomate ist rot.
+- la carotte = die Karotte | La carotte est orange. = Die Karotte ist orange.
+- la pomme de terre = die Kartoffel | Je mange une pomme de terre. = Ich esse eine Kartoffel.
+- l'oignon (m) = die Zwiebel | L'oignon est blanc. = Die Zwiebel ist weiß.
+- le concombre = die Gurke | Le concombre est vert. = Die Gurke ist grün.
+- le champignon = der Pilz | Le champignon est bon. = Der Pilz schmeckt gut.
+
+= Brot, Käse, Wurst
+- le pain = das Brot | Le pain est chaud. = Das Brot ist warm.
+- la baguette = das Baguette | Je prends une baguette. = Ich nehme ein Baguette.
+- le fromage = der Käse | J'adore le fromage. = Ich liebe Käse.
+- le jambon = der Schinken | Le jambon est bon. = Der Schinken ist gut.
+- le beurre = die Butter | Le beurre est sur la table. = Die Butter steht auf dem Tisch.
+- l'œuf (m) = das Ei | L'œuf est blanc. = Das Ei ist weiß.
+
+= Weitere Lebensmittel
+- la viande = das Fleisch | Je ne mange pas de viande. = Ich esse kein Fleisch.
+- le sandwich = das Sandwich | Le sandwich est grand. = Das Sandwich ist groß.
+- le saucisson = die Wurst | Le saucisson est bon. = Die Wurst ist gut.
+- le yaourt = der Joghurt | Le yaourt est froid. = Der Joghurt ist kalt.
+- la confiture = die Marmelade | La confiture est sucrée. = Die Marmelade ist süß.
+- le sucre = der Zucker | Le sucre est blanc. = Der Zucker ist weiß.
+
+= Getränke
+- le jus de pomme = der Apfelsaft | Le jus de pomme est frais. = Der Apfelsaft ist frisch.
+- le thé = der Tee | Le thé est chaud. = Der Tee ist heiß.
+- le chocolat chaud = die heiße Schokolade | Le chocolat chaud est super. = Die heiße Schokolade ist super.
+- la limonade = die Limonade | La limonade est froide. = Die Limonade ist kalt.
+- boire = trinken | Je bois de l'eau. = Ich trinke Wasser.
+
+= Der Teilungsartikel
+? du, de la, de l', des
+p Für eine unbestimmte Menge, die man nicht zählt, brauchst du den Teilungsartikel: du pain, de la salade, de l'eau, des fraises.
+p Nach einer Verneinung steht nur „de“: Je ne mange pas de pain. Nach einer Mengenangabe auch: un kilo de pommes.
+e Je mange du pain. = Ich esse Brot.
+e Elle prend de la salade. = Sie nimmt Salat.
+e Je ne bois pas de lait. = Ich trinke keine Milch.
+t „Du“ heißt hier nicht „von dem“, sondern „etwas“. Im Deutschen lässt man es einfach weg.
+- du pain = Brot | Je mange du pain. = Ich esse Brot.
+- de la confiture = Marmelade | Elle prend de la confiture. = Sie nimmt Marmelade.
+- de l'eau = Wasser | Je bois de l'eau. = Ich trinke Wasser.
+- des fraises = Erdbeeren | Nous mangeons des fraises. = Wir essen Erdbeeren.
+- ne … pas de = kein(e) | Je ne mange pas de viande. = Ich esse kein Fleisch.
+f Je mange ___ pain. | du | du; de la; des | Ich esse Brot. | „pain“ ist männlich → du.
+f Elle boit ___ eau. | de l' | de l'; du; de la | Sie trinkt Wasser. | Vor Vokal: de l'.
+f Je ne mange pas ___ viande. | de | de; du; de la | Ich esse kein Fleisch. | Nach der Verneinung steht nur „de“.
+
+= Verben mit Besonderheiten
+? Kleine Veränderungen bei Verben auf -er
+p Bei manchen Verben ändert sich die Schreibung: manger → nous mangeons (mit e), acheter → j'achète (mit è), préférer → je préfère (mit è), appeler → j'appelle (mit ll).
+p Die Veränderung steht in den Formen, die du hörst: je, tu, il, ils – nicht bei nous und vous.
+e j'achète, nous achetons = ich kaufe, wir kaufen
+e je préfère, nous préférons = ich bevorzuge, wir bevorzugen
+- acheter = kaufen | J'achète du pain. = Ich kaufe Brot.
+- préférer = lieber mögen | Je préfère le fromage. = Ich mag Käse lieber.
+- appeler = rufen / anrufen | J'appelle mon ami. = Ich rufe meinen Freund an.
+- payer = bezahlen | Je paie la glace. = Ich bezahle das Eis.
+- goûter = probieren | Je goûte la tarte. = Ich probiere die Torte.
+f J'___ du pain. | achète | achète; achetons; achetez | Ich kaufe Brot. | Bei „je“ wird aus e ein è.
+
+= Einkaufen gehen
+- le supermarché = der Supermarkt | Le supermarché est près d'ici. = Der Supermarkt ist in der Nähe.
+- la boulangerie = die Bäckerei | La boulangerie est à côté. = Die Bäckerei ist nebenan.
+- le marché = der Markt | Nous allons au marché. = Wir gehen auf den Markt.
+- le magasin = das Geschäft | Le magasin est fermé. = Das Geschäft ist geschlossen.
+- faire les courses = einkaufen gehen | Je fais les courses. = Ich gehe einkaufen.
+- le prix = der Preis | Le prix est bas. = Der Preis ist niedrig.
+
+= Mengenangaben
+- un kilo de = ein Kilo | Un kilo de pommes, s'il vous plaît. = Ein Kilo Äpfel, bitte.
+- un litre de = ein Liter | Un litre de lait, s'il vous plaît. = Einen Liter Milch, bitte.
+- une bouteille de = eine Flasche | Une bouteille d'eau, s'il vous plaît. = Eine Flasche Wasser, bitte.
+- un paquet de = eine Packung | Un paquet de sucre, s'il vous plaît. = Eine Packung Zucker, bitte.
+- une boîte de = eine Dose / eine Schachtel | Une boîte de thé, s'il vous plaît. = Eine Schachtel Tee, bitte.
+- cent grammes de = hundert Gramm | Cent grammes de jambon, s'il vous plaît. = Hundert Gramm Schinken, bitte.
+
+= Zahlen 61 bis 79
+? Zahlen über 60
+p Ab 70 zählt man im Französischen „sechzig und zehn“: soixante-dix (70), soixante et onze (71), soixante-douze (72) …
+e soixante-dix, soixante et onze = siebzig, einundsiebzig
+- soixante et un = einundsechzig | Il y a soixante et un euros. = Es sind einundsechzig Euro.
+- soixante-cinq = fünfundsechzig | Ça coûte soixante-cinq euros. = Das kostet fünfundsechzig Euro.
+- soixante-dix = siebzig | Soixante-dix, c'est soixante plus dix. = Siebzig ist sechzig plus zehn.
+- soixante et onze = einundsiebzig | Mon grand-père a soixante et onze ans. = Mein Opa ist einundsiebzig.
+- soixante-quinze = fünfundsiebzig | La baguette coûte soixante-quinze centimes. = Das Baguette kostet fünfundsiebzig Cent.
+f Soixante-neuf, ___ | soixante-dix | soixante-dix; soixante; quatre-vingts | Neunundsechzig, siebzig | Nach 69 kommt 70.
+
+= Zahlen 80 bis 100
+? Achtzig ist „vier mal zwanzig“
+p quatre-vingts (80) heißt wörtlich „vier Zwanziger“. Dazu: quatre-vingt-un (81), quatre-vingt-dix (90), quatre-vingt-onze (91) …
+t Bei 80 steht ein -s: quatre-vingts. Mit einer weiteren Zahl fällt es weg: quatre-vingt-deux.
+- quatre-vingts = achtzig | Quatre-vingts élèves sont ici. = Achtzig Schüler sind hier.
+- quatre-vingt-un = einundachtzig | Il y a quatre-vingt-un livres. = Es gibt einundachtzig Bücher.
+- quatre-vingt-dix = neunzig | Ça coûte quatre-vingt-dix euros. = Das kostet neunzig Euro.
+- quatre-vingt-quinze = fünfundneunzig | J'ai quatre-vingt-quinze points. = Ich habe fünfundneunzig Punkte.
+- cent = hundert | Cent euros, c'est beaucoup. = Hundert Euro sind viel.
+- mille = tausend | Mille élèves sont au collège. = Tausend Schüler sind in der Schule.
+
+= Preise
+- l'euro (m) = der Euro | Ça coûte cinq euros. = Das kostet fünf Euro.
+- le centime = der Cent | Ça coûte cinquante centimes. = Das kostet fünfzig Cent.
+- ça coûte … = das kostet … | Ça coûte combien ? = Wie viel kostet das?
+- cher / chère = teuer | La glace est chère. = Das Eis ist teuer.
+- bon marché = günstig | Le pain est bon marché. = Das Brot ist günstig.
+- la monnaie = das Wechselgeld | Voilà la monnaie. = Hier ist das Wechselgeld.
+
+= Das braucht man
+? il faut
+p „Il faut“ + Nomen heißt „man braucht“: Il faut du pain. „Il faut“ + Infinitiv heißt „man muss“: Il faut manger.
+p Verneint: „Il ne faut pas“ heißt „man darf nicht“.
+e Il faut du pain. = Man braucht Brot.
+e Il faut acheter du fromage. = Man muss Käse kaufen.
+- il faut = man braucht / man muss | Il faut du sucre. = Man braucht Zucker.
+- il ne faut pas = man darf nicht | Il ne faut pas trop manger. = Man soll nicht zu viel essen.
+- avoir besoin de = brauchen | J'ai besoin de pain. = Ich brauche Brot.
+- chercher = suchen | Je cherche le fromage. = Ich suche den Käse.
+- tout de suite = sofort | J'arrive tout de suite. = Ich komme sofort.
+f Il ___ du pain. | faut | faut; fait; fais | Man braucht Brot. | „Il faut“ = man braucht.
+
+= Das Verb pouvoir (1/2)
+? pouvoir (können / dürfen)
+p pouvoir ist unregelmäßig: je peux, tu peux, il/elle peut, nous pouvons, vous pouvez, ils/elles peuvent.
+p Nach „pouvoir“ steht der Infinitiv: Je peux venir. Du bittest höflich: „Je peux … ?“
+e Je peux prendre un sandwich ? = Kann ich ein Sandwich nehmen?
+- je peux = ich kann / darf | Je peux venir. = Ich kann kommen.
+- tu peux = du kannst | Tu peux acheter du pain ? = Kannst du Brot kaufen?
+- il / elle peut = er / sie kann | Elle peut jouer. = Sie kann spielen.
+f Tu ___ acheter du pain ? | peux | peux; peut; pouvons | Kannst du Brot kaufen? | Zu „tu“ passt „peux“.
+
+= Das Verb pouvoir (2/2)
+- nous pouvons = wir können | Nous pouvons manger ici. = Wir können hier essen.
+- vous pouvez = ihr könnt / Sie können | Vous pouvez venir. = Ihr könnt kommen.
+- ils / elles peuvent = sie können | Ils peuvent jouer. = Sie können spielen.
+- venir = kommen | Tu peux venir au pique-nique ? = Kannst du zum Picknick kommen?
+- ensuite = dann | Ensuite, nous mangeons. = Dann essen wir.
+f Nous ___ manger ici. | pouvons | pouvons; pouvez; peuvent | Wir können hier essen. | Zu „nous“ passt „pouvons“.
+
+= Das Verb vouloir
+? vouloir (wollen)
+p vouloir ist unregelmäßig: je veux, tu veux, il/elle veut, nous voulons, vous voulez, ils/elles veulent.
+p „Je veux“ klingt direkt. Höflicher ist „je voudrais“ (ich möchte).
+e Je veux un sandwich. = Ich will ein Sandwich.
+e Tu veux venir ? = Willst du kommen?
+- je veux = ich will | Je veux un sandwich. = Ich will ein Sandwich.
+- tu veux = du willst | Tu veux de la tarte ? = Willst du Torte?
+- il / elle veut = er / sie will | Il veut du jus. = Er will Saft.
+- nous voulons = wir wollen | Nous voulons un pique-nique. = Wir wollen ein Picknick.
+- vous voulez = ihr wollt / Sie wollen | Vous voulez du pain ? = Wollt ihr Brot?
+- ils / elles veulent = sie wollen | Elles veulent des fraises. = Sie wollen Erdbeeren.
+f Tu ___ de la tarte ? | veux | veux; veut; voulez | Willst du Torte? | Zu „tu“ passt „veux“.
+f Ils ___ des fraises. | veulent | veulent; veut; voulons | Sie wollen Erdbeeren. | Zu „ils“ passt „veulent“.
+
+= Vorschläge machen
+- on peut … = wir können … | On peut faire un pique-nique. = Wir können ein Picknick machen.
+- c'est une bonne idée = das ist eine gute Idee | Un pique-nique ? C'est une bonne idée ! = Ein Picknick? Gute Idee!
+- d'accord = einverstanden | D'accord, on y va. = Einverstanden, wir gehen.
+- avec plaisir = gern | Tu viens ? – Avec plaisir. = Kommst du? – Gern.
+- on y va = los geht's / wir gehen | D'accord, on y va ! = Einverstanden, los geht's!
+- l'idée (f) = die Idee | J'ai une idée. = Ich habe eine Idee.
+
+= Sich verabreden
+- le rendez-vous = die Verabredung | J'ai un rendez-vous avec Léa. = Ich habe eine Verabredung mit Léa.
+- on se retrouve … = wir treffen uns … | On se retrouve devant la gare. = Wir treffen uns vor dem Bahnhof.
+- à tout à l'heure = bis gleich | À tout à l'heure, Paul ! = Bis gleich, Paul!
+- à demain = bis morgen | À demain, Léa ! = Bis morgen, Léa!
+- à quelle heure ? = um wie viel Uhr? | On se retrouve à quelle heure ? = Wann treffen wir uns?
+- bien sûr = natürlich | Tu viens ? – Bien sûr ! = Kommst du? – Natürlich!
+
+= Das Picknick
+- le pique-nique = das Picknick | Nous faisons un pique-nique. = Wir machen ein Picknick.
+- le panier = der Korb | Le panier est lourd. = Der Korb ist schwer.
+- la couverture = die Decke | La couverture est sur l'herbe. = Die Decke liegt auf dem Gras.
+- l'herbe (f) = das Gras | L'herbe est verte. = Das Gras ist grün.
+- le verre = das Glas | Le verre est plein. = Das Glas ist voll.
+- la bouteille = die Flasche | La bouteille est vide. = Die Flasche ist leer.
+
+= Das Besteck
+- la fourchette = die Gabel | La fourchette est sur la table. = Die Gabel liegt auf dem Tisch.
+- le couteau = das Messer | Le couteau est là. = Das Messer ist da.
+- la cuillère = der Löffel | La cuillère est petite. = Der Löffel ist klein.
+- l'assiette (f) = der Teller | L'assiette est blanche. = Der Teller ist weiß.
+- la serviette = die Serviette | La serviette est sur la table. = Die Serviette liegt auf dem Tisch.
+
+= Ein Rezept verstehen
+- la recette = das Rezept | La recette est facile. = Das Rezept ist leicht.
+- l'ingrédient (m) = die Zutat | Voici les ingrédients. = Hier sind die Zutaten.
+- couper = schneiden | Je coupe le pain. = Ich schneide das Brot.
+- mélanger = mischen | Nous mélangeons les fruits. = Wir mischen das Obst.
+- ajouter = hinzufügen | J'ajoute du sucre. = Ich gebe Zucker dazu.
+- préparer = vorbereiten / zubereiten | Je prépare un sandwich. = Ich mache ein Sandwich.
+
+= Unbestimmte Wörter
+? Indefinitpronomen
+p „Quelque chose“ heißt „etwas“, „quelqu'un“ heißt „jemand“. „Tout“ heißt „alles“.
+p „Quelques“ steht vor Nomen im Plural und bedeutet „einige“: quelques fraises.
+e Tu veux quelque chose ? = Willst du etwas?
+e Il y a quelqu'un ? = Ist jemand da?
+- quelque chose = etwas | Je voudrais quelque chose à boire. = Ich möchte etwas zu trinken.
+- quelqu'un = jemand | Quelqu'un veut du pain ? = Will jemand Brot?
+- tout = alles | J'aime tout. = Ich mag alles.
+- quelques = einige | J'ai quelques fraises. = Ich habe einige Erdbeeren.
+- chaque = jede(r) | Chaque élève a un panier. = Jeder Schüler hat einen Korb.
+f Tu veux ___ à boire ? | quelque chose | quelque chose; quelqu'un; quelques | Willst du etwas zu trinken? | „etwas“ = quelque chose.

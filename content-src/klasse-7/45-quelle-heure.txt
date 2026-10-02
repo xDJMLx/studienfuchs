@@ -1,0 +1,50 @@
+id: f7-m3
+title: Il est quelle heure ?
+book: À plus ! 1 · Module 3 Il est quelle heure ?
+desc: Zahlen bis 60, Uhrzeit nennen und verstehen
+order: 45
+
+= Zahlen 21 bis 30
+? Zahlen über 20
+p Ab 21 hängst du die Einer an die Zehner: vingt et un (21), vingt-deux (22), vingt-trois (23) …
+p Nur bei 21, 31, 41, 51 steht „et un“. Bei allen anderen Zahlen gibt es einen Bindestrich.
+e vingt et un, vingt-deux = einundzwanzig, zweiundzwanzig
+- vingt et un = einundzwanzig | J'ai vingt et un euros. = Ich habe einundzwanzig Euro.
+- vingt-deux = zweiundzwanzig | Il y a vingt-deux élèves. = Es gibt zweiundzwanzig Schüler.
+- vingt-cinq = fünfundzwanzig | Il y a vingt-cinq élèves. = Es gibt fünfundzwanzig Schüler.
+- vingt-huit = achtundzwanzig | Il y a vingt-huit livres. = Es gibt achtundzwanzig Bücher.
+- trente = dreißig | Trente élèves sont ici. = Dreißig Schüler sind hier.
+f Vingt-neuf, ___ | trente | trente; quarante; vingt | Neunundzwanzig, dreißig | Nach 29 kommt 30.
+
+= Zahlen 31 bis 60
+- trente et un = einunddreißig | Il y a trente et un élèves. = Es gibt einunddreißig Schüler.
+- trente-cinq = fünfunddreißig | Il est deux heures trente-cinq. = Es ist zwei Uhr fünfunddreißig.
+- quarante = vierzig | Quarante élèves sont ici. = Vierzig Schüler sind hier.
+- quarante-cinq = fünfundvierzig | Le cours a quarante-cinq minutes. = Der Unterricht hat fünfundvierzig Minuten.
+- cinquante = fünfzig | Cinquante euros, s'il vous plaît. = Fünfzig Euro, bitte.
+- soixante = sechzig | Une heure a soixante minutes. = Eine Stunde hat sechzig Minuten.
+
+= Die Uhrzeit (1/2)
+? Wie spät ist es?
+p Du fragst „Il est quelle heure ?“. Du antwortest „Il est trois heures.“ Bei 1 Uhr heißt es „une heure“ (Singular).
+p Zusätzlich: midi (12 Uhr mittags) und minuit (Mitternacht).
+e Il est huit heures. = Es ist acht Uhr.
+e Il est une heure. = Es ist ein Uhr.
+- il est quelle heure ? = wie spät ist es? | Pardon, il est quelle heure ? = Entschuldigung, wie spät ist es?
+- l'heure (f) = die Stunde / die Uhrzeit | C'est l'heure de manger. = Es ist Zeit zu essen.
+- la minute = die Minute | Il est deux heures cinq minutes. = Es ist zwei Uhr fünf Minuten.
+- midi = zwölf Uhr mittags | Il est midi. = Es ist zwölf Uhr mittags.
+- minuit = Mitternacht | Il est minuit. = Es ist Mitternacht.
+f Il est ___ heures. | trois | trois; une; midi | Es ist drei Uhr. | Ab zwei Stunden steht „heures“ im Plural.
+
+= Die Uhrzeit (2/2)
+? Viertel und halb
+p „Et quart“ = Viertel nach, „et demie“ = halb nach, „moins le quart“ = Viertel vor, „moins dix“ = zehn vor.
+e Il est deux heures et quart. = Es ist Viertel nach zwei.
+e Il est trois heures moins le quart. = Es ist Viertel vor drei.
+- et quart = Viertel nach | Il est huit heures et quart. = Es ist Viertel nach acht.
+- et demie = halb nach | Il est neuf heures et demie. = Es ist halb zehn.
+- moins le quart = Viertel vor | Il est midi moins le quart. = Es ist Viertel vor zwölf.
+- à … heures = um … Uhr | Le cours commence à huit heures. = Der Unterricht beginnt um acht Uhr.
+- vers = gegen | Je rentre vers midi. = Ich komme gegen zwölf nach Hause.
+f Il est neuf heures ___. | et demie | et demie; et quart; moins le quart | Es ist halb zehn. | „et demie“ = halb nach.

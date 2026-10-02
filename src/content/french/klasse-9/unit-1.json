@@ -1,0 +1,81 @@
+{
+  "id": "f9-u1",
+  "title": "Il était une fois",
+  "description": "L'imparfait: Bildung und Gebrauch",
+  "grade": 9,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f9-u1-l1",
+      "title": "Imparfait bilden (1/2)",
+      "explanation": {"title":"So bildest du das imparfait","paragraphs":["Nimm die nous-Form im Präsens, streiche -ons und hänge an: -ais, -ais, -ait, -ions, -iez, -aient.","nous parlons → parl- → je parlais, tu parlais, il parlait, nous parlions, vous parliez, ils parlaient. Einzige Ausnahme beim Stamm: être → ét- (j'étais)."],"examples":[{"fr":"Quand j'étais petit, je jouais dehors.","de":"Als ich klein war, spielte ich draußen."},{"fr":"Nous habitions à Lyon.","de":"Wir wohnten in Lyon."}],"tip":"Die Endungen -ais, -ais, -ait, -aient klingen gleich; achte beim Schreiben auf die Person."},
+      "items": [
+        {"front":"je parlais","back":"ich sprach / ich sprach früher","example":"Quand j'étais petit, je parlais peu.","exampleDe":"Als ich klein war, sprach ich wenig."},
+        {"front":"tu finissais","back":"du beendetest","example":"Tu finissais toujours tes devoirs.","exampleDe":"Du hast deine Hausaufgaben immer beendet."},
+        {"front":"il faisait","back":"er machte","example":"Il faisait ses devoirs le soir.","exampleDe":"Er machte abends seine Hausaufgaben."},
+        {"front":"nous avions","back":"wir hatten","example":"Nous avions un chien.","exampleDe":"Wir hatten einen Hund."},
+        {"front":"vous étiez","back":"ihr wart","example":"Vous étiez très jeunes.","exampleDe":"Ihr wart sehr jung."}
+      ]
+    },
+    {
+      "id": "f9-u1-l2",
+      "title": "Imparfait bilden (2/2)",
+      "items": [
+        {"front":"ils allaient","back":"sie gingen","example":"Ils allaient à l'école à pied.","exampleDe":"Sie gingen zu Fuß zur Schule."},
+        {"front":"j'étais","back":"ich war","example":"J'étais très timide.","exampleDe":"Ich war sehr schüchtern."},
+        {"front":"elle prenait","back":"sie nahm","example":"Elle prenait le bus tous les jours.","exampleDe":"Sie nahm jeden Tag den Bus."},
+        {"front":"nous mangions","back":"wir aßen","example":"Nous mangions à midi.","exampleDe":"Wir aßen mittags."},
+        {"front":"ils voulaient","back":"sie wollten","example":"Ils voulaient jouer dehors.","exampleDe":"Sie wollten draußen spielen."}
+      ],
+      "fills": [
+        {"sentence":"Quand j'___ petit, je jouais dehors.","answer":"étais","options":["étais","était","ai été","étions"],"translation":"Als ich klein war, spielte ich draußen.","why":"être im imparfait: j'étais."},
+        {"sentence":"Nous ___ à Lyon.","answer":"habitions","options":["habitions","habitons","habitaient","habitiez"],"translation":"Wir wohnten in Lyon.","why":"nous habitons → habit- + -ions."}
+      ]
+    },
+    {
+      "id": "f9-u1-l3",
+      "title": "Wann imparfait? (1/2)",
+      "explanation": {"title":"Gewohnheit, Zustand, Hintergrund","paragraphs":["Das imparfait benutzt du für Gewohnheiten (tous les jours, souvent), Zustände und Beschreibungen (il faisait beau) sowie für Handlungen, die gerade im Gange waren.","Typische Signalwörter: toujours, souvent, d'habitude, chaque jour, autrefois, à cette époque."],"examples":[{"fr":"Autrefois, nous allions à la plage chaque été.","de":"Früher gingen wir jeden Sommer an den Strand."},{"fr":"Il pleuvait et il faisait froid.","de":"Es regnete und es war kalt."}]},
+      "items": [
+        {"front":"autrefois","back":"früher","example":"Autrefois, il n'y avait pas de téléphone.","exampleDe":"Früher gab es keine Telefone."},
+        {"front":"d'habitude","back":"gewöhnlich","example":"D'habitude, je me lève à sept heures.","exampleDe":"Gewöhnlich stehe ich um sieben Uhr auf."},
+        {"front":"toujours","back":"immer","example":"Il est toujours à l'heure.","exampleDe":"Er ist immer pünktlich."},
+        {"front":"souvent","back":"oft","example":"Nous allons souvent au parc.","exampleDe":"Wir gehen oft in den Park."},
+        {"front":"chaque été","back":"jeden Sommer","example":"Chaque été, nous allions à la mer.","exampleDe":"Jeden Sommer fuhren wir ans Meer."}
+      ]
+    },
+    {
+      "id": "f9-u1-l4",
+      "title": "Wann imparfait? (2/2)",
+      "items": [
+        {"front":"à cette époque","back":"zu dieser Zeit","example":"À cette époque, nous habitions à Lyon.","exampleDe":"Zu dieser Zeit wohnten wir in Lyon."},
+        {"front":"tous les jours","back":"jeden Tag","example":"Je lis tous les jours.","exampleDe":"Ich lese jeden Tag."},
+        {"front":"quand j'étais enfant","back":"als ich Kind war","example":"Quand j'étais enfant, j'aimais dessiner.","exampleDe":"Als ich Kind war, zeichnete ich gern."},
+        {"front":"il faisait beau","back":"das Wetter war schön","example":"Ce jour-là, il faisait beau.","exampleDe":"An diesem Tag war schönes Wetter."},
+        {"front":"il y avait","back":"es gab","example":"Il y avait beaucoup de monde.","exampleDe":"Es waren viele Leute da."}
+      ]
+    },
+    {
+      "id": "f9-u1-l5",
+      "title": "Märchen und Geschichten (1/2)",
+      "items": [
+        {"front":"il était une fois","back":"es war einmal","example":"Il était une fois un roi.","exampleDe":"Es war einmal ein König."},
+        {"front":"le roi","back":"der König","example":"Le roi habite dans un grand château.","exampleDe":"Der König wohnt in einem großen Schloss."},
+        {"front":"la reine","back":"die Königin","example":"La reine est très gentille.","exampleDe":"Die Königin ist sehr nett."},
+        {"front":"le château","back":"das Schloss","example":"Le château est sur la colline.","exampleDe":"Das Schloss steht auf dem Hügel."},
+        {"front":"le chevalier","back":"der Ritter","example":"Le chevalier combat le dragon.","exampleDe":"Der Ritter kämpft gegen den Drachen."}
+      ]
+    },
+    {
+      "id": "f9-u1-l6",
+      "title": "Märchen und Geschichten (2/2)",
+      "items": [
+        {"front":"le dragon","back":"der Drache","example":"Le dragon garde le trésor.","exampleDe":"Der Drache bewacht den Schatz."},
+        {"front":"la forêt","back":"der Wald","example":"Ils marchent dans la forêt.","exampleDe":"Sie gehen durch den Wald."},
+        {"front":"la sorcière","back":"die Hexe","example":"La sorcière habite dans la forêt.","exampleDe":"Die Hexe wohnt im Wald."},
+        {"front":"heureux","back":"glücklich","example":"Ils sont heureux ensemble.","exampleDe":"Sie sind zusammen glücklich."},
+        {"front":"vivre","back":"leben","example":"Ils vivent dans un château.","exampleDe":"Sie leben in einem Schloss."}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,838 @@
+{
+  "id": "f8-u1",
+  "title": "Bienvenue à Nantes",
+  "description": "Stadt vorstellen, Orte, Wegbeschreibung, Bahnreise, Adjektive, Relativsätze, Verben auf -re und -ir",
+  "grade": 8,
+  "subject": "french",
+  "order": 10,
+  "book": "À plus ! 2 · Unité 1",
+  "lessons": [
+    {
+      "id": "f8-u1-l1",
+      "title": "Orte in der Stadt (1/2)",
+      "items": [
+        {
+          "front": "la mairie",
+          "back": "das Rathaus",
+          "example": "La mairie est dans le centre-ville.",
+          "exampleDe": "Das Rathaus liegt in der Innenstadt."
+        },
+        {
+          "front": "le château",
+          "back": "das Schloss",
+          "example": "Le château est très vieux.",
+          "exampleDe": "Das Schloss ist sehr alt."
+        },
+        {
+          "front": "la cathédrale",
+          "back": "die Kathedrale",
+          "example": "La cathédrale est grande.",
+          "exampleDe": "Die Kathedrale ist groß."
+        },
+        {
+          "front": "le centre-ville",
+          "back": "die Innenstadt",
+          "example": "Le centre-ville est joli.",
+          "exampleDe": "Die Innenstadt ist hübsch."
+        },
+        {
+          "front": "l'église (f)",
+          "back": "die Kirche",
+          "example": "L'église est près de la place.",
+          "exampleDe": "Die Kirche ist nahe am Platz."
+        },
+        {
+          "front": "l'île (f)",
+          "back": "die Insel",
+          "example": "L'île est au milieu de la Loire.",
+          "exampleDe": "Die Insel liegt mitten in der Loire."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l2",
+      "title": "Orte in der Stadt (2/2)",
+      "items": [
+        {
+          "front": "la poste",
+          "back": "die Post",
+          "example": "La poste est ouverte.",
+          "exampleDe": "Die Post ist geöffnet."
+        },
+        {
+          "front": "la banque",
+          "back": "die Bank",
+          "example": "La banque est fermée.",
+          "exampleDe": "Die Bank ist geschlossen."
+        },
+        {
+          "front": "la pharmacie",
+          "back": "die Apotheke",
+          "example": "La pharmacie est à droite.",
+          "exampleDe": "Die Apotheke ist rechts."
+        },
+        {
+          "front": "l'hôpital (m)",
+          "back": "das Krankenhaus",
+          "example": "L'hôpital est grand.",
+          "exampleDe": "Das Krankenhaus ist groß."
+        },
+        {
+          "front": "la bibliothèque",
+          "back": "die Bibliothek",
+          "example": "Je lis à la bibliothèque.",
+          "exampleDe": "Ich lese in der Bibliothek."
+        },
+        {
+          "front": "le stade",
+          "back": "das Stadion",
+          "example": "Le stade est grand.",
+          "exampleDe": "Das Stadion ist groß."
+        },
+        {
+          "front": "la piscine",
+          "back": "das Schwimmbad",
+          "example": "La piscine est près du parc.",
+          "exampleDe": "Das Schwimmbad ist nahe am Park."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l3",
+      "title": "Den Weg beschreiben",
+      "items": [
+        {
+          "front": "tout droit",
+          "back": "geradeaus",
+          "example": "Allez tout droit.",
+          "exampleDe": "Gehen Sie geradeaus."
+        },
+        {
+          "front": "à gauche",
+          "back": "nach links",
+          "example": "Tournez à gauche.",
+          "exampleDe": "Biegen Sie links ab."
+        },
+        {
+          "front": "à droite",
+          "back": "nach rechts",
+          "example": "La gare est à droite.",
+          "exampleDe": "Der Bahnhof ist rechts."
+        },
+        {
+          "front": "tourner",
+          "back": "abbiegen",
+          "example": "Tournez à la deuxième rue.",
+          "exampleDe": "Biegen Sie in die zweite Straße ab."
+        },
+        {
+          "front": "traverser",
+          "back": "überqueren",
+          "example": "Traversez la place.",
+          "exampleDe": "Überqueren Sie den Platz."
+        },
+        {
+          "front": "continuer",
+          "back": "weitergehen",
+          "example": "Continuez tout droit.",
+          "exampleDe": "Gehen Sie weiter geradeaus."
+        },
+        {
+          "front": "pour aller à … ?",
+          "back": "wie komme ich zu …?",
+          "example": "Pardon, pour aller à la gare ?",
+          "exampleDe": "Entschuldigung, wie komme ich zum Bahnhof?"
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l4",
+      "title": "Verkehrsmittel",
+      "items": [
+        {
+          "front": "le bus",
+          "back": "der Bus",
+          "example": "Je prends le bus.",
+          "exampleDe": "Ich nehme den Bus."
+        },
+        {
+          "front": "le tramway",
+          "back": "die Straßenbahn",
+          "example": "Le tramway passe ici.",
+          "exampleDe": "Die Straßenbahn fährt hier."
+        },
+        {
+          "front": "le train",
+          "back": "der Zug",
+          "example": "Le train est rapide.",
+          "exampleDe": "Der Zug ist schnell."
+        },
+        {
+          "front": "la voiture",
+          "back": "das Auto",
+          "example": "La voiture est rouge.",
+          "exampleDe": "Das Auto ist rot."
+        },
+        {
+          "front": "le vélo",
+          "back": "das Fahrrad",
+          "example": "Je vais à l'école à vélo.",
+          "exampleDe": "Ich fahre mit dem Rad zur Schule."
+        },
+        {
+          "front": "à pied",
+          "back": "zu Fuß",
+          "example": "Nous allons au parc à pied.",
+          "exampleDe": "Wir gehen zu Fuß zum Park."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l5",
+      "title": "Mit dem Zug reisen",
+      "items": [
+        {
+          "front": "le billet",
+          "back": "die Fahrkarte",
+          "example": "Je prends un billet.",
+          "exampleDe": "Ich kaufe eine Fahrkarte."
+        },
+        {
+          "front": "le quai",
+          "back": "der Bahnsteig",
+          "example": "Le train est sur le quai trois.",
+          "exampleDe": "Der Zug steht an Gleis drei."
+        },
+        {
+          "front": "le voyage",
+          "back": "die Reise",
+          "example": "Le voyage est long.",
+          "exampleDe": "Die Reise ist lang."
+        },
+        {
+          "front": "le départ",
+          "back": "die Abfahrt",
+          "example": "Le départ est à huit heures.",
+          "exampleDe": "Die Abfahrt ist um acht Uhr."
+        },
+        {
+          "front": "l'arrivée (f)",
+          "back": "die Ankunft",
+          "example": "L'arrivée est à midi.",
+          "exampleDe": "Die Ankunft ist um zwölf Uhr."
+        },
+        {
+          "front": "le retard",
+          "back": "die Verspätung",
+          "example": "Le train a du retard.",
+          "exampleDe": "Der Zug hat Verspätung."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l6",
+      "title": "Pünktlich oder zu spät?",
+      "items": [
+        {
+          "front": "à l'heure",
+          "back": "pünktlich",
+          "example": "Le train est à l'heure.",
+          "exampleDe": "Der Zug ist pünktlich."
+        },
+        {
+          "front": "en retard",
+          "back": "zu spät",
+          "example": "Je suis en retard !",
+          "exampleDe": "Ich bin zu spät!"
+        },
+        {
+          "front": "en avance",
+          "back": "zu früh",
+          "example": "Nous sommes en avance.",
+          "exampleDe": "Wir sind zu früh da."
+        },
+        {
+          "front": "le voyageur / la voyageuse",
+          "back": "der Reisende / die Reisende",
+          "example": "Les voyageurs attendent.",
+          "exampleDe": "Die Reisenden warten."
+        },
+        {
+          "front": "annoncer",
+          "back": "ansagen",
+          "example": "Le chef de gare annonce le train.",
+          "exampleDe": "Der Bahnhofsvorsteher kündigt den Zug an."
+        },
+        {
+          "front": "attention",
+          "back": "Achtung",
+          "example": "Attention au train !",
+          "exampleDe": "Achtung, der Zug!"
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l7",
+      "title": "quel / quelle",
+      "items": [
+        {
+          "front": "quel / quelle",
+          "back": "welcher / welche / welches",
+          "example": "Quel âge as-tu ?",
+          "exampleDe": "Wie alt bist du?"
+        },
+        {
+          "front": "quels / quelles",
+          "back": "welche (Plural)",
+          "example": "Quelles rues sont jolies ?",
+          "exampleDe": "Welche Straßen sind hübsch?"
+        },
+        {
+          "front": "quelle ville ?",
+          "back": "welche Stadt?",
+          "example": "Quelle ville est grande ?",
+          "exampleDe": "Welche Stadt ist groß?"
+        },
+        {
+          "front": "quel temps ?",
+          "back": "welches Wetter?",
+          "example": "Quel temps fait-il ?",
+          "exampleDe": "Wie ist das Wetter?"
+        },
+        {
+          "front": "quel jour ?",
+          "back": "welcher Tag?",
+          "example": "Quel jour est-ce aujourd'hui ?",
+          "exampleDe": "Welcher Tag ist heute?"
+        }
+      ],
+      "explanation": {
+        "title": "Der Fragebegleiter quel",
+        "paragraphs": [
+          "„Quel“ fragt nach einer Auswahl und richtet sich nach dem Nomen: quel (m), quelle (f), quels (m Plural), quelles (f Plural).",
+          "Du kannst es am Satzanfang benutzen: Quelle heure est-il ? Oder mit „est“: Quel est ton prénom ?"
+        ],
+        "examples": [
+          {
+            "fr": "Quelle ville ?",
+            "de": "Welche Stadt?"
+          },
+          {
+            "fr": "Quels livres ?",
+            "de": "Welche Bücher?"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "___ ville est jolie ?",
+          "answer": "Quelle",
+          "options": [
+            "Quelle",
+            "Quel",
+            "Quelles"
+          ],
+          "translation": "Welche Stadt ist hübsch?",
+          "why": "„ville“ ist weiblich → quelle."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l8",
+      "title": "Ordnungszahlen",
+      "items": [
+        {
+          "front": "premier / première",
+          "back": "erste(r)",
+          "example": "Le premier jour est lundi.",
+          "exampleDe": "Der erste Tag ist Montag."
+        },
+        {
+          "front": "deuxième",
+          "back": "zweite(r)",
+          "example": "Tournez à la deuxième rue.",
+          "exampleDe": "Biegen Sie in die zweite Straße ab."
+        },
+        {
+          "front": "troisième",
+          "back": "dritte(r)",
+          "example": "Le troisième quai est là.",
+          "exampleDe": "Der dritte Bahnsteig ist dort."
+        },
+        {
+          "front": "quatrième",
+          "back": "vierte(r)",
+          "example": "Mon appartement est au quatrième étage.",
+          "exampleDe": "Meine Wohnung ist im vierten Stock."
+        },
+        {
+          "front": "dernier / dernière",
+          "back": "letzte(r)",
+          "example": "Le dernier train part à minuit.",
+          "exampleDe": "Der letzte Zug fährt um Mitternacht."
+        },
+        {
+          "front": "l'étage (m)",
+          "back": "das Stockwerk",
+          "example": "J'habite au deuxième étage.",
+          "exampleDe": "Ich wohne im zweiten Stock."
+        }
+      ],
+      "explanation": {
+        "title": "Reihenfolge",
+        "paragraphs": [
+          "Ordnungszahlen bildest du meist mit -ième: deuxième, troisième, quatrième. Nur „premier / première“ ist besonders."
+        ],
+        "examples": [
+          {
+            "fr": "le premier jour, la deuxième rue",
+            "de": "der erste Tag, die zweite Straße"
+          }
+        ]
+      }
+    },
+    {
+      "id": "f8-u1-l9",
+      "title": "Adjektive vor dem Nomen",
+      "items": [
+        {
+          "front": "mauvais(e)",
+          "back": "schlecht",
+          "example": "C'est une mauvaise idée.",
+          "exampleDe": "Das ist eine schlechte Idee."
+        },
+        {
+          "front": "jeune",
+          "back": "jung",
+          "example": "C'est un jeune garçon.",
+          "exampleDe": "Das ist ein junger Junge."
+        },
+        {
+          "front": "long / longue",
+          "back": "lang",
+          "example": "C'est une longue rue.",
+          "exampleDe": "Das ist eine lange Straße."
+        },
+        {
+          "front": "gros / grosse",
+          "back": "dick / groß",
+          "example": "Il y a un gros arbre.",
+          "exampleDe": "Da ist ein dicker Baum."
+        },
+        {
+          "front": "haut(e)",
+          "back": "hoch",
+          "example": "La tour est haute.",
+          "exampleDe": "Der Turm ist hoch."
+        }
+      ],
+      "explanation": {
+        "title": "Stellung des Adjektivs",
+        "paragraphs": [
+          "Die meisten Adjektive stehen hinter dem Nomen: une ville intéressante. Einige kurze, häufige stehen davor: grand, petit, bon, mauvais, jeune, vieux, joli, long, gros.",
+          "Merkhilfe: BAGS (beauté, âge, grandeur, santé/bon–mauvais)."
+        ],
+        "examples": [
+          {
+            "fr": "un grand parc, une jolie place",
+            "de": "ein großer Park, ein hübscher Platz"
+          },
+          {
+            "fr": "une ville intéressante",
+            "de": "eine interessante Stadt"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "C'est une ___ ville.",
+          "answer": "grande",
+          "options": [
+            "grande",
+            "grand",
+            "grandes"
+          ],
+          "translation": "Das ist eine große Stadt.",
+          "why": "grand steht vor dem Nomen, weiblich: grande."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l10",
+      "title": "Adjektive nach dem Nomen",
+      "items": [
+        {
+          "front": "célèbre",
+          "back": "berühmt",
+          "example": "C'est une ville célèbre.",
+          "exampleDe": "Das ist eine berühmte Stadt."
+        },
+        {
+          "front": "important(e)",
+          "back": "wichtig",
+          "example": "C'est un port important.",
+          "exampleDe": "Das ist ein wichtiger Hafen."
+        },
+        {
+          "front": "historique",
+          "back": "historisch",
+          "example": "Le centre-ville est historique.",
+          "exampleDe": "Die Innenstadt ist historisch."
+        },
+        {
+          "front": "calme",
+          "back": "ruhig",
+          "example": "Le quartier est calme.",
+          "exampleDe": "Das Viertel ist ruhig."
+        },
+        {
+          "front": "bruyant(e)",
+          "back": "laut",
+          "example": "La rue est bruyante.",
+          "exampleDe": "Die Straße ist laut."
+        },
+        {
+          "front": "touristique",
+          "back": "touristisch",
+          "example": "La ville est très touristique.",
+          "exampleDe": "Die Stadt ist sehr touristisch."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l11",
+      "title": "Relativsätze mit qui und où",
+      "items": [
+        {
+          "front": "qui (Relativpronomen)",
+          "back": "der / die / das",
+          "example": "Le garçon qui joue est mon frère.",
+          "exampleDe": "Der Junge, der spielt, ist mein Bruder."
+        },
+        {
+          "front": "où (Relativpronomen)",
+          "back": "in dem / wo",
+          "example": "La ville où je suis est petite.",
+          "exampleDe": "Die Stadt, in der ich bin, ist klein."
+        },
+        {
+          "front": "l'endroit (m)",
+          "back": "der Ort",
+          "example": "C'est un endroit calme.",
+          "exampleDe": "Das ist ein ruhiger Ort."
+        },
+        {
+          "front": "la chose",
+          "back": "die Sache",
+          "example": "La chose qui est là est grande.",
+          "exampleDe": "Die Sache, die da ist, ist groß."
+        },
+        {
+          "front": "le truc",
+          "back": "das Ding (umgangssprachlich)",
+          "example": "Le truc est là.",
+          "exampleDe": "Das Ding ist da."
+        }
+      ],
+      "explanation": {
+        "title": "qui und où",
+        "paragraphs": [
+          "„Qui“ ersetzt das Subjekt: La fille qui parle est ma cousine. „Où“ ersetzt einen Ort: La ville où j'habite est grande.",
+          "Du verbindest damit zwei Sätze zu einem."
+        ],
+        "examples": [
+          {
+            "fr": "La fille qui parle est ma cousine.",
+            "de": "Das Mädchen, das spricht, ist meine Cousine."
+          },
+          {
+            "fr": "La ville où j'habite est grande.",
+            "de": "Die Stadt, in der ich wohne, ist groß."
+          }
+        ],
+        "tip": "Nach „qui“ steht direkt das Verb, nach „où“ meist ein neuer Satz."
+      },
+      "fills": [
+        {
+          "sentence": "La fille ___ parle est ma sœur.",
+          "answer": "qui",
+          "options": [
+            "qui",
+            "où",
+            "que"
+          ],
+          "translation": "Das Mädchen, das spricht, ist meine Schwester.",
+          "why": "Subjekt des Relativsatzes → „qui“."
+        },
+        {
+          "sentence": "La ville ___ j'habite est grande.",
+          "answer": "où",
+          "options": [
+            "où",
+            "qui",
+            "que"
+          ],
+          "translation": "Die Stadt, in der ich wohne, ist groß.",
+          "why": "Ortsangabe → „où“."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l12",
+      "title": "Verben auf -re (1/2)",
+      "items": [
+        {
+          "front": "attendre",
+          "back": "warten",
+          "example": "J'attends le bus.",
+          "exampleDe": "Ich warte auf den Bus."
+        },
+        {
+          "front": "répondre",
+          "back": "antworten",
+          "example": "Je réponds à Léa.",
+          "exampleDe": "Ich antworte Léa."
+        },
+        {
+          "front": "vendre",
+          "back": "verkaufen",
+          "example": "Il vend des gâteaux.",
+          "exampleDe": "Er verkauft Kuchen."
+        }
+      ],
+      "explanation": {
+        "title": "Verben auf -re",
+        "paragraphs": [
+          "Regelmäßige Verben auf -re: Streiche -re und hänge an: -s, -s, – (nichts), -ons, -ez, -ent. Beispiel: j'attends, tu attends, il attend, nous attendons, vous attendez, ils attendent."
+        ],
+        "examples": [
+          {
+            "fr": "J'attends le train.",
+            "de": "Ich warte auf den Zug."
+          },
+          {
+            "fr": "Il répond à la question.",
+            "de": "Er antwortet auf die Frage."
+          }
+        ],
+        "tip": "Bei „il / elle“ steht kein Endbuchstabe: il attend, elle répond."
+      },
+      "fills": [
+        {
+          "sentence": "J'___ le train.",
+          "answer": "attends",
+          "options": [
+            "attends",
+            "attend",
+            "attendons"
+          ],
+          "translation": "Ich warte auf den Zug.",
+          "why": "Zu „je“ passt „-s“."
+        },
+        {
+          "sentence": "Elle ___ à la question.",
+          "answer": "répond",
+          "options": [
+            "répond",
+            "réponds",
+            "répondent"
+          ],
+          "translation": "Sie antwortet auf die Frage.",
+          "why": "Zu „elle“ passt keine Endung."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l13",
+      "title": "Verben auf -re (2/2)",
+      "items": [
+        {
+          "front": "entendre",
+          "back": "hören",
+          "example": "J'entends la musique.",
+          "exampleDe": "Ich höre die Musik."
+        },
+        {
+          "front": "perdre",
+          "back": "verlieren",
+          "example": "Il perd son billet.",
+          "exampleDe": "Er verliert seine Fahrkarte."
+        },
+        {
+          "front": "descendre",
+          "back": "hinuntergehen / aussteigen",
+          "example": "Nous descendons à Nantes.",
+          "exampleDe": "Wir steigen in Nantes aus."
+        },
+        {
+          "front": "rendre",
+          "back": "zurückgeben",
+          "example": "Je rends le livre.",
+          "exampleDe": "Ich gebe das Buch zurück."
+        },
+        {
+          "front": "rendre visite à",
+          "back": "besuchen",
+          "example": "Je rends visite à ma tante.",
+          "exampleDe": "Ich besuche meine Tante."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Nous ___ à Nantes.",
+          "answer": "descendons",
+          "options": [
+            "descendons",
+            "descendez",
+            "descendent"
+          ],
+          "translation": "Wir steigen in Nantes aus.",
+          "why": "Zu „nous“ passt „-ons“."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l14",
+      "title": "Verben auf -ir (Typ sortir)",
+      "items": [
+        {
+          "front": "sortir",
+          "back": "hinausgehen / ausgehen",
+          "example": "Je sors du collège à quatre heures.",
+          "exampleDe": "Ich verlasse die Schule um vier Uhr."
+        },
+        {
+          "front": "partir",
+          "back": "abfahren / weggehen",
+          "example": "Le train part à midi.",
+          "exampleDe": "Der Zug fährt um zwölf Uhr ab."
+        },
+        {
+          "front": "dormir",
+          "back": "schlafen",
+          "example": "Je dors dans le train.",
+          "exampleDe": "Ich schlafe im Zug."
+        },
+        {
+          "front": "servir",
+          "back": "bedienen / servieren",
+          "example": "On sert du thé.",
+          "exampleDe": "Man serviert Tee."
+        }
+      ],
+      "explanation": {
+        "title": "sortir, partir, dormir, servir",
+        "paragraphs": [
+          "Diese Verben haben im Singular: je sors, tu sors, il sort. Im Plural: nous sortons, vous sortez, ils sortent."
+        ],
+        "examples": [
+          {
+            "fr": "Je sors du collège.",
+            "de": "Ich verlasse die Schule."
+          },
+          {
+            "fr": "Nous partons demain.",
+            "de": "Wir fahren morgen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Le train ___ à midi.",
+          "answer": "part",
+          "options": [
+            "part",
+            "pars",
+            "partent"
+          ],
+          "translation": "Der Zug fährt um zwölf Uhr ab.",
+          "why": "Zu „le train“ passt „part“."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l15",
+      "title": "Region und Menschen",
+      "items": [
+        {
+          "front": "la Loire",
+          "back": "die Loire",
+          "example": "La Loire est un grand fleuve.",
+          "exampleDe": "Die Loire ist ein großer Fluss."
+        },
+        {
+          "front": "le fleuve",
+          "back": "der Fluss",
+          "example": "Le fleuve est large.",
+          "exampleDe": "Der Fluss ist breit."
+        },
+        {
+          "front": "la région",
+          "back": "die Region",
+          "example": "La région est belle.",
+          "exampleDe": "Die Region ist schön."
+        },
+        {
+          "front": "l'habitant (m) / l'habitante (f)",
+          "back": "der Einwohner / die Einwohnerin",
+          "example": "Nantes a beaucoup d'habitants.",
+          "exampleDe": "Nantes hat viele Einwohner."
+        },
+        {
+          "front": "le port",
+          "back": "der Hafen",
+          "example": "Le port est grand.",
+          "exampleDe": "Der Hafen ist groß."
+        },
+        {
+          "front": "la côte",
+          "back": "die Küste",
+          "example": "La côte est près de Nantes.",
+          "exampleDe": "Die Küste liegt nahe bei Nantes."
+        }
+      ]
+    },
+    {
+      "id": "f8-u1-l16",
+      "title": "Wo und wie wohnst du?",
+      "items": [
+        {
+          "front": "la campagne",
+          "back": "das Land",
+          "example": "J'habite à la campagne.",
+          "exampleDe": "Ich wohne auf dem Land."
+        },
+        {
+          "front": "le village",
+          "back": "das Dorf",
+          "example": "Mon village est petit.",
+          "exampleDe": "Mein Dorf ist klein."
+        },
+        {
+          "front": "la banlieue",
+          "back": "der Vorort",
+          "example": "Nous habitons en banlieue.",
+          "exampleDe": "Wir wohnen im Vorort."
+        },
+        {
+          "front": "au bord de",
+          "back": "am Rand von / an",
+          "example": "Nous habitons au bord de la mer.",
+          "exampleDe": "Wir wohnen am Meer."
+        },
+        {
+          "front": "le bâtiment",
+          "back": "das Gebäude",
+          "example": "Le bâtiment est très vieux.",
+          "exampleDe": "Das Gebäude ist sehr alt."
+        },
+        {
+          "front": "la vue",
+          "back": "die Aussicht",
+          "example": "La vue est belle.",
+          "exampleDe": "Die Aussicht ist schön."
+        }
+      ]
+    }
+  ]
+}

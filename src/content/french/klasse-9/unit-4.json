@@ -1,0 +1,81 @@
+{
+  "id": "f9-u4",
+  "title": "Si j'avais le temps",
+  "description": "Bedingungssätze, conditionnel présent",
+  "grade": 9,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f9-u4-l1",
+      "title": "Wenn es regnet … (1/2)",
+      "explanation": {"title":"Reale Bedingung: si + présent","paragraphs":["Reale Bedingung: si + présent → futur simple (oder présent/impératif im Hauptsatz). Si tu viens, je serai content.","Wichtig: Nach „si“ steht nie das futur simple! Falsch: Si tu viendras …"],"examples":[{"fr":"S'il pleut, nous resterons à la maison.","de":"Wenn es regnet, bleiben wir zu Hause."},{"fr":"Si tu as faim, mange !","de":"Wenn du Hunger hast, iss!"}],"tip":"si + il → s'il, aber si + elle bleibt si elle."},
+      "items": [
+        {"front":"si tu viens","back":"wenn du kommst","example":"Si tu viens, je serai content.","exampleDe":"Wenn du kommst, freue ich mich."},
+        {"front":"s'il pleut","back":"wenn es regnet","example":"S'il pleut, nous restons à la maison.","exampleDe":"Wenn es regnet, bleiben wir zu Hause."},
+        {"front":"si j'ai le temps","back":"wenn ich Zeit habe","example":"Si j'ai le temps, je viendrai.","exampleDe":"Wenn ich Zeit habe, komme ich."},
+        {"front":"je serai content","back":"ich werde froh sein","example":"Je serai content de te voir.","exampleDe":"Ich werde mich freuen, dich zu sehen."}
+      ]
+    },
+    {
+      "id": "f9-u4-l2",
+      "title": "Wenn es regnet … (2/2)",
+      "items": [
+        {"front":"nous resterons","back":"wir werden bleiben","example":"Nous resterons à la maison.","exampleDe":"Wir werden zu Hause bleiben."},
+        {"front":"si elle veut","back":"wenn sie will","example":"Si elle veut, elle peut venir.","exampleDe":"Wenn sie will, kann sie kommen."},
+        {"front":"à condition que","back":"unter der Bedingung, dass","example":"Je viens, à condition que tu viennes aussi.","exampleDe":"Ich komme, unter der Bedingung, dass du auch kommst."},
+        {"front":"sinon","back":"sonst","example":"Dépêche-toi, sinon nous serons en retard.","exampleDe":"Beeil dich, sonst kommen wir zu spät."}
+      ],
+      "fills": [
+        {"sentence":"Si tu ___, je serai content.","answer":"viens","options":["viens","viendras","viendrais","venais"],"translation":"Wenn du kommst, werde ich froh sein.","why":"si + présent, nie si + futur."},
+        {"sentence":"S'il ___, nous resterons ici.","answer":"pleut","options":["pleut","pleuvra","pleuvait","pleuvrait"],"translation":"Wenn es regnet, bleiben wir hier.","why":"Nach si steht das Präsens."}
+      ]
+    },
+    {
+      "id": "f9-u4-l3",
+      "title": "Conditionnel présent (1/2)",
+      "explanation": {"title":"Wünsche und irreale Bedingungen","paragraphs":["Konditional = Futurstamm + Endungen des imparfait: je parlerais, tu parlerais, il parlerait, nous parlerions, vous parleriez, ils parleraient.","Irreale Bedingung: si + imparfait → conditionnel présent. Si j'avais le temps, je voyagerais."],"examples":[{"fr":"Si j'étais riche, j'achèterais une maison.","de":"Wenn ich reich wäre, würde ich ein Haus kaufen."},{"fr":"Je voudrais un café.","de":"Ich hätte gern einen Kaffee."}],"tip":"Stamm wie im Futur (ir-, fer-, ser-, aur-), Endung wie im imparfait (-ais, -ait …)."},
+      "items": [
+        {"front":"je voudrais","back":"ich möchte","example":"Je voudrais un café, s'il vous plaît.","exampleDe":"Ich hätte gern einen Kaffee, bitte."},
+        {"front":"tu pourrais","back":"du könntest","example":"Tu pourrais m'aider ?","exampleDe":"Könntest du mir helfen?"},
+        {"front":"il serait","back":"er wäre","example":"Il serait content de venir.","exampleDe":"Er wäre froh zu kommen."},
+        {"front":"nous aurions","back":"wir hätten","example":"Nous aurions plus de temps.","exampleDe":"Wir hätten mehr Zeit."}
+      ]
+    },
+    {
+      "id": "f9-u4-l4",
+      "title": "Conditionnel présent (2/2)",
+      "items": [
+        {"front":"vous iriez","back":"ihr würdet gehen","example":"Vous iriez où en vacances ?","exampleDe":"Wohin würdet ihr in den Ferien fahren?"},
+        {"front":"ils feraient","back":"sie würden machen","example":"Ils feraient un voyage.","exampleDe":"Sie würden eine Reise machen."},
+        {"front":"j'aimerais","back":"ich würde gern","example":"J'aimerais voyager en Asie.","exampleDe":"Ich würde gern nach Asien reisen."},
+        {"front":"on devrait","back":"man sollte","example":"On devrait partir plus tôt.","exampleDe":"Man sollte früher losgehen."}
+      ],
+      "fills": [
+        {"sentence":"Si j'avais le temps, je ___.","answer":"voyagerais","options":["voyagerais","voyagerai","voyageais","voyage"],"translation":"Wenn ich Zeit hätte, würde ich reisen.","why":"si + imparfait → conditionnel présent."},
+        {"sentence":"Si nous étions riches, nous ___ une maison.","answer":"achèterions","options":["achèterions","achèterons","achetions","achetons"],"translation":"Wenn wir reich wären, würden wir ein Haus kaufen.","why":"Konditional: Futurstamm achèter- + -ions."}
+      ]
+    },
+    {
+      "id": "f9-u4-l5",
+      "title": "Wünsche und Träume (1/2)",
+      "items": [
+        {"front":"un rêve","back":"ein Traum","example":"Voyager est mon rêve.","exampleDe":"Reisen ist mein Traum."},
+        {"front":"riche","back":"reich","example":"Il n'est pas riche.","exampleDe":"Er ist nicht reich."},
+        {"front":"célèbre","back":"berühmt","example":"Cet acteur est très célèbre.","exampleDe":"Dieser Schauspieler ist sehr berühmt."},
+        {"front":"gagner","back":"gewinnen / verdienen","example":"Je voudrais gagner le match.","exampleDe":"Ich möchte das Spiel gewinnen."},
+        {"front":"voyager","back":"reisen","example":"J'aime voyager en train.","exampleDe":"Ich reise gern mit dem Zug."}
+      ]
+    },
+    {
+      "id": "f9-u4-l6",
+      "title": "Wünsche und Träume (2/2)",
+      "items": [
+        {"front":"le monde","back":"die Welt","example":"Je veux voir le monde.","exampleDe":"Ich möchte die Welt sehen."},
+        {"front":"faire le tour du monde","back":"eine Weltreise machen","example":"Un jour, je ferai le tour du monde.","exampleDe":"Eines Tages mache ich eine Weltreise."},
+        {"front":"espérer","back":"hoffen","example":"J'espère réussir mon examen.","exampleDe":"Ich hoffe, meine Prüfung zu bestehen."},
+        {"front":"souhaiter","back":"wünschen","example":"Je souhaite te revoir bientôt.","exampleDe":"Ich wünsche mir, dich bald wiederzusehen."},
+        {"front":"réaliser un rêve","back":"einen Traum verwirklichen","example":"Il a réalisé un rêve.","exampleDe":"Er hat sich einen Traum erfüllt."}
+      ]
+    }
+  ]
+}

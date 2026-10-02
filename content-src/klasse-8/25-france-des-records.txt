@@ -1,0 +1,47 @@
+id: f8-m2
+title: La France des records
+book: À plus ! 2 · Module 2 La France des records
+desc: Vergleichen: Komparativ und Superlativ, Rekorde und Besonderheiten
+order: 25
+
+= Vergleichen
+? Der Komparativ
+p Mit „plus … que“ (mehr als), „moins … que“ (weniger als) und „aussi … que“ (genauso … wie) vergleichst du: Paris est plus grand que Nantes.
+p Das Adjektiv richtet sich nach dem ersten Nomen.
+e Paris est plus grand que Nantes. = Paris ist größer als Nantes.
+e La Seine est aussi longue que la Loire. = Die Seine ist so lang wie die Loire.
+- plus … que = mehr … als / -er als | Léa est plus grande que Paul. = Léa ist größer als Paul.
+- moins … que = weniger … als | Mon vélo est moins rapide que ta voiture. = Mein Rad ist weniger schnell als dein Auto.
+- aussi … que = genauso … wie | Ma ville est aussi belle que Paris. = Meine Stadt ist so hübsch wie Paris.
+- bon → meilleur(e) = gut → besser | Le gâteau est meilleur que la glace. = Der Kuchen ist besser als das Eis.
+- bien → mieux = gut (Adverb) → besser | Il chante mieux que moi. = Er singt besser als ich.
+f Paul est ___ grand que Léa. | plus | plus; moins; aussi | Paul ist größer als Léa. | „plus … que“ = größer als.
+
+= Der Superlativ
+? Der Superlativ
+p Mit „le plus“ / „la plus“ / „les plus“ drückst du das Höchste aus: La tour Eiffel est la plus haute tour de Paris.
+p Das Gegenteil: „le moins“ (am wenigsten). „Le meilleur / la meilleure“ heißt „der beste / die beste“.
+e le plus grand, la plus longue = der größte, die längste
+e C'est le meilleur gâteau. = Das ist der beste Kuchen.
+- le plus … = der / das am meisten … | C'est le plus grand parc. = Das ist der größte Park.
+- la plus … = die am meisten … | La tour est la plus haute. = Der Turm ist der höchste.
+- le moins … = der am wenigsten … | C'est le moins cher. = Das ist der Billigste.
+- le meilleur / la meilleure = der / die beste | C'est la meilleure glace. = Das ist das beste Eis.
+- le pire = der / das Schlimmste | C'est le pire film. = Das ist der schlimmste Film.
+f C'est ___ plus grand parc. | le | le; la; les | Das ist der größte Park. | „parc“ ist männlich → le plus grand.
+
+= Rekorde in Frankreich
+- le record = der Rekord | C'est un record du monde. = Das ist ein Weltrekord.
+- le Mont-Blanc = der Mont Blanc | Le Mont-Blanc est la plus haute montagne. = Der Mont Blanc ist der höchste Berg.
+- la hauteur = die Höhe | La hauteur est de trois cents mètres. = Die Höhe beträgt dreihundert Meter.
+- le mètre = der Meter | La tour Eiffel fait plus de trois cents mètres. = Der Eiffelturm ist über dreihundert Meter hoch.
+- rapide = schnell | Le TGV est un train rapide. = Der TGV ist ein schneller Zug.
+- le TGV = der Hochgeschwindigkeitszug | Le TGV est très rapide. = Der TGV ist sehr schnell.
+
+= Berühmtes aus Frankreich
+- le monument = das Bauwerk | Le monument est très connu. = Das Bauwerk ist sehr bekannt.
+- connu(e) = bekannt | Paris est très connu. = Paris ist sehr bekannt.
+- la personnalité = die Persönlichkeit | C'est une personnalité célèbre. = Das ist eine berühmte Persönlichkeit.
+- le fromage de chèvre = der Ziegenkäse | Le fromage de chèvre est bon. = Der Ziegenkäse ist gut.
+- le jeu de cartes = das Kartenspiel | Nous faisons un jeu de cartes. = Wir machen ein Kartenspiel.
+- la devinette = das Rätsel | Voilà une devinette. = Hier ist ein Rätsel.

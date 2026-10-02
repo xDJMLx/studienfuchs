@@ -1,0 +1,208 @@
+{
+  "id": "f8-m5",
+  "title": "Le blog de Kylian à La Réunion",
+  "description": "Reisebericht, Überseegebiet, Natur, beau / nouveau / vieux",
+  "grade": 8,
+  "subject": "french",
+  "order": 55,
+  "book": "À plus ! 2 · Module 5 Le blog de Kylian à La Réunion",
+  "lessons": [
+    {
+      "id": "f8-m5-l1",
+      "title": "Die Insel",
+      "items": [
+        {
+          "front": "l'île (f)",
+          "back": "die Insel",
+          "example": "La Réunion est une île.",
+          "exampleDe": "La Réunion ist eine Insel."
+        },
+        {
+          "front": "l'océan (m)",
+          "back": "der Ozean",
+          "example": "L'océan est très bleu.",
+          "exampleDe": "Der Ozean ist sehr blau."
+        },
+        {
+          "front": "le volcan",
+          "back": "der Vulkan",
+          "example": "Le volcan est haut.",
+          "exampleDe": "Der Vulkan ist hoch."
+        },
+        {
+          "front": "la forêt",
+          "back": "der Wald",
+          "example": "La forêt est verte.",
+          "exampleDe": "Der Wald ist grün."
+        },
+        {
+          "front": "le paysage",
+          "back": "die Landschaft",
+          "example": "Le paysage est magnifique.",
+          "exampleDe": "Die Landschaft ist wunderschön."
+        },
+        {
+          "front": "la cascade",
+          "back": "der Wasserfall",
+          "example": "La cascade est grande.",
+          "exampleDe": "Der Wasserfall ist groß."
+        }
+      ]
+    },
+    {
+      "id": "f8-m5-l2",
+      "title": "Reisebericht",
+      "items": [
+        {
+          "front": "le blog de voyage",
+          "back": "der Reiseblog",
+          "example": "Je lis un blog de voyage.",
+          "exampleDe": "Ich lese einen Reiseblog."
+        },
+        {
+          "front": "l'outre-mer (m)",
+          "back": "das Überseegebiet",
+          "example": "La Réunion est en outre-mer.",
+          "exampleDe": "La Réunion ist im Überseegebiet."
+        },
+        {
+          "front": "le climat",
+          "back": "das Klima",
+          "example": "Le climat est chaud.",
+          "exampleDe": "Das Klima ist heiß."
+        },
+        {
+          "front": "humide",
+          "back": "feucht",
+          "example": "L'air est humide.",
+          "exampleDe": "Die Luft ist feucht."
+        },
+        {
+          "front": "tropical(e)",
+          "back": "tropisch",
+          "example": "Le climat est tropical.",
+          "exampleDe": "Das Klima ist tropisch."
+        },
+        {
+          "front": "le créole",
+          "back": "das Kreolisch",
+          "example": "On parle créole à La Réunion.",
+          "exampleDe": "Auf La Réunion spricht man Kreolisch."
+        }
+      ]
+    },
+    {
+      "id": "f8-m5-l3",
+      "title": "beau, nouveau, vieux",
+      "items": [
+        {
+          "front": "beau / bel / belle",
+          "back": "schön",
+          "example": "C'est un beau paysage.",
+          "exampleDe": "Das ist eine schöne Landschaft."
+        },
+        {
+          "front": "nouveau / nouvel / nouvelle",
+          "back": "neu",
+          "example": "J'ai un nouvel ami.",
+          "exampleDe": "Ich habe einen neuen Freund."
+        },
+        {
+          "front": "vieux / vieil / vieille",
+          "back": "alt",
+          "example": "C'est une vieille maison.",
+          "exampleDe": "Das ist ein altes Haus."
+        },
+        {
+          "front": "beaux / nouveaux / vieux (Plural)",
+          "back": "schöne / neue / alte",
+          "example": "Ce sont de beaux paysages.",
+          "exampleDe": "Das sind schöne Landschaften."
+        }
+      ],
+      "explanation": {
+        "title": "Besondere Adjektive",
+        "paragraphs": [
+          "Diese drei Adjektive haben eine zusätzliche Form vor Vokal: beau → bel, nouveau → nouvel, vieux → vieil. Weiblich: belle, nouvelle, vieille. Plural: beaux, nouveaux, vieux."
+        ],
+        "examples": [
+          {
+            "fr": "un beau jardin, un bel arbre, une belle plage",
+            "de": "ein schöner Garten, ein schöner Baum, ein schöner Strand"
+          },
+          {
+            "fr": "un nouveau livre, un nouvel ami, une nouvelle idée",
+            "de": "ein neues Buch, ein neuer Freund, eine neue Idee"
+          }
+        ],
+        "tip": "Vor Vokal klingen männlich und weiblich gleich: un bel arbre – une belle idée."
+      },
+      "fills": [
+        {
+          "sentence": "C'est une ___ plage.",
+          "answer": "belle",
+          "options": [
+            "belle",
+            "beau",
+            "bel"
+          ],
+          "translation": "Das ist ein schöner Strand.",
+          "why": "„plage“ ist weiblich → belle."
+        },
+        {
+          "sentence": "C'est un ___ ami.",
+          "answer": "nouvel",
+          "options": [
+            "nouvel",
+            "nouveau",
+            "nouvelle"
+          ],
+          "translation": "Das ist ein neuer Freund.",
+          "why": "Vor Vokal: nouvel."
+        }
+      ]
+    },
+    {
+      "id": "f8-m5-l4",
+      "title": "Meine Region vorstellen",
+      "items": [
+        {
+          "front": "la région",
+          "back": "die Region",
+          "example": "Ma région est belle.",
+          "exampleDe": "Meine Region ist schön."
+        },
+        {
+          "front": "le coin",
+          "back": "die Ecke / die Gegend",
+          "example": "J'aime mon coin.",
+          "exampleDe": "Ich mag meine Gegend."
+        },
+        {
+          "front": "la spécialité",
+          "back": "die Spezialität",
+          "example": "La spécialité est un gâteau.",
+          "exampleDe": "Die Spezialität ist ein Kuchen."
+        },
+        {
+          "front": "la découverte",
+          "back": "die Entdeckung",
+          "example": "C'est une belle découverte.",
+          "exampleDe": "Das ist eine schöne Entdeckung."
+        },
+        {
+          "front": "inviter à découvrir",
+          "back": "zum Entdecken einladen",
+          "example": "Je t'invite à découvrir ma région.",
+          "exampleDe": "Ich lade dich ein, meine Region zu entdecken."
+        },
+        {
+          "front": "la présentation-minute",
+          "back": "die Kurzpräsentation",
+          "example": "Ma présentation-minute est courte.",
+          "exampleDe": "Meine Kurzpräsentation ist kurz."
+        }
+      ]
+    }
+  ]
+}

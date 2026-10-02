@@ -1,0 +1,64 @@
+{
+  "id": "f9-france",
+  "title": "La France et l'Allemagne",
+  "description": "Länder, Sehenswürdigkeiten, Austausch, Unterschiede",
+  "grade": 9,
+  "order": 25,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f9-france-l1",
+      "title": "Länder und Nationalitäten",
+      "explanation": {"title":"Wer kommt woher?","paragraphs":["Nationalitäten werden im Französischen kleingeschrieben, wenn sie Adjektive sind (un ami allemand), aber großgeschrieben, wenn sie Personen bezeichnen (un Allemand, une Allemande).","Das Femininum bekommt meist ein -e: allemand → allemande, français → française, italien → italienne."],"examples":[{"fr":"C'est une amie allemande.","de":"Das ist eine deutsche Freundin."},{"fr":"Les Français aiment le fromage.","de":"Die Franzosen mögen Käse."}]},
+      "items": [
+        {"front":"la France","back":"Frankreich","example":"La France est un grand pays.","exampleDe":"Frankreich ist ein großes Land."},
+        {"front":"l'Allemagne","back":"Deutschland","example":"L'Allemagne est notre pays voisin.","exampleDe":"Deutschland ist unser Nachbarland."},
+        {"front":"un Français / une Française","back":"ein Franzose / eine Französin","example":"Mon correspondant est un Français sympa.","exampleDe":"Mein Austauschpartner ist ein netter Franzose."},
+        {"front":"un Allemand / une Allemande","back":"ein Deutscher / eine Deutsche","example":"Léa est une Allemande qui habite à Paris.","exampleDe":"Léa ist eine Deutsche, die in Paris wohnt."},
+        {"front":"européen","back":"europäisch","example":"C'est un pays européen.","exampleDe":"Das ist ein europäisches Land."},
+        {"front":"le pays voisin","back":"das Nachbarland","example":"La France est un pays voisin.","exampleDe":"Frankreich ist ein Nachbarland."}
+      ]
+    },
+    {
+      "id": "f9-france-l2",
+      "title": "Sehenswürdigkeiten",
+      "items": [
+        {"front":"la tour Eiffel","back":"der Eiffelturm","example":"La tour Eiffel est à Paris.","exampleDe":"Der Eiffelturm steht in Paris."},
+        {"front":"le Louvre","back":"der Louvre (Museum)","example":"Nous visitons le Louvre.","exampleDe":"Wir besichtigen den Louvre."},
+        {"front":"l'Arc de triomphe","back":"der Triumphbogen","example":"L'Arc de triomphe est sur les Champs-Élysées.","exampleDe":"Der Triumphbogen steht an den Champs-Élysées."},
+        {"front":"le château de Versailles","back":"das Schloss Versailles","example":"Le château de Versailles est immense.","exampleDe":"Das Schloss Versailles ist riesig."},
+        {"front":"la Côte d'Azur","back":"die Côte d'Azur","example":"En été, la Côte d'Azur est pleine de touristes.","exampleDe":"Im Sommer ist die Côte d'Azur voller Touristen."},
+        {"front":"les Alpes","back":"die Alpen","example":"Nous skions dans les Alpes.","exampleDe":"Wir fahren in den Alpen Ski."},
+        {"front":"la Seine","back":"die Seine","example":"La Seine traverse Paris.","exampleDe":"Die Seine fließt durch Paris."}
+      ]
+    },
+    {
+      "id": "f9-france-l3",
+      "title": "Schüleraustausch",
+      "items": [
+        {"front":"un échange scolaire","back":"ein Schüleraustausch","example":"J'ai fait un échange scolaire.","exampleDe":"Ich habe einen Schüleraustausch gemacht."},
+        {"front":"la famille d'accueil","back":"die Gastfamilie","example":"Ma famille d'accueil est très gentille.","exampleDe":"Meine Gastfamilie ist sehr nett."},
+        {"front":"un correspondant","back":"ein Brieffreund / Austauschpartner","example":"Mon correspondant habite à Lyon.","exampleDe":"Mein Austauschpartner wohnt in Lyon."},
+        {"front":"le jumelage","back":"die Städtepartnerschaft","example":"Notre ville a un jumelage avec Lyon.","exampleDe":"Unsere Stadt hat eine Partnerschaft mit Lyon."},
+        {"front":"l'amitié franco-allemande","back":"die deutsch-französische Freundschaft","example":"L'amitié franco-allemande est importante.","exampleDe":"Die deutsch-französische Freundschaft ist wichtig."},
+        {"front":"se faire des amis","back":"Freunde finden","example":"Il est facile de se faire des amis.","exampleDe":"Es ist leicht, Freunde zu finden."}
+      ]
+    },
+    {
+      "id": "f9-france-l4",
+      "title": "Alltag im Vergleich",
+      "explanation": {"title":"Unterschiede beschreiben","paragraphs":["Mit „être différent de“, „ressembler à“ und „contrairement à“ vergleichst du. Beispiel: Contrairement à l'Allemagne, les repas sont plus longs en France.","„Alors que“ und „tandis que“ stellen Gegensätze gegenüber."],"examples":[{"fr":"Les repas sont plus longs en France.","de":"Die Mahlzeiten sind in Frankreich länger."},{"fr":"C'est différent de chez nous.","de":"Das ist anders als bei uns."}]},
+      "items": [
+        {"front":"être différent de","back":"anders sein als","example":"La vie ici est différente de chez nous.","exampleDe":"Das Leben hier ist anders als bei uns."},
+        {"front":"ressembler à","back":"ähneln","example":"Il ressemble à son père.","exampleDe":"Er sieht seinem Vater ähnlich."},
+        {"front":"contrairement à","back":"im Gegensatz zu","example":"Contrairement à moi, il aime le sport.","exampleDe":"Im Gegensatz zu mir mag er Sport."},
+        {"front":"l'habitude","back":"die Gewohnheit","example":"C'est une bonne habitude.","exampleDe":"Das ist eine gute Gewohnheit."},
+        {"front":"le repas","back":"die Mahlzeit","example":"Le repas dure deux heures.","exampleDe":"Das Essen dauert zwei Stunden."},
+        {"front":"les horaires","back":"die Zeiten, Öffnungszeiten","example":"Les horaires sont différents.","exampleDe":"Die Zeiten sind anders."}
+      ],
+      "fills": [
+        {"sentence":"C'est ___ chez nous.","answer":"différent de","options":["différent de","pareil à","ressembler","contrairement"],"translation":"Das ist anders als bei uns.","why":"être différent de = anders sein als."}
+      ]
+    }
+  ]
+}

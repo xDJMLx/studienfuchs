@@ -1,0 +1,616 @@
+{
+  "id": "f8-u5",
+  "title": "Les stars qu'on like",
+  "description": "Medien und soziale Netzwerke, Stars, Lebenslauf, Adjektive auf -al, voir, finir, tout",
+  "grade": 8,
+  "subject": "french",
+  "order": 50,
+  "book": "À plus ! 2 · Unité 5",
+  "lessons": [
+    {
+      "id": "f8-u5-l1",
+      "title": "Medien",
+      "items": [
+        {
+          "front": "la télévision",
+          "back": "das Fernsehen",
+          "example": "La télévision est allumée.",
+          "exampleDe": "Der Fernseher läuft."
+        },
+        {
+          "front": "la radio",
+          "back": "das Radio",
+          "example": "J'écoute la radio le matin.",
+          "exampleDe": "Morgens höre ich Radio."
+        },
+        {
+          "front": "le journal",
+          "back": "die Zeitung",
+          "example": "Mon père lit le journal.",
+          "exampleDe": "Mein Vater liest die Zeitung."
+        },
+        {
+          "front": "le magazine",
+          "back": "die Zeitschrift",
+          "example": "J'ai un magazine de sport.",
+          "exampleDe": "Ich habe eine Sportzeitschrift."
+        },
+        {
+          "front": "Internet",
+          "back": "das Internet",
+          "example": "J'utilise Internet tous les jours.",
+          "exampleDe": "Ich nutze das Internet jeden Tag."
+        },
+        {
+          "front": "la chaîne",
+          "back": "der Sender / der Kanal",
+          "example": "Cette chaîne est super.",
+          "exampleDe": "Dieser Kanal ist super."
+        }
+      ]
+    },
+    {
+      "id": "f8-u5-l2",
+      "title": "Die digitale Welt",
+      "items": [
+        {
+          "front": "le site",
+          "back": "die Webseite",
+          "example": "Le site est très connu.",
+          "exampleDe": "Die Webseite ist sehr bekannt."
+        },
+        {
+          "front": "l'appli (f)",
+          "back": "die App",
+          "example": "J'ai une nouvelle appli.",
+          "exampleDe": "Ich habe eine neue App."
+        },
+        {
+          "front": "le réseau social",
+          "back": "das soziale Netzwerk",
+          "example": "Je n'aime pas ce réseau social.",
+          "exampleDe": "Ich mag dieses soziale Netzwerk nicht."
+        },
+        {
+          "front": "le blog",
+          "back": "der Blog",
+          "example": "Mon ami a un blog.",
+          "exampleDe": "Mein Freund hat einen Blog."
+        },
+        {
+          "front": "le profil",
+          "back": "das Profil",
+          "example": "Mon profil est privé.",
+          "exampleDe": "Mein Profil ist privat."
+        },
+        {
+          "front": "le mot de passe",
+          "back": "das Passwort",
+          "example": "Mon mot de passe est secret.",
+          "exampleDe": "Mein Passwort ist geheim."
+        }
+      ]
+    },
+    {
+      "id": "f8-u5-l3",
+      "title": "Online handeln",
+      "items": [
+        {
+          "front": "télécharger",
+          "back": "herunterladen",
+          "example": "Je télécharge une appli.",
+          "exampleDe": "Ich lade eine App herunter."
+        },
+        {
+          "front": "poster",
+          "back": "veröffentlichen",
+          "example": "Je poste une photo.",
+          "exampleDe": "Ich poste ein Foto."
+        },
+        {
+          "front": "partager",
+          "back": "teilen",
+          "example": "Je partage la vidéo.",
+          "exampleDe": "Ich teile das Video."
+        },
+        {
+          "front": "cliquer",
+          "back": "klicken",
+          "example": "Je clique sur le lien.",
+          "exampleDe": "Ich klicke auf den Link."
+        },
+        {
+          "front": "utiliser",
+          "back": "benutzen",
+          "example": "J'utilise mon portable.",
+          "exampleDe": "Ich benutze mein Handy."
+        },
+        {
+          "front": "la vidéo",
+          "back": "das Video",
+          "example": "La vidéo est drôle.",
+          "exampleDe": "Das Video ist lustig."
+        }
+      ]
+    },
+    {
+      "id": "f8-u5-l4",
+      "title": "Stars und Fans",
+      "items": [
+        {
+          "front": "l'influenceur / l'influenceuse",
+          "back": "der Influencer",
+          "example": "L'influenceuse a beaucoup de fans.",
+          "exampleDe": "Die Influencerin hat viele Fans."
+        },
+        {
+          "front": "la vedette",
+          "back": "der Star",
+          "example": "C'est une vedette de cinéma.",
+          "exampleDe": "Das ist ein Filmstar."
+        },
+        {
+          "front": "le succès",
+          "back": "der Erfolg",
+          "example": "Son succès est énorme.",
+          "exampleDe": "Ihr Erfolg ist riesig."
+        },
+        {
+          "front": "le follower",
+          "back": "der Follower",
+          "example": "Il a mille followers.",
+          "exampleDe": "Er hat tausend Follower."
+        },
+        {
+          "front": "suivre",
+          "back": "folgen",
+          "example": "Nous suivons cette chanteuse.",
+          "exampleDe": "Wir folgen dieser Sängerin."
+        },
+        {
+          "front": "le like",
+          "back": "das Like",
+          "example": "La photo a cent likes.",
+          "exampleDe": "Das Foto hat hundert Likes."
+        }
+      ]
+    },
+    {
+      "id": "f8-u5-l5",
+      "title": "Der Lebensweg",
+      "items": [
+        {
+          "front": "devenir",
+          "back": "werden",
+          "example": "Il veut devenir chanteur.",
+          "exampleDe": "Er will Sänger werden."
+        },
+        {
+          "front": "la carrière",
+          "back": "die Karriere",
+          "example": "Sa carrière est belle.",
+          "exampleDe": "Ihre Karriere ist schön."
+        },
+        {
+          "front": "le prix",
+          "back": "der Preis (Auszeichnung)",
+          "example": "Elle gagne un prix.",
+          "exampleDe": "Sie gewinnt einen Preis."
+        },
+        {
+          "front": "le rêve",
+          "back": "der Traum",
+          "example": "Son rêve est de chanter.",
+          "exampleDe": "Ihr Traum ist zu singen."
+        },
+        {
+          "front": "grandir",
+          "back": "aufwachsen / wachsen",
+          "example": "Il grandit à Marseille.",
+          "exampleDe": "Er wächst in Marseille auf."
+        },
+        {
+          "front": "commencer à",
+          "back": "anfangen zu",
+          "example": "Elle commence à chanter.",
+          "exampleDe": "Sie fängt an zu singen."
+        }
+      ]
+    },
+    {
+      "id": "f8-u5-l6",
+      "title": "Adjektive auf -al",
+      "items": [
+        {
+          "front": "original(e)",
+          "back": "originell",
+          "example": "Cette chanson est originale.",
+          "exampleDe": "Dieses Lied ist originell."
+        },
+        {
+          "front": "spécial(e)",
+          "back": "besonders",
+          "example": "C'est un jour spécial.",
+          "exampleDe": "Das ist ein besonderer Tag."
+        },
+        {
+          "front": "national(e)",
+          "back": "national",
+          "example": "C'est une star nationale.",
+          "exampleDe": "Das ist ein nationaler Star."
+        },
+        {
+          "front": "international(e)",
+          "back": "international",
+          "example": "C'est un succès international.",
+          "exampleDe": "Das ist ein internationaler Erfolg."
+        },
+        {
+          "front": "normal(e)",
+          "back": "normal",
+          "example": "C'est normal.",
+          "exampleDe": "Das ist normal."
+        },
+        {
+          "front": "principal(e)",
+          "back": "Haupt-",
+          "example": "Le rôle principal est super.",
+          "exampleDe": "Die Hauptrolle ist super."
+        }
+      ],
+      "explanation": {
+        "title": "Adjektive auf -al",
+        "paragraphs": [
+          "Männlich enden sie auf -al, weiblich auf -ale, männlicher Plural auf -aux: un film génial → des films géniaux."
+        ],
+        "examples": [
+          {
+            "fr": "un film original, une idée originale, des films originaux",
+            "de": "ein origineller Film, eine originelle Idee, originelle Filme"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "C'est une idée ___.",
+          "answer": "originale",
+          "options": [
+            "originale",
+            "original",
+            "originaux"
+          ],
+          "translation": "Das ist eine originelle Idee.",
+          "why": "Weiblich: -al wird zu -ale."
+        }
+      ]
+    },
+    {
+      "id": "f8-u5-l7",
+      "title": "Das Verb voir",
+      "items": [
+        {
+          "front": "je vois",
+          "back": "ich sehe",
+          "example": "Je vois la mer.",
+          "exampleDe": "Ich sehe das Meer."
+        },
+        {
+          "front": "tu vois",
+          "back": "du siehst",
+          "example": "Tu vois la tour ?",
+          "exampleDe": "Siehst du den Turm?"
+        },
+        {
+          "front": "il / elle voit",
+          "back": "er / sie sieht",
+          "example": "Elle voit un film.",
+          "exampleDe": "Sie sieht einen Film."
+        },
+        {
+          "front": "nous voyons",
+          "back": "wir sehen",
+          "example": "Nous voyons la plage.",
+          "exampleDe": "Wir sehen den Strand."
+        },
+        {
+          "front": "vous voyez",
+          "back": "ihr seht",
+          "example": "Vous voyez ce garçon ?",
+          "exampleDe": "Seht ihr diesen Jungen?"
+        },
+        {
+          "front": "ils / elles voient",
+          "back": "sie sehen",
+          "example": "Ils voient la mer.",
+          "exampleDe": "Sie sehen das Meer."
+        }
+      ],
+      "explanation": {
+        "title": "voir (sehen)",
+        "paragraphs": [
+          "voir ist unregelmäßig: je vois, tu vois, il/elle voit, nous voyons, vous voyez, ils/elles voient. Partizip: vu."
+        ],
+        "examples": [
+          {
+            "fr": "Je vois un film.",
+            "de": "Ich sehe einen Film."
+          },
+          {
+            "fr": "Nous voyons la mer.",
+            "de": "Wir sehen das Meer."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Nous ___ la mer.",
+          "answer": "voyons",
+          "options": [
+            "voyons",
+            "voyez",
+            "voient"
+          ],
+          "translation": "Wir sehen das Meer.",
+          "why": "Zu „nous“ passt „voyons“."
+        }
+      ]
+    },
+    {
+      "id": "f8-u5-l8",
+      "title": "Verben auf -ir (finir)",
+      "items": [
+        {
+          "front": "finir",
+          "back": "beenden",
+          "example": "Je finis mes devoirs.",
+          "exampleDe": "Ich beende meine Hausaufgaben."
+        },
+        {
+          "front": "choisir",
+          "back": "wählen",
+          "example": "Je choisis un film.",
+          "exampleDe": "Ich wähle einen Film."
+        },
+        {
+          "front": "réfléchir",
+          "back": "nachdenken",
+          "example": "Je réfléchis à ma réponse.",
+          "exampleDe": "Ich denke über meine Antwort nach."
+        },
+        {
+          "front": "remplir",
+          "back": "ausfüllen / füllen",
+          "example": "Je remplis la fiche.",
+          "exampleDe": "Ich fülle das Blatt aus."
+        },
+        {
+          "front": "réussir",
+          "back": "gelingen / bestehen",
+          "example": "Elle réussit son test.",
+          "exampleDe": "Sie besteht ihren Test."
+        }
+      ],
+      "explanation": {
+        "title": "Regelmäßige Verben auf -ir",
+        "paragraphs": [
+          "Verben wie finir hängen -iss- ein im Plural: je finis, tu finis, il finit, nous finissons, vous finissez, ils finissent. Partizip: fini."
+        ],
+        "examples": [
+          {
+            "fr": "Je finis mes devoirs.",
+            "de": "Ich mache meine Hausaufgaben fertig."
+          },
+          {
+            "fr": "Nous finissons à midi.",
+            "de": "Wir hören um zwölf auf."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Nous ___ à midi.",
+          "answer": "finissons",
+          "options": [
+            "finissons",
+            "finissez",
+            "finissent"
+          ],
+          "translation": "Wir hören um zwölf auf.",
+          "why": "Zu „nous“ passt „finissons“."
+        }
+      ]
+    },
+    {
+      "id": "f8-u5-l9",
+      "title": "tout, toute, tous, toutes",
+      "items": [
+        {
+          "front": "tout le …",
+          "back": "der ganze …",
+          "example": "Tout le monde chante.",
+          "exampleDe": "Alle singen."
+        },
+        {
+          "front": "toute la …",
+          "back": "die ganze …",
+          "example": "Toute la classe est là.",
+          "exampleDe": "Die ganze Klasse ist da."
+        },
+        {
+          "front": "tous les …",
+          "back": "alle … / jeden …",
+          "example": "Je suis en ligne tous les jours.",
+          "exampleDe": "Ich bin jeden Tag online."
+        },
+        {
+          "front": "toutes les …",
+          "back": "alle …",
+          "example": "Toutes les filles chantent.",
+          "exampleDe": "Alle Mädchen singen."
+        },
+        {
+          "front": "en ligne",
+          "back": "online",
+          "example": "Je suis en ligne.",
+          "exampleDe": "Ich bin online."
+        }
+      ],
+      "explanation": {
+        "title": "Der Begleiter tout",
+        "paragraphs": [
+          "„Tout“ richtet sich nach dem Nomen: tout le monde, toute la classe, tous les jours, toutes les filles.",
+          "Allein kann „tout“ auch „alles“ heißen: J'aime tout."
+        ],
+        "examples": [
+          {
+            "fr": "tout le monde, toute la classe",
+            "de": "alle, die ganze Klasse"
+          },
+          {
+            "fr": "tous les jours, toutes les filles",
+            "de": "jeden Tag, alle Mädchen"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "___ la classe est là.",
+          "answer": "Toute",
+          "options": [
+            "Toute",
+            "Tout",
+            "Tous"
+          ],
+          "translation": "Die ganze Klasse ist da.",
+          "why": "„classe“ ist weiblich → toute."
+        }
+      ]
+    },
+    {
+      "id": "f8-u5-l10",
+      "title": "Einen Vortrag halten",
+      "items": [
+        {
+          "front": "la présentation",
+          "back": "der Vortrag",
+          "example": "Ma présentation est demain.",
+          "exampleDe": "Mein Vortrag ist morgen."
+        },
+        {
+          "front": "le sujet",
+          "back": "das Thema",
+          "example": "Le sujet est intéressant.",
+          "exampleDe": "Das Thema ist interessant."
+        },
+        {
+          "front": "présenter",
+          "back": "vorstellen",
+          "example": "Je présente mon chanteur préféré.",
+          "exampleDe": "Ich stelle meinen Lieblingssänger vor."
+        },
+        {
+          "front": "la diapositive",
+          "back": "die Folie",
+          "example": "Il y a dix diapositives.",
+          "exampleDe": "Es gibt zehn Folien."
+        },
+        {
+          "front": "l'exposé (m)",
+          "back": "das Referat",
+          "example": "Mon exposé est prêt.",
+          "exampleDe": "Mein Referat ist fertig."
+        },
+        {
+          "front": "l'introduction (f)",
+          "back": "die Einleitung",
+          "example": "L'introduction est courte.",
+          "exampleDe": "Die Einleitung ist kurz."
+        }
+      ]
+    },
+    {
+      "id": "f8-u5-l11",
+      "title": "Fotos und Rechte",
+      "items": [
+        {
+          "front": "le droit",
+          "back": "das Recht",
+          "example": "J'ai le droit de poster.",
+          "exampleDe": "Ich darf posten."
+        },
+        {
+          "front": "autoriser",
+          "back": "erlauben",
+          "example": "Mes parents autorisent ça.",
+          "exampleDe": "Meine Eltern erlauben das."
+        },
+        {
+          "front": "interdit(e)",
+          "back": "verboten",
+          "example": "C'est interdit.",
+          "exampleDe": "Das ist verboten."
+        },
+        {
+          "front": "l'autorisation (f)",
+          "back": "die Erlaubnis",
+          "example": "Je demande l'autorisation.",
+          "exampleDe": "Ich bitte um Erlaubnis."
+        },
+        {
+          "front": "privé(e)",
+          "back": "privat",
+          "example": "La photo est privée.",
+          "exampleDe": "Das Foto ist privat."
+        },
+        {
+          "front": "le danger",
+          "back": "die Gefahr",
+          "example": "Internet a des dangers.",
+          "exampleDe": "Das Internet hat Gefahren."
+        }
+      ]
+    },
+    {
+      "id": "f8-u5-l12",
+      "title": "Medien im Alltag",
+      "items": [
+        {
+          "front": "passer du temps",
+          "back": "Zeit verbringen",
+          "example": "Je passe du temps en ligne.",
+          "exampleDe": "Ich verbringe Zeit online."
+        },
+        {
+          "front": "connecté(e)",
+          "back": "verbunden",
+          "example": "Je suis connecté.",
+          "exampleDe": "Ich bin online."
+        },
+        {
+          "front": "le temps d'écran",
+          "back": "die Bildschirmzeit",
+          "example": "Mon temps d'écran est long.",
+          "exampleDe": "Meine Bildschirmzeit ist lang."
+        },
+        {
+          "front": "l'écran (m)",
+          "back": "der Bildschirm",
+          "example": "L'écran est grand.",
+          "exampleDe": "Der Bildschirm ist groß."
+        },
+        {
+          "front": "regarder",
+          "back": "anschauen",
+          "example": "Je regarde une vidéo.",
+          "exampleDe": "Ich schaue ein Video an."
+        },
+        {
+          "front": "limiter",
+          "back": "begrenzen",
+          "example": "Je limite mon temps d'écran.",
+          "exampleDe": "Ich begrenze meine Bildschirmzeit."
+        }
+      ]
+    }
+  ]
+}

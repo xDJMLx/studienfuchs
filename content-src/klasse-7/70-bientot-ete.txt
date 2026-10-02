@@ -1,0 +1,67 @@
+id: f7-m6
+title: C'est bientôt l'été
+book: À plus ! 1 · Module 6 C'est bientôt l'été
+desc: Ferien, Wetter, Jahreszeiten, futur composé, Postkarte
+order: 70
+
+= Ferien
+- les vacances (f pl) = die Ferien | Les vacances commencent bientôt. = Die Ferien beginnen bald.
+- la plage = der Strand | La plage est grande. = Der Strand ist groß.
+- la mer = das Meer | La mer est bleue. = Das Meer ist blau.
+- la montagne = das Gebirge / die Berge | La montagne est belle. = Das Gebirge ist schön.
+- le camping = der Campingplatz | Nous sommes au camping. = Wir sind auf dem Campingplatz.
+- l'hôtel (m) = das Hotel | L'hôtel est près de la plage. = Das Hotel ist nahe am Strand.
+
+= Das Wetter
+? Wetter beschreiben
+p Das Wetter beschreibst du mit „il“: Il fait beau (schönes Wetter), il fait froid (kalt), il pleut (es regnet).
+p Die Frage lautet: „Quel temps fait-il ?“ oder „Il fait quel temps ?“
+e Il fait beau. = Es ist schönes Wetter.
+e Il pleut. = Es regnet.
+- le temps = das Wetter / die Zeit | Quel temps fait-il ? = Wie ist das Wetter?
+- il fait beau = es ist schön | En été, il fait beau. = Im Sommer ist es schön.
+- il fait chaud = es ist heiß | Il fait chaud à la plage. = Am Strand ist es heiß.
+- il fait froid = es ist kalt | Il fait froid en hiver. = Im Winter ist es kalt.
+- il pleut = es regnet | Aujourd'hui, il pleut. = Heute regnet es.
+- il neige = es schneit | En montagne, il neige. = In den Bergen schneit es.
+- le soleil = die Sonne | Il y a du soleil. = Die Sonne scheint.
+
+= Die Jahreszeiten
+- la saison = die Jahreszeit | L'été est ma saison préférée. = Der Sommer ist meine Lieblingsjahreszeit.
+- l'été (m) = der Sommer | En été, il fait chaud. = Im Sommer ist es heiß.
+- l'hiver (m) = der Winter | En hiver, il fait froid. = Im Winter ist es kalt.
+- le printemps = der Frühling | Au printemps, il pleut. = Im Frühling regnet es.
+- l'automne (m) = der Herbst | En automne, il fait frais. = Im Herbst ist es frisch.
+
+= Etwas ist bald dran
+? Das futur composé
+p Mit „aller + Infinitiv“ sprichst du über die nahe Zukunft: Je vais jouer. (Ich werde spielen.) Nous allons manger. (Wir werden essen.)
+p „Aller“ wird konjugiert, das zweite Verb bleibt im Infinitiv.
+e Je vais faire du vélo. = Ich werde Rad fahren.
+e Nous allons manger. = Wir werden essen.
+t Verneint wird nur „aller“: Je ne vais pas jouer.
+- bientôt = bald | Les vacances commencent bientôt. = Die Ferien beginnen bald.
+- prochain(e) = nächste(r) | La semaine prochaine, je vais à Paris. = Nächste Woche fahre ich nach Paris.
+- la semaine prochaine = nächste Woche | La semaine prochaine, nous partons. = Nächste Woche fahren wir weg.
+- demain = morgen | Demain, nous allons à la plage. = Morgen gehen wir zum Strand.
+- partir = wegfahren | Nous allons partir en juillet. = Wir fahren im Juli weg.
+f Nous ___ manger. | allons | allons; allez; vont | Wir werden essen. | Zu „nous“ passt „allons“.
+f Je vais ___. | jouer | jouer; joue; jouons | Ich werde spielen. | Nach „aller“ steht der Infinitiv.
+
+= Urlaubsaktivitäten
+- nager = schwimmen | Je nage dans la mer. = Ich schwimme im Meer.
+- visiter = besichtigen | Nous allons visiter Paris. = Wir werden Paris besichtigen.
+- voyager = reisen | J'aime voyager. = Ich reise gern.
+- faire du camping = campen | Nous allons faire du camping. = Wir werden campen.
+- faire une promenade = spazieren gehen | Nous faisons une promenade. = Wir machen einen Spaziergang.
+- la promenade = der Spaziergang | La promenade est longue. = Der Spaziergang ist lang.
+
+= Eine Postkarte schreiben
+? Aufbau einer Postkarte
+p Eine Postkarte beginnt mit „Chère Léa“ (an ein Mädchen) oder „Cher Paul“ (an einen Jungen) und endet mit „Bises“ oder „À bientôt“.
+e Chère Léa, … Grosses bises ! = Liebe Léa, … Viele Küsschen!
+- la carte postale = die Postkarte | Voici une carte postale de Nice. = Hier ist eine Postkarte aus Nizza.
+- chère / cher = liebe / lieber (Anrede) | Chère Léa, comment ça va ? = Liebe Léa, wie geht's?
+- bises = Küsschen (Gruß) | Bises, Anna ! = Küsschen, Anna!
+- bonnes vacances = schöne Ferien | Bonnes vacances, Léa ! = Schöne Ferien, Léa!
+- ici, il fait beau = hier ist schönes Wetter | Ici, il fait beau et chaud. = Hier ist es schön und heiß.

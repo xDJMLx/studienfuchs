@@ -1,0 +1,204 @@
+{
+  "id": "f7-m5",
+  "title": "Joyeux anniversaire !",
+  "description": "Monate, Datum, Geburtstag feiern, einladen",
+  "grade": 7,
+  "subject": "french",
+  "order": 65,
+  "book": "À plus ! 1 · Module 5 Joyeux anniversaire !",
+  "lessons": [
+    {
+      "id": "f7-m5-l1",
+      "title": "Die Monate (1/2)",
+      "items": [
+        {
+          "front": "janvier",
+          "back": "Januar",
+          "example": "Mon anniversaire est en janvier.",
+          "exampleDe": "Mein Geburtstag ist im Januar."
+        },
+        {
+          "front": "février",
+          "back": "Februar",
+          "example": "Février est un mois court.",
+          "exampleDe": "Der Februar ist ein kurzer Monat."
+        },
+        {
+          "front": "mars",
+          "back": "März",
+          "example": "En mars, il fait encore froid.",
+          "exampleDe": "Im März ist es noch kalt."
+        },
+        {
+          "front": "avril",
+          "back": "April",
+          "example": "Avril est après mars.",
+          "exampleDe": "April kommt nach März."
+        },
+        {
+          "front": "mai",
+          "back": "Mai",
+          "example": "En mai, il fait beau.",
+          "exampleDe": "Im Mai ist das Wetter schön."
+        },
+        {
+          "front": "juin",
+          "back": "Juni",
+          "example": "Juin est avant juillet.",
+          "exampleDe": "Juni kommt vor Juli."
+        }
+      ],
+      "explanation": {
+        "title": "Monate und Datum",
+        "paragraphs": [
+          "Monatsnamen schreibt man klein: janvier, février, mars … Das Datum nennst du so: le douze mai (der zwölfte Mai).",
+          "Nur der Erste heißt „le premier“: le premier juin. Alle anderen Tage nennst du mit der normalen Zahl."
+        ],
+        "examples": [
+          {
+            "fr": "Mon anniversaire est le douze mai.",
+            "de": "Mein Geburtstag ist am zwölften Mai."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f7-m5-l2",
+      "title": "Die Monate (2/2)",
+      "items": [
+        {
+          "front": "juillet",
+          "back": "Juli",
+          "example": "En juillet, nous partons.",
+          "exampleDe": "Im Juli fahren wir weg."
+        },
+        {
+          "front": "août",
+          "back": "August",
+          "example": "Août est un mois chaud.",
+          "exampleDe": "Der August ist ein heißer Monat."
+        },
+        {
+          "front": "septembre",
+          "back": "September",
+          "example": "En septembre, l'école commence.",
+          "exampleDe": "Im September beginnt die Schule."
+        },
+        {
+          "front": "octobre",
+          "back": "Oktober",
+          "example": "Octobre est après septembre.",
+          "exampleDe": "Oktober kommt nach September."
+        },
+        {
+          "front": "novembre",
+          "back": "November",
+          "example": "En novembre, il pleut.",
+          "exampleDe": "Im November regnet es."
+        },
+        {
+          "front": "décembre",
+          "back": "Dezember",
+          "example": "Noël est en décembre.",
+          "exampleDe": "Weihnachten ist im Dezember."
+        },
+        {
+          "front": "le mois",
+          "back": "der Monat",
+          "example": "Un mois a trente jours.",
+          "exampleDe": "Ein Monat hat dreißig Tage."
+        }
+      ]
+    },
+    {
+      "id": "f7-m5-l3",
+      "title": "Das Datum",
+      "items": [
+        {
+          "front": "la date",
+          "back": "das Datum",
+          "example": "Quelle est la date ?",
+          "exampleDe": "Welches Datum ist heute?"
+        },
+        {
+          "front": "le premier",
+          "back": "der Erste",
+          "example": "Le premier mai est un jour de fête.",
+          "exampleDe": "Der erste Mai ist ein Festtag."
+        },
+        {
+          "front": "l'anniversaire (m)",
+          "back": "der Geburtstag",
+          "example": "Mon anniversaire est le dix mai.",
+          "exampleDe": "Mein Geburtstag ist am zehnten Mai."
+        },
+        {
+          "front": "c'est quand ?",
+          "back": "wann ist das?",
+          "example": "Ton anniversaire, c'est quand ?",
+          "exampleDe": "Wann ist dein Geburtstag?"
+        },
+        {
+          "front": "l'année (f)",
+          "back": "das Jahr",
+          "example": "L'année a douze mois.",
+          "exampleDe": "Das Jahr hat zwölf Monate."
+        },
+        {
+          "front": "la naissance",
+          "back": "die Geburt",
+          "example": "La date de naissance est ici.",
+          "exampleDe": "Das Geburtsdatum steht hier."
+        }
+      ]
+    },
+    {
+      "id": "f7-m5-l4",
+      "title": "Feiern",
+      "items": [
+        {
+          "front": "le cadeau",
+          "back": "das Geschenk",
+          "example": "Voici un cadeau pour toi.",
+          "exampleDe": "Hier ist ein Geschenk für dich."
+        },
+        {
+          "front": "la bougie",
+          "back": "die Kerze",
+          "example": "Il y a douze bougies.",
+          "exampleDe": "Es gibt zwölf Kerzen."
+        },
+        {
+          "front": "inviter",
+          "back": "einladen",
+          "example": "J'invite mes amis.",
+          "exampleDe": "Ich lade meine Freunde ein."
+        },
+        {
+          "front": "l'invitation (f)",
+          "back": "die Einladung",
+          "example": "Voici mon invitation.",
+          "exampleDe": "Hier ist meine Einladung."
+        },
+        {
+          "front": "l'invité (m) / l'invitée (f)",
+          "back": "der Gast",
+          "example": "Les invités arrivent.",
+          "exampleDe": "Die Gäste kommen an."
+        },
+        {
+          "front": "joyeux anniversaire",
+          "back": "alles Gute zum Geburtstag",
+          "example": "Joyeux anniversaire, Léa !",
+          "exampleDe": "Alles Gute zum Geburtstag, Léa!"
+        },
+        {
+          "front": "le gâteau d'anniversaire",
+          "back": "der Geburtstagskuchen",
+          "example": "Le gâteau d'anniversaire est grand.",
+          "exampleDe": "Der Geburtstagskuchen ist groß."
+        }
+      ]
+    }
+  ]
+}

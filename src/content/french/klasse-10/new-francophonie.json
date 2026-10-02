@@ -1,0 +1,60 @@
+{
+  "id": "f10-franco",
+  "title": "La francophonie",
+  "description": "Französisch in der Welt: Länder, Sprache, Kultur",
+  "grade": 10,
+  "order": 85,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f10-franco-l1",
+      "title": "Französisch in der Welt",
+      "explanation": {"title":"Die Frankophonie","paragraphs":["Französisch wird auf allen Kontinenten gesprochen: in Europa (Frankreich, Belgien, Schweiz), in Nordamerika (Québec), in Afrika (Senegal, Elfenbeinküste, Marokko, Algerien) und im Pazifik.","„La francophonie“ bezeichnet die Gemeinschaft der französischsprachigen Länder."],"examples":[{"fr":"Au Québec, on parle français.","de":"In Québec spricht man Französisch."},{"fr":"Le français est une langue officielle dans de nombreux pays.","de":"Französisch ist in vielen Ländern Amtssprache."}]},
+      "items": [
+        {"front":"la francophonie","back":"die Frankophonie","example":"La francophonie réunit de nombreux pays.","exampleDe":"Die Frankophonie vereint viele Länder."},
+        {"front":"le Québec","back":"Québec","example":"Au Québec, on parle français.","exampleDe":"In Québec spricht man Französisch."},
+        {"front":"la Belgique","back":"Belgien","example":"En Belgique, on parle aussi français.","exampleDe":"In Belgien spricht man auch Französisch."},
+        {"front":"la Suisse","back":"die Schweiz","example":"Le français est parlé en Suisse.","exampleDe":"In der Schweiz wird Französisch gesprochen."},
+        {"front":"le Sénégal","back":"Senegal","example":"Le Sénégal est un pays d'Afrique.","exampleDe":"Senegal ist ein Land in Afrika."},
+        {"front":"le Maroc","back":"Marokko","example":"Au Maroc, beaucoup de gens parlent français.","exampleDe":"In Marokko sprechen viele Menschen Französisch."},
+        {"front":"la Côte d'Ivoire","back":"die Elfenbeinküste","example":"La Côte d'Ivoire est un pays francophone.","exampleDe":"Die Elfenbeinküste ist ein frankophones Land."}
+      ]
+    },
+    {
+      "id": "f10-franco-l2",
+      "title": "Sprache und Varianten",
+      "items": [
+        {"front":"la langue maternelle","back":"die Muttersprache","example":"Ma langue maternelle est l'allemand.","exampleDe":"Meine Muttersprache ist Deutsch."},
+        {"front":"la langue officielle","back":"die Amtssprache","example":"Le français est une langue officielle.","exampleDe":"Französisch ist eine Amtssprache."},
+        {"front":"bilingue","back":"zweisprachig","example":"Elle est bilingue.","exampleDe":"Sie ist zweisprachig."},
+        {"front":"l'accent","back":"der Akzent","example":"Il a un petit accent.","exampleDe":"Er hat einen leichten Akzent."},
+        {"front":"traduire","back":"übersetzen","example":"Peux-tu traduire cette phrase ?","exampleDe":"Kannst du diesen Satz übersetzen?"},
+        {"front":"l'orthographe","back":"die Rechtschreibung","example":"L'orthographe française est difficile.","exampleDe":"Die französische Rechtschreibung ist schwierig."}
+      ]
+    },
+    {
+      "id": "f10-franco-l3",
+      "title": "Kultur und Erbe",
+      "items": [
+        {"front":"le patrimoine","back":"das Kulturerbe","example":"Ce château fait partie du patrimoine.","exampleDe":"Dieses Schloss gehört zum Kulturerbe."},
+        {"front":"la littérature francophone","back":"die frankophone Literatur","example":"J'étudie la littérature francophone.","exampleDe":"Ich beschäftige mich mit frankophoner Literatur."},
+        {"front":"la gastronomie","back":"die Gastronomie, Esskultur","example":"La gastronomie française est célèbre.","exampleDe":"Die französische Esskultur ist berühmt."},
+        {"front":"le cinéma","back":"das Kino, der Film","example":"Le cinéma français est connu.","exampleDe":"Das französische Kino ist bekannt."},
+        {"front":"un écrivain","back":"ein Schriftsteller","example":"Cet écrivain est très célèbre.","exampleDe":"Dieser Schriftsteller ist sehr berühmt."},
+        {"front":"un échange culturel","back":"ein Kulturaustausch","example":"Un échange culturel ouvre l'esprit.","exampleDe":"Ein Kulturaustausch öffnet den Geist."}
+      ]
+    },
+    {
+      "id": "f10-franco-l4",
+      "title": "Geschichte und Erinnerung",
+      "items": [
+        {"front":"la colonisation","back":"die Kolonialisierung","example":"La colonisation a marqué l'histoire.","exampleDe":"Die Kolonialisierung hat die Geschichte geprägt."},
+        {"front":"l'indépendance","back":"die Unabhängigkeit","example":"Le pays a gagné son indépendance.","exampleDe":"Das Land hat seine Unabhängigkeit gewonnen."},
+        {"front":"le passé","back":"die Vergangenheit","example":"Il faut connaître le passé.","exampleDe":"Man muss die Vergangenheit kennen."},
+        {"front":"la mémoire","back":"das Gedächtnis, die Erinnerung","example":"La mémoire du passé est importante.","exampleDe":"Die Erinnerung an die Vergangenheit ist wichtig."},
+        {"front":"reconnaître","back":"anerkennen","example":"Il faut reconnaître ses erreurs.","exampleDe":"Man muss seine Fehler anerkennen."},
+        {"front":"un témoignage","back":"eine Zeugenaussage, ein Zeugnis","example":"Ce témoignage est très touchant.","exampleDe":"Dieses Zeugnis ist sehr berührend."}
+      ]
+    }
+  ]
+}

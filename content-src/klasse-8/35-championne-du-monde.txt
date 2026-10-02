@@ -1,0 +1,44 @@
+id: f8-m3
+title: La France championne du monde !
+book: À plus ! 2 · Module 3 La France championne du monde !
+desc: Fußball in Frankreich, Spielbericht, indirekte Objektpronomen
+order: 35
+
+= Fußball (1/2)
+- le footballeur / la footballeuse = der / die Fußballspieler(in) | Le footballeur est célèbre. = Der Fußballspieler ist berühmt.
+- l'équipe (f) = die Mannschaft | L'équipe de France est forte. = Die französische Mannschaft ist stark.
+- le gardien = der Torwart | Le gardien est très bon. = Der Torwart ist sehr gut.
+- le ballon = der Ball | Le ballon est rond. = Der Ball ist rund.
+- le but = das Tor / das Ziel | Il y a un but ! = Da ist ein Tor!
+- l'arbitre (m) = der Schiedsrichter | L'arbitre est sévère. = Der Schiedsrichter ist streng.
+
+= Fußball (2/2)
+- marquer = ein Tor schießen | Il marque un but. = Er schießt ein Tor.
+- gagner = gewinnen | L'équipe gagne le match. = Die Mannschaft gewinnt das Spiel.
+- le supporter = der Fan / der Anhänger | Les supporters chantent. = Die Fans singen.
+- la coupe = der Pokal | La coupe est grande. = Der Pokal ist groß.
+- le champion / la championne = der Meister / die Meisterin | La France est championne. = Frankreich ist Meister.
+- le public = das Publikum | Le public est content. = Das Publikum ist froh.
+
+= Einen Spielbericht verstehen
+- la mi-temps = die Halbzeit | À la mi-temps, c'est un à un. = Zur Halbzeit steht es eins zu eins.
+- le penalty = der Elfmeter | Il marque un penalty. = Er schießt einen Elfmeter.
+- le score = der Spielstand | Le score est de deux à un. = Der Spielstand ist zwei zu eins.
+- égal(e) = gleich | Le score est égal. = Der Spielstand ist gleich.
+- le coup de sifflet = der Pfiff | Le coup de sifflet final. = Der Schlusspfiff.
+- le commentateur = der Kommentator | Le commentateur parle vite. = Der Kommentator spricht schnell.
+
+= Das indirekte Objekt
+? lui und leur
+p Das indirekte Objekt beantwortet „wem?“ und steht mit „à“: Je donne le ballon à Paul → Je lui donne le ballon. Bei mehreren Personen: Je leur donne le ballon.
+p Für „mir, dir, uns, euch“ gelten me, te, nous, vous wie beim direkten Objekt.
+e Je parle à Paul. → Je lui parle. = Ich spreche mit Paul. → Ich spreche mit ihm.
+e Il donne le ballon aux joueurs. → Il leur donne le ballon. = Er gibt den Spielern den Ball.
+t „Lui“ gilt für Jungen und Mädchen, „leur“ für mehrere Personen.
+- lui = ihm / ihr | Je lui donne le ballon. = Ich gebe ihm den Ball.
+- leur = ihnen | Je leur parle. = Ich spreche mit ihnen.
+- me / m' (indirekt) = mir | Il me donne le ballon. = Er gibt mir den Ball.
+- te / t' (indirekt) = dir | Je te téléphone ce soir. = Ich rufe dich heute Abend an.
+- donner = geben | Je donne le ballon à Léa. = Ich gebe Léa den Ball.
+f Je parle à Léa. Je ___ parle. | lui | lui; leur; la | Ich spreche mit Léa. Ich spreche mit ihr. | Eine Person → lui.
+f Je parle aux joueurs. Je ___ parle. | leur | leur; lui; les | Ich spreche mit den Spielern. Ich spreche mit ihnen. | Mehrere Personen → leur.

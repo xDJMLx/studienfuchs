@@ -1,0 +1,34 @@
+id: f8-m1
+title: En cours de français (3)
+book: À plus ! 2 · Module 1 En cours de français
+desc: Im Unterricht verständigen, das Verb lire, Aufforderungen
+order: 15
+
+= Das Verb lire
+? lire (lesen)
+p lire ist unregelmäßig: je lis, tu lis, il/elle lit, nous lisons, vous lisez, ils/elles lisent.
+e Je lis un livre. = Ich lese ein Buch.
+e Nous lisons le texte. = Wir lesen den Text.
+- je lis = ich lese | Je lis une BD. = Ich lese einen Comic.
+- tu lis = du liest | Tu lis quoi ? = Was liest du?
+- il / elle lit = er / sie liest | Elle lit le texte. = Sie liest den Text.
+- nous lisons = wir lesen | Nous lisons à voix haute. = Wir lesen laut.
+- vous lisez = ihr lest | Vous lisez bien ! = Ihr lest gut!
+- ils / elles lisent = sie lesen | Ils lisent un livre. = Sie lesen ein Buch.
+f Tu ___ un livre ? | lis | lis; lit; lisez | Liest du ein Buch? | Zu „tu“ passt „lis“.
+
+= Aufforderungen im Unterricht
+- levez la main ! = meldet euch! | Levez la main, s'il vous plaît. = Meldet euch, bitte.
+- à voix haute = laut | Lisez à voix haute. = Lest laut.
+- à voix basse = leise | Parlez à voix basse. = Sprecht leise.
+- mettez-vous par deux ! = bildet Paare! | Mettez-vous par deux ! = Bildet Zweiergruppen!
+- au tableau = an der Tafel | Venez au tableau. = Kommt an die Tafel.
+- sans dictionnaire = ohne Wörterbuch | Travaillez sans dictionnaire. = Arbeitet ohne Wörterbuch.
+
+= Nachfragen und helfen
+- pouvez-vous répéter ? = können Sie das wiederholen? | Pouvez-vous répéter, s'il vous plaît ? = Können Sie das bitte wiederholen?
+- plus lentement = langsamer | Plus lentement, s'il vous plaît. = Langsamer, bitte.
+- je n'ai pas compris = ich habe nicht verstanden | Pardon, je n'ai pas compris. = Entschuldigung, ich habe nicht verstanden.
+- c'est quelle page ? = auf welcher Seite? | C'est quelle page, madame ? = Welche Seite ist das, Frau …?
+- qu'est-ce que c'est en français ? = wie heißt das auf Französisch? | Qu'est-ce que c'est en français ? = Wie heißt das auf Französisch?
+- s'il vous plaît = bitte (höflich) | Un moment, s'il vous plaît. = Einen Moment, bitte.

@@ -1,0 +1,827 @@
+{
+  "id": "f8-u4",
+  "title": "Planète collège",
+  "description": "Schule und Schulstress, Noten, indirekte Objektpronomen, indirekte Rede, écrire, dire, devoir",
+  "grade": 8,
+  "subject": "french",
+  "order": 40,
+  "book": "À plus ! 2 · Unité 4",
+  "lessons": [
+    {
+      "id": "f8-u4-l1",
+      "title": "Lernen und Unterricht",
+      "items": [
+        {
+          "front": "réviser",
+          "back": "wiederholen / lernen",
+          "example": "Je révise pour le contrôle.",
+          "exampleDe": "Ich lerne für die Klassenarbeit."
+        },
+        {
+          "front": "apprendre",
+          "back": "lernen",
+          "example": "J'apprends le français.",
+          "exampleDe": "Ich lerne Französisch."
+        },
+        {
+          "front": "comprendre",
+          "back": "verstehen",
+          "example": "Je comprends la leçon.",
+          "exampleDe": "Ich verstehe die Lektion."
+        },
+        {
+          "front": "la leçon",
+          "back": "die Lektion",
+          "example": "La leçon est facile.",
+          "exampleDe": "Die Lektion ist leicht."
+        },
+        {
+          "front": "l'interrogation (f)",
+          "back": "der kurze Test",
+          "example": "Demain, j'ai une interrogation.",
+          "exampleDe": "Morgen habe ich einen Test."
+        },
+        {
+          "front": "la copie",
+          "back": "die Klassenarbeit (Blatt)",
+          "example": "Le prof rend les copies.",
+          "exampleDe": "Der Lehrer gibt die Arbeiten zurück."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l2",
+      "title": "Noten und Zeugnis",
+      "items": [
+        {
+          "front": "le bulletin",
+          "back": "das Zeugnis",
+          "example": "Mon bulletin est bon.",
+          "exampleDe": "Mein Zeugnis ist gut."
+        },
+        {
+          "front": "la moyenne",
+          "back": "der Durchschnitt",
+          "example": "J'ai la moyenne en maths.",
+          "exampleDe": "Ich habe in Mathe einen ausreichenden Durchschnitt."
+        },
+        {
+          "front": "réussir",
+          "back": "bestehen / Erfolg haben",
+          "example": "J'ai réussi le contrôle.",
+          "exampleDe": "Ich habe die Klassenarbeit bestanden."
+        },
+        {
+          "front": "rater",
+          "back": "durchfallen / verpassen",
+          "example": "Il a raté le contrôle.",
+          "exampleDe": "Er ist durch die Klassenarbeit gefallen."
+        },
+        {
+          "front": "redoubler",
+          "back": "wiederholen (Klasse)",
+          "example": "Elle va redoubler.",
+          "exampleDe": "Sie wird die Klasse wiederholen."
+        },
+        {
+          "front": "l'examen (m)",
+          "back": "die Prüfung",
+          "example": "L'examen est difficile.",
+          "exampleDe": "Die Prüfung ist schwer."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l3",
+      "title": "Schulstress",
+      "items": [
+        {
+          "front": "le stress",
+          "back": "der Stress",
+          "example": "Le stress est fort avant l'examen.",
+          "exampleDe": "Vor der Prüfung ist der Stress groß."
+        },
+        {
+          "front": "la pression",
+          "back": "der Druck",
+          "example": "La pression est grande.",
+          "exampleDe": "Der Druck ist groß."
+        },
+        {
+          "front": "stressé(e)",
+          "back": "gestresst",
+          "example": "Je suis stressé.",
+          "exampleDe": "Ich bin gestresst."
+        },
+        {
+          "front": "la peur",
+          "back": "die Angst",
+          "example": "J'ai peur du contrôle.",
+          "exampleDe": "Ich habe Angst vor der Klassenarbeit."
+        },
+        {
+          "front": "nerveux / nerveuse",
+          "back": "nervös",
+          "example": "Elle est nerveuse.",
+          "exampleDe": "Sie ist nervös."
+        },
+        {
+          "front": "le sommeil",
+          "back": "der Schlaf",
+          "example": "J'ai besoin de sommeil.",
+          "exampleDe": "Ich brauche Schlaf."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l4",
+      "title": "Wie lernst du?",
+      "items": [
+        {
+          "front": "apprendre par cœur",
+          "back": "auswendig lernen",
+          "example": "J'apprends les mots par cœur.",
+          "exampleDe": "Ich lerne die Wörter auswendig."
+        },
+        {
+          "front": "le vocabulaire",
+          "back": "der Wortschatz",
+          "example": "Je révise le vocabulaire.",
+          "exampleDe": "Ich wiederhole den Wortschatz."
+        },
+        {
+          "front": "la fiche",
+          "back": "die Karteikarte",
+          "example": "J'écris une fiche.",
+          "exampleDe": "Ich schreibe eine Karteikarte."
+        },
+        {
+          "front": "le résumé",
+          "back": "die Zusammenfassung",
+          "example": "Le résumé est court.",
+          "exampleDe": "Die Zusammenfassung ist kurz."
+        },
+        {
+          "front": "relire",
+          "back": "noch einmal lesen",
+          "example": "Je relis le texte.",
+          "exampleDe": "Ich lese den Text noch einmal."
+        },
+        {
+          "front": "s'entraîner",
+          "back": "üben",
+          "example": "Il faut s'entraîner chaque jour.",
+          "exampleDe": "Man muss jeden Tag üben."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l5",
+      "title": "Schulleben",
+      "items": [
+        {
+          "front": "la salle des profs",
+          "back": "das Lehrerzimmer",
+          "example": "Le prof est dans la salle des profs.",
+          "exampleDe": "Der Lehrer ist im Lehrerzimmer."
+        },
+        {
+          "front": "le surveillant / la surveillante",
+          "back": "die Aufsicht",
+          "example": "La surveillante est gentille.",
+          "exampleDe": "Die Aufsicht ist nett."
+        },
+        {
+          "front": "le règlement",
+          "back": "die Schulordnung",
+          "example": "Le règlement est strict.",
+          "exampleDe": "Die Schulordnung ist streng."
+        },
+        {
+          "front": "la sortie scolaire",
+          "back": "der Klassenausflug",
+          "example": "La sortie scolaire est demain.",
+          "exampleDe": "Der Klassenausflug ist morgen."
+        },
+        {
+          "front": "le délégué / la déléguée",
+          "back": "der Klassensprecher",
+          "example": "La déléguée parle au prof.",
+          "exampleDe": "Die Klassensprecherin spricht mit dem Lehrer."
+        },
+        {
+          "front": "le conseil de classe",
+          "back": "die Klassenkonferenz",
+          "example": "Le conseil de classe est lundi.",
+          "exampleDe": "Die Klassenkonferenz ist am Montag."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l6",
+      "title": "Persönlichkeitstypen",
+      "items": [
+        {
+          "front": "bavard(e)",
+          "back": "geschwätzig",
+          "example": "Il est très bavard.",
+          "exampleDe": "Er ist sehr gesprächig."
+        },
+        {
+          "front": "sérieux / sérieuse",
+          "back": "ernsthaft",
+          "example": "Elle est sérieuse.",
+          "exampleDe": "Sie ist ernsthaft."
+        },
+        {
+          "front": "travailleur / travailleuse",
+          "back": "fleißig",
+          "example": "Mon frère est travailleur.",
+          "exampleDe": "Mein Bruder ist fleißig."
+        },
+        {
+          "front": "le chouchou",
+          "back": "der Liebling (des Lehrers)",
+          "example": "C'est le chouchou du prof.",
+          "exampleDe": "Das ist der Liebling des Lehrers."
+        },
+        {
+          "front": "le clown",
+          "back": "der Klassenclown",
+          "example": "Il est le clown de la classe.",
+          "exampleDe": "Er ist der Klassenclown."
+        },
+        {
+          "front": "fort(e) en maths",
+          "back": "gut in Mathe",
+          "example": "Elle est forte en maths.",
+          "exampleDe": "Sie ist stark in Mathe."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l7",
+      "title": "Das Verb écrire",
+      "items": [
+        {
+          "front": "j'écris",
+          "back": "ich schreibe",
+          "example": "J'écris une lettre.",
+          "exampleDe": "Ich schreibe einen Brief."
+        },
+        {
+          "front": "tu écris",
+          "back": "du schreibst",
+          "example": "Tu écris à Léa ?",
+          "exampleDe": "Schreibst du Léa?"
+        },
+        {
+          "front": "il / elle écrit",
+          "back": "er / sie schreibt",
+          "example": "Elle écrit un texte.",
+          "exampleDe": "Sie schreibt einen Text."
+        },
+        {
+          "front": "nous écrivons",
+          "back": "wir schreiben",
+          "example": "Nous écrivons une carte.",
+          "exampleDe": "Wir schreiben eine Karte."
+        },
+        {
+          "front": "vous écrivez",
+          "back": "ihr schreibt",
+          "example": "Vous écrivez un message ?",
+          "exampleDe": "Schreibt ihr eine Nachricht?"
+        },
+        {
+          "front": "ils / elles écrivent",
+          "back": "sie schreiben",
+          "example": "Ils écrivent une histoire.",
+          "exampleDe": "Sie schreiben eine Geschichte."
+        }
+      ],
+      "explanation": {
+        "title": "écrire (schreiben)",
+        "paragraphs": [
+          "écrire ist unregelmäßig: j'écris, tu écris, il/elle écrit, nous écrivons, vous écrivez, ils/elles écrivent. Partizip: écrit."
+        ],
+        "examples": [
+          {
+            "fr": "J'écris un texte.",
+            "de": "Ich schreibe einen Text."
+          },
+          {
+            "fr": "Nous écrivons une lettre.",
+            "de": "Wir schreiben einen Brief."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Nous ___ une lettre.",
+          "answer": "écrivons",
+          "options": [
+            "écrivons",
+            "écrivez",
+            "écrivent"
+          ],
+          "translation": "Wir schreiben einen Brief.",
+          "why": "Zu „nous“ passt „-ons“."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l8",
+      "title": "Das Verb dire",
+      "items": [
+        {
+          "front": "je dis",
+          "back": "ich sage",
+          "example": "Je dis la vérité.",
+          "exampleDe": "Ich sage die Wahrheit."
+        },
+        {
+          "front": "tu dis",
+          "back": "du sagst",
+          "example": "Tu dis quoi ?",
+          "exampleDe": "Was sagst du?"
+        },
+        {
+          "front": "il / elle dit",
+          "back": "er / sie sagt",
+          "example": "Il dit non.",
+          "exampleDe": "Er sagt nein."
+        },
+        {
+          "front": "nous disons",
+          "back": "wir sagen",
+          "example": "Nous disons bonjour.",
+          "exampleDe": "Wir sagen guten Tag."
+        },
+        {
+          "front": "vous dites",
+          "back": "ihr sagt",
+          "example": "Vous dites merci.",
+          "exampleDe": "Ihr sagt danke."
+        },
+        {
+          "front": "ils / elles disent",
+          "back": "sie sagen",
+          "example": "Elles disent la vérité.",
+          "exampleDe": "Sie sagen die Wahrheit."
+        },
+        {
+          "front": "la vérité",
+          "back": "die Wahrheit",
+          "example": "La vérité est simple.",
+          "exampleDe": "Die Wahrheit ist einfach."
+        }
+      ],
+      "explanation": {
+        "title": "dire (sagen)",
+        "paragraphs": [
+          "dire ist unregelmäßig: je dis, tu dis, il/elle dit, nous disons, vous dites, ils/elles disent. Partizip: dit."
+        ],
+        "examples": [
+          {
+            "fr": "Je dis non.",
+            "de": "Ich sage nein."
+          },
+          {
+            "fr": "Vous dites la vérité.",
+            "de": "Ihr sagt die Wahrheit."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Vous ___ merci.",
+          "answer": "dites",
+          "options": [
+            "dites",
+            "disez",
+            "disent"
+          ],
+          "translation": "Ihr sagt danke.",
+          "why": "Zu „vous“ passt „dites“."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l9",
+      "title": "Das Verb devoir",
+      "items": [
+        {
+          "front": "je dois",
+          "back": "ich muss",
+          "example": "Je dois réviser.",
+          "exampleDe": "Ich muss lernen."
+        },
+        {
+          "front": "tu dois",
+          "back": "du musst",
+          "example": "Tu dois dormir.",
+          "exampleDe": "Du musst schlafen."
+        },
+        {
+          "front": "il / elle doit",
+          "back": "er / sie muss",
+          "example": "Elle doit partir.",
+          "exampleDe": "Sie muss gehen."
+        },
+        {
+          "front": "nous devons",
+          "back": "wir müssen",
+          "example": "Nous devons travailler.",
+          "exampleDe": "Wir müssen arbeiten."
+        },
+        {
+          "front": "vous devez",
+          "back": "ihr müsst",
+          "example": "Vous devez écouter.",
+          "exampleDe": "Ihr müsst zuhören."
+        },
+        {
+          "front": "ils / elles doivent",
+          "back": "sie müssen",
+          "example": "Ils doivent rentrer.",
+          "exampleDe": "Sie müssen heimgehen."
+        }
+      ],
+      "explanation": {
+        "title": "devoir (müssen)",
+        "paragraphs": [
+          "devoir ist unregelmäßig: je dois, tu dois, il/elle doit, nous devons, vous devez, ils/elles doivent. Partizip: dû.",
+          "Nach „devoir“ steht der Infinitiv: Je dois réviser."
+        ],
+        "examples": [
+          {
+            "fr": "Je dois réviser.",
+            "de": "Ich muss lernen."
+          },
+          {
+            "fr": "Nous devons partir.",
+            "de": "Wir müssen gehen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Nous ___ travailler.",
+          "answer": "devons",
+          "options": [
+            "devons",
+            "devez",
+            "doivent"
+          ],
+          "translation": "Wir müssen arbeiten.",
+          "why": "Zu „nous“ passt „devons“."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l10",
+      "title": "Indirekte Objektpronomen",
+      "items": [
+        {
+          "front": "je lui écris",
+          "back": "ich schreibe ihm / ihr",
+          "example": "Je lui écris un message.",
+          "exampleDe": "Ich schreibe ihm eine Nachricht."
+        },
+        {
+          "front": "je leur parle",
+          "back": "ich spreche mit ihnen",
+          "example": "Je leur parle en français.",
+          "exampleDe": "Ich spreche mit ihnen auf Französisch."
+        },
+        {
+          "front": "il me répond",
+          "back": "er antwortet mir",
+          "example": "Il me répond toujours.",
+          "exampleDe": "Er antwortet mir immer."
+        },
+        {
+          "front": "elle te téléphone",
+          "back": "sie ruft dich an",
+          "example": "Elle te téléphone ce soir.",
+          "exampleDe": "Sie ruft dich heute Abend an."
+        },
+        {
+          "front": "nous vous montrons",
+          "back": "wir zeigen euch",
+          "example": "Nous vous montrons la photo.",
+          "exampleDe": "Wir zeigen euch das Foto."
+        }
+      ],
+      "explanation": {
+        "title": "lui, leur, me, te, nous, vous",
+        "paragraphs": [
+          "Das indirekte Objekt (wem?) steht bei Verben mit „à“: parler à, écrire à, donner à, dire à, téléphoner à, répondre à.",
+          "Pronomen: me, te, lui, nous, vous, leur. Sie stehen vor dem Verb: Je lui écris. Il leur parle."
+        ],
+        "examples": [
+          {
+            "fr": "J'écris à Léa. → Je lui écris.",
+            "de": "Ich schreibe Léa. → Ich schreibe ihr."
+          },
+          {
+            "fr": "Il parle aux élèves. → Il leur parle.",
+            "de": "Er spricht zu den Schülern. → Er spricht zu ihnen."
+          }
+        ],
+        "tip": "Bei „lui“ und „leur“ musst du nicht zwischen männlich und weiblich unterscheiden."
+      },
+      "fills": [
+        {
+          "sentence": "J'écris à Léa. Je ___ écris.",
+          "answer": "lui",
+          "options": [
+            "lui",
+            "leur",
+            "la"
+          ],
+          "translation": "Ich schreibe Léa. Ich schreibe ihr.",
+          "why": "Eine Person → lui."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l11",
+      "title": "Verben mit à + Person",
+      "items": [
+        {
+          "front": "parler à",
+          "back": "sprechen mit",
+          "example": "Je parle à mon prof.",
+          "exampleDe": "Ich spreche mit meinem Lehrer."
+        },
+        {
+          "front": "téléphoner à",
+          "back": "anrufen",
+          "example": "Je téléphone à ma mère.",
+          "exampleDe": "Ich rufe meine Mutter an."
+        },
+        {
+          "front": "demander à",
+          "back": "fragen",
+          "example": "Je demande à Léa.",
+          "exampleDe": "Ich frage Léa."
+        },
+        {
+          "front": "montrer à",
+          "back": "zeigen",
+          "example": "Je montre la photo à Paul.",
+          "exampleDe": "Ich zeige Paul das Foto."
+        },
+        {
+          "front": "répondre à",
+          "back": "antworten",
+          "example": "Je réponds à Léa.",
+          "exampleDe": "Ich antworte Léa."
+        },
+        {
+          "front": "envoyer à",
+          "back": "schicken",
+          "example": "J'envoie un message à Léa.",
+          "exampleDe": "Ich schicke Léa eine Nachricht."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l12",
+      "title": "Indirekte Rede",
+      "items": [
+        {
+          "front": "dire que …",
+          "back": "sagen, dass …",
+          "example": "Il dit que c'est facile.",
+          "exampleDe": "Er sagt, dass es leicht ist."
+        },
+        {
+          "front": "demander si …",
+          "back": "fragen, ob …",
+          "example": "Elle demande si tu viens.",
+          "exampleDe": "Sie fragt, ob du kommst."
+        },
+        {
+          "front": "répondre que …",
+          "back": "antworten, dass …",
+          "example": "Je réponds que c'est vrai.",
+          "exampleDe": "Ich antworte, dass es wahr ist."
+        },
+        {
+          "front": "demander où …",
+          "back": "fragen, wo …",
+          "example": "Il demande où tu habites.",
+          "exampleDe": "Er fragt, wo du wohnst."
+        },
+        {
+          "front": "je ne sais pas si …",
+          "back": "ich weiß nicht, ob …",
+          "example": "Je ne sais pas si elle vient.",
+          "exampleDe": "Ich weiß nicht, ob sie kommt."
+        }
+      ],
+      "explanation": {
+        "title": "Das Gesagte wiedergeben",
+        "paragraphs": [
+          "Mit „dire que“ gibst du Aussagen wieder: Il dit qu'il est fatigué. Fragen: „demander si“: Elle demande si tu viens.",
+          "Das Verb in der indirekten Rede passt sich an die Person an: « Je suis fatigué » → Il dit qu'il est fatigué."
+        ],
+        "examples": [
+          {
+            "fr": "Il dit qu'il est fatigué.",
+            "de": "Er sagt, dass er müde ist."
+          },
+          {
+            "fr": "Elle demande si tu viens.",
+            "de": "Sie fragt, ob du kommst."
+          }
+        ],
+        "tip": "„Que“ vor einem Vokal wird zu „qu'“; „si“ vor „il“ wird zu „s'il“."
+      },
+      "fills": [
+        {
+          "sentence": "Elle demande ___ tu viens.",
+          "answer": "si",
+          "options": [
+            "si",
+            "que",
+            "où"
+          ],
+          "translation": "Sie fragt, ob du kommst.",
+          "why": "„ob“ = si."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l13",
+      "title": "Ratschläge geben",
+      "items": [
+        {
+          "front": "conseiller",
+          "back": "raten",
+          "example": "Je te conseille de réviser.",
+          "exampleDe": "Ich rate dir zu lernen."
+        },
+        {
+          "front": "je te conseille de …",
+          "back": "ich rate dir, …",
+          "example": "Je te conseille de dormir.",
+          "exampleDe": "Ich rate dir zu schlafen."
+        },
+        {
+          "front": "il vaut mieux …",
+          "back": "es ist besser …",
+          "example": "Il vaut mieux réviser.",
+          "exampleDe": "Es ist besser zu lernen."
+        },
+        {
+          "front": "essayer de …",
+          "back": "versuchen zu …",
+          "example": "Essaie de dormir !",
+          "exampleDe": "Versuch zu schlafen!"
+        },
+        {
+          "front": "sans doute",
+          "back": "wahrscheinlich",
+          "example": "Il est sans doute fatigué.",
+          "exampleDe": "Er ist wahrscheinlich müde."
+        },
+        {
+          "front": "l'avis (m)",
+          "back": "die Meinung",
+          "example": "Quel est ton avis ?",
+          "exampleDe": "Was ist deine Meinung?"
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l14",
+      "title": "Schule in Frankreich",
+      "items": [
+        {
+          "front": "le lycée",
+          "back": "das Gymnasium (Oberstufe)",
+          "example": "Mon cousin va au lycée.",
+          "exampleDe": "Mein Cousin geht aufs Lycée."
+        },
+        {
+          "front": "le bac",
+          "back": "das Abitur",
+          "example": "Il passe le bac.",
+          "exampleDe": "Er macht das Abitur."
+        },
+        {
+          "front": "la terminale",
+          "back": "die letzte Klasse",
+          "example": "Ma cousine est en terminale.",
+          "exampleDe": "Meine Cousine ist in der letzten Klasse."
+        },
+        {
+          "front": "l'internat (m)",
+          "back": "das Internat",
+          "example": "Il habite à l'internat.",
+          "exampleDe": "Er wohnt im Internat."
+        },
+        {
+          "front": "le professeur principal",
+          "back": "der Klassenlehrer",
+          "example": "Le professeur principal est sympa.",
+          "exampleDe": "Der Klassenlehrer ist nett."
+        },
+        {
+          "front": "la rentrée",
+          "back": "der Schulanfang",
+          "example": "La rentrée est en septembre.",
+          "exampleDe": "Der Schulanfang ist im September."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l15",
+      "title": "Eine Person beschreiben",
+      "items": [
+        {
+          "front": "le caractère",
+          "back": "der Charakter",
+          "example": "Il a bon caractère.",
+          "exampleDe": "Er hat einen guten Charakter."
+        },
+        {
+          "front": "la qualité",
+          "back": "die gute Eigenschaft",
+          "example": "Le courage est une qualité.",
+          "exampleDe": "Mut ist eine gute Eigenschaft."
+        },
+        {
+          "front": "le défaut",
+          "back": "die Schwäche",
+          "example": "La paresse est un défaut.",
+          "exampleDe": "Faulheit ist eine Schwäche."
+        },
+        {
+          "front": "avoir l'air",
+          "back": "aussehen / wirken",
+          "example": "Il a l'air fatigué.",
+          "exampleDe": "Er sieht müde aus."
+        },
+        {
+          "front": "ressembler à",
+          "back": "ähneln",
+          "example": "Elle ressemble à sa mère.",
+          "exampleDe": "Sie ähnelt ihrer Mutter."
+        },
+        {
+          "front": "plutôt",
+          "back": "eher",
+          "example": "Je suis plutôt timide.",
+          "exampleDe": "Ich bin eher schüchtern."
+        }
+      ]
+    },
+    {
+      "id": "f8-u4-l16",
+      "title": "Ein Persönlichkeitstest",
+      "items": [
+        {
+          "front": "le test",
+          "back": "der Test",
+          "example": "Je fais un test.",
+          "exampleDe": "Ich mache einen Test."
+        },
+        {
+          "front": "le résultat",
+          "back": "das Ergebnis",
+          "example": "Le résultat est drôle.",
+          "exampleDe": "Das Ergebnis ist lustig."
+        },
+        {
+          "front": "le type",
+          "back": "der Typ",
+          "example": "Quel type es-tu ?",
+          "exampleDe": "Was für ein Typ bist du?"
+        },
+        {
+          "front": "le point",
+          "back": "der Punkt",
+          "example": "J'ai dix points.",
+          "exampleDe": "Ich habe zehn Punkte."
+        },
+        {
+          "front": "la question",
+          "back": "die Frage",
+          "example": "La question est difficile.",
+          "exampleDe": "Die Frage ist schwer."
+        },
+        {
+          "front": "choisir",
+          "back": "wählen",
+          "example": "Je choisis la réponse A.",
+          "exampleDe": "Ich wähle Antwort A."
+        }
+      ]
+    }
+  ]
+}

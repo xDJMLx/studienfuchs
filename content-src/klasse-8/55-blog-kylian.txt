@@ -1,0 +1,42 @@
+id: f8-m5
+title: Le blog de Kylian à La Réunion
+book: À plus ! 2 · Module 5 Le blog de Kylian à La Réunion
+desc: Reisebericht, Überseegebiet, Natur, beau / nouveau / vieux
+order: 55
+
+= Die Insel
+- l'île (f) = die Insel | La Réunion est une île. = La Réunion ist eine Insel.
+- l'océan (m) = der Ozean | L'océan est très bleu. = Der Ozean ist sehr blau.
+- le volcan = der Vulkan | Le volcan est haut. = Der Vulkan ist hoch.
+- la forêt = der Wald | La forêt est verte. = Der Wald ist grün.
+- le paysage = die Landschaft | Le paysage est magnifique. = Die Landschaft ist wunderschön.
+- la cascade = der Wasserfall | La cascade est grande. = Der Wasserfall ist groß.
+
+= Reisebericht
+- le blog de voyage = der Reiseblog | Je lis un blog de voyage. = Ich lese einen Reiseblog.
+- l'outre-mer (m) = das Überseegebiet | La Réunion est en outre-mer. = La Réunion ist im Überseegebiet.
+- le climat = das Klima | Le climat est chaud. = Das Klima ist heiß.
+- humide = feucht | L'air est humide. = Die Luft ist feucht.
+- tropical(e) = tropisch | Le climat est tropical. = Das Klima ist tropisch.
+- le créole = das Kreolisch | On parle créole à La Réunion. = Auf La Réunion spricht man Kreolisch.
+
+= beau, nouveau, vieux
+? Besondere Adjektive
+p Diese drei Adjektive haben eine zusätzliche Form vor Vokal: beau → bel, nouveau → nouvel, vieux → vieil. Weiblich: belle, nouvelle, vieille. Plural: beaux, nouveaux, vieux.
+e un beau jardin, un bel arbre, une belle plage = ein schöner Garten, ein schöner Baum, ein schöner Strand
+e un nouveau livre, un nouvel ami, une nouvelle idée = ein neues Buch, ein neuer Freund, eine neue Idee
+t Vor Vokal klingen männlich und weiblich gleich: un bel arbre – une belle idée.
+- beau / bel / belle = schön | C'est un beau paysage. = Das ist eine schöne Landschaft.
+- nouveau / nouvel / nouvelle = neu | J'ai un nouvel ami. = Ich habe einen neuen Freund.
+- vieux / vieil / vieille = alt | C'est une vieille maison. = Das ist ein altes Haus.
+- beaux / nouveaux / vieux (Plural) = schöne / neue / alte | Ce sont de beaux paysages. = Das sind schöne Landschaften.
+f C'est une ___ plage. | belle | belle; beau; bel | Das ist ein schöner Strand. | „plage“ ist weiblich → belle.
+f C'est un ___ ami. | nouvel | nouvel; nouveau; nouvelle | Das ist ein neuer Freund. | Vor Vokal: nouvel.
+
+= Meine Region vorstellen
+- la région = die Region | Ma région est belle. = Meine Region ist schön.
+- le coin = die Ecke / die Gegend | J'aime mon coin. = Ich mag meine Gegend.
+- la spécialité = die Spezialität | La spécialité est un gâteau. = Die Spezialität ist ein Kuchen.
+- la découverte = die Entdeckung | C'est une belle découverte. = Das ist eine schöne Entdeckung.
+- inviter à découvrir = zum Entdecken einladen | Je t'invite à découvrir ma région. = Ich lade dich ein, meine Region zu entdecken.
+- la présentation-minute = die Kurzpräsentation | Ma présentation-minute est courte. = Meine Kurzpräsentation ist kurz.

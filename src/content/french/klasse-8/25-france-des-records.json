@@ -1,0 +1,227 @@
+{
+  "id": "f8-m2",
+  "title": "La France des records",
+  "description": "Vergleichen: Komparativ und Superlativ, Rekorde und Besonderheiten",
+  "grade": 8,
+  "subject": "french",
+  "order": 25,
+  "book": "À plus ! 2 · Module 2 La France des records",
+  "lessons": [
+    {
+      "id": "f8-m2-l1",
+      "title": "Vergleichen",
+      "items": [
+        {
+          "front": "plus … que",
+          "back": "mehr … als / -er als",
+          "example": "Léa est plus grande que Paul.",
+          "exampleDe": "Léa ist größer als Paul."
+        },
+        {
+          "front": "moins … que",
+          "back": "weniger … als",
+          "example": "Mon vélo est moins rapide que ta voiture.",
+          "exampleDe": "Mein Rad ist weniger schnell als dein Auto."
+        },
+        {
+          "front": "aussi … que",
+          "back": "genauso … wie",
+          "example": "Ma ville est aussi belle que Paris.",
+          "exampleDe": "Meine Stadt ist so hübsch wie Paris."
+        },
+        {
+          "front": "bon → meilleur(e)",
+          "back": "gut → besser",
+          "example": "Le gâteau est meilleur que la glace.",
+          "exampleDe": "Der Kuchen ist besser als das Eis."
+        },
+        {
+          "front": "bien → mieux",
+          "back": "gut (Adverb) → besser",
+          "example": "Il chante mieux que moi.",
+          "exampleDe": "Er singt besser als ich."
+        }
+      ],
+      "explanation": {
+        "title": "Der Komparativ",
+        "paragraphs": [
+          "Mit „plus … que“ (mehr als), „moins … que“ (weniger als) und „aussi … que“ (genauso … wie) vergleichst du: Paris est plus grand que Nantes.",
+          "Das Adjektiv richtet sich nach dem ersten Nomen."
+        ],
+        "examples": [
+          {
+            "fr": "Paris est plus grand que Nantes.",
+            "de": "Paris ist größer als Nantes."
+          },
+          {
+            "fr": "La Seine est aussi longue que la Loire.",
+            "de": "Die Seine ist so lang wie die Loire."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Paul est ___ grand que Léa.",
+          "answer": "plus",
+          "options": [
+            "plus",
+            "moins",
+            "aussi"
+          ],
+          "translation": "Paul ist größer als Léa.",
+          "why": "„plus … que“ = größer als."
+        }
+      ]
+    },
+    {
+      "id": "f8-m2-l2",
+      "title": "Der Superlativ",
+      "items": [
+        {
+          "front": "le plus …",
+          "back": "der / das am meisten …",
+          "example": "C'est le plus grand parc.",
+          "exampleDe": "Das ist der größte Park."
+        },
+        {
+          "front": "la plus …",
+          "back": "die am meisten …",
+          "example": "La tour est la plus haute.",
+          "exampleDe": "Der Turm ist der höchste."
+        },
+        {
+          "front": "le moins …",
+          "back": "der am wenigsten …",
+          "example": "C'est le moins cher.",
+          "exampleDe": "Das ist der Billigste."
+        },
+        {
+          "front": "le meilleur / la meilleure",
+          "back": "der / die beste",
+          "example": "C'est la meilleure glace.",
+          "exampleDe": "Das ist das beste Eis."
+        },
+        {
+          "front": "le pire",
+          "back": "der / das Schlimmste",
+          "example": "C'est le pire film.",
+          "exampleDe": "Das ist der schlimmste Film."
+        }
+      ],
+      "explanation": {
+        "title": "Der Superlativ",
+        "paragraphs": [
+          "Mit „le plus“ / „la plus“ / „les plus“ drückst du das Höchste aus: La tour Eiffel est la plus haute tour de Paris.",
+          "Das Gegenteil: „le moins“ (am wenigsten). „Le meilleur / la meilleure“ heißt „der beste / die beste“."
+        ],
+        "examples": [
+          {
+            "fr": "le plus grand, la plus longue",
+            "de": "der größte, die längste"
+          },
+          {
+            "fr": "C'est le meilleur gâteau.",
+            "de": "Das ist der beste Kuchen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "C'est ___ plus grand parc.",
+          "answer": "le",
+          "options": [
+            "le",
+            "la",
+            "les"
+          ],
+          "translation": "Das ist der größte Park.",
+          "why": "„parc“ ist männlich → le plus grand."
+        }
+      ]
+    },
+    {
+      "id": "f8-m2-l3",
+      "title": "Rekorde in Frankreich",
+      "items": [
+        {
+          "front": "le record",
+          "back": "der Rekord",
+          "example": "C'est un record du monde.",
+          "exampleDe": "Das ist ein Weltrekord."
+        },
+        {
+          "front": "le Mont-Blanc",
+          "back": "der Mont Blanc",
+          "example": "Le Mont-Blanc est la plus haute montagne.",
+          "exampleDe": "Der Mont Blanc ist der höchste Berg."
+        },
+        {
+          "front": "la hauteur",
+          "back": "die Höhe",
+          "example": "La hauteur est de trois cents mètres.",
+          "exampleDe": "Die Höhe beträgt dreihundert Meter."
+        },
+        {
+          "front": "le mètre",
+          "back": "der Meter",
+          "example": "La tour Eiffel fait plus de trois cents mètres.",
+          "exampleDe": "Der Eiffelturm ist über dreihundert Meter hoch."
+        },
+        {
+          "front": "rapide",
+          "back": "schnell",
+          "example": "Le TGV est un train rapide.",
+          "exampleDe": "Der TGV ist ein schneller Zug."
+        },
+        {
+          "front": "le TGV",
+          "back": "der Hochgeschwindigkeitszug",
+          "example": "Le TGV est très rapide.",
+          "exampleDe": "Der TGV ist sehr schnell."
+        }
+      ]
+    },
+    {
+      "id": "f8-m2-l4",
+      "title": "Berühmtes aus Frankreich",
+      "items": [
+        {
+          "front": "le monument",
+          "back": "das Bauwerk",
+          "example": "Le monument est très connu.",
+          "exampleDe": "Das Bauwerk ist sehr bekannt."
+        },
+        {
+          "front": "connu(e)",
+          "back": "bekannt",
+          "example": "Paris est très connu.",
+          "exampleDe": "Paris ist sehr bekannt."
+        },
+        {
+          "front": "la personnalité",
+          "back": "die Persönlichkeit",
+          "example": "C'est une personnalité célèbre.",
+          "exampleDe": "Das ist eine berühmte Persönlichkeit."
+        },
+        {
+          "front": "le fromage de chèvre",
+          "back": "der Ziegenkäse",
+          "example": "Le fromage de chèvre est bon.",
+          "exampleDe": "Der Ziegenkäse ist gut."
+        },
+        {
+          "front": "le jeu de cartes",
+          "back": "das Kartenspiel",
+          "example": "Nous faisons un jeu de cartes.",
+          "exampleDe": "Wir machen ein Kartenspiel."
+        },
+        {
+          "front": "la devinette",
+          "back": "das Rätsel",
+          "example": "Voilà une devinette.",
+          "exampleDe": "Hier ist ein Rätsel."
+        }
+      ]
+    }
+  ]
+}

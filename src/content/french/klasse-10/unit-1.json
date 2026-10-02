@@ -1,0 +1,82 @@
+{
+  "id": "f10-u1",
+  "title": "En même temps",
+  "description": "Gérondif und participe présent",
+  "grade": 10,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f10-u1-l1",
+      "title": "Das gérondif (1/2)",
+      "explanation": {"title":"Gleichzeitig und auf welche Art","paragraphs":["Gérondif = en + participe présent (Stamm der nous-Form + -ant): en parlant, en mangeant, en finissant. Es drückt Gleichzeitigkeit, Art und Weise oder Mittel aus.","Das Subjekt von Gérondif und Hauptsatz muss dasselbe sein: Il chante en travaillant."],"examples":[{"fr":"Il chante en travaillant.","de":"Er singt bei der Arbeit."},{"fr":"On apprend en pratiquant.","de":"Man lernt durch Üben."}],"tip":"Ausnahmen: être → étant, avoir → ayant, savoir → sachant. Beim gérondif: en étant, en ayant, en sachant."},
+      "items": [
+        {"front":"en parlant","back":"beim Sprechen / indem man spricht","example":"Il apprend en parlant.","exampleDe":"Er lernt beim Sprechen."},
+        {"front":"en mangeant","back":"beim Essen","example":"Il lit en mangeant.","exampleDe":"Er liest beim Essen."},
+        {"front":"en finissant","back":"indem man beendet","example":"En finissant tôt, tu auras du temps libre.","exampleDe":"Wenn du früh fertig wirst, hast du freie Zeit."},
+        {"front":"en marchant","back":"beim Gehen","example":"Elle écoute de la musique en marchant.","exampleDe":"Sie hört beim Gehen Musik."},
+        {"front":"en lisant","back":"beim Lesen","example":"On apprend du vocabulaire en lisant.","exampleDe":"Man lernt Vokabeln durch Lesen."}
+      ]
+    },
+    {
+      "id": "f10-u1-l2",
+      "title": "Das gérondif (2/2)",
+      "items": [
+        {"front":"en écoutant","back":"beim Zuhören","example":"En écoutant, tu comprends mieux.","exampleDe":"Wenn du zuhörst, verstehst du besser."},
+        {"front":"en étant","back":"indem man ist","example":"En étant patient, tu réussiras.","exampleDe":"Wenn du geduldig bist, wirst du es schaffen."},
+        {"front":"en ayant","back":"indem man hat","example":"En ayant du courage, il a gagné.","exampleDe":"Mit Mut hat er gewonnen."},
+        {"front":"en sachant","back":"indem man weiß","example":"En sachant la vérité, il a ri.","exampleDe":"Da er die Wahrheit wusste, lachte er."}
+      ],
+      "fills": [
+        {"sentence":"Il chante ___ travaillant.","answer":"en","options":["en","au","dans","par"],"translation":"Er singt bei der Arbeit.","why":"Gérondif = en + -ant."},
+        {"sentence":"On apprend en ___.","answer":"pratiquant","options":["pratiquant","pratiquer","pratiqué","pratiquons"],"translation":"Man lernt durch Üben.","why":"en + Stamm der nous-Form (pratiqu-) + -ant."}
+      ]
+    },
+    {
+      "id": "f10-u1-l3",
+      "title": "Participe présent und Passiv (1/2)",
+      "explanation": {"title":"Zwei Formen im Vergleich","paragraphs":["Das participe présent ohne „en“ ersetzt oft einen Relativsatz (un homme parlant français = qui parle français). Es ist unveränderlich.","Passiv: être + participe passé (+ par). La lettre est écrite par Léa. Das Partizip richtet sich nach dem Subjekt."],"examples":[{"fr":"Cette église est visitée par des milliers de touristes.","de":"Diese Kirche wird von Tausenden Touristen besucht."},{"fr":"Les devoirs sont faits.","de":"Die Hausaufgaben sind gemacht."}]},
+      "items": [
+        {"front":"il est invité","back":"er wird eingeladen","example":"Il est invité à la fête.","exampleDe":"Er ist zur Feier eingeladen."},
+        {"front":"elle est invitée","back":"sie wird eingeladen","example":"Elle est invitée chez Léa.","exampleDe":"Sie ist zu Léa eingeladen."},
+        {"front":"ils sont vus","back":"sie werden gesehen","example":"Ils sont vus dans la rue.","exampleDe":"Sie werden auf der Straße gesehen."},
+        {"front":"le livre est lu","back":"das Buch wird gelesen","example":"Le livre est lu par beaucoup d'élèves.","exampleDe":"Das Buch wird von vielen Schülern gelesen."}
+      ]
+    },
+    {
+      "id": "f10-u1-l4",
+      "title": "Participe présent und Passiv (2/2)",
+      "items": [
+        {"front":"par","back":"von, durch (beim Passiv)","example":"La lettre est écrite par Léa.","exampleDe":"Der Brief wird von Léa geschrieben."},
+        {"front":"la lettre est écrite","back":"der Brief wird geschrieben","example":"La lettre est écrite à la main.","exampleDe":"Der Brief wird von Hand geschrieben."},
+        {"front":"il a été invité","back":"er wurde eingeladen","example":"Il a été invité à la fête.","exampleDe":"Er wurde zur Feier eingeladen."},
+        {"front":"le film sera présenté","back":"der Film wird vorgestellt werden","example":"Le film sera présenté demain.","exampleDe":"Der Film wird morgen vorgestellt."}
+      ],
+      "fills": [
+        {"sentence":"La lettre est ___ par Léa.","answer":"écrite","options":["écrite","écrit","écrits","écrire"],"translation":"Der Brief wird von Léa geschrieben.","why":"Passiv: Partizip richtet sich nach lettre (f)."},
+        {"sentence":"Les élèves sont ___ par le professeur.","answer":"invités","options":["invités","invité","invitée","inviter"],"translation":"Die Schüler werden vom Lehrer eingeladen.","why":"Plural männlich → invités."}
+      ]
+    },
+    {
+      "id": "f10-u1-l5",
+      "title": "Umwelt (1/2)",
+      "items": [
+        {"front":"l'environnement","back":"die Umwelt","example":"Nous devons protéger l'environnement.","exampleDe":"Wir müssen die Umwelt schützen."},
+        {"front":"la pollution","back":"die Verschmutzung","example":"La pollution est un grand problème.","exampleDe":"Die Verschmutzung ist ein großes Problem."},
+        {"front":"le réchauffement climatique","back":"die Klimaerwärmung","example":"Le réchauffement climatique inquiète beaucoup de gens.","exampleDe":"Die Klimaerwärmung beunruhigt viele Menschen."},
+        {"front":"les déchets","back":"der Müll / Abfall","example":"Il faut réduire les déchets.","exampleDe":"Man muss den Müll reduzieren."},
+        {"front":"recycler","back":"recyceln","example":"Nous recyclons le papier.","exampleDe":"Wir recyceln das Papier."}
+      ]
+    },
+    {
+      "id": "f10-u1-l6",
+      "title": "Umwelt (2/2)",
+      "items": [
+        {"front":"économiser l'énergie","back":"Energie sparen","example":"Il faut économiser l'énergie.","exampleDe":"Man muss Energie sparen."},
+        {"front":"les énergies renouvelables","back":"erneuerbare Energien","example":"Les énergies renouvelables sont l'avenir.","exampleDe":"Erneuerbare Energien sind die Zukunft."},
+        {"front":"protéger","back":"schützen","example":"Nous voulons protéger la nature.","exampleDe":"Wir wollen die Natur schützen."},
+        {"front":"gaspiller","back":"verschwenden","example":"Il ne faut pas gaspiller l'eau.","exampleDe":"Man darf kein Wasser verschwenden."},
+        {"front":"durable","back":"nachhaltig","example":"Il faut une économie durable.","exampleDe":"Man braucht eine nachhaltige Wirtschaft."}
+      ]
+    }
+  ]
+}

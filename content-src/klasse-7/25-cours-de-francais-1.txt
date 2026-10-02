@@ -1,0 +1,45 @@
+id: f7-m1
+title: En cours de français (1)
+book: À plus ! 1 · Module 1 En cours de français
+desc: Klassenraumfranzösisch: Aufforderungen verstehen, nachfragen
+order: 25
+
+= Das sagt die Lehrkraft (1/2)
+? Aufforderungen im Unterricht
+p Im Französischunterricht hörst du viele kurze Aufforderungen. Sie enden meist auf „-ez“, wenn die ganze Klasse angesprochen wird.
+e Écoutez, s'il vous plaît ! = Hört bitte zu!
+e Ouvrez votre livre ! = Öffnet euer Buch!
+- écoutez ! = hört zu! | Écoutez bien, les enfants ! = Hört gut zu, Kinder!
+- regardez ! = schaut! | Regardez la photo ! = Schaut das Foto an!
+- lisez ! = lest! | Lisez le texte, s'il vous plaît. = Lest den Text, bitte.
+- répétez ! = wiederholt! | Répétez après moi. = Sprecht mir nach.
+- écrivez ! = schreibt! | Écrivez votre nom. = Schreibt euren Namen.
+
+= Das sagt die Lehrkraft (2/2)
+- ouvrez ! = öffnet! | Ouvrez la fenêtre, s'il vous plaît. = Öffnet das Fenster, bitte.
+- fermez ! = schließt! | Fermez la porte ! = Schließt die Tür!
+- parlez ! = sprecht! | Parlez français, s'il vous plaît. = Sprecht bitte Französisch.
+- travaillez ! = arbeitet! | Travaillez ensemble. = Arbeitet zusammen.
+- ensemble = zusammen | On joue ensemble. = Wir spielen zusammen.
+- encore une fois = noch einmal | Encore une fois, s'il vous plaît. = Noch einmal, bitte.
+
+= Nachfragen
+? Wenn du etwas nicht verstehst
+p Du darfst immer nachfragen: „Je ne comprends pas.“ oder „Qu'est-ce que ça veut dire ?“.
+p Wenn dir ein Wort fehlt, fragst du: „Comment dit-on … en français ?“
+e Je ne comprends pas. = Ich verstehe nicht.
+e Comment dit-on « Hund » en français ? = Wie sagt man „Hund“ auf Französisch?
+- je ne comprends pas = ich verstehe nicht | Pardon, je ne comprends pas. = Entschuldigung, ich verstehe nicht.
+- qu'est-ce que ça veut dire ? = was bedeutet das? | Qu'est-ce que ça veut dire, « pardon » ? = Was heißt „pardon“?
+- comment dit-on … ? = wie sagt man …? | Comment dit-on « Katze » en français ? = Wie sagt man „Katze“ auf Französisch?
+- je sais = ich weiß | Oui, je sais ! = Ja, ich weiß es!
+- je ne sais pas = ich weiß nicht | Je ne sais pas, madame. = Ich weiß nicht, Frau …
+
+= Wörter im Unterricht
+- le mot = das Wort | Le mot est difficile. = Das Wort ist schwer.
+- la phrase = der Satz | La phrase est courte. = Der Satz ist kurz.
+- la question = die Frage | Voilà une question. = Da ist eine Frage.
+- la réponse = die Antwort | La réponse est juste. = Die Antwort ist richtig.
+- la page = die Seite | Ouvrez à la page dix. = Schlagt Seite zehn auf.
+- juste = richtig | Oui, c'est juste. = Ja, das ist richtig.
+- faux / fausse = falsch | Non, c'est faux. = Nein, das ist falsch.

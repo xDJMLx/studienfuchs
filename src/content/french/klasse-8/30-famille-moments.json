@@ -1,0 +1,1008 @@
+{
+  "id": "f8-u3",
+  "title": "Famille : les moments qui comptent",
+  "description": "Familie, Streit, Feste, Meinung äußern, Objektpronomen, Relativsatz mit que, Konsum und Umwelt",
+  "grade": 8,
+  "subject": "french",
+  "order": 30,
+  "book": "À plus ! 2 · Unité 3",
+  "lessons": [
+    {
+      "id": "f8-u3-l1",
+      "title": "Streit in der Familie (1/2)",
+      "items": [
+        {
+          "front": "la dispute",
+          "back": "der Streit",
+          "example": "Il y a une dispute à la maison.",
+          "exampleDe": "Es gibt Streit zu Hause."
+        },
+        {
+          "front": "avoir raison",
+          "back": "recht haben",
+          "example": "Tu as raison !",
+          "exampleDe": "Du hast recht!"
+        },
+        {
+          "front": "avoir tort",
+          "back": "unrecht haben",
+          "example": "Non, tu as tort.",
+          "exampleDe": "Nein, du hast unrecht."
+        },
+        {
+          "front": "ce n'est pas juste",
+          "back": "das ist nicht fair",
+          "example": "Ce n'est pas juste !",
+          "exampleDe": "Das ist nicht fair!"
+        },
+        {
+          "front": "le désaccord",
+          "back": "die Meinungsverschiedenheit",
+          "example": "Nous avons un désaccord.",
+          "exampleDe": "Wir sind uneinig."
+        },
+        {
+          "front": "la faute",
+          "back": "die Schuld / der Fehler",
+          "example": "C'est ta faute !",
+          "exampleDe": "Das ist deine Schuld!"
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l2",
+      "title": "Streit in der Familie (2/2)",
+      "items": [
+        {
+          "front": "arrête !",
+          "back": "hör auf!",
+          "example": "Arrête, s'il te plaît !",
+          "exampleDe": "Hör bitte auf!"
+        },
+        {
+          "front": "ça suffit !",
+          "back": "es reicht!",
+          "example": "Ça suffit, maintenant !",
+          "exampleDe": "Es reicht jetzt!"
+        },
+        {
+          "front": "tu exagères",
+          "back": "du übertreibst",
+          "example": "Tu exagères, Paul !",
+          "exampleDe": "Du übertreibst, Paul!"
+        },
+        {
+          "front": "j'en ai marre",
+          "back": "ich habe die Nase voll",
+          "example": "J'en ai marre des devoirs.",
+          "exampleDe": "Ich habe die Hausaufgaben satt."
+        },
+        {
+          "front": "excuse-moi",
+          "back": "entschuldige",
+          "example": "Excuse-moi, c'est ma faute.",
+          "exampleDe": "Entschuldige, das ist meine Schuld."
+        },
+        {
+          "front": "je suis désolé(e)",
+          "back": "es tut mir leid",
+          "example": "Je suis désolée, Léa.",
+          "exampleDe": "Es tut mir leid, Léa."
+        },
+        {
+          "front": "ce n'est pas grave",
+          "back": "das ist nicht schlimm",
+          "example": "Ce n'est pas grave.",
+          "exampleDe": "Das ist nicht schlimm."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l3",
+      "title": "Direkte Objektpronomen",
+      "items": [
+        {
+          "front": "me / m'",
+          "back": "mich",
+          "example": "Tu m'écoutes ?",
+          "exampleDe": "Hörst du mir zu?"
+        },
+        {
+          "front": "te / t'",
+          "back": "dich",
+          "example": "Je t'aime.",
+          "exampleDe": "Ich habe dich lieb."
+        },
+        {
+          "front": "le / l'",
+          "back": "ihn / es",
+          "example": "Je le vois.",
+          "exampleDe": "Ich sehe ihn."
+        },
+        {
+          "front": "la / l'",
+          "back": "sie (f)",
+          "example": "Je la connais.",
+          "exampleDe": "Ich kenne sie."
+        },
+        {
+          "front": "nous",
+          "back": "uns",
+          "example": "Il nous regarde.",
+          "exampleDe": "Er schaut uns an."
+        },
+        {
+          "front": "vous",
+          "back": "euch / Sie",
+          "example": "Je vous écoute.",
+          "exampleDe": "Ich höre euch zu."
+        },
+        {
+          "front": "les",
+          "back": "sie (Plural)",
+          "example": "Je les vois.",
+          "exampleDe": "Ich sehe sie."
+        }
+      ],
+      "explanation": {
+        "title": "me, te, le, la, nous, vous, les",
+        "paragraphs": [
+          "Das direkte Objekt beantwortet „wen oder was?“. Statt das Nomen zu wiederholen, nimmst du ein Pronomen: Je vois Léa → Je la vois.",
+          "le (ihn, es), la (sie), l' (vor Vokal), les (sie Plural), me, te, nous, vous. Sie stehen vor dem konjugierten Verb."
+        ],
+        "examples": [
+          {
+            "fr": "Je vois Paul. → Je le vois.",
+            "de": "Ich sehe Paul. → Ich sehe ihn."
+          },
+          {
+            "fr": "Elle regarde les photos. → Elle les regarde.",
+            "de": "Sie schaut die Fotos an. → Sie schaut sie an."
+          }
+        ],
+        "tip": "Das Pronomen steht VOR dem Verb, im Deutschen steht es dahinter."
+      },
+      "fills": [
+        {
+          "sentence": "Je vois Léa. Je ___ vois.",
+          "answer": "la",
+          "options": [
+            "la",
+            "le",
+            "les"
+          ],
+          "translation": "Ich sehe Léa. Ich sehe sie.",
+          "why": "„Léa“ ist weiblich → la."
+        },
+        {
+          "sentence": "Il regarde les photos. Il ___ regarde.",
+          "answer": "les",
+          "options": [
+            "les",
+            "le",
+            "la"
+          ],
+          "translation": "Er schaut die Fotos an. Er schaut sie an.",
+          "why": "Plural → les."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l4",
+      "title": "Objektpronomen im Satz",
+      "items": [
+        {
+          "front": "je le vois",
+          "back": "ich sehe ihn",
+          "example": "Je le vois dans la rue.",
+          "exampleDe": "Ich sehe ihn auf der Straße."
+        },
+        {
+          "front": "je ne la vois pas",
+          "back": "ich sehe sie nicht",
+          "example": "Je ne la vois pas ici.",
+          "exampleDe": "Ich sehe sie hier nicht."
+        },
+        {
+          "front": "je veux le voir",
+          "back": "ich will ihn sehen",
+          "example": "Je veux le voir demain.",
+          "exampleDe": "Ich will ihn morgen sehen."
+        },
+        {
+          "front": "je l'ai vu",
+          "back": "ich habe ihn gesehen",
+          "example": "Je l'ai vu hier.",
+          "exampleDe": "Ich habe ihn gestern gesehen."
+        },
+        {
+          "front": "je les aime",
+          "back": "ich mag sie",
+          "example": "Je les aime beaucoup.",
+          "exampleDe": "Ich mag sie sehr."
+        }
+      ],
+      "explanation": {
+        "title": "Wo steht das Pronomen?",
+        "paragraphs": [
+          "Mit Verneinung: Je ne le vois pas. Mit einem zweiten Verb steht es vor dem Infinitiv: Je veux le voir. Im passé composé steht es vor „avoir“: Je l'ai vu."
+        ],
+        "examples": [
+          {
+            "fr": "Je ne le vois pas.",
+            "de": "Ich sehe ihn nicht."
+          },
+          {
+            "fr": "Je veux la voir.",
+            "de": "Ich will sie sehen."
+          },
+          {
+            "fr": "Je les ai vus.",
+            "de": "Ich habe sie gesehen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Je ne ___ vois pas.",
+          "answer": "le",
+          "options": [
+            "le",
+            "la",
+            "les"
+          ],
+          "translation": "Ich sehe ihn nicht.",
+          "why": "Das Pronomen steht zwischen „ne“ und dem Verb."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l5",
+      "title": "Relativsätze mit que",
+      "items": [
+        {
+          "front": "que / qu'",
+          "back": "den / die / das (Objekt)",
+          "example": "Le film que j'aime est drôle.",
+          "exampleDe": "Der Film, den ich mag, ist lustig."
+        },
+        {
+          "front": "connaître",
+          "back": "kennen",
+          "example": "Je connais Léa.",
+          "exampleDe": "Ich kenne Léa."
+        },
+        {
+          "front": "le film que je regarde",
+          "back": "der Film, den ich anschaue",
+          "example": "Le film que je regarde est drôle.",
+          "exampleDe": "Der Film, den ich anschaue, ist lustig."
+        },
+        {
+          "front": "la fille que je connais",
+          "back": "das Mädchen, das ich kenne",
+          "example": "La fille que je connais est gentille.",
+          "exampleDe": "Das Mädchen, das ich kenne, ist nett."
+        },
+        {
+          "front": "la chose que je veux",
+          "back": "das, was ich will",
+          "example": "La chose que je veux est un vélo.",
+          "exampleDe": "Was ich will, ist ein Fahrrad."
+        }
+      ],
+      "explanation": {
+        "title": "Das Relativpronomen que",
+        "paragraphs": [
+          "„Que“ ersetzt ein Objekt: Le livre que j'aime est ici. (Das Buch, das ich mag, ist hier.) Vor Vokal wird es zu „qu'“.",
+          "Der Unterschied zu „qui“: Nach „qui“ folgt das Verb, nach „que“ ein Subjekt (je, tu, il …)."
+        ],
+        "examples": [
+          {
+            "fr": "Le livre que j'aime est ici.",
+            "de": "Das Buch, das ich mag, ist hier."
+          },
+          {
+            "fr": "La fille que je connais s'appelle Léa.",
+            "de": "Das Mädchen, das ich kenne, heißt Léa."
+          }
+        ],
+        "tip": "qui = Subjekt (Verb folgt), que = Objekt (Subjekt folgt)."
+      },
+      "fills": [
+        {
+          "sentence": "Le livre ___ j'aime est ici.",
+          "answer": "que",
+          "options": [
+            "que",
+            "qui",
+            "où"
+          ],
+          "translation": "Das Buch, das ich mag, ist hier.",
+          "why": "Nach dem Relativpronomen folgt „j'aime“ (Subjekt) → que."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l6",
+      "title": "Demonstrativbegleiter",
+      "items": [
+        {
+          "front": "ce",
+          "back": "dieser / dieses (m)",
+          "example": "Ce garçon est sympa.",
+          "exampleDe": "Dieser Junge ist nett."
+        },
+        {
+          "front": "cet",
+          "back": "dieser (m vor Vokal)",
+          "example": "Cet ami est drôle.",
+          "exampleDe": "Dieser Freund ist lustig."
+        },
+        {
+          "front": "cette",
+          "back": "diese (f)",
+          "example": "Cette fille est gentille.",
+          "exampleDe": "Dieses Mädchen ist nett."
+        },
+        {
+          "front": "ces",
+          "back": "diese (Plural)",
+          "example": "Ces livres sont bons.",
+          "exampleDe": "Diese Bücher sind gut."
+        },
+        {
+          "front": "-ci / -là",
+          "back": "hier / da",
+          "example": "Je prends ce livre-ci.",
+          "exampleDe": "Ich nehme dieses Buch hier."
+        }
+      ],
+      "explanation": {
+        "title": "ce, cet, cette, ces",
+        "paragraphs": [
+          "„Ce“ + männlich: ce livre. „Cet“ + männlich vor Vokal: cet ami. „Cette“ + weiblich: cette fille. „Ces“ + Plural: ces amis.",
+          "Mit „-ci“ und „-là“ unterscheidest du: ce livre-ci (dieses hier), ce livre-là (jenes da)."
+        ],
+        "examples": [
+          {
+            "fr": "ce garçon, cet ami, cette fille, ces amis",
+            "de": "dieser Junge, dieser Freund, dieses Mädchen, diese Freunde"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "___ fille est sympa.",
+          "answer": "Cette",
+          "options": [
+            "Cette",
+            "Ce",
+            "Cet"
+          ],
+          "translation": "Dieses Mädchen ist nett.",
+          "why": "„fille“ ist weiblich → cette."
+        },
+        {
+          "sentence": "___ ami est drôle.",
+          "answer": "Cet",
+          "options": [
+            "Cet",
+            "Ce",
+            "Cette"
+          ],
+          "translation": "Dieser Freund ist lustig.",
+          "why": "Männlich vor Vokal → cet."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l7",
+      "title": "ne … rien und ne … jamais",
+      "items": [
+        {
+          "front": "ne … rien",
+          "back": "nichts",
+          "example": "Je n'ai rien vu.",
+          "exampleDe": "Ich habe nichts gesehen."
+        },
+        {
+          "front": "ne … jamais",
+          "back": "nie",
+          "example": "Il ne joue jamais.",
+          "exampleDe": "Er spielt nie."
+        },
+        {
+          "front": "rien",
+          "back": "nichts",
+          "example": "Je ne sais rien.",
+          "exampleDe": "Ich weiß nichts."
+        },
+        {
+          "front": "pas du tout",
+          "back": "überhaupt nicht",
+          "example": "Je n'aime pas du tout ça.",
+          "exampleDe": "Ich mag das überhaupt nicht."
+        },
+        {
+          "front": "toujours",
+          "back": "immer",
+          "example": "Elle est toujours là.",
+          "exampleDe": "Sie ist immer da."
+        }
+      ],
+      "explanation": {
+        "title": "Verneinung mit rien und jamais",
+        "paragraphs": [
+          "„Ne … rien“ heißt „nichts“, „ne … jamais“ heißt „nie“: Je ne mange rien. Je ne joue jamais.",
+          "Im passé composé stehen sie um „avoir“: Je n'ai rien vu. Je n'ai jamais joué."
+        ],
+        "examples": [
+          {
+            "fr": "Je ne mange rien.",
+            "de": "Ich esse nichts."
+          },
+          {
+            "fr": "Il n'est jamais là.",
+            "de": "Er ist nie da."
+          }
+        ],
+        "tip": "„Rien“ und „jamais“ stehen allein auch als Antwort: – Tu fais quoi ? – Rien."
+      },
+      "fills": [
+        {
+          "sentence": "Je ne vois ___.",
+          "answer": "rien",
+          "options": [
+            "rien",
+            "jamais",
+            "plus"
+          ],
+          "translation": "Ich sehe nichts.",
+          "why": "„ne … rien“ = nichts."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l8",
+      "title": "Das Verb mettre",
+      "items": [
+        {
+          "front": "je mets",
+          "back": "ich lege / ich ziehe an",
+          "example": "Je mets mon sac sur la chaise.",
+          "exampleDe": "Ich lege meine Tasche auf den Stuhl."
+        },
+        {
+          "front": "tu mets",
+          "back": "du legst",
+          "example": "Tu mets la table ?",
+          "exampleDe": "Deckst du den Tisch?"
+        },
+        {
+          "front": "il / elle met",
+          "back": "er / sie legt",
+          "example": "Elle met un livre sur la table.",
+          "exampleDe": "Sie legt ein Buch auf den Tisch."
+        },
+        {
+          "front": "nous mettons",
+          "back": "wir legen",
+          "example": "Nous mettons les assiettes.",
+          "exampleDe": "Wir stellen die Teller hin."
+        },
+        {
+          "front": "vous mettez",
+          "back": "ihr legt",
+          "example": "Vous mettez la musique ?",
+          "exampleDe": "Macht ihr die Musik an?"
+        },
+        {
+          "front": "ils / elles mettent",
+          "back": "sie legen",
+          "example": "Ils mettent la table.",
+          "exampleDe": "Sie decken den Tisch."
+        }
+      ],
+      "explanation": {
+        "title": "mettre (setzen, stellen, legen, anziehen)",
+        "paragraphs": [
+          "mettre ist unregelmäßig: je mets, tu mets, il/elle met, nous mettons, vous mettez, ils/elles mettent. Partizip: mis."
+        ],
+        "examples": [
+          {
+            "fr": "Je mets la table.",
+            "de": "Ich decke den Tisch."
+          },
+          {
+            "fr": "Elle met un pull.",
+            "de": "Sie zieht einen Pullover an."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Je ___ la table.",
+          "answer": "mets",
+          "options": [
+            "mets",
+            "met",
+            "mettons"
+          ],
+          "translation": "Ich decke den Tisch.",
+          "why": "Zu „je“ passt „mets“."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l9",
+      "title": "Adjektive auf -if und -ive",
+      "items": [
+        {
+          "front": "sportif / sportive",
+          "back": "sportlich",
+          "example": "Mon frère est sportif.",
+          "exampleDe": "Mein Bruder ist sportlich."
+        },
+        {
+          "front": "actif / active",
+          "back": "aktiv",
+          "example": "Ma mère est très active.",
+          "exampleDe": "Meine Mutter ist sehr aktiv."
+        },
+        {
+          "front": "créatif / créative",
+          "back": "kreativ",
+          "example": "Elle est créative.",
+          "exampleDe": "Sie ist kreativ."
+        },
+        {
+          "front": "naïf / naïve",
+          "back": "naiv",
+          "example": "Il est un peu naïf.",
+          "exampleDe": "Er ist ein bisschen naiv."
+        },
+        {
+          "front": "vif / vive",
+          "back": "lebhaft",
+          "example": "Cette fille est très vive.",
+          "exampleDe": "Dieses Mädchen ist sehr lebhaft."
+        }
+      ],
+      "explanation": {
+        "title": "Adjektive mit besonderer weiblicher Form",
+        "paragraphs": [
+          "Endet ein Adjektiv männlich auf -if, wird es weiblich zu -ive: sportif → sportive, actif → active."
+        ],
+        "examples": [
+          {
+            "fr": "un garçon sportif, une fille sportive",
+            "de": "ein sportlicher Junge, ein sportliches Mädchen"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Ma sœur est ___.",
+          "answer": "sportive",
+          "options": [
+            "sportive",
+            "sportif",
+            "sportifs"
+          ],
+          "translation": "Meine Schwester ist sportlich.",
+          "why": "Weiblich: -if wird zu -ive."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l10",
+      "title": "Adjektive auf -eux und -euse",
+      "items": [
+        {
+          "front": "heureux / heureuse",
+          "back": "glücklich",
+          "example": "Elle est heureuse.",
+          "exampleDe": "Sie ist glücklich."
+        },
+        {
+          "front": "curieux / curieuse",
+          "back": "neugierig",
+          "example": "Mon frère est curieux.",
+          "exampleDe": "Mein Bruder ist neugierig."
+        },
+        {
+          "front": "courageux / courageuse",
+          "back": "mutig",
+          "example": "Cette fille est courageuse.",
+          "exampleDe": "Dieses Mädchen ist mutig."
+        },
+        {
+          "front": "paresseux / paresseuse",
+          "back": "faul",
+          "example": "Il est un peu paresseux.",
+          "exampleDe": "Er ist ein bisschen faul."
+        },
+        {
+          "front": "ennuyeux / ennuyeuse",
+          "back": "langweilig",
+          "example": "Le film est ennuyeux.",
+          "exampleDe": "Der Film ist langweilig."
+        }
+      ],
+      "explanation": {
+        "title": "Adjektive mit besonderer weiblicher Form",
+        "paragraphs": [
+          "Endet ein Adjektiv männlich auf -eux, wird es weiblich zu -euse: heureux → heureuse, curieux → curieuse."
+        ],
+        "examples": [
+          {
+            "fr": "un garçon heureux, une fille heureuse",
+            "de": "ein glücklicher Junge, ein glückliches Mädchen"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Léa est ___.",
+          "answer": "heureuse",
+          "options": [
+            "heureuse",
+            "heureux",
+            "heureuses"
+          ],
+          "translation": "Léa ist glücklich.",
+          "why": "Weiblich: -eux wird zu -euse."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l11",
+      "title": "Feste und Traditionen",
+      "items": [
+        {
+          "front": "la tradition",
+          "back": "die Tradition",
+          "example": "C'est une tradition de famille.",
+          "exampleDe": "Das ist eine Familientradition."
+        },
+        {
+          "front": "Noël",
+          "back": "Weihnachten",
+          "example": "À Noël, nous sommes ensemble.",
+          "exampleDe": "Weihnachten sind wir zusammen."
+        },
+        {
+          "front": "le réveillon",
+          "back": "das Festessen an Heiligabend / Silvester",
+          "example": "Le réveillon est une grande fête.",
+          "exampleDe": "Das Reveillon ist ein großes Fest."
+        },
+        {
+          "front": "le mariage",
+          "back": "die Hochzeit",
+          "example": "Le mariage de ma cousine est en juin.",
+          "exampleDe": "Die Hochzeit meiner Cousine ist im Juni."
+        },
+        {
+          "front": "fêter",
+          "back": "feiern",
+          "example": "Nous fêtons Noël.",
+          "exampleDe": "Wir feiern Weihnachten."
+        },
+        {
+          "front": "la famille nombreuse",
+          "back": "die Großfamilie",
+          "example": "Nous sommes une famille nombreuse.",
+          "exampleDe": "Wir sind eine Großfamilie."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l12",
+      "title": "Zeit in der Familie",
+      "items": [
+        {
+          "front": "le repas",
+          "back": "die Mahlzeit",
+          "example": "Le repas est prêt.",
+          "exampleDe": "Das Essen ist fertig."
+        },
+        {
+          "front": "le dîner",
+          "back": "das Abendessen",
+          "example": "Le dîner est à huit heures.",
+          "exampleDe": "Das Abendessen ist um acht Uhr."
+        },
+        {
+          "front": "le petit-déjeuner",
+          "back": "das Frühstück",
+          "example": "Le petit-déjeuner est à sept heures.",
+          "exampleDe": "Das Frühstück ist um sieben Uhr."
+        },
+        {
+          "front": "le jeu de société",
+          "back": "das Gesellschaftsspiel",
+          "example": "Nous jouons à un jeu de société.",
+          "exampleDe": "Wir spielen ein Gesellschaftsspiel."
+        },
+        {
+          "front": "la soirée",
+          "back": "der Abend (Abendveranstaltung)",
+          "example": "La soirée est sympa.",
+          "exampleDe": "Der Abend ist nett."
+        },
+        {
+          "front": "le dimanche en famille",
+          "back": "der Sonntag mit der Familie",
+          "example": "Le dimanche en famille est ma tradition.",
+          "exampleDe": "Der Sonntag mit der Familie ist meine Tradition."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l13",
+      "title": "Was die Familie zusammenhält",
+      "items": [
+        {
+          "front": "aider",
+          "back": "helfen",
+          "example": "J'aide ma mère.",
+          "exampleDe": "Ich helfe meiner Mutter."
+        },
+        {
+          "front": "la confiance",
+          "back": "das Vertrauen",
+          "example": "J'ai confiance en toi.",
+          "exampleDe": "Ich vertraue dir."
+        },
+        {
+          "front": "l'amour (m)",
+          "back": "die Liebe",
+          "example": "L'amour est important.",
+          "exampleDe": "Liebe ist wichtig."
+        },
+        {
+          "front": "le lien",
+          "back": "die Verbindung",
+          "example": "Il y a un lien fort.",
+          "exampleDe": "Es gibt eine starke Verbindung."
+        },
+        {
+          "front": "respecter",
+          "back": "respektieren",
+          "example": "Je respecte mes parents.",
+          "exampleDe": "Ich respektiere meine Eltern."
+        },
+        {
+          "front": "partager",
+          "back": "teilen",
+          "example": "Nous partageons le repas.",
+          "exampleDe": "Wir teilen die Mahlzeit."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l14",
+      "title": "Familienmitglieder (erweitert)",
+      "items": [
+        {
+          "front": "le jumeau / la jumelle",
+          "back": "der Zwilling",
+          "example": "Mon frère est mon jumeau.",
+          "exampleDe": "Mein Bruder ist mein Zwilling."
+        },
+        {
+          "front": "le beau-père",
+          "back": "der Stiefvater",
+          "example": "Mon beau-père est sympa.",
+          "exampleDe": "Mein Stiefvater ist nett."
+        },
+        {
+          "front": "la belle-mère",
+          "back": "die Stiefmutter",
+          "example": "Ma belle-mère cuisine bien.",
+          "exampleDe": "Meine Stiefmutter kocht gut."
+        },
+        {
+          "front": "le neveu / la nièce",
+          "back": "der Neffe / die Nichte",
+          "example": "Mon neveu a deux ans.",
+          "exampleDe": "Mein Neffe ist zwei."
+        },
+        {
+          "front": "le petit-fils / la petite-fille",
+          "back": "der Enkel / die Enkelin",
+          "example": "Mon grand-père adore sa petite-fille.",
+          "exampleDe": "Mein Opa liebt seine Enkelin."
+        },
+        {
+          "front": "l'adolescent (m) / l'adolescente (f)",
+          "back": "der / die Jugendliche",
+          "example": "L'adolescent a quatorze ans.",
+          "exampleDe": "Der Jugendliche ist vierzehn."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l15",
+      "title": "Seine Meinung sagen",
+      "items": [
+        {
+          "front": "à mon avis",
+          "back": "meiner Meinung nach",
+          "example": "À mon avis, c'est super.",
+          "exampleDe": "Meiner Meinung nach ist das super."
+        },
+        {
+          "front": "je pense que …",
+          "back": "ich denke, dass …",
+          "example": "Je pense que tu as raison.",
+          "exampleDe": "Ich denke, du hast recht."
+        },
+        {
+          "front": "je crois que …",
+          "back": "ich glaube, dass …",
+          "example": "Je crois que c'est vrai.",
+          "exampleDe": "Ich glaube, das ist wahr."
+        },
+        {
+          "front": "d'après moi",
+          "back": "nach meiner Meinung",
+          "example": "D'après moi, il a tort.",
+          "exampleDe": "Nach meiner Meinung hat er unrecht."
+        },
+        {
+          "front": "être d'accord",
+          "back": "einverstanden sein",
+          "example": "Je suis d'accord avec toi.",
+          "exampleDe": "Ich bin einverstanden mit dir."
+        },
+        {
+          "front": "ne pas être d'accord",
+          "back": "nicht einverstanden sein",
+          "example": "Je ne suis pas d'accord.",
+          "exampleDe": "Ich bin nicht einverstanden."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l16",
+      "title": "Argumentieren",
+      "items": [
+        {
+          "front": "de plus",
+          "back": "außerdem",
+          "example": "De plus, c'est gratuit.",
+          "exampleDe": "Außerdem ist es gratis."
+        },
+        {
+          "front": "par exemple",
+          "back": "zum Beispiel",
+          "example": "Par exemple, j'aime le sport.",
+          "exampleDe": "Zum Beispiel mag ich Sport."
+        },
+        {
+          "front": "en effet",
+          "back": "tatsächlich",
+          "example": "En effet, tu as raison.",
+          "exampleDe": "Tatsächlich, du hast recht."
+        },
+        {
+          "front": "donc",
+          "back": "also / deshalb",
+          "example": "Il pleut, donc je reste ici.",
+          "exampleDe": "Es regnet, also bleibe ich hier."
+        },
+        {
+          "front": "c'est pourquoi",
+          "back": "deshalb",
+          "example": "C'est pourquoi je reste.",
+          "exampleDe": "Deshalb bleibe ich."
+        },
+        {
+          "front": "cependant",
+          "back": "jedoch",
+          "example": "Il est petit, cependant il est fort.",
+          "exampleDe": "Er ist klein, jedoch stark."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l17",
+      "title": "Konsum",
+      "items": [
+        {
+          "front": "acheter",
+          "back": "kaufen",
+          "example": "J'achète un vêtement.",
+          "exampleDe": "Ich kaufe ein Kleidungsstück."
+        },
+        {
+          "front": "le vêtement",
+          "back": "das Kleidungsstück",
+          "example": "Ce vêtement est cher.",
+          "exampleDe": "Dieses Kleidungsstück ist teuer."
+        },
+        {
+          "front": "la marque",
+          "back": "die Marke",
+          "example": "La marque est connue.",
+          "exampleDe": "Die Marke ist bekannt."
+        },
+        {
+          "front": "la mode",
+          "back": "die Mode",
+          "example": "La mode change vite.",
+          "exampleDe": "Die Mode ändert sich schnell."
+        },
+        {
+          "front": "l'argent (m)",
+          "back": "das Geld",
+          "example": "Je n'ai pas d'argent.",
+          "exampleDe": "Ich habe kein Geld."
+        },
+        {
+          "front": "l'argent de poche",
+          "back": "das Taschengeld",
+          "example": "J'ai dix euros d'argent de poche.",
+          "exampleDe": "Ich habe zehn Euro Taschengeld."
+        },
+        {
+          "front": "dépenser",
+          "back": "ausgeben",
+          "example": "Je dépense mon argent.",
+          "exampleDe": "Ich gebe mein Geld aus."
+        }
+      ]
+    },
+    {
+      "id": "f8-u3-l18",
+      "title": "Umweltschutz",
+      "items": [
+        {
+          "front": "l'environnement (m)",
+          "back": "die Umwelt",
+          "example": "Je protège l'environnement.",
+          "exampleDe": "Ich schütze die Umwelt."
+        },
+        {
+          "front": "recycler",
+          "back": "recyceln",
+          "example": "Nous recyclons le papier.",
+          "exampleDe": "Wir recyceln das Papier."
+        },
+        {
+          "front": "jeter",
+          "back": "wegwerfen",
+          "example": "Je jette le papier dans la poubelle.",
+          "exampleDe": "Ich werfe das Papier in den Mülleimer."
+        },
+        {
+          "front": "la poubelle",
+          "back": "der Mülleimer",
+          "example": "La poubelle est pleine.",
+          "exampleDe": "Der Mülleimer ist voll."
+        },
+        {
+          "front": "le déchet",
+          "back": "der Abfall",
+          "example": "Il y a trop de déchets.",
+          "exampleDe": "Es gibt zu viel Abfall."
+        },
+        {
+          "front": "le plastique",
+          "back": "das Plastik",
+          "example": "Le plastique est un problème.",
+          "exampleDe": "Plastik ist ein Problem."
+        },
+        {
+          "front": "protéger",
+          "back": "schützen",
+          "example": "Je protège la nature.",
+          "exampleDe": "Ich schütze die Natur."
+        }
+      ]
+    }
+  ]
+}

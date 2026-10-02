@@ -1,0 +1,80 @@
+{
+  "id": "f10-u2",
+  "title": "Dire ce qu'on pense",
+  "description": "Indirekte Rede, Fragen, Meinung",
+  "grade": 10,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f10-u2-l1",
+      "title": "Indirekte Rede (Gegenwart) (1/2)",
+      "explanation": {"title":"Aussagen wiedergeben","paragraphs":["Aussage: Il dit que + Satz. Frage mit Ja/Nein: Il demande si + Satz. Befehl: Il dit de + Infinitiv.","Wenn das einleitende Verb im Präsens steht, ändern sich die Zeiten nicht, nur Pronomen und Orts-/Zeitangaben passen sich an."],"examples":[{"fr":"Paul dit : « Je suis fatigué. » → Paul dit qu'il est fatigué.","de":"Paul sagt, dass er müde ist."},{"fr":"Elle demande : « Tu viens ? » → Elle demande si tu viens.","de":"Sie fragt, ob du kommst."}]},
+      "items": [
+        {"front":"il dit que","back":"er sagt, dass","example":"Il dit que tout va bien.","exampleDe":"Er sagt, dass alles in Ordnung ist."},
+        {"front":"il demande si","back":"er fragt, ob","example":"Il demande si tu viens.","exampleDe":"Er fragt, ob du kommst."},
+        {"front":"elle explique que","back":"sie erklärt, dass","example":"Elle explique que c'est difficile.","exampleDe":"Sie erklärt, dass es schwierig ist."},
+        {"front":"ils répondent que","back":"sie antworten, dass","example":"Ils répondent qu'ils sont prêts.","exampleDe":"Sie antworten, dass sie bereit sind."}
+      ]
+    },
+    {
+      "id": "f10-u2-l2",
+      "title": "Indirekte Rede (Gegenwart) (2/2)",
+      "items": [
+        {"front":"il dit de partir","back":"er sagt, man solle gehen","example":"Le professeur dit de partir.","exampleDe":"Der Lehrer sagt, wir sollen gehen."},
+        {"front":"elle raconte que","back":"sie erzählt, dass","example":"Elle raconte qu'elle a voyagé.","exampleDe":"Sie erzählt, dass sie gereist ist."},
+        {"front":"il affirme que","back":"er behauptet, dass","example":"Il affirme que c'est vrai.","exampleDe":"Er behauptet, dass es wahr ist."},
+        {"front":"elle ajoute que","back":"sie fügt hinzu, dass","example":"Elle ajoute que c'est urgent.","exampleDe":"Sie fügt hinzu, dass es dringend ist."}
+      ],
+      "fills": [
+        {"sentence":"Elle demande ___ tu viens.","answer":"si","options":["si","que","qui","où"],"translation":"Sie fragt, ob du kommst.","why":"Entscheidungsfrage → si."},
+        {"sentence":"Paul dit ___ il est fatigué.","answer":"qu'","options":["qu'","si","de","que"],"translation":"Paul sagt, dass er müde ist.","why":"que vor Vokal → qu'."}
+      ]
+    },
+    {
+      "id": "f10-u2-l3",
+      "title": "Fragen stellen (1/2)",
+      "explanation": {"title":"Drei Arten zu fragen","paragraphs":["Umgangssprache: Intonation (Tu viens ?). Neutral: est-ce que (Est-ce que tu viens ?). Formell: Inversion (Viens-tu ?).","Fragewörter: qui, que/qu'est-ce que, où, quand, comment, pourquoi, combien, quel(le)."],"examples":[{"fr":"Où habites-tu ?","de":"Wo wohnst du?"},{"fr":"Pourquoi est-ce qu'il part ?","de":"Warum geht er?"}]},
+      "items": [
+        {"front":"est-ce que","back":"(Einleitung einer Ja/Nein-Frage)","example":"Est-ce que tu viens ce soir ?","exampleDe":"Kommst du heute Abend?"},
+        {"front":"où habites-tu ?","back":"wo wohnst du?","example":"Salut ! Où habites-tu ?","exampleDe":"Hallo! Wo wohnst du?"},
+        {"front":"pourquoi","back":"warum","example":"Pourquoi est-ce qu'il part ?","exampleDe":"Warum geht er?"},
+        {"front":"comment","back":"wie","example":"Comment tu t'appelles ?","exampleDe":"Wie heißt du?"},
+        {"front":"combien","back":"wie viel","example":"Combien de frères as-tu ?","exampleDe":"Wie viele Brüder hast du?"}
+      ]
+    },
+    {
+      "id": "f10-u2-l4",
+      "title": "Fragen stellen (2/2)",
+      "items": [
+        {"front":"quand","back":"wann","example":"Quand est-ce que tu pars ?","exampleDe":"Wann fährst du ab?"},
+        {"front":"qui","back":"wer","example":"Qui est-ce ?","exampleDe":"Wer ist das?"},
+        {"front":"qu'est-ce que","back":"was (Objekt)","example":"Qu'est-ce que tu veux ?","exampleDe":"Was willst du?"},
+        {"front":"lequel","back":"welcher (von mehreren)","example":"J'ai deux frères. Lequel est le plus grand ?","exampleDe":"Ich habe zwei Brüder. Welcher ist der größere?"},
+        {"front":"à quoi","back":"woran / wozu","example":"À quoi sert cet outil ?","exampleDe":"Wozu dient dieses Werkzeug?"}
+      ]
+    },
+    {
+      "id": "f10-u2-l5",
+      "title": "Meinung äußern (1/2)",
+      "explanation": {"title":"Zustimmen und widersprechen","paragraphs":["Meinung: à mon avis, selon moi, je pense que, je trouve que. Zustimmung: je suis d'accord, c'est vrai. Widerspruch: je ne suis pas d'accord, je ne partage pas cet avis.","Auch für Argumentation: d'abord, de plus, en outre, enfin, en conclusion."],"examples":[{"fr":"À mon avis, c'est une bonne idée.","de":"Meiner Meinung nach ist das eine gute Idee."},{"fr":"Je ne suis pas d'accord avec toi.","de":"Ich bin nicht deiner Meinung."}]},
+      "items": [
+        {"front":"à mon avis","back":"meiner Meinung nach","example":"À mon avis, c'est une bonne idée.","exampleDe":"Meiner Meinung nach ist das eine gute Idee."},
+        {"front":"selon moi","back":"meiner Ansicht nach","example":"Selon moi, tu as raison.","exampleDe":"Meiner Ansicht nach hast du Recht."},
+        {"front":"je suis d'accord","back":"ich bin einverstanden","example":"Je suis d'accord avec toi.","exampleDe":"Ich bin einverstanden mit dir."},
+        {"front":"je ne suis pas d'accord","back":"ich bin nicht einverstanden","example":"Je ne suis pas d'accord avec lui.","exampleDe":"Ich bin nicht seiner Meinung."},
+        {"front":"c'est vrai","back":"das stimmt","example":"C'est vrai, tu as raison.","exampleDe":"Das stimmt, du hast Recht."}
+      ]
+    },
+    {
+      "id": "f10-u2-l6",
+      "title": "Meinung äußern (2/2)",
+      "items": [
+        {"front":"de plus","back":"außerdem","example":"De plus, c'est moins cher.","exampleDe":"Außerdem ist es günstiger."},
+        {"front":"en outre","back":"darüber hinaus","example":"En outre, il est très patient.","exampleDe":"Darüber hinaus ist er sehr geduldig."},
+        {"front":"en conclusion","back":"abschließend","example":"En conclusion, je suis pour ce projet.","exampleDe":"Abschließend bin ich für dieses Projekt."},
+        {"front":"d'une part","back":"einerseits","example":"D'une part, c'est utile.","exampleDe":"Einerseits ist es nützlich."},
+        {"front":"d'autre part","back":"andererseits","example":"D'autre part, c'est cher.","exampleDe":"Andererseits ist es teuer."}
+      ]
+    }
+  ]
+}

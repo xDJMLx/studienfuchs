@@ -1,0 +1,83 @@
+{
+  "id": "f9-u3",
+  "title": "Demain",
+  "description": "Le futur simple, Zukunftspläne",
+  "grade": 9,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f9-u3-l1",
+      "title": "Futur simple bilden (1/2)",
+      "explanation": {"title":"Die Zukunftsform","paragraphs":["Infinitiv + Endungen von avoir: -ai, -as, -a, -ons, -ez, -ont. parler → je parlerai, tu parleras, il parlera, nous parlerons, vous parlerez, ils parleront.","Bei Verben auf -re fällt das -e weg: prendre → je prendrai."],"examples":[{"fr":"Demain, je parlerai avec lui.","de":"Morgen werde ich mit ihm sprechen."},{"fr":"Nous finirons à midi.","de":"Wir werden mittags fertig sein."}]},
+      "items": [
+        {"front":"je parlerai","back":"ich werde sprechen","example":"Demain, je parlerai avec lui.","exampleDe":"Morgen werde ich mit ihm sprechen."},
+        {"front":"tu finiras","back":"du wirst beenden","example":"Tu finiras demain.","exampleDe":"Du wirst morgen fertig sein."},
+        {"front":"il prendra","back":"er wird nehmen","example":"Il prendra le train de huit heures.","exampleDe":"Er wird den Zug um acht Uhr nehmen."},
+        {"front":"nous mangerons","back":"wir werden essen","example":"Nous mangerons chez toi.","exampleDe":"Wir werden bei dir essen."}
+      ]
+    },
+    {
+      "id": "f9-u3-l2",
+      "title": "Futur simple bilden (2/2)",
+      "items": [
+        {"front":"vous partirez","back":"ihr werdet abreisen","example":"Vous partirez à midi.","exampleDe":"Ihr werdet mittags abreisen."},
+        {"front":"ils joueront","back":"sie werden spielen","example":"Ils joueront demain.","exampleDe":"Sie werden morgen spielen."},
+        {"front":"je donnerai","back":"ich werde geben","example":"Je te donnerai mon livre.","exampleDe":"Ich werde dir mein Buch geben."},
+        {"front":"elle écrira","back":"sie wird schreiben","example":"Elle écrira une lettre.","exampleDe":"Sie wird einen Brief schreiben."}
+      ],
+      "fills": [
+        {"sentence":"Demain, nous ___ au cinéma.","answer":"irons","options":["irons","allons","allerons","ironts"],"translation":"Morgen werden wir ins Kino gehen.","why":"aller hat den unregelmäßigen Futurstamm ir-."},
+        {"sentence":"Tu ___ ton travail demain.","answer":"finiras","options":["finiras","finis","finira","finirons"],"translation":"Du wirst deine Arbeit morgen beenden.","why":"Infinitiv finir + -as."}
+      ]
+    },
+    {
+      "id": "f9-u3-l3",
+      "title": "Unregelmäßige Futurstämme (1/2)",
+      "explanation": {"title":"Stämme auswendig lernen","paragraphs":["Einige Verben haben besondere Stämme, die Endungen bleiben gleich: être → ser-, avoir → aur-, aller → ir-, faire → fer-, venir → viendr-, pouvoir → pourr-, vouloir → voudr-, voir → verr-, devoir → devr-.","Merke: Der Stamm endet immer auf -r, vor den Endungen hört man „r“."],"examples":[{"fr":"Je serai à l'heure.","de":"Ich werde pünktlich sein."},{"fr":"Il fera beau demain.","de":"Morgen wird es schön sein."}]},
+      "items": [
+        {"front":"je serai","back":"ich werde sein","example":"Je serai à l'heure.","exampleDe":"Ich werde pünktlich sein."},
+        {"front":"tu auras","back":"du wirst haben","example":"Tu auras un cadeau.","exampleDe":"Du wirst ein Geschenk bekommen."},
+        {"front":"il ira","back":"er wird gehen","example":"Il ira au cinéma.","exampleDe":"Er wird ins Kino gehen."},
+        {"front":"nous ferons","back":"wir werden machen","example":"Nous ferons une fête.","exampleDe":"Wir werden ein Fest machen."},
+        {"front":"vous viendrez","back":"ihr werdet kommen","example":"Vous viendrez avec nous ?","exampleDe":"Werdet ihr mit uns kommen?"}
+      ]
+    },
+    {
+      "id": "f9-u3-l4",
+      "title": "Unregelmäßige Futurstämme (2/2)",
+      "items": [
+        {"front":"ils pourront","back":"sie werden können","example":"Ils pourront venir samedi.","exampleDe":"Sie werden am Samstag kommen können."},
+        {"front":"je voudrai","back":"ich werde wollen","example":"Un jour, je voudrai voyager.","exampleDe":"Eines Tages werde ich reisen wollen."},
+        {"front":"elle verra","back":"sie wird sehen","example":"Elle verra ses amis demain.","exampleDe":"Sie wird morgen ihre Freunde sehen."},
+        {"front":"nous devrons","back":"wir werden müssen","example":"Nous devrons travailler beaucoup.","exampleDe":"Wir werden viel arbeiten müssen."},
+        {"front":"il faudra","back":"man wird müssen","example":"Il faudra partir tôt.","exampleDe":"Man wird früh aufbrechen müssen."}
+      ],
+      "fills": [
+        {"sentence":"Demain, il ___ beau.","answer":"fera","options":["fera","fait","ferra","faira"],"translation":"Morgen wird es schön.","why":"faire → Futurstamm fer-."},
+        {"sentence":"Vous ___ à la fête ?","answer":"viendrez","options":["viendrez","venirez","viendez","venez"],"translation":"Werdet ihr zur Feier kommen?","why":"venir → Stamm viendr-."}
+      ]
+    },
+    {
+      "id": "f9-u3-l5",
+      "title": "Zukunft und Berufe (1/2)",
+      "items": [
+        {"front":"l'avenir","back":"die Zukunft","example":"Je pense à mon avenir.","exampleDe":"Ich denke an meine Zukunft."},
+        {"front":"le métier","back":"der Beruf","example":"Quel métier tu veux faire ?","exampleDe":"Welchen Beruf möchtest du ergreifen?"},
+        {"front":"le médecin","back":"der Arzt","example":"Je vais chez le médecin.","exampleDe":"Ich gehe zum Arzt."},
+        {"front":"l'infirmière","back":"die Krankenschwester","example":"L'infirmière aide les malades.","exampleDe":"Die Krankenschwester hilft den Kranken."},
+        {"front":"l'ingénieur","back":"der Ingenieur","example":"Mon père est ingénieur.","exampleDe":"Mein Vater ist Ingenieur."}
+      ]
+    },
+    {
+      "id": "f9-u3-l6",
+      "title": "Zukunft und Berufe (2/2)",
+      "items": [
+        {"front":"le professeur","back":"der Lehrer","example":"Le professeur explique la leçon.","exampleDe":"Der Lehrer erklärt die Lektion."},
+        {"front":"le boulanger","back":"der Bäcker","example":"Le boulanger fait du pain.","exampleDe":"Der Bäcker backt Brot."},
+        {"front":"devenir","back":"werden","example":"Je veux devenir médecin.","exampleDe":"Ich möchte Arzt werden."},
+        {"front":"plus tard","back":"später","example":"Plus tard, je serai pilote.","exampleDe":"Später werde ich Pilot."},
+        {"front":"dans dix ans","back":"in zehn Jahren","example":"Dans dix ans, j'habiterai à Paris.","exampleDe":"In zehn Jahren werde ich in Paris wohnen."}
+      ]
+    }
+  ]
+}

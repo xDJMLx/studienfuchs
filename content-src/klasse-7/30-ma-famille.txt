@@ -1,0 +1,166 @@
+id: f7-u2
+title: Ma famille
+book: À plus ! 1 · Unité 2
+desc: Familie, Haustiere, Besitz, Wünsche, Verben auf -er, mon/ma/mes, avoir, Fragen
+order: 30
+
+= Meine Familie (1/3)
+? Nomen und ihr Geschlecht
+p Familienmitglieder haben oft ein natürliches Geschlecht: le père (der Vater), la mère (die Mutter).
+p Der Plural von Nomen endet meist auf -s, das man nicht spricht: le frère → les frères.
+e le père, la mère, les parents = der Vater, die Mutter, die Eltern
+- la famille = die Familie | Ma famille est grande. = Meine Familie ist groß.
+- le père = der Vater | Mon père travaille. = Mein Vater arbeitet.
+- la mère = die Mutter | Ma mère cuisine bien. = Meine Mutter kocht gut.
+- les parents (m) = die Eltern | Mes parents sont sympas. = Meine Eltern sind nett.
+- le frère = der Bruder | Mon frère a dix ans. = Mein Bruder ist zehn.
+- la sœur = die Schwester | Ma sœur s'appelle Léa. = Meine Schwester heißt Léa.
+
+= Meine Familie (2/3)
+- les grands-parents (m) = die Großeltern | Mes grands-parents habitent à Lyon. = Meine Großeltern wohnen in Lyon.
+- le grand-père = der Großvater | Mon grand-père est gentil. = Mein Opa ist nett.
+- la grand-mère = die Großmutter | Ma grand-mère aime la musique. = Meine Oma mag Musik.
+- l'oncle (m) = der Onkel | Mon oncle habite à Paris. = Mein Onkel wohnt in Paris.
+- la tante = die Tante | Ma tante a un chat. = Meine Tante hat eine Katze.
+- le cousin / la cousine = der Cousin / die Cousine | Ma cousine a douze ans. = Meine Cousine ist zwölf.
+
+= Meine Familie (3/3)
+- le fils = der Sohn | Son fils a six ans. = Sein Sohn ist sechs.
+- l'enfant (m/f) = das Kind | L'enfant joue au parc. = Das Kind spielt im Park.
+- le bébé = das Baby | Le bébé est petit. = Das Baby ist klein.
+- le grand frère = der große Bruder | Mon grand frère est sportif. = Mein großer Bruder ist sportlich.
+- la petite sœur = die kleine Schwester | Ma petite sœur a quatre ans. = Meine kleine Schwester ist vier.
+- le demi-frère = der Halbbruder | Mon demi-frère habite à Nice. = Mein Halbbruder wohnt in Nizza.
+
+= mon, ma, mes
+? Besitzanzeigende Begleiter (1)
+p mon / ma / mes = mein(e), ton / ta / tes = dein(e). Die Form richtet sich nach dem Nomen, nicht nach dem Besitzer.
+p Vor einem Vokal benutzt man „mon / ton“ auch bei weiblichen Wörtern: mon amie, ton école.
+e mon père, ma mère, mes parents = mein Vater, meine Mutter, meine Eltern
+e mon amie, ton école = meine Freundin, deine Schule
+t ma + Vokal wird zu mon: „mon école“.
+- mon = mein (m) | Mon frère est là. = Mein Bruder ist da.
+- ma = meine (f) | Ma tante est gentille. = Meine Tante ist nett.
+- mes = meine (Plural) | Mes cousins sont sympas. = Meine Cousins sind nett.
+- ton = dein (m) | Ton père est sympa. = Dein Vater ist nett.
+- ta = deine (f) | Ta sœur est grande. = Deine Schwester ist groß.
+- tes = deine (Plural) | Tes parents sont là ? = Sind deine Eltern da?
+f ___ mère est sympa. | Ma | Ma; Mon; Mes | Meine Mutter ist nett. | „mère“ ist weiblich → ma.
+f ___ amie s'appelle Lina. | Mon | Mon; Ma; Mes | Meine Freundin heißt Lina. | Vor Vokal steht „mon“, auch bei weiblichen Wörtern.
+f ___ parents sont ici. | Mes | Mes; Mon; Ma | Meine Eltern sind hier. | Plural → mes.
+
+= son, sa, ses
+? Besitzanzeigende Begleiter (2)
+p son / sa / ses bedeuten „sein“ und auch „ihr“. Es zählt das Nomen: son père (sein oder ihr Vater), sa mère, ses parents.
+e Léa et son frère = Léa und ihr Bruder
+e Paul et sa sœur = Paul und seine Schwester
+- son = sein / ihr (m) | Son frère est grand. = Sein Bruder ist groß.
+- sa = seine / ihre (f) | Sa sœur est petite. = Ihre Schwester ist klein.
+- ses = seine / ihre (Plural) | Ses amis sont sympas. = Seine Freunde sind nett.
+- aussi = auch | Mon frère aime le foot aussi. = Mein Bruder mag auch Fußball.
+- mais = aber | J'aime le foot, mais pas le tennis. = Ich mag Fußball, aber kein Tennis.
+- avec = mit | J'habite avec ma mère. = Ich wohne mit meiner Mutter.
+f Léa et ___ frère jouent. | son | son; sa; ses | Léa und ihr Bruder spielen. | „frère“ ist männlich → son.
+f Paul aime ___ sœur. | sa | sa; son; ses | Paul mag seine Schwester. | „sœur“ ist weiblich → sa.
+
+= Das Verb avoir
+? avoir (haben)
+p avoir ist unregelmäßig: j'ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont.
+p Mit avoir sagst du auch dein Alter: „J'ai douze ans.“
+e J'ai un frère. = Ich habe einen Bruder.
+e Ils ont un chien. = Sie haben einen Hund.
+- j'ai = ich habe | J'ai une sœur. = Ich habe eine Schwester.
+- tu as = du hast | Tu as un chat ? = Hast du eine Katze?
+- il a / elle a = er hat / sie hat | Elle a deux frères. = Sie hat zwei Brüder.
+- nous avons = wir haben | Nous avons un chien. = Wir haben einen Hund.
+- vous avez = ihr habt / Sie haben | Vous avez des enfants ? = Haben Sie Kinder?
+- ils ont = sie haben | Ils ont une maison. = Sie haben ein Haus.
+f Nous ___ un chat. | avons | avons; avez; ont | Wir haben eine Katze. | Zu „nous“ passt „avons“.
+f Ils ___ deux enfants. | ont | ont; avez; a | Sie haben zwei Kinder. | Zu „ils“ passt „ont“.
+
+= Haustiere
+- l'animal (m) = das Tier | J'aime les animaux. = Ich mag Tiere.
+- le chat = die Katze / der Kater | Mon chat dort beaucoup. = Meine Katze schläft viel.
+- le chien = der Hund | Le chien est gentil. = Der Hund ist lieb.
+- le poisson = der Fisch | J'ai un poisson rouge. = Ich habe einen Goldfisch.
+- le lapin = das Kaninchen | Le lapin est petit. = Das Kaninchen ist klein.
+- l'oiseau (m) = der Vogel | L'oiseau chante. = Der Vogel singt.
+
+= Wünsche äußern
+? je voudrais (ich möchte)
+p „Je voudrais …“ ist die höfliche Form für „ich möchte …“: „Je voudrais un chien.“
+p Du kannst auch fragen: „Tu voudrais un chat ?“ (Möchtest du eine Katze?)
+e Je voudrais un chat. = Ich möchte eine Katze.
+- je voudrais = ich möchte | Je voudrais un chien. = Ich möchte einen Hund.
+- tu voudrais = du möchtest | Tu voudrais un frère ? = Möchtest du einen Bruder?
+- il voudrait = er möchte | Il voudrait un lapin. = Er möchte ein Kaninchen.
+- ou = oder | Un chat ou un chien ? = Eine Katze oder ein Hund?
+- vraiment = wirklich | Je voudrais vraiment un chat. = Ich möchte wirklich eine Katze.
+f Je ___ un chien. | voudrais | voudrais; veux; voulez | Ich möchte einen Hund. | Höflich: „je voudrais“.
+
+= Verben auf -er (1/2)
+? Regelmäßige Verben auf -er
+p Die meisten französischen Verben enden auf -er: parler, aimer, habiter. Streiche -er und hänge an: -e, -es, -e, -ons, -ez, -ent.
+p Aber: „-e“, „-es“ und „-ent“ sprichst du nicht. „Je parle“, „tu parles“ und „ils parlent“ klingen gleich.
+e je parle, tu parles, il parle = ich spreche, du sprichst, er spricht
+e nous parlons, vous parlez, ils parlent = wir sprechen, ihr sprecht, sie sprechen
+t Vor Vokal wird „je“ zu „j'“: j'aime, j'habite.
+- parler = sprechen | Elle parle français. = Sie spricht Französisch.
+- aimer = mögen / lieben | Nous aimons la musique. = Wir mögen Musik.
+- habiter = wohnen | Ils habitent à Berlin. = Sie wohnen in Berlin.
+- regarder = anschauen | Je regarde la photo. = Ich schaue das Foto an.
+- écouter = hören / zuhören | Tu écoutes la musique ? = Hörst du Musik?
+- jouer = spielen | Nous jouons au foot. = Wir spielen Fußball.
+f Nous ___ au foot. | jouons | jouons; jouez; jouent | Wir spielen Fußball. | Zu „nous“ passt „-ons“.
+f Elle ___ français. | parle | parle; parles; parlent | Sie spricht Französisch. | Zu „elle“ passt „-e“.
+
+= Verben auf -er (2/2)
+- travailler = arbeiten | Mon père travaille à Paris. = Mein Vater arbeitet in Paris.
+- danser = tanzen | Ma sœur danse bien. = Meine Schwester tanzt gut.
+- chanter = singen | Nous chantons ensemble. = Wir singen zusammen.
+- manger = essen | Vous mangez ici ? = Esst ihr hier?
+- dessiner = zeichnen | Je dessine un chat. = Ich zeichne eine Katze.
+- cuisiner = kochen | Ma mère cuisine souvent. = Meine Mutter kocht oft.
+f Ils ___ ensemble. | chantent | chantent; chantons; chante | Sie singen zusammen. | Zu „ils“ passt „-ent“.
+
+= Fragen stellen
+? Fragen mit est-ce que
+p Ja-Nein-Fragen bildest du mit „Est-ce que …?“: „Est-ce que tu as un frère ?“ Oder du hebst die Stimme: „Tu as un frère ?“
+p Fragen nach Personen: „Qui est-ce ?“ Nach Sachen: „Qu'est-ce que tu aimes ?“
+e Est-ce que tu as un chat ? = Hast du eine Katze?
+e Qu'est-ce que tu aimes ? = Was magst du?
+- est-ce que = Fragewort für Ja-Nein-Fragen | Est-ce que tu habites ici ? = Wohnst du hier?
+- qu'est-ce que … ? = was …? | Qu'est-ce que tu manges ? = Was isst du?
+- qui est-ce que … ? = wen …? | Qui est-ce que tu aimes ? = Wen magst du?
+- bien sûr = natürlich | Tu as un chien ? – Bien sûr ! = Hast du einen Hund? – Natürlich!
+- peut-être = vielleicht | Peut-être, je ne sais pas. = Vielleicht, ich weiß nicht.
+f ___ tu as un frère ? | Est-ce que | Est-ce que; Qu'est-ce que; Qui | Hast du einen Bruder? | Ja-Nein-Frage → „est-ce que“.
+
+= Aufforderungen geben
+? Der Imperativ
+p Den Imperativ bildest du wie die Form für „tu“: écoute ! (hör zu!), regarde ! (schau!). Bei -er-Verben fällt das -s weg.
+p Für die ganze Gruppe: écoutez !, regardez !. Für „wir“: écoutons !
+e Écoute, Léa ! = Hör zu, Léa!
+e Regardez la photo ! = Schaut das Foto an!
+- écoute ! = hör zu! | Écoute la musique ! = Hör dir die Musik an!
+- regarde ! = schau! | Regarde la photo ! = Schau das Foto an!
+- parle ! = sprich! | Parle français, s'il te plaît. = Sprich bitte Französisch.
+- répète ! = wiederhole! | Répète, s'il te plaît. = Wiederhole bitte.
+- arrête ! = hör auf! | Arrête, Paul ! = Hör auf, Paul!
+f ___ , Léa ! | Écoute | Écoute; Écoutes; Écouter | Hör zu, Léa! | Imperativ „tu“ bei -er-Verben: ohne -s.
+
+= In der Familie
+- souvent = oft | Nous mangeons souvent ensemble. = Wir essen oft zusammen.
+- toujours = immer | Mon père est toujours là. = Mein Vater ist immer da.
+- parfois = manchmal | Parfois, je joue avec mon frère. = Manchmal spiele ich mit meinem Bruder.
+- le week-end = das Wochenende | Le week-end, on joue. = Am Wochenende spielen wir.
+- la maison = das Haus | Notre maison est grande. = Unser Haus ist groß.
+- la fête = das Fest | Voilà une grande fête ! = Das ist ein großes Fest!
+
+= Wie sind sie?
+- gentil(le) = lieb / nett | Ma grand-mère est gentille. = Meine Oma ist lieb.
+- drôle = lustig | Mon frère est drôle. = Mein Bruder ist lustig.
+- content(e) = froh / zufrieden | Je suis content ! = Ich bin froh!
+- triste = traurig | Elle est triste aujourd'hui. = Sie ist heute traurig.
+- fatigué(e) = müde | Ma mère est fatiguée. = Meine Mutter ist müde.
+- timide = schüchtern | Léo est un peu timide. = Léo ist ein bisschen schüchtern.

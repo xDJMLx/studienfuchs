@@ -1,0 +1,43 @@
+id: f7-m5
+title: Joyeux anniversaire !
+book: À plus ! 1 · Module 5 Joyeux anniversaire !
+desc: Monate, Datum, Geburtstag feiern, einladen
+order: 65
+
+= Die Monate (1/2)
+? Monate und Datum
+p Monatsnamen schreibt man klein: janvier, février, mars … Das Datum nennst du so: le douze mai (der zwölfte Mai).
+p Nur der Erste heißt „le premier“: le premier juin. Alle anderen Tage nennst du mit der normalen Zahl.
+e Mon anniversaire est le douze mai. = Mein Geburtstag ist am zwölften Mai.
+- janvier = Januar | Mon anniversaire est en janvier. = Mein Geburtstag ist im Januar.
+- février = Februar | Février est un mois court. = Der Februar ist ein kurzer Monat.
+- mars = März | En mars, il fait encore froid. = Im März ist es noch kalt.
+- avril = April | Avril est après mars. = April kommt nach März.
+- mai = Mai | En mai, il fait beau. = Im Mai ist das Wetter schön.
+- juin = Juni | Juin est avant juillet. = Juni kommt vor Juli.
+
+= Die Monate (2/2)
+- juillet = Juli | En juillet, nous partons. = Im Juli fahren wir weg.
+- août = August | Août est un mois chaud. = Der August ist ein heißer Monat.
+- septembre = September | En septembre, l'école commence. = Im September beginnt die Schule.
+- octobre = Oktober | Octobre est après septembre. = Oktober kommt nach September.
+- novembre = November | En novembre, il pleut. = Im November regnet es.
+- décembre = Dezember | Noël est en décembre. = Weihnachten ist im Dezember.
+- le mois = der Monat | Un mois a trente jours. = Ein Monat hat dreißig Tage.
+
+= Das Datum
+- la date = das Datum | Quelle est la date ? = Welches Datum ist heute?
+- le premier = der Erste | Le premier mai est un jour de fête. = Der erste Mai ist ein Festtag.
+- l'anniversaire (m) = der Geburtstag | Mon anniversaire est le dix mai. = Mein Geburtstag ist am zehnten Mai.
+- c'est quand ? = wann ist das? | Ton anniversaire, c'est quand ? = Wann ist dein Geburtstag?
+- l'année (f) = das Jahr | L'année a douze mois. = Das Jahr hat zwölf Monate.
+- la naissance = die Geburt | La date de naissance est ici. = Das Geburtsdatum steht hier.
+
+= Feiern
+- le cadeau = das Geschenk | Voici un cadeau pour toi. = Hier ist ein Geschenk für dich.
+- la bougie = die Kerze | Il y a douze bougies. = Es gibt zwölf Kerzen.
+- inviter = einladen | J'invite mes amis. = Ich lade meine Freunde ein.
+- l'invitation (f) = die Einladung | Voici mon invitation. = Hier ist meine Einladung.
+- l'invité (m) / l'invitée (f) = der Gast | Les invités arrivent. = Die Gäste kommen an.
+- joyeux anniversaire = alles Gute zum Geburtstag | Joyeux anniversaire, Léa ! = Alles Gute zum Geburtstag, Léa!
+- le gâteau d'anniversaire = der Geburtstagskuchen | Le gâteau d'anniversaire est grand. = Der Geburtstagskuchen ist groß.

@@ -1,0 +1,898 @@
+{
+  "id": "f7-u1",
+  "title": "Bienvenue à Paris",
+  "description": "Personen, sich und andere vorstellen, woher man kommt, Orte in Paris, être und Artikel",
+  "grade": 7,
+  "subject": "french",
+  "order": 20,
+  "book": "À plus ! 1 · Unité 1",
+  "lessons": [
+    {
+      "id": "f7-u1-l1",
+      "title": "Personen (1/2)",
+      "items": [
+        {
+          "front": "le garçon",
+          "back": "der Junge",
+          "example": "Le garçon s'appelle Léo.",
+          "exampleDe": "Der Junge heißt Léo."
+        },
+        {
+          "front": "la fille",
+          "back": "das Mädchen / die Tochter",
+          "example": "La fille habite à Paris.",
+          "exampleDe": "Das Mädchen wohnt in Paris."
+        },
+        {
+          "front": "l'ami (m)",
+          "back": "der Freund",
+          "example": "Mon ami habite à Lyon.",
+          "exampleDe": "Mein Freund wohnt in Lyon."
+        },
+        {
+          "front": "l'amie (f)",
+          "back": "die Freundin",
+          "example": "Mon amie s'appelle Lina.",
+          "exampleDe": "Meine Freundin heißt Lina."
+        },
+        {
+          "front": "le copain",
+          "back": "der Kumpel / der Freund",
+          "example": "Mon copain adore le foot.",
+          "exampleDe": "Mein Kumpel liebt Fußball."
+        },
+        {
+          "front": "la copine",
+          "back": "die Kumpelin / die Freundin",
+          "example": "Ma copine est sympa.",
+          "exampleDe": "Meine Freundin ist nett."
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l2",
+      "title": "Personen (2/2)",
+      "items": [
+        {
+          "front": "l'élève (m/f)",
+          "back": "der Schüler / die Schülerin",
+          "example": "L'élève est dans la classe.",
+          "exampleDe": "Der Schüler ist in der Klasse."
+        },
+        {
+          "front": "la personne",
+          "back": "die Person",
+          "example": "C'est une personne sympa.",
+          "exampleDe": "Das ist eine nette Person."
+        },
+        {
+          "front": "le monsieur",
+          "back": "der Herr",
+          "example": "Le monsieur s'appelle Martin.",
+          "exampleDe": "Der Herr heißt Martin."
+        },
+        {
+          "front": "la dame",
+          "back": "die Dame",
+          "example": "La dame habite ici.",
+          "exampleDe": "Die Dame wohnt hier."
+        },
+        {
+          "front": "le prénom",
+          "back": "der Vorname",
+          "example": "Mon prénom est Alex.",
+          "exampleDe": "Mein Vorname ist Alex."
+        },
+        {
+          "front": "le nom",
+          "back": "der Name",
+          "example": "Ton nom, s'il te plaît ?",
+          "exampleDe": "Dein Name, bitte?"
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l3",
+      "title": "Das Verb être (1/2)",
+      "items": [
+        {
+          "front": "je suis",
+          "back": "ich bin",
+          "example": "Je suis élève.",
+          "exampleDe": "Ich bin Schüler."
+        },
+        {
+          "front": "tu es",
+          "back": "du bist",
+          "example": "Tu es sympa.",
+          "exampleDe": "Du bist nett."
+        },
+        {
+          "front": "il est",
+          "back": "er ist",
+          "example": "Il est au collège.",
+          "exampleDe": "Er ist in der Schule."
+        },
+        {
+          "front": "elle est",
+          "back": "sie ist",
+          "example": "Elle est à Paris.",
+          "exampleDe": "Sie ist in Paris."
+        },
+        {
+          "front": "on est",
+          "back": "man ist / wir sind",
+          "example": "On est ici.",
+          "exampleDe": "Wir sind hier."
+        }
+      ],
+      "explanation": {
+        "title": "Das Verb être (sein)",
+        "paragraphs": [
+          "être ist unregelmäßig: je suis, tu es, il est, elle est, on est.",
+          "Vor „il / elle / on“ steht „est“: „Elle est sympa.“ Mit „on“ sagt man im Alltag oft „wir“."
+        ],
+        "examples": [
+          {
+            "fr": "Je suis Léa.",
+            "de": "Ich bin Léa."
+          },
+          {
+            "fr": "Tu es de Berlin ?",
+            "de": "Kommst du aus Berlin?"
+          }
+        ],
+        "tip": "„Tu es“ und „il est“ klingen fast gleich, der Pronomen-Unterschied zählt."
+      },
+      "fills": [
+        {
+          "sentence": "Je ___ à Paris.",
+          "answer": "suis",
+          "options": [
+            "suis",
+            "es",
+            "est"
+          ],
+          "translation": "Ich bin in Paris.",
+          "why": "Zu „je“ passt „suis“."
+        },
+        {
+          "sentence": "Tu ___ sympa.",
+          "answer": "es",
+          "options": [
+            "es",
+            "est",
+            "suis"
+          ],
+          "translation": "Du bist nett.",
+          "why": "Zu „tu“ passt „es“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l4",
+      "title": "Das Verb être (2/2)",
+      "items": [
+        {
+          "front": "nous sommes",
+          "back": "wir sind",
+          "example": "Nous sommes en classe.",
+          "exampleDe": "Wir sind in der Klasse."
+        },
+        {
+          "front": "vous êtes",
+          "back": "ihr seid / Sie sind",
+          "example": "Vous êtes sympas !",
+          "exampleDe": "Ihr seid nett!"
+        },
+        {
+          "front": "ils sont",
+          "back": "sie sind (m / gemischt)",
+          "example": "Ils sont ici.",
+          "exampleDe": "Sie sind hier."
+        },
+        {
+          "front": "elles sont",
+          "back": "sie sind (nur Mädchen)",
+          "example": "Elles sont à la gare.",
+          "exampleDe": "Sie sind am Bahnhof."
+        }
+      ],
+      "explanation": {
+        "title": "être im Plural",
+        "paragraphs": [
+          "Im Plural: nous sommes, vous êtes, ils sont, elles sont.",
+          "„Vous“ bedeutet „ihr“ und auch höflich „Sie“. „Ils“ gilt für Jungen oder gemischte Gruppen."
+        ],
+        "examples": [
+          {
+            "fr": "Nous sommes amis.",
+            "de": "Wir sind Freunde."
+          },
+          {
+            "fr": "Vous êtes de Paris ?",
+            "de": "Kommen Sie aus Paris?"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Nous ___ à Paris.",
+          "answer": "sommes",
+          "options": [
+            "sommes",
+            "sont",
+            "êtes"
+          ],
+          "translation": "Wir sind in Paris.",
+          "why": "Zu „nous“ passt „sommes“."
+        },
+        {
+          "sentence": "Elles ___ amies.",
+          "answer": "sont",
+          "options": [
+            "sont",
+            "sommes",
+            "êtes"
+          ],
+          "translation": "Sie sind Freundinnen.",
+          "why": "Zu „elles“ passt „sont“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l5",
+      "title": "Woher kommst du?",
+      "items": [
+        {
+          "front": "tu es d'où ?",
+          "back": "woher kommst du?",
+          "example": "Salut ! Tu es d'où ?",
+          "exampleDe": "Hallo! Woher kommst du?"
+        },
+        {
+          "front": "je suis de …",
+          "back": "ich komme aus …",
+          "example": "Je suis de Munich.",
+          "exampleDe": "Ich komme aus München."
+        },
+        {
+          "front": "allemand(e)",
+          "back": "deutsch",
+          "example": "Léa est allemande.",
+          "exampleDe": "Léa ist Deutsche."
+        },
+        {
+          "front": "français(e)",
+          "back": "französisch / Franzose, Französin",
+          "example": "Paul est français.",
+          "exampleDe": "Paul ist Franzose."
+        },
+        {
+          "front": "le pays",
+          "back": "das Land",
+          "example": "Le pays est grand.",
+          "exampleDe": "Das Land ist groß."
+        }
+      ],
+      "explanation": {
+        "title": "Nationalität und Herkunft",
+        "paragraphs": [
+          "Mit „être de“ sagst du, woher jemand kommt: „Je suis de Berlin.“",
+          "Das Adjektiv richtet sich nach dem Geschlecht: allemand (m), allemande (f)."
+        ],
+        "examples": [
+          {
+            "fr": "Je suis de Berlin.",
+            "de": "Ich komme aus Berlin."
+          },
+          {
+            "fr": "Elle est française.",
+            "de": "Sie ist Französin."
+          }
+        ],
+        "tip": "Nationalitäten schreibst du klein: un garçon allemand."
+      },
+      "fills": [
+        {
+          "sentence": "Léa est ___.",
+          "answer": "allemande",
+          "options": [
+            "allemande",
+            "allemand",
+            "allemands"
+          ],
+          "translation": "Léa ist Deutsche.",
+          "why": "„Léa“ ist weiblich → allemande."
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l6",
+      "title": "Länder und Sprachen",
+      "items": [
+        {
+          "front": "l'Italie (f)",
+          "back": "Italien",
+          "example": "Il habite en Italie.",
+          "exampleDe": "Er wohnt in Italien."
+        },
+        {
+          "front": "l'Espagne (f)",
+          "back": "Spanien",
+          "example": "Ma tante habite en Espagne.",
+          "exampleDe": "Meine Tante wohnt in Spanien."
+        },
+        {
+          "front": "la Suisse",
+          "back": "die Schweiz",
+          "example": "La Suisse est petite.",
+          "exampleDe": "Die Schweiz ist klein."
+        },
+        {
+          "front": "la langue",
+          "back": "die Sprache",
+          "example": "J'aime la langue française.",
+          "exampleDe": "Ich mag die französische Sprache."
+        },
+        {
+          "front": "parler",
+          "back": "sprechen",
+          "example": "Tu parles français ?",
+          "exampleDe": "Sprichst du Französisch?"
+        },
+        {
+          "front": "le français",
+          "back": "Französisch",
+          "example": "J'aime le français.",
+          "exampleDe": "Ich mag Französisch."
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l7",
+      "title": "In der Stadt",
+      "items": [
+        {
+          "front": "la rue",
+          "back": "die Straße",
+          "example": "La rue est grande.",
+          "exampleDe": "Die Straße ist groß."
+        },
+        {
+          "front": "la place",
+          "back": "der Platz",
+          "example": "La place est jolie.",
+          "exampleDe": "Der Platz ist hübsch."
+        },
+        {
+          "front": "le parc",
+          "back": "der Park",
+          "example": "Le parc est grand.",
+          "exampleDe": "Der Park ist groß."
+        },
+        {
+          "front": "le café",
+          "back": "das Café",
+          "example": "Le café est ici.",
+          "exampleDe": "Das Café ist hier."
+        },
+        {
+          "front": "la gare",
+          "back": "der Bahnhof",
+          "example": "La gare est là.",
+          "exampleDe": "Der Bahnhof ist da."
+        },
+        {
+          "front": "le musée",
+          "back": "das Museum",
+          "example": "Le musée est super.",
+          "exampleDe": "Das Museum ist toll."
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l8",
+      "title": "Sehenswürdigkeiten in Paris",
+      "items": [
+        {
+          "front": "Paris",
+          "back": "Paris",
+          "example": "Paris est la capitale.",
+          "exampleDe": "Paris ist die Hauptstadt."
+        },
+        {
+          "front": "la capitale",
+          "back": "die Hauptstadt",
+          "example": "Berlin est la capitale.",
+          "exampleDe": "Berlin ist die Hauptstadt."
+        },
+        {
+          "front": "la tour Eiffel",
+          "back": "der Eiffelturm",
+          "example": "La tour Eiffel est grande.",
+          "exampleDe": "Der Eiffelturm ist groß."
+        },
+        {
+          "front": "la Seine",
+          "back": "die Seine",
+          "example": "La Seine est à Paris.",
+          "exampleDe": "Die Seine fließt durch Paris."
+        },
+        {
+          "front": "le pont",
+          "back": "die Brücke",
+          "example": "Le pont est vieux.",
+          "exampleDe": "Die Brücke ist alt."
+        },
+        {
+          "front": "le métro",
+          "back": "die Metro / die U-Bahn",
+          "example": "Voilà le métro !",
+          "exampleDe": "Da ist die Metro!"
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l9",
+      "title": "Wo ist …?",
+      "items": [
+        {
+          "front": "où",
+          "back": "wo",
+          "example": "Où est la rue ?",
+          "exampleDe": "Wo ist die Straße?"
+        },
+        {
+          "front": "ici",
+          "back": "hier",
+          "example": "Le café est ici.",
+          "exampleDe": "Das Café ist hier."
+        },
+        {
+          "front": "là",
+          "back": "da",
+          "example": "La gare est là.",
+          "exampleDe": "Der Bahnhof ist da."
+        },
+        {
+          "front": "voilà",
+          "back": "da ist / da sind",
+          "example": "Voilà ma copine !",
+          "exampleDe": "Da ist meine Freundin!"
+        },
+        {
+          "front": "voici",
+          "back": "hier ist / hier sind",
+          "example": "Voici mon ami Paul.",
+          "exampleDe": "Hier ist mein Freund Paul."
+        }
+      ],
+      "explanation": {
+        "title": "Fragen und zeigen",
+        "paragraphs": [
+          "„Où est …?“ fragt nach dem Ort: „Où est la gare ?“ Du antwortest mit „C'est ici.“ oder „Voilà la gare.“",
+          "„Voici“ und „voilà“ zeigen etwas: „Voici ma copine !“"
+        ],
+        "examples": [
+          {
+            "fr": "Où est le parc ?",
+            "de": "Wo ist der Park?"
+          },
+          {
+            "fr": "Voilà la gare !",
+            "de": "Da ist der Bahnhof!"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "___ est la gare ?",
+          "answer": "Où",
+          "options": [
+            "Où",
+            "Qui",
+            "Comment"
+          ],
+          "translation": "Wo ist der Bahnhof?",
+          "why": "„Où“ fragt nach dem Ort."
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l10",
+      "title": "C'est oder ce sont?",
+      "items": [
+        {
+          "front": "c'est",
+          "back": "das ist",
+          "example": "C'est un café.",
+          "exampleDe": "Das ist ein Café."
+        },
+        {
+          "front": "ce sont",
+          "back": "das sind",
+          "example": "Ce sont des élèves.",
+          "exampleDe": "Das sind Schüler."
+        },
+        {
+          "front": "qui est-ce ?",
+          "back": "wer ist das?",
+          "example": "Qui est-ce ? C'est Anna.",
+          "exampleDe": "Wer ist das? Das ist Anna."
+        },
+        {
+          "front": "qu'est-ce que c'est ?",
+          "back": "was ist das?",
+          "example": "Qu'est-ce que c'est ? Un métro.",
+          "exampleDe": "Was ist das? Eine Metro."
+        },
+        {
+          "front": "voilà un ami",
+          "back": "da ist ein Freund",
+          "example": "Voilà un ami de Paris.",
+          "exampleDe": "Da ist ein Freund aus Paris."
+        }
+      ],
+      "explanation": {
+        "title": "c'est und ce sont",
+        "paragraphs": [
+          "„C'est“ steht vor einer Person oder Sache im Singular: „C'est un parc.“",
+          "„Ce sont“ steht im Plural: „Ce sont des amis.“ Im Alltag hört man oft auch „c'est“ mit Plural."
+        ],
+        "examples": [
+          {
+            "fr": "C'est la tour Eiffel.",
+            "de": "Das ist der Eiffelturm."
+          },
+          {
+            "fr": "Ce sont mes amis.",
+            "de": "Das sind meine Freunde."
+          }
+        ],
+        "tip": "„C'est“ und „ce sont“ verwendest du, um etwas oder jemanden zu benennen."
+      },
+      "fills": [
+        {
+          "sentence": "___ un parc.",
+          "answer": "C'est",
+          "options": [
+            "C'est",
+            "Ce sont",
+            "Il est"
+          ],
+          "translation": "Das ist ein Park.",
+          "why": "Singular → „c'est“."
+        },
+        {
+          "sentence": "___ des élèves.",
+          "answer": "Ce sont",
+          "options": [
+            "Ce sont",
+            "C'est",
+            "Je suis"
+          ],
+          "translation": "Das sind Schüler.",
+          "why": "Plural → „ce sont“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l11",
+      "title": "Der unbestimmte Artikel",
+      "items": [
+        {
+          "front": "un garçon",
+          "back": "ein Junge",
+          "example": "C'est un garçon.",
+          "exampleDe": "Das ist ein Junge."
+        },
+        {
+          "front": "une fille",
+          "back": "ein Mädchen",
+          "example": "C'est une fille.",
+          "exampleDe": "Das ist ein Mädchen."
+        },
+        {
+          "front": "des amis",
+          "back": "Freunde",
+          "example": "Ce sont des amis.",
+          "exampleDe": "Das sind Freunde."
+        },
+        {
+          "front": "un café",
+          "back": "ein Café",
+          "example": "Voilà un café.",
+          "exampleDe": "Da ist ein Café."
+        },
+        {
+          "front": "une ville",
+          "back": "eine Stadt",
+          "example": "Paris est une ville.",
+          "exampleDe": "Paris ist eine Stadt."
+        }
+      ],
+      "explanation": {
+        "title": "un, une, des",
+        "paragraphs": [
+          "„Un“ steht vor männlichen, „une“ vor weiblichen Nomen. Im Plural heißt es „des“.",
+          "Der bestimmte Artikel: le (m), la (f), l' (vor Vokal), les (Plural)."
+        ],
+        "examples": [
+          {
+            "fr": "un parc, une rue, des parcs",
+            "de": "ein Park, eine Straße, Parks"
+          },
+          {
+            "fr": "le café, la gare, l'ami, les amis",
+            "de": "das Café, der Bahnhof, der Freund, die Freunde"
+          }
+        ],
+        "tip": "Lerne jedes Nomen mit Artikel. So merkst du dir das Geschlecht gleich mit."
+      },
+      "fills": [
+        {
+          "sentence": "C'est ___ rue.",
+          "answer": "une",
+          "options": [
+            "une",
+            "un",
+            "des"
+          ],
+          "translation": "Das ist eine Straße.",
+          "why": "„rue“ ist weiblich → une."
+        },
+        {
+          "sentence": "Voilà ___ parc.",
+          "answer": "un",
+          "options": [
+            "un",
+            "une",
+            "des"
+          ],
+          "translation": "Da ist ein Park.",
+          "why": "„parc“ ist männlich → un."
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l12",
+      "title": "Es gibt …",
+      "items": [
+        {
+          "front": "il y a",
+          "back": "es gibt",
+          "example": "Il y a un café ici.",
+          "exampleDe": "Hier gibt es ein Café."
+        },
+        {
+          "front": "beaucoup de",
+          "back": "viel / viele",
+          "example": "Il y a beaucoup de cafés.",
+          "exampleDe": "Es gibt viele Cafés."
+        },
+        {
+          "front": "le monde",
+          "back": "die Leute / die Welt",
+          "example": "Il y a beaucoup de monde.",
+          "exampleDe": "Es sind viele Leute da."
+        },
+        {
+          "front": "le quartier",
+          "back": "das Viertel",
+          "example": "Mon quartier est calme.",
+          "exampleDe": "Mein Viertel ist ruhig."
+        },
+        {
+          "front": "la photo",
+          "back": "das Foto",
+          "example": "Voici une photo de Paris.",
+          "exampleDe": "Hier ist ein Foto von Paris."
+        }
+      ],
+      "explanation": {
+        "title": "il y a",
+        "paragraphs": [
+          "„Il y a“ bedeutet „es gibt“ und gilt für Singular und Plural: „Il y a un parc.“ „Il y a des cafés.“",
+          "Mit „ne … pas de“ verneinst du: „Il n'y a pas de métro.“"
+        ],
+        "examples": [
+          {
+            "fr": "Il y a un musée.",
+            "de": "Es gibt ein Museum."
+          },
+          {
+            "fr": "Il y a des parcs.",
+            "de": "Es gibt Parks."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Il ___ un parc.",
+          "answer": "y a",
+          "options": [
+            "y a",
+            "est",
+            "a"
+          ],
+          "translation": "Es gibt einen Park.",
+          "why": "„Il y a“ = es gibt."
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l13",
+      "title": "Adjektive für die Stadt",
+      "items": [
+        {
+          "front": "grand(e)",
+          "back": "groß",
+          "example": "Paris est grand.",
+          "exampleDe": "Paris ist groß."
+        },
+        {
+          "front": "petit(e)",
+          "back": "klein",
+          "example": "Ma ville est petite.",
+          "exampleDe": "Meine Stadt ist klein."
+        },
+        {
+          "front": "joli(e)",
+          "back": "hübsch",
+          "example": "La place est jolie.",
+          "exampleDe": "Der Platz ist hübsch."
+        },
+        {
+          "front": "moderne",
+          "back": "modern",
+          "example": "Le musée est moderne.",
+          "exampleDe": "Das Museum ist modern."
+        },
+        {
+          "front": "sympa",
+          "back": "nett",
+          "example": "Léo est très sympa.",
+          "exampleDe": "Léo ist sehr nett."
+        },
+        {
+          "front": "super",
+          "back": "super",
+          "example": "Le parc est super !",
+          "exampleDe": "Der Park ist super!"
+        },
+        {
+          "front": "très",
+          "back": "sehr",
+          "example": "La ville est très grande.",
+          "exampleDe": "Die Stadt ist sehr groß."
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l14",
+      "title": "Das Alphabet",
+      "items": [
+        {
+          "front": "l'alphabet (m)",
+          "back": "das Alphabet",
+          "example": "L'alphabet a vingt-six lettres.",
+          "exampleDe": "Das Alphabet hat sechsundzwanzig Buchstaben."
+        },
+        {
+          "front": "la lettre",
+          "back": "der Buchstabe",
+          "example": "« A » est une lettre.",
+          "exampleDe": "„A“ ist ein Buchstabe."
+        },
+        {
+          "front": "comment ça s'écrit ?",
+          "back": "wie schreibt man das?",
+          "example": "Comment ça s'écrit, « Paris » ?",
+          "exampleDe": "Wie schreibt man „Paris“?"
+        },
+        {
+          "front": "épeler",
+          "back": "buchstabieren",
+          "example": "Épelle ton nom, s'il te plaît.",
+          "exampleDe": "Buchstabiere deinen Namen, bitte."
+        },
+        {
+          "front": "l'accent (m)",
+          "back": "der Akzent",
+          "example": "« é » a un accent.",
+          "exampleDe": "„é“ hat einen Akzent."
+        }
+      ],
+      "explanation": {
+        "title": "Buchstabieren",
+        "paragraphs": [
+          "Das Alphabet hat 26 Buchstaben wie im Deutschen, sie klingen aber anders: A (a), B (be), C (se), D (de) …",
+          "Du fragst: „Comment ça s'écrit ?“ (Wie schreibt man das?)"
+        ],
+        "examples": [
+          {
+            "fr": "Comment ça s'écrit ?",
+            "de": "Wie schreibt man das?"
+          },
+          {
+            "fr": "Ça s'écrit L-É-O.",
+            "de": "Das schreibt man L-É-O."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f7-u1-l15",
+      "title": "Fragewörter",
+      "items": [
+        {
+          "front": "qui ?",
+          "back": "wer?",
+          "example": "Qui est-ce ?",
+          "exampleDe": "Wer ist das?"
+        },
+        {
+          "front": "comment ?",
+          "back": "wie?",
+          "example": "Comment tu t'appelles ?",
+          "exampleDe": "Wie heißt du?"
+        },
+        {
+          "front": "combien ?",
+          "back": "wie viel?",
+          "example": "C'est combien ?",
+          "exampleDe": "Wie viel kostet das?"
+        },
+        {
+          "front": "quoi ?",
+          "back": "was?",
+          "example": "C'est quoi ?",
+          "exampleDe": "Was ist das?"
+        },
+        {
+          "front": "pourquoi ?",
+          "back": "warum?",
+          "example": "Pourquoi tu es là ?",
+          "exampleDe": "Warum bist du hier?"
+        }
+      ]
+    },
+    {
+      "id": "f7-u1-l16",
+      "title": "Nachrichten schreiben",
+      "items": [
+        {
+          "front": "le message",
+          "back": "die Nachricht",
+          "example": "Voilà un message de Léa.",
+          "exampleDe": "Da ist eine Nachricht von Léa."
+        },
+        {
+          "front": "le portable",
+          "back": "das Handy",
+          "example": "Mon portable est ici.",
+          "exampleDe": "Mein Handy ist hier."
+        },
+        {
+          "front": "le SMS",
+          "back": "die SMS",
+          "example": "Mon SMS est court.",
+          "exampleDe": "Meine SMS ist kurz."
+        },
+        {
+          "front": "l'adresse (f)",
+          "back": "die Adresse",
+          "example": "Voici mon adresse.",
+          "exampleDe": "Hier ist meine Adresse."
+        },
+        {
+          "front": "le numéro",
+          "back": "die Nummer",
+          "example": "Ton numéro, s'il te plaît ?",
+          "exampleDe": "Deine Nummer, bitte?"
+        }
+      ]
+    }
+  ]
+}

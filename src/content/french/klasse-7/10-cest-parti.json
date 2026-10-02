@@ -1,0 +1,705 @@
+{
+  "id": "f7-c0",
+  "title": "C'est parti !",
+  "description": "Begrüßen, Zahlen bis 20, Name, Befinden, Alter, Wohnort, Vorlieben",
+  "grade": 7,
+  "subject": "french",
+  "order": 10,
+  "book": "À plus ! 1 · Vorkurs C'est parti !",
+  "lessons": [
+    {
+      "id": "f7-c0-l1",
+      "title": "Hallo und tschüss",
+      "items": [
+        {
+          "front": "salut",
+          "back": "hallo / tschüss (unter Freunden)",
+          "example": "Salut, Léa ! Ça va ?",
+          "exampleDe": "Hallo, Léa! Wie geht's?"
+        },
+        {
+          "front": "bonjour",
+          "back": "guten Tag",
+          "example": "Bonjour, monsieur Martin !",
+          "exampleDe": "Guten Tag, Herr Martin!"
+        },
+        {
+          "front": "bonsoir",
+          "back": "guten Abend",
+          "example": "Bonsoir, madame !",
+          "exampleDe": "Guten Abend, Frau …!"
+        },
+        {
+          "front": "au revoir",
+          "back": "auf Wiedersehen",
+          "example": "Au revoir, Paul !",
+          "exampleDe": "Auf Wiedersehen, Paul!"
+        },
+        {
+          "front": "à bientôt",
+          "back": "bis bald",
+          "example": "Salut, à bientôt !",
+          "exampleDe": "Tschüss, bis bald!"
+        }
+      ],
+      "explanation": {
+        "title": "Begrüßen und verabschieden",
+        "paragraphs": [
+          "Mit Freunden sagst du „salut“ (Hallo und Tschüss). Mit Erwachsenen und höflich sagst du „bonjour“.",
+          "Am Abend heißt es „bonsoir“. Zum Abschied: „au revoir“ oder „à bientôt“."
+        ],
+        "examples": [
+          {
+            "fr": "Bonjour, madame !",
+            "de": "Guten Tag, Frau …!"
+          },
+          {
+            "fr": "Salut, Léo !",
+            "de": "Hallo, Léo!"
+          }
+        ],
+        "tip": "Wörter wie „bonjour“ schreibst du in einem Wort."
+      },
+      "fills": [
+        {
+          "sentence": "___, madame Dupont !",
+          "answer": "Bonjour",
+          "options": [
+            "Bonjour",
+            "Salut",
+            "Merci"
+          ],
+          "translation": "Guten Tag, Frau Dupont!",
+          "why": "Zu einer Erwachsenen sagt man höflich „bonjour“."
+        },
+        {
+          "sentence": "Salut, Max ! À ___ !",
+          "answer": "bientôt",
+          "options": [
+            "bientôt",
+            "revoir",
+            "soir"
+          ],
+          "translation": "Tschüss, Max! Bis bald!",
+          "why": "„à bientôt“ heißt „bis bald“."
+        }
+      ]
+    },
+    {
+      "id": "f7-c0-l2",
+      "title": "Danke und bitte",
+      "items": [
+        {
+          "front": "merci",
+          "back": "danke",
+          "example": "Merci beaucoup, Sarah !",
+          "exampleDe": "Vielen Dank, Sarah!"
+        },
+        {
+          "front": "s'il te plaît",
+          "back": "bitte (zu Freunden)",
+          "example": "Un stylo, s'il te plaît ?",
+          "exampleDe": "Einen Stift, bitte?"
+        },
+        {
+          "front": "de rien",
+          "back": "gern geschehen",
+          "example": "Merci ! – De rien.",
+          "exampleDe": "Danke! – Gern geschehen."
+        },
+        {
+          "front": "pardon",
+          "back": "Entschuldigung",
+          "example": "Pardon, Lola !",
+          "exampleDe": "Entschuldigung, Lola!"
+        },
+        {
+          "front": "oui",
+          "back": "ja",
+          "example": "Oui, c'est ça.",
+          "exampleDe": "Ja, genau."
+        },
+        {
+          "front": "non",
+          "back": "nein",
+          "example": "Non, merci.",
+          "exampleDe": "Nein, danke."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Un livre, s'il te ___ ?",
+          "answer": "plaît",
+          "options": [
+            "plaît",
+            "plaie",
+            "plais"
+          ],
+          "translation": "Ein Buch, bitte?",
+          "why": "Die feste Wendung heißt „s'il te plaît“."
+        }
+      ]
+    },
+    {
+      "id": "f7-c0-l3",
+      "title": "Name und Vorstellen",
+      "items": [
+        {
+          "front": "je m'appelle",
+          "back": "ich heiße",
+          "example": "Je m'appelle Anna.",
+          "exampleDe": "Ich heiße Anna."
+        },
+        {
+          "front": "tu t'appelles comment ?",
+          "back": "wie heißt du?",
+          "example": "Salut ! Tu t'appelles comment ?",
+          "exampleDe": "Hallo! Wie heißt du?"
+        },
+        {
+          "front": "c'est",
+          "back": "das ist / es ist",
+          "example": "C'est mon ami Tom.",
+          "exampleDe": "Das ist mein Freund Tom."
+        },
+        {
+          "front": "moi",
+          "back": "ich (betont)",
+          "example": "Moi, c'est Jonas.",
+          "exampleDe": "Ich bin Jonas."
+        },
+        {
+          "front": "toi",
+          "back": "du (betont)",
+          "example": "Et toi, tu t'appelles comment ?",
+          "exampleDe": "Und du, wie heißt du?"
+        },
+        {
+          "front": "enchanté(e)",
+          "back": "freut mich",
+          "example": "Enchanté, Julie !",
+          "exampleDe": "Freut mich, Julie!"
+        }
+      ],
+      "explanation": {
+        "title": "Sich vorstellen",
+        "paragraphs": [
+          "„Je m'appelle …“ heißt „ich heiße …“. Du fragst: „Tu t'appelles comment ?“ (Wie heißt du?).",
+          "Mit „C'est …“ stellst du jemanden vor: „C'est Léa.“ (Das ist Léa.)"
+        ],
+        "examples": [
+          {
+            "fr": "Je m'appelle Paul.",
+            "de": "Ich heiße Paul."
+          },
+          {
+            "fr": "Tu t'appelles comment ?",
+            "de": "Wie heißt du?"
+          }
+        ],
+        "tip": "Der Name steht ohne Artikel: „C'est Léa“."
+      },
+      "fills": [
+        {
+          "sentence": "Je ___ Lucas.",
+          "answer": "m'appelle",
+          "options": [
+            "m'appelle",
+            "t'appelles",
+            "appelle"
+          ],
+          "translation": "Ich heiße Lucas.",
+          "why": "Zu „je“ passt „m'appelle“."
+        }
+      ]
+    },
+    {
+      "id": "f7-c0-l4",
+      "title": "Wie geht's?",
+      "items": [
+        {
+          "front": "ça va ?",
+          "back": "wie geht's?",
+          "example": "Salut, Marie ! Ça va ?",
+          "exampleDe": "Hallo, Marie! Wie geht's?"
+        },
+        {
+          "front": "ça va bien",
+          "back": "es geht gut",
+          "example": "Ça va bien, merci.",
+          "exampleDe": "Gut, danke."
+        },
+        {
+          "front": "ça va mal",
+          "back": "es geht schlecht",
+          "example": "Aujourd'hui, ça va mal.",
+          "exampleDe": "Heute geht es mir schlecht."
+        },
+        {
+          "front": "comme ci, comme ça",
+          "back": "so lala",
+          "example": "Ça va ? – Comme ci, comme ça.",
+          "exampleDe": "Wie geht's? – So lala."
+        },
+        {
+          "front": "et toi ?",
+          "back": "und dir? / und du?",
+          "example": "Ça va bien. Et toi ?",
+          "exampleDe": "Mir geht's gut. Und dir?"
+        }
+      ],
+      "explanation": {
+        "title": "Nach dem Befinden fragen",
+        "paragraphs": [
+          "„Ça va ?“ heißt „Wie geht's?“. Du antwortest „Ça va bien.“ oder „Ça va mal.“",
+          "Zurückfragen: „Et toi ?“ (Und dir?)."
+        ],
+        "examples": [
+          {
+            "fr": "Ça va ? – Ça va bien, merci.",
+            "de": "Wie geht's? – Gut, danke."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Ça va ? – Ça va bien, merci. Et ___ ?",
+          "answer": "toi",
+          "options": [
+            "toi",
+            "moi",
+            "je"
+          ],
+          "translation": "Wie geht's? – Gut, danke. Und dir?",
+          "why": "„Et toi ?“ fragt zurück."
+        }
+      ]
+    },
+    {
+      "id": "f7-c0-l5",
+      "title": "Zahlen 1 bis 6",
+      "items": [
+        {
+          "front": "un",
+          "back": "eins",
+          "example": "Un livre, s'il te plaît.",
+          "exampleDe": "Ein Buch, bitte."
+        },
+        {
+          "front": "deux",
+          "back": "zwei",
+          "example": "J'ai deux frères.",
+          "exampleDe": "Ich habe zwei Brüder."
+        },
+        {
+          "front": "trois",
+          "back": "drei",
+          "example": "Il y a trois chats.",
+          "exampleDe": "Es gibt drei Katzen."
+        },
+        {
+          "front": "quatre",
+          "back": "vier",
+          "example": "Quatre élèves sont là.",
+          "exampleDe": "Vier Schüler sind da."
+        },
+        {
+          "front": "cinq",
+          "back": "fünf",
+          "example": "Cinq euros, s'il vous plaît.",
+          "exampleDe": "Fünf Euro, bitte."
+        },
+        {
+          "front": "six",
+          "back": "sechs",
+          "example": "Il est six heures.",
+          "exampleDe": "Es ist sechs Uhr."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Un, deux, trois, ___",
+          "answer": "quatre",
+          "options": [
+            "quatre",
+            "cinq",
+            "six"
+          ],
+          "translation": "Eins, zwei, drei, vier",
+          "why": "Nach „trois“ kommt „quatre“."
+        }
+      ]
+    },
+    {
+      "id": "f7-c0-l6",
+      "title": "Zahlen 7 bis 12",
+      "items": [
+        {
+          "front": "sept",
+          "back": "sieben",
+          "example": "J'ai sept livres.",
+          "exampleDe": "Ich habe sieben Bücher."
+        },
+        {
+          "front": "huit",
+          "back": "acht",
+          "example": "Huit élèves sont absents.",
+          "exampleDe": "Acht Schüler fehlen."
+        },
+        {
+          "front": "neuf",
+          "back": "neun",
+          "example": "Neuf et un font dix.",
+          "exampleDe": "Neun und eins ergibt zehn."
+        },
+        {
+          "front": "dix",
+          "back": "zehn",
+          "example": "Il y a dix pommes.",
+          "exampleDe": "Es gibt zehn Äpfel."
+        },
+        {
+          "front": "onze",
+          "back": "elf",
+          "example": "Onze filles jouent au foot.",
+          "exampleDe": "Elf Mädchen spielen Fußball."
+        },
+        {
+          "front": "douze",
+          "back": "zwölf",
+          "example": "Mon frère a douze ans.",
+          "exampleDe": "Mein Bruder ist zwölf."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Dix, onze, ___",
+          "answer": "douze",
+          "options": [
+            "douze",
+            "treize",
+            "neuf"
+          ],
+          "translation": "Zehn, elf, zwölf",
+          "why": "Nach „onze“ kommt „douze“."
+        }
+      ]
+    },
+    {
+      "id": "f7-c0-l7",
+      "title": "Zahlen 13 bis 16",
+      "items": [
+        {
+          "front": "treize",
+          "back": "dreizehn",
+          "example": "J'ai treize ans.",
+          "exampleDe": "Ich bin dreizehn."
+        },
+        {
+          "front": "quatorze",
+          "back": "vierzehn",
+          "example": "Ma sœur a quatorze ans.",
+          "exampleDe": "Meine Schwester ist vierzehn."
+        },
+        {
+          "front": "quinze",
+          "back": "fünfzehn",
+          "example": "Quinze élèves sont dans la classe.",
+          "exampleDe": "Fünfzehn Schüler sind in der Klasse."
+        },
+        {
+          "front": "seize",
+          "back": "sechzehn",
+          "example": "Léo a seize ans.",
+          "exampleDe": "Léo ist sechzehn."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Treize, quatorze, ___",
+          "answer": "quinze",
+          "options": [
+            "quinze",
+            "seize",
+            "douze"
+          ],
+          "translation": "Dreizehn, vierzehn, fünfzehn",
+          "why": "Nach „quatorze“ kommt „quinze“."
+        }
+      ]
+    },
+    {
+      "id": "f7-c0-l8",
+      "title": "Zahlen 17 bis 20",
+      "items": [
+        {
+          "front": "dix-sept",
+          "back": "siebzehn",
+          "example": "Il a dix-sept ans.",
+          "exampleDe": "Er ist siebzehn."
+        },
+        {
+          "front": "dix-huit",
+          "back": "achtzehn",
+          "example": "Elle a dix-huit ans.",
+          "exampleDe": "Sie ist achtzehn."
+        },
+        {
+          "front": "dix-neuf",
+          "back": "neunzehn",
+          "example": "Dix-neuf élèves sont ici.",
+          "exampleDe": "Neunzehn Schüler sind hier."
+        },
+        {
+          "front": "vingt",
+          "back": "zwanzig",
+          "example": "Vingt euros, s'il vous plaît.",
+          "exampleDe": "Zwanzig Euro, bitte."
+        }
+      ],
+      "explanation": {
+        "title": "Zahlen ab 17",
+        "paragraphs": [
+          "Ab 17 setzt sich die Zahl zusammen: dix-sept (10+7), dix-huit (10+8), dix-neuf (10+9)."
+        ],
+        "tip": "Die 20 heißt „vingt“. Das „g“ und „t“ sprichst du kaum."
+      },
+      "fills": [
+        {
+          "sentence": "Dix-sept, dix-huit, ___",
+          "answer": "dix-neuf",
+          "options": [
+            "dix-neuf",
+            "vingt",
+            "seize"
+          ],
+          "translation": "Siebzehn, achtzehn, neunzehn",
+          "why": "Nach „dix-huit“ kommt „dix-neuf“."
+        }
+      ]
+    },
+    {
+      "id": "f7-c0-l9",
+      "title": "Alter",
+      "items": [
+        {
+          "front": "avoir",
+          "back": "haben",
+          "example": "Tu as un frère ?",
+          "exampleDe": "Hast du einen Bruder?"
+        },
+        {
+          "front": "j'ai … ans",
+          "back": "ich bin … Jahre alt",
+          "example": "J'ai douze ans.",
+          "exampleDe": "Ich bin zwölf Jahre alt."
+        },
+        {
+          "front": "tu as quel âge ?",
+          "back": "wie alt bist du?",
+          "example": "Salut ! Tu as quel âge ?",
+          "exampleDe": "Hallo! Wie alt bist du?"
+        },
+        {
+          "front": "un an",
+          "back": "ein Jahr",
+          "example": "Léa a un an de plus.",
+          "exampleDe": "Léa ist ein Jahr älter."
+        },
+        {
+          "front": "l'âge (m)",
+          "back": "das Alter",
+          "example": "Quel âge as-tu ?",
+          "exampleDe": "Wie alt bist du?"
+        }
+      ],
+      "explanation": {
+        "title": "Das Verb avoir und das Alter",
+        "paragraphs": [
+          "Im Französischen „hat“ man sein Alter: „J'ai douze ans.“ (Ich habe zwölf Jahre.)",
+          "avoir: j'ai, tu as, il/elle a. Du fragst: „Tu as quel âge ?“"
+        ],
+        "examples": [
+          {
+            "fr": "J'ai treize ans.",
+            "de": "Ich bin dreizehn."
+          },
+          {
+            "fr": "Il a quinze ans.",
+            "de": "Er ist fünfzehn."
+          }
+        ],
+        "tip": "Das Wort „ans“ (Jahre) darfst du nicht weglassen."
+      },
+      "fills": [
+        {
+          "sentence": "Tu ___ quel âge ?",
+          "answer": "as",
+          "options": [
+            "as",
+            "es",
+            "a"
+          ],
+          "translation": "Wie alt bist du?",
+          "why": "Zu „tu“ passt „as“."
+        },
+        {
+          "sentence": "Elle ___ treize ans.",
+          "answer": "a",
+          "options": [
+            "a",
+            "as",
+            "ai"
+          ],
+          "translation": "Sie ist dreizehn.",
+          "why": "Zu „elle“ passt „a“."
+        }
+      ]
+    },
+    {
+      "id": "f7-c0-l10",
+      "title": "Wohnort",
+      "items": [
+        {
+          "front": "habiter",
+          "back": "wohnen",
+          "example": "Elle habite à Paris.",
+          "exampleDe": "Sie wohnt in Paris."
+        },
+        {
+          "front": "j'habite à …",
+          "back": "ich wohne in …",
+          "example": "J'habite à Hambourg.",
+          "exampleDe": "Ich wohne in Hamburg."
+        },
+        {
+          "front": "tu habites où ?",
+          "back": "wo wohnst du?",
+          "example": "Tu habites où, Sam ?",
+          "exampleDe": "Wo wohnst du, Sam?"
+        },
+        {
+          "front": "la ville",
+          "back": "die Stadt",
+          "example": "Berlin est une grande ville.",
+          "exampleDe": "Berlin ist eine große Stadt."
+        },
+        {
+          "front": "l'Allemagne (f)",
+          "back": "Deutschland",
+          "example": "J'habite en Allemagne.",
+          "exampleDe": "Ich wohne in Deutschland."
+        },
+        {
+          "front": "la France",
+          "back": "Frankreich",
+          "example": "Paris est en France.",
+          "exampleDe": "Paris liegt in Frankreich."
+        }
+      ],
+      "explanation": {
+        "title": "Wo wohnst du?",
+        "paragraphs": [
+          "„J'habite à …“ sagst du bei einer Stadt: „J'habite à Berlin.“ Vor einem Vokal wird „je“ zu „j'“.",
+          "Du fragst: „Tu habites où ?“ (Wo wohnst du?)"
+        ],
+        "examples": [
+          {
+            "fr": "J'habite à Berlin.",
+            "de": "Ich wohne in Berlin."
+          },
+          {
+            "fr": "Tu habites où ?",
+            "de": "Wo wohnst du?"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "J'___ à Berlin.",
+          "answer": "habite",
+          "options": [
+            "habite",
+            "habites",
+            "habitons"
+          ],
+          "translation": "Ich wohne in Berlin.",
+          "why": "Zu „je“ passt „habite“."
+        }
+      ]
+    },
+    {
+      "id": "f7-c0-l11",
+      "title": "Vorlieben",
+      "items": [
+        {
+          "front": "aimer",
+          "back": "mögen / lieben",
+          "example": "Tu aimes le chocolat ?",
+          "exampleDe": "Magst du Schokolade?"
+        },
+        {
+          "front": "adorer",
+          "back": "sehr mögen / lieben",
+          "example": "J'adore la musique.",
+          "exampleDe": "Ich liebe Musik."
+        },
+        {
+          "front": "je n'aime pas",
+          "back": "ich mag nicht",
+          "example": "Je n'aime pas le froid.",
+          "exampleDe": "Ich mag die Kälte nicht."
+        },
+        {
+          "front": "le sport",
+          "back": "der Sport",
+          "example": "J'aime le sport.",
+          "exampleDe": "Ich mag Sport."
+        },
+        {
+          "front": "la musique",
+          "back": "die Musik",
+          "example": "Elle écoute la musique.",
+          "exampleDe": "Sie hört Musik."
+        },
+        {
+          "front": "le foot",
+          "back": "der Fußball",
+          "example": "Mon frère adore le foot.",
+          "exampleDe": "Mein Bruder liebt Fußball."
+        }
+      ],
+      "explanation": {
+        "title": "Sagen, was du magst",
+        "paragraphs": [
+          "„J'aime …“ (ich mag) und „j'adore …“ (ich liebe) stehen vor einem Nomen mit Artikel: „J'aime le sport.“",
+          "Mit „ne … pas“ verneinst du: „Je n'aime pas le sport.“"
+        ],
+        "examples": [
+          {
+            "fr": "J'aime la musique.",
+            "de": "Ich mag Musik."
+          },
+          {
+            "fr": "Je n'aime pas le foot.",
+            "de": "Ich mag Fußball nicht."
+          }
+        ],
+        "tip": "Vor einem Vokal: „je n'aime pas“, nicht „je ne aime“."
+      },
+      "fills": [
+        {
+          "sentence": "J'___ la musique.",
+          "answer": "adore",
+          "options": [
+            "adore",
+            "adores",
+            "adorent"
+          ],
+          "translation": "Ich liebe Musik.",
+          "why": "Zu „je“ passt „adore“."
+        }
+      ]
+    }
+  ]
+}

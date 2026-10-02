@@ -1,0 +1,84 @@
+{
+  "id": "f10-u7",
+  "title": "Le monde du travail",
+  "description": "Berufswelt, Bewerbung, höfliche Briefe",
+  "grade": 10,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f10-u7-l1",
+      "title": "Berufe und Arbeit (1/2)",
+      "items": [
+        {"front":"le travail","back":"die Arbeit","example":"Mon travail est intéressant.","exampleDe":"Meine Arbeit ist interessant."},
+        {"front":"un emploi","back":"eine Stelle","example":"Il cherche un emploi.","exampleDe":"Er sucht eine Stelle."},
+        {"front":"un salaire","back":"ein Gehalt","example":"Le salaire est bon.","exampleDe":"Das Gehalt ist gut."},
+        {"front":"un patron","back":"ein Chef","example":"Mon patron est sympa.","exampleDe":"Mein Chef ist nett."},
+        {"front":"un collègue","back":"ein Kollege","example":"Mon collègue m'aide.","exampleDe":"Mein Kollege hilft mir."}
+      ]
+    },
+    {
+      "id": "f10-u7-l2",
+      "title": "Berufe und Arbeit (2/2)",
+      "items": [
+        {"front":"le chômage","back":"die Arbeitslosigkeit","example":"Le chômage augmente.","exampleDe":"Die Arbeitslosigkeit steigt."},
+        {"front":"une entreprise","back":"ein Unternehmen","example":"Il travaille dans une grande entreprise.","exampleDe":"Er arbeitet in einem großen Unternehmen."},
+        {"front":"un apprentissage","back":"eine Ausbildung","example":"Elle fait un apprentissage.","exampleDe":"Sie macht eine Ausbildung."},
+        {"front":"un diplôme","back":"ein Abschluss","example":"Il a un diplôme d'ingénieur.","exampleDe":"Er hat einen Ingenieurabschluss."},
+        {"front":"un stage","back":"ein Praktikum","example":"Je cherche un stage pour l'été.","exampleDe":"Ich suche ein Praktikum für den Sommer."}
+      ]
+    },
+    {
+      "id": "f10-u7-l3",
+      "title": "Die Bewerbung (1/2)",
+      "explanation": {"title":"Formelle Briefe","paragraphs":["Anrede: Madame, Monsieur, … Schluss: Je vous prie d'agréer, Madame, Monsieur, l'expression de mes salutations distinguées.","Höfliche Bitten mit dem Konditional: Je souhaiterais postuler … / Pourriez-vous m'envoyer …"],"examples":[{"fr":"Je souhaiterais effectuer un stage dans votre entreprise.","de":"Ich würde gern ein Praktikum in Ihrem Unternehmen machen."},{"fr":"Je reste à votre disposition pour un entretien.","de":"Ich stehe Ihnen für ein Gespräch zur Verfügung."}]},
+      "items": [
+        {"front":"la lettre de motivation","back":"das Bewerbungsschreiben","example":"J'écris une lettre de motivation.","exampleDe":"Ich schreibe ein Bewerbungsschreiben."},
+        {"front":"le curriculum vitae","back":"der Lebenslauf","example":"Voici mon curriculum vitae.","exampleDe":"Hier ist mein Lebenslauf."},
+        {"front":"postuler","back":"sich bewerben","example":"Je voudrais postuler pour ce poste.","exampleDe":"Ich möchte mich auf diese Stelle bewerben."},
+        {"front":"un entretien","back":"ein Vorstellungsgespräch","example":"J'ai un entretien demain.","exampleDe":"Ich habe morgen ein Vorstellungsgespräch."},
+        {"front":"je souhaiterais","back":"ich würde gern","example":"Je souhaiterais faire un stage chez vous.","exampleDe":"Ich würde gern bei Ihnen ein Praktikum machen."}
+      ]
+    },
+    {
+      "id": "f10-u7-l4",
+      "title": "Die Bewerbung (2/2)",
+      "items": [
+        {"front":"pourriez-vous","back":"könnten Sie","example":"Pourriez-vous m'envoyer des informations ?","exampleDe":"Könnten Sie mir Informationen schicken?"},
+        {"front":"je reste à votre disposition","back":"ich stehe Ihnen zur Verfügung","example":"Je reste à votre disposition pour un entretien.","exampleDe":"Ich stehe Ihnen für ein Gespräch zur Verfügung."},
+        {"front":"veuillez agréer","back":"mit freundlichen Grüßen (formell)","example":"Veuillez agréer mes salutations distinguées.","exampleDe":"Mit freundlichen Grüßen."},
+        {"front":"les compétences","back":"die Fähigkeiten","example":"Elle a beaucoup de compétences.","exampleDe":"Sie hat viele Fähigkeiten."},
+        {"front":"l'expérience","back":"die Erfahrung","example":"Il a de l'expérience.","exampleDe":"Er hat Erfahrung."}
+      ],
+      "fills": [
+        {"sentence":"Je ___ effectuer un stage dans votre entreprise.","answer":"souhaiterais","options":["souhaiterais","souhaite","souhaitais","souhaiterai"],"translation":"Ich würde gern ein Praktikum in Ihrem Unternehmen machen.","why":"Höfliche Bitte: conditionnel présent."},
+        {"sentence":"___-vous m'envoyer des informations ?","answer":"Pourriez","options":["Pourriez","Pouvez","Pourrez","Puissiez"],"translation":"Könnten Sie mir Informationen schicken?","why":"Höfliche Frage im Konditional: pourriez-vous."}
+      ]
+    },
+    {
+      "id": "f10-u7-l5",
+      "title": "Zukunftspläne (1/2)",
+      "explanation": {"title":"Futur antérieur","paragraphs":["Das futur antérieur (Vorzukunft) = Hilfsverb im futur simple + Partizip: j'aurai fini, elle sera partie. Es drückt aus, was bis zu einem Zeitpunkt in der Zukunft schon geschehen sein wird.","Nach quand, dès que, aussitôt que, lorsque steht es, wenn etwas vor einer anderen künftigen Handlung abgeschlossen ist."],"examples":[{"fr":"Quand j'aurai fini mes études, je chercherai un emploi.","de":"Wenn ich mein Studium beendet habe, suche ich eine Stelle."},{"fr":"Dès qu'elle sera arrivée, nous mangerons.","de":"Sobald sie angekommen ist, essen wir."}]},
+      "items": [
+        {"front":"j'aurai fini","back":"ich werde fertig sein","example":"Quand j'aurai fini, je t'appellerai.","exampleDe":"Wenn ich fertig bin, rufe ich dich an."},
+        {"front":"tu auras terminé","back":"du wirst beendet haben","example":"Tu auras terminé avant midi.","exampleDe":"Du wirst vor Mittag fertig sein."},
+        {"front":"il aura trouvé","back":"er wird gefunden haben","example":"Il aura trouvé un emploi avant l'été.","exampleDe":"Er wird vor dem Sommer eine Stelle gefunden haben."},
+        {"front":"nous aurons fait","back":"wir werden gemacht haben","example":"Nous aurons fait le travail à midi.","exampleDe":"Wir werden die Arbeit mittags gemacht haben."},
+        {"front":"elle sera partie","back":"sie wird gegangen sein","example":"Elle sera partie avant huit heures.","exampleDe":"Sie wird vor acht Uhr abgereist sein."}
+      ]
+    },
+    {
+      "id": "f10-u7-l6",
+      "title": "Zukunftspläne (2/2)",
+      "items": [
+        {"front":"ils seront arrivés","back":"sie werden angekommen sein","example":"Ils seront arrivés à midi.","exampleDe":"Sie werden mittags angekommen sein."},
+        {"front":"dès que","back":"sobald","example":"Dès que j'arrive, je t'appelle.","exampleDe":"Sobald ich ankomme, rufe ich dich an."},
+        {"front":"aussitôt que","back":"sobald (formell)","example":"Aussitôt qu'il arrivera, nous mangerons.","exampleDe":"Sobald er ankommt, essen wir."},
+        {"front":"lorsque","back":"wenn / als","example":"Lorsque j'étais petit, j'habitais ici.","exampleDe":"Als ich klein war, wohnte ich hier."},
+        {"front":"d'ici là","back":"bis dahin","example":"D'ici là, tout sera prêt.","exampleDe":"Bis dahin wird alles fertig sein."}
+      ],
+      "fills": [
+        {"sentence":"Quand j'___ fini, je t'appellerai.","answer":"aurai","options":["aurai","aurais","ai","avais"],"translation":"Wenn ich fertig bin, rufe ich dich an.","why":"futur antérieur: avoir im futur simple (j'aurai) + Partizip."}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "id": "f7-m2",
+  "title": "En cours de français (2)",
+  "description": "Arbeitsanweisungen im Buch verstehen, im Unterricht nachfragen",
+  "grade": 7,
+  "subject": "french",
+  "order": 35,
+  "book": "À plus ! 1 · Module 2 En cours de français",
+  "lessons": [
+    {
+      "id": "f7-m2-l1",
+      "title": "Arbeitsanweisungen (1/2)",
+      "items": [
+        {
+          "front": "complétez !",
+          "back": "ergänzt!",
+          "example": "Complétez la phrase.",
+          "exampleDe": "Ergänzt den Satz."
+        },
+        {
+          "front": "choisissez !",
+          "back": "wählt!",
+          "example": "Choisissez un mot.",
+          "exampleDe": "Wählt ein Wort."
+        },
+        {
+          "front": "notez !",
+          "back": "notiert!",
+          "example": "Notez les réponses.",
+          "exampleDe": "Notiert die Antworten."
+        },
+        {
+          "front": "cherchez !",
+          "back": "sucht!",
+          "example": "Cherchez le mot dans le texte.",
+          "exampleDe": "Sucht das Wort im Text."
+        },
+        {
+          "front": "associez !",
+          "back": "ordnet zu!",
+          "example": "Associez les mots.",
+          "exampleDe": "Ordnet die Wörter zu."
+        }
+      ],
+      "explanation": {
+        "title": "Aufgaben im Buch",
+        "paragraphs": [
+          "Im Lehrbuch stehen die Aufgaben als kurze Aufforderungen. Du erkennst sie an der Endung -ez oder -e."
+        ],
+        "examples": [
+          {
+            "fr": "Complétez les phrases !",
+            "de": "Ergänzt die Sätze!"
+          },
+          {
+            "fr": "Choisissez la bonne réponse !",
+            "de": "Wählt die richtige Antwort!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "f7-m2-l2",
+      "title": "Arbeitsanweisungen (2/2)",
+      "items": [
+        {
+          "front": "corrigez !",
+          "back": "verbessert!",
+          "example": "Corrigez les fautes.",
+          "exampleDe": "Verbessert die Fehler."
+        },
+        {
+          "front": "comparez !",
+          "back": "vergleicht!",
+          "example": "Comparez vos réponses.",
+          "exampleDe": "Vergleicht eure Antworten."
+        },
+        {
+          "front": "racontez !",
+          "back": "erzählt!",
+          "example": "Racontez l'histoire.",
+          "exampleDe": "Erzählt die Geschichte."
+        },
+        {
+          "front": "discutez !",
+          "back": "diskutiert!",
+          "example": "Discutez avec votre voisin.",
+          "exampleDe": "Diskutiert mit eurem Nachbarn."
+        },
+        {
+          "front": "la faute",
+          "back": "der Fehler",
+          "example": "Il y a une faute ici.",
+          "exampleDe": "Hier ist ein Fehler."
+        },
+        {
+          "front": "l'exercice (m)",
+          "back": "die Übung",
+          "example": "L'exercice est facile.",
+          "exampleDe": "Die Übung ist leicht."
+        }
+      ]
+    },
+    {
+      "id": "f7-m2-l3",
+      "title": "Beim Arbeiten",
+      "items": [
+        {
+          "front": "travailler à deux",
+          "back": "zu zweit arbeiten",
+          "example": "On travaille à deux.",
+          "exampleDe": "Wir arbeiten zu zweit."
+        },
+        {
+          "front": "le voisin / la voisine",
+          "back": "der Nachbar / die Nachbarin",
+          "example": "Parle avec ton voisin.",
+          "exampleDe": "Sprich mit deinem Nachbarn."
+        },
+        {
+          "front": "facile",
+          "back": "leicht",
+          "example": "La question est facile.",
+          "exampleDe": "Die Frage ist leicht."
+        },
+        {
+          "front": "difficile",
+          "back": "schwer",
+          "example": "Le texte est difficile.",
+          "exampleDe": "Der Text ist schwer."
+        },
+        {
+          "front": "la solution",
+          "back": "die Lösung",
+          "example": "Voici la solution.",
+          "exampleDe": "Hier ist die Lösung."
+        },
+        {
+          "front": "le texte",
+          "back": "der Text",
+          "example": "Le texte est court.",
+          "exampleDe": "Der Text ist kurz."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" rx="28" fill="#fff1e5"/>
+  <g transform="translate(9 11) scale(0.85)">
+    <path d="M18 14 L44 36 L22 52 Z" fill="#ff8a2a"/>
+    <path d="M102 14 L76 36 L98 52 Z" fill="#ff8a2a"/>
+    <path d="M24 26 L38 38 L26 46 Z" fill="#3b2a1a" opacity="0.85"/>
+    <path d="M96 26 L82 38 L94 46 Z" fill="#3b2a1a" opacity="0.85"/>
+    <path d="M12 58 C12 36 34 26 60 26 C86 26 108 36 108 58 C108 86 86 104 60 104 C34 104 12 86 12 58 Z" fill="#ff8a2a"/>
+    <path d="M12 64 C26 60 38 66 48 80 C54 88 66 88 72 80 C82 66 94 60 108 64 C106 88 86 104 60 104 C34 104 14 88 12 64 Z" fill="#fff"/>
+    <ellipse cx="40" cy="54" rx="6" ry="7.5" fill="#3b2a1a"/>
+    <ellipse cx="80" cy="54" rx="6" ry="7.5" fill="#3b2a1a"/>
+    <circle cx="42" cy="51" r="2.2" fill="#fff"/>
+    <circle cx="82" cy="51" r="2.2" fill="#fff"/>
+    <ellipse cx="60" cy="76" rx="7" ry="5" fill="#3b2a1a"/>
+    <path d="M50 84 q10 10 20 0" stroke="#3b2a1a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <circle cx="26" cy="72" r="5" fill="#ff9aa2" opacity="0.6"/>
+    <circle cx="94" cy="72" r="5" fill="#ff9aa2" opacity="0.6"/>
+  </g>
+</svg>

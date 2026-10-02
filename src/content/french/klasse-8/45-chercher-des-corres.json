@@ -1,0 +1,179 @@
+{
+  "id": "f8-m4",
+  "title": "Chercher des corres en France",
+  "description": "Sich vorstellen: Aussehen, Charakter, Hobbys, Austauschpartner suchen",
+  "grade": 8,
+  "subject": "french",
+  "order": 45,
+  "book": "À plus ! 2 · Module 4 Chercher des corres en France",
+  "lessons": [
+    {
+      "id": "f8-m4-l1",
+      "title": "Aussehen",
+      "items": [
+        {
+          "front": "les cheveux (m pl)",
+          "back": "die Haare",
+          "example": "Elle a de longs cheveux.",
+          "exampleDe": "Sie hat lange Haare."
+        },
+        {
+          "front": "les yeux (m pl)",
+          "back": "die Augen",
+          "example": "Il a les yeux bleus.",
+          "exampleDe": "Er hat blaue Augen."
+        },
+        {
+          "front": "blond(e)",
+          "back": "blond",
+          "example": "Elle est blonde.",
+          "exampleDe": "Sie ist blond."
+        },
+        {
+          "front": "brun(e)",
+          "back": "dunkelhaarig / braun",
+          "example": "Il est brun.",
+          "exampleDe": "Er ist dunkelhaarig."
+        },
+        {
+          "front": "roux / rousse",
+          "back": "rothaarig",
+          "example": "Ma sœur est rousse.",
+          "exampleDe": "Meine Schwester ist rothaarig."
+        },
+        {
+          "front": "mince",
+          "back": "schlank",
+          "example": "Il est grand et mince.",
+          "exampleDe": "Er ist groß und schlank."
+        }
+      ]
+    },
+    {
+      "id": "f8-m4-l2",
+      "title": "Charakter",
+      "items": [
+        {
+          "front": "calme",
+          "back": "ruhig",
+          "example": "Il est calme.",
+          "exampleDe": "Er ist ruhig."
+        },
+        {
+          "front": "ouvert(e)",
+          "back": "offen",
+          "example": "Elle est ouverte.",
+          "exampleDe": "Sie ist offen."
+        },
+        {
+          "front": "fidèle",
+          "back": "treu",
+          "example": "Mon ami est fidèle.",
+          "exampleDe": "Mein Freund ist treu."
+        },
+        {
+          "front": "patient(e)",
+          "back": "geduldig",
+          "example": "Ma mère est patiente.",
+          "exampleDe": "Meine Mutter ist geduldig."
+        },
+        {
+          "front": "généreux / généreuse",
+          "back": "großzügig",
+          "example": "Elle est généreuse.",
+          "exampleDe": "Sie ist großzügig."
+        },
+        {
+          "front": "drôle",
+          "back": "lustig",
+          "example": "Il est très drôle.",
+          "exampleDe": "Er ist sehr lustig."
+        }
+      ]
+    },
+    {
+      "id": "f8-m4-l3",
+      "title": "Ernährung und Hobbys",
+      "items": [
+        {
+          "front": "végétarien / végétarienne",
+          "back": "Vegetarier(in)",
+          "example": "Ma sœur est végétarienne.",
+          "exampleDe": "Meine Schwester ist Vegetarierin."
+        },
+        {
+          "front": "mon plat préféré",
+          "back": "mein Lieblingsgericht",
+          "example": "Mon plat préféré, ce sont les pâtes.",
+          "exampleDe": "Mein Lieblingsgericht sind Nudeln."
+        },
+        {
+          "front": "allergique",
+          "back": "allergisch",
+          "example": "Je suis allergique aux noix.",
+          "exampleDe": "Ich bin allergisch gegen Nüsse."
+        },
+        {
+          "front": "la passion",
+          "back": "die Leidenschaft",
+          "example": "Ma passion, c'est la musique.",
+          "exampleDe": "Meine Leidenschaft ist Musik."
+        },
+        {
+          "front": "passionné(e) de",
+          "back": "begeistert von",
+          "example": "Je suis passionné de foot.",
+          "exampleDe": "Ich bin begeistert von Fußball."
+        },
+        {
+          "front": "le loisir",
+          "back": "die Freizeitbeschäftigung",
+          "example": "Mes loisirs sont le sport et la musique.",
+          "exampleDe": "Meine Hobbys sind Sport und Musik."
+        }
+      ]
+    },
+    {
+      "id": "f8-m4-l4",
+      "title": "Austauschpartner suchen",
+      "items": [
+        {
+          "front": "le correspondant / la correspondante",
+          "back": "der Brieffreund / Austauschpartner",
+          "example": "Je cherche un correspondant.",
+          "exampleDe": "Ich suche einen Austauschpartner."
+        },
+        {
+          "front": "le corres",
+          "back": "der Austauschpartner (kurz)",
+          "example": "Mon corres habite à Lyon.",
+          "exampleDe": "Mein Austauschpartner wohnt in Lyon."
+        },
+        {
+          "front": "l'échange (m)",
+          "back": "der Austausch",
+          "example": "L'échange est en avril.",
+          "exampleDe": "Der Austausch ist im April."
+        },
+        {
+          "front": "l'annonce (f)",
+          "back": "die Anzeige",
+          "example": "J'écris une annonce.",
+          "exampleDe": "Ich schreibe eine Anzeige."
+        },
+        {
+          "front": "se présenter",
+          "back": "sich vorstellen",
+          "example": "Je me présente : je m'appelle Léa.",
+          "exampleDe": "Ich stelle mich vor: Ich heiße Léa."
+        },
+        {
+          "front": "j'aimerais",
+          "back": "ich würde gern",
+          "example": "J'aimerais correspondre avec toi.",
+          "exampleDe": "Ich würde gern mit dir schreiben."
+        }
+      ]
+    }
+  ]
+}

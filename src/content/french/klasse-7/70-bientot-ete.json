@@ -1,0 +1,322 @@
+{
+  "id": "f7-m6",
+  "title": "C'est bientôt l'été",
+  "description": "Ferien, Wetter, Jahreszeiten, futur composé, Postkarte",
+  "grade": 7,
+  "subject": "french",
+  "order": 70,
+  "book": "À plus ! 1 · Module 6 C'est bientôt l'été",
+  "lessons": [
+    {
+      "id": "f7-m6-l1",
+      "title": "Ferien",
+      "items": [
+        {
+          "front": "les vacances (f pl)",
+          "back": "die Ferien",
+          "example": "Les vacances commencent bientôt.",
+          "exampleDe": "Die Ferien beginnen bald."
+        },
+        {
+          "front": "la plage",
+          "back": "der Strand",
+          "example": "La plage est grande.",
+          "exampleDe": "Der Strand ist groß."
+        },
+        {
+          "front": "la mer",
+          "back": "das Meer",
+          "example": "La mer est bleue.",
+          "exampleDe": "Das Meer ist blau."
+        },
+        {
+          "front": "la montagne",
+          "back": "das Gebirge / die Berge",
+          "example": "La montagne est belle.",
+          "exampleDe": "Das Gebirge ist schön."
+        },
+        {
+          "front": "le camping",
+          "back": "der Campingplatz",
+          "example": "Nous sommes au camping.",
+          "exampleDe": "Wir sind auf dem Campingplatz."
+        },
+        {
+          "front": "l'hôtel (m)",
+          "back": "das Hotel",
+          "example": "L'hôtel est près de la plage.",
+          "exampleDe": "Das Hotel ist nahe am Strand."
+        }
+      ]
+    },
+    {
+      "id": "f7-m6-l2",
+      "title": "Das Wetter",
+      "items": [
+        {
+          "front": "le temps",
+          "back": "das Wetter / die Zeit",
+          "example": "Quel temps fait-il ?",
+          "exampleDe": "Wie ist das Wetter?"
+        },
+        {
+          "front": "il fait beau",
+          "back": "es ist schön",
+          "example": "En été, il fait beau.",
+          "exampleDe": "Im Sommer ist es schön."
+        },
+        {
+          "front": "il fait chaud",
+          "back": "es ist heiß",
+          "example": "Il fait chaud à la plage.",
+          "exampleDe": "Am Strand ist es heiß."
+        },
+        {
+          "front": "il fait froid",
+          "back": "es ist kalt",
+          "example": "Il fait froid en hiver.",
+          "exampleDe": "Im Winter ist es kalt."
+        },
+        {
+          "front": "il pleut",
+          "back": "es regnet",
+          "example": "Aujourd'hui, il pleut.",
+          "exampleDe": "Heute regnet es."
+        },
+        {
+          "front": "il neige",
+          "back": "es schneit",
+          "example": "En montagne, il neige.",
+          "exampleDe": "In den Bergen schneit es."
+        },
+        {
+          "front": "le soleil",
+          "back": "die Sonne",
+          "example": "Il y a du soleil.",
+          "exampleDe": "Die Sonne scheint."
+        }
+      ],
+      "explanation": {
+        "title": "Wetter beschreiben",
+        "paragraphs": [
+          "Das Wetter beschreibst du mit „il“: Il fait beau (schönes Wetter), il fait froid (kalt), il pleut (es regnet).",
+          "Die Frage lautet: „Quel temps fait-il ?“ oder „Il fait quel temps ?“"
+        ],
+        "examples": [
+          {
+            "fr": "Il fait beau.",
+            "de": "Es ist schönes Wetter."
+          },
+          {
+            "fr": "Il pleut.",
+            "de": "Es regnet."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f7-m6-l3",
+      "title": "Die Jahreszeiten",
+      "items": [
+        {
+          "front": "la saison",
+          "back": "die Jahreszeit",
+          "example": "L'été est ma saison préférée.",
+          "exampleDe": "Der Sommer ist meine Lieblingsjahreszeit."
+        },
+        {
+          "front": "l'été (m)",
+          "back": "der Sommer",
+          "example": "En été, il fait chaud.",
+          "exampleDe": "Im Sommer ist es heiß."
+        },
+        {
+          "front": "l'hiver (m)",
+          "back": "der Winter",
+          "example": "En hiver, il fait froid.",
+          "exampleDe": "Im Winter ist es kalt."
+        },
+        {
+          "front": "le printemps",
+          "back": "der Frühling",
+          "example": "Au printemps, il pleut.",
+          "exampleDe": "Im Frühling regnet es."
+        },
+        {
+          "front": "l'automne (m)",
+          "back": "der Herbst",
+          "example": "En automne, il fait frais.",
+          "exampleDe": "Im Herbst ist es frisch."
+        }
+      ]
+    },
+    {
+      "id": "f7-m6-l4",
+      "title": "Etwas ist bald dran",
+      "items": [
+        {
+          "front": "bientôt",
+          "back": "bald",
+          "example": "Les vacances commencent bientôt.",
+          "exampleDe": "Die Ferien beginnen bald."
+        },
+        {
+          "front": "prochain(e)",
+          "back": "nächste(r)",
+          "example": "La semaine prochaine, je vais à Paris.",
+          "exampleDe": "Nächste Woche fahre ich nach Paris."
+        },
+        {
+          "front": "la semaine prochaine",
+          "back": "nächste Woche",
+          "example": "La semaine prochaine, nous partons.",
+          "exampleDe": "Nächste Woche fahren wir weg."
+        },
+        {
+          "front": "demain",
+          "back": "morgen",
+          "example": "Demain, nous allons à la plage.",
+          "exampleDe": "Morgen gehen wir zum Strand."
+        },
+        {
+          "front": "partir",
+          "back": "wegfahren",
+          "example": "Nous allons partir en juillet.",
+          "exampleDe": "Wir fahren im Juli weg."
+        }
+      ],
+      "explanation": {
+        "title": "Das futur composé",
+        "paragraphs": [
+          "Mit „aller + Infinitiv“ sprichst du über die nahe Zukunft: Je vais jouer. (Ich werde spielen.) Nous allons manger. (Wir werden essen.)",
+          "„Aller“ wird konjugiert, das zweite Verb bleibt im Infinitiv."
+        ],
+        "examples": [
+          {
+            "fr": "Je vais faire du vélo.",
+            "de": "Ich werde Rad fahren."
+          },
+          {
+            "fr": "Nous allons manger.",
+            "de": "Wir werden essen."
+          }
+        ],
+        "tip": "Verneint wird nur „aller“: Je ne vais pas jouer."
+      },
+      "fills": [
+        {
+          "sentence": "Nous ___ manger.",
+          "answer": "allons",
+          "options": [
+            "allons",
+            "allez",
+            "vont"
+          ],
+          "translation": "Wir werden essen.",
+          "why": "Zu „nous“ passt „allons“."
+        },
+        {
+          "sentence": "Je vais ___.",
+          "answer": "jouer",
+          "options": [
+            "jouer",
+            "joue",
+            "jouons"
+          ],
+          "translation": "Ich werde spielen.",
+          "why": "Nach „aller“ steht der Infinitiv."
+        }
+      ]
+    },
+    {
+      "id": "f7-m6-l5",
+      "title": "Urlaubsaktivitäten",
+      "items": [
+        {
+          "front": "nager",
+          "back": "schwimmen",
+          "example": "Je nage dans la mer.",
+          "exampleDe": "Ich schwimme im Meer."
+        },
+        {
+          "front": "visiter",
+          "back": "besichtigen",
+          "example": "Nous allons visiter Paris.",
+          "exampleDe": "Wir werden Paris besichtigen."
+        },
+        {
+          "front": "voyager",
+          "back": "reisen",
+          "example": "J'aime voyager.",
+          "exampleDe": "Ich reise gern."
+        },
+        {
+          "front": "faire du camping",
+          "back": "campen",
+          "example": "Nous allons faire du camping.",
+          "exampleDe": "Wir werden campen."
+        },
+        {
+          "front": "faire une promenade",
+          "back": "spazieren gehen",
+          "example": "Nous faisons une promenade.",
+          "exampleDe": "Wir machen einen Spaziergang."
+        },
+        {
+          "front": "la promenade",
+          "back": "der Spaziergang",
+          "example": "La promenade est longue.",
+          "exampleDe": "Der Spaziergang ist lang."
+        }
+      ]
+    },
+    {
+      "id": "f7-m6-l6",
+      "title": "Eine Postkarte schreiben",
+      "items": [
+        {
+          "front": "la carte postale",
+          "back": "die Postkarte",
+          "example": "Voici une carte postale de Nice.",
+          "exampleDe": "Hier ist eine Postkarte aus Nizza."
+        },
+        {
+          "front": "chère / cher",
+          "back": "liebe / lieber (Anrede)",
+          "example": "Chère Léa, comment ça va ?",
+          "exampleDe": "Liebe Léa, wie geht's?"
+        },
+        {
+          "front": "bises",
+          "back": "Küsschen (Gruß)",
+          "example": "Bises, Anna !",
+          "exampleDe": "Küsschen, Anna!"
+        },
+        {
+          "front": "bonnes vacances",
+          "back": "schöne Ferien",
+          "example": "Bonnes vacances, Léa !",
+          "exampleDe": "Schöne Ferien, Léa!"
+        },
+        {
+          "front": "ici, il fait beau",
+          "back": "hier ist schönes Wetter",
+          "example": "Ici, il fait beau et chaud.",
+          "exampleDe": "Hier ist es schön und heiß."
+        }
+      ],
+      "explanation": {
+        "title": "Aufbau einer Postkarte",
+        "paragraphs": [
+          "Eine Postkarte beginnt mit „Chère Léa“ (an ein Mädchen) oder „Cher Paul“ (an einen Jungen) und endet mit „Bises“ oder „À bientôt“."
+        ],
+        "examples": [
+          {
+            "fr": "Chère Léa, … Grosses bises !",
+            "de": "Liebe Léa, … Viele Küsschen!"
+          }
+        ]
+      }
+    }
+  ]
+}

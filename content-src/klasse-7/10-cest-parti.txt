@@ -1,0 +1,135 @@
+id: f7-c0
+title: C'est parti !
+book: À plus ! 1 · Vorkurs C'est parti !
+desc: Begrüßen, Zahlen bis 20, Name, Befinden, Alter, Wohnort, Vorlieben
+order: 10
+
+= Hallo und tschüss
+? Begrüßen und verabschieden
+p Mit Freunden sagst du „salut“ (Hallo und Tschüss). Mit Erwachsenen und höflich sagst du „bonjour“.
+p Am Abend heißt es „bonsoir“. Zum Abschied: „au revoir“ oder „à bientôt“.
+e Bonjour, madame ! = Guten Tag, Frau …!
+e Salut, Léo ! = Hallo, Léo!
+t Wörter wie „bonjour“ schreibst du in einem Wort.
+- salut = hallo / tschüss (unter Freunden) | Salut, Léa ! Ça va ? = Hallo, Léa! Wie geht's?
+- bonjour = guten Tag | Bonjour, monsieur Martin ! = Guten Tag, Herr Martin!
+- bonsoir = guten Abend | Bonsoir, madame ! = Guten Abend, Frau …!
+- au revoir = auf Wiedersehen | Au revoir, Paul ! = Auf Wiedersehen, Paul!
+- à bientôt = bis bald | Salut, à bientôt ! = Tschüss, bis bald!
+f ___, madame Dupont ! | Bonjour | Bonjour; Salut; Merci | Guten Tag, Frau Dupont! | Zu einer Erwachsenen sagt man höflich „bonjour“.
+f Salut, Max ! À ___ ! | bientôt | bientôt; revoir; soir | Tschüss, Max! Bis bald! | „à bientôt“ heißt „bis bald“.
+
+= Danke und bitte
+- merci = danke | Merci beaucoup, Sarah ! = Vielen Dank, Sarah!
+- s'il te plaît = bitte (zu Freunden) | Un stylo, s'il te plaît ? = Einen Stift, bitte?
+- de rien = gern geschehen | Merci ! – De rien. = Danke! – Gern geschehen.
+- pardon = Entschuldigung | Pardon, Lola ! = Entschuldigung, Lola!
+- oui = ja | Oui, c'est ça. = Ja, genau.
+- non = nein | Non, merci. = Nein, danke.
+f Un livre, s'il te ___ ? | plaît | plaît; plaie; plais | Ein Buch, bitte? | Die feste Wendung heißt „s'il te plaît“.
+
+= Name und Vorstellen
+? Sich vorstellen
+p „Je m'appelle …“ heißt „ich heiße …“. Du fragst: „Tu t'appelles comment ?“ (Wie heißt du?).
+p Mit „C'est …“ stellst du jemanden vor: „C'est Léa.“ (Das ist Léa.)
+e Je m'appelle Paul. = Ich heiße Paul.
+e Tu t'appelles comment ? = Wie heißt du?
+t Der Name steht ohne Artikel: „C'est Léa“.
+- je m'appelle = ich heiße | Je m'appelle Anna. = Ich heiße Anna.
+- tu t'appelles comment ? = wie heißt du? | Salut ! Tu t'appelles comment ? = Hallo! Wie heißt du?
+- c'est = das ist / es ist | C'est mon ami Tom. = Das ist mein Freund Tom.
+- moi = ich (betont) | Moi, c'est Jonas. = Ich bin Jonas.
+- toi = du (betont) | Et toi, tu t'appelles comment ? = Und du, wie heißt du?
+- enchanté(e) = freut mich | Enchanté, Julie ! = Freut mich, Julie!
+f Je ___ Lucas. | m'appelle | m'appelle; t'appelles; appelle | Ich heiße Lucas. | Zu „je“ passt „m'appelle“.
+
+= Wie geht's?
+? Nach dem Befinden fragen
+p „Ça va ?“ heißt „Wie geht's?“. Du antwortest „Ça va bien.“ oder „Ça va mal.“
+p Zurückfragen: „Et toi ?“ (Und dir?).
+e Ça va ? – Ça va bien, merci. = Wie geht's? – Gut, danke.
+- ça va ? = wie geht's? | Salut, Marie ! Ça va ? = Hallo, Marie! Wie geht's?
+- ça va bien = es geht gut | Ça va bien, merci. = Gut, danke.
+- ça va mal = es geht schlecht | Aujourd'hui, ça va mal. = Heute geht es mir schlecht.
+- comme ci, comme ça = so lala | Ça va ? – Comme ci, comme ça. = Wie geht's? – So lala.
+- et toi ? = und dir? / und du? | Ça va bien. Et toi ? = Mir geht's gut. Und dir?
+f Ça va ? – Ça va bien, merci. Et ___ ? | toi | toi; moi; je | Wie geht's? – Gut, danke. Und dir? | „Et toi ?“ fragt zurück.
+
+= Zahlen 1 bis 6
+- un = eins | Un livre, s'il te plaît. = Ein Buch, bitte.
+- deux = zwei | J'ai deux frères. = Ich habe zwei Brüder.
+- trois = drei | Il y a trois chats. = Es gibt drei Katzen.
+- quatre = vier | Quatre élèves sont là. = Vier Schüler sind da.
+- cinq = fünf | Cinq euros, s'il vous plaît. = Fünf Euro, bitte.
+- six = sechs | Il est six heures. = Es ist sechs Uhr.
+f Un, deux, trois, ___ | quatre | quatre; cinq; six | Eins, zwei, drei, vier | Nach „trois“ kommt „quatre“.
+
+= Zahlen 7 bis 12
+- sept = sieben | J'ai sept livres. = Ich habe sieben Bücher.
+- huit = acht | Huit élèves sont absents. = Acht Schüler fehlen.
+- neuf = neun | Neuf et un font dix. = Neun und eins ergibt zehn.
+- dix = zehn | Il y a dix pommes. = Es gibt zehn Äpfel.
+- onze = elf | Onze filles jouent au foot. = Elf Mädchen spielen Fußball.
+- douze = zwölf | Mon frère a douze ans. = Mein Bruder ist zwölf.
+f Dix, onze, ___ | douze | douze; treize; neuf | Zehn, elf, zwölf | Nach „onze“ kommt „douze“.
+
+= Zahlen 13 bis 16
+- treize = dreizehn | J'ai treize ans. = Ich bin dreizehn.
+- quatorze = vierzehn | Ma sœur a quatorze ans. = Meine Schwester ist vierzehn.
+- quinze = fünfzehn | Quinze élèves sont dans la classe. = Fünfzehn Schüler sind in der Klasse.
+- seize = sechzehn | Léo a seize ans. = Léo ist sechzehn.
+f Treize, quatorze, ___ | quinze | quinze; seize; douze | Dreizehn, vierzehn, fünfzehn | Nach „quatorze“ kommt „quinze“.
+
+= Zahlen 17 bis 20
+? Zahlen ab 17
+p Ab 17 setzt sich die Zahl zusammen: dix-sept (10+7), dix-huit (10+8), dix-neuf (10+9).
+t Die 20 heißt „vingt“. Das „g“ und „t“ sprichst du kaum.
+- dix-sept = siebzehn | Il a dix-sept ans. = Er ist siebzehn.
+- dix-huit = achtzehn | Elle a dix-huit ans. = Sie ist achtzehn.
+- dix-neuf = neunzehn | Dix-neuf élèves sont ici. = Neunzehn Schüler sind hier.
+- vingt = zwanzig | Vingt euros, s'il vous plaît. = Zwanzig Euro, bitte.
+f Dix-sept, dix-huit, ___ | dix-neuf | dix-neuf; vingt; seize | Siebzehn, achtzehn, neunzehn | Nach „dix-huit“ kommt „dix-neuf“.
+
+= Alter
+? Das Verb avoir und das Alter
+p Im Französischen „hat“ man sein Alter: „J'ai douze ans.“ (Ich habe zwölf Jahre.)
+p avoir: j'ai, tu as, il/elle a. Du fragst: „Tu as quel âge ?“
+e J'ai treize ans. = Ich bin dreizehn.
+e Il a quinze ans. = Er ist fünfzehn.
+t Das Wort „ans“ (Jahre) darfst du nicht weglassen.
+- avoir = haben | Tu as un frère ? = Hast du einen Bruder?
+- j'ai … ans = ich bin … Jahre alt | J'ai douze ans. = Ich bin zwölf Jahre alt.
+- tu as quel âge ? = wie alt bist du? | Salut ! Tu as quel âge ? = Hallo! Wie alt bist du?
+- un an = ein Jahr | Léa a un an de plus. = Léa ist ein Jahr älter.
+- l'âge (m) = das Alter | Quel âge as-tu ? = Wie alt bist du?
+f Tu ___ quel âge ? | as | as; es; a | Wie alt bist du? | Zu „tu“ passt „as“.
+f Elle ___ treize ans. | a | a; as; ai | Sie ist dreizehn. | Zu „elle“ passt „a“.
+
+= Wohnort
+? Wo wohnst du?
+p „J'habite à …“ sagst du bei einer Stadt: „J'habite à Berlin.“ Vor einem Vokal wird „je“ zu „j'“.
+p Du fragst: „Tu habites où ?“ (Wo wohnst du?)
+e J'habite à Berlin. = Ich wohne in Berlin.
+e Tu habites où ? = Wo wohnst du?
+- habiter = wohnen | Elle habite à Paris. = Sie wohnt in Paris.
+- j'habite à … = ich wohne in … | J'habite à Hambourg. = Ich wohne in Hamburg.
+- tu habites où ? = wo wohnst du? | Tu habites où, Sam ? = Wo wohnst du, Sam?
+- la ville = die Stadt | Berlin est une grande ville. = Berlin ist eine große Stadt.
+- l'Allemagne (f) = Deutschland | J'habite en Allemagne. = Ich wohne in Deutschland.
+- la France = Frankreich | Paris est en France. = Paris liegt in Frankreich.
+f J'___ à Berlin. | habite | habite; habites; habitons | Ich wohne in Berlin. | Zu „je“ passt „habite“.
+
+= Vorlieben
+? Sagen, was du magst
+p „J'aime …“ (ich mag) und „j'adore …“ (ich liebe) stehen vor einem Nomen mit Artikel: „J'aime le sport.“
+p Mit „ne … pas“ verneinst du: „Je n'aime pas le sport.“
+e J'aime la musique. = Ich mag Musik.
+e Je n'aime pas le foot. = Ich mag Fußball nicht.
+t Vor einem Vokal: „je n'aime pas“, nicht „je ne aime“.
+- aimer = mögen / lieben | Tu aimes le chocolat ? = Magst du Schokolade?
+- adorer = sehr mögen / lieben | J'adore la musique. = Ich liebe Musik.
+- je n'aime pas = ich mag nicht | Je n'aime pas le froid. = Ich mag die Kälte nicht.
+- le sport = der Sport | J'aime le sport. = Ich mag Sport.
+- la musique = die Musik | Elle écoute la musique. = Sie hört Musik.
+- le foot = der Fußball | Mon frère adore le foot. = Mein Bruder liebt Fußball.
+f J'___ la musique. | adore | adore; adores; adorent | Ich liebe Musik. | Zu „je“ passt „adore“.

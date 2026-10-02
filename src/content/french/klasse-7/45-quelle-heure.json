@@ -1,0 +1,246 @@
+{
+  "id": "f7-m3",
+  "title": "Il est quelle heure ?",
+  "description": "Zahlen bis 60, Uhrzeit nennen und verstehen",
+  "grade": 7,
+  "subject": "french",
+  "order": 45,
+  "book": "À plus ! 1 · Module 3 Il est quelle heure ?",
+  "lessons": [
+    {
+      "id": "f7-m3-l1",
+      "title": "Zahlen 21 bis 30",
+      "items": [
+        {
+          "front": "vingt et un",
+          "back": "einundzwanzig",
+          "example": "J'ai vingt et un euros.",
+          "exampleDe": "Ich habe einundzwanzig Euro."
+        },
+        {
+          "front": "vingt-deux",
+          "back": "zweiundzwanzig",
+          "example": "Il y a vingt-deux élèves.",
+          "exampleDe": "Es gibt zweiundzwanzig Schüler."
+        },
+        {
+          "front": "vingt-cinq",
+          "back": "fünfundzwanzig",
+          "example": "Il y a vingt-cinq élèves.",
+          "exampleDe": "Es gibt fünfundzwanzig Schüler."
+        },
+        {
+          "front": "vingt-huit",
+          "back": "achtundzwanzig",
+          "example": "Il y a vingt-huit livres.",
+          "exampleDe": "Es gibt achtundzwanzig Bücher."
+        },
+        {
+          "front": "trente",
+          "back": "dreißig",
+          "example": "Trente élèves sont ici.",
+          "exampleDe": "Dreißig Schüler sind hier."
+        }
+      ],
+      "explanation": {
+        "title": "Zahlen über 20",
+        "paragraphs": [
+          "Ab 21 hängst du die Einer an die Zehner: vingt et un (21), vingt-deux (22), vingt-trois (23) …",
+          "Nur bei 21, 31, 41, 51 steht „et un“. Bei allen anderen Zahlen gibt es einen Bindestrich."
+        ],
+        "examples": [
+          {
+            "fr": "vingt et un, vingt-deux",
+            "de": "einundzwanzig, zweiundzwanzig"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Vingt-neuf, ___",
+          "answer": "trente",
+          "options": [
+            "trente",
+            "quarante",
+            "vingt"
+          ],
+          "translation": "Neunundzwanzig, dreißig",
+          "why": "Nach 29 kommt 30."
+        }
+      ]
+    },
+    {
+      "id": "f7-m3-l2",
+      "title": "Zahlen 31 bis 60",
+      "items": [
+        {
+          "front": "trente et un",
+          "back": "einunddreißig",
+          "example": "Il y a trente et un élèves.",
+          "exampleDe": "Es gibt einunddreißig Schüler."
+        },
+        {
+          "front": "trente-cinq",
+          "back": "fünfunddreißig",
+          "example": "Il est deux heures trente-cinq.",
+          "exampleDe": "Es ist zwei Uhr fünfunddreißig."
+        },
+        {
+          "front": "quarante",
+          "back": "vierzig",
+          "example": "Quarante élèves sont ici.",
+          "exampleDe": "Vierzig Schüler sind hier."
+        },
+        {
+          "front": "quarante-cinq",
+          "back": "fünfundvierzig",
+          "example": "Le cours a quarante-cinq minutes.",
+          "exampleDe": "Der Unterricht hat fünfundvierzig Minuten."
+        },
+        {
+          "front": "cinquante",
+          "back": "fünfzig",
+          "example": "Cinquante euros, s'il vous plaît.",
+          "exampleDe": "Fünfzig Euro, bitte."
+        },
+        {
+          "front": "soixante",
+          "back": "sechzig",
+          "example": "Une heure a soixante minutes.",
+          "exampleDe": "Eine Stunde hat sechzig Minuten."
+        }
+      ]
+    },
+    {
+      "id": "f7-m3-l3",
+      "title": "Die Uhrzeit (1/2)",
+      "items": [
+        {
+          "front": "il est quelle heure ?",
+          "back": "wie spät ist es?",
+          "example": "Pardon, il est quelle heure ?",
+          "exampleDe": "Entschuldigung, wie spät ist es?"
+        },
+        {
+          "front": "l'heure (f)",
+          "back": "die Stunde / die Uhrzeit",
+          "example": "C'est l'heure de manger.",
+          "exampleDe": "Es ist Zeit zu essen."
+        },
+        {
+          "front": "la minute",
+          "back": "die Minute",
+          "example": "Il est deux heures cinq minutes.",
+          "exampleDe": "Es ist zwei Uhr fünf Minuten."
+        },
+        {
+          "front": "midi",
+          "back": "zwölf Uhr mittags",
+          "example": "Il est midi.",
+          "exampleDe": "Es ist zwölf Uhr mittags."
+        },
+        {
+          "front": "minuit",
+          "back": "Mitternacht",
+          "example": "Il est minuit.",
+          "exampleDe": "Es ist Mitternacht."
+        }
+      ],
+      "explanation": {
+        "title": "Wie spät ist es?",
+        "paragraphs": [
+          "Du fragst „Il est quelle heure ?“. Du antwortest „Il est trois heures.“ Bei 1 Uhr heißt es „une heure“ (Singular).",
+          "Zusätzlich: midi (12 Uhr mittags) und minuit (Mitternacht)."
+        ],
+        "examples": [
+          {
+            "fr": "Il est huit heures.",
+            "de": "Es ist acht Uhr."
+          },
+          {
+            "fr": "Il est une heure.",
+            "de": "Es ist ein Uhr."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Il est ___ heures.",
+          "answer": "trois",
+          "options": [
+            "trois",
+            "une",
+            "midi"
+          ],
+          "translation": "Es ist drei Uhr.",
+          "why": "Ab zwei Stunden steht „heures“ im Plural."
+        }
+      ]
+    },
+    {
+      "id": "f7-m3-l4",
+      "title": "Die Uhrzeit (2/2)",
+      "items": [
+        {
+          "front": "et quart",
+          "back": "Viertel nach",
+          "example": "Il est huit heures et quart.",
+          "exampleDe": "Es ist Viertel nach acht."
+        },
+        {
+          "front": "et demie",
+          "back": "halb nach",
+          "example": "Il est neuf heures et demie.",
+          "exampleDe": "Es ist halb zehn."
+        },
+        {
+          "front": "moins le quart",
+          "back": "Viertel vor",
+          "example": "Il est midi moins le quart.",
+          "exampleDe": "Es ist Viertel vor zwölf."
+        },
+        {
+          "front": "à … heures",
+          "back": "um … Uhr",
+          "example": "Le cours commence à huit heures.",
+          "exampleDe": "Der Unterricht beginnt um acht Uhr."
+        },
+        {
+          "front": "vers",
+          "back": "gegen",
+          "example": "Je rentre vers midi.",
+          "exampleDe": "Ich komme gegen zwölf nach Hause."
+        }
+      ],
+      "explanation": {
+        "title": "Viertel und halb",
+        "paragraphs": [
+          "„Et quart“ = Viertel nach, „et demie“ = halb nach, „moins le quart“ = Viertel vor, „moins dix“ = zehn vor."
+        ],
+        "examples": [
+          {
+            "fr": "Il est deux heures et quart.",
+            "de": "Es ist Viertel nach zwei."
+          },
+          {
+            "fr": "Il est trois heures moins le quart.",
+            "de": "Es ist Viertel vor drei."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Il est neuf heures ___.",
+          "answer": "et demie",
+          "options": [
+            "et demie",
+            "et quart",
+            "moins le quart"
+          ],
+          "translation": "Es ist halb zehn.",
+          "why": "„et demie“ = halb nach."
+        }
+      ]
+    }
+  ]
+}

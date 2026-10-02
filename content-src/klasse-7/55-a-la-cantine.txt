@@ -1,0 +1,52 @@
+id: f7-m4
+title: À la cantine
+book: À plus ! 1 · Module 4 À la cantine
+desc: Speisekarte lesen, bestellen, das Verb prendre
+order: 55
+
+= Die Speisekarte
+- le menu = das Menü / die Speisekarte | Le menu du jour est bon. = Das Tagesmenü ist gut.
+- l'entrée (f) = die Vorspeise | Comme entrée, je prends une salade. = Als Vorspeise nehme ich einen Salat.
+- le plat = das Hauptgericht | Le plat est un poulet avec des frites. = Das Hauptgericht ist Hähnchen mit Pommes.
+- le dessert = der Nachtisch | Comme dessert, il y a une glace. = Als Nachtisch gibt es ein Eis.
+- la boisson = das Getränk | Quelle boisson tu prends ? = Welches Getränk nimmst du?
+- bon appétit = guten Appetit | Bon appétit, les enfants ! = Guten Appetit, Kinder!
+
+= Gerichte
+- la soupe = die Suppe | La soupe est chaude. = Die Suppe ist heiß.
+- la salade = der Salat | La salade est verte. = Der Salat ist grün.
+- le poulet = das Hähnchen | Le poulet est bon. = Das Hähnchen ist gut.
+- les frites (f pl) = die Pommes | J'adore les frites. = Ich liebe Pommes.
+- les pâtes (f pl) = die Nudeln | Les pâtes sont chaudes. = Die Nudeln sind heiß.
+- le riz = der Reis | Je mange du riz. = Ich esse Reis.
+
+= Süßes und Getränke
+- la glace = das Eis | La glace est froide. = Das Eis ist kalt.
+- le gâteau = der Kuchen | Le gâteau est super. = Der Kuchen ist super.
+- la tarte = die Torte | La tarte est aux pommes. = Die Torte ist mit Äpfeln.
+- l'eau (f) = das Wasser | Je voudrais de l'eau. = Ich möchte Wasser.
+- le jus d'orange = der Orangensaft | Le jus d'orange est frais. = Der Orangensaft ist frisch.
+- le lait = die Milch | Le lait est froid. = Die Milch ist kalt.
+
+= Das Verb prendre
+? prendre (nehmen)
+p prendre ist unregelmäßig: je prends, tu prends, il/elle prend, nous prenons, vous prenez, ils/elles prennent.
+p Auch „apprendre“ (lernen) und „comprendre“ (verstehen) werden so konjugiert.
+e Je prends une glace. = Ich nehme ein Eis.
+e Ils prennent le menu. = Sie nehmen das Menü.
+- je prends = ich nehme | Je prends une salade. = Ich nehme einen Salat.
+- tu prends = du nimmst | Tu prends une soupe ? = Nimmst du eine Suppe?
+- il / elle prend = er / sie nimmt | Elle prend du poulet. = Sie nimmt Hähnchen.
+- nous prenons = wir nehmen | Nous prenons le menu. = Wir nehmen das Menü.
+- vous prenez = ihr nehmt / Sie nehmen | Vous prenez un dessert ? = Nehmt ihr einen Nachtisch?
+- ils / elles prennent = sie nehmen | Ils prennent de la salade. = Sie nehmen Salat.
+f Je ___ une glace. | prends | prends; prend; prenons | Ich nehme ein Eis. | Zu „je“ passt „prends“.
+f Nous ___ le menu. | prenons | prenons; prenez; prennent | Wir nehmen das Menü. | Zu „nous“ passt „prenons“.
+
+= Sagen, was du möchtest
+- j'ai faim = ich habe Hunger | J'ai faim, je mange. = Ich habe Hunger, ich esse.
+- j'ai soif = ich habe Durst | J'ai soif, je voudrais de l'eau. = Ich habe Durst, ich möchte Wasser.
+- c'est bon = das ist gut / das schmeckt | Mmm, c'est bon ! = Mmm, das schmeckt!
+- je ne mange pas de … = ich esse kein(e) … | Je ne mange pas de viande. = Ich esse kein Fleisch.
+- je voudrais … = ich möchte … | Je voudrais une soupe. = Ich möchte eine Suppe.
+- merci, c'est tout = danke, das ist alles | Merci, c'est tout. = Danke, das ist alles.

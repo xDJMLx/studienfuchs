@@ -1,0 +1,206 @@
+{
+  "id": "f7-m1",
+  "title": "En cours de français (1)",
+  "description": "Klassenraumfranzösisch: Aufforderungen verstehen, nachfragen",
+  "grade": 7,
+  "subject": "french",
+  "order": 25,
+  "book": "À plus ! 1 · Module 1 En cours de français",
+  "lessons": [
+    {
+      "id": "f7-m1-l1",
+      "title": "Das sagt die Lehrkraft (1/2)",
+      "items": [
+        {
+          "front": "écoutez !",
+          "back": "hört zu!",
+          "example": "Écoutez bien, les enfants !",
+          "exampleDe": "Hört gut zu, Kinder!"
+        },
+        {
+          "front": "regardez !",
+          "back": "schaut!",
+          "example": "Regardez la photo !",
+          "exampleDe": "Schaut das Foto an!"
+        },
+        {
+          "front": "lisez !",
+          "back": "lest!",
+          "example": "Lisez le texte, s'il vous plaît.",
+          "exampleDe": "Lest den Text, bitte."
+        },
+        {
+          "front": "répétez !",
+          "back": "wiederholt!",
+          "example": "Répétez après moi.",
+          "exampleDe": "Sprecht mir nach."
+        },
+        {
+          "front": "écrivez !",
+          "back": "schreibt!",
+          "example": "Écrivez votre nom.",
+          "exampleDe": "Schreibt euren Namen."
+        }
+      ],
+      "explanation": {
+        "title": "Aufforderungen im Unterricht",
+        "paragraphs": [
+          "Im Französischunterricht hörst du viele kurze Aufforderungen. Sie enden meist auf „-ez“, wenn die ganze Klasse angesprochen wird."
+        ],
+        "examples": [
+          {
+            "fr": "Écoutez, s'il vous plaît !",
+            "de": "Hört bitte zu!"
+          },
+          {
+            "fr": "Ouvrez votre livre !",
+            "de": "Öffnet euer Buch!"
+          }
+        ]
+      }
+    },
+    {
+      "id": "f7-m1-l2",
+      "title": "Das sagt die Lehrkraft (2/2)",
+      "items": [
+        {
+          "front": "ouvrez !",
+          "back": "öffnet!",
+          "example": "Ouvrez la fenêtre, s'il vous plaît.",
+          "exampleDe": "Öffnet das Fenster, bitte."
+        },
+        {
+          "front": "fermez !",
+          "back": "schließt!",
+          "example": "Fermez la porte !",
+          "exampleDe": "Schließt die Tür!"
+        },
+        {
+          "front": "parlez !",
+          "back": "sprecht!",
+          "example": "Parlez français, s'il vous plaît.",
+          "exampleDe": "Sprecht bitte Französisch."
+        },
+        {
+          "front": "travaillez !",
+          "back": "arbeitet!",
+          "example": "Travaillez ensemble.",
+          "exampleDe": "Arbeitet zusammen."
+        },
+        {
+          "front": "ensemble",
+          "back": "zusammen",
+          "example": "On joue ensemble.",
+          "exampleDe": "Wir spielen zusammen."
+        },
+        {
+          "front": "encore une fois",
+          "back": "noch einmal",
+          "example": "Encore une fois, s'il vous plaît.",
+          "exampleDe": "Noch einmal, bitte."
+        }
+      ]
+    },
+    {
+      "id": "f7-m1-l3",
+      "title": "Nachfragen",
+      "items": [
+        {
+          "front": "je ne comprends pas",
+          "back": "ich verstehe nicht",
+          "example": "Pardon, je ne comprends pas.",
+          "exampleDe": "Entschuldigung, ich verstehe nicht."
+        },
+        {
+          "front": "qu'est-ce que ça veut dire ?",
+          "back": "was bedeutet das?",
+          "example": "Qu'est-ce que ça veut dire, « pardon » ?",
+          "exampleDe": "Was heißt „pardon“?"
+        },
+        {
+          "front": "comment dit-on … ?",
+          "back": "wie sagt man …?",
+          "example": "Comment dit-on « Katze » en français ?",
+          "exampleDe": "Wie sagt man „Katze“ auf Französisch?"
+        },
+        {
+          "front": "je sais",
+          "back": "ich weiß",
+          "example": "Oui, je sais !",
+          "exampleDe": "Ja, ich weiß es!"
+        },
+        {
+          "front": "je ne sais pas",
+          "back": "ich weiß nicht",
+          "example": "Je ne sais pas, madame.",
+          "exampleDe": "Ich weiß nicht, Frau …"
+        }
+      ],
+      "explanation": {
+        "title": "Wenn du etwas nicht verstehst",
+        "paragraphs": [
+          "Du darfst immer nachfragen: „Je ne comprends pas.“ oder „Qu'est-ce que ça veut dire ?“.",
+          "Wenn dir ein Wort fehlt, fragst du: „Comment dit-on … en français ?“"
+        ],
+        "examples": [
+          {
+            "fr": "Je ne comprends pas.",
+            "de": "Ich verstehe nicht."
+          },
+          {
+            "fr": "Comment dit-on « Hund » en français ?",
+            "de": "Wie sagt man „Hund“ auf Französisch?"
+          }
+        ]
+      }
+    },
+    {
+      "id": "f7-m1-l4",
+      "title": "Wörter im Unterricht",
+      "items": [
+        {
+          "front": "le mot",
+          "back": "das Wort",
+          "example": "Le mot est difficile.",
+          "exampleDe": "Das Wort ist schwer."
+        },
+        {
+          "front": "la phrase",
+          "back": "der Satz",
+          "example": "La phrase est courte.",
+          "exampleDe": "Der Satz ist kurz."
+        },
+        {
+          "front": "la question",
+          "back": "die Frage",
+          "example": "Voilà une question.",
+          "exampleDe": "Da ist eine Frage."
+        },
+        {
+          "front": "la réponse",
+          "back": "die Antwort",
+          "example": "La réponse est juste.",
+          "exampleDe": "Die Antwort ist richtig."
+        },
+        {
+          "front": "la page",
+          "back": "die Seite",
+          "example": "Ouvrez à la page dix.",
+          "exampleDe": "Schlagt Seite zehn auf."
+        },
+        {
+          "front": "juste",
+          "back": "richtig",
+          "example": "Oui, c'est juste.",
+          "exampleDe": "Ja, das ist richtig."
+        },
+        {
+          "front": "faux / fausse",
+          "back": "falsch",
+          "example": "Non, c'est faux.",
+          "exampleDe": "Nein, das ist falsch."
+        }
+      ]
+    }
+  ]
+}

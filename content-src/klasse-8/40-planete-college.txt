@@ -1,0 +1,162 @@
+id: f8-u4
+title: Planète collège
+book: À plus ! 2 · Unité 4
+desc: Schule und Schulstress, Noten, indirekte Objektpronomen, indirekte Rede, écrire, dire, devoir
+order: 40
+
+= Lernen und Unterricht
+- réviser = wiederholen / lernen | Je révise pour le contrôle. = Ich lerne für die Klassenarbeit.
+- apprendre = lernen | J'apprends le français. = Ich lerne Französisch.
+- comprendre = verstehen | Je comprends la leçon. = Ich verstehe die Lektion.
+- la leçon = die Lektion | La leçon est facile. = Die Lektion ist leicht.
+- l'interrogation (f) = der kurze Test | Demain, j'ai une interrogation. = Morgen habe ich einen Test.
+- la copie = die Klassenarbeit (Blatt) | Le prof rend les copies. = Der Lehrer gibt die Arbeiten zurück.
+
+= Noten und Zeugnis
+- le bulletin = das Zeugnis | Mon bulletin est bon. = Mein Zeugnis ist gut.
+- la moyenne = der Durchschnitt | J'ai la moyenne en maths. = Ich habe in Mathe einen ausreichenden Durchschnitt.
+- réussir = bestehen / Erfolg haben | J'ai réussi le contrôle. = Ich habe die Klassenarbeit bestanden.
+- rater = durchfallen / verpassen | Il a raté le contrôle. = Er ist durch die Klassenarbeit gefallen.
+- redoubler = wiederholen (Klasse) | Elle va redoubler. = Sie wird die Klasse wiederholen.
+- l'examen (m) = die Prüfung | L'examen est difficile. = Die Prüfung ist schwer.
+
+= Schulstress
+- le stress = der Stress | Le stress est fort avant l'examen. = Vor der Prüfung ist der Stress groß.
+- la pression = der Druck | La pression est grande. = Der Druck ist groß.
+- stressé(e) = gestresst | Je suis stressé. = Ich bin gestresst.
+- la peur = die Angst | J'ai peur du contrôle. = Ich habe Angst vor der Klassenarbeit.
+- nerveux / nerveuse = nervös | Elle est nerveuse. = Sie ist nervös.
+- le sommeil = der Schlaf | J'ai besoin de sommeil. = Ich brauche Schlaf.
+
+= Wie lernst du?
+- apprendre par cœur = auswendig lernen | J'apprends les mots par cœur. = Ich lerne die Wörter auswendig.
+- le vocabulaire = der Wortschatz | Je révise le vocabulaire. = Ich wiederhole den Wortschatz.
+- la fiche = die Karteikarte | J'écris une fiche. = Ich schreibe eine Karteikarte.
+- le résumé = die Zusammenfassung | Le résumé est court. = Die Zusammenfassung ist kurz.
+- relire = noch einmal lesen | Je relis le texte. = Ich lese den Text noch einmal.
+- s'entraîner = üben | Il faut s'entraîner chaque jour. = Man muss jeden Tag üben.
+
+= Schulleben
+- la salle des profs = das Lehrerzimmer | Le prof est dans la salle des profs. = Der Lehrer ist im Lehrerzimmer.
+- le surveillant / la surveillante = die Aufsicht | La surveillante est gentille. = Die Aufsicht ist nett.
+- le règlement = die Schulordnung | Le règlement est strict. = Die Schulordnung ist streng.
+- la sortie scolaire = der Klassenausflug | La sortie scolaire est demain. = Der Klassenausflug ist morgen.
+- le délégué / la déléguée = der Klassensprecher | La déléguée parle au prof. = Die Klassensprecherin spricht mit dem Lehrer.
+- le conseil de classe = die Klassenkonferenz | Le conseil de classe est lundi. = Die Klassenkonferenz ist am Montag.
+
+= Persönlichkeitstypen
+- bavard(e) = geschwätzig | Il est très bavard. = Er ist sehr gesprächig.
+- sérieux / sérieuse = ernsthaft | Elle est sérieuse. = Sie ist ernsthaft.
+- travailleur / travailleuse = fleißig | Mon frère est travailleur. = Mein Bruder ist fleißig.
+- le chouchou = der Liebling (des Lehrers) | C'est le chouchou du prof. = Das ist der Liebling des Lehrers.
+- le clown = der Klassenclown | Il est le clown de la classe. = Er ist der Klassenclown.
+- fort(e) en maths = gut in Mathe | Elle est forte en maths. = Sie ist stark in Mathe.
+
+= Das Verb écrire
+? écrire (schreiben)
+p écrire ist unregelmäßig: j'écris, tu écris, il/elle écrit, nous écrivons, vous écrivez, ils/elles écrivent. Partizip: écrit.
+e J'écris un texte. = Ich schreibe einen Text.
+e Nous écrivons une lettre. = Wir schreiben einen Brief.
+- j'écris = ich schreibe | J'écris une lettre. = Ich schreibe einen Brief.
+- tu écris = du schreibst | Tu écris à Léa ? = Schreibst du Léa?
+- il / elle écrit = er / sie schreibt | Elle écrit un texte. = Sie schreibt einen Text.
+- nous écrivons = wir schreiben | Nous écrivons une carte. = Wir schreiben eine Karte.
+- vous écrivez = ihr schreibt | Vous écrivez un message ? = Schreibt ihr eine Nachricht?
+- ils / elles écrivent = sie schreiben | Ils écrivent une histoire. = Sie schreiben eine Geschichte.
+f Nous ___ une lettre. | écrivons | écrivons; écrivez; écrivent | Wir schreiben einen Brief. | Zu „nous“ passt „-ons“.
+
+= Das Verb dire
+? dire (sagen)
+p dire ist unregelmäßig: je dis, tu dis, il/elle dit, nous disons, vous dites, ils/elles disent. Partizip: dit.
+e Je dis non. = Ich sage nein.
+e Vous dites la vérité. = Ihr sagt die Wahrheit.
+- je dis = ich sage | Je dis la vérité. = Ich sage die Wahrheit.
+- tu dis = du sagst | Tu dis quoi ? = Was sagst du?
+- il / elle dit = er / sie sagt | Il dit non. = Er sagt nein.
+- nous disons = wir sagen | Nous disons bonjour. = Wir sagen guten Tag.
+- vous dites = ihr sagt | Vous dites merci. = Ihr sagt danke.
+- ils / elles disent = sie sagen | Elles disent la vérité. = Sie sagen die Wahrheit.
+- la vérité = die Wahrheit | La vérité est simple. = Die Wahrheit ist einfach.
+f Vous ___ merci. | dites | dites; disez; disent | Ihr sagt danke. | Zu „vous“ passt „dites“.
+
+= Das Verb devoir
+? devoir (müssen)
+p devoir ist unregelmäßig: je dois, tu dois, il/elle doit, nous devons, vous devez, ils/elles doivent. Partizip: dû.
+p Nach „devoir“ steht der Infinitiv: Je dois réviser.
+e Je dois réviser. = Ich muss lernen.
+e Nous devons partir. = Wir müssen gehen.
+- je dois = ich muss | Je dois réviser. = Ich muss lernen.
+- tu dois = du musst | Tu dois dormir. = Du musst schlafen.
+- il / elle doit = er / sie muss | Elle doit partir. = Sie muss gehen.
+- nous devons = wir müssen | Nous devons travailler. = Wir müssen arbeiten.
+- vous devez = ihr müsst | Vous devez écouter. = Ihr müsst zuhören.
+- ils / elles doivent = sie müssen | Ils doivent rentrer. = Sie müssen heimgehen.
+f Nous ___ travailler. | devons | devons; devez; doivent | Wir müssen arbeiten. | Zu „nous“ passt „devons“.
+
+= Indirekte Objektpronomen
+? lui, leur, me, te, nous, vous
+p Das indirekte Objekt (wem?) steht bei Verben mit „à“: parler à, écrire à, donner à, dire à, téléphoner à, répondre à.
+p Pronomen: me, te, lui, nous, vous, leur. Sie stehen vor dem Verb: Je lui écris. Il leur parle.
+e J'écris à Léa. → Je lui écris. = Ich schreibe Léa. → Ich schreibe ihr.
+e Il parle aux élèves. → Il leur parle. = Er spricht zu den Schülern. → Er spricht zu ihnen.
+t Bei „lui“ und „leur“ musst du nicht zwischen männlich und weiblich unterscheiden.
+- je lui écris = ich schreibe ihm / ihr | Je lui écris un message. = Ich schreibe ihm eine Nachricht.
+- je leur parle = ich spreche mit ihnen | Je leur parle en français. = Ich spreche mit ihnen auf Französisch.
+- il me répond = er antwortet mir | Il me répond toujours. = Er antwortet mir immer.
+- elle te téléphone = sie ruft dich an | Elle te téléphone ce soir. = Sie ruft dich heute Abend an.
+- nous vous montrons = wir zeigen euch | Nous vous montrons la photo. = Wir zeigen euch das Foto.
+f J'écris à Léa. Je ___ écris. | lui | lui; leur; la | Ich schreibe Léa. Ich schreibe ihr. | Eine Person → lui.
+
+= Verben mit à + Person
+- parler à = sprechen mit | Je parle à mon prof. = Ich spreche mit meinem Lehrer.
+- téléphoner à = anrufen | Je téléphone à ma mère. = Ich rufe meine Mutter an.
+- demander à = fragen | Je demande à Léa. = Ich frage Léa.
+- montrer à = zeigen | Je montre la photo à Paul. = Ich zeige Paul das Foto.
+- répondre à = antworten | Je réponds à Léa. = Ich antworte Léa.
+- envoyer à = schicken | J'envoie un message à Léa. = Ich schicke Léa eine Nachricht.
+
+= Indirekte Rede
+? Das Gesagte wiedergeben
+p Mit „dire que“ gibst du Aussagen wieder: Il dit qu'il est fatigué. Fragen: „demander si“: Elle demande si tu viens.
+p Das Verb in der indirekten Rede passt sich an die Person an: « Je suis fatigué » → Il dit qu'il est fatigué.
+e Il dit qu'il est fatigué. = Er sagt, dass er müde ist.
+e Elle demande si tu viens. = Sie fragt, ob du kommst.
+t „Que“ vor einem Vokal wird zu „qu'“; „si“ vor „il“ wird zu „s'il“.
+- dire que … = sagen, dass … | Il dit que c'est facile. = Er sagt, dass es leicht ist.
+- demander si … = fragen, ob … | Elle demande si tu viens. = Sie fragt, ob du kommst.
+- répondre que … = antworten, dass … | Je réponds que c'est vrai. = Ich antworte, dass es wahr ist.
+- demander où … = fragen, wo … | Il demande où tu habites. = Er fragt, wo du wohnst.
+- je ne sais pas si … = ich weiß nicht, ob … | Je ne sais pas si elle vient. = Ich weiß nicht, ob sie kommt.
+f Elle demande ___ tu viens. | si | si; que; où | Sie fragt, ob du kommst. | „ob“ = si.
+
+= Ratschläge geben
+- conseiller = raten | Je te conseille de réviser. = Ich rate dir zu lernen.
+- je te conseille de … = ich rate dir, … | Je te conseille de dormir. = Ich rate dir zu schlafen.
+- il vaut mieux … = es ist besser … | Il vaut mieux réviser. = Es ist besser zu lernen.
+- essayer de … = versuchen zu … | Essaie de dormir ! = Versuch zu schlafen!
+- sans doute = wahrscheinlich | Il est sans doute fatigué. = Er ist wahrscheinlich müde.
+- l'avis (m) = die Meinung | Quel est ton avis ? = Was ist deine Meinung?
+
+= Schule in Frankreich
+- le lycée = das Gymnasium (Oberstufe) | Mon cousin va au lycée. = Mein Cousin geht aufs Lycée.
+- le bac = das Abitur | Il passe le bac. = Er macht das Abitur.
+- la terminale = die letzte Klasse | Ma cousine est en terminale. = Meine Cousine ist in der letzten Klasse.
+- l'internat (m) = das Internat | Il habite à l'internat. = Er wohnt im Internat.
+- le professeur principal = der Klassenlehrer | Le professeur principal est sympa. = Der Klassenlehrer ist nett.
+- la rentrée = der Schulanfang | La rentrée est en septembre. = Der Schulanfang ist im September.
+
+= Eine Person beschreiben
+- le caractère = der Charakter | Il a bon caractère. = Er hat einen guten Charakter.
+- la qualité = die gute Eigenschaft | Le courage est une qualité. = Mut ist eine gute Eigenschaft.
+- le défaut = die Schwäche | La paresse est un défaut. = Faulheit ist eine Schwäche.
+- avoir l'air = aussehen / wirken | Il a l'air fatigué. = Er sieht müde aus.
+- ressembler à = ähneln | Elle ressemble à sa mère. = Sie ähnelt ihrer Mutter.
+- plutôt = eher | Je suis plutôt timide. = Ich bin eher schüchtern.
+
+= Ein Persönlichkeitstest
+- le test = der Test | Je fais un test. = Ich mache einen Test.
+- le résultat = das Ergebnis | Le résultat est drôle. = Das Ergebnis ist lustig.
+- le type = der Typ | Quel type es-tu ? = Was für ein Typ bist du?
+- le point = der Punkt | J'ai dix points. = Ich habe zehn Punkte.
+- la question = die Frage | La question est difficile. = Die Frage ist schwer.
+- choisir = wählen | Je choisis la réponse A. = Ich wähle Antwort A.

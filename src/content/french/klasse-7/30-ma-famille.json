@@ -1,0 +1,869 @@
+{
+  "id": "f7-u2",
+  "title": "Ma famille",
+  "description": "Familie, Haustiere, Besitz, Wünsche, Verben auf -er, mon/ma/mes, avoir, Fragen",
+  "grade": 7,
+  "subject": "french",
+  "order": 30,
+  "book": "À plus ! 1 · Unité 2",
+  "lessons": [
+    {
+      "id": "f7-u2-l1",
+      "title": "Meine Familie (1/3)",
+      "items": [
+        {
+          "front": "la famille",
+          "back": "die Familie",
+          "example": "Ma famille est grande.",
+          "exampleDe": "Meine Familie ist groß."
+        },
+        {
+          "front": "le père",
+          "back": "der Vater",
+          "example": "Mon père travaille.",
+          "exampleDe": "Mein Vater arbeitet."
+        },
+        {
+          "front": "la mère",
+          "back": "die Mutter",
+          "example": "Ma mère cuisine bien.",
+          "exampleDe": "Meine Mutter kocht gut."
+        },
+        {
+          "front": "les parents (m)",
+          "back": "die Eltern",
+          "example": "Mes parents sont sympas.",
+          "exampleDe": "Meine Eltern sind nett."
+        },
+        {
+          "front": "le frère",
+          "back": "der Bruder",
+          "example": "Mon frère a dix ans.",
+          "exampleDe": "Mein Bruder ist zehn."
+        },
+        {
+          "front": "la sœur",
+          "back": "die Schwester",
+          "example": "Ma sœur s'appelle Léa.",
+          "exampleDe": "Meine Schwester heißt Léa."
+        }
+      ],
+      "explanation": {
+        "title": "Nomen und ihr Geschlecht",
+        "paragraphs": [
+          "Familienmitglieder haben oft ein natürliches Geschlecht: le père (der Vater), la mère (die Mutter).",
+          "Der Plural von Nomen endet meist auf -s, das man nicht spricht: le frère → les frères."
+        ],
+        "examples": [
+          {
+            "fr": "le père, la mère, les parents",
+            "de": "der Vater, die Mutter, die Eltern"
+          }
+        ]
+      }
+    },
+    {
+      "id": "f7-u2-l2",
+      "title": "Meine Familie (2/3)",
+      "items": [
+        {
+          "front": "les grands-parents (m)",
+          "back": "die Großeltern",
+          "example": "Mes grands-parents habitent à Lyon.",
+          "exampleDe": "Meine Großeltern wohnen in Lyon."
+        },
+        {
+          "front": "le grand-père",
+          "back": "der Großvater",
+          "example": "Mon grand-père est gentil.",
+          "exampleDe": "Mein Opa ist nett."
+        },
+        {
+          "front": "la grand-mère",
+          "back": "die Großmutter",
+          "example": "Ma grand-mère aime la musique.",
+          "exampleDe": "Meine Oma mag Musik."
+        },
+        {
+          "front": "l'oncle (m)",
+          "back": "der Onkel",
+          "example": "Mon oncle habite à Paris.",
+          "exampleDe": "Mein Onkel wohnt in Paris."
+        },
+        {
+          "front": "la tante",
+          "back": "die Tante",
+          "example": "Ma tante a un chat.",
+          "exampleDe": "Meine Tante hat eine Katze."
+        },
+        {
+          "front": "le cousin / la cousine",
+          "back": "der Cousin / die Cousine",
+          "example": "Ma cousine a douze ans.",
+          "exampleDe": "Meine Cousine ist zwölf."
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l3",
+      "title": "Meine Familie (3/3)",
+      "items": [
+        {
+          "front": "le fils",
+          "back": "der Sohn",
+          "example": "Son fils a six ans.",
+          "exampleDe": "Sein Sohn ist sechs."
+        },
+        {
+          "front": "l'enfant (m/f)",
+          "back": "das Kind",
+          "example": "L'enfant joue au parc.",
+          "exampleDe": "Das Kind spielt im Park."
+        },
+        {
+          "front": "le bébé",
+          "back": "das Baby",
+          "example": "Le bébé est petit.",
+          "exampleDe": "Das Baby ist klein."
+        },
+        {
+          "front": "le grand frère",
+          "back": "der große Bruder",
+          "example": "Mon grand frère est sportif.",
+          "exampleDe": "Mein großer Bruder ist sportlich."
+        },
+        {
+          "front": "la petite sœur",
+          "back": "die kleine Schwester",
+          "example": "Ma petite sœur a quatre ans.",
+          "exampleDe": "Meine kleine Schwester ist vier."
+        },
+        {
+          "front": "le demi-frère",
+          "back": "der Halbbruder",
+          "example": "Mon demi-frère habite à Nice.",
+          "exampleDe": "Mein Halbbruder wohnt in Nizza."
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l4",
+      "title": "mon, ma, mes",
+      "items": [
+        {
+          "front": "mon",
+          "back": "mein (m)",
+          "example": "Mon frère est là.",
+          "exampleDe": "Mein Bruder ist da."
+        },
+        {
+          "front": "ma",
+          "back": "meine (f)",
+          "example": "Ma tante est gentille.",
+          "exampleDe": "Meine Tante ist nett."
+        },
+        {
+          "front": "mes",
+          "back": "meine (Plural)",
+          "example": "Mes cousins sont sympas.",
+          "exampleDe": "Meine Cousins sind nett."
+        },
+        {
+          "front": "ton",
+          "back": "dein (m)",
+          "example": "Ton père est sympa.",
+          "exampleDe": "Dein Vater ist nett."
+        },
+        {
+          "front": "ta",
+          "back": "deine (f)",
+          "example": "Ta sœur est grande.",
+          "exampleDe": "Deine Schwester ist groß."
+        },
+        {
+          "front": "tes",
+          "back": "deine (Plural)",
+          "example": "Tes parents sont là ?",
+          "exampleDe": "Sind deine Eltern da?"
+        }
+      ],
+      "explanation": {
+        "title": "Besitzanzeigende Begleiter (1)",
+        "paragraphs": [
+          "mon / ma / mes = mein(e), ton / ta / tes = dein(e). Die Form richtet sich nach dem Nomen, nicht nach dem Besitzer.",
+          "Vor einem Vokal benutzt man „mon / ton“ auch bei weiblichen Wörtern: mon amie, ton école."
+        ],
+        "examples": [
+          {
+            "fr": "mon père, ma mère, mes parents",
+            "de": "mein Vater, meine Mutter, meine Eltern"
+          },
+          {
+            "fr": "mon amie, ton école",
+            "de": "meine Freundin, deine Schule"
+          }
+        ],
+        "tip": "ma + Vokal wird zu mon: „mon école“."
+      },
+      "fills": [
+        {
+          "sentence": "___ mère est sympa.",
+          "answer": "Ma",
+          "options": [
+            "Ma",
+            "Mon",
+            "Mes"
+          ],
+          "translation": "Meine Mutter ist nett.",
+          "why": "„mère“ ist weiblich → ma."
+        },
+        {
+          "sentence": "___ amie s'appelle Lina.",
+          "answer": "Mon",
+          "options": [
+            "Mon",
+            "Ma",
+            "Mes"
+          ],
+          "translation": "Meine Freundin heißt Lina.",
+          "why": "Vor Vokal steht „mon“, auch bei weiblichen Wörtern."
+        },
+        {
+          "sentence": "___ parents sont ici.",
+          "answer": "Mes",
+          "options": [
+            "Mes",
+            "Mon",
+            "Ma"
+          ],
+          "translation": "Meine Eltern sind hier.",
+          "why": "Plural → mes."
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l5",
+      "title": "son, sa, ses",
+      "items": [
+        {
+          "front": "son",
+          "back": "sein / ihr (m)",
+          "example": "Son frère est grand.",
+          "exampleDe": "Sein Bruder ist groß."
+        },
+        {
+          "front": "sa",
+          "back": "seine / ihre (f)",
+          "example": "Sa sœur est petite.",
+          "exampleDe": "Ihre Schwester ist klein."
+        },
+        {
+          "front": "ses",
+          "back": "seine / ihre (Plural)",
+          "example": "Ses amis sont sympas.",
+          "exampleDe": "Seine Freunde sind nett."
+        },
+        {
+          "front": "aussi",
+          "back": "auch",
+          "example": "Mon frère aime le foot aussi.",
+          "exampleDe": "Mein Bruder mag auch Fußball."
+        },
+        {
+          "front": "mais",
+          "back": "aber",
+          "example": "J'aime le foot, mais pas le tennis.",
+          "exampleDe": "Ich mag Fußball, aber kein Tennis."
+        },
+        {
+          "front": "avec",
+          "back": "mit",
+          "example": "J'habite avec ma mère.",
+          "exampleDe": "Ich wohne mit meiner Mutter."
+        }
+      ],
+      "explanation": {
+        "title": "Besitzanzeigende Begleiter (2)",
+        "paragraphs": [
+          "son / sa / ses bedeuten „sein“ und auch „ihr“. Es zählt das Nomen: son père (sein oder ihr Vater), sa mère, ses parents."
+        ],
+        "examples": [
+          {
+            "fr": "Léa et son frère",
+            "de": "Léa und ihr Bruder"
+          },
+          {
+            "fr": "Paul et sa sœur",
+            "de": "Paul und seine Schwester"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Léa et ___ frère jouent.",
+          "answer": "son",
+          "options": [
+            "son",
+            "sa",
+            "ses"
+          ],
+          "translation": "Léa und ihr Bruder spielen.",
+          "why": "„frère“ ist männlich → son."
+        },
+        {
+          "sentence": "Paul aime ___ sœur.",
+          "answer": "sa",
+          "options": [
+            "sa",
+            "son",
+            "ses"
+          ],
+          "translation": "Paul mag seine Schwester.",
+          "why": "„sœur“ ist weiblich → sa."
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l6",
+      "title": "Das Verb avoir",
+      "items": [
+        {
+          "front": "j'ai",
+          "back": "ich habe",
+          "example": "J'ai une sœur.",
+          "exampleDe": "Ich habe eine Schwester."
+        },
+        {
+          "front": "tu as",
+          "back": "du hast",
+          "example": "Tu as un chat ?",
+          "exampleDe": "Hast du eine Katze?"
+        },
+        {
+          "front": "il a / elle a",
+          "back": "er hat / sie hat",
+          "example": "Elle a deux frères.",
+          "exampleDe": "Sie hat zwei Brüder."
+        },
+        {
+          "front": "nous avons",
+          "back": "wir haben",
+          "example": "Nous avons un chien.",
+          "exampleDe": "Wir haben einen Hund."
+        },
+        {
+          "front": "vous avez",
+          "back": "ihr habt / Sie haben",
+          "example": "Vous avez des enfants ?",
+          "exampleDe": "Haben Sie Kinder?"
+        },
+        {
+          "front": "ils ont",
+          "back": "sie haben",
+          "example": "Ils ont une maison.",
+          "exampleDe": "Sie haben ein Haus."
+        }
+      ],
+      "explanation": {
+        "title": "avoir (haben)",
+        "paragraphs": [
+          "avoir ist unregelmäßig: j'ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont.",
+          "Mit avoir sagst du auch dein Alter: „J'ai douze ans.“"
+        ],
+        "examples": [
+          {
+            "fr": "J'ai un frère.",
+            "de": "Ich habe einen Bruder."
+          },
+          {
+            "fr": "Ils ont un chien.",
+            "de": "Sie haben einen Hund."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Nous ___ un chat.",
+          "answer": "avons",
+          "options": [
+            "avons",
+            "avez",
+            "ont"
+          ],
+          "translation": "Wir haben eine Katze.",
+          "why": "Zu „nous“ passt „avons“."
+        },
+        {
+          "sentence": "Ils ___ deux enfants.",
+          "answer": "ont",
+          "options": [
+            "ont",
+            "avez",
+            "a"
+          ],
+          "translation": "Sie haben zwei Kinder.",
+          "why": "Zu „ils“ passt „ont“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l7",
+      "title": "Haustiere",
+      "items": [
+        {
+          "front": "l'animal (m)",
+          "back": "das Tier",
+          "example": "J'aime les animaux.",
+          "exampleDe": "Ich mag Tiere."
+        },
+        {
+          "front": "le chat",
+          "back": "die Katze / der Kater",
+          "example": "Mon chat dort beaucoup.",
+          "exampleDe": "Meine Katze schläft viel."
+        },
+        {
+          "front": "le chien",
+          "back": "der Hund",
+          "example": "Le chien est gentil.",
+          "exampleDe": "Der Hund ist lieb."
+        },
+        {
+          "front": "le poisson",
+          "back": "der Fisch",
+          "example": "J'ai un poisson rouge.",
+          "exampleDe": "Ich habe einen Goldfisch."
+        },
+        {
+          "front": "le lapin",
+          "back": "das Kaninchen",
+          "example": "Le lapin est petit.",
+          "exampleDe": "Das Kaninchen ist klein."
+        },
+        {
+          "front": "l'oiseau (m)",
+          "back": "der Vogel",
+          "example": "L'oiseau chante.",
+          "exampleDe": "Der Vogel singt."
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l8",
+      "title": "Wünsche äußern",
+      "items": [
+        {
+          "front": "je voudrais",
+          "back": "ich möchte",
+          "example": "Je voudrais un chien.",
+          "exampleDe": "Ich möchte einen Hund."
+        },
+        {
+          "front": "tu voudrais",
+          "back": "du möchtest",
+          "example": "Tu voudrais un frère ?",
+          "exampleDe": "Möchtest du einen Bruder?"
+        },
+        {
+          "front": "il voudrait",
+          "back": "er möchte",
+          "example": "Il voudrait un lapin.",
+          "exampleDe": "Er möchte ein Kaninchen."
+        },
+        {
+          "front": "ou",
+          "back": "oder",
+          "example": "Un chat ou un chien ?",
+          "exampleDe": "Eine Katze oder ein Hund?"
+        },
+        {
+          "front": "vraiment",
+          "back": "wirklich",
+          "example": "Je voudrais vraiment un chat.",
+          "exampleDe": "Ich möchte wirklich eine Katze."
+        }
+      ],
+      "explanation": {
+        "title": "je voudrais (ich möchte)",
+        "paragraphs": [
+          "„Je voudrais …“ ist die höfliche Form für „ich möchte …“: „Je voudrais un chien.“",
+          "Du kannst auch fragen: „Tu voudrais un chat ?“ (Möchtest du eine Katze?)"
+        ],
+        "examples": [
+          {
+            "fr": "Je voudrais un chat.",
+            "de": "Ich möchte eine Katze."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Je ___ un chien.",
+          "answer": "voudrais",
+          "options": [
+            "voudrais",
+            "veux",
+            "voulez"
+          ],
+          "translation": "Ich möchte einen Hund.",
+          "why": "Höflich: „je voudrais“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l9",
+      "title": "Verben auf -er (1/2)",
+      "items": [
+        {
+          "front": "parler",
+          "back": "sprechen",
+          "example": "Elle parle français.",
+          "exampleDe": "Sie spricht Französisch."
+        },
+        {
+          "front": "aimer",
+          "back": "mögen / lieben",
+          "example": "Nous aimons la musique.",
+          "exampleDe": "Wir mögen Musik."
+        },
+        {
+          "front": "habiter",
+          "back": "wohnen",
+          "example": "Ils habitent à Berlin.",
+          "exampleDe": "Sie wohnen in Berlin."
+        },
+        {
+          "front": "regarder",
+          "back": "anschauen",
+          "example": "Je regarde la photo.",
+          "exampleDe": "Ich schaue das Foto an."
+        },
+        {
+          "front": "écouter",
+          "back": "hören / zuhören",
+          "example": "Tu écoutes la musique ?",
+          "exampleDe": "Hörst du Musik?"
+        },
+        {
+          "front": "jouer",
+          "back": "spielen",
+          "example": "Nous jouons au foot.",
+          "exampleDe": "Wir spielen Fußball."
+        }
+      ],
+      "explanation": {
+        "title": "Regelmäßige Verben auf -er",
+        "paragraphs": [
+          "Die meisten französischen Verben enden auf -er: parler, aimer, habiter. Streiche -er und hänge an: -e, -es, -e, -ons, -ez, -ent.",
+          "Aber: „-e“, „-es“ und „-ent“ sprichst du nicht. „Je parle“, „tu parles“ und „ils parlent“ klingen gleich."
+        ],
+        "examples": [
+          {
+            "fr": "je parle, tu parles, il parle",
+            "de": "ich spreche, du sprichst, er spricht"
+          },
+          {
+            "fr": "nous parlons, vous parlez, ils parlent",
+            "de": "wir sprechen, ihr sprecht, sie sprechen"
+          }
+        ],
+        "tip": "Vor Vokal wird „je“ zu „j'“: j'aime, j'habite."
+      },
+      "fills": [
+        {
+          "sentence": "Nous ___ au foot.",
+          "answer": "jouons",
+          "options": [
+            "jouons",
+            "jouez",
+            "jouent"
+          ],
+          "translation": "Wir spielen Fußball.",
+          "why": "Zu „nous“ passt „-ons“."
+        },
+        {
+          "sentence": "Elle ___ français.",
+          "answer": "parle",
+          "options": [
+            "parle",
+            "parles",
+            "parlent"
+          ],
+          "translation": "Sie spricht Französisch.",
+          "why": "Zu „elle“ passt „-e“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l10",
+      "title": "Verben auf -er (2/2)",
+      "items": [
+        {
+          "front": "travailler",
+          "back": "arbeiten",
+          "example": "Mon père travaille à Paris.",
+          "exampleDe": "Mein Vater arbeitet in Paris."
+        },
+        {
+          "front": "danser",
+          "back": "tanzen",
+          "example": "Ma sœur danse bien.",
+          "exampleDe": "Meine Schwester tanzt gut."
+        },
+        {
+          "front": "chanter",
+          "back": "singen",
+          "example": "Nous chantons ensemble.",
+          "exampleDe": "Wir singen zusammen."
+        },
+        {
+          "front": "manger",
+          "back": "essen",
+          "example": "Vous mangez ici ?",
+          "exampleDe": "Esst ihr hier?"
+        },
+        {
+          "front": "dessiner",
+          "back": "zeichnen",
+          "example": "Je dessine un chat.",
+          "exampleDe": "Ich zeichne eine Katze."
+        },
+        {
+          "front": "cuisiner",
+          "back": "kochen",
+          "example": "Ma mère cuisine souvent.",
+          "exampleDe": "Meine Mutter kocht oft."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Ils ___ ensemble.",
+          "answer": "chantent",
+          "options": [
+            "chantent",
+            "chantons",
+            "chante"
+          ],
+          "translation": "Sie singen zusammen.",
+          "why": "Zu „ils“ passt „-ent“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l11",
+      "title": "Fragen stellen",
+      "items": [
+        {
+          "front": "est-ce que",
+          "back": "Fragewort für Ja-Nein-Fragen",
+          "example": "Est-ce que tu habites ici ?",
+          "exampleDe": "Wohnst du hier?"
+        },
+        {
+          "front": "qu'est-ce que … ?",
+          "back": "was …?",
+          "example": "Qu'est-ce que tu manges ?",
+          "exampleDe": "Was isst du?"
+        },
+        {
+          "front": "qui est-ce que … ?",
+          "back": "wen …?",
+          "example": "Qui est-ce que tu aimes ?",
+          "exampleDe": "Wen magst du?"
+        },
+        {
+          "front": "bien sûr",
+          "back": "natürlich",
+          "example": "Tu as un chien ? – Bien sûr !",
+          "exampleDe": "Hast du einen Hund? – Natürlich!"
+        },
+        {
+          "front": "peut-être",
+          "back": "vielleicht",
+          "example": "Peut-être, je ne sais pas.",
+          "exampleDe": "Vielleicht, ich weiß nicht."
+        }
+      ],
+      "explanation": {
+        "title": "Fragen mit est-ce que",
+        "paragraphs": [
+          "Ja-Nein-Fragen bildest du mit „Est-ce que …?“: „Est-ce que tu as un frère ?“ Oder du hebst die Stimme: „Tu as un frère ?“",
+          "Fragen nach Personen: „Qui est-ce ?“ Nach Sachen: „Qu'est-ce que tu aimes ?“"
+        ],
+        "examples": [
+          {
+            "fr": "Est-ce que tu as un chat ?",
+            "de": "Hast du eine Katze?"
+          },
+          {
+            "fr": "Qu'est-ce que tu aimes ?",
+            "de": "Was magst du?"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "___ tu as un frère ?",
+          "answer": "Est-ce que",
+          "options": [
+            "Est-ce que",
+            "Qu'est-ce que",
+            "Qui"
+          ],
+          "translation": "Hast du einen Bruder?",
+          "why": "Ja-Nein-Frage → „est-ce que“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l12",
+      "title": "Aufforderungen geben",
+      "items": [
+        {
+          "front": "écoute !",
+          "back": "hör zu!",
+          "example": "Écoute la musique !",
+          "exampleDe": "Hör dir die Musik an!"
+        },
+        {
+          "front": "regarde !",
+          "back": "schau!",
+          "example": "Regarde la photo !",
+          "exampleDe": "Schau das Foto an!"
+        },
+        {
+          "front": "parle !",
+          "back": "sprich!",
+          "example": "Parle français, s'il te plaît.",
+          "exampleDe": "Sprich bitte Französisch."
+        },
+        {
+          "front": "répète !",
+          "back": "wiederhole!",
+          "example": "Répète, s'il te plaît.",
+          "exampleDe": "Wiederhole bitte."
+        },
+        {
+          "front": "arrête !",
+          "back": "hör auf!",
+          "example": "Arrête, Paul !",
+          "exampleDe": "Hör auf, Paul!"
+        }
+      ],
+      "explanation": {
+        "title": "Der Imperativ",
+        "paragraphs": [
+          "Den Imperativ bildest du wie die Form für „tu“: écoute ! (hör zu!), regarde ! (schau!). Bei -er-Verben fällt das -s weg.",
+          "Für die ganze Gruppe: écoutez !, regardez !. Für „wir“: écoutons !"
+        ],
+        "examples": [
+          {
+            "fr": "Écoute, Léa !",
+            "de": "Hör zu, Léa!"
+          },
+          {
+            "fr": "Regardez la photo !",
+            "de": "Schaut das Foto an!"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "___ , Léa !",
+          "answer": "Écoute",
+          "options": [
+            "Écoute",
+            "Écoutes",
+            "Écouter"
+          ],
+          "translation": "Hör zu, Léa!",
+          "why": "Imperativ „tu“ bei -er-Verben: ohne -s."
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l13",
+      "title": "In der Familie",
+      "items": [
+        {
+          "front": "souvent",
+          "back": "oft",
+          "example": "Nous mangeons souvent ensemble.",
+          "exampleDe": "Wir essen oft zusammen."
+        },
+        {
+          "front": "toujours",
+          "back": "immer",
+          "example": "Mon père est toujours là.",
+          "exampleDe": "Mein Vater ist immer da."
+        },
+        {
+          "front": "parfois",
+          "back": "manchmal",
+          "example": "Parfois, je joue avec mon frère.",
+          "exampleDe": "Manchmal spiele ich mit meinem Bruder."
+        },
+        {
+          "front": "le week-end",
+          "back": "das Wochenende",
+          "example": "Le week-end, on joue.",
+          "exampleDe": "Am Wochenende spielen wir."
+        },
+        {
+          "front": "la maison",
+          "back": "das Haus",
+          "example": "Notre maison est grande.",
+          "exampleDe": "Unser Haus ist groß."
+        },
+        {
+          "front": "la fête",
+          "back": "das Fest",
+          "example": "Voilà une grande fête !",
+          "exampleDe": "Das ist ein großes Fest!"
+        }
+      ]
+    },
+    {
+      "id": "f7-u2-l14",
+      "title": "Wie sind sie?",
+      "items": [
+        {
+          "front": "gentil(le)",
+          "back": "lieb / nett",
+          "example": "Ma grand-mère est gentille.",
+          "exampleDe": "Meine Oma ist lieb."
+        },
+        {
+          "front": "drôle",
+          "back": "lustig",
+          "example": "Mon frère est drôle.",
+          "exampleDe": "Mein Bruder ist lustig."
+        },
+        {
+          "front": "content(e)",
+          "back": "froh / zufrieden",
+          "example": "Je suis content !",
+          "exampleDe": "Ich bin froh!"
+        },
+        {
+          "front": "triste",
+          "back": "traurig",
+          "example": "Elle est triste aujourd'hui.",
+          "exampleDe": "Sie ist heute traurig."
+        },
+        {
+          "front": "fatigué(e)",
+          "back": "müde",
+          "example": "Ma mère est fatiguée.",
+          "exampleDe": "Meine Mutter ist müde."
+        },
+        {
+          "front": "timide",
+          "back": "schüchtern",
+          "example": "Léo est un peu timide.",
+          "exampleDe": "Léo ist ein bisschen schüchtern."
+        }
+      ]
+    }
+  ]
+}

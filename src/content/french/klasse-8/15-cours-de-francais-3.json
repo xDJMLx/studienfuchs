@@ -1,0 +1,166 @@
+{
+  "id": "f8-m1",
+  "title": "En cours de français (3)",
+  "description": "Im Unterricht verständigen, das Verb lire, Aufforderungen",
+  "grade": 8,
+  "subject": "french",
+  "order": 15,
+  "book": "À plus ! 2 · Module 1 En cours de français",
+  "lessons": [
+    {
+      "id": "f8-m1-l1",
+      "title": "Das Verb lire",
+      "items": [
+        {
+          "front": "je lis",
+          "back": "ich lese",
+          "example": "Je lis une BD.",
+          "exampleDe": "Ich lese einen Comic."
+        },
+        {
+          "front": "tu lis",
+          "back": "du liest",
+          "example": "Tu lis quoi ?",
+          "exampleDe": "Was liest du?"
+        },
+        {
+          "front": "il / elle lit",
+          "back": "er / sie liest",
+          "example": "Elle lit le texte.",
+          "exampleDe": "Sie liest den Text."
+        },
+        {
+          "front": "nous lisons",
+          "back": "wir lesen",
+          "example": "Nous lisons à voix haute.",
+          "exampleDe": "Wir lesen laut."
+        },
+        {
+          "front": "vous lisez",
+          "back": "ihr lest",
+          "example": "Vous lisez bien !",
+          "exampleDe": "Ihr lest gut!"
+        },
+        {
+          "front": "ils / elles lisent",
+          "back": "sie lesen",
+          "example": "Ils lisent un livre.",
+          "exampleDe": "Sie lesen ein Buch."
+        }
+      ],
+      "explanation": {
+        "title": "lire (lesen)",
+        "paragraphs": [
+          "lire ist unregelmäßig: je lis, tu lis, il/elle lit, nous lisons, vous lisez, ils/elles lisent."
+        ],
+        "examples": [
+          {
+            "fr": "Je lis un livre.",
+            "de": "Ich lese ein Buch."
+          },
+          {
+            "fr": "Nous lisons le texte.",
+            "de": "Wir lesen den Text."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Tu ___ un livre ?",
+          "answer": "lis",
+          "options": [
+            "lis",
+            "lit",
+            "lisez"
+          ],
+          "translation": "Liest du ein Buch?",
+          "why": "Zu „tu“ passt „lis“."
+        }
+      ]
+    },
+    {
+      "id": "f8-m1-l2",
+      "title": "Aufforderungen im Unterricht",
+      "items": [
+        {
+          "front": "levez la main !",
+          "back": "meldet euch!",
+          "example": "Levez la main, s'il vous plaît.",
+          "exampleDe": "Meldet euch, bitte."
+        },
+        {
+          "front": "à voix haute",
+          "back": "laut",
+          "example": "Lisez à voix haute.",
+          "exampleDe": "Lest laut."
+        },
+        {
+          "front": "à voix basse",
+          "back": "leise",
+          "example": "Parlez à voix basse.",
+          "exampleDe": "Sprecht leise."
+        },
+        {
+          "front": "mettez-vous par deux !",
+          "back": "bildet Paare!",
+          "example": "Mettez-vous par deux !",
+          "exampleDe": "Bildet Zweiergruppen!"
+        },
+        {
+          "front": "au tableau",
+          "back": "an der Tafel",
+          "example": "Venez au tableau.",
+          "exampleDe": "Kommt an die Tafel."
+        },
+        {
+          "front": "sans dictionnaire",
+          "back": "ohne Wörterbuch",
+          "example": "Travaillez sans dictionnaire.",
+          "exampleDe": "Arbeitet ohne Wörterbuch."
+        }
+      ]
+    },
+    {
+      "id": "f8-m1-l3",
+      "title": "Nachfragen und helfen",
+      "items": [
+        {
+          "front": "pouvez-vous répéter ?",
+          "back": "können Sie das wiederholen?",
+          "example": "Pouvez-vous répéter, s'il vous plaît ?",
+          "exampleDe": "Können Sie das bitte wiederholen?"
+        },
+        {
+          "front": "plus lentement",
+          "back": "langsamer",
+          "example": "Plus lentement, s'il vous plaît.",
+          "exampleDe": "Langsamer, bitte."
+        },
+        {
+          "front": "je n'ai pas compris",
+          "back": "ich habe nicht verstanden",
+          "example": "Pardon, je n'ai pas compris.",
+          "exampleDe": "Entschuldigung, ich habe nicht verstanden."
+        },
+        {
+          "front": "c'est quelle page ?",
+          "back": "auf welcher Seite?",
+          "example": "C'est quelle page, madame ?",
+          "exampleDe": "Welche Seite ist das, Frau …?"
+        },
+        {
+          "front": "qu'est-ce que c'est en français ?",
+          "back": "wie heißt das auf Französisch?",
+          "example": "Qu'est-ce que c'est en français ?",
+          "exampleDe": "Wie heißt das auf Französisch?"
+        },
+        {
+          "front": "s'il vous plaît",
+          "back": "bitte (höflich)",
+          "example": "Un moment, s'il vous plaît.",
+          "exampleDe": "Einen Moment, bitte."
+        }
+      ]
+    }
+  ]
+}

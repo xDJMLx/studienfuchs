@@ -1,0 +1,18 @@
+{
+  "name": "Studienfuchs – Lernen für die Schule",
+  "short_name": "Studienfuchs",
+  "description": "Lern-App für die Schule: kurze Lektionen, Wiederholung nach Plan und eigene Vokabeln aus dem Schulbuch.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff1e5",
+  "theme_color": "#ffffff",
+  "lang": "de",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

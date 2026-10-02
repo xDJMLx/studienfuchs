@@ -1,0 +1,262 @@
+{
+  "id": "f7-m4",
+  "title": "À la cantine",
+  "description": "Speisekarte lesen, bestellen, das Verb prendre",
+  "grade": 7,
+  "subject": "french",
+  "order": 55,
+  "book": "À plus ! 1 · Module 4 À la cantine",
+  "lessons": [
+    {
+      "id": "f7-m4-l1",
+      "title": "Die Speisekarte",
+      "items": [
+        {
+          "front": "le menu",
+          "back": "das Menü / die Speisekarte",
+          "example": "Le menu du jour est bon.",
+          "exampleDe": "Das Tagesmenü ist gut."
+        },
+        {
+          "front": "l'entrée (f)",
+          "back": "die Vorspeise",
+          "example": "Comme entrée, je prends une salade.",
+          "exampleDe": "Als Vorspeise nehme ich einen Salat."
+        },
+        {
+          "front": "le plat",
+          "back": "das Hauptgericht",
+          "example": "Le plat est un poulet avec des frites.",
+          "exampleDe": "Das Hauptgericht ist Hähnchen mit Pommes."
+        },
+        {
+          "front": "le dessert",
+          "back": "der Nachtisch",
+          "example": "Comme dessert, il y a une glace.",
+          "exampleDe": "Als Nachtisch gibt es ein Eis."
+        },
+        {
+          "front": "la boisson",
+          "back": "das Getränk",
+          "example": "Quelle boisson tu prends ?",
+          "exampleDe": "Welches Getränk nimmst du?"
+        },
+        {
+          "front": "bon appétit",
+          "back": "guten Appetit",
+          "example": "Bon appétit, les enfants !",
+          "exampleDe": "Guten Appetit, Kinder!"
+        }
+      ]
+    },
+    {
+      "id": "f7-m4-l2",
+      "title": "Gerichte",
+      "items": [
+        {
+          "front": "la soupe",
+          "back": "die Suppe",
+          "example": "La soupe est chaude.",
+          "exampleDe": "Die Suppe ist heiß."
+        },
+        {
+          "front": "la salade",
+          "back": "der Salat",
+          "example": "La salade est verte.",
+          "exampleDe": "Der Salat ist grün."
+        },
+        {
+          "front": "le poulet",
+          "back": "das Hähnchen",
+          "example": "Le poulet est bon.",
+          "exampleDe": "Das Hähnchen ist gut."
+        },
+        {
+          "front": "les frites (f pl)",
+          "back": "die Pommes",
+          "example": "J'adore les frites.",
+          "exampleDe": "Ich liebe Pommes."
+        },
+        {
+          "front": "les pâtes (f pl)",
+          "back": "die Nudeln",
+          "example": "Les pâtes sont chaudes.",
+          "exampleDe": "Die Nudeln sind heiß."
+        },
+        {
+          "front": "le riz",
+          "back": "der Reis",
+          "example": "Je mange du riz.",
+          "exampleDe": "Ich esse Reis."
+        }
+      ]
+    },
+    {
+      "id": "f7-m4-l3",
+      "title": "Süßes und Getränke",
+      "items": [
+        {
+          "front": "la glace",
+          "back": "das Eis",
+          "example": "La glace est froide.",
+          "exampleDe": "Das Eis ist kalt."
+        },
+        {
+          "front": "le gâteau",
+          "back": "der Kuchen",
+          "example": "Le gâteau est super.",
+          "exampleDe": "Der Kuchen ist super."
+        },
+        {
+          "front": "la tarte",
+          "back": "die Torte",
+          "example": "La tarte est aux pommes.",
+          "exampleDe": "Die Torte ist mit Äpfeln."
+        },
+        {
+          "front": "l'eau (f)",
+          "back": "das Wasser",
+          "example": "Je voudrais de l'eau.",
+          "exampleDe": "Ich möchte Wasser."
+        },
+        {
+          "front": "le jus d'orange",
+          "back": "der Orangensaft",
+          "example": "Le jus d'orange est frais.",
+          "exampleDe": "Der Orangensaft ist frisch."
+        },
+        {
+          "front": "le lait",
+          "back": "die Milch",
+          "example": "Le lait est froid.",
+          "exampleDe": "Die Milch ist kalt."
+        }
+      ]
+    },
+    {
+      "id": "f7-m4-l4",
+      "title": "Das Verb prendre",
+      "items": [
+        {
+          "front": "je prends",
+          "back": "ich nehme",
+          "example": "Je prends une salade.",
+          "exampleDe": "Ich nehme einen Salat."
+        },
+        {
+          "front": "tu prends",
+          "back": "du nimmst",
+          "example": "Tu prends une soupe ?",
+          "exampleDe": "Nimmst du eine Suppe?"
+        },
+        {
+          "front": "il / elle prend",
+          "back": "er / sie nimmt",
+          "example": "Elle prend du poulet.",
+          "exampleDe": "Sie nimmt Hähnchen."
+        },
+        {
+          "front": "nous prenons",
+          "back": "wir nehmen",
+          "example": "Nous prenons le menu.",
+          "exampleDe": "Wir nehmen das Menü."
+        },
+        {
+          "front": "vous prenez",
+          "back": "ihr nehmt / Sie nehmen",
+          "example": "Vous prenez un dessert ?",
+          "exampleDe": "Nehmt ihr einen Nachtisch?"
+        },
+        {
+          "front": "ils / elles prennent",
+          "back": "sie nehmen",
+          "example": "Ils prennent de la salade.",
+          "exampleDe": "Sie nehmen Salat."
+        }
+      ],
+      "explanation": {
+        "title": "prendre (nehmen)",
+        "paragraphs": [
+          "prendre ist unregelmäßig: je prends, tu prends, il/elle prend, nous prenons, vous prenez, ils/elles prennent.",
+          "Auch „apprendre“ (lernen) und „comprendre“ (verstehen) werden so konjugiert."
+        ],
+        "examples": [
+          {
+            "fr": "Je prends une glace.",
+            "de": "Ich nehme ein Eis."
+          },
+          {
+            "fr": "Ils prennent le menu.",
+            "de": "Sie nehmen das Menü."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Je ___ une glace.",
+          "answer": "prends",
+          "options": [
+            "prends",
+            "prend",
+            "prenons"
+          ],
+          "translation": "Ich nehme ein Eis.",
+          "why": "Zu „je“ passt „prends“."
+        },
+        {
+          "sentence": "Nous ___ le menu.",
+          "answer": "prenons",
+          "options": [
+            "prenons",
+            "prenez",
+            "prennent"
+          ],
+          "translation": "Wir nehmen das Menü.",
+          "why": "Zu „nous“ passt „prenons“."
+        }
+      ]
+    },
+    {
+      "id": "f7-m4-l5",
+      "title": "Sagen, was du möchtest",
+      "items": [
+        {
+          "front": "j'ai faim",
+          "back": "ich habe Hunger",
+          "example": "J'ai faim, je mange.",
+          "exampleDe": "Ich habe Hunger, ich esse."
+        },
+        {
+          "front": "j'ai soif",
+          "back": "ich habe Durst",
+          "example": "J'ai soif, je voudrais de l'eau.",
+          "exampleDe": "Ich habe Durst, ich möchte Wasser."
+        },
+        {
+          "front": "c'est bon",
+          "back": "das ist gut / das schmeckt",
+          "example": "Mmm, c'est bon !",
+          "exampleDe": "Mmm, das schmeckt!"
+        },
+        {
+          "front": "je ne mange pas de …",
+          "back": "ich esse kein(e) …",
+          "example": "Je ne mange pas de viande.",
+          "exampleDe": "Ich esse kein Fleisch."
+        },
+        {
+          "front": "je voudrais …",
+          "back": "ich möchte …",
+          "example": "Je voudrais une soupe.",
+          "exampleDe": "Ich möchte eine Suppe."
+        },
+        {
+          "front": "merci, c'est tout",
+          "back": "danke, das ist alles",
+          "example": "Merci, c'est tout.",
+          "exampleDe": "Danke, das ist alles."
+        }
+      ]
+    }
+  ]
+}

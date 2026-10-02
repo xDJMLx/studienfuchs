@@ -1,0 +1,62 @@
+{
+  "id": "f9-culture",
+  "title": "Culture et loisirs",
+  "description": "Kino, Musik, Bücher, Meinung zu Kultur",
+  "grade": 9,
+  "order": 45,
+  "subject": "french",
+  "lessons": [
+    {
+      "id": "f9-culture-l1",
+      "title": "Im Kino",
+      "items": [
+        {"front":"le film","back":"der Film","example":"Ce film est très drôle.","exampleDe":"Dieser Film ist sehr lustig."},
+        {"front":"le réalisateur","back":"der Regisseur","example":"Le réalisateur est français.","exampleDe":"Der Regisseur ist Franzose."},
+        {"front":"l'acteur / l'actrice","back":"der Schauspieler / die Schauspielerin","example":"L'actrice joue très bien.","exampleDe":"Die Schauspielerin spielt sehr gut."},
+        {"front":"la séance","back":"die Vorstellung","example":"La séance commence à huit heures.","exampleDe":"Die Vorstellung beginnt um acht Uhr."},
+        {"front":"la comédie","back":"die Komödie","example":"J'aime regarder une comédie.","exampleDe":"Ich schaue gern eine Komödie."},
+        {"front":"le film d'horreur","back":"der Horrorfilm","example":"Je n'aime pas les films d'horreur.","exampleDe":"Ich mag keine Horrorfilme."}
+      ]
+    },
+    {
+      "id": "f9-culture-l2",
+      "title": "Musik",
+      "items": [
+        {"front":"le concert","back":"das Konzert","example":"Nous allons au concert samedi.","exampleDe":"Wir gehen am Samstag zum Konzert."},
+        {"front":"la chanson","back":"das Lied","example":"Cette chanson est très connue.","exampleDe":"Dieses Lied ist sehr bekannt."},
+        {"front":"le chanteur / la chanteuse","back":"der Sänger / die Sängerin","example":"La chanteuse a une belle voix.","exampleDe":"Die Sängerin hat eine schöne Stimme."},
+        {"front":"le groupe","back":"die Band, die Gruppe","example":"Mon groupe préféré joue ce soir.","exampleDe":"Meine Lieblingsband spielt heute Abend."},
+        {"front":"le festival","back":"das Festival","example":"Le festival dure trois jours.","exampleDe":"Das Festival dauert drei Tage."},
+        {"front":"jouer d'un instrument","back":"ein Instrument spielen","example":"J'aimerais jouer d'un instrument.","exampleDe":"Ich würde gern ein Instrument spielen."}
+      ]
+    },
+    {
+      "id": "f9-culture-l3",
+      "title": "Bücher und Lesen",
+      "items": [
+        {"front":"le roman","back":"der Roman","example":"Je lis un roman policier.","exampleDe":"Ich lese einen Kriminalroman."},
+        {"front":"la bande dessinée","back":"der Comic","example":"Il adore les bandes dessinées.","exampleDe":"Er liebt Comics."},
+        {"front":"l'auteur","back":"der Autor","example":"L'auteur est très connu.","exampleDe":"Der Autor ist sehr bekannt."},
+        {"front":"la bibliothèque","back":"die Bibliothek","example":"Je vais à la bibliothèque.","exampleDe":"Ich gehe in die Bibliothek."},
+        {"front":"emprunter","back":"ausleihen","example":"Je veux emprunter ce livre.","exampleDe":"Ich möchte dieses Buch ausleihen."},
+        {"front":"le recueil de poèmes","back":"der Gedichtband","example":"Elle lit un recueil de poèmes.","exampleDe":"Sie liest einen Gedichtband."}
+      ]
+    },
+    {
+      "id": "f9-culture-l4",
+      "title": "Seine Meinung sagen",
+      "explanation": {"title":"Gefallen und Missfallen","paragraphs":["Über Filme und Bücher sprichst du in der Vergangenheit: J'ai adoré ce film. Ce livre m'a beaucoup plu. Mit Adjektiven wie passionnant, émouvant, ennuyeux, drôle begründest du.","Empfehlung: Je le recommande ! oder Je ne te le conseille pas."],"examples":[{"fr":"J'ai adoré ce film, il est très drôle.","de":"Ich habe diesen Film geliebt, er ist sehr lustig."},{"fr":"Ce livre m'a plu.","de":"Das Buch hat mir gefallen."}]},
+      "items": [
+        {"front":"j'ai adoré","back":"ich habe es geliebt","example":"J'ai adoré ce film.","exampleDe":"Ich habe diesen Film geliebt."},
+        {"front":"ça m'a plu","back":"das hat mir gefallen","example":"Ce livre, ça m'a plu.","exampleDe":"Das Buch hat mir gefallen."},
+        {"front":"passionnant","back":"spannend, fesselnd","example":"Ce livre est passionnant.","exampleDe":"Dieses Buch ist spannend."},
+        {"front":"émouvant","back":"bewegend","example":"Le film est très émouvant.","exampleDe":"Der Film ist sehr bewegend."},
+        {"front":"ennuyeux","back":"langweilig","example":"Ce cours est ennuyeux.","exampleDe":"Dieser Unterricht ist langweilig."},
+        {"front":"je le recommande","back":"ich empfehle es","example":"Ce film est super, je le recommande.","exampleDe":"Dieser Film ist super, ich empfehle ihn."}
+      ],
+      "fills": [
+        {"sentence":"Ce livre m'___ plu.","answer":"a","options":["a","ai","est","as"],"translation":"Das Buch hat mir gefallen.","why":"plaire bildet das passé composé mit avoir: il/ça a plu."}
+      ]
+    }
+  ]
+}

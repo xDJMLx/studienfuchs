@@ -1,0 +1,162 @@
+id: f8-u1
+title: Bienvenue à Nantes
+book: À plus ! 2 · Unité 1
+desc: Stadt vorstellen, Orte, Wegbeschreibung, Bahnreise, Adjektive, Relativsätze, Verben auf -re und -ir
+order: 10
+
+= Orte in der Stadt (1/2)
+- la mairie = das Rathaus | La mairie est dans le centre-ville. = Das Rathaus liegt in der Innenstadt.
+- le château = das Schloss | Le château est très vieux. = Das Schloss ist sehr alt.
+- la cathédrale = die Kathedrale | La cathédrale est grande. = Die Kathedrale ist groß.
+- le centre-ville = die Innenstadt | Le centre-ville est joli. = Die Innenstadt ist hübsch.
+- l'église (f) = die Kirche | L'église est près de la place. = Die Kirche ist nahe am Platz.
+- l'île (f) = die Insel | L'île est au milieu de la Loire. = Die Insel liegt mitten in der Loire.
+
+= Orte in der Stadt (2/2)
+- la poste = die Post | La poste est ouverte. = Die Post ist geöffnet.
+- la banque = die Bank | La banque est fermée. = Die Bank ist geschlossen.
+- la pharmacie = die Apotheke | La pharmacie est à droite. = Die Apotheke ist rechts.
+- l'hôpital (m) = das Krankenhaus | L'hôpital est grand. = Das Krankenhaus ist groß.
+- la bibliothèque = die Bibliothek | Je lis à la bibliothèque. = Ich lese in der Bibliothek.
+- le stade = das Stadion | Le stade est grand. = Das Stadion ist groß.
+- la piscine = das Schwimmbad | La piscine est près du parc. = Das Schwimmbad ist nahe am Park.
+
+= Den Weg beschreiben
+- tout droit = geradeaus | Allez tout droit. = Gehen Sie geradeaus.
+- à gauche = nach links | Tournez à gauche. = Biegen Sie links ab.
+- à droite = nach rechts | La gare est à droite. = Der Bahnhof ist rechts.
+- tourner = abbiegen | Tournez à la deuxième rue. = Biegen Sie in die zweite Straße ab.
+- traverser = überqueren | Traversez la place. = Überqueren Sie den Platz.
+- continuer = weitergehen | Continuez tout droit. = Gehen Sie weiter geradeaus.
+- pour aller à … ? = wie komme ich zu …? | Pardon, pour aller à la gare ? = Entschuldigung, wie komme ich zum Bahnhof?
+
+= Verkehrsmittel
+- le bus = der Bus | Je prends le bus. = Ich nehme den Bus.
+- le tramway = die Straßenbahn | Le tramway passe ici. = Die Straßenbahn fährt hier.
+- le train = der Zug | Le train est rapide. = Der Zug ist schnell.
+- la voiture = das Auto | La voiture est rouge. = Das Auto ist rot.
+- le vélo = das Fahrrad | Je vais à l'école à vélo. = Ich fahre mit dem Rad zur Schule.
+- à pied = zu Fuß | Nous allons au parc à pied. = Wir gehen zu Fuß zum Park.
+
+= Mit dem Zug reisen
+- le billet = die Fahrkarte | Je prends un billet. = Ich kaufe eine Fahrkarte.
+- le quai = der Bahnsteig | Le train est sur le quai trois. = Der Zug steht an Gleis drei.
+- le voyage = die Reise | Le voyage est long. = Die Reise ist lang.
+- le départ = die Abfahrt | Le départ est à huit heures. = Die Abfahrt ist um acht Uhr.
+- l'arrivée (f) = die Ankunft | L'arrivée est à midi. = Die Ankunft ist um zwölf Uhr.
+- le retard = die Verspätung | Le train a du retard. = Der Zug hat Verspätung.
+
+= Pünktlich oder zu spät?
+- à l'heure = pünktlich | Le train est à l'heure. = Der Zug ist pünktlich.
+- en retard = zu spät | Je suis en retard ! = Ich bin zu spät!
+- en avance = zu früh | Nous sommes en avance. = Wir sind zu früh da.
+- le voyageur / la voyageuse = der Reisende / die Reisende | Les voyageurs attendent. = Die Reisenden warten.
+- annoncer = ansagen | Le chef de gare annonce le train. = Der Bahnhofsvorsteher kündigt den Zug an.
+- attention = Achtung | Attention au train ! = Achtung, der Zug!
+
+= quel / quelle
+? Der Fragebegleiter quel
+p „Quel“ fragt nach einer Auswahl und richtet sich nach dem Nomen: quel (m), quelle (f), quels (m Plural), quelles (f Plural).
+p Du kannst es am Satzanfang benutzen: Quelle heure est-il ? Oder mit „est“: Quel est ton prénom ?
+e Quelle ville ? = Welche Stadt?
+e Quels livres ? = Welche Bücher?
+- quel / quelle = welcher / welche / welches | Quel âge as-tu ? = Wie alt bist du?
+- quels / quelles = welche (Plural) | Quelles rues sont jolies ? = Welche Straßen sind hübsch?
+- quelle ville ? = welche Stadt? | Quelle ville est grande ? = Welche Stadt ist groß?
+- quel temps ? = welches Wetter? | Quel temps fait-il ? = Wie ist das Wetter?
+- quel jour ? = welcher Tag? | Quel jour est-ce aujourd'hui ? = Welcher Tag ist heute?
+f ___ ville est jolie ? | Quelle | Quelle; Quel; Quelles | Welche Stadt ist hübsch? | „ville“ ist weiblich → quelle.
+
+= Ordnungszahlen
+? Reihenfolge
+p Ordnungszahlen bildest du meist mit -ième: deuxième, troisième, quatrième. Nur „premier / première“ ist besonders.
+e le premier jour, la deuxième rue = der erste Tag, die zweite Straße
+- premier / première = erste(r) | Le premier jour est lundi. = Der erste Tag ist Montag.
+- deuxième = zweite(r) | Tournez à la deuxième rue. = Biegen Sie in die zweite Straße ab.
+- troisième = dritte(r) | Le troisième quai est là. = Der dritte Bahnsteig ist dort.
+- quatrième = vierte(r) | Mon appartement est au quatrième étage. = Meine Wohnung ist im vierten Stock.
+- dernier / dernière = letzte(r) | Le dernier train part à minuit. = Der letzte Zug fährt um Mitternacht.
+- l'étage (m) = das Stockwerk | J'habite au deuxième étage. = Ich wohne im zweiten Stock.
+
+= Adjektive vor dem Nomen
+? Stellung des Adjektivs
+p Die meisten Adjektive stehen hinter dem Nomen: une ville intéressante. Einige kurze, häufige stehen davor: grand, petit, bon, mauvais, jeune, vieux, joli, long, gros.
+p Merkhilfe: BAGS (beauté, âge, grandeur, santé/bon–mauvais).
+e un grand parc, une jolie place = ein großer Park, ein hübscher Platz
+e une ville intéressante = eine interessante Stadt
+- mauvais(e) = schlecht | C'est une mauvaise idée. = Das ist eine schlechte Idee.
+- jeune = jung | C'est un jeune garçon. = Das ist ein junger Junge.
+- long / longue = lang | C'est une longue rue. = Das ist eine lange Straße.
+- gros / grosse = dick / groß | Il y a un gros arbre. = Da ist ein dicker Baum.
+- haut(e) = hoch | La tour est haute. = Der Turm ist hoch.
+f C'est une ___ ville. | grande | grande; grand; grandes | Das ist eine große Stadt. | grand steht vor dem Nomen, weiblich: grande.
+
+= Adjektive nach dem Nomen
+- célèbre = berühmt | C'est une ville célèbre. = Das ist eine berühmte Stadt.
+- important(e) = wichtig | C'est un port important. = Das ist ein wichtiger Hafen.
+- historique = historisch | Le centre-ville est historique. = Die Innenstadt ist historisch.
+- calme = ruhig | Le quartier est calme. = Das Viertel ist ruhig.
+- bruyant(e) = laut | La rue est bruyante. = Die Straße ist laut.
+- touristique = touristisch | La ville est très touristique. = Die Stadt ist sehr touristisch.
+
+= Relativsätze mit qui und où
+? qui und où
+p „Qui“ ersetzt das Subjekt: La fille qui parle est ma cousine. „Où“ ersetzt einen Ort: La ville où j'habite est grande.
+p Du verbindest damit zwei Sätze zu einem.
+e La fille qui parle est ma cousine. = Das Mädchen, das spricht, ist meine Cousine.
+e La ville où j'habite est grande. = Die Stadt, in der ich wohne, ist groß.
+t Nach „qui“ steht direkt das Verb, nach „où“ meist ein neuer Satz.
+- qui (Relativpronomen) = der / die / das | Le garçon qui joue est mon frère. = Der Junge, der spielt, ist mein Bruder.
+- où (Relativpronomen) = in dem / wo | La ville où je suis est petite. = Die Stadt, in der ich bin, ist klein.
+- l'endroit (m) = der Ort | C'est un endroit calme. = Das ist ein ruhiger Ort.
+- la chose = die Sache | La chose qui est là est grande. = Die Sache, die da ist, ist groß.
+- le truc = das Ding (umgangssprachlich) | Le truc est là. = Das Ding ist da.
+f La fille ___ parle est ma sœur. | qui | qui; où; que | Das Mädchen, das spricht, ist meine Schwester. | Subjekt des Relativsatzes → „qui“.
+f La ville ___ j'habite est grande. | où | où; qui; que | Die Stadt, in der ich wohne, ist groß. | Ortsangabe → „où“.
+
+= Verben auf -re (1/2)
+? Verben auf -re
+p Regelmäßige Verben auf -re: Streiche -re und hänge an: -s, -s, – (nichts), -ons, -ez, -ent. Beispiel: j'attends, tu attends, il attend, nous attendons, vous attendez, ils attendent.
+e J'attends le train. = Ich warte auf den Zug.
+e Il répond à la question. = Er antwortet auf die Frage.
+t Bei „il / elle“ steht kein Endbuchstabe: il attend, elle répond.
+- attendre = warten | J'attends le bus. = Ich warte auf den Bus.
+- répondre = antworten | Je réponds à Léa. = Ich antworte Léa.
+- vendre = verkaufen | Il vend des gâteaux. = Er verkauft Kuchen.
+f J'___ le train. | attends | attends; attend; attendons | Ich warte auf den Zug. | Zu „je“ passt „-s“.
+f Elle ___ à la question. | répond | répond; réponds; répondent | Sie antwortet auf die Frage. | Zu „elle“ passt keine Endung.
+
+= Verben auf -re (2/2)
+- entendre = hören | J'entends la musique. = Ich höre die Musik.
+- perdre = verlieren | Il perd son billet. = Er verliert seine Fahrkarte.
+- descendre = hinuntergehen / aussteigen | Nous descendons à Nantes. = Wir steigen in Nantes aus.
+- rendre = zurückgeben | Je rends le livre. = Ich gebe das Buch zurück.
+- rendre visite à = besuchen | Je rends visite à ma tante. = Ich besuche meine Tante.
+f Nous ___ à Nantes. | descendons | descendons; descendez; descendent | Wir steigen in Nantes aus. | Zu „nous“ passt „-ons“.
+
+= Verben auf -ir (Typ sortir)
+? sortir, partir, dormir, servir
+p Diese Verben haben im Singular: je sors, tu sors, il sort. Im Plural: nous sortons, vous sortez, ils sortent.
+e Je sors du collège. = Ich verlasse die Schule.
+e Nous partons demain. = Wir fahren morgen.
+- sortir = hinausgehen / ausgehen | Je sors du collège à quatre heures. = Ich verlasse die Schule um vier Uhr.
+- partir = abfahren / weggehen | Le train part à midi. = Der Zug fährt um zwölf Uhr ab.
+- dormir = schlafen | Je dors dans le train. = Ich schlafe im Zug.
+- servir = bedienen / servieren | On sert du thé. = Man serviert Tee.
+f Le train ___ à midi. | part | part; pars; partent | Der Zug fährt um zwölf Uhr ab. | Zu „le train“ passt „part“.
+
+= Region und Menschen
+- la Loire = die Loire | La Loire est un grand fleuve. = Die Loire ist ein großer Fluss.
+- le fleuve = der Fluss | Le fleuve est large. = Der Fluss ist breit.
+- la région = die Region | La région est belle. = Die Region ist schön.
+- l'habitant (m) / l'habitante (f) = der Einwohner / die Einwohnerin | Nantes a beaucoup d'habitants. = Nantes hat viele Einwohner.
+- le port = der Hafen | Le port est grand. = Der Hafen ist groß.
+- la côte = die Küste | La côte est près de Nantes. = Die Küste liegt nahe bei Nantes.
+
+= Wo und wie wohnst du?
+- la campagne = das Land | J'habite à la campagne. = Ich wohne auf dem Land.
+- le village = das Dorf | Mon village est petit. = Mein Dorf ist klein.
+- la banlieue = der Vorort | Nous habitons en banlieue. = Wir wohnen im Vorort.
+- au bord de = am Rand von / an | Nous habitons au bord de la mer. = Wir wohnen am Meer.
+- le bâtiment = das Gebäude | Le bâtiment est très vieux. = Das Gebäude ist sehr alt.
+- la vue = die Aussicht | La vue est belle. = Die Aussicht ist schön.

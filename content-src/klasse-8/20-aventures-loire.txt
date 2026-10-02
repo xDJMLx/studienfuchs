@@ -1,0 +1,176 @@
+id: f8-u2
+title: Aventures en Loire-Atlantique
+book: À plus ! 2 · Unité 2
+desc: Wochenende und Freizeit, über Vergangenes sprechen, passé composé mit avoir und être
+order: 20
+
+= Vergangenes ausdrücken
+- hier = gestern | Hier, j'ai joué au foot. = Gestern habe ich Fußball gespielt.
+- avant-hier = vorgestern | Avant-hier, j'ai travaillé. = Vorgestern habe ich gearbeitet.
+- hier soir = gestern Abend | Hier soir, j'ai regardé un film. = Gestern Abend habe ich einen Film gesehen.
+- la semaine dernière = letzte Woche | La semaine dernière, nous sommes allés à Nantes. = Letzte Woche waren wir in Nantes.
+- il y a deux jours = vor zwei Tagen | Il y a deux jours, j'ai vu Léa. = Vor zwei Tagen habe ich Léa gesehen.
+- le week-end dernier = letztes Wochenende | Le week-end dernier, nous avons fait du vélo. = Letztes Wochenende sind wir Rad gefahren.
+
+= Das passé composé mit avoir
+? passé composé mit avoir
+p Das passé composé besteht aus „avoir“ (konjugiert) + Partizip: j'ai joué, tu as joué, il a joué, nous avons joué, vous avez joué, ils ont joué.
+p Das Partizip der -er-Verben endet auf -é: jouer → joué, manger → mangé, visiter → visité.
+e J'ai joué au foot. = Ich habe Fußball gespielt.
+e Nous avons visité Nantes. = Wir haben Nantes besichtigt.
+t Das Partizip bleibt beim passé composé mit avoir unverändert.
+- j'ai joué = ich habe gespielt | J'ai joué au foot hier. = Ich habe gestern Fußball gespielt.
+- tu as mangé = du hast gegessen | Tu as mangé une glace ? = Hast du ein Eis gegessen?
+- il a regardé = er hat angeschaut | Il a regardé un film. = Er hat einen Film angeschaut.
+- nous avons visité = wir haben besichtigt | Nous avons visité le château. = Wir haben das Schloss besichtigt.
+- vous avez chanté = ihr habt gesungen | Vous avez chanté ensemble. = Ihr habt zusammen gesungen.
+- ils ont dansé = sie haben getanzt | Ils ont dansé toute la nuit. = Sie haben die ganze Nacht getanzt.
+f Hier, j'___ joué au foot. | ai | ai; suis; ont | Gestern habe ich Fußball gespielt. | Mit „jouer“ bildest du das passé composé mit avoir.
+f Nous ___ mangé ici. | avons | avons; sommes; avez | Wir haben hier gegessen. | Zu „nous“ passt „avons“.
+
+= Partizipien auf -u und -i
+? Partizip bei -re und -ir
+p Verben auf -re bilden das Partizip meist auf -u: attendre → attendu, répondre → répondu, vendre → vendu, perdre → perdu.
+p Verben auf -ir bilden es oft auf -i: finir → fini, dormir → dormi, servir → servi.
+e J'ai attendu le train. = Ich habe auf den Zug gewartet.
+e Il a dormi dans le bus. = Er hat im Bus geschlafen.
+- j'ai attendu = ich habe gewartet | J'ai attendu une heure. = Ich habe eine Stunde gewartet.
+- j'ai répondu = ich habe geantwortet | J'ai répondu à Léa. = Ich habe Léa geantwortet.
+- j'ai vendu = ich habe verkauft | J'ai vendu mon vélo. = Ich habe mein Fahrrad verkauft.
+- j'ai perdu = ich habe verloren | J'ai perdu mon billet. = Ich habe meine Fahrkarte verloren.
+- j'ai dormi = ich habe geschlafen | J'ai dormi dans le train. = Ich habe im Zug geschlafen.
+f Hier, j'ai ___ mon billet. | perdu | perdu; perdé; perdi | Gestern habe ich meine Fahrkarte verloren. | Verben auf -re → Partizip auf -u.
+
+= Unregelmäßige Partizipien (1/2)
+? Wichtige unregelmäßige Partizipien
+p Diese Partizipien lernst du am besten auswendig: faire → fait, avoir → eu, être → été, prendre → pris, voir → vu.
+e J'ai fait du sport. = Ich habe Sport gemacht.
+e Nous avons pris le bus. = Wir haben den Bus genommen.
+- j'ai fait = ich habe gemacht | J'ai fait un gâteau. = Ich habe einen Kuchen gemacht.
+- j'ai eu = ich hatte / ich habe gehabt | J'ai eu un cadeau. = Ich habe ein Geschenk bekommen.
+- j'ai été = ich bin gewesen | J'ai été à la plage. = Ich war am Strand.
+- j'ai pris = ich habe genommen | J'ai pris le tramway. = Ich habe die Straßenbahn genommen.
+- j'ai vu = ich habe gesehen | J'ai vu un film. = Ich habe einen Film gesehen.
+f Hier, j'ai ___ du sport. | fait | fait; fais; faisé | Gestern habe ich Sport gemacht. | Partizip von faire = fait.
+
+= Unregelmäßige Partizipien (2/2)
+- j'ai bu = ich habe getrunken | J'ai bu de l'eau. = Ich habe Wasser getrunken.
+- j'ai lu = ich habe gelesen | J'ai lu un livre. = Ich habe ein Buch gelesen.
+- j'ai pu = ich konnte | Je n'ai pas pu venir. = Ich konnte nicht kommen.
+- j'ai voulu = ich wollte | J'ai voulu jouer. = Ich wollte spielen.
+- j'ai dû = ich musste | J'ai dû rester à la maison. = Ich musste zu Hause bleiben.
+- j'ai dit = ich habe gesagt | J'ai dit non. = Ich habe nein gesagt.
+
+= Das passé composé mit être
+? passé composé mit être
+p Einige Verben bilden das passé composé mit „être“, vor allem Verben der Bewegung: aller, venir, arriver, partir, sortir, entrer, rester, tomber, monter, descendre.
+p Das Partizip richtet sich nach dem Subjekt: Je suis allé (Junge) – Je suis allée (Mädchen). Plural: nous sommes allés.
+e Je suis allé à Nantes. = Ich bin nach Nantes gefahren.
+e Elle est arrivée hier. = Sie ist gestern angekommen.
+t Eselsbrücke: „Maison d'être“ – die Verben mit être sind Wege rein, raus, hoch, runter.
+- je suis allé(e) = ich bin gegangen / gefahren | Je suis allé à la plage. = Ich bin zum Strand gegangen.
+- je suis venu(e) = ich bin gekommen | Je suis venue en bus. = Ich bin mit dem Bus gekommen.
+- je suis arrivé(e) = ich bin angekommen | Je suis arrivé à midi. = Ich bin um zwölf Uhr angekommen.
+- je suis parti(e) = ich bin abgefahren | Je suis parti à huit heures. = Ich bin um acht Uhr abgefahren.
+- je suis resté(e) = ich bin geblieben | Je suis resté à la maison. = Ich bin zu Hause geblieben.
+- je suis sorti(e) = ich bin ausgegangen | Je suis sortie avec Léa. = Ich bin mit Léa ausgegangen.
+f Hier, je ___ allé au parc. | suis | suis; ai; es | Gestern bin ich in den Park gegangen. | „aller“ bildet das passé composé mit être.
+f Elle est ___ à midi. | arrivée | arrivée; arrivé; arrivées | Sie ist um zwölf Uhr angekommen. | Das Partizip passt sich an „elle“ an: arrivée.
+
+= Weitere Verben mit être
+- entrer = eintreten | Je suis entré dans le café. = Ich bin ins Café gegangen.
+- tomber = fallen | Il est tombé dans l'eau. = Er ist ins Wasser gefallen.
+- monter = hinaufgehen / einsteigen | Je suis monté dans le tramway. = Ich bin in die Straßenbahn gestiegen.
+- descendre = hinuntergehen / aussteigen | Nous sommes descendus à la gare. = Wir sind am Bahnhof ausgestiegen.
+- rentrer = nach Hause gehen | Elle est rentrée tard. = Sie ist spät nach Hause gekommen.
+- naître = geboren werden | Il est né à Nantes. = Er ist in Nantes geboren.
+
+= Verneinung im passé composé
+? Verneinung mit passé composé
+p Die Verneinung umschließt das konjugierte Hilfsverb: Je n'ai pas joué. Je ne suis pas allé.
+p Weitere Verneinungen stehen ebenso: ne … jamais, ne … plus.
+e Je n'ai pas joué au foot. = Ich habe nicht Fußball gespielt.
+e Elle n'est pas venue. = Sie ist nicht gekommen.
+- je n'ai pas … = ich habe nicht … | Je n'ai pas mangé. = Ich habe nicht gegessen.
+- je ne suis pas allé(e) = ich bin nicht gegangen | Je ne suis pas allée à la plage. = Ich bin nicht zum Strand gegangen.
+- je n'ai jamais … = ich habe nie … | Je n'ai jamais vu la mer. = Ich habe nie das Meer gesehen.
+- je n'ai plus … = ich habe nicht mehr … | Je n'ai plus de billet. = Ich habe keine Fahrkarte mehr.
+- pas encore = noch nicht | Je n'ai pas encore mangé. = Ich habe noch nicht gegessen.
+f Je ___ ai pas joué. | n' | n'; ne; pas | Ich habe nicht gespielt. | Vor „ai“ steht n'.
+
+= Wie war's?
+? c'était
+p „C'était“ beschreibt, wie etwas war: C'était super ! C'était long. Es steht mit einem Adjektiv.
+e C'était super ! = Es war super!
+e C'était trop long. = Es war zu lang.
+- c'était super = es war super | Le week-end, c'était super ! = Das Wochenende war super!
+- c'était génial = es war genial | Le concert, c'était génial ! = Das Konzert war genial!
+- c'était nul = es war doof | Le film, c'était nul. = Der Film war doof.
+- c'était long = es war lang | Le voyage, c'était long. = Die Reise war lang.
+- c'était comment ? = wie war's? | Ton week-end, c'était comment ? = Wie war dein Wochenende?
+f Le film ? ___ nul. | C'était | C'était; C'est; Il a | Der Film? Er war doof. | Vergangenheit → „c'était“.
+
+= Betonte Personalpronomen
+? moi, toi, lui, elle …
+p Die betonten Pronomen stehen nach Präpositionen und allein: avec moi, pour toi, chez lui, avec elle, pour nous, avec vous, chez eux, avec elles.
+p Sie dienen auch der Betonung: Moi, je joue. Et toi ?
+e Je joue avec toi. = Ich spiele mit dir.
+e Elle va chez lui. = Sie geht zu ihm.
+- moi = ich / mich / mir | Viens avec moi ! = Komm mit mir!
+- toi = du / dich / dir | C'est pour toi. = Das ist für dich.
+- lui = er / ihm | Je vais chez lui. = Ich gehe zu ihm.
+- eux = sie (m, betont) | Je joue avec eux. = Ich spiele mit ihnen.
+- elles = sie (f, betont) | Je mange avec elles. = Ich esse mit ihnen.
+f Je joue avec ___. | toi | toi; tu; te | Ich spiele mit dir. | Nach einer Präposition steht das betonte Pronomen.
+
+= Aktivitäten
+- la randonnée = die Wanderung | Nous avons fait une randonnée. = Wir haben eine Wanderung gemacht.
+- le tour = der Rundgang / die Tour | Nous faisons un tour en ville. = Wir machen einen Stadtbummel.
+- le shopping = das Einkaufen | J'ai fait du shopping. = Ich war einkaufen.
+- la sortie = der Ausflug | La sortie, c'était super. = Der Ausflug war super.
+- le concert = das Konzert | Le concert, c'était génial. = Das Konzert war genial.
+- le match = das Spiel | Le match, c'était long. = Das Spiel war lang.
+
+= jouer à und jouer de
+? Spiele und Instrumente
+p Bei Spielen und Sportarten: jouer à + Artikel: jouer au foot, jouer aux cartes. Bei Instrumenten: jouer de + Artikel: jouer de la guitare, jouer du piano.
+e Je joue au foot. = Ich spiele Fußball.
+e Il joue de la guitare. = Er spielt Gitarre.
+- jouer au foot = Fußball spielen | Je joue au foot le samedi. = Samstags spiele ich Fußball.
+- jouer aux cartes = Karten spielen | Nous jouons aux cartes. = Wir spielen Karten.
+- jouer de la guitare = Gitarre spielen | Elle joue de la guitare. = Sie spielt Gitarre.
+- jouer du piano = Klavier spielen | Je joue du piano. = Ich spiele Klavier.
+- jouer à l'ordinateur = am Computer spielen | Il joue à l'ordinateur. = Er spielt am Computer.
+f Elle joue ___ guitare. | de la | de la; à la; du | Sie spielt Gitarre. | Instrument → jouer de + Artikel.
+f Il joue ___ foot. | au | au; du; de la | Er spielt Fußball. | Sport → jouer à + Artikel.
+
+= Zahlen über 1000
+- mille = tausend | Il y a mille élèves. = Es gibt tausend Schüler.
+- deux mille = zweitausend | Deux mille personnes sont là. = Zweitausend Personen sind da.
+- dix mille = zehntausend | Dix mille personnes ont chanté. = Zehntausend Personen haben gesungen.
+- cent mille = hunderttausend | Nantes a trois cent mille habitants. = Nantes hat dreihunderttausend Einwohner.
+- un million = eine Million | Un million de personnes habitent ici. = Eine Million Menschen wohnen hier.
+
+= Persönlichkeiten und Geschichten
+- l'écrivain (m) = der Schriftsteller | L'écrivain est célèbre. = Der Schriftsteller ist berühmt.
+- le roman = der Roman | J'ai lu un roman. = Ich habe einen Roman gelesen.
+- l'aventure (f) = das Abenteuer | C'est une grande aventure. = Das ist ein großes Abenteuer.
+- le bateau = das Boot | Le bateau est sur la Loire. = Das Boot ist auf der Loire.
+- le capitaine = der Kapitän | Le capitaine est courageux. = Der Kapitän ist mutig.
+- l'histoire (f) = die Geschichte | L'histoire est longue. = Die Geschichte ist lang.
+
+= Erzählen
+- d'abord = zuerst | D'abord, nous avons mangé. = Zuerst haben wir gegessen.
+- puis = dann | Puis, nous avons joué. = Dann haben wir gespielt.
+- enfin = schließlich | Enfin, nous sommes rentrés. = Schließlich sind wir heimgegangen.
+- à la fin = am Ende | À la fin, j'ai dormi. = Am Ende habe ich geschlafen.
+- tout à coup = plötzlich | Tout à coup, il a plu. = Plötzlich hat es geregnet.
+- raconter = erzählen | Je raconte mon week-end. = Ich erzähle von meinem Wochenende.
+
+= Hörspiel aufnehmen
+- le bruit = das Geräusch | J'entends un bruit. = Ich höre ein Geräusch.
+- le son = der Ton | Le son est bon. = Der Ton ist gut.
+- la voix = die Stimme | Sa voix est belle. = Ihre Stimme ist schön.
+- enregistrer = aufnehmen | Nous enregistrons une histoire. = Wir nehmen eine Geschichte auf.
+- le micro = das Mikrofon | Le micro est sur la table. = Das Mikrofon steht auf dem Tisch.
+- la scène = die Szene | La scène est drôle. = Die Szene ist lustig.

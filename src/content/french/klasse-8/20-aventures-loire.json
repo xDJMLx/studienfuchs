@@ -1,0 +1,913 @@
+{
+  "id": "f8-u2",
+  "title": "Aventures en Loire-Atlantique",
+  "description": "Wochenende und Freizeit, über Vergangenes sprechen, passé composé mit avoir und être",
+  "grade": 8,
+  "subject": "french",
+  "order": 20,
+  "book": "À plus ! 2 · Unité 2",
+  "lessons": [
+    {
+      "id": "f8-u2-l1",
+      "title": "Vergangenes ausdrücken",
+      "items": [
+        {
+          "front": "hier",
+          "back": "gestern",
+          "example": "Hier, j'ai joué au foot.",
+          "exampleDe": "Gestern habe ich Fußball gespielt."
+        },
+        {
+          "front": "avant-hier",
+          "back": "vorgestern",
+          "example": "Avant-hier, j'ai travaillé.",
+          "exampleDe": "Vorgestern habe ich gearbeitet."
+        },
+        {
+          "front": "hier soir",
+          "back": "gestern Abend",
+          "example": "Hier soir, j'ai regardé un film.",
+          "exampleDe": "Gestern Abend habe ich einen Film gesehen."
+        },
+        {
+          "front": "la semaine dernière",
+          "back": "letzte Woche",
+          "example": "La semaine dernière, nous sommes allés à Nantes.",
+          "exampleDe": "Letzte Woche waren wir in Nantes."
+        },
+        {
+          "front": "il y a deux jours",
+          "back": "vor zwei Tagen",
+          "example": "Il y a deux jours, j'ai vu Léa.",
+          "exampleDe": "Vor zwei Tagen habe ich Léa gesehen."
+        },
+        {
+          "front": "le week-end dernier",
+          "back": "letztes Wochenende",
+          "example": "Le week-end dernier, nous avons fait du vélo.",
+          "exampleDe": "Letztes Wochenende sind wir Rad gefahren."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l2",
+      "title": "Das passé composé mit avoir",
+      "items": [
+        {
+          "front": "j'ai joué",
+          "back": "ich habe gespielt",
+          "example": "J'ai joué au foot hier.",
+          "exampleDe": "Ich habe gestern Fußball gespielt."
+        },
+        {
+          "front": "tu as mangé",
+          "back": "du hast gegessen",
+          "example": "Tu as mangé une glace ?",
+          "exampleDe": "Hast du ein Eis gegessen?"
+        },
+        {
+          "front": "il a regardé",
+          "back": "er hat angeschaut",
+          "example": "Il a regardé un film.",
+          "exampleDe": "Er hat einen Film angeschaut."
+        },
+        {
+          "front": "nous avons visité",
+          "back": "wir haben besichtigt",
+          "example": "Nous avons visité le château.",
+          "exampleDe": "Wir haben das Schloss besichtigt."
+        },
+        {
+          "front": "vous avez chanté",
+          "back": "ihr habt gesungen",
+          "example": "Vous avez chanté ensemble.",
+          "exampleDe": "Ihr habt zusammen gesungen."
+        },
+        {
+          "front": "ils ont dansé",
+          "back": "sie haben getanzt",
+          "example": "Ils ont dansé toute la nuit.",
+          "exampleDe": "Sie haben die ganze Nacht getanzt."
+        }
+      ],
+      "explanation": {
+        "title": "passé composé mit avoir",
+        "paragraphs": [
+          "Das passé composé besteht aus „avoir“ (konjugiert) + Partizip: j'ai joué, tu as joué, il a joué, nous avons joué, vous avez joué, ils ont joué.",
+          "Das Partizip der -er-Verben endet auf -é: jouer → joué, manger → mangé, visiter → visité."
+        ],
+        "examples": [
+          {
+            "fr": "J'ai joué au foot.",
+            "de": "Ich habe Fußball gespielt."
+          },
+          {
+            "fr": "Nous avons visité Nantes.",
+            "de": "Wir haben Nantes besichtigt."
+          }
+        ],
+        "tip": "Das Partizip bleibt beim passé composé mit avoir unverändert."
+      },
+      "fills": [
+        {
+          "sentence": "Hier, j'___ joué au foot.",
+          "answer": "ai",
+          "options": [
+            "ai",
+            "suis",
+            "ont"
+          ],
+          "translation": "Gestern habe ich Fußball gespielt.",
+          "why": "Mit „jouer“ bildest du das passé composé mit avoir."
+        },
+        {
+          "sentence": "Nous ___ mangé ici.",
+          "answer": "avons",
+          "options": [
+            "avons",
+            "sommes",
+            "avez"
+          ],
+          "translation": "Wir haben hier gegessen.",
+          "why": "Zu „nous“ passt „avons“."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l3",
+      "title": "Partizipien auf -u und -i",
+      "items": [
+        {
+          "front": "j'ai attendu",
+          "back": "ich habe gewartet",
+          "example": "J'ai attendu une heure.",
+          "exampleDe": "Ich habe eine Stunde gewartet."
+        },
+        {
+          "front": "j'ai répondu",
+          "back": "ich habe geantwortet",
+          "example": "J'ai répondu à Léa.",
+          "exampleDe": "Ich habe Léa geantwortet."
+        },
+        {
+          "front": "j'ai vendu",
+          "back": "ich habe verkauft",
+          "example": "J'ai vendu mon vélo.",
+          "exampleDe": "Ich habe mein Fahrrad verkauft."
+        },
+        {
+          "front": "j'ai perdu",
+          "back": "ich habe verloren",
+          "example": "J'ai perdu mon billet.",
+          "exampleDe": "Ich habe meine Fahrkarte verloren."
+        },
+        {
+          "front": "j'ai dormi",
+          "back": "ich habe geschlafen",
+          "example": "J'ai dormi dans le train.",
+          "exampleDe": "Ich habe im Zug geschlafen."
+        }
+      ],
+      "explanation": {
+        "title": "Partizip bei -re und -ir",
+        "paragraphs": [
+          "Verben auf -re bilden das Partizip meist auf -u: attendre → attendu, répondre → répondu, vendre → vendu, perdre → perdu.",
+          "Verben auf -ir bilden es oft auf -i: finir → fini, dormir → dormi, servir → servi."
+        ],
+        "examples": [
+          {
+            "fr": "J'ai attendu le train.",
+            "de": "Ich habe auf den Zug gewartet."
+          },
+          {
+            "fr": "Il a dormi dans le bus.",
+            "de": "Er hat im Bus geschlafen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Hier, j'ai ___ mon billet.",
+          "answer": "perdu",
+          "options": [
+            "perdu",
+            "perdé",
+            "perdi"
+          ],
+          "translation": "Gestern habe ich meine Fahrkarte verloren.",
+          "why": "Verben auf -re → Partizip auf -u."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l4",
+      "title": "Unregelmäßige Partizipien (1/2)",
+      "items": [
+        {
+          "front": "j'ai fait",
+          "back": "ich habe gemacht",
+          "example": "J'ai fait un gâteau.",
+          "exampleDe": "Ich habe einen Kuchen gemacht."
+        },
+        {
+          "front": "j'ai eu",
+          "back": "ich hatte / ich habe gehabt",
+          "example": "J'ai eu un cadeau.",
+          "exampleDe": "Ich habe ein Geschenk bekommen."
+        },
+        {
+          "front": "j'ai été",
+          "back": "ich bin gewesen",
+          "example": "J'ai été à la plage.",
+          "exampleDe": "Ich war am Strand."
+        },
+        {
+          "front": "j'ai pris",
+          "back": "ich habe genommen",
+          "example": "J'ai pris le tramway.",
+          "exampleDe": "Ich habe die Straßenbahn genommen."
+        },
+        {
+          "front": "j'ai vu",
+          "back": "ich habe gesehen",
+          "example": "J'ai vu un film.",
+          "exampleDe": "Ich habe einen Film gesehen."
+        }
+      ],
+      "explanation": {
+        "title": "Wichtige unregelmäßige Partizipien",
+        "paragraphs": [
+          "Diese Partizipien lernst du am besten auswendig: faire → fait, avoir → eu, être → été, prendre → pris, voir → vu."
+        ],
+        "examples": [
+          {
+            "fr": "J'ai fait du sport.",
+            "de": "Ich habe Sport gemacht."
+          },
+          {
+            "fr": "Nous avons pris le bus.",
+            "de": "Wir haben den Bus genommen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Hier, j'ai ___ du sport.",
+          "answer": "fait",
+          "options": [
+            "fait",
+            "fais",
+            "faisé"
+          ],
+          "translation": "Gestern habe ich Sport gemacht.",
+          "why": "Partizip von faire = fait."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l5",
+      "title": "Unregelmäßige Partizipien (2/2)",
+      "items": [
+        {
+          "front": "j'ai bu",
+          "back": "ich habe getrunken",
+          "example": "J'ai bu de l'eau.",
+          "exampleDe": "Ich habe Wasser getrunken."
+        },
+        {
+          "front": "j'ai lu",
+          "back": "ich habe gelesen",
+          "example": "J'ai lu un livre.",
+          "exampleDe": "Ich habe ein Buch gelesen."
+        },
+        {
+          "front": "j'ai pu",
+          "back": "ich konnte",
+          "example": "Je n'ai pas pu venir.",
+          "exampleDe": "Ich konnte nicht kommen."
+        },
+        {
+          "front": "j'ai voulu",
+          "back": "ich wollte",
+          "example": "J'ai voulu jouer.",
+          "exampleDe": "Ich wollte spielen."
+        },
+        {
+          "front": "j'ai dû",
+          "back": "ich musste",
+          "example": "J'ai dû rester à la maison.",
+          "exampleDe": "Ich musste zu Hause bleiben."
+        },
+        {
+          "front": "j'ai dit",
+          "back": "ich habe gesagt",
+          "example": "J'ai dit non.",
+          "exampleDe": "Ich habe nein gesagt."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l6",
+      "title": "Das passé composé mit être",
+      "items": [
+        {
+          "front": "je suis allé(e)",
+          "back": "ich bin gegangen / gefahren",
+          "example": "Je suis allé à la plage.",
+          "exampleDe": "Ich bin zum Strand gegangen."
+        },
+        {
+          "front": "je suis venu(e)",
+          "back": "ich bin gekommen",
+          "example": "Je suis venue en bus.",
+          "exampleDe": "Ich bin mit dem Bus gekommen."
+        },
+        {
+          "front": "je suis arrivé(e)",
+          "back": "ich bin angekommen",
+          "example": "Je suis arrivé à midi.",
+          "exampleDe": "Ich bin um zwölf Uhr angekommen."
+        },
+        {
+          "front": "je suis parti(e)",
+          "back": "ich bin abgefahren",
+          "example": "Je suis parti à huit heures.",
+          "exampleDe": "Ich bin um acht Uhr abgefahren."
+        },
+        {
+          "front": "je suis resté(e)",
+          "back": "ich bin geblieben",
+          "example": "Je suis resté à la maison.",
+          "exampleDe": "Ich bin zu Hause geblieben."
+        },
+        {
+          "front": "je suis sorti(e)",
+          "back": "ich bin ausgegangen",
+          "example": "Je suis sortie avec Léa.",
+          "exampleDe": "Ich bin mit Léa ausgegangen."
+        }
+      ],
+      "explanation": {
+        "title": "passé composé mit être",
+        "paragraphs": [
+          "Einige Verben bilden das passé composé mit „être“, vor allem Verben der Bewegung: aller, venir, arriver, partir, sortir, entrer, rester, tomber, monter, descendre.",
+          "Das Partizip richtet sich nach dem Subjekt: Je suis allé (Junge) – Je suis allée (Mädchen). Plural: nous sommes allés."
+        ],
+        "examples": [
+          {
+            "fr": "Je suis allé à Nantes.",
+            "de": "Ich bin nach Nantes gefahren."
+          },
+          {
+            "fr": "Elle est arrivée hier.",
+            "de": "Sie ist gestern angekommen."
+          }
+        ],
+        "tip": "Eselsbrücke: „Maison d'être“ – die Verben mit être sind Wege rein, raus, hoch, runter."
+      },
+      "fills": [
+        {
+          "sentence": "Hier, je ___ allé au parc.",
+          "answer": "suis",
+          "options": [
+            "suis",
+            "ai",
+            "es"
+          ],
+          "translation": "Gestern bin ich in den Park gegangen.",
+          "why": "„aller“ bildet das passé composé mit être."
+        },
+        {
+          "sentence": "Elle est ___ à midi.",
+          "answer": "arrivée",
+          "options": [
+            "arrivée",
+            "arrivé",
+            "arrivées"
+          ],
+          "translation": "Sie ist um zwölf Uhr angekommen.",
+          "why": "Das Partizip passt sich an „elle“ an: arrivée."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l7",
+      "title": "Weitere Verben mit être",
+      "items": [
+        {
+          "front": "entrer",
+          "back": "eintreten",
+          "example": "Je suis entré dans le café.",
+          "exampleDe": "Ich bin ins Café gegangen."
+        },
+        {
+          "front": "tomber",
+          "back": "fallen",
+          "example": "Il est tombé dans l'eau.",
+          "exampleDe": "Er ist ins Wasser gefallen."
+        },
+        {
+          "front": "monter",
+          "back": "hinaufgehen / einsteigen",
+          "example": "Je suis monté dans le tramway.",
+          "exampleDe": "Ich bin in die Straßenbahn gestiegen."
+        },
+        {
+          "front": "descendre",
+          "back": "hinuntergehen / aussteigen",
+          "example": "Nous sommes descendus à la gare.",
+          "exampleDe": "Wir sind am Bahnhof ausgestiegen."
+        },
+        {
+          "front": "rentrer",
+          "back": "nach Hause gehen",
+          "example": "Elle est rentrée tard.",
+          "exampleDe": "Sie ist spät nach Hause gekommen."
+        },
+        {
+          "front": "naître",
+          "back": "geboren werden",
+          "example": "Il est né à Nantes.",
+          "exampleDe": "Er ist in Nantes geboren."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l8",
+      "title": "Verneinung im passé composé",
+      "items": [
+        {
+          "front": "je n'ai pas …",
+          "back": "ich habe nicht …",
+          "example": "Je n'ai pas mangé.",
+          "exampleDe": "Ich habe nicht gegessen."
+        },
+        {
+          "front": "je ne suis pas allé(e)",
+          "back": "ich bin nicht gegangen",
+          "example": "Je ne suis pas allée à la plage.",
+          "exampleDe": "Ich bin nicht zum Strand gegangen."
+        },
+        {
+          "front": "je n'ai jamais …",
+          "back": "ich habe nie …",
+          "example": "Je n'ai jamais vu la mer.",
+          "exampleDe": "Ich habe nie das Meer gesehen."
+        },
+        {
+          "front": "je n'ai plus …",
+          "back": "ich habe nicht mehr …",
+          "example": "Je n'ai plus de billet.",
+          "exampleDe": "Ich habe keine Fahrkarte mehr."
+        },
+        {
+          "front": "pas encore",
+          "back": "noch nicht",
+          "example": "Je n'ai pas encore mangé.",
+          "exampleDe": "Ich habe noch nicht gegessen."
+        }
+      ],
+      "explanation": {
+        "title": "Verneinung mit passé composé",
+        "paragraphs": [
+          "Die Verneinung umschließt das konjugierte Hilfsverb: Je n'ai pas joué. Je ne suis pas allé.",
+          "Weitere Verneinungen stehen ebenso: ne … jamais, ne … plus."
+        ],
+        "examples": [
+          {
+            "fr": "Je n'ai pas joué au foot.",
+            "de": "Ich habe nicht Fußball gespielt."
+          },
+          {
+            "fr": "Elle n'est pas venue.",
+            "de": "Sie ist nicht gekommen."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Je ___ ai pas joué.",
+          "answer": "n'",
+          "options": [
+            "n'",
+            "ne",
+            "pas"
+          ],
+          "translation": "Ich habe nicht gespielt.",
+          "why": "Vor „ai“ steht n'."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l9",
+      "title": "Wie war's?",
+      "items": [
+        {
+          "front": "c'était super",
+          "back": "es war super",
+          "example": "Le week-end, c'était super !",
+          "exampleDe": "Das Wochenende war super!"
+        },
+        {
+          "front": "c'était génial",
+          "back": "es war genial",
+          "example": "Le concert, c'était génial !",
+          "exampleDe": "Das Konzert war genial!"
+        },
+        {
+          "front": "c'était nul",
+          "back": "es war doof",
+          "example": "Le film, c'était nul.",
+          "exampleDe": "Der Film war doof."
+        },
+        {
+          "front": "c'était long",
+          "back": "es war lang",
+          "example": "Le voyage, c'était long.",
+          "exampleDe": "Die Reise war lang."
+        },
+        {
+          "front": "c'était comment ?",
+          "back": "wie war's?",
+          "example": "Ton week-end, c'était comment ?",
+          "exampleDe": "Wie war dein Wochenende?"
+        }
+      ],
+      "explanation": {
+        "title": "c'était",
+        "paragraphs": [
+          "„C'était“ beschreibt, wie etwas war: C'était super ! C'était long. Es steht mit einem Adjektiv."
+        ],
+        "examples": [
+          {
+            "fr": "C'était super !",
+            "de": "Es war super!"
+          },
+          {
+            "fr": "C'était trop long.",
+            "de": "Es war zu lang."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Le film ? ___ nul.",
+          "answer": "C'était",
+          "options": [
+            "C'était",
+            "C'est",
+            "Il a"
+          ],
+          "translation": "Der Film? Er war doof.",
+          "why": "Vergangenheit → „c'était“."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l10",
+      "title": "Betonte Personalpronomen",
+      "items": [
+        {
+          "front": "moi",
+          "back": "ich / mich / mir",
+          "example": "Viens avec moi !",
+          "exampleDe": "Komm mit mir!"
+        },
+        {
+          "front": "toi",
+          "back": "du / dich / dir",
+          "example": "C'est pour toi.",
+          "exampleDe": "Das ist für dich."
+        },
+        {
+          "front": "lui",
+          "back": "er / ihm",
+          "example": "Je vais chez lui.",
+          "exampleDe": "Ich gehe zu ihm."
+        },
+        {
+          "front": "eux",
+          "back": "sie (m, betont)",
+          "example": "Je joue avec eux.",
+          "exampleDe": "Ich spiele mit ihnen."
+        },
+        {
+          "front": "elles",
+          "back": "sie (f, betont)",
+          "example": "Je mange avec elles.",
+          "exampleDe": "Ich esse mit ihnen."
+        }
+      ],
+      "explanation": {
+        "title": "moi, toi, lui, elle …",
+        "paragraphs": [
+          "Die betonten Pronomen stehen nach Präpositionen und allein: avec moi, pour toi, chez lui, avec elle, pour nous, avec vous, chez eux, avec elles.",
+          "Sie dienen auch der Betonung: Moi, je joue. Et toi ?"
+        ],
+        "examples": [
+          {
+            "fr": "Je joue avec toi.",
+            "de": "Ich spiele mit dir."
+          },
+          {
+            "fr": "Elle va chez lui.",
+            "de": "Sie geht zu ihm."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Je joue avec ___.",
+          "answer": "toi",
+          "options": [
+            "toi",
+            "tu",
+            "te"
+          ],
+          "translation": "Ich spiele mit dir.",
+          "why": "Nach einer Präposition steht das betonte Pronomen."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l11",
+      "title": "Aktivitäten",
+      "items": [
+        {
+          "front": "la randonnée",
+          "back": "die Wanderung",
+          "example": "Nous avons fait une randonnée.",
+          "exampleDe": "Wir haben eine Wanderung gemacht."
+        },
+        {
+          "front": "le tour",
+          "back": "der Rundgang / die Tour",
+          "example": "Nous faisons un tour en ville.",
+          "exampleDe": "Wir machen einen Stadtbummel."
+        },
+        {
+          "front": "le shopping",
+          "back": "das Einkaufen",
+          "example": "J'ai fait du shopping.",
+          "exampleDe": "Ich war einkaufen."
+        },
+        {
+          "front": "la sortie",
+          "back": "der Ausflug",
+          "example": "La sortie, c'était super.",
+          "exampleDe": "Der Ausflug war super."
+        },
+        {
+          "front": "le concert",
+          "back": "das Konzert",
+          "example": "Le concert, c'était génial.",
+          "exampleDe": "Das Konzert war genial."
+        },
+        {
+          "front": "le match",
+          "back": "das Spiel",
+          "example": "Le match, c'était long.",
+          "exampleDe": "Das Spiel war lang."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l12",
+      "title": "jouer à und jouer de",
+      "items": [
+        {
+          "front": "jouer au foot",
+          "back": "Fußball spielen",
+          "example": "Je joue au foot le samedi.",
+          "exampleDe": "Samstags spiele ich Fußball."
+        },
+        {
+          "front": "jouer aux cartes",
+          "back": "Karten spielen",
+          "example": "Nous jouons aux cartes.",
+          "exampleDe": "Wir spielen Karten."
+        },
+        {
+          "front": "jouer de la guitare",
+          "back": "Gitarre spielen",
+          "example": "Elle joue de la guitare.",
+          "exampleDe": "Sie spielt Gitarre."
+        },
+        {
+          "front": "jouer du piano",
+          "back": "Klavier spielen",
+          "example": "Je joue du piano.",
+          "exampleDe": "Ich spiele Klavier."
+        },
+        {
+          "front": "jouer à l'ordinateur",
+          "back": "am Computer spielen",
+          "example": "Il joue à l'ordinateur.",
+          "exampleDe": "Er spielt am Computer."
+        }
+      ],
+      "explanation": {
+        "title": "Spiele und Instrumente",
+        "paragraphs": [
+          "Bei Spielen und Sportarten: jouer à + Artikel: jouer au foot, jouer aux cartes. Bei Instrumenten: jouer de + Artikel: jouer de la guitare, jouer du piano."
+        ],
+        "examples": [
+          {
+            "fr": "Je joue au foot.",
+            "de": "Ich spiele Fußball."
+          },
+          {
+            "fr": "Il joue de la guitare.",
+            "de": "Er spielt Gitarre."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Elle joue ___ guitare.",
+          "answer": "de la",
+          "options": [
+            "de la",
+            "à la",
+            "du"
+          ],
+          "translation": "Sie spielt Gitarre.",
+          "why": "Instrument → jouer de + Artikel."
+        },
+        {
+          "sentence": "Il joue ___ foot.",
+          "answer": "au",
+          "options": [
+            "au",
+            "du",
+            "de la"
+          ],
+          "translation": "Er spielt Fußball.",
+          "why": "Sport → jouer à + Artikel."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l13",
+      "title": "Zahlen über 1000",
+      "items": [
+        {
+          "front": "mille",
+          "back": "tausend",
+          "example": "Il y a mille élèves.",
+          "exampleDe": "Es gibt tausend Schüler."
+        },
+        {
+          "front": "deux mille",
+          "back": "zweitausend",
+          "example": "Deux mille personnes sont là.",
+          "exampleDe": "Zweitausend Personen sind da."
+        },
+        {
+          "front": "dix mille",
+          "back": "zehntausend",
+          "example": "Dix mille personnes ont chanté.",
+          "exampleDe": "Zehntausend Personen haben gesungen."
+        },
+        {
+          "front": "cent mille",
+          "back": "hunderttausend",
+          "example": "Nantes a trois cent mille habitants.",
+          "exampleDe": "Nantes hat dreihunderttausend Einwohner."
+        },
+        {
+          "front": "un million",
+          "back": "eine Million",
+          "example": "Un million de personnes habitent ici.",
+          "exampleDe": "Eine Million Menschen wohnen hier."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l14",
+      "title": "Persönlichkeiten und Geschichten",
+      "items": [
+        {
+          "front": "l'écrivain (m)",
+          "back": "der Schriftsteller",
+          "example": "L'écrivain est célèbre.",
+          "exampleDe": "Der Schriftsteller ist berühmt."
+        },
+        {
+          "front": "le roman",
+          "back": "der Roman",
+          "example": "J'ai lu un roman.",
+          "exampleDe": "Ich habe einen Roman gelesen."
+        },
+        {
+          "front": "l'aventure (f)",
+          "back": "das Abenteuer",
+          "example": "C'est une grande aventure.",
+          "exampleDe": "Das ist ein großes Abenteuer."
+        },
+        {
+          "front": "le bateau",
+          "back": "das Boot",
+          "example": "Le bateau est sur la Loire.",
+          "exampleDe": "Das Boot ist auf der Loire."
+        },
+        {
+          "front": "le capitaine",
+          "back": "der Kapitän",
+          "example": "Le capitaine est courageux.",
+          "exampleDe": "Der Kapitän ist mutig."
+        },
+        {
+          "front": "l'histoire (f)",
+          "back": "die Geschichte",
+          "example": "L'histoire est longue.",
+          "exampleDe": "Die Geschichte ist lang."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l15",
+      "title": "Erzählen",
+      "items": [
+        {
+          "front": "d'abord",
+          "back": "zuerst",
+          "example": "D'abord, nous avons mangé.",
+          "exampleDe": "Zuerst haben wir gegessen."
+        },
+        {
+          "front": "puis",
+          "back": "dann",
+          "example": "Puis, nous avons joué.",
+          "exampleDe": "Dann haben wir gespielt."
+        },
+        {
+          "front": "enfin",
+          "back": "schließlich",
+          "example": "Enfin, nous sommes rentrés.",
+          "exampleDe": "Schließlich sind wir heimgegangen."
+        },
+        {
+          "front": "à la fin",
+          "back": "am Ende",
+          "example": "À la fin, j'ai dormi.",
+          "exampleDe": "Am Ende habe ich geschlafen."
+        },
+        {
+          "front": "tout à coup",
+          "back": "plötzlich",
+          "example": "Tout à coup, il a plu.",
+          "exampleDe": "Plötzlich hat es geregnet."
+        },
+        {
+          "front": "raconter",
+          "back": "erzählen",
+          "example": "Je raconte mon week-end.",
+          "exampleDe": "Ich erzähle von meinem Wochenende."
+        }
+      ]
+    },
+    {
+      "id": "f8-u2-l16",
+      "title": "Hörspiel aufnehmen",
+      "items": [
+        {
+          "front": "le bruit",
+          "back": "das Geräusch",
+          "example": "J'entends un bruit.",
+          "exampleDe": "Ich höre ein Geräusch."
+        },
+        {
+          "front": "le son",
+          "back": "der Ton",
+          "example": "Le son est bon.",
+          "exampleDe": "Der Ton ist gut."
+        },
+        {
+          "front": "la voix",
+          "back": "die Stimme",
+          "example": "Sa voix est belle.",
+          "exampleDe": "Ihre Stimme ist schön."
+        },
+        {
+          "front": "enregistrer",
+          "back": "aufnehmen",
+          "example": "Nous enregistrons une histoire.",
+          "exampleDe": "Wir nehmen eine Geschichte auf."
+        },
+        {
+          "front": "le micro",
+          "back": "das Mikrofon",
+          "example": "Le micro est sur la table.",
+          "exampleDe": "Das Mikrofon steht auf dem Tisch."
+        },
+        {
+          "front": "la scène",
+          "back": "die Szene",
+          "example": "La scène est drôle.",
+          "exampleDe": "Die Szene ist lustig."
+        }
+      ]
+    }
+  ]
+}

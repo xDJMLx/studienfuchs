@@ -1,0 +1,186 @@
+id: f7-u4
+title: Au collège
+book: À plus ! 1 · Unité 4
+desc: Schule und Schulalltag, Stundenplan, aller, à + Artikel, Meinung äußern
+order: 50
+
+= Die Schule
+- le collège = die Schule (Sek I in Frankreich) | Je vais au collège. = Ich gehe zur Schule.
+- l'école (f) = die Schule | L'école est grande. = Die Schule ist groß.
+- la classe = die Klasse | Notre classe est sympa. = Unsere Klasse ist nett.
+- la salle de classe = das Klassenzimmer | La salle de classe est grande. = Das Klassenzimmer ist groß.
+- la cour = der Schulhof | Nous sommes dans la cour. = Wir sind auf dem Schulhof.
+- la cantine = die Kantine | Je mange à la cantine. = Ich esse in der Kantine.
+
+= Personen in der Schule
+- le prof = der Lehrer | Mon prof est sympa. = Mein Lehrer ist nett.
+- la professeure = die Lehrerin | La professeure parle français. = Die Lehrerin spricht Französisch.
+- le directeur / la directrice = der Schulleiter / die Schulleiterin | La directrice est gentille. = Die Schulleiterin ist nett.
+- le camarade / la camarade = der Mitschüler / die Mitschülerin | Mon camarade s'appelle Tom. = Mein Mitschüler heißt Tom.
+- la classe de sixième = die sechste Klasse | Mon frère est en sixième. = Mein Bruder ist in der sechsten Klasse.
+- le CDI = die Schulbibliothek | Je lis au CDI. = Ich lese in der Schulbibliothek.
+
+= Schulsachen (1/2)
+- le cartable = die Schultasche | Mon cartable est lourd. = Meine Schultasche ist schwer.
+- la trousse = das Federmäppchen | La trousse est dans mon cartable. = Das Mäppchen ist in meiner Tasche.
+- le stylo = der Kugelschreiber | J'ai un stylo bleu. = Ich habe einen blauen Stift.
+- le crayon = der Bleistift | Le crayon est jaune. = Der Bleistift ist gelb.
+- le cahier = das Heft | Mon cahier est vert. = Mein Heft ist grün.
+- la règle = das Lineal | La règle est dans ma trousse. = Das Lineal ist in meinem Mäppchen.
+
+= Schulsachen (2/2)
+- la gomme = der Radiergummi | J'ai une gomme blanche. = Ich habe einen weißen Radiergummi.
+- le classeur = der Ordner | Mon classeur est rouge. = Mein Ordner ist rot.
+- la calculatrice = der Taschenrechner | La calculatrice est sur la table. = Der Taschenrechner liegt auf dem Tisch.
+- la feuille = das Blatt | J'ai une feuille blanche. = Ich habe ein weißes Blatt.
+- le dictionnaire = das Wörterbuch | Le dictionnaire est dans le sac. = Das Wörterbuch ist in der Tasche.
+- le tableau = die Tafel | Le tableau est vert. = Die Tafel ist grün.
+
+= Schulfächer (1/2)
+- le français = Französisch | Le français est super. = Französisch ist super.
+- l'allemand (m) = Deutsch | J'ai allemand le lundi. = Ich habe montags Deutsch.
+- l'anglais (m) = Englisch | L'anglais est facile. = Englisch ist leicht.
+- les maths (f pl) = Mathe | Les maths sont difficiles. = Mathe ist schwer.
+- l'histoire (f) = Geschichte | L'histoire est intéressante. = Geschichte ist interessant.
+- la géographie = Erdkunde | La géographie est super. = Erdkunde ist super.
+
+= Schulfächer (2/2)
+- la physique = Physik | La physique est difficile. = Physik ist schwer.
+- la biologie = Biologie | La biologie est intéressante. = Biologie ist interessant.
+- l'EPS (f) = Sport (Schulfach) | J'adore l'EPS. = Ich liebe Sport in der Schule.
+- les arts plastiques (m pl) = Kunst | J'aime les arts plastiques. = Ich mag Kunst.
+- l'informatique (f) = Informatik | L'informatique est facile. = Informatik ist leicht.
+- le cours = der Unterricht / die Stunde | Le cours commence à huit heures. = Der Unterricht beginnt um acht Uhr.
+
+= Die Wochentage (1/2)
+? Wochentage
+p Die Wochentage schreibt man klein: lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche.
+p „Le lundi“ heißt „montags“ (jeden Montag), „lundi“ ohne Artikel heißt „am nächsten oder letzten Montag“.
+e Le lundi, j'ai français. = Montags habe ich Französisch.
+e Lundi, j'ai un test. = Am Montag habe ich einen Test.
+- lundi = Montag | Lundi, j'ai maths. = Montag habe ich Mathe.
+- mardi = Dienstag | Mardi, j'ai sport. = Dienstag habe ich Sport.
+- mercredi = Mittwoch | Mercredi, j'ai français. = Mittwoch habe ich Französisch.
+- jeudi = Donnerstag | Jeudi, j'ai musique. = Donnerstag habe ich Musik.
+- vendredi = Freitag | Vendredi, j'ai anglais. = Freitag habe ich Englisch.
+
+= Die Wochentage (2/2)
+- samedi = Samstag | Samedi, je joue au foot. = Samstag spiele ich Fußball.
+- dimanche = Sonntag | Dimanche, je reste à la maison. = Sonntag bleibe ich zu Hause.
+- le jour = der Tag | Aujourd'hui, c'est quel jour ? = Welcher Tag ist heute?
+- la semaine = die Woche | La semaine a sept jours. = Die Woche hat sieben Tage.
+- aujourd'hui = heute | Aujourd'hui, c'est mardi. = Heute ist Dienstag.
+- demain = morgen | Demain, c'est mercredi. = Morgen ist Mittwoch.
+
+= Der Stundenplan
+- l'emploi du temps (m) = der Stundenplan | Mon emploi du temps est long. = Mein Stundenplan ist lang.
+- la récréation = die Pause | La récréation est à dix heures. = Die Pause ist um zehn Uhr.
+- la pause de midi = die Mittagspause | La pause de midi est longue. = Die Mittagspause ist lang.
+- les devoirs (m pl) = die Hausaufgaben | Je fais mes devoirs. = Ich mache meine Hausaufgaben.
+- le contrôle = die Klassenarbeit | Demain, j'ai un contrôle. = Morgen habe ich eine Klassenarbeit.
+- la note = die Note | J'ai une bonne note. = Ich habe eine gute Note.
+
+= Das Verb aller
+? aller (gehen / fahren)
+p aller ist unregelmäßig: je vais, tu vas, il/elle va, nous allons, vous allez, ils/elles vont.
+p Mit „aller“ bildest du auch „Ça va ?“ (Wie geht's?).
+e Je vais au collège. = Ich gehe zur Schule.
+e Nous allons à la cantine. = Wir gehen in die Kantine.
+- je vais = ich gehe | Je vais à l'école à pied. = Ich gehe zu Fuß zur Schule.
+- tu vas = du gehst | Tu vas au collège ? = Gehst du zur Schule?
+- il / elle va = er / sie geht | Elle va au CDI. = Sie geht in die Schulbibliothek.
+- nous allons = wir gehen | Nous allons à la cantine. = Wir gehen in die Kantine.
+- vous allez = ihr geht / Sie gehen | Vous allez au parc ? = Geht ihr in den Park?
+- ils / elles vont = sie gehen | Ils vont au cinéma. = Sie gehen ins Kino.
+f Je ___ au collège. | vais | vais; vas; va | Ich gehe zur Schule. | Zu „je“ passt „vais“.
+f Nous ___ à la cantine. | allons | allons; allez; vont | Wir gehen in die Kantine. | Zu „nous“ passt „allons“.
+
+= à und der Artikel
+? Zusammengezogener Artikel mit à
+p „À“ + le wird zu „au“, „à“ + les zu „aux“. Bei la und l' bleibt es: à la, à l'.
+p So sagst du, wohin du gehst oder wo du bist: au collège, à la cantine, à l'école, aux toilettes.
+e Je vais au collège. = Ich gehe zur Schule.
+e Je suis à la cantine. = Ich bin in der Kantine.
+t à + le = au, à + les = aux.
+- au = zum / im | Je suis au collège. = Ich bin in der Schule.
+- à la = zur / in der | Je vais à la maison. = Ich gehe nach Hause.
+- à l' = zum / zur (vor Vokal) | Je suis à l'école. = Ich bin in der Schule.
+- aux = zu den / in den | Je vais aux toilettes. = Ich gehe zur Toilette.
+- le cinéma = das Kino | Nous allons au cinéma. = Wir gehen ins Kino.
+f Je vais ___ cinéma. | au | au; à la; aux | Ich gehe ins Kino. | à + le = au.
+f Elle est ___ cantine. | à la | à la; au; à l' | Sie ist in der Kantine. | „cantine“ ist weiblich → à la.
+
+= Der Tagesablauf (1/2)
+- le matin = der Morgen / morgens | Le matin, j'ai maths. = Morgens habe ich Mathe.
+- l'après-midi (m) = der Nachmittag | L'après-midi, j'ai sport. = Nachmittags habe ich Sport.
+- le soir = der Abend / abends | Le soir, je regarde la télé. = Abends sehe ich fern.
+- la journée = der Tag (Tagesverlauf) | La journée est longue. = Der Tag ist lang.
+- à midi = mittags | À midi, je mange à la cantine. = Mittags esse ich in der Kantine.
+- après = nach / danach | Après le cours, je rentre. = Nach dem Unterricht gehe ich heim.
+
+= Der Tagesablauf (2/2)
+- arriver = ankommen | J'arrive à huit heures. = Ich komme um acht Uhr an.
+- commencer = anfangen | Le cours commence à huit heures. = Der Unterricht beginnt um acht Uhr.
+- terminer = beenden / fertig machen | Je termine mes devoirs. = Ich mache meine Hausaufgaben fertig.
+- rentrer = nach Hause gehen | Je rentre à quatre heures. = Ich gehe um vier Uhr nach Hause.
+- déjeuner = zu Mittag essen | Nous déjeunons à la cantine. = Wir essen in der Kantine zu Mittag.
+- avant = vor / davor | Avant le cours, je joue. = Vor dem Unterricht spiele ich.
+f Le cours ___ à huit heures. | commence | commence; commences; commencent | Der Unterricht beginnt um acht Uhr. | Zu „le cours“ passt „commence“.
+
+= Meinung äußern
+? Etwas bewerten
+p Mit „Je trouve que …“ sagst du deine Meinung: „Je trouve que le français est facile.“
+p Mit „parce que“ begründest du: „J'aime l'EPS parce que c'est cool.“
+e Je trouve que c'est super. = Ich finde, das ist super.
+- trouver = finden | Je trouve le français facile. = Ich finde Französisch leicht.
+- je trouve que … = ich finde, dass … | Je trouve que l'anglais est facile. = Ich finde, Englisch ist leicht.
+- la matière = das Fach | Ma matière préférée, c'est le sport. = Mein Lieblingsfach ist Sport.
+- préféré(e) = Lieblings- | Mon cours préféré, c'est l'EPS. = Mein Lieblingsfach ist Sport.
+- intéressant(e) = interessant | L'histoire est intéressante. = Geschichte ist interessant.
+f Je ___ que c'est super. | trouve | trouve; trouves; trouvent | Ich finde, das ist super. | Zu „je“ passt „trouve“.
+
+= Bewerten
+- génial(e) = genial | Le cours est génial ! = Der Unterricht ist genial!
+- nul(le) = schlecht / doof | Le film est nul. = Der Film ist doof.
+- cool = cool | Mon prof est cool. = Mein Lehrer ist cool.
+- bof = naja | Le cours ? Bof. = Der Unterricht? Naja.
+- pas mal = nicht schlecht | Le film ? Pas mal ! = Der Film? Nicht schlecht!
+- bon(ne) = gut | J'ai une bonne note. = Ich habe eine gute Note.
+
+= notre, votre, leur
+? Besitzanzeigende Begleiter (3)
+p notre / nos = unser(e), votre / vos = euer / eure (auch: Ihr), leur / leurs = ihr(e). Im Singular gibt es nur eine Form: notre classe, notre école.
+e notre classe, nos amis = unsere Klasse, unsere Freunde
+e leur école, leurs profs = ihre Schule, ihre Lehrer
+- notre = unser (m und f) | Notre classe est sympa. = Unsere Klasse ist nett.
+- nos = unsere (Plural) | Nos profs sont gentils. = Unsere Lehrer sind nett.
+- votre = euer / eure / Ihr | Votre école est grande. = Eure Schule ist groß.
+- vos = eure / Ihre (Plural) | Vos cahiers sont sur la table. = Eure Hefte liegen auf dem Tisch.
+- leur = ihr (Singular) | Leur prof est gentil. = Ihr Lehrer ist nett.
+- leurs = ihre (Plural) | Leurs amis sont sympas. = Ihre Freunde sind nett.
+f ___ classe est sympa. | Notre | Notre; Nos; Votre | Unsere Klasse ist nett. | Singular → notre.
+
+= Mengen angeben
+? Unbestimmte Mengen
+p „Beaucoup de“ (viel), „assez de“ (genug), „trop de“ (zu viel), „peu de“ (wenig) stehen immer mit „de“.
+p „Tout le monde“ heißt „alle / jeder“. „Tous les jours“ heißt „jeden Tag“.
+e Il y a beaucoup d'élèves. = Es gibt viele Schüler.
+e Tout le monde est là. = Alle sind da.
+- beaucoup de = viel(e) | J'ai beaucoup de devoirs. = Ich habe viele Hausaufgaben.
+- peu de = wenig(e) | Il y a peu d'élèves. = Es gibt wenige Schüler.
+- assez de = genug | J'ai assez de stylos. = Ich habe genug Stifte.
+- trop de = zu viel(e) | Il y a trop de devoirs. = Es gibt zu viele Hausaufgaben.
+- tout le monde = alle / jeder | Tout le monde est là. = Alle sind da.
+- tous les jours = jeden Tag | Je vais au collège tous les jours. = Ich gehe jeden Tag zur Schule.
+f J'ai ___ de devoirs ! | trop | trop; peu; assez | Ich habe zu viele Hausaufgaben! | „trop de“ = zu viel.
+
+= Fragen mit Fragewort
+? Fragewörter
+p Du kannst Fragewörter mit „est-ce que“ verbinden: Quand est-ce que tu rentres ? Oder kurz: Tu rentres quand ?
+e À quelle heure est-ce que le cours commence ? = Um wie viel Uhr beginnt der Unterricht?
+- quand ? = wann? | Quand est-ce que tu rentres ? = Wann kommst du heim?
+- à quelle heure ? = um wie viel Uhr? | À quelle heure commence le cours ? = Um wie viel Uhr beginnt der Unterricht?
+- avec qui ? = mit wem? | Tu manges avec qui ? = Mit wem isst du?
+- où est-ce que … ? = wo …? | Où est-ce que tu manges ? = Wo isst du?
+- qu'est-ce que … ? = was …? | Qu'est-ce que tu fais ? = Was machst du?
+f ___ est-ce que tu rentres ? | Quand | Quand; Où; Qui | Wann kommst du heim? | „Quand“ fragt nach der Zeit.

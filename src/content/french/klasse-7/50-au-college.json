@@ -1,0 +1,966 @@
+{
+  "id": "f7-u4",
+  "title": "Au collège",
+  "description": "Schule und Schulalltag, Stundenplan, aller, à + Artikel, Meinung äußern",
+  "grade": 7,
+  "subject": "french",
+  "order": 50,
+  "book": "À plus ! 1 · Unité 4",
+  "lessons": [
+    {
+      "id": "f7-u4-l1",
+      "title": "Die Schule",
+      "items": [
+        {
+          "front": "le collège",
+          "back": "die Schule (Sek I in Frankreich)",
+          "example": "Je vais au collège.",
+          "exampleDe": "Ich gehe zur Schule."
+        },
+        {
+          "front": "l'école (f)",
+          "back": "die Schule",
+          "example": "L'école est grande.",
+          "exampleDe": "Die Schule ist groß."
+        },
+        {
+          "front": "la classe",
+          "back": "die Klasse",
+          "example": "Notre classe est sympa.",
+          "exampleDe": "Unsere Klasse ist nett."
+        },
+        {
+          "front": "la salle de classe",
+          "back": "das Klassenzimmer",
+          "example": "La salle de classe est grande.",
+          "exampleDe": "Das Klassenzimmer ist groß."
+        },
+        {
+          "front": "la cour",
+          "back": "der Schulhof",
+          "example": "Nous sommes dans la cour.",
+          "exampleDe": "Wir sind auf dem Schulhof."
+        },
+        {
+          "front": "la cantine",
+          "back": "die Kantine",
+          "example": "Je mange à la cantine.",
+          "exampleDe": "Ich esse in der Kantine."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l2",
+      "title": "Personen in der Schule",
+      "items": [
+        {
+          "front": "le prof",
+          "back": "der Lehrer",
+          "example": "Mon prof est sympa.",
+          "exampleDe": "Mein Lehrer ist nett."
+        },
+        {
+          "front": "la professeure",
+          "back": "die Lehrerin",
+          "example": "La professeure parle français.",
+          "exampleDe": "Die Lehrerin spricht Französisch."
+        },
+        {
+          "front": "le directeur / la directrice",
+          "back": "der Schulleiter / die Schulleiterin",
+          "example": "La directrice est gentille.",
+          "exampleDe": "Die Schulleiterin ist nett."
+        },
+        {
+          "front": "le camarade / la camarade",
+          "back": "der Mitschüler / die Mitschülerin",
+          "example": "Mon camarade s'appelle Tom.",
+          "exampleDe": "Mein Mitschüler heißt Tom."
+        },
+        {
+          "front": "la classe de sixième",
+          "back": "die sechste Klasse",
+          "example": "Mon frère est en sixième.",
+          "exampleDe": "Mein Bruder ist in der sechsten Klasse."
+        },
+        {
+          "front": "le CDI",
+          "back": "die Schulbibliothek",
+          "example": "Je lis au CDI.",
+          "exampleDe": "Ich lese in der Schulbibliothek."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l3",
+      "title": "Schulsachen (1/2)",
+      "items": [
+        {
+          "front": "le cartable",
+          "back": "die Schultasche",
+          "example": "Mon cartable est lourd.",
+          "exampleDe": "Meine Schultasche ist schwer."
+        },
+        {
+          "front": "la trousse",
+          "back": "das Federmäppchen",
+          "example": "La trousse est dans mon cartable.",
+          "exampleDe": "Das Mäppchen ist in meiner Tasche."
+        },
+        {
+          "front": "le stylo",
+          "back": "der Kugelschreiber",
+          "example": "J'ai un stylo bleu.",
+          "exampleDe": "Ich habe einen blauen Stift."
+        },
+        {
+          "front": "le crayon",
+          "back": "der Bleistift",
+          "example": "Le crayon est jaune.",
+          "exampleDe": "Der Bleistift ist gelb."
+        },
+        {
+          "front": "le cahier",
+          "back": "das Heft",
+          "example": "Mon cahier est vert.",
+          "exampleDe": "Mein Heft ist grün."
+        },
+        {
+          "front": "la règle",
+          "back": "das Lineal",
+          "example": "La règle est dans ma trousse.",
+          "exampleDe": "Das Lineal ist in meinem Mäppchen."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l4",
+      "title": "Schulsachen (2/2)",
+      "items": [
+        {
+          "front": "la gomme",
+          "back": "der Radiergummi",
+          "example": "J'ai une gomme blanche.",
+          "exampleDe": "Ich habe einen weißen Radiergummi."
+        },
+        {
+          "front": "le classeur",
+          "back": "der Ordner",
+          "example": "Mon classeur est rouge.",
+          "exampleDe": "Mein Ordner ist rot."
+        },
+        {
+          "front": "la calculatrice",
+          "back": "der Taschenrechner",
+          "example": "La calculatrice est sur la table.",
+          "exampleDe": "Der Taschenrechner liegt auf dem Tisch."
+        },
+        {
+          "front": "la feuille",
+          "back": "das Blatt",
+          "example": "J'ai une feuille blanche.",
+          "exampleDe": "Ich habe ein weißes Blatt."
+        },
+        {
+          "front": "le dictionnaire",
+          "back": "das Wörterbuch",
+          "example": "Le dictionnaire est dans le sac.",
+          "exampleDe": "Das Wörterbuch ist in der Tasche."
+        },
+        {
+          "front": "le tableau",
+          "back": "die Tafel",
+          "example": "Le tableau est vert.",
+          "exampleDe": "Die Tafel ist grün."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l5",
+      "title": "Schulfächer (1/2)",
+      "items": [
+        {
+          "front": "le français",
+          "back": "Französisch",
+          "example": "Le français est super.",
+          "exampleDe": "Französisch ist super."
+        },
+        {
+          "front": "l'allemand (m)",
+          "back": "Deutsch",
+          "example": "J'ai allemand le lundi.",
+          "exampleDe": "Ich habe montags Deutsch."
+        },
+        {
+          "front": "l'anglais (m)",
+          "back": "Englisch",
+          "example": "L'anglais est facile.",
+          "exampleDe": "Englisch ist leicht."
+        },
+        {
+          "front": "les maths (f pl)",
+          "back": "Mathe",
+          "example": "Les maths sont difficiles.",
+          "exampleDe": "Mathe ist schwer."
+        },
+        {
+          "front": "l'histoire (f)",
+          "back": "Geschichte",
+          "example": "L'histoire est intéressante.",
+          "exampleDe": "Geschichte ist interessant."
+        },
+        {
+          "front": "la géographie",
+          "back": "Erdkunde",
+          "example": "La géographie est super.",
+          "exampleDe": "Erdkunde ist super."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l6",
+      "title": "Schulfächer (2/2)",
+      "items": [
+        {
+          "front": "la physique",
+          "back": "Physik",
+          "example": "La physique est difficile.",
+          "exampleDe": "Physik ist schwer."
+        },
+        {
+          "front": "la biologie",
+          "back": "Biologie",
+          "example": "La biologie est intéressante.",
+          "exampleDe": "Biologie ist interessant."
+        },
+        {
+          "front": "l'EPS (f)",
+          "back": "Sport (Schulfach)",
+          "example": "J'adore l'EPS.",
+          "exampleDe": "Ich liebe Sport in der Schule."
+        },
+        {
+          "front": "les arts plastiques (m pl)",
+          "back": "Kunst",
+          "example": "J'aime les arts plastiques.",
+          "exampleDe": "Ich mag Kunst."
+        },
+        {
+          "front": "l'informatique (f)",
+          "back": "Informatik",
+          "example": "L'informatique est facile.",
+          "exampleDe": "Informatik ist leicht."
+        },
+        {
+          "front": "le cours",
+          "back": "der Unterricht / die Stunde",
+          "example": "Le cours commence à huit heures.",
+          "exampleDe": "Der Unterricht beginnt um acht Uhr."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l7",
+      "title": "Die Wochentage (1/2)",
+      "items": [
+        {
+          "front": "lundi",
+          "back": "Montag",
+          "example": "Lundi, j'ai maths.",
+          "exampleDe": "Montag habe ich Mathe."
+        },
+        {
+          "front": "mardi",
+          "back": "Dienstag",
+          "example": "Mardi, j'ai sport.",
+          "exampleDe": "Dienstag habe ich Sport."
+        },
+        {
+          "front": "mercredi",
+          "back": "Mittwoch",
+          "example": "Mercredi, j'ai français.",
+          "exampleDe": "Mittwoch habe ich Französisch."
+        },
+        {
+          "front": "jeudi",
+          "back": "Donnerstag",
+          "example": "Jeudi, j'ai musique.",
+          "exampleDe": "Donnerstag habe ich Musik."
+        },
+        {
+          "front": "vendredi",
+          "back": "Freitag",
+          "example": "Vendredi, j'ai anglais.",
+          "exampleDe": "Freitag habe ich Englisch."
+        }
+      ],
+      "explanation": {
+        "title": "Wochentage",
+        "paragraphs": [
+          "Die Wochentage schreibt man klein: lundi, mardi, mercredi, jeudi, vendredi, samedi, dimanche.",
+          "„Le lundi“ heißt „montags“ (jeden Montag), „lundi“ ohne Artikel heißt „am nächsten oder letzten Montag“."
+        ],
+        "examples": [
+          {
+            "fr": "Le lundi, j'ai français.",
+            "de": "Montags habe ich Französisch."
+          },
+          {
+            "fr": "Lundi, j'ai un test.",
+            "de": "Am Montag habe ich einen Test."
+          }
+        ]
+      }
+    },
+    {
+      "id": "f7-u4-l8",
+      "title": "Die Wochentage (2/2)",
+      "items": [
+        {
+          "front": "samedi",
+          "back": "Samstag",
+          "example": "Samedi, je joue au foot.",
+          "exampleDe": "Samstag spiele ich Fußball."
+        },
+        {
+          "front": "dimanche",
+          "back": "Sonntag",
+          "example": "Dimanche, je reste à la maison.",
+          "exampleDe": "Sonntag bleibe ich zu Hause."
+        },
+        {
+          "front": "le jour",
+          "back": "der Tag",
+          "example": "Aujourd'hui, c'est quel jour ?",
+          "exampleDe": "Welcher Tag ist heute?"
+        },
+        {
+          "front": "la semaine",
+          "back": "die Woche",
+          "example": "La semaine a sept jours.",
+          "exampleDe": "Die Woche hat sieben Tage."
+        },
+        {
+          "front": "aujourd'hui",
+          "back": "heute",
+          "example": "Aujourd'hui, c'est mardi.",
+          "exampleDe": "Heute ist Dienstag."
+        },
+        {
+          "front": "demain",
+          "back": "morgen",
+          "example": "Demain, c'est mercredi.",
+          "exampleDe": "Morgen ist Mittwoch."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l9",
+      "title": "Der Stundenplan",
+      "items": [
+        {
+          "front": "l'emploi du temps (m)",
+          "back": "der Stundenplan",
+          "example": "Mon emploi du temps est long.",
+          "exampleDe": "Mein Stundenplan ist lang."
+        },
+        {
+          "front": "la récréation",
+          "back": "die Pause",
+          "example": "La récréation est à dix heures.",
+          "exampleDe": "Die Pause ist um zehn Uhr."
+        },
+        {
+          "front": "la pause de midi",
+          "back": "die Mittagspause",
+          "example": "La pause de midi est longue.",
+          "exampleDe": "Die Mittagspause ist lang."
+        },
+        {
+          "front": "les devoirs (m pl)",
+          "back": "die Hausaufgaben",
+          "example": "Je fais mes devoirs.",
+          "exampleDe": "Ich mache meine Hausaufgaben."
+        },
+        {
+          "front": "le contrôle",
+          "back": "die Klassenarbeit",
+          "example": "Demain, j'ai un contrôle.",
+          "exampleDe": "Morgen habe ich eine Klassenarbeit."
+        },
+        {
+          "front": "la note",
+          "back": "die Note",
+          "example": "J'ai une bonne note.",
+          "exampleDe": "Ich habe eine gute Note."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l10",
+      "title": "Das Verb aller",
+      "items": [
+        {
+          "front": "je vais",
+          "back": "ich gehe",
+          "example": "Je vais à l'école à pied.",
+          "exampleDe": "Ich gehe zu Fuß zur Schule."
+        },
+        {
+          "front": "tu vas",
+          "back": "du gehst",
+          "example": "Tu vas au collège ?",
+          "exampleDe": "Gehst du zur Schule?"
+        },
+        {
+          "front": "il / elle va",
+          "back": "er / sie geht",
+          "example": "Elle va au CDI.",
+          "exampleDe": "Sie geht in die Schulbibliothek."
+        },
+        {
+          "front": "nous allons",
+          "back": "wir gehen",
+          "example": "Nous allons à la cantine.",
+          "exampleDe": "Wir gehen in die Kantine."
+        },
+        {
+          "front": "vous allez",
+          "back": "ihr geht / Sie gehen",
+          "example": "Vous allez au parc ?",
+          "exampleDe": "Geht ihr in den Park?"
+        },
+        {
+          "front": "ils / elles vont",
+          "back": "sie gehen",
+          "example": "Ils vont au cinéma.",
+          "exampleDe": "Sie gehen ins Kino."
+        }
+      ],
+      "explanation": {
+        "title": "aller (gehen / fahren)",
+        "paragraphs": [
+          "aller ist unregelmäßig: je vais, tu vas, il/elle va, nous allons, vous allez, ils/elles vont.",
+          "Mit „aller“ bildest du auch „Ça va ?“ (Wie geht's?)."
+        ],
+        "examples": [
+          {
+            "fr": "Je vais au collège.",
+            "de": "Ich gehe zur Schule."
+          },
+          {
+            "fr": "Nous allons à la cantine.",
+            "de": "Wir gehen in die Kantine."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Je ___ au collège.",
+          "answer": "vais",
+          "options": [
+            "vais",
+            "vas",
+            "va"
+          ],
+          "translation": "Ich gehe zur Schule.",
+          "why": "Zu „je“ passt „vais“."
+        },
+        {
+          "sentence": "Nous ___ à la cantine.",
+          "answer": "allons",
+          "options": [
+            "allons",
+            "allez",
+            "vont"
+          ],
+          "translation": "Wir gehen in die Kantine.",
+          "why": "Zu „nous“ passt „allons“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l11",
+      "title": "à und der Artikel",
+      "items": [
+        {
+          "front": "au",
+          "back": "zum / im",
+          "example": "Je suis au collège.",
+          "exampleDe": "Ich bin in der Schule."
+        },
+        {
+          "front": "à la",
+          "back": "zur / in der",
+          "example": "Je vais à la maison.",
+          "exampleDe": "Ich gehe nach Hause."
+        },
+        {
+          "front": "à l'",
+          "back": "zum / zur (vor Vokal)",
+          "example": "Je suis à l'école.",
+          "exampleDe": "Ich bin in der Schule."
+        },
+        {
+          "front": "aux",
+          "back": "zu den / in den",
+          "example": "Je vais aux toilettes.",
+          "exampleDe": "Ich gehe zur Toilette."
+        },
+        {
+          "front": "le cinéma",
+          "back": "das Kino",
+          "example": "Nous allons au cinéma.",
+          "exampleDe": "Wir gehen ins Kino."
+        }
+      ],
+      "explanation": {
+        "title": "Zusammengezogener Artikel mit à",
+        "paragraphs": [
+          "„À“ + le wird zu „au“, „à“ + les zu „aux“. Bei la und l' bleibt es: à la, à l'.",
+          "So sagst du, wohin du gehst oder wo du bist: au collège, à la cantine, à l'école, aux toilettes."
+        ],
+        "examples": [
+          {
+            "fr": "Je vais au collège.",
+            "de": "Ich gehe zur Schule."
+          },
+          {
+            "fr": "Je suis à la cantine.",
+            "de": "Ich bin in der Kantine."
+          }
+        ],
+        "tip": "à + le = au, à + les = aux."
+      },
+      "fills": [
+        {
+          "sentence": "Je vais ___ cinéma.",
+          "answer": "au",
+          "options": [
+            "au",
+            "à la",
+            "aux"
+          ],
+          "translation": "Ich gehe ins Kino.",
+          "why": "à + le = au."
+        },
+        {
+          "sentence": "Elle est ___ cantine.",
+          "answer": "à la",
+          "options": [
+            "à la",
+            "au",
+            "à l'"
+          ],
+          "translation": "Sie ist in der Kantine.",
+          "why": "„cantine“ ist weiblich → à la."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l12",
+      "title": "Der Tagesablauf (1/2)",
+      "items": [
+        {
+          "front": "le matin",
+          "back": "der Morgen / morgens",
+          "example": "Le matin, j'ai maths.",
+          "exampleDe": "Morgens habe ich Mathe."
+        },
+        {
+          "front": "l'après-midi (m)",
+          "back": "der Nachmittag",
+          "example": "L'après-midi, j'ai sport.",
+          "exampleDe": "Nachmittags habe ich Sport."
+        },
+        {
+          "front": "le soir",
+          "back": "der Abend / abends",
+          "example": "Le soir, je regarde la télé.",
+          "exampleDe": "Abends sehe ich fern."
+        },
+        {
+          "front": "la journée",
+          "back": "der Tag (Tagesverlauf)",
+          "example": "La journée est longue.",
+          "exampleDe": "Der Tag ist lang."
+        },
+        {
+          "front": "à midi",
+          "back": "mittags",
+          "example": "À midi, je mange à la cantine.",
+          "exampleDe": "Mittags esse ich in der Kantine."
+        },
+        {
+          "front": "après",
+          "back": "nach / danach",
+          "example": "Après le cours, je rentre.",
+          "exampleDe": "Nach dem Unterricht gehe ich heim."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l13",
+      "title": "Der Tagesablauf (2/2)",
+      "items": [
+        {
+          "front": "arriver",
+          "back": "ankommen",
+          "example": "J'arrive à huit heures.",
+          "exampleDe": "Ich komme um acht Uhr an."
+        },
+        {
+          "front": "commencer",
+          "back": "anfangen",
+          "example": "Le cours commence à huit heures.",
+          "exampleDe": "Der Unterricht beginnt um acht Uhr."
+        },
+        {
+          "front": "terminer",
+          "back": "beenden / fertig machen",
+          "example": "Je termine mes devoirs.",
+          "exampleDe": "Ich mache meine Hausaufgaben fertig."
+        },
+        {
+          "front": "rentrer",
+          "back": "nach Hause gehen",
+          "example": "Je rentre à quatre heures.",
+          "exampleDe": "Ich gehe um vier Uhr nach Hause."
+        },
+        {
+          "front": "déjeuner",
+          "back": "zu Mittag essen",
+          "example": "Nous déjeunons à la cantine.",
+          "exampleDe": "Wir essen in der Kantine zu Mittag."
+        },
+        {
+          "front": "avant",
+          "back": "vor / davor",
+          "example": "Avant le cours, je joue.",
+          "exampleDe": "Vor dem Unterricht spiele ich."
+        }
+      ],
+      "fills": [
+        {
+          "sentence": "Le cours ___ à huit heures.",
+          "answer": "commence",
+          "options": [
+            "commence",
+            "commences",
+            "commencent"
+          ],
+          "translation": "Der Unterricht beginnt um acht Uhr.",
+          "why": "Zu „le cours“ passt „commence“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l14",
+      "title": "Meinung äußern",
+      "items": [
+        {
+          "front": "trouver",
+          "back": "finden",
+          "example": "Je trouve le français facile.",
+          "exampleDe": "Ich finde Französisch leicht."
+        },
+        {
+          "front": "je trouve que …",
+          "back": "ich finde, dass …",
+          "example": "Je trouve que l'anglais est facile.",
+          "exampleDe": "Ich finde, Englisch ist leicht."
+        },
+        {
+          "front": "la matière",
+          "back": "das Fach",
+          "example": "Ma matière préférée, c'est le sport.",
+          "exampleDe": "Mein Lieblingsfach ist Sport."
+        },
+        {
+          "front": "préféré(e)",
+          "back": "Lieblings-",
+          "example": "Mon cours préféré, c'est l'EPS.",
+          "exampleDe": "Mein Lieblingsfach ist Sport."
+        },
+        {
+          "front": "intéressant(e)",
+          "back": "interessant",
+          "example": "L'histoire est intéressante.",
+          "exampleDe": "Geschichte ist interessant."
+        }
+      ],
+      "explanation": {
+        "title": "Etwas bewerten",
+        "paragraphs": [
+          "Mit „Je trouve que …“ sagst du deine Meinung: „Je trouve que le français est facile.“",
+          "Mit „parce que“ begründest du: „J'aime l'EPS parce que c'est cool.“"
+        ],
+        "examples": [
+          {
+            "fr": "Je trouve que c'est super.",
+            "de": "Ich finde, das ist super."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "Je ___ que c'est super.",
+          "answer": "trouve",
+          "options": [
+            "trouve",
+            "trouves",
+            "trouvent"
+          ],
+          "translation": "Ich finde, das ist super.",
+          "why": "Zu „je“ passt „trouve“."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l15",
+      "title": "Bewerten",
+      "items": [
+        {
+          "front": "génial(e)",
+          "back": "genial",
+          "example": "Le cours est génial !",
+          "exampleDe": "Der Unterricht ist genial!"
+        },
+        {
+          "front": "nul(le)",
+          "back": "schlecht / doof",
+          "example": "Le film est nul.",
+          "exampleDe": "Der Film ist doof."
+        },
+        {
+          "front": "cool",
+          "back": "cool",
+          "example": "Mon prof est cool.",
+          "exampleDe": "Mein Lehrer ist cool."
+        },
+        {
+          "front": "bof",
+          "back": "naja",
+          "example": "Le cours ? Bof.",
+          "exampleDe": "Der Unterricht? Naja."
+        },
+        {
+          "front": "pas mal",
+          "back": "nicht schlecht",
+          "example": "Le film ? Pas mal !",
+          "exampleDe": "Der Film? Nicht schlecht!"
+        },
+        {
+          "front": "bon(ne)",
+          "back": "gut",
+          "example": "J'ai une bonne note.",
+          "exampleDe": "Ich habe eine gute Note."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l16",
+      "title": "notre, votre, leur",
+      "items": [
+        {
+          "front": "notre",
+          "back": "unser (m und f)",
+          "example": "Notre classe est sympa.",
+          "exampleDe": "Unsere Klasse ist nett."
+        },
+        {
+          "front": "nos",
+          "back": "unsere (Plural)",
+          "example": "Nos profs sont gentils.",
+          "exampleDe": "Unsere Lehrer sind nett."
+        },
+        {
+          "front": "votre",
+          "back": "euer / eure / Ihr",
+          "example": "Votre école est grande.",
+          "exampleDe": "Eure Schule ist groß."
+        },
+        {
+          "front": "vos",
+          "back": "eure / Ihre (Plural)",
+          "example": "Vos cahiers sont sur la table.",
+          "exampleDe": "Eure Hefte liegen auf dem Tisch."
+        },
+        {
+          "front": "leur",
+          "back": "ihr (Singular)",
+          "example": "Leur prof est gentil.",
+          "exampleDe": "Ihr Lehrer ist nett."
+        },
+        {
+          "front": "leurs",
+          "back": "ihre (Plural)",
+          "example": "Leurs amis sont sympas.",
+          "exampleDe": "Ihre Freunde sind nett."
+        }
+      ],
+      "explanation": {
+        "title": "Besitzanzeigende Begleiter (3)",
+        "paragraphs": [
+          "notre / nos = unser(e), votre / vos = euer / eure (auch: Ihr), leur / leurs = ihr(e). Im Singular gibt es nur eine Form: notre classe, notre école."
+        ],
+        "examples": [
+          {
+            "fr": "notre classe, nos amis",
+            "de": "unsere Klasse, unsere Freunde"
+          },
+          {
+            "fr": "leur école, leurs profs",
+            "de": "ihre Schule, ihre Lehrer"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "___ classe est sympa.",
+          "answer": "Notre",
+          "options": [
+            "Notre",
+            "Nos",
+            "Votre"
+          ],
+          "translation": "Unsere Klasse ist nett.",
+          "why": "Singular → notre."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l17",
+      "title": "Mengen angeben",
+      "items": [
+        {
+          "front": "beaucoup de",
+          "back": "viel(e)",
+          "example": "J'ai beaucoup de devoirs.",
+          "exampleDe": "Ich habe viele Hausaufgaben."
+        },
+        {
+          "front": "peu de",
+          "back": "wenig(e)",
+          "example": "Il y a peu d'élèves.",
+          "exampleDe": "Es gibt wenige Schüler."
+        },
+        {
+          "front": "assez de",
+          "back": "genug",
+          "example": "J'ai assez de stylos.",
+          "exampleDe": "Ich habe genug Stifte."
+        },
+        {
+          "front": "trop de",
+          "back": "zu viel(e)",
+          "example": "Il y a trop de devoirs.",
+          "exampleDe": "Es gibt zu viele Hausaufgaben."
+        },
+        {
+          "front": "tout le monde",
+          "back": "alle / jeder",
+          "example": "Tout le monde est là.",
+          "exampleDe": "Alle sind da."
+        },
+        {
+          "front": "tous les jours",
+          "back": "jeden Tag",
+          "example": "Je vais au collège tous les jours.",
+          "exampleDe": "Ich gehe jeden Tag zur Schule."
+        }
+      ],
+      "explanation": {
+        "title": "Unbestimmte Mengen",
+        "paragraphs": [
+          "„Beaucoup de“ (viel), „assez de“ (genug), „trop de“ (zu viel), „peu de“ (wenig) stehen immer mit „de“.",
+          "„Tout le monde“ heißt „alle / jeder“. „Tous les jours“ heißt „jeden Tag“."
+        ],
+        "examples": [
+          {
+            "fr": "Il y a beaucoup d'élèves.",
+            "de": "Es gibt viele Schüler."
+          },
+          {
+            "fr": "Tout le monde est là.",
+            "de": "Alle sind da."
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "J'ai ___ de devoirs !",
+          "answer": "trop",
+          "options": [
+            "trop",
+            "peu",
+            "assez"
+          ],
+          "translation": "Ich habe zu viele Hausaufgaben!",
+          "why": "„trop de“ = zu viel."
+        }
+      ]
+    },
+    {
+      "id": "f7-u4-l18",
+      "title": "Fragen mit Fragewort",
+      "items": [
+        {
+          "front": "quand ?",
+          "back": "wann?",
+          "example": "Quand est-ce que tu rentres ?",
+          "exampleDe": "Wann kommst du heim?"
+        },
+        {
+          "front": "à quelle heure ?",
+          "back": "um wie viel Uhr?",
+          "example": "À quelle heure commence le cours ?",
+          "exampleDe": "Um wie viel Uhr beginnt der Unterricht?"
+        },
+        {
+          "front": "avec qui ?",
+          "back": "mit wem?",
+          "example": "Tu manges avec qui ?",
+          "exampleDe": "Mit wem isst du?"
+        },
+        {
+          "front": "où est-ce que … ?",
+          "back": "wo …?",
+          "example": "Où est-ce que tu manges ?",
+          "exampleDe": "Wo isst du?"
+        },
+        {
+          "front": "qu'est-ce que … ?",
+          "back": "was …?",
+          "example": "Qu'est-ce que tu fais ?",
+          "exampleDe": "Was machst du?"
+        }
+      ],
+      "explanation": {
+        "title": "Fragewörter",
+        "paragraphs": [
+          "Du kannst Fragewörter mit „est-ce que“ verbinden: Quand est-ce que tu rentres ? Oder kurz: Tu rentres quand ?"
+        ],
+        "examples": [
+          {
+            "fr": "À quelle heure est-ce que le cours commence ?",
+            "de": "Um wie viel Uhr beginnt der Unterricht?"
+          }
+        ]
+      },
+      "fills": [
+        {
+          "sentence": "___ est-ce que tu rentres ?",
+          "answer": "Quand",
+          "options": [
+            "Quand",
+            "Où",
+            "Qui"
+          ],
+          "translation": "Wann kommst du heim?",
+          "why": "„Quand“ fragt nach der Zeit."
+        }
+      ]
+    }
+  ]
+}

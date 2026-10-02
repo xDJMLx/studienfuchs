@@ -1,0 +1,215 @@
+{
+  "id": "f8-m3",
+  "title": "La France championne du monde !",
+  "description": "Fußball in Frankreich, Spielbericht, indirekte Objektpronomen",
+  "grade": 8,
+  "subject": "french",
+  "order": 35,
+  "book": "À plus ! 2 · Module 3 La France championne du monde !",
+  "lessons": [
+    {
+      "id": "f8-m3-l1",
+      "title": "Fußball (1/2)",
+      "items": [
+        {
+          "front": "le footballeur / la footballeuse",
+          "back": "der / die Fußballspieler(in)",
+          "example": "Le footballeur est célèbre.",
+          "exampleDe": "Der Fußballspieler ist berühmt."
+        },
+        {
+          "front": "l'équipe (f)",
+          "back": "die Mannschaft",
+          "example": "L'équipe de France est forte.",
+          "exampleDe": "Die französische Mannschaft ist stark."
+        },
+        {
+          "front": "le gardien",
+          "back": "der Torwart",
+          "example": "Le gardien est très bon.",
+          "exampleDe": "Der Torwart ist sehr gut."
+        },
+        {
+          "front": "le ballon",
+          "back": "der Ball",
+          "example": "Le ballon est rond.",
+          "exampleDe": "Der Ball ist rund."
+        },
+        {
+          "front": "le but",
+          "back": "das Tor / das Ziel",
+          "example": "Il y a un but !",
+          "exampleDe": "Da ist ein Tor!"
+        },
+        {
+          "front": "l'arbitre (m)",
+          "back": "der Schiedsrichter",
+          "example": "L'arbitre est sévère.",
+          "exampleDe": "Der Schiedsrichter ist streng."
+        }
+      ]
+    },
+    {
+      "id": "f8-m3-l2",
+      "title": "Fußball (2/2)",
+      "items": [
+        {
+          "front": "marquer",
+          "back": "ein Tor schießen",
+          "example": "Il marque un but.",
+          "exampleDe": "Er schießt ein Tor."
+        },
+        {
+          "front": "gagner",
+          "back": "gewinnen",
+          "example": "L'équipe gagne le match.",
+          "exampleDe": "Die Mannschaft gewinnt das Spiel."
+        },
+        {
+          "front": "le supporter",
+          "back": "der Fan / der Anhänger",
+          "example": "Les supporters chantent.",
+          "exampleDe": "Die Fans singen."
+        },
+        {
+          "front": "la coupe",
+          "back": "der Pokal",
+          "example": "La coupe est grande.",
+          "exampleDe": "Der Pokal ist groß."
+        },
+        {
+          "front": "le champion / la championne",
+          "back": "der Meister / die Meisterin",
+          "example": "La France est championne.",
+          "exampleDe": "Frankreich ist Meister."
+        },
+        {
+          "front": "le public",
+          "back": "das Publikum",
+          "example": "Le public est content.",
+          "exampleDe": "Das Publikum ist froh."
+        }
+      ]
+    },
+    {
+      "id": "f8-m3-l3",
+      "title": "Einen Spielbericht verstehen",
+      "items": [
+        {
+          "front": "la mi-temps",
+          "back": "die Halbzeit",
+          "example": "À la mi-temps, c'est un à un.",
+          "exampleDe": "Zur Halbzeit steht es eins zu eins."
+        },
+        {
+          "front": "le penalty",
+          "back": "der Elfmeter",
+          "example": "Il marque un penalty.",
+          "exampleDe": "Er schießt einen Elfmeter."
+        },
+        {
+          "front": "le score",
+          "back": "der Spielstand",
+          "example": "Le score est de deux à un.",
+          "exampleDe": "Der Spielstand ist zwei zu eins."
+        },
+        {
+          "front": "égal(e)",
+          "back": "gleich",
+          "example": "Le score est égal.",
+          "exampleDe": "Der Spielstand ist gleich."
+        },
+        {
+          "front": "le coup de sifflet",
+          "back": "der Pfiff",
+          "example": "Le coup de sifflet final.",
+          "exampleDe": "Der Schlusspfiff."
+        },
+        {
+          "front": "le commentateur",
+          "back": "der Kommentator",
+          "example": "Le commentateur parle vite.",
+          "exampleDe": "Der Kommentator spricht schnell."
+        }
+      ]
+    },
+    {
+      "id": "f8-m3-l4",
+      "title": "Das indirekte Objekt",
+      "items": [
+        {
+          "front": "lui",
+          "back": "ihm / ihr",
+          "example": "Je lui donne le ballon.",
+          "exampleDe": "Ich gebe ihm den Ball."
+        },
+        {
+          "front": "leur",
+          "back": "ihnen",
+          "example": "Je leur parle.",
+          "exampleDe": "Ich spreche mit ihnen."
+        },
+        {
+          "front": "me / m' (indirekt)",
+          "back": "mir",
+          "example": "Il me donne le ballon.",
+          "exampleDe": "Er gibt mir den Ball."
+        },
+        {
+          "front": "te / t' (indirekt)",
+          "back": "dir",
+          "example": "Je te téléphone ce soir.",
+          "exampleDe": "Ich rufe dich heute Abend an."
+        },
+        {
+          "front": "donner",
+          "back": "geben",
+          "example": "Je donne le ballon à Léa.",
+          "exampleDe": "Ich gebe Léa den Ball."
+        }
+      ],
+      "explanation": {
+        "title": "lui und leur",
+        "paragraphs": [
+          "Das indirekte Objekt beantwortet „wem?“ und steht mit „à“: Je donne le ballon à Paul → Je lui donne le ballon. Bei mehreren Personen: Je leur donne le ballon.",
+          "Für „mir, dir, uns, euch“ gelten me, te, nous, vous wie beim direkten Objekt."
+        ],
+        "examples": [
+          {
+            "fr": "Je parle à Paul. → Je lui parle.",
+            "de": "Ich spreche mit Paul. → Ich spreche mit ihm."
+          },
+          {
+            "fr": "Il donne le ballon aux joueurs. → Il leur donne le ballon.",
+            "de": "Er gibt den Spielern den Ball."
+          }
+        ],
+        "tip": "„Lui“ gilt für Jungen und Mädchen, „leur“ für mehrere Personen."
+      },
+      "fills": [
+        {
+          "sentence": "Je parle à Léa. Je ___ parle.",
+          "answer": "lui",
+          "options": [
+            "lui",
+            "leur",
+            "la"
+          ],
+          "translation": "Ich spreche mit Léa. Ich spreche mit ihr.",
+          "why": "Eine Person → lui."
+        },
+        {
+          "sentence": "Je parle aux joueurs. Je ___ parle.",
+          "answer": "leur",
+          "options": [
+            "leur",
+            "lui",
+            "les"
+          ],
+          "translation": "Ich spreche mit den Spielern. Ich spreche mit ihnen.",
+          "why": "Mehrere Personen → leur."
+        }
+      ]
+    }
+  ]
+}

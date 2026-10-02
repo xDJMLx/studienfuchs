@@ -1,0 +1,425 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+
+/* Dark-Mode wird über die Klasse "dark" auf <html> gesteuert (System / Hell / Dunkel in den Einstellungen). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+  --page: #f6f6f7; /* App-Hintergrund */
+  --bg: #ffffff;
+  --surface: #ffffff; /* Karten */
+  --snow: #f4f4f5; /* ruhige Flächen, Hover */
+  --line: #e7e7ea;
+  --ink: #1d1d20;
+  --muted: #6c6c75;
+
+  /* Marke: Fuchs-Orange auf Weiß */
+  --brand: #f2690f;
+  --brand-text: #bf520a;
+  --brand-soft: #fff1e5;
+  --shade-brand: #c9540a;
+  /* Knöpfe mit Text: weißer Text braucht mindestens 4,5:1 Kontrast (AA) */
+  --brand-strong: #c65209;
+  --on-brand: #ffffff;
+
+  /* richtig / falsch */
+  --good: #2faa4a;
+  --good-text: #1f7f36;
+  --good-soft: #e6f6ea;
+  --shade-good: #1f7f36;
+  --bad: #e5484d;
+  --bad-text: #b8343a;
+  --bad-soft: #fdeaeb;
+  --shade-bad: #b8343a;
+
+  --gold: #f5b82e;
+  --gold-text: #a97800;
+  --flame: #f2690f;
+  --flame-text: #bf520a;
+  --shade-gold: #c99200;
+  --shade-line: #d6d6db;
+  --shadow: 0 1px 2px rgba(16, 16, 20, 0.05), 0 1px 1px rgba(16, 16, 20, 0.03);
+  --shadow-lift: 0 14px 32px -16px rgba(16, 16, 20, 0.3);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dark {
+  color-scheme: dark;
+  --page: #0d0e11;
+  --bg: #0d0e11;
+  --surface: #17181d;
+  --snow: #1f2127;
+  --line: #292c34;
+  --ink: #f1f1f3;
+  --muted: #9b9ca6;
+
+  --brand: #ff7a24;
+  --brand-text: #ffab6e;
+  --brand-soft: #35210f;
+  --shade-brand: #b84d08;
+  --brand-strong: #ff7a24;
+  --on-brand: #1a0d03; /* dunkler Text auf hellem Orange: 7:1 */
+
+  --good: #4cc468;
+  --good-text: #86dc9a;
+  --good-soft: #17301d;
+  --shade-good: #28803c;
+  --bad: #ff6b70;
+  --bad-text: #ff9a9e;
+  --bad-soft: #3a1c1e;
+  --shade-bad: #b8343a;
+
+  --gold-text: #f7cf6b;
+  --flame-text: #ffab6e;
+  --shade-line: #0b0c0e;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-lift: 0 14px 32px -16px rgba(0, 0, 0, 0.75);
+}
+
+@theme inline {
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --color-page: var(--page);
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-snow: var(--snow);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+
+  --color-brand: var(--brand);
+  --color-brand-dark: var(--brand-text);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-strong: var(--brand-strong);
+  --color-on-brand: var(--on-brand);
+  /* "sky" war früher blau – jetzt ebenfalls Orange, damit alles orange-weiß bleibt */
+  --color-sky: var(--brand);
+  --color-sky-dark: var(--brand-text);
+  --color-sky-soft: var(--brand-soft);
+
+  --color-good: var(--good);
+  --color-good-dark: var(--good-text);
+  --color-good-soft: var(--good-soft);
+  --color-bad: var(--bad);
+  --color-bad-dark: var(--bad-text);
+  --color-bad-soft: var(--bad-soft);
+
+  --color-gold: var(--gold);
+  --color-gold-dark: var(--gold-text);
+  --color-fox: var(--flame);
+  --color-fox-dark: var(--flame-text);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  font-family: var(--font-sans);
+  font-feature-settings: 'cv11', 'ss01';
+  color: var(--ink);
+  background: var(--page);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+h1, h2, h3 {
+  letter-spacing: -0.015em;
+}
+
+@layer components {
+  /* Buttons: ruhig, mit dezenter Unterkante */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-[15px] font-semibold
+      transition-[transform,box-shadow,filter,background-color] duration-100 select-none disabled:cursor-not-allowed;
+    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.16), var(--shadow);
+  }
+  .btn:active:not(:disabled) {
+    transform: translateY(1px);
+    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
+  }
+  .btn-primary {
+    @apply bg-brand-strong text-on-brand;
+  }
+  .btn-primary:hover:not(:disabled) {
+    filter: brightness(1.06);
+  }
+  .btn-sky {
+    @apply bg-brand-strong text-on-brand;
+  }
+  .btn-good {
+    @apply bg-good text-white;
+  }
+  .btn-bad {
+    @apply bg-bad text-white;
+  }
+  .btn-ghost {
+    @apply border border-line bg-surface text-ink;
+    box-shadow: var(--shadow);
+  }
+  .btn-ghost:hover:not(:disabled) {
+    @apply bg-snow;
+  }
+  .btn:disabled {
+    @apply bg-snow text-muted;
+    box-shadow: none;
+  }
+
+  /* Antwort-Kacheln (Multiple Choice, Wortbausteine) */
+  .tile {
+    @apply flex items-center gap-3 rounded-xl border border-line bg-surface px-4 py-3 text-left text-[16px] font-medium text-ink transition-colors select-none;
+    box-shadow: var(--shadow), 0 2px 0 var(--line);
+  }
+  .tile:hover:not(:disabled) {
+    @apply bg-snow;
+  }
+  .tile:active:not(:disabled) {
+    transform: translateY(2px);
+    box-shadow: var(--shadow);
+  }
+  .tile-selected {
+    @apply border-brand bg-brand-soft text-brand-dark;
+    box-shadow: 0 2px 0 var(--brand);
+  }
+  .tile-correct {
+    @apply border-good bg-good-soft text-good-dark;
+    box-shadow: 0 2px 0 var(--good);
+  }
+  .tile-wrong {
+    @apply border-bad bg-bad-soft text-bad-dark;
+    box-shadow: 0 2px 0 var(--bad);
+  }
+
+  .card {
+    @apply rounded-2xl border border-line bg-surface;
+    box-shadow: var(--shadow);
+  }
+
+  .nav-link {
+    @apply flex items-center gap-3.5 rounded-xl px-4 py-2.5 text-[15px] font-medium text-muted hover:bg-snow hover:text-ink;
+  }
+  .nav-link-active {
+    @apply bg-brand-soft font-semibold text-brand-dark hover:bg-brand-soft hover:text-brand-dark;
+  }
+
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.08em] text-muted;
+  }
+  .page-title {
+    @apply text-[28px] font-bold leading-tight tracking-tight text-ink;
+  }
+  .segmented {
+    @apply inline-flex rounded-xl bg-snow p-1;
+  }
+  .segmented > button {
+    @apply rounded-lg px-4 py-1.5 text-sm font-medium text-muted;
+  }
+  .segmented > button[aria-checked='true'],
+  .segmented > button[aria-pressed='true'] {
+    @apply bg-surface font-semibold text-ink;
+    box-shadow: var(--shadow);
+  }
+}
+
+@keyframes pop {
+  0% { transform: scale(0.96); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes slide-up {
+  from { transform: translateY(16px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.animate-pop { animation: pop 0.2s ease-out both; }
+.animate-shake { animation: shake 0.35s ease-in-out; }
+.animate-bob { animation: bob 1.6s ease-in-out infinite; }
+.animate-slide-up { animation: slide-up 0.22s ease-out both; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-pop, .animate-shake, .animate-bob, .animate-slide-up { animation: none; }
+}
+
+/* Platz für iPhone-Home-Indicator */
+.safe-bottom { padding-bottom: max(env(safe-area-inset-bottom), 0px); }
+
+/* ---------- Bewegung ---------- */
+@layer components {
+  /* Karten/Links, die sich beim Darüberfahren sanft heben und beim Drücken eindrücken */
+  .lift {
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-color 0.2s, background-color 0.2s;
+  }
+  .lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lift);
+    border-color: color-mix(in oklab, var(--brand) 32%, var(--line));
+  }
+  .lift:active {
+    transform: translateY(0) scale(0.985);
+    box-shadow: var(--shadow);
+    transition-duration: 0.08s;
+  }
+  .press {
+    transition: transform 0.2s var(--ease-out);
+  }
+  .press:active {
+    transform: scale(0.96);
+  }
+  /* Glanz, der langsam über einen Knopf läuft */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-shine::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 40%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
+    animation: sweep 4.5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .mascot-blink .mascot-eye {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: blink 5.5s infinite;
+  }
+  .mascot-blink .mascot-ear-l {
+    transform-box: fill-box;
+    transform-origin: 70% 90%;
+    animation: ear-twitch 7s ease-in-out infinite;
+  }
+}
+
+@keyframes halo {
+  0% { transform: scale(1); opacity: 0.55; }
+  100% { transform: scale(1.75); opacity: 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-12px) rotate(var(--r, 0deg)); }
+}
+@keyframes blink {
+  0%, 91%, 100% { transform: scaleY(1); }
+  94% { transform: scaleY(0.08); }
+}
+@keyframes ear-twitch {
+  0%, 86%, 100% { transform: rotate(0deg); }
+  90% { transform: rotate(-9deg); }
+  94% { transform: rotate(3deg); }
+}
+@keyframes sweep {
+  0% { transform: translateX(-130%) skewX(-18deg); }
+  55%, 100% { transform: translateX(380%) skewX(-18deg); }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+@keyframes blob {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(2%, -3%, 0) scale(1.06); }
+}
+.animate-halo { animation: halo 2s ease-out infinite; }
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-blob { animation: blob 14s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-halo, .animate-float, .animate-blob, .btn-shine::after,
+  .mascot-blink .mascot-eye, .mascot-blink .mascot-ear-l { animation: none; }
+  .lift:hover { transform: none; }
+}
+
+/* Schieberegler im Markenstil */
+@layer components {
+  .range {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--snow);
+    outline: none;
+    cursor: pointer;
+  }
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background: var(--brand);
+    border: 4px solid var(--surface);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+    transition: transform 0.15s var(--ease-out);
+  }
+  .range::-webkit-slider-thumb:hover { transform: scale(1.12); }
+  .range:active::-webkit-slider-thumb { transform: scale(0.94); }
+  .range::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    background: var(--brand);
+    border: 4px solid var(--surface);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  }
+  .range:focus-visible { box-shadow: 0 0 0 3px var(--brand-soft); }
+}
+
+/* ---------- Übungen: Aufgabe und Antworten erscheinen nacheinander ---------- */
+/* "backwards": nach dem Einblenden greift die Animation nicht mehr ein, so bleiben :active und Schütteln unberührt */
+@keyframes tile-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.exercise-in > div > * {
+  animation: tile-in 0.5s var(--ease-out) backwards;
+}
+.exercise-in > div > *:nth-child(2) { animation-delay: 0.06s; }
+.exercise-in > div > *:nth-child(3) { animation-delay: 0.12s; }
+.exercise-in > div > *:nth-child(n + 4) { animation-delay: 0.18s; }
+.exercise-in :is(.grid, [role='radiogroup']) > * {
+  animation: tile-in 0.45s var(--ease-out) backwards;
+}
+.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(1) { animation-delay: 0.16s; }
+.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(2) { animation-delay: 0.21s; }
+.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(3) { animation-delay: 0.26s; }
+.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(4) { animation-delay: 0.31s; }
+.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(5) { animation-delay: 0.36s; }
+.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(6) { animation-delay: 0.41s; }
+.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(n + 7) { animation-delay: 0.46s; }
+
+/* richtige Antwort federt kurz */
+@keyframes pop-ok {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.035); }
+  100% { transform: scale(1); }
+}
+.tile-correct { animation: pop-ok 0.45s var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  .exercise-in > div > *, .exercise-in :is(.grid, [role='radiogroup']) > *, .tile-correct { animation: none !important; }
+}
+.exercise-in :is(.grid, [role='radiogroup']) > .tile-correct {
+  animation: pop-ok 0.45s var(--ease-out);
+}
+
+/* ---------- Tastaturbedienung: gut sichtbarer Fokus (Felder mit eigenem Fokus-Stil überschreiben das über Utilities) ---------- */
+@layer base {
+  :focus-visible {
+    outline: 3px solid color-mix(in oklab, var(--brand) 70%, transparent);
+    outline-offset: 2px;
+  }
+  button, a, [role='button'], [role='radio'], [role='tab'], summary {
+    touch-action: manipulation; /* kein Doppeltipp-Zoom-Verzögern */
+  }
+}
