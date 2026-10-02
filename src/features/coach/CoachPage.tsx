@@ -9,6 +9,7 @@ import { AiError, chatCoach, ensureAiReady, preloadAi, type ChatMessage } from '
 import { unitLabel } from '../../lib/catchup'
 import { buildCoachPrompt } from '../../lib/coach'
 import { buildBookContext } from '../../lib/books'
+import { chatFree, shouldUseFree } from '../../lib/freeAi'
 import { useBooks } from '../../store/useBooks'
 import { streakNow, useStore } from '../../store/useStore'
 import { CoachComposer } from '../../components/ui/CoachComposer'
@@ -89,6 +90,8 @@ export function CoachPage() {
   const setSubmit = useCoachComposer((c) => c.setSubmit)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  // Kostenlose KI war nicht erreichbar: Angebot, mit einem Puter-Gastkonto weiterzumachen
+  const [needAccount, setNeedAccount] = useState(false)
   const [params, setParams] = useSearchParams()
   const end = useRef<HTMLDivElement>(null)
   const box = useRef<HTMLTextAreaElement>(null)
@@ -132,10 +135,13 @@ export function CoachPage() {
     setMessages(next)
     setInput('')
     setError(null)
+    setNeedAccount(false)
     setBusy(true)
     try {
+      // Zuerst die kostenlose KI ohne Anmeldung (wenn eingerichtet); Fotos und verbundene Puter-Konten gehen wie bisher über Puter
+      const useFree = await shouldUseFree(sent.length > 0)
       // Direkt aus dem Klick: legt beim ersten Mal das kostenlose Gastkonto an
-      await ensureAiReady()
+      if (!useFree) await ensureAiReady()
       const system = buildCoachPrompt({
         grade: store.grade,
         examDates: store.examDates,
@@ -148,11 +154,18 @@ export function CoachPage() {
         bookContext: buildBookContext(useBooks.getState().books, useBooks.getState().exams, content),
       })
       // Die angehängten Seiten gehen bei jeder Nachricht mit, bis sie entfernt werden (so versteht die KI auch Rückfragen)
-      const answer = await chatCoach(
-        system,
-        next.map(({ role, content: c }) => ({ role, content: c })),
-        sent.map((x) => x.data),
-      )
+      const history = next.map(({ role, content: c }) => ({ role, content: c }))
+      let answer: string
+      if (useFree) {
+        try {
+          answer = await chatFree(system, history)
+        } catch (e) {
+          setNeedAccount(true)
+          throw new AiError(`${e instanceof AiError ? e.message : 'Die kostenlose KI ist gerade nicht erreichbar.'} Mit einem kostenlosen Puter-Gastkonto geht es trotzdem weiter.`, 'rate')
+        }
+      } else {
+        answer = await chatCoach(system, history, sent.map((x) => x.data))
+      }
       const split = splitVocabBlock(answer)
       let list: UiMessage['list']
       if (split.vocab) {
@@ -203,6 +216,7 @@ export function CoachPage() {
             onClick={() => {
               setMessages([])
               setError(null)
+              setNeedAccount(false)
               useCoachComposer.getState().clearPages()
             }}
             className="press flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-muted transition-colors hover:bg-snow hover:text-bad"
@@ -307,9 +321,27 @@ export function CoachPage() {
       {error && (
         <div className="mt-3 flex flex-wrap items-center gap-3 rounded-xl bg-bad-soft p-3 text-sm font-medium text-bad-dark" role="alert">
           <span className="min-w-0 flex-1">{error}</span>
-          <button className="btn btn-ghost press !px-3 !py-1.5 !text-sm" onClick={retry}>
-            Nochmal
-          </button>
+          {needAccount ? (
+            <button
+              className="btn btn-primary press !px-3 !py-1.5 !text-sm"
+              onClick={async () => {
+                try {
+                  // Direkt aus dem Klick, sonst blockiert der Browser das Anmeldefenster
+                  await ensureAiReady()
+                  setNeedAccount(false)
+                  retry()
+                } catch (e) {
+                  setError(e instanceof AiError ? e.message : 'Die Anmeldung hat nicht geklappt.')
+                }
+              }}
+            >
+              Mit Puter weiter
+            </button>
+          ) : (
+            <button className="btn btn-ghost press !px-3 !py-1.5 !text-sm" onClick={retry}>
+              Nochmal
+            </button>
+          )}
         </div>
       )}
       <div ref={end} />

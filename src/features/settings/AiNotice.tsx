@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Info } from '../../components/ui/Icons'
 import { getAiConfig, isAiReady, preloadAi } from '../../lib/ai'
+import { freeAiConfigured } from '../../lib/freeAi'
 
 /** Ehrlicher Hinweis direkt am KI-Button: eine kurze Zeile, die sich zu den Details aufklappen lässt. */
 export function AiNotice({ className = '' }: { className?: string }) {
@@ -17,8 +18,11 @@ export function AiNotice({ className = '' }: { className?: string }) {
   }, [])
 
   const own = provider === 'anthropic'
-  const short = own ? 'Eigener Schlüssel · Daten gehen direkt an Anthropic' : ready ? 'Kostenlose KI aktiv · Daten gehen an Puter' : 'Kostenlos, ohne Schlüssel · einmalig ein Puter-Gastkonto'
-  const long = own
+  const free = freeAiConfigured() && !ready
+  const short = free ? 'Kostenlos, ohne Anmeldung · Daten gehen an einen KI-Anbieter' : own ? 'Eigener Schlüssel · Daten gehen direkt an Anthropic' : ready ? 'Kostenlose KI aktiv · Daten gehen an Puter' : 'Kostenlos, ohne Schlüssel · einmalig ein Puter-Gastkonto'
+  const long = free
+    ? 'Du kannst sofort losschreiben, ohne Konto. Deine Nachricht, dein Lernstand (ohne Namen) und die passenden Seiten deiner Bücher gehen an kostenlose KI-Modelle über Kilo, deren Anbieter Eingaben mitlesen und zur Verbesserung nutzen dürfen. Schreibe also keine privaten Dinge hinein. Ist die kostenlose KI ausgelastet, kannst du mit einem Puter-Gastkonto weitermachen.'
+    : own
     ? 'Du nutzt deinen eigenen Anthropic-Schlüssel. Beim Klick werden die gewählten Seiten direkt an Anthropic gesendet.'
     : ready
       ? 'Die kostenlose KI läuft über dein Puter-Gastkonto. Beim Klick werden die gewählten Seiten zur Auswertung an Puter und dessen KI-Anbieter gesendet.'

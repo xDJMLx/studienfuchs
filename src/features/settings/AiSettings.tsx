@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Row } from '../../components/ui/controls'
 import { EASE } from '../../components/ui/motion'
 import { AI_MODELS, ensureAiReady, getAiConfig, isAiReady, preloadAi, setAiConfig, signOutAi, testConnection } from '../../lib/ai'
+import { freeAiConfigured } from '../../lib/freeAi'
 
 type Msg = { ok: boolean; text: string } | null
 
@@ -76,8 +77,9 @@ export function AiSettings() {
     <>
       <div className="px-5 py-4">
         <p className="mb-3 text-sm text-muted">
-          Aus Fotos von Seiten deines Schulbuchs macht die KI saubere Vokabelkarten mit Beispielsätzen. Du brauchst keinen eigenen Schlüssel: Beim ersten Mal wird automatisch ein kostenloses
-          Gastkonto bei Puter angelegt, die Nutzung läuft über dieses Konto.
+          {freeAiConfigured()
+            ? 'Im KI-Chat kannst du sofort schreiben, ohne Konto: Das übernehmen kostenlose Modelle über Kilo. Für Fotos von Buchseiten und für bessere Antworten legst du hier ein kostenloses Puter-Gastkonto an (oder nutzt einen eigenen Schlüssel).'
+            : 'Aus Fotos von Seiten deines Schulbuchs macht die KI saubere Vokabelkarten mit Beispielsätzen. Du brauchst keinen eigenen Schlüssel: Beim ersten Mal wird automatisch ein kostenloses Gastkonto bei Puter angelegt, die Nutzung läuft über dieses Konto.'}
         </p>
         <div className="flex flex-wrap items-center gap-3 rounded-xl bg-snow px-4 py-3">
           <span className="relative flex h-2.5 w-2.5 shrink-0">
@@ -135,7 +137,7 @@ export function AiSettings() {
         <button className="btn btn-ghost press !px-4 !py-2 !text-sm" onClick={saveOwn} disabled={!key.trim() || busy}>Speichern und testen</button>
       </details>
 
-      <Row title="Datenschutz" hint="Es wird nur etwas gesendet, wenn du auf „Mit KI erstellen“ oder „Mit KI ergänzen“ klickst oder im KI-Chat eine Nachricht sendest. Dann gehen die gewählten Seitenbilder bzw. deine Nachricht samt Lernstand (ohne Namen) an Puter und dessen KI-Anbieter (bei eigenem Schlüssel direkt an Anthropic). Ein eigener Schlüssel bleibt nur in diesem Browser und ist nicht Teil der Sicherung. Lade nur Seiten hoch, die du zum Lernen verwenden darfst." />
+      <Row title="Datenschutz" hint="Es wird nur etwas gesendet, wenn du auf „Mit KI erstellen“ oder „Mit KI ergänzen“ klickst oder im KI-Chat eine Nachricht sendest. Dann gehen die gewählten Seitenbilder bzw. deine Nachricht samt Lernstand (ohne Namen) an Puter und dessen KI-Anbieter (bei eigenem Schlüssel direkt an Anthropic). Die kostenlose KI ohne Anmeldung läuft über Kilo: Deren Gratis-Anbieter dürfen Eingaben speichern und zur Verbesserung nutzen, schreibe dort nichts Privates hinein. Ein eigener Schlüssel bleibt nur in diesem Browser und ist nicht Teil der Sicherung. Lade nur Seiten hoch, die du zum Lernen verwenden darfst." />
     </>
   )
 }

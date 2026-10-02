@@ -89,7 +89,8 @@ export function AboutPage() {
             </Accordion>
             <Accordion title="KI-Funktion (optional)" icon={<Sparkle size={20} />}>
               <p>Nur wenn du <b className="text-ink">„Mit KI erstellen“</b> oder <b className="text-ink">„Mit KI ergänzen“</b> klickst oder im <b className="text-ink">KI-Chat</b> eine Nachricht sendest, werden die ausgewählten Seitenbilder, Vokabeln bzw. deine Nachricht an eine KI-Plattform gesendet. Beim KI-Chat gehören dazu dein Lernstand (Klasse, Fortschritt, Klassenarbeits-Termine, Wörter, bei denen es hakt) und, wenn du Bücher angelegt hast, deren Titel, Kapitel, der Stand der Klasse und die zur Frage passenden Seitentexte, aber kein Name.</p>
-              <p>Dafür wird beim ersten Mal automatisch ein kostenloses Puter-Gastkonto in deinem Browser angelegt; es gelten die Datenschutzbestimmungen von Puter. Alternativ kannst du einen eigenen Anthropic-API-Schlüssel hinterlegen.</p>
+              <p>Im KI-Chat gibt es zuerst eine <b className="text-ink">kostenlose KI ohne Anmeldung</b>. Sie läuft über ein kleines Relais zu den Gratis-Modellen von Kilo. Das Relais speichert nichts. Die Anbieter der Gratis-Modelle dürfen Eingaben aber mitlesen und zur Verbesserung ihrer Produkte nutzen. Schreibe dort also nichts Privates hinein. Fotos von Buchseiten gehen nicht an diese Stufe.</p>
+              <p>Für Fotos und bessere Antworten wird beim ersten Mal automatisch ein kostenloses Puter-Gastkonto in deinem Browser angelegt; es gelten die Datenschutzbestimmungen von Puter. Alternativ kannst du einen eigenen Anthropic-API-Schlüssel hinterlegen.</p>
               <p>Ohne diese Funktion (und mit der Offline-Texterkennung) verlässt nichts dein Gerät.</p>
             </Accordion>
             <Accordion title="Sprachausgabe" icon={<Speaker size={20} />}>
