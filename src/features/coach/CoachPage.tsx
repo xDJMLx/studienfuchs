@@ -160,8 +160,10 @@ export function CoachPage() {
         try {
           answer = await chatFree(system, history)
         } catch (e) {
+          // Ohne Internet hilft auch ein anderer Anbieter nicht: dann nur "Nochmal"
+          if (e instanceof AiError && e.kind === 'network') throw e
           setNeedAccount(true)
-          throw new AiError(`${e instanceof AiError ? e.message : 'Die kostenlose KI ist gerade nicht erreichbar.'} Mit einem kostenlosen Puter-Gastkonto geht es trotzdem weiter.`, 'rate')
+          throw new AiError('Der kostenlose KI-Anbieter ist gerade überlastet. Du kannst mit einem anderen Anbieter weitermachen: Dafür öffnet sich kurz ein Fenster für eine kostenlose Anmeldung, das dauert nur einen Moment.', 'rate')
         }
       } else {
         answer = await chatCoach(system, history, sent.map((x) => x.data))
@@ -335,7 +337,7 @@ export function CoachPage() {
                 }
               }}
             >
-              Mit Puter weiter
+              Mit anderem Anbieter weiter
             </button>
           ) : (
             <button className="btn btn-ghost press !px-3 !py-1.5 !text-sm" onClick={retry}>

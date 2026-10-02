@@ -20,7 +20,7 @@ Kilo blockiert Aufrufe direkt aus dem Browser (CORS). Darum braucht die Seite ei
 
 - Das Relais lässt nur Anfragen von `https://xdjmlx.github.io` (und lokal `localhost`) zu.
 - Es probiert die Gratis-Modelle der Reihe nach (`MODELS`), bis eines antwortet. Ist alles ausgelastet, antwortet es mit 429/503,
-  und die App bietet dann ein Puter-Gastkonto an.
+  und die App bietet dann einen anderen Anbieter an (Puter, kostenlose Anmeldung).
 - Die Antwort enthält nur den Text, kein verstecktes „Nachdenken“ der Modelle.
 - Kilo zählt die 200 Anfragen pro Stunde pro Internetadresse. Über das Relais teilen sich alle Nutzer wenige Adressen,
   bei vielen gleichzeitigen Nutzern kommt deshalb öfter „ausgelastet“.
