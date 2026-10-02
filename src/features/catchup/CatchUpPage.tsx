@@ -85,7 +85,7 @@ export function CatchUpPage() {
         <input type="date" min={inDays(1)} value={custom} onChange={(e) => setCustom(e.target.value)} className="rounded-xl border border-line bg-snow px-3 py-2 font-medium text-ink outline-none focus:border-brand" />
       </label>
       <p className="mb-4 rounded-xl bg-snow p-3 text-sm">
-        Bis {dateLabel(target)} ({daysUntil(target, new Date())} {daysUntil(target, new Date()) === 1 ? 'Tag' : 'Tage'}) brauchst du ca. <b>{preview.perDay} {preview.perDay === 1 ? 'Lektion' : 'Lektionen'} pro Tag</b>, etwa {fmtMinutes(preview.perDay * MIN_PER_LESSON)}.
+        Bis {dateLabel(target)} ({daysUntil(target, new Date())} {daysUntil(target, new Date()) === 1 ? 'Tag' : 'Tage'}) brauchst du ca. <b>{preview.perDay} {preview.perDay === 1 ? 'Lektion' : 'Lektionen'} pro Tag</b>, etwa {fmtMinutes(preview.perDay * MIN_PER_LESSON).replace(/([^.])$/, '$1.')}
         {preview.perDay * MIN_PER_LESSON > 60 && <span className="mt-1 block text-bad-dark">Das ist viel. Wähle lieber mehr Zeit oder mach vorher den Einstufungstest, damit du Bekanntes überspringst.</span>}
       </p>
       <button className="btn btn-primary btn-shine press w-full sm:w-auto" onClick={() => setCatchUpTarget(target)}>
