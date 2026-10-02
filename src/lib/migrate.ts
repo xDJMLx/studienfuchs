@@ -1,5 +1,4 @@
-// Die App hieß früher "Lernfuchs". Gespeicherte Daten werden einmalig unter den neuen Namen übernommen,
-// damit niemand seinen Fortschritt verliert. Muss vor dem Anlegen des Stores laufen (wird in main.tsx zuerst importiert).
+import { safeStorage } from './storage'
 
 export const STORAGE = {
   state: 'studienfuchs-v1',
@@ -12,7 +11,7 @@ const LEGACY: [from: string, to: string][] = [
 ]
 
 /** Kopiert alte Einträge zu den neuen Schlüsseln (nur wenn der neue noch fehlt) und räumt die alten auf. */
-export function migrateLegacyStorage(storage: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>): string[] {
+export function migrateLegacyStorage(storage: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'> = safeStorage): string[] {
   const moved: string[] = []
   for (const [from, to] of LEGACY) {
     try {
@@ -30,4 +29,4 @@ export function migrateLegacyStorage(storage: Pick<Storage, 'getItem' | 'setItem
   return moved
 }
 
-if (typeof localStorage !== 'undefined') migrateLegacyStorage(localStorage)
+migrateLegacyStorage(safeStorage)
