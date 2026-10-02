@@ -121,9 +121,10 @@ describe('generateExercises', () => {
   it('neue Items: Erkennen vor Produzieren, Match bei ≥4 neuen', () => {
     const ex = run(0)
     expect(ex.some((e) => e.kind === 'match')).toBe(true)
-    const firstType = ex.findIndex((e) => e.kind === 'type')
+    const firstProduce = ex.findIndex((e) => e.kind === 'type' || e.kind === 'spell')
     const lastChoice = ex.map((e) => e.kind).lastIndexOf('choice')
-    expect(lastChoice).toBeLessThan(firstType)
+    expect(firstProduce).toBeGreaterThan(-1)
+    expect(lastChoice).toBeLessThan(firstProduce)
   })
   it('respektiert die Obergrenze', () => {
     expect(run(0, 10).length).toBeLessThanOrEqual(10)
@@ -133,7 +134,7 @@ describe('generateExercises', () => {
     const ex = generateExercises({ items: ten, pool: ten, mastery: () => 0 })
     for (const it of ten) {
       expect(ex.some((e) => e.kind === 'choice' && e.itemId === it.id)).toBe(true)
-      expect(ex.some((e) => e.kind === 'type' && e.itemId === it.id)).toBe(true)
+      expect(ex.some((e) => (e.kind === 'type' || e.kind === 'spell') && e.itemId === it.id)).toBe(true)
     }
   })
   it('gefestigte Items bekommen kein Multiple Choice', () => {

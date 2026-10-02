@@ -1,7 +1,7 @@
 import { describe, expect, it, vi } from 'vitest'
 import { blockingLesson, isLessonDone, isUnlocked, LESSON_PASS, TEST_PASS, units } from '../content'
 import { describePuterError, extractJson, getAiConfig, normalizeAiVocab, puterText, setAiConfig } from './ai'
-import { generateLesson, generateWarmup, NEW_BATCH, WARMUP_SIZE } from './generateExercises'
+import { generateLesson, generateTest, generateWarmup, NEW_BATCH, WARMUP_SIZE } from './generateExercises'
 import { itemsForScope } from './scope'
 import { newCard } from './srs'
 
@@ -39,7 +39,7 @@ describe('Freischaltung der Lektionen', () => {
     expect(isUnlocked(first.id, done)).toBe(true)
   })
 
-  it('Einheitentest braucht mindestens 80 %', () => {
+  it('Einheitentest braucht mindestens 70 %', () => {
     const test = unit.lessons.find((l) => l.test)!
     expect(isLessonDone(test, { bestAccuracy: TEST_PASS - 0.01 })).toBe(false)
     expect(isLessonDone(test, { bestAccuracy: TEST_PASS })).toBe(true)
@@ -60,7 +60,43 @@ describe('Lernschritte', () => {
       expect(t.items.map((x) => x.id)).toContain(ex[i + 1].itemId)
     }
     // jedes Wort wird später auch aus dem Gedächtnis abgefragt
-    for (const it of items) expect(ex.some((e) => e.kind === 'type' && e.itemId === it.id)).toBe(true)
+    for (const it of items) expect(ex.some((e) => (e.kind === 'type' || e.kind === 'spell') && e.itemId === it.id)).toBe(true)
+  })
+
+  it('Einsteiger-Leiter: in der ersten Lektion kein freies Schreiben und kein Diktat, stattdessen Buchstaben legen', () => {
+    const items = regular[0].items
+    const ex = generateLesson({ items, pool: items, mastery: () => 0, allowListen: true })
+    expect(ex.some((e) => e.kind === 'listen')).toBe(false)
+    expect(ex.every((e) => e.kind !== 'type' || e.hint === true)).toBe(true)
+    const spells = ex.filter((e) => e.kind === 'spell')
+    expect(spells.length).toBeGreaterThan(0)
+    for (const s of spells) {
+      if (s.kind !== 'spell') continue
+      // alle Buchstaben der Lösung sind als Bausteine vorhanden
+      const need = Array.from(s.answer.replace(/\s+/g, '').toLowerCase())
+      const have = [...s.letters]
+      for (const ch of need) {
+        const i = have.indexOf(ch)
+        expect(i).toBeGreaterThan(-1)
+        have.splice(i, 1)
+      }
+    }
+  })
+
+  it('wer schon übt, aber noch nicht sicher ist, schreibt mit Stütze statt ohne Hilfe', () => {
+    const items = regular[0].items
+    const ex = generateLesson({ items, pool: items, mastery: () => 1, allowListen: true })
+    const types = ex.filter((e) => e.kind === 'type')
+    expect(types.length).toBeGreaterThan(0)
+    expect(types.every((e) => e.kind === 'type' && e.hint === true)).toBe(true)
+    expect(ex.some((e) => e.kind === 'listen')).toBe(false)
+  })
+
+  it('gefestigte Wörter werden ohne Stütze geschrieben und diktiert', () => {
+    const items = regular[0].items
+    const ex = generateLesson({ items, pool: items, mastery: () => 2, allowListen: true })
+    expect(ex.some((e) => e.kind === 'type' && !e.hint)).toBe(true)
+    expect(ex.some((e) => e.kind === 'listen')).toBe(true)
   })
 
   it('bereits gelernte Wörter bekommen keine Erklärkarte', () => {
@@ -152,5 +188,15 @@ describe('Aufwärmen mit fälligen alten Wörtern', () => {
 
   it('ohne fällige Wörter gibt es kein Aufwärmen', () => {
     expect(generateWarmup([], [])).toEqual([])
+  })
+})
+
+describe('Übungstest mit Lernstand', () => {
+  it('noch nie geübte Wörter werden gelegt, halb gelernte mit Stütze geschrieben, sichere frei', () => {
+    const items = regular[0].items
+    const kinds = (m: 0 | 1 | 2) => generateTest({ items, pool: items, focus: 'write', count: items.length, mastery: () => m, allowListen: false })
+    expect(kinds(0).every((e) => e.kind === 'spell' || (e.kind === 'type' && e.hint))).toBe(true)
+    expect(kinds(1).every((e) => e.kind === 'type' && e.hint === true)).toBe(true)
+    expect(kinds(2).every((e) => e.kind === 'type' && !e.hint)).toBe(true)
   })
 })

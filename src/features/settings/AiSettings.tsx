@@ -137,7 +137,10 @@ export function AiSettings() {
         <button className="btn btn-ghost press !px-4 !py-2 !text-sm" onClick={saveOwn} disabled={!key.trim() || busy}>Speichern und testen</button>
       </details>
 
-      <Row title="Datenschutz" hint="Es wird nur etwas gesendet, wenn du auf „Mit KI erstellen“ oder „Mit KI ergänzen“ klickst oder im KI-Chat eine Nachricht sendest. Dann gehen die gewählten Seitenbilder bzw. deine Nachricht samt Lernstand (ohne Namen) an Puter und dessen KI-Anbieter (bei eigenem Schlüssel direkt an Anthropic). Die kostenlose KI ohne Anmeldung läuft über Kilo: Deren Gratis-Anbieter dürfen Eingaben speichern und zur Verbesserung nutzen, schreibe dort nichts Privates hinein. Ein eigener Schlüssel bleibt nur in diesem Browser und ist nicht Teil der Sicherung. Lade nur Seiten hoch, die du zum Lernen verwenden darfst." />
+      <Row
+        title="Datenschutz"
+        hint={`Es wird nur etwas gesendet, wenn du auf „Mit KI erstellen“ oder „Mit KI ergänzen“ klickst oder im KI-Chat eine Nachricht sendest. Dann gehen die gewählten Seitenbilder bzw. deine Nachricht samt Lernstand (ohne Namen) an Puter und dessen KI-Anbieter (bei eigenem Schlüssel direkt an Anthropic).${freeAiConfigured() ? ' Die kostenlose KI ohne Anmeldung läuft über Kilo: Deren Gratis-Anbieter dürfen Eingaben speichern und zur Verbesserung nutzen, schreibe dort nichts Privates hinein.' : ''} Ein eigener Schlüssel bleibt nur in diesem Browser und ist nicht Teil der Sicherung. Lade nur Seiten hoch, die du zum Lernen verwenden darfst.`}
+      />
     </>
   )
 }

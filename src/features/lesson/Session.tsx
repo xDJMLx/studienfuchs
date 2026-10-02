@@ -7,6 +7,7 @@ import { ListenChoiceExercise } from '../../components/exercises/ListenChoiceExe
 import { ListenExercise } from '../../components/exercises/ListenExercise'
 import { MatchExercise } from '../../components/exercises/MatchExercise'
 import { SpeakExercise } from '../../components/exercises/SpeakExercise'
+import { SpellExercise } from '../../components/exercises/SpellExercise'
 import { TeachExercise } from '../../components/exercises/TeachExercise'
 import { TypeExercise } from '../../components/exercises/TypeExercise'
 import { Bulb, Check, Close, Flame } from '../../components/ui/Icons'
@@ -57,6 +58,8 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
 
   const total = exercises.filter((e) => e.kind !== 'teach' && !e.warm).length
   const firstTry = useRef(0)
+  // Beim ersten Versuch "fast richtig" (z. B. Akzent vergessen, mit Tipp): zählt halb für die Genauigkeit
+  const almostFirst = useRef(0)
   const retries = useRef(0)
   const retryNo = useRef<Record<string, number>>({})
   const wrongCount = useRef<Record<string, number>>({})
@@ -76,7 +79,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
       setResult(ev)
       // Fertigen französischen Satz nach der Antwort vorlesen (Hörverstehen und Aussprache zum Mitsprechen)
       if (ex.kind === 'fill') speak(fillSentence(ex.sentence, ex.answer))
-      else if (ex.kind === 'build') speak(ex.answer)
+      else if (ex.kind === 'build' || ex.kind === 'spell') speak(ex.kind === 'build' ? ex.answer : ex.speak)
       for (const id of ev.mistakeItemIds) wrongCount.current[id] = (wrongCount.current[id] ?? 0) + 1
       if (ev.status === 'almost' && ex.kind !== 'match') almostCount.current[ex.itemId] = (almostCount.current[ex.itemId] ?? 0) + 1
       if (ev.status === 'wrong') {
@@ -88,7 +91,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           retries.current += 1
           setQueue((q) => {
             const copy = [...q]
-            copy.splice(Math.min(idx + 1 + RETRY_GAP, copy.length), 0, { ...ex, id: `${baseId}:retry${n}` })
+            copy.splice(Math.min(idx + 1 + RETRY_GAP, copy.length), 0, { ...ex, id: `${baseId}:retry${n}`, ...(ex.kind === 'type' ? { hint: true } : {}) })
             return copy
           })
         }
@@ -97,7 +100,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
         if (!isRetry && !ex.warm && ev.status === 'correct') {
           firstTry.current += 1
           setCombo((c) => c + 1)
-        }
+        } else if (!isRetry && !ex.warm && ev.status === 'almost') almostFirst.current += 1
       }
     },
     [ex, result, isRetry, noRetry, baseId, idx, hintFor],
@@ -129,7 +132,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
       onComplete({
         total,
         firstTry: firstTry.current,
-        accuracy: total ? Math.min(1, firstTry.current / total) : 1,
+        accuracy: total ? Math.min(1, (firstTry.current + 0.5 * almostFirst.current) / total) : 1,
         grades,
         mistakeItemIds,
         retries: retries.current,
@@ -168,6 +171,8 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
       <ListenExercise exercise={ex} {...common} />
     ) : ex.kind === 'listenChoice' ? (
       <ListenChoiceExercise exercise={ex} {...common} />
+    ) : ex.kind === 'spell' ? (
+      <SpellExercise exercise={ex} {...common} />
     ) : ex.kind === 'speak' ? (
       <SpeakExercise exercise={ex} {...common} />
     ) : ex.kind === 'build' ? (
@@ -241,7 +246,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             transition={{ duration: bad ? 0.4 : 0.38, ease: EASE }}
           >
             {body}
-            {!result && (ex.kind === 'type' || ex.kind === 'listen') && (
+            {!result && ((ex.kind === 'type' && !ex.hint) || ex.kind === 'listen') && (
               <div className="mt-4 min-h-11">
                 {hintFor === ex.id ? (
                   <motion.p initial={reduce ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, ease: EASE }} className="inline-block rounded-xl bg-snow px-4 py-2.5 font-mono text-lg tracking-[0.18em] text-muted" aria-live="polite">

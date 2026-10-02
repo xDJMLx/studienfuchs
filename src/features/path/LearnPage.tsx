@@ -151,12 +151,9 @@ export function LearnPage() {
   return (
     <div className="mx-auto max-w-[620px] px-4 pb-10 pt-4 lg:pt-6">
       <TodayCard />
-      <CoachCard />
-      <InstallBanner />
-      <BackupBanner />
 
       {/* Kurs-Kopf */}
-      <section className="card mb-8 p-5">
+      <section className="card mb-4 p-5">
         <div className="mb-4 flex items-center gap-3">
           <FrenchFlag size={44} />
           <div className="min-w-0">
@@ -183,6 +180,10 @@ export function LearnPage() {
           </Link>
         )}
       </section>
+
+      <CoachCard />
+      <InstallBanner />
+      <BackupBanner />
 
       {shown.map((unit, ui) => {
         const regularInUnit = unit.lessons.filter((l) => !l.review && !l.test)
@@ -300,7 +301,7 @@ function LessonSheet({ data, onClose }: { data: { lesson: Lesson; unit: Unit } |
           <h2 className="mb-1 text-2xl font-semibold">{lesson.title}</h2>
           <p className="mb-4 text-sm text-muted">
             {lesson.test
-              ? '15 gemischte Fragen ohne Hilfe. Bestanden ab 80 % beim ersten Versuch.'
+              ? '15 gemischte Fragen ohne Hilfe. Bestanden ab 70 % richtig.'
               : lesson.review
                 ? 'Die schwächsten Wörter dieser Einheit, gemischt abgefragt.'
                 : `${lesson.items.length} neue Wörter${lesson.explanation ? ' · mit kurzer Erklärung' : ''} · ca. ${Math.max(3, Math.round(lesson.items.length * 1.2))} Minuten`}

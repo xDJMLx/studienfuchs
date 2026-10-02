@@ -11,7 +11,7 @@ Lern-App für die Schule im Stil moderner Sprach-Apps (Start: Französisch, Klas
 - **Verschränkung**: Reihenfolge wird gemischt, dasselbe Wort nie direkt hintereinander.
 - **Wiederholung ist überall sichtbar**: „Heute“-Karte auf der Startseite, Zahl am Üben-Tab, fällige Wörter ganz oben im Üben-Bereich. Nach einer Lektion geht es mit „Nächste: …“ direkt weiter.
 - **Tipps statt Frust**: Bei Tippaufgaben zeigt „Tipp anzeigen“ Länge und ersten Buchstaben; ein Treffer mit Tipp zählt nicht als „auf Anhieb richtig“.
-- **Kleine Schritte, echte Freischaltung**: neue Wörter kommen nur zu zweit und werden sofort abgefragt; falsche Aufgaben wiederholen sich, bis sie sitzen. Die nächste Lektion/Einheit öffnet erst, wenn die vorige gut geschafft ist (≥ 70 % beim ersten Versuch, Einheitentest ≥ 80 %). Raten bringt nichts.
+- **Kleine Schritte, echte Freischaltung**: neue Wörter kommen nur zu zweit und werden sofort abgefragt; falsche Aufgaben wiederholen sich, bis sie sitzen. Die nächste Lektion/Einheit öffnet erst, wenn die vorige gut geschafft ist (Lektion ≥ 60 %, Einheitentest ≥ 70 %; „fast richtig“ zählt halb). Raten bringt nichts.
 - **Tagesziel = Minimum**: Ist das Ziel (z. B. 20 XP) geschafft, wird das Bonusziel 30, dann 40 usw. Am nächsten Tag beginnt es wieder beim Grundziel.
 - **Aufholen**: Unter „Mehr → Aufholen“ wählt man, wo die Klasse im Buch steht. Die App zeigt den Rückstand, macht einen Tagesplan bis zu einem Wunschdatum und bietet einen Test, der Sitzendes überspringen lässt.
 - **Handy-Bedienung**: schwebende Glas-Tab-Leiste (Nachbau des iOS-Glases per CSS), Sheets lassen sich von überall wegwischen, Wörterbuch ist Tab im Üben-Bereich, Eingabefelder lösen kein iOS-Zoomen aus.
@@ -37,7 +37,7 @@ Jeder Besucher bekommt die KI automatisch: Beim ersten Klick auf „Mit KI erste
 ## Übungen und Tests
 - **Aufgabentypen:** Auswahl, Zuordnen, Tippen, Hören + Tippen, **Hören + Bedeutung wählen**, Satzbau aus Wortbausteinen (aus Beispielsätzen und Lückensätzen), Lückensätze mit Begründung und optional **Sprechübungen** (Mikrofon + Spracherkennung des Browsers, in den Einstellungen einschaltbar).
 - **Einheit wiederholen:** am Ende jeder Einheit eine Lektion mit den schwächsten Wörtern.
-- **Einheitentest:** 15 gemischte Fragen ohne Hilfen und ohne zweiten Versuch, bestanden ab 80 %.
+- **Einheitentest:** 15 gemischte Fragen ohne Hilfen und ohne zweiten Versuch, bestanden ab 70 %.
 - **Einstufungstest:** je Einheit eine Auswahl- und eine Tippaufgabe; nur wer beide richtig hat, kann die Einheit überspringen (Raten reicht nicht).
 - Jedes Wort hat einen Beispielsatz mit Übersetzung (wird in Tests geprüft).
 

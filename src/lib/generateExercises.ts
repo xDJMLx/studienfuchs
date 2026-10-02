@@ -13,6 +13,8 @@ export interface GenOptions {
   allowListen?: boolean
   /** true, wenn Sprechübungen (Mikrofon + Spracherkennung) erlaubt sind. */
   allowSpeak?: boolean
+  /** Wörter, die in dieser Einheit zum ersten Mal vorkommen (Einsteiger-Leiter: erst erkennen, dann Buchstaben legen, noch kein freies Schreiben) */
+  isFresh?: (itemId: string) => boolean
   /** Schwerpunkt für freies Üben: nur Schreiben oder nur Hören */
   focus?: 'write' | 'listen' | 'mix'
   rng?: () => number
@@ -33,11 +35,13 @@ export function shuffle<T>(arr: T[], rng: () => number = Math.random): T[] {
   return a
 }
 
-function distractors(item: Item, pool: Item[], side: 'front' | 'back', n: number, rng: () => number): string[] {
+/** Falsche Antworten: höchstens zwei aus den Wörtern der Lektion selbst (die verwechselt man wirklich), der Rest aus dem ganzen Pool. */
+function distractors(item: Item, pool: Item[], side: 'front' | 'back', n: number, rng: () => number, near: Item[] = []): string[] {
   const answer = item[side].toLowerCase()
   const seen = new Set<string>([answer])
   const out: string[] = []
-  for (const p of shuffle(pool, rng)) {
+  const close = shuffle(near.filter((p) => p.id !== item.id), rng)
+  for (const p of [...close.slice(0, 2), ...shuffle(pool, rng), ...close.slice(2)]) {
     const v = p[side]
     if (seen.has(v.toLowerCase())) continue
     seen.add(v.toLowerCase())
@@ -47,10 +51,10 @@ function distractors(item: Item, pool: Item[], side: 'front' | 'back', n: number
   return out
 }
 
-function choice(item: Item, pool: Item[], dir: 'fr-de' | 'de-fr', rng: () => number): Exercise {
+function choice(item: Item, pool: Item[], dir: 'fr-de' | 'de-fr', rng: () => number, near: Item[] = []): Exercise {
   const toDe = dir === 'fr-de'
   const answer = toDe ? item.back : item.front
-  const options = shuffle([answer, ...distractors(item, pool, toDe ? 'back' : 'front', 3, rng)], rng)
+  const options = shuffle([answer, ...distractors(item, pool, toDe ? 'back' : 'front', 3, rng, near)], rng)
   return {
     kind: 'choice',
     id: `${item.id}:choice:${dir}`,
@@ -63,7 +67,9 @@ function choice(item: Item, pool: Item[], dir: 'fr-de' | 'de-fr', rng: () => num
   }
 }
 
-const typeEx = (item: Item, accept: string[]): Exercise => ({
+/** `hint`: Länge und erster Buchstabe stehen schon da (Stütze für Wörter, die noch nicht fest sitzen). */
+const typeEx = (item: Item, accept: string[], hint = false): Exercise => ({
+  ...(hint ? { hint: true } : {}),
   kind: 'type',
   id: `${item.id}:type`,
   itemId: item.id,
@@ -73,13 +79,38 @@ const typeEx = (item: Item, accept: string[]): Exercise => ({
   accept,
 })
 
-const listenChoiceEx = (item: Item, pool: Item[], rng: () => number): Exercise => ({
+const DECOY_LETTERS = 'aeioulnrstdmpcbvfgh'.split('')
+const DECOY_ACCENTS = 'éèêàâçîôûù'.split('')
+
+/**
+ * Wort aus Buchstaben legen (Stütze für Einsteiger, wie die Wortbank bei Duolingo): die Buchstaben des Wortes plus zwei, drei Ablenker.
+ * Nur für kurze Wörter und Wendungen; längere Sätze gehen mit Wortbausteinen (build).
+ */
+function spellEx(item: Item, rng: () => number): Exercise | null {
+  const word = item.front.normalize('NFC').trim()
+  const compact = word.replace(/\s+/g, '')
+  if (!compact || compact.length > 14 || word.split(/\s+/).length > 3) return null
+  const own = Array.from(compact.toLowerCase())
+  const pool = shuffle([...DECOY_LETTERS.filter((c) => !own.includes(c)), ...DECOY_ACCENTS.filter((c) => !own.includes(c)).slice(0, 2)], rng)
+  const decoys = pool.slice(0, compact.length >= 8 ? 3 : 2)
+  return {
+    kind: 'spell',
+    id: `${item.id}:spell`,
+    itemId: item.id,
+    prompt: item.back,
+    answer: word,
+    letters: shuffle([...own, ...decoys], rng),
+    speak: item.front,
+  }
+}
+
+const listenChoiceEx = (item: Item, pool: Item[], rng: () => number, near: Item[] = []): Exercise => ({
   kind: 'listenChoice',
   id: `${item.id}:listenchoice`,
   itemId: item.id,
   speak: item.front,
   answer: item.back,
-  options: shuffle([item.back, ...distractors(item, pool, 'back', 3, rng)], rng),
+  options: shuffle([item.back, ...distractors(item, pool, 'back', 3, rng, near)], rng),
 })
 
 const speakEx = (item: Item, accept: string[]): Exercise => ({
@@ -145,10 +176,12 @@ export function generateExercises(opts: GenOptions): Exercise[] {
     if (ex) planned.push({ round, priority, ex })
   }
 
-  // Zuordnen kommt zuerst in die Planung, damit es bei der Kürzung nicht herausfällt.
-  const fresh = items.filter((i) => mastery(i.id) === 0)
-  if (fresh.length >= 4) {
-    const group = fresh.slice(0, 5)
+  const fresh = (id: string) => mastery(id) === 0 || !!opts.isFresh?.(id)
+
+  // Zuordnen kommt zuerst in die Planung (bei den neuen Wörtern), damit es bei der Kürzung nicht herausfällt.
+  const freshItems = items.filter((i) => fresh(i.id))
+  if (freshItems.length >= 4) {
+    const group = freshItems.slice(0, 5)
     add(1, 0, {
       kind: 'match',
       id: `match:${group.map((g) => g.id).join('+')}`,
@@ -159,21 +192,25 @@ export function generateExercises(opts: GenOptions): Exercise[] {
 
   for (const item of items) {
     const m = mastery(item.id)
-    if (m === 0) {
-      add(1, 0, choice(item, pool, 'fr-de', rng))
-      add(1, 1, choice(item, pool, 'de-fr', rng))
-      add(2, 0, typeEx(item, sameMeaning(item)))
+    if (fresh(item.id)) {
+      // Einsteiger-Leiter: erkennen, hören, Buchstaben legen. Freies Schreiben kommt erst in späteren Runden (mit Stütze).
+      if (m === 0) add(1, 0, choice(item, pool, 'fr-de', rng, items))
+      add(1, 1, choice(item, pool, 'de-fr', rng, items))
+      add(1, 1, allowListen ? listenChoiceEx(item, pool, rng, items) : null)
+      const spell = spellEx(item, rng)
+      add(2, 0, spell ?? typeEx(item, sameMeaning(item), true))
       add(2, 2, buildEx(item, rng))
+      if (spell) add(2, 3, typeEx(item, sameMeaning(item), true))
     } else if (m === 1) {
-      add(1, 1, choice(item, pool, 'de-fr', rng))
-      add(2, 0, typeEx(item, sameMeaning(item)))
-      add(2, 1, allowListen ? listenEx(item) : null)
-      add(1, 1, allowListen ? listenChoiceEx(item, pool, rng) : null)
+      // Wird schon geübt, sitzt aber noch nicht: Schreiben mit Stütze (erster Buchstabe), Hören nur zum Auswählen
+      add(1, 1, choice(item, pool, 'de-fr', rng, items))
+      add(1, 1, allowListen ? listenChoiceEx(item, pool, rng, items) : null)
+      add(2, 0, typeEx(item, sameMeaning(item), true))
       add(2, 2, buildEx(item, rng))
     } else {
       add(2, 0, typeEx(item, sameMeaning(item)))
       add(2, 1, allowListen ? listenEx(item) : null)
-      add(1, 1, allowListen ? listenChoiceEx(item, pool, rng) : null)
+      add(1, 1, allowListen ? listenChoiceEx(item, pool, rng, items) : null)
       add(2, 2, allowSpeak ? speakEx(item, sameMeaning(item)) : null)
       add(2, 1, buildEx(item, rng))
     }
@@ -212,17 +249,23 @@ export function generateExercises(opts: GenOptions): Exercise[] {
  * Einheitentest: gemischte Aufgaben ohne Erklärung und ohne zweiten Versuch.
  * Schwerpunkt auf Produzieren (Tippen), dazu Erkennen und – wenn möglich – Hören.
  */
-export function generateTest(opts: { items: Item[]; pool: Item[]; count?: number; allowListen?: boolean; focus?: 'mix' | 'write' | 'listen'; rng?: () => number }): Exercise[] {
+export function generateTest(opts: { items: Item[]; pool: Item[]; count?: number; allowListen?: boolean; focus?: 'mix' | 'write' | 'listen'; mastery?: (itemId: string) => Mastery; rng?: () => number }): Exercise[] {
   const { items, pool, count = 15, allowListen = true, focus = 'mix', rng = Math.random } = opts
+  // Noch nie geübte Wörter werden aus Buchstaben gelegt, halb gelernte mit Stütze geschrieben, sichere frei (ohne "mastery" gilt alles als sicher, z. B. im Einheitentest)
+  const typed = (item: Item): Exercise => {
+    const m = opts.mastery?.(item.id) ?? 2
+    if (m === 0) return spellEx(item, rng) ?? typeEx(item, sameMeaning(item), true)
+    return typeEx(item, sameMeaning(item), m === 1)
+  }
   const sameMeaning = (item: Item) =>
     [...pool, ...items].filter((o) => o.id !== item.id && o.back.trim().toLowerCase() === item.back.trim().toLowerCase()).map((o) => o.front)
   const picked = shuffle(items, rng).slice(0, count)
   const out: Exercise[] = picked.map((item, i) => {
     // Schreibtest: nur aus dem Gedächtnis tippen (Akzente und Schreibweise zählen); Hörtest: hören und verstehen
-    if (focus === 'write') return typeEx(item, sameMeaning(item))
-    if (focus === 'listen') return allowListen ? listenChoiceEx(item, pool, rng) : typeEx(item, sameMeaning(item))
+    if (focus === 'write') return typed(item)
+    if (focus === 'listen') return allowListen ? listenChoiceEx(item, pool, rng) : typed(item)
     const slot = i % 4
-    if (slot === 0 || slot === 2) return typeEx(item, sameMeaning(item))
+    if (slot === 0 || slot === 2) return typed(item)
     if (slot === 1) return choice(item, pool, 'fr-de', rng)
     return allowListen ? listenChoiceEx(item, pool, rng) : choice(item, pool, 'de-fr', rng)
   })
@@ -256,7 +299,7 @@ export function generateLesson(opts: GenOptions): Exercise[] {
   for (let i = 0; i < fresh.length; i += NEW_BATCH) {
     const batch = fresh.slice(i, i + NEW_BATCH)
     steps.push({ kind: 'teach', id: `teach:${batch.map((b) => b.id).join('+')}`, itemId: batch[0].id, items: batch })
-    for (const item of batch) steps.push(choice(item, pool, 'fr-de', rng))
+    for (const item of batch) steps.push(choice(item, pool, 'fr-de', rng, items))
   }
 
   // Ab hier gelten die frisch gezeigten Wörter als "lernend": rückübersetzen, tippen, hören, Sätze bauen
@@ -264,6 +307,7 @@ export function generateLesson(opts: GenOptions): Exercise[] {
   const consolidate = generateExercises({
     ...opts,
     mastery: (id) => (freshIds.has(id) ? 1 : mastery(id)),
+    isFresh: (id) => freshIds.has(id),
     maxExercises: opts.maxExercises ?? Math.min(18, Math.max(12, items.length * 2 + 2)),
     allowListen,
   })

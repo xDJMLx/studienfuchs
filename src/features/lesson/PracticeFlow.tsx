@@ -26,7 +26,7 @@ interface Props {
   lessonId?: string
   exitTo: string
   maxExercises?: number
-  /** 'test' = Einheitentest: keine Erklärung, keine Wiederholung falscher Aufgaben, bestanden ab 80 % */
+  /** 'test' = Einheitentest: keine Erklärung, keine Wiederholung falscher Aufgaben, bestanden ab 70 % */
   mode?: 'learn' | 'test'
   /** Ohne Bestehensgrenze (Wiederholung, eigene Sets): Ergebnis zählt immer als geschafft. */
   noPassMark?: boolean
@@ -64,7 +64,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
     const allowListen = hasFrenchVoice()
     const warm = !isTest && warmup?.length ? generateWarmup(warmup, pool) : []
     const exercises = isTest
-      ? generateTest({ items, pool, allowListen, focus, count: maxExercises })
+      ? generateTest({ items, pool, allowListen, focus, count: maxExercises, mastery: noPassMark ? mastery : undefined })
       : [...warm, ...generateLesson({ items, pool, mastery, fills, maxExercises, allowListen, allowSpeak: recognitionAvailable && useStore.getState().speakingOn, focus })]
     const st = useStore.getState()
     return { exercises, xpBefore: st.xp, todayBefore: xpToday(st.xpByDay), goal: st.dailyGoal }

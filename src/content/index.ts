@@ -42,7 +42,7 @@ function load(): Unit[] {
         review: true,
       })
     }
-    // Danach der Einheitentest (gemischte Fragen ohne Hilfen, bestanden ab 80 %)
+    // Danach der Einheitentest (gemischte Fragen ohne Hilfen, bestanden ab 70 %)
     if (lessons.length >= 3) {
       lessons.push({
         id: `${parsed.id}-test`,
@@ -97,9 +97,9 @@ export function poolForLesson(lessonId: string): Item[] {
 }
 
 /** Ab diesem Anteil richtiger Antworten (beim ersten Versuch) gilt ein Einheitentest als bestanden. */
-export const TEST_PASS = 0.8
+export const TEST_PASS = 0.7
 /** Eine Lektion zählt erst als geschafft, wenn mindestens so viele Aufgaben auf Anhieb richtig waren – sonst wird sie wiederholt. */
-export const LESSON_PASS = 0.7
+export const LESSON_PASS = 0.6
 
 export type LessonRecordLike = { bestAccuracy: number }
 

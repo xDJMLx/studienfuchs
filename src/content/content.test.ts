@@ -25,7 +25,7 @@ describe('Kursinhalte', () => {
     for (const i of allItems) {
       expect(i.example, `${i.id}: Beispielsatz fehlt`).toBeTruthy()
       expect(i.exampleDe, `${i.id}: Übersetzung fehlt`).toBeTruthy()
-      expect((i.example as string).split(/s+/).length, i.id).toBeLessThanOrEqual(12)
+      expect((i.example as string).split(/\s+/).length, i.id).toBeLessThanOrEqual(12)
     }
   })
   it('Lektions-IDs beginnen mit der Einheit', () => {

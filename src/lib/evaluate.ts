@@ -31,6 +31,11 @@ export function evaluate(ex: Exercise, answer: Answer): Evaluation {
       const r = checkAnswer(String(answer), ex.answer, ex.accept)
       return { ...r, correctAnswer: ex.answer, mistakeItemIds: r.status === 'wrong' ? [ex.itemId] : [] }
     }
+    case 'spell': {
+      // Aus Buchstaben gelegt: Leerzeichen der Lösung entfallen, fehlende Akzente zählen als "fast richtig"
+      const r = checkAnswer((answer as string[]).join(''), ex.answer.replace(/\s+/g, ''))
+      return { ...r, correctAnswer: ex.answer, mistakeItemIds: r.status === 'wrong' ? [ex.itemId] : [] }
+    }
     case 'build': {
       const typed = (answer as string[]).join(' ')
       const r = checkAnswer(typed, ex.answer)

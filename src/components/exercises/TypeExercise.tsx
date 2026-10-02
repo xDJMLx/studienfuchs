@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { makeHint } from '../../lib/hint'
 import { speak } from '../../lib/speech'
 import { Instruction, PromptBubble, type ExerciseProps } from './common'
 
@@ -78,6 +79,12 @@ export function TypeExercise({ exercise: ex, answer, onChange, result }: Exercis
     <div>
       <Instruction>Schreibe das auf Französisch</Instruction>
       <PromptBubble speak={ex.speak} lang={ex.promptLang}>{ex.prompt}</PromptBubble>
+      {ex.hint && (
+        <p className="mb-4 inline-block rounded-xl bg-snow px-4 py-2.5 font-mono text-lg tracking-[0.18em] text-muted">
+          <span className="sr-only">Stütze: </span>
+          {makeHint(ex.answer)}
+        </p>
+      )}
       <AnswerInput
         value={typeof answer === 'string' ? answer : ''}
         onChange={(v) => onChange(v.trim() ? v : null)}
