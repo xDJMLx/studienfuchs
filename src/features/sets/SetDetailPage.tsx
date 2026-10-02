@@ -23,7 +23,7 @@ export function SetDetailPage() {
   const [aiMsg, setAiMsg] = useState<{ ok: boolean; text: string } | null>(null)
 
   const plan = useMemo(() => (set ? planToday(set.items, cards, examDate) : null), [set, cards, examDate])
-  if (!set || !plan) return <Navigate to="/sets" replace />
+  if (!set || !plan) return <Navigate to="/practice" replace />
 
   const startEdit = () => setEditing(set.items.map((i) => newRow(i.front, i.back, { example: i.example, exampleDe: i.exampleDe, note: i.note })))
   const saveEdit = () => {
@@ -76,8 +76,8 @@ export function SetDetailPage() {
   return (
     <Stagger className="mx-auto max-w-xl px-4 py-6" stagger={0.07}>
       <Item>
-        <Link to="/sets" className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-medium text-muted hover:text-ink">
-          <Back size={18} /> Bücher
+        <Link to="/practice" className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-medium text-muted hover:text-ink">
+          <Back size={18} /> Üben
         </Link>
         <h1 className="page-title">{set.title}</h1>
         <p className="mb-5 mt-1 text-muted">{set.items.length} Wörter</p>
@@ -198,7 +198,7 @@ export function SetDetailPage() {
                 className="btn btn-bad press flex-1"
                 onClick={() => {
                   deleteSet(set.id)
-                  navigate('/sets', { replace: true })
+                  navigate('/practice', { replace: true })
                 }}
               >
                 Löschen

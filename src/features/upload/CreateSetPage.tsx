@@ -144,10 +144,10 @@ export function CreateSetPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 lg:py-8">
-      <Link to="/sets" className="mb-1 press -ml-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-medium text-muted hover:text-ink">
-        <Back size={18} /> Bücher
+      <Link to="/practice" className="mb-1 press -ml-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-medium text-muted hover:text-ink">
+        <Back size={18} /> Üben
       </Link>
-      <h1 className="page-title">Buch hinzufügen</h1>
+      <h1 className="page-title">Eigene Liste</h1>
       <p className="mb-6 mt-1 text-muted">Seiten aus deinem Schulbuch abfotografieren, den Rest übernimmt die App. Oder Wörter selbst eintippen: fehlende Akzente ergänzt die App von allein.</p>
 
       <AnimatePresence mode="wait" initial={false}>

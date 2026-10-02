@@ -5,8 +5,9 @@ import { goalInfo, levelFromXp } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
 import { CourseChip } from './CoursePicker'
-import { Bolt, Book, Camera, Flame, Gear, Home, Repeat, Sparkle, Trophy, User } from './Icons'
+import { Bolt, Camera, Flame, Gear, Home, Repeat, Sparkle, Trophy, User } from './Icons'
 import { EASE } from './motion'
+import { useCoachComposer } from '../../lib/coachComposer'
 import { CoachComposer } from './CoachComposer'
 import { TabBar } from './TabBar'
 import { useDue } from '../../features/review/ReviewPage'
@@ -25,7 +26,6 @@ const NAV: NavItem[] = [
   { to: '/', label: 'Lernen', Icon: Home, end: true },
   { to: '/practice', label: 'Üben', Icon: Repeat },
   { to: '/coach', label: 'KI', Icon: Sparkle },
-  { to: '/sets', label: 'Bücher', Icon: Book },
   { to: '/profile', label: 'Profil', Icon: User },
 ]
 
@@ -59,13 +59,14 @@ export function Layout() {
   const scroller = useRef<HTMLElement>(null)
   const dueCount = useDue().due.length
   const onCoach = location.pathname.startsWith('/coach')
+  const hasPages = useCoachComposer((c) => c.pages.length > 0)
 
   useEffect(() => {
     scroller.current?.scrollTo({ top: 0 })
   }, [location.pathname])
 
   return (
-    <div className="flex h-full bg-page" style={onCoach ? ({ '--tabbar-h': 'calc(9rem + env(safe-area-inset-bottom, 0px))' } as React.CSSProperties) : undefined}>
+    <div className="flex h-full bg-page" style={onCoach ? ({ '--tabbar-h': `calc(${hasPages ? '13rem' : '9rem'} + env(safe-area-inset-bottom, 0px))` } as React.CSSProperties) : undefined}>
       <button
         type="button"
         onClick={() => scroller.current?.focus()}
@@ -210,13 +211,13 @@ export function RightRail() {
         <ProgressBar pct={lvl.into / lvl.needed} />
       </Link>
 
-      <Link to="/sets/new" className={`${card} group flex items-center gap-4`}>
+      <Link to="/coach" className={`${card} group flex items-center gap-4`}>
         <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark transition-transform group-hover:scale-105">
           <Camera size={24} />
         </span>
         <span>
-          <span className="block font-semibold">Eigene Buchseite hochladen</span>
-          <span className="block text-sm text-muted">Aus Fotos oder eigenen Wörtern ein Quiz erstellen.</span>
+          <span className="block font-semibold">Buchseiten in die KI laden</span>
+          <span className="block text-sm text-muted">Vokabeltest aus deinen eigenen Seiten.</span>
         </span>
       </Link>
 

@@ -171,3 +171,15 @@ describe('Üben ohne Lernstand', () => {
     expect(itemsForScope('learned', { cards: {}, favorites: [], sets: [] })).toEqual([])
   })
 })
+
+describe('Schreibtest und Hörtest', () => {
+  it('Schreibtest fragt nur Tippaufgaben ab, ohne Erklärung neuer Wörter', async () => {
+    const { generateTest } = await import('./generateExercises')
+    const { allItems } = await import('../content')
+    const items = allItems.slice(0, 12)
+    const ex = generateTest({ items, pool: allItems.slice(0, 80), count: 12, focus: 'write' })
+    expect(ex).toHaveLength(12)
+    expect(ex.every((e) => e.kind === 'type')).toBe(true)
+    expect(ex.some((e) => e.kind === 'teach')).toBe(false)
+  })
+})

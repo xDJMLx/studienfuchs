@@ -11,18 +11,29 @@ import { buildCoachPrompt } from '../../lib/coach'
 import { streakNow, useStore } from '../../store/useStore'
 import { CoachComposer } from '../../components/ui/CoachComposer'
 import { useCoachComposer } from '../../lib/coachComposer'
+import { splitVocabBlock } from '../../lib/vocabBlock'
 import { AiNotice } from '../settings/AiNotice'
 
 const KEY = 'studienfuchs-coach'
 
-const load = (): ChatMessage[] => {
+/** Nachricht im Chat: Vorschaubilder gibt es nur in dieser Sitzung, die erzeugte Liste bleibt gespeichert. */
+interface UiMessage extends ChatMessage {
+  thumbs?: string[]
+  pageCount?: number
+  list?: { id: string; title: string; count: number }
+}
+
+const load = (): UiMessage[] => {
   try {
-    const raw = JSON.parse(localStorage.getItem(KEY) ?? '[]') as ChatMessage[]
+    const raw = JSON.parse(localStorage.getItem(KEY) ?? '[]') as UiMessage[]
     return Array.isArray(raw) ? raw.filter((m) => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string').slice(-40) : []
   } catch {
     return []
   }
 }
+
+/** Vorschlag, der nur das Eingabefeld füllt: Erst Seiten per Plus anhängen, dann senden. */
+const PAGES_PROMPT = 'Ich habe Seiten aus meinem Buch angehängt. Mach mir einen Vokabeltest von Seite … bis Seite … (nur die Vokabeln). Achte auf genaue Schreibweise und Akzente.'
 
 const SUGGESTIONS = [
   'Frag mich Vokabeln ab, bei denen es bei mir hakt.',
@@ -69,7 +80,7 @@ function Markdownish({ text }: { text: string }) {
 export function CoachPage() {
   const reduce = useReducedMotion()
   const store = useStore()
-  const [messages, setMessages] = useState<ChatMessage[]>(load)
+  const [messages, setMessages] = useState<UiMessage[]>(load)
   // Nur die (stabilen) Setter abonnieren, sonst löst jedes Setzen ein neues Rendern dieser Seite aus
   const setInput = useCoachComposer((c) => c.setInput)
   const setComposerBusy = useCoachComposer((c) => c.setBusy)
@@ -94,7 +105,8 @@ export function CoachPage() {
 
   useEffect(() => {
     try {
-      localStorage.setItem(KEY, JSON.stringify(messages.slice(-40)))
+      // Vorschaubilder nicht speichern (zu groß), nur Text, Seitenzahl und Liste
+      localStorage.setItem(KEY, JSON.stringify(messages.slice(-40).map(({ thumbs: _t, ...m }) => m)))
     } catch {
       /* Speicher nicht verfügbar */
     }
@@ -113,7 +125,8 @@ export function CoachPage() {
   const send = async (raw: string) => {
     const content = raw.trim()
     if (!content || busy) return
-    const next: ChatMessage[] = [...messages, { role: 'user', content }]
+    const sent = useCoachComposer.getState().pages
+    const next: UiMessage[] = [...messages, { role: 'user', content, ...(sent.length ? { thumbs: sent.map((x) => x.thumb), pageCount: sent.length } : {}) }]
     setMessages(next)
     setInput('')
     setError(null)
@@ -131,8 +144,24 @@ export function CoachPage() {
         streak: streakNow(store.streak),
         classPosition: store.classUnit ? unitLabel(store.classUnit) : undefined,
       })
-      const answer = await chatCoach(system, next)
-      setMessages((m) => [...m, { role: 'assistant', content: answer.trim() }])
+      // Die angehängten Seiten gehen bei jeder Nachricht mit, bis sie entfernt werden (so versteht die KI auch Rückfragen)
+      const answer = await chatCoach(
+        system,
+        next.map(({ role, content: c }) => ({ role, content: c })),
+        sent.map((x) => x.data),
+      )
+      const split = splitVocabBlock(answer)
+      let list: UiMessage['list']
+      if (split.vocab) {
+        const id = store.addSet(
+          split.vocab.title,
+          split.vocab.items.map(({ front, back, example, exampleDe, note }) => ({ front, back, ...(example && exampleDe ? { example, exampleDe } : {}), ...(note ? { note } : {}) })),
+          'KI-Listen',
+        )
+        list = { id, title: split.vocab.title, count: split.vocab.items.length }
+      }
+      const text = split.truncated ? (split.text + '\n\nDie Liste war zu lang und wurde abgeschnitten. Wähle weniger Seiten oder einen kleineren Bereich.').trim() : split.text
+      setMessages((m) => [...m, { role: 'assistant', content: text || 'Fertig.', ...(list ? { list } : {}) }])
     } catch (e) {
       setError(e instanceof AiError ? e.message : 'Das hat nicht geklappt. Versuch es nochmal.')
     } finally {
@@ -163,7 +192,7 @@ export function CoachPage() {
         <Mascot size={64} mood={busy ? 'think' : 'cheer'} blink />
         <div className="min-w-0 flex-1">
           <h1 className="page-title">KI</h1>
-          <p className="text-muted">Frag zu Arbeiten, Grammatik und Wörtern.</p>
+          <p className="text-muted">Fragen stellen, Buchseiten hochladen, Tests bauen lassen.</p>
         </div>
         {!empty && (
           <button
@@ -171,6 +200,7 @@ export function CoachPage() {
             onClick={() => {
               setMessages([])
               setError(null)
+              useCoachComposer.getState().clearPages()
             }}
             className="press flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-muted transition-colors hover:bg-snow hover:text-bad"
             aria-label="Neuer Chat"
@@ -186,11 +216,23 @@ export function CoachPage() {
           <AiNotice className="mb-4" />
           <p className="mb-3 text-sm text-muted">
             Die KI kennt deinen Lernstand (Klasse, Fortschritt, eingetragene Klassenarbeiten und Wörter, bei denen es hakt), aber nicht deinen Namen.{' '}
-            <Link to="/sets" className="font-medium text-brand-dark underline">
-              Klassenarbeit bei einem Kapitel eintragen
-            </Link>
+            Mit dem <b className="text-ink">+</b> unten links kannst du Fotos von Buchseiten hochladen und der KI sagen, was sie daraus machen soll.
           </p>
           <div className="grid gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setInput(PAGES_PROMPT)
+                window.setTimeout(() => box.current?.focus(), 50)
+              }}
+              className="press group flex items-center gap-3 rounded-2xl border border-brand/40 bg-brand-soft px-4 py-3 text-left"
+            >
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-strong text-on-brand">
+                <Sparkle size={18} />
+              </span>
+              <span className="flex-1 font-medium">Vokabeltest aus meinen Buchseiten</span>
+              <Right size={16} className="shrink-0 text-muted transition-transform group-hover:translate-x-0.5" />
+            </button>
             {SUGGESTIONS.map((s) => (
               <button key={s} type="button" onClick={() => send(s)} className="press group flex items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3 text-left transition-colors hover:bg-snow">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
@@ -214,8 +256,36 @@ export function CoachPage() {
             className={m.role === 'user' ? 'ml-10 justify-self-end' : 'mr-6'}
           >
             <div className={m.role === 'user' ? 'rounded-2xl rounded-br-md bg-brand-strong px-4 py-2.5 text-on-brand' : 'card rounded-bl-md px-4 py-3'}>
+              {m.role === 'user' && (m.thumbs?.length || m.pageCount) ? (
+                <div className="mb-2 flex gap-1.5 overflow-x-auto">
+                  {m.thumbs?.length ? (
+                    m.thumbs.map((t, k) => <img key={k} src={t} alt={'Seite ' + (k + 1)} className="h-14 w-11 shrink-0 rounded-md border border-white/30 object-cover" draggable={false} />)
+                  ) : (
+                    <span className="text-xs opacity-80">{m.pageCount} Seiten angehängt</span>
+                  )}
+                </div>
+              ) : null}
               {m.role === 'user' ? <p className="whitespace-pre-wrap">{m.content}</p> : <Markdownish text={m.content} />}
             </div>
+            {m.list && (
+              <div className="card mt-2 p-3">
+                <p className="font-semibold leading-tight">Vokabeltest bereit</p>
+                <p className="text-sm text-muted">
+                  {m.list.title} · {m.list.count} Wörter. Gespeichert unter Üben → Eigene Listen.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Link to={'/practice/play?mode=write&scope=set:' + m.list.id} className="btn btn-primary press !px-4 !py-2.5 !text-sm">
+                    Schreibtest
+                  </Link>
+                  <Link to={'/practice/play?mode=mix&scope=set:' + m.list.id} className="btn btn-ghost press !px-4 !py-2.5 !text-sm">
+                    Gemischtes Quiz
+                  </Link>
+                  <Link to={'/sets/' + m.list.id} className="btn btn-ghost press !px-4 !py-2.5 !text-sm">
+                    Liste ansehen
+                  </Link>
+                </div>
+              </div>
+            )}
           </motion.li>
         ))}
         <AnimatePresence>

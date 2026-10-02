@@ -61,7 +61,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
     const mastery = (id: string) => masteryOf(cards[id])
     const allowListen = hasFrenchVoice()
     const exercises = isTest
-      ? generateTest({ items, pool, allowListen })
+      ? generateTest({ items, pool, allowListen, focus, count: maxExercises })
       : generateLesson({ items, pool, mastery, fills, maxExercises, allowListen, allowSpeak: recognitionAvailable && useStore.getState().speakingOn, focus })
     const st = useStore.getState()
     return { exercises, xpBefore: st.xp, todayBefore: xpToday(st.xpByDay), goal: st.dailyGoal }
@@ -140,7 +140,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
 
   if (stage === 'done' && outcome) {
     const mark = noPassMark ? 0 : isTest ? TEST_PASS : LESSON_PASS
-    return <ResultScreen title={title} outcome={outcome} items={items} test={isTest} mark={mark} lessonId={lessonId} onRetry={onRetry} onDone={() => navigate(exitTo)} onNext={(id) => navigate(`/lesson/${id}`, { replace: true })} />
+    return <ResultScreen title={title} outcome={outcome} items={items} test={isTest} free={noPassMark} mark={mark} lessonId={lessonId} onRetry={onRetry} onDone={() => navigate(exitTo)} onNext={(id) => navigate(`/lesson/${id}`, { replace: true })} />
   }
 
   return <Session exercises={setup.exercises} gradedItemIds={gradedIds} onExit={() => navigate(exitTo)} onComplete={onComplete} noRetry={isTest} />
@@ -167,6 +167,7 @@ function ResultScreen({
   outcome,
   items,
   test,
+  free,
   mark,
   lessonId,
   onRetry,
@@ -177,6 +178,7 @@ function ResultScreen({
   outcome: { result: SessionResult; xp: number; leveledUp: boolean; goalReached: boolean; bonusTier: number }
   items: Item[]
   test: boolean
+  free: boolean
   mark: number
   lessonId?: string
   onRetry: () => void
@@ -192,8 +194,11 @@ function ResultScreen({
   // Direkt weiterlernen: die nächste offene Lektion (nach dem Speichern des Ergebnisses berechnet)
   const next = passed && lessonId ? nextLessonAfter(lessonId, useStore.getState().lessons) : undefined
   const stars = !passed ? 0 : pct >= 90 ? 3 : pct >= 75 ? 2 : 1
-  const headline = test ? (passed ? 'Test bestanden!' : 'Noch nicht bestanden') : passed ? (pct >= 90 ? 'Perfekt!' : 'Lektion geschafft!') : 'Fast geschafft'
-  const sub = !passed
+  const freeHeadline = pct >= 90 ? 'Sehr gut!' : pct >= 70 ? 'Gut gemacht!' : 'Ein guter Anfang'
+  const headline = free && test ? freeHeadline : test ? (passed ? 'Test bestanden!' : 'Noch nicht bestanden') : passed ? (pct >= 90 ? 'Perfekt!' : 'Lektion geschafft!') : 'Fast geschafft'
+  const sub = free && test
+    ? `${pct} % auf Anhieb richtig. ${missed.length ? 'Die Wörter, die noch nicht saßen, siehst du unten.' : 'Kein einziger Fehler.'}`
+    : !passed
     ? `Du brauchst mindestens ${Math.round(mark * 100)} % beim ersten Versuch, bevor es weitergeht. Das hier waren ${pct} %.${test ? '' : ' Mach die Lektion einfach nochmal, die schwierigen Wörter sitzen dann besser.'}`
     : test
       ? 'Stark, diese Einheit sitzt.'

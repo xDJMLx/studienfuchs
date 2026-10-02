@@ -8,6 +8,7 @@ import { useStore } from '../../store/useStore'
 import { PracticeFlow } from '../lesson/PracticeFlow'
 
 const SESSION_ITEMS = 10
+const TEST_ITEMS = 20
 
 /** Freies Üben: gewählte Wörter im gewählten Modus (Mix, Schreiben, Hören). */
 export function PracticePlay() {
@@ -15,12 +16,16 @@ export function PracticePlay() {
   const scope = (params.get('scope') ?? 'due') as Scope
   const mode = (params.get('mode') ?? 'mix') as 'mix' | 'write' | 'listen'
 
-  const picked = useMemo(() => {
+  // Test = Wörter direkt abfragen, ohne sie vorher zu erklären (Listen von der KI, oder wenn noch nichts gesehen wurde)
+  const { picked, test } = useMemo(() => {
     const { cards, favorites, sets } = useStore.getState()
-    let items = itemsForScope(scope, { cards, favorites, sets })
-    // Schreiben und Hören setzen Wörter voraus, die man schon einmal gesehen hat
-    if (mode !== 'mix' || scope.startsWith('unit:') || scope.startsWith('set:')) items = items.filter((i) => masteryOf(cards[i.id]) > 0 || mode === 'mix')
-    return shuffle(items).slice(0, SESSION_ITEMS)
+    const items = itemsForScope(scope, { cards, favorites, sets })
+    const isList = scope.startsWith('set:')
+    // Schreiben und Hören üben zuerst schon gesehene Wörter; gibt es keine, wird direkt getestet
+    const seen = items.filter((i) => masteryOf(cards[i.id]) > 0)
+    const useSeen = !isList && mode !== 'mix' && seen.length > 0
+    const source = useSeen ? seen : items
+    return { picked: shuffle(source).slice(0, isList ? TEST_ITEMS : SESSION_ITEMS), test: isList || (mode !== 'mix' && !useSeen) }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -30,6 +35,8 @@ export function PracticePlay() {
   }, [picked])
 
   if (!picked.length) return <Navigate to="/practice" replace />
-  const title = `${{ mix: 'Quiz', write: 'Schreibtraining', listen: 'Hörtraining' }[mode]} · ${scopeLabel(scope)}`
-  return <PracticeFlow title={title} items={picked} pool={pool} exitTo="/practice" noPassMark focus={mode} />
+  const label = scope.startsWith('set:') ? (useStore.getState().sets.find((s) => s.id === scope.slice(4))?.title ?? scopeLabel(scope)) : scopeLabel(scope)
+  const names = test ? { mix: 'Vokabeltest', write: 'Schreibtest', listen: 'Hörtest' } : { mix: 'Quiz', write: 'Schreibtraining', listen: 'Hörtraining' }
+  const title = `${names[mode]} · ${label}`
+  return <PracticeFlow title={title} items={picked} pool={pool} exitTo={scope.startsWith('set:') ? `/sets/${scope.slice(4)}` : '/practice'} mode={test ? 'test' : 'learn'} maxExercises={test ? picked.length : undefined} noPassMark focus={mode} />
 }

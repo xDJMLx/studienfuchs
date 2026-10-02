@@ -340,17 +340,33 @@ export interface ChatMessage {
   content: string
 }
 
-/** Antwort im Gespräch (Lern-Coach). `system` enthält Rolle und Kontext, `messages` den bisherigen Verlauf. */
-export async function chatCoach(system: string, messages: ChatMessage[]): Promise<string> {
+/**
+ * Antwort im Gespräch mit der KI. `system` enthält Rolle und Kontext, `messages` den bisherigen Verlauf.
+ * `pages` sind verkleinerte JPEGs (Base64) von Buchseiten, die die KI bei dieser Anfrage sehen soll.
+ */
+export async function chatCoach(system: string, messages: ChatMessage[], pages: string[] = []): Promise<string> {
   const history = messages.slice(-24)
+  const maxTokens = pages.length ? 4500 : 1500
   if (getAiConfig().provider === 'anthropic') {
     const cfg = getAiConfig()
+    // Die Seiten hängen an der letzten Nachricht des Schülers
+    const payload = history.map((m, i) =>
+      i === history.length - 1 && m.role === 'user' && pages.length
+        ? {
+            role: m.role,
+            content: [
+              ...pages.map((data) => ({ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data } })),
+              { type: 'text', text: m.content },
+            ],
+          }
+        : m,
+    )
     let res: Response
     try {
       res = await fetch(API, {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-api-key': cfg.key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-        body: JSON.stringify({ model: cfg.model, max_tokens: 1500, system, messages: history }),
+        body: JSON.stringify({ model: cfg.model, max_tokens: maxTokens, system, messages: payload }),
       })
     } catch {
       throw new AiError('Keine Verbindung zur KI. Bist du online?', 'network')
@@ -367,10 +383,21 @@ export async function chatCoach(system: string, messages: ChatMessage[]): Promis
   }
   const puter = await loadPuter()
   if (!puter.auth.isSignedIn()) throw new AiError('Die KI ist noch nicht aktiviert. Sende die Nachricht nochmal, dann wird sie aktiviert.', 'auth')
+  // Mit Bildern nimmt Puter einen Text plus Bildliste: der Verlauf wird dafür in den Text geschrieben
+  const transcript = history.map((m) => `${m.role === 'user' ? 'Schüler' : 'KI'}: ${m.content}`).join('\n\n')
+  const imageUrls = pages.map((data) => `data:image/jpeg;base64,${data}`)
   let last: AiError | null = null
   for (const model of PUTER_MODELS) {
     try {
-      const res = await puter.ai.chat([{ role: 'system', content: system }, ...history], { model, max_tokens: 1500 })
+      const opts = { model, max_tokens: maxTokens }
+      const res = pages.length
+        ? await puter.ai.chat(`${system}
+
+Bisheriges Gespräch:
+${transcript}
+
+Antworte jetzt auf die letzte Nachricht des Schülers. Die Seiten stehen als Bilder dabei.`, imageUrls, opts)
+        : await puter.ai.chat([{ role: 'system', content: system }, ...history], opts)
       const out = puterText(res)
       if (out.trim()) return out
       last = new AiError('Die KI hat eine leere Antwort geliefert.', 'format')

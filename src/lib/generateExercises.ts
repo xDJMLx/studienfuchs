@@ -212,12 +212,15 @@ export function generateExercises(opts: GenOptions): Exercise[] {
  * Einheitentest: gemischte Aufgaben ohne Erklärung und ohne zweiten Versuch.
  * Schwerpunkt auf Produzieren (Tippen), dazu Erkennen und – wenn möglich – Hören.
  */
-export function generateTest(opts: { items: Item[]; pool: Item[]; count?: number; allowListen?: boolean; rng?: () => number }): Exercise[] {
-  const { items, pool, count = 15, allowListen = true, rng = Math.random } = opts
+export function generateTest(opts: { items: Item[]; pool: Item[]; count?: number; allowListen?: boolean; focus?: 'mix' | 'write' | 'listen'; rng?: () => number }): Exercise[] {
+  const { items, pool, count = 15, allowListen = true, focus = 'mix', rng = Math.random } = opts
   const sameMeaning = (item: Item) =>
     [...pool, ...items].filter((o) => o.id !== item.id && o.back.trim().toLowerCase() === item.back.trim().toLowerCase()).map((o) => o.front)
   const picked = shuffle(items, rng).slice(0, count)
   const out: Exercise[] = picked.map((item, i) => {
+    // Schreibtest: nur aus dem Gedächtnis tippen (Akzente und Schreibweise zählen); Hörtest: hören und verstehen
+    if (focus === 'write') return typeEx(item, sameMeaning(item))
+    if (focus === 'listen') return allowListen ? listenChoiceEx(item, pool, rng) : typeEx(item, sameMeaning(item))
     const slot = i % 4
     if (slot === 0 || slot === 2) return typeEx(item, sameMeaning(item))
     if (slot === 1) return choice(item, pool, 'fr-de', rng)

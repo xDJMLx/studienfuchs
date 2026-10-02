@@ -21,7 +21,6 @@ import { ReviewPlay } from './features/review/ReviewPlay'
 import { SettingsPage } from './features/settings/SettingsPage'
 import { SetDetailPage } from './features/sets/SetDetailPage'
 import { SetPlay } from './features/sets/SetPlay'
-import { SetsPage } from './features/sets/SetsPage'
 import { CreateSetPage } from './features/upload/CreateSetPage'
 import { Welcome } from './features/welcome/Welcome'
 
@@ -38,8 +37,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/review', 'Lernstand'],
   ['/words', 'Wörter'],
   ['/grammar', 'Grammatik'],
-  ['/sets/new', 'Buch hinzufügen'],
-  ['/sets', 'Bücher'],
+  ['/sets', 'Eigene Liste'],
   ['/profile', 'Profil'],
   ['/settings', 'Einstellungen'],
   ['/about', 'Datenschutz & Impressum'],
@@ -81,7 +79,7 @@ export default function App() {
             <Route path="words" element={<Navigate to="/practice?tab=words" replace />} />
             <Route path="grammar" element={<Navigate to="/practice?tab=grammar" replace />} />
             <Route path="grammar/:lessonId" element={<GrammarTopicPage />} />
-            <Route path="sets" element={<SetsPage />} />
+            <Route path="sets" element={<Navigate to="/practice" replace />} />
             <Route path="sets/new" element={<CreateSetPage />} />
             <Route path="sets/:setId" element={<SetDetailPage />} />
             <Route path="profile" element={<ProfilePage />} />
