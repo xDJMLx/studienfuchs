@@ -14,7 +14,10 @@ Lern-App für die Schule im Stil moderner Sprach-Apps (Start: Französisch, Klas
 - **Kleine Schritte, echte Freischaltung**: neue Wörter kommen nur zu zweit und werden sofort abgefragt; falsche Aufgaben wiederholen sich, bis sie sitzen. Die nächste Lektion/Einheit öffnet erst, wenn die vorige gut geschafft ist (≥ 70 % beim ersten Versuch, Einheitentest ≥ 80 %). Raten bringt nichts.
 - **Tagesziel = Minimum**: Ist das Ziel (z. B. 20 XP) geschafft, wird das Bonusziel 30, dann 40 usw. Am nächsten Tag beginnt es wieder beim Grundziel.
 - **Aufholen**: Unter „Mehr → Aufholen“ wählt man, wo die Klasse im Buch steht. Die App zeigt den Rückstand, macht einen Tagesplan bis zu einem Wunschdatum und bietet einen Test, der Sitzendes überspringen lässt.
-- **Eigene Sets**: Fotos oder PDF-Seiten (von Seite … bis Seite …, optional mit Hinweis, welche Vokabeln) → KI oder Offline-Texterkennung → Tabelle prüfen → Quiz. Mit Klassenarbeits-Datum werden neue Wörter auf die Tage verteilt.
+- **Lern-Coach**: Chat mit der KI (Puter) über Klassenarbeiten, Grammatik und Wörter, bei denen es hakt. Der Coach bekommt Klasse, Fortschritt, Termine und schwache Wörter, aber keinen Namen.
+- **Als App installieren**: Banner auf der Startseite und Einstellungen → App (Chrome/Edge/Android per Knopf, iPhone per Anleitung „Zum Home-Bildschirm“).
+- **Akzent-Autokorrektur**: Beim Eintippen eigener Wörter ergänzt `src/lib/accents.ts` fehlende Akzente (Wörterbuch aus dem Kurswortschatz; mehrdeutige Wörter wie a/à, ou/où bleiben unverändert); dazu Akzent-Tasten für den PC.
+- **Eigene Sets**: Fotos von Buchseiten (optional mit Hinweis, welche Vokabeln) oder Wörter von Hand → KI oder Offline-Texterkennung → Tabelle prüfen (fehlende Akzente werden automatisch ergänzt) → Quiz. Mit Klassenarbeits-Datum werden neue Wörter auf die Tage verteilt.
 
 ## KI für eigene Lernsets (ohne eigenen Schlüssel)
 Jeder Besucher bekommt die KI automatisch: Beim ersten Klick auf „Mit KI erstellen“ legt **Puter.js** ein kostenloses Gastkonto im Browser an (kurzes Fenster, Pop-ups erlauben). Die Nutzung läuft über das Puter-Konto des Besuchers, im Code und auf GitHub Pages liegt **kein** Schlüssel. Die Bibliothek wird erst bei Bedarf geladen (eigener Chunk).

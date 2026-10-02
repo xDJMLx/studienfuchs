@@ -6,6 +6,7 @@ import { useApplyTheme } from './lib/theme'
 import { useStore } from './store/useStore'
 import { GrammarPage, GrammarTopicPage } from './features/grammar/GrammarPage'
 import { CatchUpPage } from './features/catchup/CatchUpPage'
+import { CoachPage } from './features/coach/CoachPage'
 import { LessonPage } from './features/lesson/LessonPage'
 import { LearnPage } from './features/path/LearnPage'
 import { PlacementPage } from './features/placement/PlacementPage'
@@ -30,6 +31,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/lesson/', 'Lektion'],
   ['/placement', 'Einstufungstest'],
   ['/catchup', 'Aufholen'],
+  ['/coach', 'Lern-Coach'],
   ['/practice/cards', 'Karteikarten'],
   ['/practice', 'Üben'],
   ['/review/play', 'Wiederholung'],
@@ -73,6 +75,7 @@ export default function App() {
             <Route index element={<LearnPage />} />
             <Route path="review" element={<ReviewPage />} />
             <Route path="catchup" element={<CatchUpPage />} />
+            <Route path="coach" element={<CoachPage />} />
             <Route path="practice" element={<PracticePage />} />
             <Route path="words" element={<WordsPage />} />
             <Route path="grammar" element={<GrammarPage />} />

@@ -1,4 +1,4 @@
-// KI-Unterstützung: Vokabeln aus Buchseiten (Fotos/PDF) herausziehen und Lernkarten ergänzen.
+// KI-Unterstützung: Vokabeln aus Buchseiten (Fotos) herausziehen und Lernkarten ergänzen.
 // Standard: Puter.js. Jeder Besucher bekommt beim ersten Klick automatisch ein kostenloses Gastkonto bei Puter, ohne eigenen Schlüssel.
 // Die Nutzung läuft über das Puter-Konto des Besuchers, nicht über ein Konto des Betreibers dieser Seite.
 // Alternativ: eigener Anthropic-API-Schlüssel (nur lokal gespeichert, nicht Teil der Sicherung).
@@ -333,4 +333,51 @@ export async function blobToJpegBase64(blob: Blob, maxSide = 1600): Promise<stri
   bitmap.close()
   const url = canvas.toDataURL('image/jpeg', 0.85)
   return url.slice(url.indexOf(',') + 1)
+}
+
+export interface ChatMessage {
+  role: 'user' | 'assistant'
+  content: string
+}
+
+/** Antwort im Gespräch (Lern-Coach). `system` enthält Rolle und Kontext, `messages` den bisherigen Verlauf. */
+export async function chatCoach(system: string, messages: ChatMessage[]): Promise<string> {
+  const history = messages.slice(-24)
+  if (getAiConfig().provider === 'anthropic') {
+    const cfg = getAiConfig()
+    let res: Response
+    try {
+      res = await fetch(API, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-api-key': cfg.key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+        body: JSON.stringify({ model: cfg.model, max_tokens: 1500, system, messages: history }),
+      })
+    } catch {
+      throw new AiError('Keine Verbindung zur KI. Bist du online?', 'network')
+    }
+    if (!res.ok) {
+      if (res.status === 401 || res.status === 403) throw new AiError('Der API-Schlüssel wurde abgelehnt. Prüfe ihn in den Einstellungen.', 'auth')
+      if (res.status === 429) throw new AiError('Zu viele Anfragen oder Guthaben aufgebraucht. Warte kurz oder prüfe dein Konto.', 'rate')
+      throw new AiError(`Die KI hat einen Fehler gemeldet (${res.status}).`)
+    }
+    const data = (await res.json()) as { content?: { type: string; text?: string }[] }
+    const out = (data.content ?? []).filter((b) => b.type === 'text').map((b) => b.text ?? '').join('\n')
+    if (!out.trim()) throw new AiError('Die KI hat eine leere Antwort geliefert.', 'format')
+    return out
+  }
+  const puter = await loadPuter()
+  if (!puter.auth.isSignedIn()) throw new AiError('Die KI ist noch nicht aktiviert. Sende die Nachricht nochmal, dann wird sie aktiviert.', 'auth')
+  let last: AiError | null = null
+  for (const model of PUTER_MODELS) {
+    try {
+      const res = await puter.ai.chat([{ role: 'system', content: system }, ...history], { model, max_tokens: 1500 })
+      const out = puterText(res)
+      if (out.trim()) return out
+      last = new AiError('Die KI hat eine leere Antwort geliefert.', 'format')
+    } catch (e) {
+      last = describePuterError(e)
+      if (last.kind === 'auth' || last.kind === 'rate') throw last
+    }
+  }
+  throw last ?? new AiError('Die KI hat nicht geantwortet.')
 }

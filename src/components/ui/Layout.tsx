@@ -6,7 +6,7 @@ import { goalInfo, levelFromXp } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
 import { CourseChip } from './CoursePicker'
-import { Bolt, Book, Camera, Dots, Flame, Gear, Home, Repeat, Right, Search, Shield, Target, Trophy, User } from './Icons'
+import { Bolt, Book, Camera, Dots, Flame, Gear, Home, Repeat, Right, Search, Shield, Sparkle, Target, Trophy, User } from './Icons'
 import { EASE, ItemLi, StaggerList } from './motion'
 import { Sheet } from './Sheet'
 import { useDue } from '../../features/review/ReviewPage'
@@ -243,6 +243,11 @@ function MoreList({ onClose, showMain = false }: { onClose: () => void; showMain
         </>
       )}
       <ItemLi>
+        <NavLink to="/coach" role="menuitem" className={ROW} onClick={onClose}>
+          <RowBody icon={<Sparkle size={22} />} label="Lern-Coach" hint="Mit der KI über Tests und Grammatik reden" />
+        </NavLink>
+      </ItemLi>
+      <ItemLi>
         <NavLink to="/catchup" role="menuitem" className={ROW} onClick={onClose}>
           <RowBody icon={<Target size={22} />} label="Aufholen" hint="Stoff aus dem Unterricht nachholen" />
         </NavLink>
@@ -338,7 +343,7 @@ export function RightRail() {
         </span>
         <span>
           <span className="block font-semibold">Eigene Buchseite hochladen</span>
-          <span className="block text-sm text-muted">Aus Fotos oder PDF ein Quiz erstellen.</span>
+          <span className="block text-sm text-muted">Aus Fotos oder eigenen Wörtern ein Quiz erstellen.</span>
         </span>
       </Link>
 

@@ -1,4 +1,5 @@
 import './lib/migrate' // zuerst: übernimmt Daten aus der Zeit als "Lernfuchs", bevor der Store geladen wird
+import './lib/install' // fängt das Installations-Ereignis des Browsers früh auf
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'

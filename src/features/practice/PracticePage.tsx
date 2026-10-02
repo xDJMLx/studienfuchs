@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { grades, units } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Cards, Check, Headphones, Pencil, Repeat, Right, Star, Trophy } from '../../components/ui/Icons'
+import { Cards, Check, Headphones, Pencil, Repeat, Right, Sparkle, Star, Trophy } from '../../components/ui/Icons'
 import { EASE, Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { itemsForScope, type Scope } from '../../lib/scope'
 import { useStore } from '../../store/useStore'
@@ -160,6 +160,16 @@ export function PracticePage() {
             )
           })}
         </StaggerList>
+      </Item>
+
+      <Item>
+        <Link to="/coach" className="card lift group mt-6 flex items-center gap-4 p-4">
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105"><Sparkle size={22} /></span>
+          <span className="min-w-0 flex-1">
+            <span className="block font-semibold">Lern-Coach</span>
+            <span className="block text-sm text-muted">Mit der KI über deine nächste Klassenarbeit, Grammatik und schwierige Wörter sprechen.</span>
+          </span>
+        </Link>
       </Item>
 
       {counts.learned === 0 && (

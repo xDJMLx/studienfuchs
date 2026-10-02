@@ -116,6 +116,14 @@ body,
 #root {
   height: 100%;
 }
+
+/* Keine sichtbaren Scrollbalken: gescrollt wird weiter mit Mausrad, Touchpad, Touch und Tastatur */
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
 body {
   font-family: var(--font-sans);
   font-feature-settings: 'cv11', 'ss01';

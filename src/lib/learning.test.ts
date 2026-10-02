@@ -2,7 +2,6 @@ import { describe, expect, it, vi } from 'vitest'
 import { blockingLesson, isLessonDone, isUnlocked, LESSON_PASS, TEST_PASS, units } from '../content'
 import { describePuterError, extractJson, getAiConfig, normalizeAiVocab, puterText, setAiConfig } from './ai'
 import { generateLesson, NEW_BATCH } from './generateExercises'
-import { parsePageRange } from './pageRange'
 import { itemsForScope } from './scope'
 import { newCard } from './srs'
 
@@ -68,21 +67,6 @@ describe('Lernschritte', () => {
     const items = regular[0].items
     const ex = generateLesson({ items, pool: items, mastery: () => 1, allowListen: false })
     expect(ex.some((e) => e.kind === 'teach')).toBe(false)
-  })
-})
-
-describe('Seitenbereich', () => {
-  it('versteht Bereiche und Listen', () => {
-    expect(parsePageRange('12-15', 100).pages).toEqual([12, 13, 14, 15])
-    expect(parsePageRange('3, 5, 8-9', 100).pages).toEqual([3, 5, 8, 9])
-    expect(parsePageRange('7', 100).pages).toEqual([7])
-  })
-  it('meldet Fehler verständlich', () => {
-    expect(parsePageRange('', 10).error).toBeTruthy()
-    expect(parsePageRange('5-2', 10).error).toMatch(/größer/)
-    expect(parsePageRange('1-50', 10).error).toMatch(/nur 10 Seiten/)
-    expect(parsePageRange('abc', 10).error).toBeTruthy()
-    expect(parsePageRange('1-30', 100, 20).error).toMatch(/höchstens 20/)
   })
 })
 

@@ -9,6 +9,7 @@ import { EASE } from '../../components/ui/motion'
 import { Sheet } from '../../components/ui/Sheet'
 import { ProgressBar, ProgressRing } from '../../components/ui/widgets'
 import type { Lesson, Unit } from '../../lib/types'
+import { InstallBanner } from '../../components/ui/InstallApp'
 import { catchUpStatus } from '../../lib/catchup'
 import { goalInfo } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
@@ -116,6 +117,7 @@ export function LearnPage() {
   return (
     <div className="mx-auto max-w-[620px] px-4 pb-10 pt-4 lg:pt-6">
       <TodayCard />
+      <InstallBanner />
 
       {/* Kurs-Kopf */}
       <section className="card mb-8 p-5">

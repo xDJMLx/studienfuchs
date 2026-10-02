@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { grades } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Row, Section, Segmented, Switch } from '../../components/ui/controls'
+import { InstallHelp, useInstallFlow } from '../../components/ui/InstallApp'
 import { Check, Database, Download, Gear, Palette, Shield, Sparkle, Speaker, Target, Upload } from '../../components/ui/Icons'
 import { EASE, Item, Stagger, SPRING } from '../../components/ui/motion'
 import { dayKey } from '../../lib/streak'
@@ -29,6 +30,7 @@ const SECTIONS = [
   { id: 's-learn', label: 'Lernen', Icon: Target },
   { id: 's-voice', label: 'Sprache', Icon: Speaker },
   { id: 's-ai', label: 'KI', Icon: Sparkle },
+  { id: 's-app', label: 'App', Icon: Download },
   { id: 's-data', label: 'Daten', Icon: Database },
 ]
 
@@ -62,6 +64,7 @@ export function SettingsPage() {
   const reduce = useReducedMotion()
   const { theme, setTheme, dailyGoal, setDailyGoal, soundOn, setSoundOn, grade, setGrade, exportData, importData, resetAll, lessons, cards, sets } = useStore()
   const fileRef = useRef<HTMLInputElement>(null)
+  const install = useInstallFlow()
   const [toast, setToast] = useState<{ ok: boolean; text: string } | null>(null)
   const [confirmReset, setConfirmReset] = useState(false)
   const [active, setActive] = useState(SECTIONS[0].id)
@@ -221,6 +224,19 @@ export function SettingsPage() {
             <Section id="s-ai" icon={<Sparkle size={22} />} title="KI" description="Lernkarten aus deinen Buchseiten">
               <AiSettings />
             </Section>
+          </Item>
+
+          <Item>
+            <Section id="s-app" icon={<Download size={22} />} title="App" description="Auf dem Startbildschirm">
+              <Row title="Als App installieren" hint={install.state === 'installed' ? 'Studienfuchs läuft schon als App auf diesem Gerät.' : 'Öffnet sich wie eine normale App, ohne Adressleiste und mit eigenem Symbol.'}>
+                {install.state === 'installed' ? (
+                  <span className="flex items-center gap-1 text-sm font-semibold text-good-dark"><Check size={16} /> Installiert</span>
+                ) : (
+                  <button className="btn btn-primary press !px-4 !py-2 !text-sm" onClick={install.start}><Download size={16} /> Installieren</button>
+                )}
+              </Row>
+            </Section>
+            <InstallHelp open={install.help} onClose={install.closeHelp} />
           </Item>
 
           <Item>

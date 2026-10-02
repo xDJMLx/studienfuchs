@@ -76,7 +76,7 @@ export function AiSettings() {
     <>
       <div className="px-5 py-4">
         <p className="mb-3 text-sm text-muted">
-          Aus Fotos oder PDF-Seiten deines Schulbuchs macht die KI saubere Vokabelkarten mit Beispielsätzen. Du brauchst keinen eigenen Schlüssel: Beim ersten Mal wird automatisch ein kostenloses
+          Aus Fotos von Seiten deines Schulbuchs macht die KI saubere Vokabelkarten mit Beispielsätzen. Du brauchst keinen eigenen Schlüssel: Beim ersten Mal wird automatisch ein kostenloses
           Gastkonto bei Puter angelegt, die Nutzung läuft über dieses Konto.
         </p>
         <div className="flex flex-wrap items-center gap-3 rounded-xl bg-snow px-4 py-3">
@@ -135,7 +135,7 @@ export function AiSettings() {
         <button className="btn btn-ghost press !px-4 !py-2 !text-sm" onClick={saveOwn} disabled={!key.trim() || busy}>Speichern und testen</button>
       </details>
 
-      <Row title="Datenschutz" hint="Es wird nur etwas gesendet, wenn du auf „Mit KI erstellen“ oder „Mit KI ergänzen“ klickst. Dann gehen die gewählten Seitenbilder an Puter und dessen KI-Anbieter (bei eigenem Schlüssel direkt an Anthropic). Ein eigener Schlüssel bleibt nur in diesem Browser und ist nicht Teil der Sicherung. Lade nur Seiten hoch, die du zum Lernen verwenden darfst." />
+      <Row title="Datenschutz" hint="Es wird nur etwas gesendet, wenn du auf „Mit KI erstellen“ oder „Mit KI ergänzen“ klickst oder im Lern-Coach eine Nachricht sendest. Dann gehen die gewählten Seitenbilder bzw. deine Nachricht samt Lernstand (ohne Namen) an Puter und dessen KI-Anbieter (bei eigenem Schlüssel direkt an Anthropic). Ein eigener Schlüssel bleibt nur in diesem Browser und ist nicht Teil der Sicherung. Lade nur Seiten hoch, die du zum Lernen verwenden darfst." />
     </>
   )
 }

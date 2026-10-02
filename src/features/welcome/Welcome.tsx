@@ -34,7 +34,7 @@ const COURSES = [
 const FEATURES = [
   { Icon: Target, title: 'Kleine Schritte', text: 'Immer nur zwei neue Wörter, sofort abgefragt. Nichts wird einfach durchgeklickt, und weiter geht es erst, wenn es sitzt.' },
   { Icon: Repeat, title: 'Echte Wiederholung', text: 'Ein Lernplan fragt jedes Wort genau dann ab, wenn du es fast vergessen hättest. So bleibt es im Kopf.' },
-  { Icon: Camera, title: 'Dein Schulbuch', text: 'Fotos oder PDF-Seiten hochladen, die KI macht Lernkarten mit Beispielsätzen daraus. Kostenlos.' },
+  { Icon: Camera, title: 'Dein Schulbuch', text: 'Seiten abfotografieren, die KI macht Lernkarten mit Beispielsätzen daraus. Oder Wörter selbst eintippen, Akzente ergänzt die App. Kostenlos.' },
 ]
 
 
