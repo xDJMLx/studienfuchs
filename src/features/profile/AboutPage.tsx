@@ -80,15 +80,15 @@ export function AboutPage() {
           <h2 className="eyebrow mb-3 px-1">Alle Details</h2>
           <div className="card mb-7 overflow-hidden">
             <Accordion title="Speicherung und Löschen" icon={<Database size={20} />} defaultOpen>
-              <p>Dein Fortschritt und deine Vokabel-Sets liegen <b className="text-ink">nur in deinem Browser</b> (lokaler Speicher). Es werden keine Nutzerdaten an uns übertragen.</p>
+              <p>Dein Fortschritt, deine Vokabel-Sets und die erkannten Texte deiner Bücher liegen <b className="text-ink">nur in deinem Browser</b> (lokaler Speicher). Es werden keine Nutzerdaten an uns übertragen.</p>
               <p>Unter <Link to="/settings" className="font-semibold text-brand-dark underline">Einstellungen → Daten</Link> kannst du alles sichern oder mit „Zurücksetzen“ vollständig von deinem Gerät löschen.</p>
             </Accordion>
             <Accordion title="Buchseiten und Texterkennung" icon={<Camera size={20} />}>
-              <p>Hochgeladene Buchseiten werden mit der Offline-Texterkennung <b className="text-ink">auf deinem Gerät</b> gelesen. Die Bilder werden nicht gespeichert und nirgends hingeschickt.</p>
+              <p>Hochgeladene Buchseiten werden mit der Offline-Texterkennung <b className="text-ink">auf deinem Gerät</b> gelesen. Die Bilder werden nicht gespeichert und nirgends hingeschickt. Im Tab Bücher bleibt nur der erkannte Text, und nur auf diesem Gerät. Die Bücher gehören dir und sind nicht Teil der App: Sie werden nicht geteilt und nicht ausgeliefert.</p>
               <p>Schriftarten und Texterkennung werden von dieser Seite selbst ausgeliefert, nicht von Drittanbietern.</p>
             </Accordion>
             <Accordion title="KI-Funktion (optional)" icon={<Sparkle size={20} />}>
-              <p>Nur wenn du <b className="text-ink">„Mit KI erstellen“</b> oder <b className="text-ink">„Mit KI ergänzen“</b> klickst oder im <b className="text-ink">KI-Chat</b> eine Nachricht sendest, werden die ausgewählten Seitenbilder, Vokabeln bzw. deine Nachricht an eine KI-Plattform gesendet. Beim KI-Chat gehören dazu dein Lernstand (Klasse, Fortschritt, Klassenarbeits-Termine, Wörter, bei denen es hakt), aber kein Name.</p>
+              <p>Nur wenn du <b className="text-ink">„Mit KI erstellen“</b> oder <b className="text-ink">„Mit KI ergänzen“</b> klickst oder im <b className="text-ink">KI-Chat</b> eine Nachricht sendest, werden die ausgewählten Seitenbilder, Vokabeln bzw. deine Nachricht an eine KI-Plattform gesendet. Beim KI-Chat gehören dazu dein Lernstand (Klasse, Fortschritt, Klassenarbeits-Termine, Wörter, bei denen es hakt) und, wenn du Bücher angelegt hast, deren Titel, Kapitel, der Stand der Klasse und die zur Frage passenden Seitentexte, aber kein Name.</p>
               <p>Dafür wird beim ersten Mal automatisch ein kostenloses Puter-Gastkonto in deinem Browser angelegt; es gelten die Datenschutzbestimmungen von Puter. Alternativ kannst du einen eigenen Anthropic-API-Schlüssel hinterlegen.</p>
               <p>Ohne diese Funktion (und mit der Offline-Texterkennung) verlässt nichts dein Gerät.</p>
             </Accordion>

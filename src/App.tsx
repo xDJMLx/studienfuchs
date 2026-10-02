@@ -11,7 +11,8 @@ import { CoachPage } from './features/coach/CoachPage'
 import { LessonPage } from './features/lesson/LessonPage'
 import { LearnPage } from './features/path/LearnPage'
 import { PlacementPage } from './features/placement/PlacementPage'
-import { PlanPage } from './features/plan/PlanPage'
+import { BookPage } from './features/books/BookPage'
+import { BooksPage } from './features/books/BooksPage'
 import { FlashcardsPage } from './features/practice/FlashcardsPage'
 import { PracticePage } from './features/practice/PracticePage'
 import { PracticePlay } from './features/practice/PracticePlay'
@@ -33,7 +34,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/placement', 'Einstufungstest'],
   ['/catchup', 'Aufholen'],
   ['/coach', 'KI'],
-  ['/plan', 'Plan'],
+  ['/books', 'Bücher'],
   ['/shop', 'Fuchs & Shop'],
   ['/practice/cards', 'Karteikarten'],
   ['/practice', 'Üben'],
@@ -79,7 +80,9 @@ export default function App() {
             <Route path="review" element={<ReviewPage />} />
             <Route path="catchup" element={<CatchUpPage />} />
             <Route path="coach" element={<CoachPage />} />
-            <Route path="plan" element={<PlanPage />} />
+            <Route path="books" element={<BooksPage />} />
+            <Route path="books/:bookId" element={<BookPage />} />
+            <Route path="plan" element={<Navigate to="/books" replace />} />
             <Route path="shop" element={<ShopPage />} />
             <Route path="practice" element={<PracticePage />} />
             <Route path="words" element={<Navigate to="/practice?tab=words" replace />} />

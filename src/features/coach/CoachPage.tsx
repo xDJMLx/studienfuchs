@@ -8,6 +8,8 @@ import { EASE } from '../../components/ui/motion'
 import { AiError, chatCoach, ensureAiReady, preloadAi, type ChatMessage } from '../../lib/ai'
 import { unitLabel } from '../../lib/catchup'
 import { buildCoachPrompt } from '../../lib/coach'
+import { buildBookContext } from '../../lib/books'
+import { useBooks } from '../../store/useBooks'
 import { streakNow, useStore } from '../../store/useStore'
 import { CoachComposer } from '../../components/ui/CoachComposer'
 import { useCoachComposer } from '../../lib/coachComposer'
@@ -143,6 +145,7 @@ export function CoachPage() {
         lessonsTotal: COURSE_STATS.lessons,
         streak: streakNow(store.streak),
         classPosition: store.classUnit ? unitLabel(store.classUnit) : undefined,
+        bookContext: buildBookContext(useBooks.getState().books, useBooks.getState().exams, content),
       })
       // Die angehängten Seiten gehen bei jeder Nachricht mit, bis sie entfernt werden (so versteht die KI auch Rückfragen)
       const answer = await chatCoach(
@@ -271,7 +274,7 @@ export function CoachPage() {
               <div className="card mt-2 p-3">
                 <p className="font-semibold leading-tight">Vokabeltest bereit</p>
                 <p className="text-sm text-muted">
-                  {m.list.title} · {m.list.count} Wörter. Gespeichert im Tab Plan unter „Listen“.
+                  {m.list.title} · {m.list.count} Wörter. Gespeichert unter Üben → „Eigene Listen“.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Link to={'/practice/play?mode=write&scope=set:' + m.list.id} className="btn btn-primary press !px-4 !py-2.5 !text-sm">

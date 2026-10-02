@@ -5,7 +5,7 @@ import { goalInfo, levelFromXp } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
 import { CourseChip } from './CoursePicker'
-import { Camera, Coin, Flame, Gear, TabHome, TabKi, TabRepeat, TabTarget, TabUser, Trophy, Xp } from './Icons'
+import { Camera, Coin, Flame, Gear, TabBooks, TabHome, TabKi, TabRepeat, TabUser, Trophy, Xp } from './Icons'
 import { EASE } from './motion'
 import { useCoachComposer } from '../../lib/coachComposer'
 import { CoachComposer } from './CoachComposer'
@@ -26,7 +26,7 @@ const NAV: NavItem[] = [
   { to: '/', label: 'Lernen', Icon: TabHome, end: true },
   { to: '/practice', label: 'Üben', Icon: TabRepeat },
   { to: '/coach', label: 'KI', Icon: TabKi },
-  { to: '/plan', label: 'Plan', Icon: TabTarget },
+  { to: '/books', label: 'Bücher', Icon: TabBooks },
   { to: '/profile', label: 'Profil', Icon: TabUser },
 ]
 

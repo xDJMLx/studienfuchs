@@ -352,3 +352,10 @@ export const TabUser = ({ size, ...p }: P) => (
     <path d="M3 21c0-4.5 4-7 9-7s9 2.5 9 7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z" fill="currentColor" />
   </svg>
 )
+
+/** Bücher-Tab: gefülltes Buch im Stil der übrigen Leisten-Icons */
+export const TabBooks = ({ size, ...p }: P) => (
+  <svg {...base(size)} {...p}>
+    <path d="M5 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a1 1 0 0 1 1-1Zm1.5 14a.5.5 0 0 0 0 1H17v-1H6.5ZM7 7v2h8V7H7Z" fill="currentColor" />
+  </svg>
+)

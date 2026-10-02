@@ -13,6 +13,8 @@ export interface CoachInput {
   streak: number
   /** Beschreibung, wo die Klasse im Buch ist (optional) */
   classPosition?: string
+  /** Text zu den Büchern des Schülers (siehe buildBookContext), leer ohne Bücher */
+  bookContext?: string
   now?: Date
 }
 
@@ -69,6 +71,8 @@ export function buildCoachPrompt(input: CoachInput): string {
     exams.length ? `Anstehende Klassenarbeiten/Tests:\n${exams.join('\n')}` : 'Es ist keine Klassenarbeit eingetragen (der Schüler kann ein Datum bei einem Set eintragen).',
     sets.length ? `Eigene Vokabelsets:\n${sets.join('\n')}` : '',
     weak.length ? `Wörter, bei denen es beim Schüler hakt:\n${weak.map((w) => `- ${w.front} = ${w.back}`).join('\n')}` : '',
+    input.bookContext ? `${input.bookContext}
+Nutze die Buchseiten oben als Quelle. Sag, auf welcher Seite du etwas gefunden hast. Steht etwas nicht dort, sag das ehrlich, statt zu raten.` : '',
     `Die App hat ${COURSE_STATS.lessons} Lektionen in Klasse 7–10.`,
   ]
     .filter(Boolean)

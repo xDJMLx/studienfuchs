@@ -51,6 +51,11 @@ async function prepareImage(file: Blob): Promise<Blob> {
  * Alles (Worker, Kern, Sprachdaten) wird von der App selbst ausgeliefert – keine Drittanbieter, Bilder verlassen das Gerät nie.
  */
 export async function ocrImages(files: Blob[], onProgress: (p: OcrProgress) => void): Promise<string> {
+  return (await ocrEach(files, onProgress)).join('\n')
+}
+
+/** Wie ocrImages, aber mit einem Text je Bild (für Buchseiten: eine Seite pro Foto). */
+export async function ocrEach(files: Blob[], onProgress: (p: OcrProgress) => void): Promise<string[]> {
   let current = 0
   const base = import.meta.env.BASE_URL + 'ocr'
   const worker = await createWorker(['fra', 'deu'], 1, {
@@ -67,7 +72,7 @@ export async function ocrImages(files: Blob[], onProgress: (p: OcrProgress) => v
       const { data } = await worker.recognize(img)
       texts.push(data.text)
     }
-    return texts.join('\n')
+    return texts
   } finally {
     await worker.terminate()
   }
