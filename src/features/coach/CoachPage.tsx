@@ -9,6 +9,8 @@ import { AiError, chatCoach, ensureAiReady, preloadAi, type ChatMessage } from '
 import { unitLabel } from '../../lib/catchup'
 import { buildCoachPrompt } from '../../lib/coach'
 import { streakNow, useStore } from '../../store/useStore'
+import { CoachComposer } from '../../components/ui/CoachComposer'
+import { useCoachComposer } from '../../lib/coachComposer'
 import { AiNotice } from '../settings/AiNotice'
 
 const KEY = 'studienfuchs-coach'
@@ -68,7 +70,10 @@ export function CoachPage() {
   const reduce = useReducedMotion()
   const store = useStore()
   const [messages, setMessages] = useState<ChatMessage[]>(load)
-  const [input, setInput] = useState('')
+  // Nur die (stabilen) Setter abonnieren, sonst löst jedes Setzen ein neues Rendern dieser Seite aus
+  const setInput = useCoachComposer((c) => c.setInput)
+  const setComposerBusy = useCoachComposer((c) => c.setBusy)
+  const setSubmit = useCoachComposer((c) => c.setSubmit)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [params, setParams] = useSearchParams()
@@ -101,6 +106,10 @@ export function CoachPage() {
     [store.lessons],
   )
 
+  useEffect(() => {
+    setComposerBusy(busy)
+  }, [busy, setComposerBusy])
+
   const send = async (raw: string) => {
     const content = raw.trim()
     if (!content || busy) return
@@ -132,6 +141,12 @@ export function CoachPage() {
     }
   }
 
+  // Die Senden-Funktion der Seite für das Eingabefeld bereitstellen (in der Leiste oder unten)
+  useEffect(() => {
+    setSubmit(() => void send(useCoachComposer.getState().input))
+    return () => setSubmit(null)
+  })
+
   const retry = () => {
     // letzte Nutzerfrage nochmal senden
     const last = [...messages].reverse().find((m) => m.role === 'user')
@@ -148,7 +163,7 @@ export function CoachPage() {
         <Mascot size={64} mood={busy ? 'think' : 'cheer'} blink />
         <div className="min-w-0 flex-1">
           <h1 className="page-title">Lern-Coach</h1>
-          <p className="text-muted">Frag die KI zu Klassenarbeiten, Grammatik und deinen Vokabeln.</p>
+          <p className="text-muted">Frag zu Arbeiten, Grammatik und Wörtern.</p>
         </div>
         {!empty && (
           <button
@@ -224,45 +239,11 @@ export function CoachPage() {
           </button>
         </div>
       )}
-      {/* Platz, damit die letzte Nachricht nicht hinter der festen Eingabeleiste verschwindet */}
-      <div className="h-28 shrink-0 lg:hidden" />
       <div ref={end} />
 
-      {/* Eingabeleiste: am Handy fest über der Tab-Leiste, am Computer unten im Inhalt */}
-      <div className="fixed inset-x-0 bottom-[calc(var(--tabbar-h)-0.2rem)] z-30 bg-page shadow-[0_-14px_14px_-8px_var(--page)] lg:sticky lg:inset-x-auto lg:bottom-0 lg:mt-auto lg:shadow-none">
-      <form
-        className="mx-auto flex max-w-2xl items-end gap-2 px-4 pb-2 pt-3 lg:px-0"
-        onSubmit={(e) => {
-          e.preventDefault()
-          void send(input)
-        }}
-      >
-        <label htmlFor="coach-input" className="sr-only">
-          Nachricht an den Lern-Coach
-        </label>
-        <textarea
-          id="coach-input"
-          ref={box}
-          value={input}
-          rows={1}
-          onChange={(e) => {
-            setInput(e.target.value)
-            e.target.style.height = 'auto'
-            e.target.style.height = `${Math.min(e.target.scrollHeight, 140)}px`
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-              e.preventDefault()
-              void send(input)
-            }
-          }}
-          placeholder="Schreib deine Frage …"
-          className="max-h-36 min-h-12 flex-1 resize-none rounded-2xl border border-line bg-surface px-4 py-3 outline-none transition-shadow focus:border-brand focus:shadow-[0_0_0_3px_var(--brand-soft)]"
-        />
-        <button type="submit" disabled={busy || !input.trim()} className="btn btn-primary press !h-12 !px-4" aria-label="Senden">
-          <Right size={20} />
-        </button>
-      </form>
+      {/* Am Computer unten im Inhalt; auf dem Handy sitzt das Feld in der Tab-Leiste */}
+      <div className="sticky bottom-0 mt-auto hidden bg-page pb-2 pt-3 lg:block">
+        <CoachComposer />
       </div>
     </div>
   )

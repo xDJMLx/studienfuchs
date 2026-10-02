@@ -228,15 +228,8 @@ export function LearnPage() {
                   const icon =
                     state === 'done' ? <Check size={26} /> : lesson.test ? <Trophy size={24} /> : lesson.review ? <Repeat size={24} /> : state === 'locked' ? <Lock size={22} /> : li + 1
                   return (
-                    <motion.li
-                      key={lesson.id}
-                      style={{ x: offset }}
-                      initial={reduce ? false : { opacity: 0, scale: 0.7 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true, margin: '0px 0px -40px 0px' }}
-                      transition={{ type: 'spring', stiffness: 300, damping: 22, delay: reduce ? 0 : (li % 4) * 0.04 }}
-                      className="relative flex h-[104px] flex-col items-center"
-                    >
+                    // Bewusst ohne Einblend-Animation beim Scrollen: Bei schnellem Wischen blieben sonst Knoten unsichtbar
+                    <li key={lesson.id} style={{ transform: `translateX(${offset}px)` }} className="relative flex h-[104px] flex-col items-center">
                       {state === 'current' && unit.id === currentUnit?.id && (
                         <motion.span
                           animate={reduce ? undefined : { y: [0, -4, 0] }}
@@ -249,24 +242,21 @@ export function LearnPage() {
                       )}
                       <span className="relative">
                         {state === 'current' && !reduce && <span aria-hidden className="animate-halo absolute inset-0 rounded-full bg-brand" />}
-                        <motion.button
+                        <button
                           type="button"
                           onClick={() => setLessonSheet({ lesson, unit })}
-                          whileTap={{ scale: 0.9 }}
-                          whileHover={reduce ? undefined : { scale: 1.08, y: -2 }}
-                          transition={{ type: 'spring', stiffness: 500, damping: 22 }}
                           aria-label={`${kind}: ${lesson.title}${state === 'done' ? ' – geschafft' : state === 'locked' ? ' – gesperrt' : state === 'current' ? ' – als Nächstes' : ''}`}
-                          className={`${base} ${tone}`}
+                          className={`${base} ${tone} transition-transform duration-150 hover:-translate-y-0.5 hover:scale-[1.06] active:scale-90`}
                           style={state === 'done' || state === 'current' ? { boxShadow: '0 4px 0 var(--shade-brand)' } : undefined}
                         >
                           {icon}
                           {attempted && <span className="absolute -right-1 -top-1 rounded-full bg-gold px-1.5 text-[10px] font-bold text-ink">{Math.round(rec.bestAccuracy * 100)}%</span>}
-                        </motion.button>
+                        </button>
                       </span>
                       <p className="mt-2 line-clamp-2 h-8 w-36 text-center text-xs font-medium leading-4 text-muted">
                         <span className="box-decoration-clone rounded bg-page px-1.5 py-px">{lesson.title}</span>
                       </p>
-                    </motion.li>
+                    </li>
                   )
                 })}
               </ol>

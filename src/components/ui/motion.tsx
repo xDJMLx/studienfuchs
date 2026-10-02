@@ -63,15 +63,14 @@ export function ItemLi({ children, className }: { children: ReactNode; className
   )
 }
 
-/** Blendet beim Hineinscrollen weich ein (für lange Seiten). */
+/** Blendet beim Laden der Seite weich ein. Bewusst nicht erst beim Hineinscrollen: Bei schnellem Wischen blieben sonst Bereiche leer. */
 export function Reveal({ children, className, delay = 0, y = 18 }: { children: ReactNode; className?: string; delay?: number; y?: number }) {
   const reduce = useReducedMotion()
   return (
     <motion.div
       className={className}
       initial={reduce ? false : { opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.55, ease: EASE, delay }}
     >
       {children}

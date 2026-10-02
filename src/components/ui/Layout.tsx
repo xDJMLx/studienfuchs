@@ -7,6 +7,7 @@ import { Mascot } from '../mascot/Mascot'
 import { CourseChip } from './CoursePicker'
 import { Bolt, Camera, Flame, Gear, Home, Repeat, Sparkle, Trophy, User } from './Icons'
 import { EASE } from './motion'
+import { CoachComposer } from './CoachComposer'
 import { TabBar } from './TabBar'
 import { useDue } from '../../features/review/ReviewPage'
 import { ProgressBar, ProgressRing, WeekStrip } from './widgets'
@@ -57,13 +58,14 @@ export function Layout() {
   const navigate = useNavigate()
   const scroller = useRef<HTMLElement>(null)
   const dueCount = useDue().due.length
+  const onCoach = location.pathname.startsWith('/coach')
 
   useEffect(() => {
     scroller.current?.scrollTo({ top: 0 })
   }, [location.pathname])
 
   return (
-    <div className="flex h-full bg-page">
+    <div className="flex h-full bg-page" style={onCoach ? ({ '--tabbar-h': 'calc(9rem + env(safe-area-inset-bottom, 0px))' } as React.CSSProperties) : undefined}>
       <button
         type="button"
         onClick={() => scroller.current?.focus()}
@@ -115,6 +117,7 @@ export function Layout() {
 
         {/* Tab-Leiste (Mobil): schwebende Glas-Kapsel mit ziehbarer Linse */}
         <TabBar
+          extra={onCoach ? <CoachComposer /> : undefined}
           tabs={NAV.map(({ to, label, Icon }) => ({
             key: to,
             label,

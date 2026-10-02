@@ -161,8 +161,7 @@ export function ProfilePage() {
                       key={h.key}
                       title={`${h.label}: ${h.v} XP`}
                       initial={reduce ? false : { opacity: 0, scale: 0.5 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
+                      animate={{ opacity: 1, scale: 1 }}
                       transition={{ ...SPRING.snappy, delay: i * 0.012 }}
                       className={`aspect-square rounded-md ${h.future ? 'border border-dashed border-line' : bg}`}
                     />
@@ -213,7 +212,7 @@ export function ProfilePage() {
                   <ItemLi key={b.id} className={`card relative flex items-center gap-4 overflow-hidden p-4 ${done ? 'ring-1 ring-brand/30' : ''}`}>
                     <ProgressRing pct={b.value / b.goal} size={56} stroke={5} color={done ? 'var(--good)' : 'var(--brand)'}>
                       {done ? (
-                        <motion.span initial={reduce ? false : { scale: 0, rotate: -40 }} whileInView={{ scale: 1, rotate: 0 }} viewport={{ once: true }} transition={{ ...SPRING.bouncy, delay: 0.3 }} className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand to-[#ffb25e] text-white">
+                        <motion.span initial={reduce ? false : { scale: 0, rotate: -40 }} animate={{ scale: 1, rotate: 0 }} transition={{ ...SPRING.bouncy, delay: 0.3 }} className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand to-[#ffb25e] text-white">
                           <Trophy size={18} />
                         </motion.span>
                       ) : (
