@@ -77,7 +77,7 @@ export function SetDetailPage() {
     <Stagger className="mx-auto max-w-xl px-4 py-6" stagger={0.07}>
       <Item>
         <Link to="/sets" className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-medium text-muted hover:text-ink">
-          <Back size={18} /> Meine Sets
+          <Back size={18} /> Bücher
         </Link>
         <h1 className="page-title">{set.title}</h1>
         <p className="mb-5 mt-1 text-muted">{set.items.length} Wörter</p>

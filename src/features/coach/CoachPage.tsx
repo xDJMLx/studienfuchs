@@ -187,7 +187,7 @@ export function CoachPage() {
           <p className="mb-3 text-sm text-muted">
             Die KI kennt deinen Lernstand (Klasse, Fortschritt, eingetragene Klassenarbeiten und Wörter, bei denen es hakt), aber nicht deinen Namen.{' '}
             <Link to="/sets" className="font-medium text-brand-dark underline">
-              Klassenarbeit bei einem Set eintragen
+              Klassenarbeit bei einem Kapitel eintragen
             </Link>
           </p>
           <div className="grid gap-2">

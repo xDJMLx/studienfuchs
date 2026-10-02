@@ -271,7 +271,7 @@ export function Welcome() {
                         </div>
                       </div>
                       <p className="mt-4 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">
-                        Tipp: Ist der Unterricht schon weiter? Auf der Startseite findest du „Aufholen“. Unter „Sets“ machst du aus Fotos deiner Buchseiten Lernkarten, und die KI hilft dir bei Fragen zu Klassenarbeiten.
+                        Tipp: Ist der Unterricht schon weiter? Auf der Startseite findest du „Aufholen“. Unter „Bücher“ machst du aus Fotos deiner Buchseiten Lernkarten, und die KI hilft dir bei Fragen zu Klassenarbeiten.
                       </p>
                     </div>
                   )}

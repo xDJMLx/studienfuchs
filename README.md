@@ -18,6 +18,7 @@ Lern-App für die Schule im Stil moderner Sprach-Apps (Start: Französisch, Klas
 - **KI-Chat**: Gespräch mit der KI (Puter) über Klassenarbeiten, Grammatik und Wörter, bei denen es hakt. Der Coach bekommt Klasse, Fortschritt, Termine und schwache Wörter, aber keinen Namen.
 - **Als App installieren**: Banner auf der Startseite und Einstellungen → App (Chrome/Edge/Android per Knopf, iPhone per Anleitung „Zum Home-Bildschirm“).
 - **Akzent-Autokorrektur**: Beim Eintippen eigener Wörter ergänzt `src/lib/accents.ts` fehlende Akzente (Wörterbuch aus dem Kurswortschatz; mehrdeutige Wörter wie a/à, ou/où bleiben unverändert); dazu Akzent-Tasten für den PC.
+- **Bücher**: Tab mit den Kursen der App (Klasse 7/8 folgen À plus! 1/2) und deinen eigenen Büchern. Eigene Bücher entstehen aus Fotos oder getippten Wörtern, Kapitel für Kapitel (Datenfeld `book` am Set). Die Schulbücher selbst sind aus Urheberrechtsgründen nicht enthalten.
 - **Eigene Sets**: Fotos von Buchseiten (optional mit Hinweis, welche Vokabeln) oder Wörter von Hand → KI oder Offline-Texterkennung → Tabelle prüfen (fehlende Akzente werden automatisch ergänzt) → Quiz. Mit Klassenarbeits-Datum werden neue Wörter auf die Tage verteilt.
 
 ## KI für eigene Lernsets (ohne eigenen Schlüssel)

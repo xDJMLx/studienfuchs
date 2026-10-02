@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Back, Camera, Close } from '../../components/ui/Icons'
 import { AiError, blobToJpegBase64, ensureAiReady, extractVocabFromImages } from '../../lib/ai'
 import { parseVocabDetailed } from '../../lib/parseVocab'
@@ -20,6 +20,10 @@ const SOURCES: { id: Source; label: string; hint: string }[] = [
 /** Neues Lernset: aus Fotos von Buchseiten oder von Hand. Mit KI (genau, erzeugt auch Beispielsätze) oder offline per Texterkennung. */
 export function CreateSetPage() {
   const navigate = useNavigate()
+  const [params] = useSearchParams()
+  const allSets = useStore((s) => s.sets)
+  const existingBooks = useMemo(() => [...new Set(allSets.map((x) => x.book).filter((b): b is string => !!b))], [allSets])
+  const [book, setBook] = useState(() => params.get('book') ?? '')
   const reduce = useReducedMotion()
   const addSet = useStore((s) => s.addSet)
 
@@ -122,13 +126,14 @@ export function CreateSetPage() {
     const valid = (rows ?? []).filter((r) => r.front.trim() && r.back.trim())
     if (!valid.length) return
     const id = addSet(
-      title.trim() || `Set vom ${new Date().toLocaleDateString('de-DE')}`,
+      title.trim() || `Kapitel vom ${new Date().toLocaleDateString('de-DE')}`,
       valid.map((r) => ({
         front: r.front.trim(),
         back: r.back.trim(),
         ...(r.example?.trim() && r.exampleDe?.trim() ? { example: r.example.trim(), exampleDe: r.exampleDe.trim() } : {}),
         ...(r.note?.trim() ? { note: r.note.trim() } : {}),
       })),
+      book,
     )
     navigate(`/sets/${id}`, { replace: true })
   }
@@ -140,9 +145,9 @@ export function CreateSetPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 lg:py-8">
       <Link to="/sets" className="mb-1 press -ml-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-medium text-muted hover:text-ink">
-        <Back size={18} /> Meine Sets
+        <Back size={18} /> Bücher
       </Link>
-      <h1 className="page-title">Neues Set</h1>
+      <h1 className="page-title">Buch hinzufügen</h1>
       <p className="mb-6 mt-1 text-muted">Seiten aus deinem Schulbuch abfotografieren, den Rest übernimmt die App. Oder Wörter selbst eintippen: fehlende Akzente ergänzt die App von allein.</p>
 
       <AnimatePresence mode="wait" initial={false}>
@@ -274,8 +279,17 @@ export function CreateSetPage() {
                 {error}
               </p>
             )}
+            <label htmlFor="book" className="mb-1 block text-sm font-medium">
+              Aus welchem Buch? <span className="font-normal text-muted">(optional)</span>
+            </label>
+            <input id="book" list="books" value={book} onChange={(e) => setBook(e.target.value)} placeholder="z. B. À plus ! 1" className={`mb-4 font-medium ${field}`} />
+            <datalist id="books">
+              {existingBooks.map((b) => (
+                <option key={b} value={b} />
+              ))}
+            </datalist>
             <label htmlFor="title" className="mb-1 block text-sm font-medium">
-              Name des Sets
+              Kapitel
             </label>
             <input id="title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="z. B. Unité 3 – Vokabeln" className={`mb-5 font-medium ${field}`} />
             <VocabTable rows={rows} onChange={setRows} />
@@ -288,7 +302,10 @@ export function CreateSetPage() {
                 </button>
               </details>
             )}
-            <div className="above-tabbar sticky mt-6 flex gap-3 rounded-2xl bg-page/90 py-3 backdrop-blur">
+            {/* Platz, damit die letzte Zeile nicht hinter der festen Leiste verschwindet */}
+            <div className="h-24 lg:hidden" />
+            <div className="fixed inset-x-0 bottom-[calc(var(--tabbar-h)-0.2rem)] z-30 bg-page shadow-[0_-14px_14px_-8px_var(--page)] lg:sticky lg:inset-x-auto lg:bottom-0 lg:shadow-none">
+            <div className="mx-auto flex max-w-2xl gap-3 px-4 py-3 lg:px-0">
               <button
                 className="btn btn-ghost"
                 onClick={() => {
@@ -301,6 +318,7 @@ export function CreateSetPage() {
               <button className="btn btn-primary flex-1" disabled={!validCount} onClick={save}>
                 {validCount} Karten speichern
               </button>
+            </div>
             </div>
           </motion.div>
         )}

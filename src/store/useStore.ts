@@ -40,8 +40,8 @@ interface Data {
 
 interface Actions {
   finishSession: (r: { xp: number; grades: Record<string, Grade>; lessonId?: string; accuracy: number }) => void
-  addSet: (title: string, items: Omit<Item, 'id'>[]) => string
-  updateSet: (id: string, patch: { title?: string; items?: Item[] }) => void
+  addSet: (title: string, items: Omit<Item, 'id'>[], book?: string) => string
+  updateSet: (id: string, patch: { title?: string; items?: Item[]; book?: string }) => void
   deleteSet: (id: string) => void
   toggleFavorite: (itemId: string) => void
   markLessonsDone: (lessonIds: string[]) => void
@@ -112,10 +112,10 @@ export const useStore = create<Data & Actions>()(
           }
         }),
 
-      addSet: (title, items) => {
+      addSet: (title, items, book) => {
         const id = `set-${Date.now().toString(36)}`
         const withIds = items.map((it, i) => ({ ...it, id: `${id}:${i}` }))
-        set((s) => ({ sets: [{ id, title, createdAt: new Date().toISOString(), items: withIds }, ...s.sets] }))
+        set((s) => ({ sets: [{ id, title, createdAt: new Date().toISOString(), items: withIds, ...(book?.trim() ? { book: book.trim() } : {}) }, ...s.sets] }))
         return id
       },
 

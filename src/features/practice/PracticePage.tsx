@@ -145,7 +145,7 @@ function PracticeTab() {
               ))}
             </optgroup>
             {sets.length > 0 && (
-              <optgroup label="Meine Sets">
+              <optgroup label="Meine Bücher">
                 {sets.map((s) => (
                   <option key={s.id} value={`set:${s.id}`}>{s.title}</option>
                 ))}

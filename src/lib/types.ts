@@ -55,6 +55,8 @@ export interface VocabSet {
   title: string
   createdAt: string
   items: Item[]
+  /** Buch, zu dem das Kapitel gehört (z. B. "À plus ! 1"); ohne Angabe steht das Set einzeln */
+  book?: string
 }
 
 export type Exercise =
