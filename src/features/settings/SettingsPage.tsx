@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { grades } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Row, Section, Segmented, Switch } from '../../components/ui/controls'
@@ -63,6 +63,8 @@ function ThemePreview({ kind }: { kind: 'light' | 'dark' | 'system' }) {
 
 export function SettingsPage() {
   const reduce = useReducedMotion()
+  const navigate = useNavigate()
+  const setOnboarded = useStore((s) => s.setOnboarded)
   const { theme, setTheme, dailyGoal, setDailyGoal, soundOn, setSoundOn, grade, setGrade, exportData, importData, resetAll, lessons, cards, sets } = useStore()
   const fileRef = useRef<HTMLInputElement>(null)
   const install = useInstallFlow()
@@ -297,6 +299,23 @@ export function SettingsPage() {
               </span>
               <Mascot size={34} />
             </Link>
+          </Item>
+
+          <Item>
+            <button
+              type="button"
+              className="card lift flex w-full items-center gap-4 p-4 text-left"
+              onClick={() => {
+                setOnboarded(false)
+                navigate('/welcome')
+              }}
+            >
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-snow text-muted"><Mascot size={28} /></span>
+              <span className="min-w-0 flex-1">
+                <span className="block font-semibold">Einführung noch einmal ansehen</span>
+                <span className="block text-sm text-muted">Willkommen-Seite und Einrichtung. Dein Fortschritt bleibt.</span>
+              </span>
+            </button>
           </Item>
         </Stagger>
       </div>

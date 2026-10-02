@@ -69,9 +69,9 @@ export function ProfilePage() {
       <Stagger stagger={0.09}>
         {/* Kopfbereich */}
         <Item>
-          <section className="relative overflow-hidden rounded-[32px] p-6 text-white shadow-[0_24px_50px_-26px_rgba(80,60,200,0.8)]" style={{ background: 'linear-gradient(155deg, #17154a 0%, #4b3aa8 52%, #c9547f 100%)' }}>
-            <span aria-hidden className="pointer-events-none absolute -bottom-14 -right-8 h-44 w-44 rounded-full" style={{ background: 'radial-gradient(circle at 40% 35%, #fff1c2, #ffc24d 45%, #ff7a2f 100%)', opacity: 0.9, boxShadow: '0 0 90px 30px rgba(255,150,70,0.45)' }} />
-            
+          <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand via-[#f7872c] to-[#ffb25e] p-6 text-white shadow-[0_18px_40px_-22px_rgba(242,105,15,0.8)]">
+            <span aria-hidden className="pointer-events-none absolute -right-10 -top-12 h-52 w-52 rounded-full bg-white/15 blur-sm" />
+            <span aria-hidden className="pointer-events-none absolute -bottom-16 left-1/3 h-44 w-44 rounded-full bg-white/10" />
             <Link to="/settings" aria-label="Einstellungen" className="press absolute right-4 top-4 rounded-xl bg-white/20 p-2.5 transition-colors hover:bg-white/30">
               <Gear size={20} />
             </Link>
@@ -84,7 +84,7 @@ export function ProfilePage() {
               </ProgressRing>
               <div className="min-w-0 flex-1 pr-8">
                 <span className="inline-block rounded-full bg-white/25 px-2.5 py-0.5 text-xs font-semibold">Level {lvl.level}</span>
-                <h1 className="display mt-1.5 text-[28px] font-bold leading-tight sm:text-3xl">{titleFor(lvl.level)}</h1>
+                <h1 className="mt-1.5 text-2xl font-bold leading-tight sm:text-3xl">{titleFor(lvl.level)}</h1>
                 <p className="mt-0.5 text-sm text-white/90">
                   <CountUp to={xp} /> XP gesamt
                 </p>
@@ -153,7 +153,7 @@ export function ProfilePage() {
               </div>
               <div className="grid grid-cols-7 gap-1.5">
                 {HEAT_DAYS.map((d) => (
-                  <span key={d} className="text-center text-[10px] font-medium uppercase text-muted">{d}</span>
+                  <span key={d} className="text-center text-[10px] font-medium text-muted">{d}</span>
                 ))}
                 {heat.map((h, i) => {
                   const level = h.v <= 0 ? 0 : h.v < dailyGoal / 2 ? 1 : h.v < dailyGoal ? 2 : 3
@@ -216,7 +216,7 @@ export function ProfilePage() {
                     {done && <span aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-brand/10" />}
                     <ProgressRing pct={b.value / b.goal} size={56} stroke={5} color={done ? 'var(--good)' : 'var(--brand)'}>
                       {done ? (
-                        <motion.span initial={reduce ? false : { scale: 0, rotate: -40 }} whileInView={{ scale: 1, rotate: 0 }} viewport={{ once: true }} transition={{ ...SPRING.bouncy, delay: 0.3 }} className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand to-[#ffb25e] text-on-brand">
+                        <motion.span initial={reduce ? false : { scale: 0, rotate: -40 }} whileInView={{ scale: 1, rotate: 0 }} viewport={{ once: true }} transition={{ ...SPRING.bouncy, delay: 0.3 }} className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand to-[#ffb25e] text-white">
                           <Trophy size={18} />
                         </motion.span>
                       ) : (

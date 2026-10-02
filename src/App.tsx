@@ -5,7 +5,7 @@ import { Layout } from './components/ui/Layout'
 import { UpdateBanner } from './components/ui/UpdateBanner'
 import { useApplyTheme } from './lib/theme'
 import { useStore } from './store/useStore'
-import { GrammarPage, GrammarTopicPage } from './features/grammar/GrammarPage'
+import { GrammarTopicPage } from './features/grammar/GrammarPage'
 import { CatchUpPage } from './features/catchup/CatchUpPage'
 import { CoachPage } from './features/coach/CoachPage'
 import { LessonPage } from './features/lesson/LessonPage'
@@ -79,7 +79,7 @@ export default function App() {
             <Route path="coach" element={<CoachPage />} />
             <Route path="practice" element={<PracticePage />} />
             <Route path="words" element={<Navigate to="/practice?tab=words" replace />} />
-            <Route path="grammar" element={<GrammarPage />} />
+            <Route path="grammar" element={<Navigate to="/practice?tab=grammar" replace />} />
             <Route path="grammar/:lessonId" element={<GrammarTopicPage />} />
             <Route path="sets" element={<SetsPage />} />
             <Route path="sets/new" element={<CreateSetPage />} />

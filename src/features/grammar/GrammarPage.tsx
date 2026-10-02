@@ -25,7 +25,7 @@ const TOPICS: Topic[] = units.flatMap((u) =>
 )
 
 /** Nachschlagewerk: alle Regeln nach Klasse und Einheit, durchsuchbar. Zeigt auch, was du schon geübt hast. */
-export function GrammarPage() {
+export function GrammarPage({ embedded = false }: { embedded?: boolean } = {}) {
   const reduce = useReducedMotion()
   const lessons = useStore((s) => s.lessons)
   const [query, setQuery] = useState('')
@@ -47,8 +47,9 @@ export function GrammarPage() {
   }, [filtered])
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-6 lg:py-8">
-      <div className="mb-6 flex items-center gap-4">
+    <div className={embedded ? '' : 'mx-auto max-w-2xl px-4 py-6 lg:py-8'}>
+      {embedded && <p className="mb-5 text-muted">{TOPICS.length} Regeln zum Nachlesen, mit Beispielen zum Anhören.</p>}
+      <div className={`mb-6 flex items-center gap-4 ${embedded ? 'hidden' : ''}`}>
         <motion.div initial={reduce ? false : { rotate: -8, scale: 0.7, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} transition={SPRING.bouncy}>
           <IconChip size={56}><Book size={30} /></IconChip>
         </motion.div>
@@ -151,7 +152,7 @@ export function GrammarTopicPage() {
   const { lessonId = '' } = useParams()
   const lessons = useStore((s) => s.lessons)
   const found = findLesson(lessonId)
-  if (!found?.lesson.explanation) return <Navigate to="/grammar" replace />
+  if (!found?.lesson.explanation) return <Navigate to="/practice?tab=grammar" replace />
   const { lesson, unit } = found
   const ex = lesson.explanation!
   const unlocked = isUnlocked(lesson.id, lessons)
@@ -163,7 +164,7 @@ export function GrammarTopicPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 lg:py-8">
-      <Link to="/grammar" className="mb-2 press -ml-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-medium text-muted hover:text-ink">
+      <Link to="/practice?tab=grammar" className="mb-2 press -ml-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-medium text-muted hover:text-ink">
         <Back size={18} /> Grammatik
       </Link>
 

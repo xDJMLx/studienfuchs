@@ -8,6 +8,7 @@ import { Segmented } from '../../components/ui/controls'
 import { EASE, Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { itemsForScope, type Scope } from '../../lib/scope'
 import { useStore } from '../../store/useStore'
+import { GrammarPage } from '../grammar/GrammarPage'
 import { WordsPage } from '../words/WordsPage'
 import { dueLabel, useDue } from '../review/ReviewPage'
 
@@ -28,7 +29,7 @@ const MODES = [
 /** Üben und Wörterbuch an einem Ort: Umschalter oben, darunter je ein Bereich. */
 export function PracticePage() {
   const [params, setParams] = useSearchParams()
-  const tab = params.get('tab') === 'words' ? 'words' : 'practice'
+  const tab = params.get('tab') === 'words' ? 'words' : params.get('tab') === 'grammar' ? 'grammar' : 'practice'
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 lg:py-8">
       <h1 className="page-title">Üben</h1>
@@ -36,13 +37,14 @@ export function PracticePage() {
         label="Bereich"
         className="mb-5 mt-3 w-full [&>button]:flex-1 [&>button]:py-2"
         value={tab}
-        onChange={(v) => setParams(v === 'words' ? { tab: 'words' } : {}, { replace: true })}
+        onChange={(v) => setParams(v === 'practice' ? {} : { tab: v }, { replace: true })}
         options={[
           { value: 'practice', label: 'Üben' },
-          { value: 'words', label: 'Wörterbuch' },
+          { value: 'words', label: 'Wörter' },
+          { value: 'grammar', label: 'Grammatik' },
         ]}
       />
-      {tab === 'words' ? <WordsPage embedded /> : <PracticeTab />}
+      {tab === 'words' ? <WordsPage embedded /> : tab === 'grammar' ? <GrammarPage embedded /> : <PracticeTab />}
     </div>
   )
 }

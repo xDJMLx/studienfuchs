@@ -13,11 +13,6 @@ import { useStore } from '../../store/useStore'
 type Step = 'hero' | 'course' | 'grade' | 'goal' | 'ready'
 const ORDER: Step[] = ['hero', 'course', 'grade', 'goal', 'ready']
 type FlowStep = Exclude<Step, 'hero'>
-const HERO_STARS = [
-  [6, 12, 2], [18, 7, 1.5], [31, 16, 1.5], [46, 6, 2], [60, 14, 1.5], [74, 8, 2], [88, 15, 1.5], [95, 6, 1.5],
-  [10, 28, 1.5], [26, 34, 1], [52, 26, 1.5], [68, 30, 1], [84, 27, 1.5],
-] as const
-
 const FLOW: FlowStep[] = ['course', 'grade', 'goal', 'ready']
 
 const GOALS = [
@@ -66,7 +61,7 @@ function FloatChip({ children, className, delay, tilt }: { children: React.React
   const reduce = useReducedMotion()
   return (
     <motion.div className={`absolute ${className}`} initial={reduce ? false : { opacity: 0, scale: 0.4 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...SPRING.bouncy, delay }}>
-      <div className="animate-float flex items-center gap-1.5 rounded-2xl bg-white px-3.5 py-2 text-sm font-semibold text-[#14152b] shadow-lg ring-1 ring-black/5" style={{ ['--r' as string]: `${tilt}deg`, animationDelay: `${-delay * 3}s` }}>
+      <div className="animate-float flex items-center gap-1.5 rounded-2xl bg-surface px-3.5 py-2 text-sm font-semibold shadow-lg ring-1 ring-line" style={{ ['--r' as string]: `${tilt}deg`, animationDelay: `${-delay * 3}s` }}>
         {children}
       </div>
     </motion.div>
@@ -121,78 +116,63 @@ export function Welcome() {
       <AnimatePresence mode="wait">
         {step === 'hero' ? (
           <motion.div key="hero" className="flex flex-1 flex-col" initial={false} exit={reduce ? undefined : { opacity: 0, scale: 0.98, transition: { duration: 0.2 } }}>
-            <section className="relative isolate overflow-hidden text-white" style={{ background: 'linear-gradient(180deg, #0a0b22 0%, #241d6b 38%, #8a4a9a 70%, #ff9444 100%)' }}>
-              {/* Sterne */}
-              <div aria-hidden className="pointer-events-none absolute inset-0">
-                {HERO_STARS.map(([x, y, r], i) => (
-                  <span key={i} className="absolute rounded-full bg-white" style={{ left: `${x}%`, top: `${y}%`, width: r * 2, height: r * 2, opacity: 0.3 + (i % 4) * 0.15 }} />
-                ))}
-              </div>
-              <header className="relative mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4">
-                <Wordmark tone="light" />
-                {hasProgress && (
-                  <button type="button" onClick={finish} className="press flex items-center gap-1 rounded-xl bg-white/15 px-3.5 py-2 text-sm font-semibold backdrop-blur-md hover:bg-white/25">
-                    Zur App <Right size={14} />
-                  </button>
-                )}
-              </header>
+            <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4">
+              <Wordmark />
+              {hasProgress && (
+                <button type="button" onClick={finish} className="press flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold text-brand-dark hover:bg-brand-soft">
+                  Zur App <Right size={14} />
+                </button>
+              )}
+            </header>
 
-              <main className="relative mx-auto grid w-full max-w-6xl items-end gap-2 px-5 pb-0 pt-2 md:grid-cols-2 md:gap-12 md:pb-10">
-                <div className="order-1 pb-2 md:pb-0">
-                  <h1 className="display mb-4 text-[44px] font-extrabold leading-[1] tracking-[-0.035em] md:text-[72px]" aria-label="Lernen, das hängen bleibt.">
-                    {['Lernen,', 'das', 'hängen', 'bleibt.'].map((w, i) => (
-                      <motion.span
-                        key={w}
-                        aria-hidden
-                        className="mr-[0.24em] inline-block"
-                        initial={reduce ? false : { opacity: 0, y: 28 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.7, ease: EASE, delay: 0.15 + i * 0.09 }}
-                      >
-                        {w}
-                      </motion.span>
-                    ))}
-                  </h1>
-                  <motion.p initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE, delay: 0.55 }} className="mb-6 max-w-md text-[17px] leading-relaxed text-white/85">
-                    Französisch für Klasse 7 bis 10: kurze Lektionen, Wiederholung genau dann, wenn du vergessen würdest, und dein Schulbuch als Quiz. Kostenlos, ohne Konto.
-                  </motion.p>
-                  <motion.div initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE, delay: 0.7 }} className="grid max-w-sm gap-3">
-                    <button className="btn btn-primary btn-shine press w-full justify-between !py-4 text-base" onClick={() => go('course')} autoFocus>
-                      Jetzt starten <Right size={18} />
-                    </button>
-                    <button className="press w-full rounded-2xl bg-white/15 px-6 py-3.5 text-[16px] font-semibold backdrop-blur-md transition-colors hover:bg-white/25" onClick={() => fileRef.current?.click()}>
-                      Ich habe schon Fortschritt
-                    </button>
-                    <input ref={fileRef} type="file" accept="application/json" className="sr-only" onChange={(e) => doImport(e.target.files?.[0])} />
-                    {importMsg && <p className="rounded-xl bg-bad-soft px-3 py-2 text-sm font-semibold text-bad-dark" role="alert">{importMsg}</p>}
-                  </motion.div>
-                  <p className="mt-5 text-sm text-white/70">Dein Fortschritt bleibt auf deinem Gerät. Keine Werbung, kein Tracking.</p>
+            <main className="mx-auto grid w-full max-w-6xl flex-1 items-center gap-6 px-5 pb-10 pt-2 md:grid-cols-2 md:gap-12">
+              {/* Maskottchen-Bühne */}
+              <motion.div initial={reduce ? false : { opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...SPRING.soft, delay: 0.05 }} className="relative order-1 mx-auto flex h-[260px] w-[300px] items-center justify-center md:order-2 md:h-[420px] md:w-[460px]">
+                <span aria-hidden className="absolute inset-4 rounded-full bg-gradient-to-br from-brand-soft to-transparent ring-1 ring-brand/15" />
+                <span aria-hidden className="absolute inset-12 rounded-full bg-gradient-to-br from-brand/10 to-transparent ring-1 ring-brand/10" />
+                <div className="animate-float relative" style={{ animationDuration: '7s' }}>
+                  <Mascot mood="cheer" size={230} blink className="drop-shadow-xl md:!h-[330px] md:!w-[330px]" />
                 </div>
+                <FloatChip className="left-0 top-6 md:left-2 md:top-14" delay={0.5} tilt={-6}><span className="text-brand-dark">Bonjour !</span></FloatChip>
+                <FloatChip className="right-0 top-12 md:right-0 md:top-24" delay={0.7} tilt={5}><Bolt size={16} /> +15 XP</FloatChip>
+                <FloatChip className="bottom-8 left-2 md:bottom-16 md:left-0" delay={0.9} tilt={4}><Flame size={16} /> 7 Tage Serie</FloatChip>
+                <FloatChip className="bottom-2 right-4 md:bottom-10 md:right-6" delay={1.1} tilt={-4}><span className="text-good-dark">la maison</span><Check size={14} className="text-good" /></FloatChip>
+              </motion.div>
 
-                {/* Bühne: Fuchs auf dem Hügel vor der aufgehenden Sonne */}
-                <motion.div initial={reduce ? false : { opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...SPRING.soft, delay: 0.05 }} className="relative order-2 mx-auto mt-2 h-[290px] w-full max-w-[340px] md:mt-0 md:h-[430px] md:max-w-[440px]">
-                  <motion.span
-                    aria-hidden
-                    className="absolute left-1/2 top-[18%] h-44 w-44 -translate-x-1/2 rounded-full md:h-60 md:w-60"
-                    style={{ background: 'radial-gradient(circle at 40% 35%, #fff1c2, #ffc24d 45%, #ff7a2f 100%)', boxShadow: '0 0 110px 40px rgba(255,150,70,0.5)' }}
-                    initial={reduce ? false : { y: 90 }}
-                    animate={{ y: 0 }}
-                    transition={{ type: 'spring', stiffness: 40, damping: 16, delay: 0.3 }}
-                  />
-                  <div className="animate-float absolute inset-x-0 bottom-10 flex justify-center" style={{ animationDuration: '7s' }}>
-                    <Mascot mood="cheer" size={200} blink className="drop-shadow-2xl md:!h-[290px] md:!w-[290px]" />
-                  </div>
-                  <svg aria-hidden className="absolute inset-x-[-12%] bottom-0 h-20 w-[124%] md:h-28" viewBox="0 0 400 80" preserveAspectRatio="none">
-                    <path d="M0 38 C70 12 150 52 230 30 C300 12 350 40 400 24 L400 80 L0 80 Z" fill="#0d0b25" opacity="0.5" />
-                    <path d="M0 56 C80 38 150 64 230 50 C310 38 350 58 400 46 L400 80 L0 80 Z" fill="#0d0b25" opacity="0.92" />
-                  </svg>
-                  <FloatChip className="left-0 top-4 md:left-2 md:top-10" delay={0.5} tilt={-6}><span className="text-brand-dark">Bonjour !</span></FloatChip>
-                  <FloatChip className="right-0 top-14 md:right-0 md:top-24" delay={0.7} tilt={5}><Bolt size={16} /> +15 XP</FloatChip>
-                  <FloatChip className="bottom-12 left-2 md:bottom-20 md:left-0" delay={0.9} tilt={4}><Flame size={16} /> 7 Tage Serie</FloatChip>
-                  <FloatChip className="bottom-6 right-4 md:bottom-14 md:right-6" delay={1.1} tilt={-4}><span className="text-good-dark">la maison</span><Check size={14} className="text-good" /></FloatChip>
+              <div className="order-2 text-center md:order-1 md:text-left">
+                <motion.span initial={reduce ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: EASE }} className="mb-4 inline-block rounded-full bg-brand-soft px-3.5 py-1.5 text-xs font-semibold text-brand-dark">
+                  Kostenlos · ohne Konto · ohne Herzen
+                </motion.span>
+                <h1 className="mb-4 text-4xl font-bold leading-[1.1] tracking-tight md:text-6xl" aria-label="Lernen, das hängen bleibt.">
+                  {['Lernen,', 'das', 'hängen', 'bleibt.'].map((w, i) => (
+                    <motion.span
+                      key={w}
+                      aria-hidden
+                      className={`mr-[0.28em] inline-block ${i >= 2 ? 'text-brand' : ''}`}
+                      initial={reduce ? false : { opacity: 0, y: 28 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.7, ease: EASE, delay: 0.15 + i * 0.09 }}
+                    >
+                      {w}
+                    </motion.span>
+                  ))}
+                </h1>
+                <motion.p initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE, delay: 0.55 }} className="mx-auto mb-7 max-w-md text-lg leading-relaxed text-muted md:mx-0">
+                  Kurze Lektionen, echte Wiederholung und dein Schulbuch als Quiz. Für Französisch in Klasse 7 bis 10, weitere Fächer folgen.
+                </motion.p>
+                <motion.div initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: EASE, delay: 0.7 }} className="mx-auto grid max-w-sm gap-3 md:mx-0">
+                  <button className="btn btn-primary btn-shine press w-full justify-between !py-4 text-base" onClick={() => go('course')} autoFocus>
+                    Jetzt starten <Right size={18} />
+                  </button>
+                  <button className="btn btn-ghost press w-full" onClick={() => fileRef.current?.click()}>
+                    Ich habe schon Fortschritt
+                  </button>
+                  <input ref={fileRef} type="file" accept="application/json" className="sr-only" onChange={(e) => doImport(e.target.files?.[0])} />
+                  {importMsg && <p className="text-sm font-semibold text-bad-dark" role="alert">{importMsg}</p>}
                 </motion.div>
-              </main>
-            </section>
+                <p className="mt-5 text-sm text-muted">Dein Fortschritt bleibt auf deinem Gerät. Keine Werbung, kein Tracking.</p>
+              </div>
+            </main>
 
             {/* Was die App anders macht */}
             <section className="mx-auto w-full max-w-6xl px-5 pb-16">
@@ -280,7 +260,7 @@ export function Welcome() {
                             {c.ready ? <FrenchFlag size={56} /> : <Lock size={40} className="text-muted" />}
                             <span className="text-lg">{c.name}</span>
                             {!c.ready && <span className="text-xs font-semibold">{shake === c.id ? 'kommt bald!' : 'bald'}</span>}
-                            {c.ready && <span className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-brand text-on-brand"><Check size={13} /></span>}
+                            {c.ready && <span className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white"><Check size={13} /></span>}
                           </motion.button>
                         </motion.li>
                       ))}
@@ -297,7 +277,7 @@ export function Welcome() {
                           <motion.li key={g} className="min-w-0" initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE, delay: 0.05 + i * 0.06 }}>
                             <button type="button" role="radio" aria-checked={on} onClick={() => setGrade(g)} className="press relative flex w-full items-center gap-4 rounded-2xl border-2 border-line bg-surface p-4 text-left transition-colors hover:bg-snow">
                               {on && <motion.span layoutId="grade-ring" className="absolute -inset-0.5 rounded-2xl border-2 border-brand bg-brand-soft" transition={SPRING.snappy} />}
-                              <span className={`relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl text-2xl font-bold transition-colors duration-300 ${on ? 'bg-brand text-on-brand' : 'bg-snow text-ink'}`}>{g}</span>
+                              <span className={`relative flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl text-2xl font-bold transition-colors duration-300 ${on ? 'bg-brand text-white' : 'bg-snow text-ink'}`}>{g}</span>
                               <span className="relative min-w-0 flex-1">
                                 <span className={`block text-lg font-semibold ${on ? 'text-brand-dark' : ''}`}>Klasse {g} <span className="text-sm font-medium text-muted">· Lernjahr {g - 6}</span></span>
                                 <span className="block truncate text-sm text-muted">{gu.slice(0, 3).map((u) => u.title).join(' · ')}</span>

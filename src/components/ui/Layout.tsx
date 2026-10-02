@@ -1,14 +1,12 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation, useNavigate, useOutlet } from 'react-router-dom'
-import { useMediaQuery } from '../../lib/useMediaQuery'
 import { goalInfo, levelFromXp } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
 import { CourseChip } from './CoursePicker'
-import { Bolt, Book, Camera, Dots, Flame, Gear, Home, Repeat, Right, Shield, Sparkle, Target, Trophy, User } from './Icons'
-import { EASE, ItemLi, StaggerList } from './motion'
-import { Sheet } from './Sheet'
+import { Bolt, Camera, Flame, Gear, Home, Repeat, Sparkle, Trophy, User } from './Icons'
+import { EASE } from './motion'
 import { TabBar } from './TabBar'
 import { useDue } from '../../features/review/ReviewPage'
 import { ProgressBar, ProgressRing, WeekStrip } from './widgets'
@@ -20,19 +18,19 @@ interface NavItem {
   end?: boolean
 }
 
+// Fünf feste Tabs, kein "Mehr": Alles Wichtige ist immer mit einem Tipp erreichbar (Grammatik und Wörter im Üben-Tab,
+// Einstellungen über das Profil).
 const NAV: NavItem[] = [
   { to: '/', label: 'Lernen', Icon: Home, end: true },
   { to: '/practice', label: 'Üben', Icon: Repeat },
-  { to: '/grammar', label: 'Grammatik', Icon: Book },
-  { to: '/sets', label: 'Meine Sets', Icon: Camera },
+  { to: '/coach', label: 'Coach', Icon: Sparkle },
+  { to: '/sets', label: 'Sets', Icon: Camera },
   { to: '/profile', label: 'Profil', Icon: User },
 ]
-// Auf dem Handy passen vier Einträge plus "Mehr" in die Leiste; der Rest liegt unter "Mehr"
-const MOBILE_NAV: NavItem[] = [NAV[0], NAV[1], NAV[3]]
 
 export function Wordmark({ size = 'md', tone = 'default' }: { size?: 'md' | 'lg'; tone?: 'default' | 'light' }) {
   return (
-    <span className={`display flex items-center gap-2.5 font-bold tracking-tight ${tone === 'light' ? 'text-white' : 'text-ink'} ${size === 'lg' ? 'text-3xl' : 'text-xl'}`}>
+    <span className={`flex items-center gap-2.5 font-bold tracking-tight ${tone === 'light' ? 'text-white' : 'text-ink'} ${size === 'lg' ? 'text-3xl' : 'text-xl'}`}>
       <Mascot size={size === 'lg' ? 46 : 32} />
       Studienfuchs
     </span>
@@ -55,16 +53,12 @@ function AnimatedOutlet() {
 }
 
 export function Layout() {
-  const [moreOpen, setMoreOpen] = useState(false)
-  const desktop = useMediaQuery('(min-width: 1024px)')
   const location = useLocation()
   const navigate = useNavigate()
   const scroller = useRef<HTMLElement>(null)
-  const closeMore = useCallback(() => setMoreOpen(false), [])
   const dueCount = useDue().due.length
 
   useEffect(() => {
-    setMoreOpen(false)
     scroller.current?.scrollTo({ top: 0 })
   }, [location.pathname])
 
@@ -98,7 +92,10 @@ export function Layout() {
             </NavLink>
           ))}
         </nav>
-        {desktop && <MorePopover open={moreOpen} onToggle={() => setMoreOpen((o) => !o)} onClose={closeMore} />}
+        <NavLink to="/settings" className={({ isActive }) => `nav-link press mt-auto ${isActive ? 'text-brand-dark' : ''}`}>
+          <Gear size={22} />
+          Einstellungen
+        </NavLink>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
@@ -118,31 +115,20 @@ export function Layout() {
 
         {/* Tab-Leiste (Mobil): schwebende Glas-Kapsel mit ziehbarer Linse */}
         <TabBar
-          tabs={[
-            ...MOBILE_NAV.map(({ to, label, Icon }) => ({
-              key: to,
-              label,
-              icon: <Icon size={26} />,
-              badge: to === '/practice' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : undefined,
-            })),
-            { key: 'more', label: 'Mehr', icon: <Dots size={26} /> },
-          ]}
-          activeIndex={moreOpen ? MOBILE_NAV.length : MOBILE_NAV.findIndex((n) => (n.end ? location.pathname === n.to : location.pathname.startsWith(n.to)))}
+          tabs={NAV.map(({ to, label, Icon }) => ({
+            key: to,
+            label,
+            icon: <Icon size={26} />,
+            badge: to === '/practice' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : undefined,
+          }))}
+          activeIndex={NAV.findIndex((n) => (n.end ? location.pathname === n.to : location.pathname.startsWith(n.to)))}
           onSelect={(i) => {
-            if (i >= MOBILE_NAV.length) return setMoreOpen(true)
-            const to = MOBILE_NAV[i].to
+            const to = NAV[i].to
             // Zweiter Tipp auf den aktiven Tab: nach oben scrollen (wie bei iOS-Apps)
             if (location.pathname === to) scroller.current?.scrollTo({ top: 0, behavior: 'smooth' })
             else navigate(to)
           }}
         />
-
-        {/* "Mehr" als Sheet auf dem Handy. Es gibt immer nur EIN Menü, sonst schließt das unsichtbare das sichtbare beim Klicken. */}
-        {!desktop && (
-          <Sheet open={moreOpen} onClose={closeMore} title="Mehr">
-            <MoreList onClose={closeMore} showMain />
-          </Sheet>
-        )}
       </div>
     </div>
   )
@@ -161,122 +147,6 @@ function DueBadge({ n, className = '' }: { n: number; className?: string }) {
     >
       {n > 99 ? '99+' : n}
     </motion.span>
-  )
-}
-
-/** Mehr-Menü am Desktop: kleines Fenster über dem Knopf. Schließt bei Klick daneben oder Esc. */
-function MorePopover({ open, onToggle, onClose }: { open: boolean; onToggle: () => void; onClose: () => void }) {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (!open) return
-    const onDown = (e: PointerEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose()
-    }
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
-    document.addEventListener('pointerdown', onDown)
-    window.addEventListener('keydown', onKey)
-    return () => {
-      document.removeEventListener('pointerdown', onDown)
-      window.removeEventListener('keydown', onKey)
-    }
-  }, [open, onClose])
-
-  return (
-    <div ref={ref} className="relative mt-auto">
-      <button type="button" className="nav-link press w-full" onClick={onToggle} aria-expanded={open} aria-haspopup="menu">
-        <Dots size={22} />
-        Mehr
-      </button>
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            role="menu"
-            initial={{ opacity: 0, y: 10, scale: 0.96 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 6, scale: 0.97, transition: { duration: 0.12 } }}
-            transition={{ duration: 0.22, ease: EASE }}
-            style={{ transformOrigin: 'bottom left' }}
-            className="absolute bottom-full left-0 mb-2 w-72 rounded-2xl border border-line bg-surface p-1.5 shadow-xl"
-          >
-            <MoreList onClose={onClose} />
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  )
-}
-
-const ROW = 'group press flex w-full items-center gap-3.5 rounded-2xl px-3 py-2.5 text-left transition-colors hover:bg-snow'
-
-function RowBody({ icon, label, hint }: { icon: React.ReactNode; label: string; hint: string }) {
-  return (
-    <>
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark transition-transform duration-300 group-hover:scale-105 group-hover:-rotate-3">{icon}</span>
-      <span className="min-w-0 flex-1">
-        <span className="block text-[15px] font-semibold text-ink">{label}</span>
-        <span className="block truncate text-xs text-muted">{hint}</span>
-      </span>
-      <Right size={16} className="shrink-0 text-muted transition-transform duration-300 group-hover:translate-x-0.5" />
-    </>
-  )
-}
-
-/** Einträge des Mehr-Menüs. Am Desktop stehen Grammatik und Profil schon in der Seitenleiste. */
-function MoreList({ onClose, showMain = false }: { onClose: () => void; showMain?: boolean }) {
-  const navigate = useNavigate()
-  const setOnboarded = useStore((s) => s.setOnboarded)
-  return (
-    <StaggerList className="grid gap-0.5" stagger={0.04} delay={0.05}>
-      {showMain && (
-        <>
-          <ItemLi>
-            <NavLink to="/grammar" role="menuitem" className={ROW} onClick={onClose}>
-              <RowBody icon={<Book size={22} />} label="Grammatik" hint="Regeln nachschlagen und anhören" />
-            </NavLink>
-          </ItemLi>
-          <ItemLi>
-            <NavLink to="/profile" role="menuitem" className={ROW} onClick={onClose}>
-              <RowBody icon={<User size={22} />} label="Profil" hint="Level, Serie und Erfolge" />
-            </NavLink>
-          </ItemLi>
-        </>
-      )}
-      <ItemLi>
-        <NavLink to="/coach" role="menuitem" className={ROW} onClick={onClose}>
-          <RowBody icon={<Sparkle size={22} />} label="Lern-Coach" hint="Mit der KI über Tests und Grammatik reden" />
-        </NavLink>
-      </ItemLi>
-      <ItemLi>
-        <NavLink to="/catchup" role="menuitem" className={ROW} onClick={onClose}>
-          <RowBody icon={<Target size={22} />} label="Aufholen" hint="Stoff aus dem Unterricht nachholen" />
-        </NavLink>
-      </ItemLi>
-      <ItemLi>
-        <NavLink to="/settings" role="menuitem" className={ROW} onClick={onClose}>
-          <RowBody icon={<Gear size={22} />} label="Einstellungen" hint="Darstellung, Ziel, Stimme, KI" />
-        </NavLink>
-      </ItemLi>
-      <ItemLi>
-        <NavLink to="/about" role="menuitem" className={ROW} onClick={onClose}>
-          <RowBody icon={<Shield size={22} />} label="Datenschutz & Impressum" hint="Was mit deinen Daten passiert" />
-        </NavLink>
-      </ItemLi>
-      <ItemLi>
-        <button
-          type="button"
-          role="menuitem"
-          className={ROW}
-          onClick={() => {
-            setOnboarded(false)
-            onClose()
-            navigate('/welcome')
-          }}
-        >
-          <RowBody icon={<Mascot size={26} />} label="Willkommen" hint="Startseite und Einführung" />
-        </button>
-      </ItemLi>
-    </StaggerList>
   )
 }
 
