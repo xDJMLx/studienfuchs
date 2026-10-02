@@ -36,6 +36,12 @@ interface Data {
   classUnit: string | null
   /** Zieldatum des Aufholplans (YYYY-MM-DD), null = kein Plan */
   catchUpTarget: string | null
+  /** Gewähltes Zubehör für den Fuchs (siehe rewards.ts), 'none' = keins */
+  avatar: string
+  /** Gewählte Farbe der App (siehe rewards.ts), 'orange' = Standard */
+  accent: string
+  /** Längste Serie in Tagen (die aktuelle Serie allein reicht für Belohnungen nicht, sie bricht ab) */
+  bestStreak: number
 }
 
 interface Actions {
@@ -53,6 +59,8 @@ interface Actions {
   setOnboarded: (v: boolean) => void
   setClassUnit: (unitId: string | null) => void
   setCatchUpTarget: (date: string | null) => void
+  setAvatar: (id: string) => void
+  setAccent: (id: string) => void
   setSpeech: (patch: Partial<Pick<Data, 'speechOn' | 'voiceName' | 'speechRate' | 'speakingOn'>>) => void
   exportData: () => string
   importData: (json: string) => void
@@ -79,6 +87,9 @@ const initial: Data = {
   onboarded: false,
   classUnit: null,
   catchUpTarget: null,
+  avatar: 'none',
+  accent: 'orange',
+  bestStreak: 0,
 }
 
 const DATA_KEYS = Object.keys(initial) as (keyof Data)[]
@@ -94,6 +105,7 @@ export const useStore = create<Data & Actions>()(
           const cards = { ...s.cards }
           for (const [itemId, grade] of Object.entries(grades)) cards[itemId] = reviewCard(cards[itemId], grade, now)
           const today = dayKey(now)
+          const nextStreak = registerActivity(s.streak, now)
           const lessons = { ...s.lessons }
           if (lessonId) {
             const prev = lessons[lessonId]
@@ -108,7 +120,8 @@ export const useStore = create<Data & Actions>()(
             lessons,
             xp: s.xp + xp,
             xpByDay: { ...s.xpByDay, [today]: (s.xpByDay[today] ?? 0) + xp },
-            streak: registerActivity(s.streak, now),
+            streak: nextStreak,
+            bestStreak: Math.max(s.bestStreak ?? 0, nextStreak.count),
           }
         }),
 
@@ -155,6 +168,8 @@ export const useStore = create<Data & Actions>()(
       setGrade: (g) => set({ grade: g }),
       setSpeech: (patch) => set(patch),
       setTheme: (t) => set({ theme: t }),
+      setAvatar: (id) => set({ avatar: id }),
+      setAccent: (id) => set({ accent: id }),
       setOnboarded: (v) => set({ onboarded: v }),
       setClassUnit: (unitId) => set(unitId ? { classUnit: unitId } : { classUnit: null, catchUpTarget: null }),
       setCatchUpTarget: (date) => set({ catchUpTarget: date }),

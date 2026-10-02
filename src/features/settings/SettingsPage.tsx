@@ -8,6 +8,7 @@ import { InstallHelp, useInstallFlow } from '../../components/ui/InstallApp'
 import { Check, Database, Download, Gear, Palette, Shield, Sparkle, Speaker, Target, Upload } from '../../components/ui/Icons'
 import { EASE, Item, Stagger, SPRING } from '../../components/ui/motion'
 import { dayKey } from '../../lib/streak'
+import { lastBackupText, markBackup, shareBackup } from '../../lib/backup'
 import { applyUpdate, BUILD_ID, checkForUpdate } from '../../lib/updates'
 import { useStore } from '../../store/useStore'
 import { SpeechSettings } from '../profile/SpeechSettings'
@@ -104,7 +105,36 @@ export function SettingsPage() {
     a.download = `studienfuchs-${dayKey()}.json`
     a.click()
     URL.revokeObjectURL(a.href)
+    markBackup()
+    setBackupInfo(lastBackupText())
     setToast({ ok: true, text: 'Sicherung wurde heruntergeladen.' })
+  }
+
+  const [pasteOpen, setPasteOpen] = useState(false)
+  const [pasted, setPasted] = useState('')
+  const [backupInfo, setBackupInfo] = useState(lastBackupText())
+  const doShare = async () => {
+    const r = await shareBackup(exportData())
+    setBackupInfo(lastBackupText())
+    if (r !== 'cancelled') setToast({ ok: true, text: r === 'shared' ? 'Sicherung geteilt.' : 'Sicherung wurde heruntergeladen.' })
+  }
+  const doCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(exportData())
+      setToast({ ok: true, text: 'Sicherungstext kopiert. Füge ihn auf dem neuen Gerät unter „Aus Text laden“ ein.' })
+    } catch {
+      setToast({ ok: false, text: 'Kopieren hat nicht geklappt.' })
+    }
+  }
+  const doPaste = () => {
+    try {
+      importData(pasted.trim())
+      setPasted('')
+      setPasteOpen(false)
+      setToast({ ok: true, text: 'Fortschritt geladen.' })
+    } catch (e) {
+      setToast({ ok: false, text: e instanceof Error ? e.message : 'Der Text ist keine gültige Sicherung.' })
+    }
   }
 
   const doImport = async (file: File | undefined) => {
@@ -264,6 +294,20 @@ export function SettingsPage() {
                   <input ref={fileRef} type="file" accept="application/json" className="sr-only" onChange={(e) => doImport(e.target.files?.[0])} />
                 </div>
               </Row>
+              <Row title="Aufs neue Handy" hint={`So geht dein Fortschritt mit: Sicherung teilen (z. B. per AirDrop oder Nachricht) und dort laden. Zuletzt: ${backupInfo}.`}>
+                <div className="flex flex-wrap gap-2">
+                  <button className="btn btn-primary press !px-4 !py-2 !text-sm" onClick={doShare}><Upload size={16} /> Sicherung teilen</button>
+                  <button className="btn btn-ghost press !px-4 !py-2 !text-sm" onClick={doCopy}>Text kopieren</button>
+                  <button className="btn btn-ghost press !px-4 !py-2 !text-sm" onClick={() => setPasteOpen((o) => !o)} aria-expanded={pasteOpen}>Aus Text laden</button>
+                </div>
+              </Row>
+              {pasteOpen && (
+                <div className="grid gap-2 border-t border-line px-5 py-4">
+                  <label htmlFor="paste" className="text-sm font-medium">Sicherungstext hier einfügen</label>
+                  <textarea id="paste" value={pasted} onChange={(e) => setPasted(e.target.value)} rows={4} placeholder='{"app":"studienfuchs", …}' className="w-full rounded-xl border border-line bg-snow p-3 font-mono text-xs outline-none focus:border-brand" />
+                  <button className="btn btn-primary press w-full sm:w-auto" disabled={!pasted.trim()} onClick={doPaste}>Fortschritt laden</button>
+                </div>
+              )}
               <Row title="Alles zurücksetzen" hint="Löscht Fortschritt, Sets und Einstellungen auf diesem Gerät.">
                 <AnimatePresence mode="wait" initial={false}>
                   {confirmReset ? (

@@ -1,7 +1,7 @@
 export type Mood = 'happy' | 'cheer' | 'sad' | 'think'
 
 /** Fenni, der Fuchs – unser eigenes Maskottchen (eigene Zeichnung, kein Duolingo-Asset). */
-export function Mascot({ mood = 'happy', size = 120, className = '', blink = false, label }: { mood?: Mood; size?: number; className?: string; blink?: boolean; label?: string }) {
+export function Mascot({ mood = 'happy', size = 120, className = '', blink = false, label , accessory = 'none'}: { mood?: Mood; size?: number; className?: string; blink?: boolean; label?: string ; accessory?: string}) {
   const sad = mood === 'sad'
   const cheer = mood === 'cheer'
   return (
@@ -53,6 +53,32 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
       {/* Wangen */}
       <circle cx="26" cy="72" r="5" fill="#ff9aa2" opacity="0.6" />
       <circle cx="94" cy="72" r="5" fill="#ff9aa2" opacity="0.6" />
+      {/* Zubehör zum Sammeln */}
+      {accessory === 'brille' && (
+        <g fill="none" stroke="#3b2a1a" strokeWidth="3.2">
+          <circle cx="40" cy="54" r="12" fill="rgba(255,255,255,0.18)" />
+          <circle cx="80" cy="54" r="12" fill="rgba(255,255,255,0.18)" />
+          <path d="M52 53 q8 -5 16 0" strokeLinecap="round" />
+          <path d="M28 52 l-8 -4 M92 52 l8 -4" strokeLinecap="round" />
+        </g>
+      )}
+      {accessory === 'schal' && (
+        <g>
+          <path d="M16 90 C38 108 82 108 104 90 L108 102 C84 122 36 122 12 102 Z" fill="#e5484d" />
+          <path d="M30 100 q30 14 60 0" stroke="#fff" strokeWidth="3" fill="none" opacity="0.7" strokeLinecap="round" />
+          <path d="M78 104 l6 16 l14 -4 l-6 -16 Z" fill="#c93a40" />
+        </g>
+      )}
+      {accessory === 'muetze' && (
+        <g>
+          <path d="M20 42 C22 12 98 12 100 42 C82 34 38 34 20 42 Z" fill="#3b82f6" />
+          <path d="M20 42 C38 34 82 34 100 42 L98 50 C80 42 40 42 22 50 Z" fill="#1d4ed8" />
+          <circle cx="60" cy="13" r="7" fill="#fff" />
+        </g>
+      )}
+      {accessory === 'krone' && (
+        <path d="M36 32 L42 10 L54 24 L60 6 L66 24 L78 10 L84 32 Z" fill="#f5b82e" stroke="#b8860b" strokeWidth="2.5" strokeLinejoin="round" />
+      )}
     </svg>
   )
 }

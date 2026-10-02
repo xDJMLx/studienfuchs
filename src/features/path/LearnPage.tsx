@@ -9,6 +9,7 @@ import { EASE } from '../../components/ui/motion'
 import { Sheet } from '../../components/ui/Sheet'
 import { ProgressBar, ProgressRing } from '../../components/ui/widgets'
 import type { Lesson, Unit } from '../../lib/types'
+import { BackupBanner } from '../../components/ui/BackupBanner'
 import { InstallBanner } from '../../components/ui/InstallApp'
 import { catchUpStatus } from '../../lib/catchup'
 import { goalInfo } from '../../lib/xp'
@@ -149,6 +150,7 @@ export function LearnPage() {
       <TodayCard />
       <CoachCard />
       <InstallBanner />
+      <BackupBanner />
 
       {/* Kurs-Kopf */}
       <section className="card mb-8 p-5">
