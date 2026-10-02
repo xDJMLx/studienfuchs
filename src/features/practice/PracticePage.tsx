@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { grades, units } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Cards, Check, Headphones, Pencil, Plus, Repeat, Right, Sparkle, Star, Trophy } from '../../components/ui/Icons'
+import { Cards, Check, Headphones, Pencil, Repeat, Right, Sparkle, Star, Trophy } from '../../components/ui/Icons'
 import { Segmented } from '../../components/ui/controls'
 import { EASE, Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { itemsForScope, type Scope } from '../../lib/scope'
@@ -183,37 +183,6 @@ function PracticeTab() {
             )
           })}
         </StaggerList>
-      </Item>
-
-      {/* Eigene Listen: von der KI erzeugte Vokabeltests und selbst getippte Listen */}
-      <Item>
-        <div className="mb-2 mt-8 flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Eigene Listen</h2>
-          <Link to="/sets/new" className="press flex min-h-11 items-center gap-1.5 rounded-xl border border-line bg-surface px-3.5 text-sm font-semibold">
-            <Plus size={16} /> Neue Liste
-          </Link>
-        </div>
-        {sets.length === 0 ? (
-          <p className="rounded-2xl bg-snow p-4 text-sm text-muted">
-            Hier erscheinen Vokabeltests, die die KI aus deinen Buchseiten baut, und Listen, die du selbst tippst.{' '}
-            <Link to="/coach" className="font-semibold text-brand-dark underline">Seiten in die KI laden</Link>
-          </p>
-        ) : (
-          <ul className="card divide-y divide-line overflow-hidden">
-            {sets.map((st) => (
-              <li key={st.id}>
-                <Link to={'/sets/' + st.id} className="press flex items-center gap-3 px-4 py-3">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-soft font-bold text-brand-dark">{st.title.trim().charAt(0).toUpperCase() || '?'}</span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate font-medium">{st.title}</span>
-                    <span className="block truncate text-sm text-muted">{st.items.length} Wörter{st.book ? ' · ' + st.book : ''}</span>
-                  </span>
-                  <Right size={16} className="shrink-0 text-muted" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
       </Item>
 
       <Item>

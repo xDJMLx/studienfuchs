@@ -271,7 +271,7 @@ export function CoachPage() {
               <div className="card mt-2 p-3">
                 <p className="font-semibold leading-tight">Vokabeltest bereit</p>
                 <p className="text-sm text-muted">
-                  {m.list.title} · {m.list.count} Wörter. Gespeichert unter Üben → Eigene Listen.
+                  {m.list.title} · {m.list.count} Wörter. Gespeichert im Tab Plan unter „Listen“.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Link to={'/practice/play?mode=write&scope=set:' + m.list.id} className="btn btn-primary press !px-4 !py-2.5 !text-sm">

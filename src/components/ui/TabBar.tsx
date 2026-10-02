@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from 'framer-motion'
+import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from 'framer-motion'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 export interface TabDef {
@@ -58,18 +58,22 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
       className="glass fixed inset-x-3 z-40 flex flex-col rounded-[34px] p-1.5 lg:hidden"
       style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.6rem)' }}
     >
-      {/* Das Eingabefeld gleitet beim Öffnen hoch und blendet ein (nur Transform und Deckkraft, das ist flüssig) */}
-      {extra && (
-        <motion.div
-          key="extra"
-          initial={reduce ? false : { opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: 'spring', stiffness: 420, damping: 30 }}
-          className="px-1 pb-1.5 pt-0.5"
-        >
-          {extra}
-        </motion.div>
-      )}
+      {/* Das Eingabefeld gleitet beim Öffnen hoch und blendet ein (nur Transform und Deckkraft, das ist flüssig).
+          Beim Verlassen blendet es aus und die Leiste klappt kurz zusammen. */}
+      <AnimatePresence initial={false}>
+        {extra && (
+          <motion.div
+            key="extra"
+            initial={reduce ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0, height: 'auto' }}
+            exit={reduce ? undefined : { opacity: 0, y: 10, height: 0, transition: { duration: 0.24, ease: [0.4, 0, 0.2, 1] } }}
+            transition={{ type: 'spring', stiffness: 420, damping: 30 }}
+            className="overflow-hidden"
+          >
+            <div className="px-1 pb-1.5 pt-0.5">{extra}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div
         ref={row}
         className="relative flex touch-none items-stretch"
