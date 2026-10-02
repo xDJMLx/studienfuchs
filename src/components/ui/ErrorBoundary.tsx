@@ -1,97 +1,46 @@
-import { useEffect } from 'react'
-import { HashRouter, Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
-import { ErrorBoundary } from './components/ui/ErrorBoundary'
-import { Layout } from './components/ui/Layout'
-import { useApplyTheme } from './lib/theme'
-import { useStore } from './store/useStore'
-import { GrammarPage, GrammarTopicPage } from './features/grammar/GrammarPage'
-import { CatchUpPage } from './features/catchup/CatchUpPage'
-import { LessonPage } from './features/lesson/LessonPage'
-import { LearnPage } from './features/path/LearnPage'
-import { PlacementPage } from './features/placement/PlacementPage'
-import { FlashcardsPage } from './features/practice/FlashcardsPage'
-import { PracticePage } from './features/practice/PracticePage'
-import { PracticePlay } from './features/practice/PracticePlay'
-import { AboutPage } from './features/profile/AboutPage'
-import { ProfilePage } from './features/profile/ProfilePage'
-import { ReviewPage } from './features/review/ReviewPage'
-import { ReviewPlay } from './features/review/ReviewPlay'
-import { SettingsPage } from './features/settings/SettingsPage'
-import { SetDetailPage } from './features/sets/SetDetailPage'
-import { SetPlay } from './features/sets/SetPlay'
-import { SetsPage } from './features/sets/SetsPage'
-import { CreateSetPage } from './features/upload/CreateSetPage'
-import { WordsPage } from './features/words/WordsPage'
-import { Welcome } from './features/welcome/Welcome'
+import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { Mascot } from '../mascot/Mascot'
 
-const TITLES: [prefix: string, title: string][] = [
-  ['/welcome', 'Willkommen'],
-  ['/lesson/', 'Lektion'],
-  ['/placement', 'Einstufungstest'],
-  ['/catchup', 'Aufholen'],
-  ['/practice/cards', 'Karteikarten'],
-  ['/practice', 'Üben'],
-  ['/review/play', 'Wiederholung'],
-  ['/review', 'Lernstand'],
-  ['/words', 'Wörter'],
-  ['/grammar', 'Grammatik'],
-  ['/sets/new', 'Neues Set'],
-  ['/sets', 'Meine Sets'],
-  ['/profile', 'Profil'],
-  ['/settings', 'Einstellungen'],
-  ['/about', 'Datenschutz & Impressum'],
-]
-
-function RouteTitle() {
-  const { pathname } = useLocation()
-  useEffect(() => {
-    const hit = TITLES.find(([p]) => (p.endsWith('/') ? pathname.startsWith(p) : pathname === p || pathname.startsWith(p + '/')))
-    document.title = hit ? `${hit[1]} · Studienfuchs` : 'Studienfuchs – Lernen für die Schule'
-  }, [pathname])
-  return null
+interface State {
+  error: Error | null
 }
 
-function RequireOnboarding() {
-  const onboarded = useStore((s) => s.onboarded)
-  const hasProgress = useStore((s) => s.xp > 0 || Object.keys(s.lessons).length > 0)
-  return onboarded || hasProgress ? <Outlet /> : <Navigate to="/welcome" replace />
-}
+/** Fängt Darstellungsfehler ab: statt weißem Bildschirm gibt es eine verständliche Meldung und einen Weg zurück. */
+export class ErrorBoundary extends Component<{ children: ReactNode }, State> {
+  state: State = { error: null }
 
-export default function App() {
-  useApplyTheme()
-  return (
-    <HashRouter>
-      <RouteTitle />
-      <ErrorBoundary>
-        <Routes>
-          <Route path="welcome" element={<Welcome />} />
-          <Route element={<RequireOnboarding />}>
-            <Route element={<Layout />}>
-              <Route index element={<LearnPage />} />
-              <Route path="review" element={<ReviewPage />} />
-              <Route path="catchup" element={<CatchUpPage />} />
-              <Route path="practice" element={<PracticePage />} />
-              <Route path="words" element={<WordsPage />} />
-              <Route path="grammar" element={<GrammarPage />} />
-              <Route path="grammar/:lessonId" element={<GrammarTopicPage />} />
-              <Route path="sets" element={<SetsPage />} />
-              <Route path="sets/new" element={<CreateSetPage />} />
-              <Route path="sets/:setId" element={<SetDetailPage />} />
-              <Route path="profile" element={<ProfilePage />} />
-              <Route path="settings" element={<SettingsPage />} />
-              <Route path="about" element={<AboutPage />} />
-            </Route>
-            <Route path="lesson/:lessonId" element={<LessonPage />} />
-            <Route path="placement" element={<PlacementPage />} />
-            <Route path="practice/play" element={<PracticePlay />} />
-            <Route path="practice/cards" element={<FlashcardsPage />} />
-            <Route path="sets/:setId/cards" element={<FlashcardsPage />} />
-            <Route path="review/play" element={<ReviewPlay />} />
-            <Route path="sets/:setId/play" element={<SetPlay />} />
-          </Route>
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </ErrorBoundary>
-    </HashRouter>
-  )
+  static getDerivedStateFromError(error: Error): State {
+    return { error }
+  }
+
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('Darstellungsfehler', error, info.componentStack)
+  }
+
+  render() {
+    if (!this.state.error) return this.props.children
+    return (
+      <div className="flex min-h-full flex-col items-center justify-center bg-bg px-6 py-12 text-center" role="alert">
+        <Mascot mood="sad" size={110} />
+        <h1 className="mt-4 text-2xl font-bold">Hier ist etwas schiefgelaufen</h1>
+        <p className="mt-2 max-w-sm text-muted">Dein Fortschritt ist nicht verloren, er liegt sicher auf diesem Gerät. Versuch es noch einmal oder geh zur Startseite.</p>
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <button className="btn btn-primary press" onClick={() => window.location.reload()}>Seite neu laden</button>
+          <button
+            className="btn btn-ghost press"
+            onClick={() => {
+              window.location.hash = '#/'
+              this.setState({ error: null })
+            }}
+          >
+            Zur Startseite
+          </button>
+        </div>
+        <details className="mt-8 max-w-md text-left text-xs text-muted">
+          <summary className="cursor-pointer text-center">Technische Details</summary>
+          <pre className="mt-2 whitespace-pre-wrap break-words rounded-xl bg-snow p-3">{this.state.error.message}</pre>
+        </details>
+      </div>
+    )
+  }
 }

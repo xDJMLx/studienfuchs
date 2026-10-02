@@ -6,12 +6,13 @@ export interface CheckResult {
 
 const stripDiacritics = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '')
 
+/** Vereinheitlicht Schreibweise: Apostrophe, Leerzeichen, Satzzeichen am Rand, Groß-/Kleinschreibung. */
 export function normalize(s: string): string {
   return s
     .normalize('NFC')
-    .replace(/[''`´]/g, "'")
-    .replace(/…|\.{3}/g, ' ')
-    .replace(/[–—]/g, '-')
+    .replace(/[’‘`´]/g, "'")
+    .replace(/…|\.{3}/g, ' ') // Auslassungspunkte sind beim Tippen optional
+    .replace(/[–—]/g, '-') // Gedankenstrich wie Bindestrich behandeln
     .replace(/\s+/g, ' ')
     .replace(/^[\s.,;:!?¿¡"«»-]+|[\s.,;:!?¿¡"«»-]+$/g, '')
     .toLowerCase()
@@ -38,6 +39,7 @@ export function levenshtein(a: string, b: string): number {
 
 const ARTICLES = /^(der|die|das|ein|eine|le|la|les|l'|un|une|des|du|de la)\s?/i
 
+/** "(sich) freuen; sich freuen" → alle akzeptierten Varianten. */
 export function expandAnswers(answer: string): string[] {
   const out = new Set<string>()
   for (const part of answer.split(/[;/]/)) {
@@ -60,10 +62,12 @@ export function checkAnswer(input: string, answer: string, extraAccept: string[]
   if (accepted.some((a) => stripDiacritics(a) === stripDiacritics(typed))) {
     return { status: 'almost', feedback: `Achte auf die Akzente: ${answer}` }
   }
+  // Artikel vergessen? (wichtig für Genus – wird bewusst nur als "fast" gewertet)
   const noArt = (s: string) => s.replace(ARTICLES, '')
   if (accepted.some((a) => noArt(a) && noArt(a) === noArt(typed) && a !== noArt(a))) {
     return { status: 'almost', feedback: `Mit Artikel: ${answer}` }
   }
+  // Kleiner Tippfehler bei längeren Wörtern
   if (accepted.some((a) => a.length >= 5 && levenshtein(stripDiacritics(a), stripDiacritics(typed)) === 1)) {
     return { status: 'almost', feedback: `Fast! Richtig wäre: ${answer}` }
   }

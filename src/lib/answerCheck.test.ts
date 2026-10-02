@@ -4,7 +4,7 @@ import { safeStorage } from './storage'
 
 describe('answerCheck', () => {
   it('normalisiert Akzente und Satzzeichen', () => {
-    expect(normalize("l'école")).toBe("l'ecole")
+    expect(normalize("l’école")).toBe("l'école")
     expect(normalize('  Bonjour!  ')).toBe('bonjour')
   })
 
