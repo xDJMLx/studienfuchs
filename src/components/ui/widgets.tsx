@@ -104,7 +104,7 @@ export function WeekStrip({ compact = false }: { compact?: boolean }) {
         const isToday = key === todayKey
         return (
           <li key={label} className="flex flex-col items-center gap-1.5">
-            <span className={`text-[11px] font-semibold uppercase tracking-wide ${isToday ? 'text-brand-dark' : 'text-muted'}`}>{label}</span>
+            <span className={`text-[11px] font-semibold ${isToday ? 'text-brand-dark' : 'text-muted'}`}>{label}</span>
             <motion.span
               initial={reduce ? false : { scale: 0.4, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}

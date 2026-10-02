@@ -19,7 +19,7 @@ export function AiNotice({ className = '' }: { className?: string }) {
 
   const own = provider === 'anthropic'
   const free = freeAiConfigured() && !ready
-  const short = free ? 'Kostenlos, ohne Anmeldung · Daten gehen an einen KI-Anbieter' : own ? 'Eigener Schlüssel · Daten gehen direkt an Anthropic' : ready ? 'Kostenlose KI aktiv · Daten gehen an Puter' : 'Kostenlos, ohne Schlüssel · einmalig ein Puter-Gastkonto'
+  const short = free ? 'Kostenlos, ohne Anmeldung. Daten gehen an einen KI-Anbieter' : own ? 'Eigener Schlüssel. Daten gehen direkt an Anthropic' : ready ? 'Kostenlose KI aktiv. Daten gehen an Puter' : 'Kostenlos, ohne Schlüssel. einmalig ein Puter-Gastkonto'
   const long = free
     ? 'Du kannst sofort losschreiben, ohne Konto. Deine Nachricht, dein Lernstand (ohne Namen) und die passenden Seiten deiner Bücher gehen an kostenlose KI-Modelle über Kilo, deren Anbieter Eingaben mitlesen und zur Verbesserung nutzen dürfen. Schreibe also keine privaten Dinge hinein. Ist dieser Anbieter überlastet, kannst du mit einem anderen weitermachen (kostenlose Anmeldung).'
     : own

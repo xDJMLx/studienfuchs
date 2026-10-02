@@ -159,7 +159,7 @@ export function PlacementPage() {
             <Mascot mood="think" size={88} className="shrink-0" blink />
             <div>
               <h1 className="page-title">Einstufungstest</h1>
-              <p className="text-muted">Klasse {grade} · {gradeUnits.length * (gradeUnits.length > MANY_UNITS ? 1 : PER_UNIT)} Fragen</p>
+              <p className="text-muted">Klasse {grade}, {gradeUnits.length * (gradeUnits.length > MANY_UNITS ? 1 : PER_UNIT)} Fragen</p>
             </div>
           </div>
         </Item>

@@ -86,7 +86,7 @@ export function BooksPage() {
       {/* Stand der Klasse im Kurs (Aufholen) */}
       <Item>
         <Link to="/catchup" className="card lift flex items-center gap-4 p-4">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-soft text-brand-dark">
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center text-brand-dark">
             <Target size={24} />
           </span>
           <span className="min-w-0 flex-1">
@@ -145,7 +145,7 @@ export function BooksPage() {
                     <span className="min-w-0 flex-1">
                       <span className="block truncate font-medium">{b.title}</span>
                       <span className="block truncate text-sm text-muted">
-                        Klasse {b.grade} · {b.pages.length} Seiten{b.position !== null ? ` · Stand S. ${b.position}${here ? `, ${here.title}` : ''}` : ''}
+                        Klasse {b.grade}, {b.pages.length} Seiten{b.position !== null ? `, Stand S. ${b.position}${here ? `, ${here.title}` : ''}` : ''}
                       </span>
                     </span>
                     <Right size={16} className="shrink-0 text-muted" />
@@ -227,7 +227,7 @@ export function BooksPage() {
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-medium">{r.title}</span>
                     <span className="block truncate text-sm text-muted">
-                      {dayText(r.days)} · {longDate(r.date)} · {r.sub}
+                      {dayText(r.days)}, {longDate(r.date)}, {r.sub}
                     </span>
                   </span>
                   {r.kind === 'book' && <Sparkle size={18} className="shrink-0 text-brand-dark" />}

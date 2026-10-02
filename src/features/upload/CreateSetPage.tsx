@@ -153,7 +153,7 @@ export function CreateSetPage() {
       <AnimatePresence mode="wait" initial={false}>
         {!rows ? (
           <motion.div key="source" initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={reduce ? undefined : { opacity: 0, y: -8 }} transition={{ duration: 0.18 }}>
-            <p className="eyebrow mb-2">1 · Woher kommen die Vokabeln?</p>
+            <p className="text-[17px] font-semibold mb-2.5">Woher kommen die Vokabeln?</p>
             <div className="mb-5 grid grid-cols-2 gap-2" role="tablist">
               {SOURCES.map((s) => (
                 <button
@@ -188,7 +188,7 @@ export function CreateSetPage() {
                   }}
                   className={`flex flex-col items-center gap-3 rounded-2xl border-2 border-dashed px-6 py-10 text-center transition-colors ${drag ? 'border-brand bg-brand-soft' : 'border-line bg-surface'}`}
                 >
-                  <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-soft text-brand-dark">
+                  <span className="flex h-14 w-14 items-center justify-center text-brand-dark">
                     <Camera size={28} />
                   </span>
                   <p className="font-semibold">Fotos hierher ziehen oder auswählen</p>
@@ -227,7 +227,7 @@ export function CreateSetPage() {
 
             {source === 'photo' && (
               <div className="mt-6">
-                <p className="eyebrow mb-2">2 · Wie sollen die Karten entstehen?</p>
+                <p className="text-[17px] font-semibold mb-2.5">Wie sollen die Karten entstehen?</p>
                 <div className="grid gap-2 sm:grid-cols-2" role="radiogroup">
                   <button role="radio" aria-checked={method === 'ai'} onClick={() => setMethod('ai')} className={`rounded-xl border p-4 text-left transition-colors ${method === 'ai' ? 'border-brand bg-brand-soft' : 'border-line bg-surface hover:bg-snow'}`}>
                     <span className="flex items-center gap-2 font-semibold">

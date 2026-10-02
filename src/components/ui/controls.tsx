@@ -62,17 +62,17 @@ export function Segmented<T extends string | number>({
   )
 }
 
-/** Abgerundetes Symbolfeld in Markenfarbe. */
+/** Symbol in Markenfarbe, ohne Kachel dahinter (feste Größe, damit Zeilen bündig bleiben). */
 export function IconChip({ children, tone = 'brand', size = 40 }: { children: ReactNode; tone?: 'brand' | 'good' | 'gold' | 'bad' | 'muted'; size?: number }) {
   const tones = {
-    brand: 'bg-brand-soft text-brand-dark',
-    good: 'bg-good-soft text-good-dark',
-    gold: 'bg-gold/20 text-gold-dark',
-    bad: 'bg-bad-soft text-bad-dark',
-    muted: 'bg-snow text-muted',
+    brand: 'text-brand-dark',
+    good: 'text-good-dark',
+    gold: 'text-gold-dark',
+    bad: 'text-bad-dark',
+    muted: 'text-muted',
   } as const
   return (
-    <span className={`flex shrink-0 items-center justify-center rounded-xl ${tones[tone]}`} style={{ width: size, height: size }}>
+    <span className={`flex shrink-0 items-center justify-center ${tones[tone]}`} style={{ width: size, height: size }}>
       {children}
     </span>
   )

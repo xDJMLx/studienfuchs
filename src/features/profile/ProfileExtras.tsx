@@ -103,13 +103,11 @@ export function WeeklyReport() {
   return (
     <>
       <button type="button" onClick={() => setOpen(true)} className="card lift mt-4 flex w-full items-center gap-4 p-4 text-left">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
-          <Right size={22} />
-        </span>
         <span className="min-w-0 flex-1">
           <span className="block font-semibold">Wochenbericht teilen</span>
           <span className="block text-sm text-muted">Für Eltern oder Lehrer: {report.activeDays} von 7 Tagen aktiv, {report.weekXp} XP.</span>
         </span>
+        <Right size={16} className="shrink-0 text-muted" />
       </button>
       <Sheet open={open} onClose={() => { setOpen(false); setNote(null) }} title="Wochenbericht">
         <pre className="whitespace-pre-wrap rounded-2xl bg-snow p-4 font-sans text-[15px] leading-relaxed select-text" style={{ userSelect: 'text', WebkitUserSelect: 'text' }}>{report.text}</pre>

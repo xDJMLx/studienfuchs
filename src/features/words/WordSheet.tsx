@@ -68,7 +68,7 @@ export function WordSheet({ item, onClose }: { item: Item | null; onClose: () =>
             <div className="flex items-center justify-between gap-3 rounded-xl border border-line p-3">
               <div className="min-w-0">
                 <p className="eyebrow mb-0.5">Aus der Einheit</p>
-                <p className="truncate font-medium">Klasse {meta.unit.grade} · {meta.unit.title}</p>
+                <p className="truncate font-medium">Klasse {meta.unit.grade}: {meta.unit.title}</p>
                 <p className="truncate text-sm text-muted">{meta.lesson.title}</p>
               </div>
               {isUnlocked(meta.lesson.id, lessons) ? (

@@ -3,11 +3,11 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { blockingLesson, grades, isLessonDone, isUnlocked, passMark, units } from '../../content'
 import { SpeakButton } from '../../components/exercises/common'
-import { FrenchFlag } from '../../components/ui/CoursePicker'
-import { Bolt, Check, Flame, Lock, Repeat, Right, Sparkle, Trophy } from '../../components/ui/Icons'
+import { Bolt, Check, Flame, Lock, Repeat, Right, Sparkle, Target, Trophy } from '../../components/ui/Icons'
+import { Mascot } from '../../components/mascot/Mascot'
 import { EASE, SPRING } from '../../components/ui/motion'
 import { Sheet } from '../../components/ui/Sheet'
-import { ProgressBar, ProgressRing } from '../../components/ui/widgets'
+import { ProgressRing } from '../../components/ui/widgets'
 import type { Lesson, Unit } from '../../lib/types'
 import { BackupBanner } from '../../components/ui/BackupBanner'
 import { InstallBanner } from '../../components/ui/InstallApp'
@@ -41,7 +41,7 @@ function PathLines({ states, offsets }: { states: NodeState[]; offsets: number[]
   )
 }
 
-/** Oben auf der Startseite: Tagesziel, Serie und fällige Wiederholungen auf einen Blick. */
+/** Heute: Tagesziel, fällige Wörter und Aufholplan als eine ruhige Liste. */
 function TodayCard() {
   const navigate = useNavigate()
   const { xpByDay, dailyGoal, streak, classUnit, catchUpTarget, catchUpAll, lessons } = useStore()
@@ -49,42 +49,45 @@ function TodayCard() {
   const plan = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll) : null
   const today = xpToday(xpByDay)
   const g = goalInfo(dailyGoal, today)
-  const pct = g.pct
   const days = streakNow(streak)
   const done = g.baseReached
+  const row = 'press flex w-full items-center gap-3.5 px-4 py-3.5 text-left'
   return (
-    <section className="card mb-4 p-4" aria-label="Heute">
-      <div className="flex items-center gap-4">
-        <ProgressRing key={g.goal} pct={pct} size={60} stroke={6} color={done ? 'var(--good)' : 'var(--gold)'}>
-          {done ? <Check size={22} className="text-good" /> : <Bolt size={24} />}
+    <section className="card mb-5 divide-y divide-line overflow-hidden" aria-label="Heute">
+      <div className="flex items-center gap-4 px-4 py-4">
+        <ProgressRing key={g.goal} pct={g.pct} size={52} stroke={5} color={done ? 'var(--good)' : 'var(--gold)'}>
+          {done ? <Check size={20} className="text-good" /> : <Bolt size={22} />}
         </ProgressRing>
         <div className="min-w-0 flex-1">
-          <p className="font-semibold leading-tight">{done ? (g.tier === 1 ? 'Tagesziel geschafft, stark!' : 'Bonusziel geschafft, wow!') : `Noch ${g.goal - today} XP bis zum Tagesziel`}</p>
-          {done && <p className="text-sm text-muted">Nächstes Bonusziel: {g.goal} XP (noch {g.goal - today})</p>}
+          <p className="font-semibold leading-tight">{done ? (g.tier === 1 ? 'Tagesziel geschafft' : 'Bonusziel geschafft') : `Noch ${g.goal - today} XP bis zum Tagesziel`}</p>
           <p className="mt-0.5 flex items-center gap-1.5 text-sm text-muted">
-            <Flame size={15} /> {days} {days === 1 ? 'Tag' : 'Tage'} Serie{today === 0 && days > 0 ? ' · heute lernen, um sie zu halten' : ''}
+            <Flame size={15} /> {days} {days === 1 ? 'Tag' : 'Tage'} Serie
+            {done ? `, nächstes Bonusziel bei ${g.goal} XP` : today === 0 && days > 0 ? ', heute lernen hält sie' : ''}
           </p>
         </div>
       </div>
-      {plan && !plan.finished && (
-        <button type="button" className="press mt-3 flex w-full items-center justify-between gap-3 rounded-xl border border-brand/30 px-4 py-3 text-left transition-colors hover:bg-brand-soft" onClick={() => navigate('/catchup')}>
-          <span className="min-w-0">
-            <span className="block font-semibold">Aufholen: {plan.toGoToday > 0 ? `heute noch ${plan.toGoToday} ${plan.toGoToday === 1 ? 'Lektion' : 'Lektionen'}` : 'Tagesziel geschafft'}</span>
-            <span className="block text-sm text-muted">Noch {plan.remaining} Lektionen in {plan.daysLeft} {plan.daysLeft === 1 ? 'Tag' : 'Tagen'}</span>
+      {due.length > 0 && (
+        <button type="button" className={row} onClick={() => navigate('/review/play')}>
+          <Repeat size={22} className="shrink-0 text-brand-dark" />
+          <span className="min-w-0 flex-1">
+            <span className="block font-semibold">
+              {due.length} {due.length === 1 ? 'Wort' : 'Wörter'} wiederholen
+            </span>
+            <span className="block text-sm text-muted">{due.length >= 20 ? 'Erst das, dann Neues: So bleibt es länger hängen.' : 'Kurz bevor du sie vergessen würdest'}</span>
           </span>
           <Right size={16} className="shrink-0 text-muted" />
         </button>
       )}
-      {due.length > 0 && (
-        <button type="button" className="press mt-3 flex w-full items-center justify-between gap-3 rounded-xl bg-brand-soft px-4 py-3 text-left font-semibold text-brand-dark transition-colors hover:brightness-95" onClick={() => navigate('/review/play')}>
-          <span className="flex min-w-0 items-center gap-2.5">
-            <Repeat size={20} className="shrink-0" />
-            <span className="min-w-0">
-              <span className="block">{due.length} {due.length === 1 ? 'Wort' : 'Wörter'} wiederholen</span>
-              {due.length >= 20 && <span className="block text-xs font-normal text-muted">Erst das, dann Neues: So bleibt es länger hängen.</span>}
+      {plan && !plan.finished && (
+        <button type="button" className={row} onClick={() => navigate('/catchup')}>
+          <Target size={22} className="shrink-0 text-brand-dark" />
+          <span className="min-w-0 flex-1">
+            <span className="block font-semibold">Aufholen: {plan.toGoToday > 0 ? `heute noch ${plan.toGoToday} ${plan.toGoToday === 1 ? 'Lektion' : 'Lektionen'}` : 'Tagesziel geschafft'}</span>
+            <span className="block text-sm text-muted">
+              Noch {plan.remaining} Lektionen in {plan.daysLeft} {plan.daysLeft === 1 ? 'Tag' : 'Tagen'}
             </span>
           </span>
-          <span className="flex items-center gap-1 text-sm font-medium">Starten <Right size={14} /></span>
+          <Right size={16} className="shrink-0 text-muted" />
         </button>
       )}
     </section>
@@ -100,8 +103,8 @@ function CoachCard() {
   return (
     <section className="card mb-4 p-4" aria-label="KI">
       <Link to="/coach" className="press group flex items-center gap-3.5">
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-strong text-on-brand shadow-[0_6px_16px_-6px_var(--brand)] transition-transform group-hover:scale-105 group-hover:-rotate-3">
-          <Sparkle size={24} />
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center text-brand-dark">
+          <Sparkle size={26} />
         </span>
         <span className="min-w-0 flex-1">
           <span className="block font-semibold leading-tight">Frag die KI</span>
@@ -120,7 +123,6 @@ function CoachCard() {
   )
 }
 
-const YEAR = { 7: 'Lernjahr 1', 8: 'Lernjahr 2', 9: 'Lernjahr 3', 10: 'Lernjahr 4' } as Record<number, string>
 
 type NodeState = 'done' | 'current' | 'open' | 'locked'
 
@@ -150,36 +152,46 @@ export function LearnPage() {
 
   return (
     <div className="mx-auto max-w-[620px] px-4 pb-10 pt-4 lg:pt-6">
-      <TodayCard />
-
-      {/* Kurs-Kopf */}
-      <section className="card mb-4 p-5">
-        <div className="mb-4 flex items-center gap-3">
-          <FrenchFlag size={44} />
-          <div className="min-w-0">
-            <p className="eyebrow">{YEAR[grade] ?? 'Kurs'}</p>
-            <h1 className="truncate text-xl font-bold">Französisch · Klasse {grade}</h1>
-          </div>
-        </div>
-        <ProgressBar pct={regular.length ? doneCount / regular.length : 0} />
-        <p className="mt-2 text-sm text-muted">{doneCount} von {regular.length} Lektionen geschafft</p>
+      {/* Weiterlernen: der eine große Block der Startseite, mit dem Fuchs */}
+      <section className="relative mb-5 overflow-hidden rounded-[28px] bg-brand-strong p-5 pr-28 text-on-brand" aria-label="Weiterlernen">
+        <p className="text-sm font-medium opacity-85">
+          Französisch, Klasse {grade}
+        </p>
         {current ? (
-          <button className="btn btn-primary press mt-4 w-full justify-between" onClick={() => navigate(`/lesson/${current.id}`)}>
-            <span className="truncate">{doneCount === 0 ? 'Jetzt starten' : 'Weiterlernen'}: {current.title}</span>
-            <Right size={18} />
+          <>
+            <h1 className="mt-1 text-[26px] font-bold leading-tight">{doneCount === 0 ? 'Fang hier an' : 'Weiter geht’s'}</h1>
+            <p className="mt-0.5 text-[17px] font-medium leading-snug opacity-95">{current.title}</p>
+          </>
+        ) : (
+          <h1 className="mt-1 text-[22px] font-bold leading-tight">Alle Lektionen dieser Klasse sind geschafft</h1>
+        )}
+        <div className="mt-4 h-1.5 w-full max-w-[14rem] overflow-hidden rounded-full bg-white/30" role="progressbar" aria-valuemin={0} aria-valuemax={regular.length} aria-valuenow={doneCount} aria-label="Fortschritt in dieser Klasse">
+          <div className="h-full rounded-full bg-white" style={{ width: `${regular.length ? Math.max(3, (doneCount / regular.length) * 100) : 0}%` }} />
+        </div>
+        <p className="mt-1.5 text-sm opacity-85">
+          {doneCount} von {regular.length} Lektionen geschafft
+        </p>
+        {current ? (
+          <button className="press mt-4 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 text-[15px] font-bold text-brand-dark" onClick={() => navigate(`/lesson/${current.id}`)}>
+            {doneCount === 0 ? 'Los geht’s' : 'Weitermachen'} <Right size={18} />
           </button>
         ) : (
-          <p className="mt-4 rounded-xl bg-good-soft px-4 py-3 text-sm font-medium text-good-dark">Alle Lektionen dieser Klasse sind geschafft. Wiederhole sie im Tab „Üben“.</p>
+          <p className="mt-3 text-sm opacity-90">Wiederhole sie im Tab „Üben“.</p>
         )}
-        <Link to="/catchup" className="mt-1 block rounded-lg py-2.5 text-center text-sm font-medium text-brand-dark hover:underline">
-          Der Unterricht ist schon weiter? Aufholen
-        </Link>
-        {doneCount === 0 && (
-          <Link to="/placement" className="mt-1 block rounded-lg py-2.5 text-center text-sm font-medium text-brand-dark hover:underline">
-            Schon Vorwissen? Einstufungstest machen
+        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium">
+          <Link to="/catchup" className="underline decoration-white/50 underline-offset-4">
+            Unterricht schon weiter? Aufholen
           </Link>
-        )}
+          {doneCount === 0 && (
+            <Link to="/placement" className="underline decoration-white/50 underline-offset-4">
+              Vorwissen? Einstufungstest
+            </Link>
+          )}
+        </div>
+        <Mascot mood="cheer" size={112} className="pointer-events-none absolute -bottom-3 -right-3 rotate-[-6deg]" blink />
       </section>
+
+      <TodayCard />
 
       {doneCount > 0 && <CoachCard />}
       <InstallBanner />

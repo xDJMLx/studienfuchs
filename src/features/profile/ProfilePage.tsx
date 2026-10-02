@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom'
 import { COURSE_STATS } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
 import { IconChip } from '../../components/ui/controls'
-import { Bolt, Book, Check, Coin, Flame, Gear, Right, Shield, Trophy } from '../../components/ui/Icons'
-import { CountUp, EASE, Item, ItemLi, Stagger, StaggerList, SPRING } from '../../components/ui/motion'
-import { ProgressBar, ProgressRing, SegmentedBar } from '../../components/ui/widgets'
+import { Check, Coin, Gear, Right, Shield } from '../../components/ui/Icons'
+import { CountUp, EASE, Item, SPRING, Stagger } from '../../components/ui/motion'
+import { SegmentedBar } from '../../components/ui/widgets'
 import { achievements } from '../../lib/achievements'
 import { dayKey } from '../../lib/streak'
-import { goalInfo, levelFromXp } from '../../lib/xp'
+import { levelFromXp } from '../../lib/xp'
 import { streakNow, useStore } from '../../store/useStore'
 import { useLearned } from '../review/ReviewPage'
 import { Karteikasten, WeeklyReport } from './ProfileExtras'
@@ -27,7 +27,6 @@ export function ProfilePage() {
   const { learned, byMastery } = useLearned()
   const lvl = levelFromXp(xp)
   const streakDays = streakNow(streak)
-  const todayXp = xpByDay[dayKey()] ?? 0
 
   const days = Array.from({ length: 7 }, (_, i) => {
     const d = new Date()
@@ -68,66 +67,54 @@ export function ProfilePage() {
   return (
     <div className="mx-auto max-w-3xl px-4 pb-8 pt-4 lg:pt-8">
       <Stagger stagger={0.09}>
-        {/* Kopfbereich */}
+        {/* Kopfbereich: flacher Markenblock, der Fuchs schaut herein */}
         <Item>
-          <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-brand via-[#f7872c] to-[#ffb25e] p-6 text-white shadow-[0_18px_40px_-22px_rgba(242,105,15,0.8)]">
-            <Link to="/settings" aria-label="Einstellungen" className="press absolute right-4 top-4 rounded-xl bg-white/20 p-2.5 transition-colors hover:bg-white/30">
-              <Gear size={20} />
+          <section className="relative overflow-hidden rounded-[28px] bg-brand-strong p-5 pr-32 text-on-brand">
+            <Link to="/settings" aria-label="Einstellungen" className="press absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-full text-on-brand/90 hover:bg-white/15">
+              <Gear size={22} />
             </Link>
-
-            <div className="relative flex items-center gap-5">
-              <ProgressRing pct={lvl.into / lvl.needed} size={108} stroke={7} color="#fff" track="rgba(255,255,255,0.28)">
-                <motion.span initial={reduce ? false : { scale: 0.5, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ ...SPRING.bouncy, delay: 0.2 }} className="flex h-[84px] w-[84px] items-center justify-center rounded-full bg-white">
-                  <Mascot size={66} blink outfit={outfit} />
-                </motion.span>
-              </ProgressRing>
-              <div className="min-w-0 flex-1 pr-8">
-                <span className="inline-block rounded-full bg-white/25 px-2.5 py-0.5 text-xs font-semibold">Level {lvl.level}</span>
-                <h1 className="mt-1.5 text-2xl font-bold leading-tight sm:text-3xl">{titleFor(lvl.level)}</h1>
-                <p className="mt-0.5 text-sm text-white/90">
-                  <CountUp to={xp} /> XP gesamt
-                </p>
-              </div>
+            <p className="text-sm font-medium opacity-85">Level {lvl.level}</p>
+            <h1 className="mt-0.5 text-[28px] font-bold leading-[1.1]">{titleFor(lvl.level)}</h1>
+            <p className="mt-1 text-[15px] opacity-90">
+              <CountUp to={xp} /> XP gesamt
+            </p>
+            <div className="mt-4 h-1.5 w-full max-w-[15rem] overflow-hidden rounded-full bg-white/30" role="progressbar" aria-valuemin={0} aria-valuemax={lvl.needed} aria-valuenow={lvl.into} aria-label={`Fortschritt zu Level ${lvl.level + 1}`}>
+              <motion.div className="h-full rounded-full bg-white" initial={reduce ? false : { width: 0 }} animate={{ width: `${Math.max(3, (lvl.into / lvl.needed) * 100)}%` }} transition={{ duration: 0.6, ease: EASE, delay: 0.15 }} />
             </div>
-
-            <div className="relative mt-5">
-              <div className="mb-1.5 flex justify-between text-xs font-medium text-white/90">
-                <span>Noch {lvl.needed - lvl.into} XP bis Level {lvl.level + 1}</span>
-                <span>{lvl.into} / {lvl.needed}</span>
-              </div>
-              <ProgressBar pct={lvl.into / lvl.needed} color="bg-white" className="!bg-white/25" delay={0.3} />
-            </div>
-
-            <div className="relative mt-4 flex flex-wrap gap-2">
-              <span className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1.5 text-sm font-semibold"><Flame size={16} /> {streakDays} {streakDays === 1 ? 'Tag' : 'Tage'} Serie</span>
-              <span className="flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1.5 text-sm font-semibold"><Bolt size={16} /> Heute {todayXp} / {goalInfo(dailyGoal, todayXp).goal} XP</span>
-            </div>
+            <p className="mt-1.5 text-sm opacity-85">
+              Noch {lvl.needed - lvl.into} XP bis Level {lvl.level + 1}
+            </p>
+            <Mascot size={132} blink outfit={outfit} className="pointer-events-none absolute -bottom-4 -right-3 rotate-[-5deg]" />
           </section>
         </Item>
 
         {/* Fuchs anpassen und Shop */}
         <Item>
-          <Link to="/shop" className="card lift mt-4 flex items-center gap-4 p-4">
-            <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-brand-soft">
-              <Mascot size={52} outfit={outfit} />
-            </span>
+          <Link to="/shop" className="card lift mt-4 flex items-center gap-3.5 px-4 py-3.5">
+            <Coin size={26} className="shrink-0" />
             <span className="min-w-0 flex-1">
-              <span className="block font-semibold">Fuchs &amp; Shop</span>
-              <span className="block text-sm text-muted">Zubehör kaufen und anlegen</span>
+              <span className="block font-semibold">Fuchs und Shop</span>
+              <span className="block text-sm text-muted">Du hast {coins} {coins === 1 ? 'Münze' : 'Münzen'} zum Ausgeben</span>
             </span>
-            <span className="flex shrink-0 items-center gap-1 rounded-full bg-gold/20 px-2.5 py-1 text-sm font-bold text-gold-dark"><Coin size={16} />{coins}</span>
             <Right size={16} className="shrink-0 text-muted" />
           </Link>
         </Item>
 
-        {/* Zahlen */}
+        {/* Zahlen als Liste statt als Kachelraster */}
         <Item>
-          <StaggerList className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4" stagger={0.06} delay={0.15}>
-            <Stat icon={<Flame size={22} />} tone="brand" value={streakDays} label="Tage Serie" />
-            <Stat icon={<Bolt size={22} />} tone="gold" value={xp} label="XP gesamt" />
-            <Stat icon={<Book size={22} />} tone="brand" value={Object.keys(lessons).length} label="Lektionen" />
-            <Stat icon={<Check size={20} />} tone="good" value={mastered} label={`gefestigt von ${learned.length}`} />
-          </StaggerList>
+          <dl className="card mt-4 divide-y divide-line overflow-hidden text-[15px]">
+            {[
+              ['Tage Serie', String(streakDays)],
+              ['XP gesamt', xp.toLocaleString('de-DE')],
+              ['Lektionen geschafft', String(Object.keys(lessons).length)],
+              ['Wörter gefestigt', `${mastered} von ${learned.length}`],
+            ].map(([k, v]) => (
+              <div key={k} className="flex items-baseline justify-between px-4 py-3">
+                <dt className="text-muted">{k}</dt>
+                <dd className="text-lg font-bold tabular-nums">{v}</dd>
+              </div>
+            ))}
+          </dl>
         </Item>
 
         {/* Aktivität */}
@@ -227,29 +214,28 @@ export function ProfilePage() {
               <h2 className="text-lg font-semibold">Erfolge</h2>
               <span className="text-sm text-muted"><span className="font-semibold text-ink">{unlocked}</span> von {badges.length}</span>
             </div>
-            <StaggerList className="grid gap-3 sm:grid-cols-2" stagger={0.05}>
+            <ul className="card divide-y divide-line overflow-hidden">
               {badges.map((b) => {
                 const done = b.value >= b.goal
                 return (
-                  <ItemLi key={b.id} className={`card relative flex items-center gap-4 overflow-hidden p-4 ${done ? 'ring-1 ring-brand/30' : ''}`}>
-                    <ProgressRing pct={b.value / b.goal} size={56} stroke={5} color={done ? 'var(--good)' : 'var(--brand)'}>
-                      {done ? (
-                        <motion.span initial={reduce ? false : { scale: 0, rotate: -40 }} animate={{ scale: 1, rotate: 0 }} transition={{ ...SPRING.bouncy, delay: 0.3 }} className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-brand to-[#ffb25e] text-white">
-                          <Trophy size={18} />
-                        </motion.span>
-                      ) : (
-                        <span className="text-xs font-bold text-muted">{Math.round((b.value / b.goal) * 100)}%</span>
-                      )}
-                    </ProgressRing>
-                    <div className="relative min-w-0 flex-1">
-                      <p className="font-semibold leading-tight">{b.title}</p>
+                  <li key={b.id} className="flex items-center gap-3.5 px-4 py-3.5">
+                    <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${done ? 'bg-brand-strong text-on-brand' : 'border-2 border-line text-transparent'}`} aria-hidden>
+                      <Check size={15} />
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className={`font-semibold leading-tight ${done ? '' : 'text-ink/90'}`}>{b.title}</p>
                       <p className="text-sm text-muted">{b.description}</p>
-                      <p className={`mt-1 text-xs font-semibold ${done ? 'text-good-dark' : 'text-muted'}`}>{done ? 'Geschafft' : `${b.value} / ${b.goal}`}</p>
+                      {!done && (
+                        <div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-snow" aria-hidden>
+                          <div className="h-full rounded-full bg-brand" style={{ width: `${Math.round((b.value / b.goal) * 100)}%` }} />
+                        </div>
+                      )}
                     </div>
-                  </ItemLi>
+                    <span className={`shrink-0 text-sm font-semibold tabular-nums ${done ? 'text-good-dark' : 'text-muted'}`}>{done ? 'geschafft' : `${b.value} / ${b.goal}`}</span>
+                  </li>
                 )
               })}
-            </StaggerList>
+            </ul>
           </section>
         </Item>
 
@@ -269,16 +255,6 @@ export function ProfilePage() {
         </Item>
       </Stagger>
     </div>
-  )
-}
-
-function Stat({ icon, tone, value, label }: { icon: React.ReactNode; tone: 'brand' | 'gold' | 'good'; value: number; label: string }) {
-  return (
-    <ItemLi className="card p-4">
-      <IconChip tone={tone} size={36}>{icon}</IconChip>
-      <div className="mt-3 text-2xl font-bold leading-none"><CountUp to={value} /></div>
-      <div className="mt-1 text-xs font-medium text-muted">{label}</div>
-    </ItemLi>
   )
 }
 

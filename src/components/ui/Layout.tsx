@@ -218,7 +218,7 @@ export function RightRail() {
       </Link>
 
       <Link to="/books" className={`${card} group flex items-center gap-4`}>
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark transition-transform group-hover:scale-105">
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center text-brand-dark transition-transform group-hover:scale-105">
           <Camera size={24} />
         </span>
         <span>
@@ -228,7 +228,7 @@ export function RightRail() {
       </Link>
 
       <Link to="/practice" className={`${card} flex items-center gap-4`}>
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-snow text-muted"><Trophy size={24} /></span>
+        <span className="flex h-12 w-12 shrink-0 items-center justify-center text-muted"><Trophy size={24} /></span>
         <span>
           <span className="block font-semibold">Frei üben</span>
           <span className="block text-sm text-muted">Karteikarten, Schreiben, Hören.</span>

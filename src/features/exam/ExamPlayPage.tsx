@@ -368,7 +368,7 @@ function Result({ exam, answers, onAgain, onExit }: { exam: ExamData; answers: P
           <p className="mt-1 text-xl font-semibold">
             Ungefähr Note {grd.note} ({grd.label})
           </p>
-          <p className="mt-1 text-sm text-muted">{Math.round(points * 10) / 10} von {Math.round(max * 10) / 10} Punkten · {exam.title}</p>
+          <p className="mt-1 text-sm text-muted">{Math.round(points * 10) / 10} von {Math.round(max * 10) / 10} Punkten, {exam.title}</p>
           {coins > 0 && (
             <p className="mx-auto mt-3 inline-flex items-center gap-2 rounded-xl bg-gold/20 px-4 py-2 font-semibold text-gold-dark">
               <Coin size={20} /> +{coins} Münzen

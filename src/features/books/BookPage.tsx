@@ -56,7 +56,7 @@ function BookDetail({ book }: { book: Book }) {
           className="mb-1 w-full rounded-lg bg-transparent text-2xl font-bold outline-none focus:bg-snow"
         />
         <p className="mb-5 text-sm text-muted">
-          Klasse {book.grade} · {book.pages.length} {book.pages.length === 1 ? 'Seite' : 'Seiten'} gespeichert, nur auf diesem Gerät
+          Klasse {book.grade}, {book.pages.length} {book.pages.length === 1 ? 'Seite' : 'Seiten'} gespeichert, nur auf diesem Gerät
         </p>
       </Item>
 
@@ -119,7 +119,7 @@ function BookDetail({ book }: { book: Book }) {
                     <span className="block truncate font-medium">{c.title}</span>
                     <span className="block text-sm text-muted">
                       Seite {c.from}
-                      {r && r.to > c.from ? `–${r.to}` : ''} · {count} gespeichert
+                      {r && r.to > c.from ? `–${r.to}` : ''}, {count} gespeichert
                     </span>
                   </span>
                   {here?.id === c.id && <span className="shrink-0 rounded-full bg-brand-soft px-2.5 py-1 text-xs font-semibold text-brand-dark">hier</span>}

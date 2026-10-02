@@ -125,7 +125,7 @@ export function Welcome() {
                 das hängen bleibt.
               </motion.h1>
               <motion.p initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, delay: 0.3 }} className="mt-2 text-[15px] text-muted">
-                Französisch Klasse 7 bis 10 · kostenlos · ohne Konto
+                Französisch Klasse 7 bis 10, kostenlos und ohne Konto
               </motion.p>
             </main>
 
@@ -218,7 +218,7 @@ export function Welcome() {
                             <button type="button" role="radio" aria-checked={on} onClick={() => setGrade(g)} className={`press relative flex w-full items-center gap-4 rounded-2xl border-2 p-3.5 text-left transition-colors ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface'}`}>
                               <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-2xl font-bold transition-colors duration-200 ${on ? 'bg-brand text-on-brand' : 'bg-snow text-ink'}`}>{g}</span>
                               <span className="min-w-0 flex-1">
-                                <span className={`block text-lg font-semibold ${on ? 'text-brand-dark' : ''}`}>Klasse {g} <span className="text-sm font-medium text-muted">· Lernjahr {g - 6}</span></span>
+                                <span className={`block text-lg font-semibold ${on ? 'text-brand-dark' : ''}`}>Klasse {g} <span className="text-sm font-medium text-muted">(Lernjahr {g - 6})</span></span>
                                 <span className="block truncate text-sm text-muted">{gu.slice(0, 3).map((u) => u.title).join(' · ')}</span>
                               </span>
                               <span className="shrink-0 text-right text-xs font-semibold text-muted">{lessonCount}<br />Lektionen</span>

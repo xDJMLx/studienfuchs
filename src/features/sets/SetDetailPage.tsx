@@ -110,7 +110,7 @@ export function SetDetailPage() {
           ].map((m) => (
             <ItemLi key={m.label}>
               <Link to={m.to} className="card lift group flex items-center gap-3 p-4">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105">{m.icon}</span>
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center text-brand-dark transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105">{m.icon}</span>
                 <span className="font-semibold">{m.label}</span>
               </Link>
             </ItemLi>

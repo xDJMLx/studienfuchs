@@ -3,9 +3,9 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { grades, units } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Cards, Check, Headphones, Pencil, Repeat, Right, Sparkle, Speaker, Star, Trophy } from '../../components/ui/Icons'
+import { Cards, Headphones, Pencil, Right, Sparkle, Speaker, Star, Trophy } from '../../components/ui/Icons'
 import { Segmented } from '../../components/ui/controls'
-import { EASE, Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
+import { EASE, Item, Stagger } from '../../components/ui/motion'
 import { itemsForScope, type Scope } from '../../lib/scope'
 import { approxGrade } from '../../lib/exam'
 import { useExams } from '../../store/useExams'
@@ -76,11 +76,8 @@ function PracticeTab() {
 
       {/* Wiederholung: das wirksamste, deshalb ganz oben */}
       <Item>
-        <section className={`card relative mb-7 overflow-hidden p-5 ${due.length > 0 ? 'ring-1 ring-brand/30' : ''}`} aria-label="Wiederholung">
+        <section className="card mb-7 p-5" aria-label="Wiederholung">
           <div className="relative flex items-start gap-4">
-            <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl ${due.length > 0 ? 'bg-brand-soft text-brand-dark' : 'bg-good-soft text-good-dark'}`}>
-              {due.length > 0 ? <Repeat size={26} /> : <Check size={24} />}
-            </span>
             <div className="min-w-0 flex-1">
               {due.length > 0 ? (
                 <>
@@ -120,7 +117,7 @@ function PracticeTab() {
       <Item>
         <h2 className="mb-1 text-lg font-semibold">Frei üben</h2>
         <p className="mb-3 text-sm text-muted">Such dir aus, was du trainieren willst und wie.</p>
-        <p className="eyebrow mb-2">1 · Welche Wörter?</p>
+        <p className="text-[17px] font-semibold mb-2.5">Welche Wörter?</p>
         <div className="mb-3 flex flex-wrap gap-2" role="radiogroup" aria-label="Wörter auswählen">
           {scopes.map((s) => (
             <button
@@ -164,28 +161,29 @@ function PracticeTab() {
       </Item>
 
       <Item>
-        <p className="eyebrow mb-2">2 · Wie üben?</p>
-        <StaggerList className="grid gap-3 sm:grid-cols-2" stagger={0.07} delay={0.1}>
+        <p className="text-[17px] font-semibold mb-2.5">Wie üben?</p>
+        <ul className="card divide-y divide-line overflow-hidden">
           {MODES.map((m) => {
             const disabled = count === 0
             return (
-              <ItemLi key={m.id}>
+              <li key={m.id}>
                 <Link
                   to={disabled ? '#' : m.to(scope)}
                   aria-disabled={disabled}
                   onClick={(e) => disabled && e.preventDefault()}
-                  className={`card group flex h-full items-start gap-4 p-4 ${disabled ? 'opacity-50' : 'lift'}`}
+                  className={`flex items-center gap-4 px-4 py-3.5 ${disabled ? 'opacity-50' : 'press hover:bg-snow'}`}
                 >
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105">{m.icon}</span>
-                  <span>
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center text-brand-dark">{m.icon}</span>
+                  <span className="min-w-0 flex-1">
                     <span className="block font-semibold">{m.title}</span>
                     <span className="block text-sm text-muted">{m.text}</span>
                   </span>
+                  <Right size={16} className="shrink-0 text-muted" />
                 </Link>
-              </ItemLi>
+              </li>
             )
           })}
-        </StaggerList>
+        </ul>
       </Item>
 
       <Item>
@@ -194,7 +192,7 @@ function PracticeTab() {
 
       <Item>
         <Link to="/coach" className="card lift group mt-4 flex items-center gap-4 p-4">
-          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105"><Sparkle size={22} /></span>
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center text-brand-dark transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-105"><Sparkle size={22} /></span>
           <span className="min-w-0 flex-1">
             <span className="block font-semibold">Frag die KI</span>
             <span className="block text-sm text-muted">Fragen stellen, Buchseiten hochladen und dir einen Vokabeltest bauen lassen.</span>

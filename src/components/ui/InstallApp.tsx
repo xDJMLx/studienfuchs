@@ -70,7 +70,7 @@ export function InstallBanner() {
   return (
     <>
       <div className="card mb-4 flex items-center gap-3 p-3 pr-2">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center text-brand-dark">
           <Download size={22} />
         </span>
         <button type="button" onClick={start} className="press min-w-0 flex-1 text-left">

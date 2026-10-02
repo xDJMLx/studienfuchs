@@ -12,7 +12,7 @@ export function BackupBanner() {
   if (!due || hidden) return null
   return (
     <div className="card mb-4 flex items-center gap-3 p-3 pr-2">
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center text-brand-dark">
         <Upload size={22} />
       </span>
       <div className="min-w-0 flex-1">

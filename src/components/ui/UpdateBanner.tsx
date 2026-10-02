@@ -29,7 +29,7 @@ export function UpdateBanner() {
           className="glass fixed inset-x-3 z-[80] mx-auto flex max-w-md items-center gap-3 rounded-2xl p-3 pl-4"
           style={{ top: 'calc(env(safe-area-inset-top, 0px) + 0.6rem)' }}
         >
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-good-soft text-good-dark">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center text-good-dark">
             <Check size={18} />
           </span>
           <span className="min-w-0 flex-1 text-sm font-semibold leading-tight">Die App wurde aktualisiert. Du hast die neueste Version.</span>
@@ -45,7 +45,7 @@ export function UpdateBanner() {
           className="glass fixed inset-x-3 z-[80] mx-auto flex max-w-md items-center gap-3 rounded-2xl p-3 pl-4"
           style={{ top: 'calc(env(safe-area-inset-top, 0px) + 0.6rem)' }}
         >
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
+          <span className="flex h-9 w-9 shrink-0 items-center justify-center text-brand-dark">
             <Sparkle size={18} />
           </span>
           <span className="min-w-0 flex-1 text-sm font-semibold leading-tight">Neue Version verfügbar</span>

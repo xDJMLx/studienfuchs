@@ -1,11 +1,10 @@
-import { motion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { grades, isLessonDone, isRegular, isUnlocked, units } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
 import { ChipTabs } from '../../components/ui/controls'
 import { Check, Flame, Lock, Right, Target } from '../../components/ui/Icons'
-import { CountUp, Item, ItemLi, SPRING, Stagger, StaggerList } from '../../components/ui/motion'
+import { CountUp, Item, Stagger } from '../../components/ui/motion'
 import { ProgressBar, ProgressRing } from '../../components/ui/widgets'
 import { backlog, backlogByUnit, catchUpStatus, daysUntil, inDays, nextUnitId, unitLabel } from '../../lib/catchup'
 import { useStore } from '../../store/useStore'
@@ -70,7 +69,7 @@ export function CatchUpPage() {
 
   const chooser = preview && (
     <>
-      <h2 className="eyebrow mb-2">2 · Bis wann willst du aufgeholt haben?</h2>
+      <h2 className="text-[17px] font-semibold mb-2.5">Bis wann willst du aufgeholt haben?</h2>
       <ChipTabs
         label="Zeitraum"
         className="mb-3"
@@ -109,7 +108,7 @@ export function CatchUpPage() {
 
       {/* 1) Wo ist die Klasse? */}
       <Item>
-        <h2 className="eyebrow mb-2">1 · Wo ist deine Klasse im Buch?</h2>
+        <h2 className="text-[17px] font-semibold mb-2.5">Wo ist deine Klasse im Buch?</h2>
         <p className="mb-3 text-sm text-muted">Wähle die Einheit, die ihr gerade im Unterricht macht. Alles bis dahin sollst du können.</p>
         <ChipTabs
           label="Klassenstufe"
@@ -118,12 +117,12 @@ export function CatchUpPage() {
           onChange={setGradeView}
           options={grades.map((g) => ({ value: g, label: g <= 8 ? `Klasse ${g} · À plus ! ${g - 6}` : `Klasse ${g}` }))}
         />
-        <StaggerList className="grid gap-2" stagger={0.03} key={grade}>
+        <ul className="card divide-y divide-line overflow-hidden" key={grade}>
           {gradeUnits.map((u) => {
             const on = classUnit === u.id
             const st = regularStats(u.id)
             return (
-              <ItemLi key={u.id}>
+              <li key={u.id}>
                 <button
                   type="button"
                   onClick={() => {
@@ -131,26 +130,25 @@ export function CatchUpPage() {
                     setGrade(u.grade)
                   }}
                   aria-pressed={on}
-                  className="press relative flex w-full items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3 text-left transition-colors hover:bg-snow"
+                  className={'press flex w-full items-center gap-3 px-4 py-3 text-left transition-colors ' + (on ? 'bg-brand-soft' : 'hover:bg-snow')}
                 >
-                  {on && <motion.span layoutId="class-ring" className="absolute -inset-px rounded-2xl border-2 border-brand bg-brand-soft" transition={SPRING.snappy} />}
-                  <span className="relative min-w-0 flex-1">
+                  <span className="min-w-0 flex-1">
                     {u.book && <span className="block text-[12px] font-medium text-muted">{u.book}</span>}
-                    <span className={`block truncate font-semibold ${on ? 'text-brand-dark' : ''}`}>{u.title}</span>
+                    <span className={'block truncate font-semibold ' + (on ? 'text-brand-dark' : '')}>{u.title}</span>
                   </span>
-                  <span className="relative shrink-0 text-xs font-medium text-muted">
+                  <span className="shrink-0 text-xs font-medium text-muted">
                     {st.done}/{st.total}
                   </span>
                   {on && (
-                    <span className="relative flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-strong text-on-brand">
+                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brand-strong text-on-brand">
                       <Check size={13} />
                     </span>
                   )}
                 </button>
-              </ItemLi>
+              </li>
             )
           })}
-        </StaggerList>
+        </ul>
 
         {classUnit && classGrade > grades[0] && (
           <label className="card mt-3 flex cursor-pointer items-start gap-3 p-4">
@@ -269,7 +267,7 @@ export function CatchUpPage() {
                       <div className="min-w-0">
                         <p className="truncate font-semibold">{g.unit.title}</p>
                         <p className="text-xs text-muted">
-                          {g.unit.book ?? `Klasse ${g.unit.grade}`} · {g.total - g.lessons.length}/{g.total} geschafft
+                          {g.unit.book ?? `Klasse ${g.unit.grade}`}, {g.total - g.lessons.length}/{g.total} geschafft
                         </p>
                       </div>
                       <Link to={`/practice/play?mode=mix&scope=unit:${g.unit.id}`} className="press shrink-0 rounded-lg bg-brand-soft px-3 py-1.5 text-xs font-semibold text-brand-dark">
@@ -311,7 +309,7 @@ export function CatchUpPage() {
         <Item>
           <section className="card mt-4 p-5">
             <div className="mb-4 flex items-start gap-3">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center text-brand-dark">
                 <Flame size={22} />
               </span>
               <div className="min-w-0 flex-1">

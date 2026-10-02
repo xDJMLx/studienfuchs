@@ -212,7 +212,6 @@ h1, h2, h3 {
 
   .card {
     @apply rounded-2xl border border-line bg-surface;
-    box-shadow: var(--shadow);
   }
 
   .nav-link {
@@ -223,7 +222,7 @@ h1, h2, h3 {
   }
 
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.08em] text-muted;
+    @apply text-[13px] font-medium text-muted;
   }
   .page-title {
     @apply text-[28px] font-bold leading-tight tracking-tight text-ink;

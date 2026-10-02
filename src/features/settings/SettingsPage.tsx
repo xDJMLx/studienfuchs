@@ -151,7 +151,7 @@ export function SettingsPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 pb-6 pt-6 lg:pt-8">
       <div className="mb-7 flex items-center gap-4">
-        <motion.div initial={reduce ? false : { rotate: -30, scale: 0.6, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} transition={SPRING.bouncy} className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-soft text-brand-dark">
+        <motion.div initial={reduce ? false : { rotate: -30, scale: 0.6, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} transition={SPRING.bouncy} className="flex h-14 w-14 items-center justify-center text-brand-dark">
           <motion.span initial={reduce ? false : { rotate: -90 }} animate={{ rotate: 0 }} transition={{ duration: 0.7, ease: EASE, delay: 0.1 }} className="flex">
             <Gear size={30} />
           </motion.span>
@@ -336,7 +336,7 @@ export function SettingsPage() {
 
           <Item>
             <Link to="/about" className="card lift flex items-center gap-4 p-4">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-snow text-muted"><Shield size={22} /></span>
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center text-muted"><Shield size={22} /></span>
               <span className="min-w-0 flex-1">
                 <span className="block font-semibold">Datenschutz & Impressum</span>
                 <span className="block text-sm text-muted">Was die App speichert und was nicht</span>
@@ -354,7 +354,7 @@ export function SettingsPage() {
                 navigate('/welcome')
               }}
             >
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-snow text-muted"><Mascot size={28} /></span>
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center text-muted"><Mascot size={28} /></span>
               <span className="min-w-0 flex-1">
                 <span className="block font-semibold">Einführung noch einmal ansehen</span>
                 <span className="block text-sm text-muted">Willkommen-Seite und Einrichtung. Dein Fortschritt bleibt.</span>

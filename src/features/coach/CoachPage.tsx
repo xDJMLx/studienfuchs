@@ -258,7 +258,7 @@ export function CoachPage() {
             </button>
             {SUGGESTIONS.map((s) => (
               <button key={s} type="button" onClick={() => send(s)} className="press group flex items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3 text-left transition-colors hover:bg-snow">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center text-brand-dark">
                   <Sparkle size={18} />
                 </span>
                 <span className="flex-1 font-medium">{s}</span>
