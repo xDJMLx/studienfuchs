@@ -9,6 +9,7 @@ import { CourseChip } from './CoursePicker'
 import { Bolt, Book, Camera, Dots, Flame, Gear, Home, Repeat, Right, Shield, Sparkle, Target, Trophy, User } from './Icons'
 import { EASE, ItemLi, StaggerList } from './motion'
 import { Sheet } from './Sheet'
+import { TabBar } from './TabBar'
 import { useDue } from '../../features/review/ReviewPage'
 import { ProgressBar, ProgressRing, WeekStrip } from './widgets'
 
@@ -29,9 +30,9 @@ const NAV: NavItem[] = [
 // Auf dem Handy passen vier Einträge plus "Mehr" in die Leiste; der Rest liegt unter "Mehr"
 const MOBILE_NAV: NavItem[] = [NAV[0], NAV[1], NAV[3]]
 
-export function Wordmark({ size = 'md' }: { size?: 'md' | 'lg' }) {
+export function Wordmark({ size = 'md', tone = 'default' }: { size?: 'md' | 'lg'; tone?: 'default' | 'light' }) {
   return (
-    <span className={`flex items-center gap-2.5 font-bold tracking-tight text-ink ${size === 'lg' ? 'text-3xl' : 'text-xl'}`}>
+    <span className={`display flex items-center gap-2.5 font-bold tracking-tight ${tone === 'light' ? 'text-white' : 'text-ink'} ${size === 'lg' ? 'text-3xl' : 'text-xl'}`}>
       <Mascot size={size === 'lg' ? 46 : 32} />
       Studienfuchs
     </span>
@@ -57,6 +58,7 @@ export function Layout() {
   const [moreOpen, setMoreOpen] = useState(false)
   const desktop = useMediaQuery('(min-width: 1024px)')
   const location = useLocation()
+  const navigate = useNavigate()
   const scroller = useRef<HTMLElement>(null)
   const closeMore = useCallback(() => setMoreOpen(false), [])
   const dueCount = useDue().due.length
@@ -114,42 +116,26 @@ export function Layout() {
           </div>
         </main>
 
-        {/* Tab-Leiste (Mobil): schwebende Glas-Kapsel mit großen Tippflächen */}
-        <nav
-          className="glass fixed inset-x-3 z-40 flex items-stretch gap-1 rounded-[32px] p-1.5 lg:hidden"
-          style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.6rem)' }}
-          aria-label="Hauptnavigation"
-        >
-          {MOBILE_NAV.map(({ to, label, Icon, end }) => (
-            <NavLink
-              key={to}
-              to={to}
-              end={end}
-              aria-label={label}
-              onClick={() => {
-                // Zweiter Tipp auf den aktiven Tab: nach oben scrollen (wie bei iOS-Apps)
-                if (location.pathname === to) scroller.current?.scrollTo({ top: 0, behavior: 'smooth' })
-              }}
-              className={({ isActive }) => `tab-btn ${isActive ? 'text-brand-dark' : 'text-muted'}`}
-            >
-              {({ isActive }) => (
-                <>
-                  {isActive && <TabCapsule />}
-                  <span className="relative">
-                    <Icon size={26} />
-                    {to === '/practice' && dueCount > 0 && <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" />}
-                  </span>
-                  <span className="relative">{label}</span>
-                </>
-              )}
-            </NavLink>
-          ))}
-          <button type="button" onClick={() => setMoreOpen(true)} aria-haspopup="dialog" aria-expanded={moreOpen} className={`tab-btn ${moreOpen ? 'text-brand-dark' : 'text-muted'}`}>
-            {moreOpen && <TabCapsule />}
-            <span className="relative"><Dots size={26} /></span>
-            <span className="relative">Mehr</span>
-          </button>
-        </nav>
+        {/* Tab-Leiste (Mobil): schwebende Glas-Kapsel mit ziehbarer Linse */}
+        <TabBar
+          tabs={[
+            ...MOBILE_NAV.map(({ to, label, Icon }) => ({
+              key: to,
+              label,
+              icon: <Icon size={26} />,
+              badge: to === '/practice' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : undefined,
+            })),
+            { key: 'more', label: 'Mehr', icon: <Dots size={26} /> },
+          ]}
+          activeIndex={moreOpen ? MOBILE_NAV.length : MOBILE_NAV.findIndex((n) => (n.end ? location.pathname === n.to : location.pathname.startsWith(n.to)))}
+          onSelect={(i) => {
+            if (i >= MOBILE_NAV.length) return setMoreOpen(true)
+            const to = MOBILE_NAV[i].to
+            // Zweiter Tipp auf den aktiven Tab: nach oben scrollen (wie bei iOS-Apps)
+            if (location.pathname === to) scroller.current?.scrollTo({ top: 0, behavior: 'smooth' })
+            else navigate(to)
+          }}
+        />
 
         {/* "Mehr" als Sheet auf dem Handy. Es gibt immer nur EIN Menü, sonst schließt das unsichtbare das sichtbare beim Klicken. */}
         {!desktop && (
@@ -159,18 +145,6 @@ export function Layout() {
         )}
       </div>
     </div>
-  )
-}
-
-/** Gleitende Markierung hinter dem aktiven Tab (Glas-Kapsel). */
-function TabCapsule() {
-  return (
-    <motion.span
-      layoutId="tab-capsule"
-      className="absolute inset-0 rounded-[26px] bg-brand/15 ring-1 ring-inset ring-brand/25"
-      style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.35)' }}
-      transition={{ type: 'spring', stiffness: 460, damping: 34 }}
-    />
   )
 }
 

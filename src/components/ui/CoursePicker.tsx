@@ -35,7 +35,7 @@ export function CourseChip({ className = '' }: { className?: string }) {
         className={`press flex items-center gap-2 rounded-2xl border-2 border-transparent px-2 py-1 font-semibold text-ink transition-colors hover:border-line hover:bg-snow ${className}`}
       >
         <FrenchFlag size={32} />
-        <span className="text-sm uppercase tracking-wide text-muted">Kl. {grade}</span>
+        <span className="text-sm text-muted">Kl. {grade}</span>
         <Chevron size={16} className="text-muted" />
       </button>
       <CoursePicker open={open} onClose={() => setOpen(false)} />
@@ -75,13 +75,13 @@ export function CoursePicker({ open, onClose }: { open: boolean; onClose: () => 
                   <span className={`block text-lg font-semibold ${active ? 'text-brand-dark' : ''}`}>Französisch · Klasse {g}</span>
                   <span className="block text-sm text-muted">{done} von {all.length} Lektionen</span>
                 </span>
-                {active && <span className="relative flex h-6 w-6 items-center justify-center rounded-full bg-brand text-white"><Check size={13} /></span>}
+                {active && <span className="relative flex h-6 w-6 items-center justify-center rounded-full bg-brand text-on-brand"><Check size={13} /></span>}
               </button>
             </ItemLi>
           )
         })}
       </StaggerList>
-      <h3 className="mb-2 mt-6 text-sm font-semibold uppercase tracking-wide text-muted">Bald verfügbar</h3>
+      <h3 className="mb-2 mt-6 text-sm font-semibold text-muted">Bald verfügbar</h3>
       <ul className="grid grid-cols-2 gap-2">
         {SOON.map((s) => (
           <li key={s} className="flex items-center gap-2 rounded-2xl border border-line px-3 py-2 text-muted opacity-70">

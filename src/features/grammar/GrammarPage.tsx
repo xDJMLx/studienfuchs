@@ -211,7 +211,7 @@ export function GrammarTopicPage() {
             <div className="mb-6 flex gap-4 rounded-2xl bg-gold/15 p-4 ring-1 ring-gold/30">
               <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold/30 text-gold-dark"><Bulb size={22} /></span>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-gold-dark">Merke</p>
+                <p className="text-xs font-semibold text-gold-dark">Merke</p>
                 <p className="leading-relaxed">{ex.tip}</p>
               </div>
             </div>

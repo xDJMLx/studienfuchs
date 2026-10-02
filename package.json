@@ -13,8 +13,8 @@
     "prebuild": "npm run copy-ocr"
   },
   "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
     "@fontsource-variable/inter": "^5.3.0",
-    "@fontsource-variable/nunito": "^5.3.0",
     "@heyputer/puter.js": "^2.6.3",
     "framer-motion": "^13.5.0",
     "react": "^19.3.0",

@@ -95,7 +95,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
       <Screen onExit={() => navigate(exitTo)} footer={<button className="btn btn-primary btn-shine press w-full justify-between sm:w-64" onClick={() => setStage('practice')} autoFocus>Verstanden <Right size={18} /></button>}>
         <Stagger stagger={0.09}>
           <FadeItem>
-            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold uppercase tracking-wide text-brand-dark">
+            <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand-dark">
               <Bulb size={14} /> Kurz erklärt
             </span>
             <h1 className="mb-4 text-3xl font-bold leading-tight tracking-tight">{explanation.title}</h1>
@@ -127,7 +127,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
               <div className="mt-5 flex gap-4 rounded-2xl bg-gold/15 p-4 ring-1 ring-gold/30">
                 <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold/30 text-gold-dark"><Bulb size={22} /></span>
                 <div>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-gold-dark">Merke</p>
+                  <p className="text-xs font-semibold text-gold-dark">Merke</p>
                   <p className="leading-relaxed">{explanation.tip}</p>
                 </div>
               </div>

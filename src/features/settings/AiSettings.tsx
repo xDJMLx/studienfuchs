@@ -112,7 +112,7 @@ export function AiSettings() {
         <p className="mb-3 mt-2 text-sm text-muted">
           Wenn du lieber dein eigenes Konto bei Anthropic nutzt (console.anthropic.com → API Keys). Die Nutzung wird dort abgerechnet, eine Seite kostet meist nur wenige Cent.
         </p>
-        <label htmlFor="ai-key" className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted">API-Schlüssel</label>
+        <label htmlFor="ai-key" className="mb-1.5 block text-xs font-semibold text-muted">API-Schlüssel</label>
         <div className="mb-3 flex gap-2">
           <input
             id="ai-key"
@@ -126,7 +126,7 @@ export function AiSettings() {
           />
           <button type="button" className="btn btn-ghost press !px-3 !py-2 !text-sm" onClick={() => setShow((s) => !s)}>{show ? 'Verbergen' : 'Zeigen'}</button>
         </div>
-        <label htmlFor="ai-model" className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted">Modell</label>
+        <label htmlFor="ai-model" className="mb-1.5 block text-xs font-semibold text-muted">Modell</label>
         <select id="ai-model" value={model} onChange={(e) => setModel(e.target.value)} className="mb-4 w-full rounded-xl border border-line bg-snow px-3 py-2.5 text-sm font-medium outline-none focus:border-brand">
           {AI_MODELS.map((m) => (
             <option key={m.id} value={m.id}>{m.label}</option>

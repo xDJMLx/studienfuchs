@@ -85,7 +85,7 @@ export function CatchUpPage() {
                 >
                   {on && <motion.span layoutId="class-ring" className="absolute -inset-px rounded-2xl border-2 border-brand bg-brand-soft" transition={SPRING.snappy} />}
                   <span className="relative min-w-0 flex-1">
-                    {u.book && <span className="block text-[11px] font-semibold uppercase tracking-wide text-muted">{u.book}</span>}
+                    {u.book && <span className="block text-[12px] font-medium text-muted">{u.book}</span>}
                     <span className={`block truncate font-semibold ${on ? 'text-brand-dark' : ''}`}>{u.title}</span>
                   </span>
                   <span className="relative shrink-0 text-xs font-medium text-muted">

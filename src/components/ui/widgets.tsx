@@ -110,7 +110,7 @@ export function WeekStrip({ compact = false }: { compact?: boolean }) {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ ...SPRING.bouncy, delay: 0.15 + i * 0.05 }}
               className={`flex items-center justify-center rounded-full ${compact ? 'h-8 w-8' : 'h-9 w-9'} ${
-                learned ? 'bg-brand text-white' : isToday ? 'border-2 border-brand text-brand-dark' : 'bg-snow text-muted'
+                learned ? 'bg-brand text-on-brand' : isToday ? 'border-2 border-brand text-brand-dark' : 'bg-snow text-muted'
               }`}
               title={`${xpByDay[key] ?? 0} XP`}
             >

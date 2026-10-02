@@ -53,7 +53,7 @@ export function AboutPage() {
           <header className="mb-7 flex flex-col items-center text-center">
             <div className="relative mb-4">
               {!reduce && <span aria-hidden className="absolute inset-0 animate-halo rounded-3xl bg-brand/30" />}
-              <span className="relative flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-brand to-[#ffb25e] text-white shadow-[0_14px_30px_-12px_rgba(242,105,15,0.8)]">
+              <span className="relative flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-brand to-[#ffb25e] text-on-brand shadow-[0_14px_30px_-12px_rgba(242,105,15,0.8)]">
                 <Shield size={40} />
               </span>
             </div>

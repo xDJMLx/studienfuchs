@@ -73,7 +73,7 @@ export function SpeechSettings() {
           <motion.div key="voice" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35, ease: EASE }} className="overflow-hidden">
             <div className="grid gap-5 px-5 py-4">
               <div>
-                <label htmlFor="voice" className="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-muted">Stimme</label>
+                <label htmlFor="voice" className="mb-1.5 block text-xs font-semibold text-muted">Stimme</label>
                 <select
                   id="voice"
                   value={voiceName}
@@ -93,7 +93,7 @@ export function SpeechSettings() {
               </div>
 
               <div>
-                <label htmlFor="rate" className="mb-1.5 flex justify-between text-xs font-semibold uppercase tracking-wide text-muted">
+                <label htmlFor="rate" className="mb-1.5 flex justify-between text-xs font-semibold text-muted">
                   <span>Geschwindigkeit</span>
                   <span className="text-ink">{Math.round(speechRate * 100)} %</span>
                 </label>

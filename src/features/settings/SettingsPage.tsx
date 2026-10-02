@@ -160,7 +160,7 @@ export function SettingsPage() {
                           <ThemePreview kind={t.id} />
                           <AnimatePresence>
                             {on && (
-                              <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} transition={SPRING.bouncy} className="absolute right-1.5 top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-white">
+                              <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }} transition={SPRING.bouncy} className="absolute right-1.5 top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-on-brand">
                                 <Check size={12} />
                               </motion.span>
                             )}

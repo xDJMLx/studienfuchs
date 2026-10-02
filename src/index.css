@@ -1,84 +1,98 @@
 @import 'tailwindcss';
 @import '@fontsource-variable/inter';
+@import '@fontsource-variable/bricolage-grotesque';
 
 /* Dark-Mode wird über die Klasse "dark" auf <html> gesteuert (System / Hell / Dunkel in den Einstellungen). */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/*
+ * Gestaltung "Dämmerung": ein Fuchs im Abendlicht.
+ * Dunkel = Nacht-Indigo mit Glut-Orange, Hell = kühles Morgenlicht mit derselben Glut.
+ * Orange ist Handlung und Fuchs, Violett ist Fortschritt, Mint ist richtig, Gold ist XP.
+ */
 :root {
   color-scheme: light;
-  --page: #f6f6f7; /* App-Hintergrund */
+  --page: #f2f1f8; /* Morgenlicht */
   --bg: #ffffff;
   --surface: #ffffff; /* Karten */
-  --snow: #f4f4f5; /* ruhige Flächen, Hover */
-  --line: #e7e7ea;
-  --ink: #1d1d20;
-  --muted: #6c6c75;
+  --snow: #ebeaf4; /* ruhige Flächen, Hover */
+  --line: #e1e0ee;
+  --ink: #14152b;
+  --muted: #62637e;
 
-  /* Marke: Fuchs-Orange auf Weiß */
-  --brand: #f2690f;
-  --brand-text: #bf520a;
-  --brand-soft: #fff1e5;
-  --shade-brand: #c9540a;
-  /* Knöpfe mit Text: weißer Text braucht mindestens 4,5:1 Kontrast (AA) */
-  --brand-strong: #c65209;
-  --on-brand: #ffffff;
+  --brand: #f5701f; /* Glut */
+  --brand-text: #b3440a; /* Orange als Schrift auf Weiß (AA) */
+  --brand-soft: #ffeee1;
+  --shade-brand: #c75512;
+  --brand-strong: #f5701f; /* Knöpfe: dunkle Schrift auf Orange, 6,5:1 */
+  --on-brand: #1a0b03;
 
-  /* richtig / falsch */
-  --good: #2faa4a;
-  --good-text: #1f7f36;
-  --good-soft: #e6f6ea;
-  --shade-good: #1f7f36;
-  --bad: #e5484d;
-  --bad-text: #b8343a;
-  --bad-soft: #fdeaeb;
-  --shade-bad: #b8343a;
+  --violet: #6d5bf0;
+  --violet-text: #4f3fd1;
+  --violet-soft: #eceaff;
 
-  --gold: #f5b82e;
-  --gold-text: #a97800;
-  --flame: #f2690f;
-  --flame-text: #bf520a;
-  --shade-gold: #c99200;
-  --shade-line: #d6d6db;
-  --shadow: 0 1px 2px rgba(16, 16, 20, 0.05), 0 1px 1px rgba(16, 16, 20, 0.03);
-  --shadow-lift: 0 14px 32px -16px rgba(16, 16, 20, 0.3);
+  --good: #1fb985;
+  --good-text: #0b7d58;
+  --good-soft: #ddf6ec;
+  --shade-good: #0b7d58;
+  --bad: #f0506e;
+  --bad-text: #c2294a;
+  --bad-soft: #fde6eb;
+  --shade-bad: #c2294a;
+
+  --gold: #ffb83d;
+  --gold-text: #8f5a00;
+  --flame: #f5701f;
+  --flame-text: #b3440a;
+  --shade-gold: #c98a1c;
+  --shade-line: #d4d3e4;
+  --shadow: 0 1px 2px rgba(20, 21, 43, 0.06), 0 6px 18px -10px rgba(20, 21, 43, 0.14);
+  --shadow-lift: 0 18px 38px -18px rgba(20, 21, 43, 0.34);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-display: 'Bricolage Grotesque Variable', 'Inter Variable', system-ui, sans-serif;
 }
 
 .dark {
   color-scheme: dark;
-  --page: #0d0e11;
-  --bg: #0d0e11;
-  --surface: #17181d;
-  --snow: #1f2127;
-  --line: #292c34;
-  --ink: #f1f1f3;
-  --muted: #9b9ca6;
+  --page: #0b0c1a; /* Nacht */
+  --bg: #0b0c1a;
+  --surface: #14162b;
+  --snow: #1c1f3a;
+  --line: #272b4d;
+  --ink: #f3f3fa;
+  --muted: #9a9dbb;
 
-  --brand: #ff7a24;
-  --brand-text: #ffab6e;
-  --brand-soft: #35210f;
+  --brand: #ff7a2f;
+  --brand-text: #ffa066;
+  --brand-soft: #2c2036;
   --shade-brand: #b84d08;
-  --brand-strong: #ff7a24;
-  --on-brand: #1a0d03; /* dunkler Text auf hellem Orange: 7:1 */
+  --brand-strong: #ff7a2f;
+  --on-brand: #1a0b03;
 
-  --good: #4cc468;
-  --good-text: #86dc9a;
-  --good-soft: #17301d;
-  --shade-good: #28803c;
-  --bad: #ff6b70;
-  --bad-text: #ff9a9e;
-  --bad-soft: #3a1c1e;
-  --shade-bad: #b8343a;
+  --violet: #8f82ff;
+  --violet-text: #b0a6ff;
+  --violet-soft: #25225a;
 
-  --gold-text: #f7cf6b;
-  --flame-text: #ffab6e;
-  --shade-line: #0b0c0e;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
-  --shadow-lift: 0 14px 32px -16px rgba(0, 0, 0, 0.75);
+  --good: #3ddba5;
+  --good-text: #6fe8bf;
+  --good-soft: #12302b;
+  --shade-good: #1e8a66;
+  --bad: #ff6b85;
+  --bad-text: #ff98ab;
+  --bad-soft: #3a1a28;
+  --shade-bad: #b83a55;
+
+  --gold: #ffc24d;
+  --gold-text: #ffd27a;
+  --flame-text: #ffa066;
+  --shade-line: #060713;
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 8px 22px -12px rgba(0, 0, 0, 0.6);
+  --shadow-lift: 0 20px 40px -18px rgba(0, 0, 0, 0.85);
 }
 
 @theme inline {
   --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Inter Variable', system-ui, sans-serif;
 
   --color-page: var(--page);
   --color-bg: var(--bg);
@@ -93,10 +107,13 @@
   --color-brand-soft: var(--brand-soft);
   --color-brand-strong: var(--brand-strong);
   --color-on-brand: var(--on-brand);
-  /* "sky" war früher blau – jetzt ebenfalls Orange, damit alles orange-weiß bleibt */
   --color-sky: var(--brand);
   --color-sky-dark: var(--brand-text);
   --color-sky-soft: var(--brand-soft);
+
+  --color-violet: var(--violet);
+  --color-violet-dark: var(--violet-text);
+  --color-violet-soft: var(--violet-soft);
 
   --color-good: var(--good);
   --color-good-dark: var(--good-text);
@@ -134,34 +151,40 @@ body {
   overscroll-behavior-y: none;
 }
 h1, h2, h3 {
-  letter-spacing: -0.015em;
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
 }
 
 @layer components {
-  /* Buttons: ruhig, mit dezenter Unterkante */
+  /* Knöpfe: weiche Pillen mit Leuchten statt dicker Unterkante */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-[15px] font-semibold
-      transition-[transform,box-shadow,filter,background-color] duration-100 select-none disabled:cursor-not-allowed;
-    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.16), var(--shadow);
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-[16px] font-semibold
+      transition-[transform,box-shadow,filter,background-color] duration-150 select-none disabled:cursor-not-allowed;
   }
   .btn:active:not(:disabled) {
-    transform: translateY(1px);
-    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
+    transform: scale(0.97);
   }
-  .btn-primary {
-    @apply bg-brand-strong text-on-brand;
-  }
-  .btn-primary:hover:not(:disabled) {
-    filter: brightness(1.06);
-  }
+  .btn-primary,
   .btn-sky {
-    @apply bg-brand-strong text-on-brand;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--brand) 86%, #fff), var(--brand));
+    color: var(--on-brand);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      0 10px 24px -10px color-mix(in srgb, var(--brand) 75%, transparent);
+  }
+  .btn-primary:hover:not(:disabled),
+  .btn-sky:hover:not(:disabled) {
+    filter: brightness(1.05);
   }
   .btn-good {
-    @apply bg-good text-white;
+    background: var(--good);
+    color: #04261b;
+    box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--good) 75%, transparent);
   }
   .btn-bad {
-    @apply bg-bad text-white;
+    background: var(--bad);
+    color: #2b0610;
+    box-shadow: 0 10px 24px -10px color-mix(in srgb, var(--bad) 75%, transparent);
   }
   .btn-ghost {
     @apply border border-line bg-surface text-ink;
@@ -177,52 +200,57 @@ h1, h2, h3 {
 
   /* Antwort-Kacheln (Multiple Choice, Wortbausteine) */
   .tile {
-    @apply flex items-center gap-3 rounded-xl border border-line bg-surface px-4 py-3 text-left text-[16px] font-medium text-ink transition-colors select-none;
-    box-shadow: var(--shadow), 0 2px 0 var(--line);
+    @apply flex items-center gap-3 rounded-2xl border-[1.5px] border-line bg-surface px-4 py-3.5 text-left text-[17px] font-medium text-ink transition-[transform,background-color,border-color,box-shadow] duration-150 select-none;
+    box-shadow: var(--shadow);
   }
   .tile:hover:not(:disabled) {
     @apply bg-snow;
   }
   .tile:active:not(:disabled) {
-    transform: translateY(2px);
-    box-shadow: var(--shadow);
+    transform: scale(0.985);
   }
   .tile-selected {
     @apply border-brand bg-brand-soft text-brand-dark;
-    box-shadow: 0 2px 0 var(--brand);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 18%, transparent);
   }
   .tile-correct {
     @apply border-good bg-good-soft text-good-dark;
-    box-shadow: 0 2px 0 var(--good);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--good) 18%, transparent);
   }
   .tile-wrong {
     @apply border-bad bg-bad-soft text-bad-dark;
-    box-shadow: 0 2px 0 var(--bad);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--bad) 18%, transparent);
   }
 
   .card {
-    @apply rounded-2xl border border-line bg-surface;
+    @apply rounded-[24px] border border-line bg-surface;
     box-shadow: var(--shadow);
   }
 
   .nav-link {
-    @apply flex items-center gap-3.5 rounded-xl px-4 py-2.5 text-[15px] font-medium text-muted hover:bg-snow hover:text-ink;
+    @apply flex items-center gap-3.5 rounded-2xl px-4 py-3 text-[15px] font-medium text-muted hover:bg-snow hover:text-ink;
   }
   .nav-link-active {
     @apply bg-brand-soft font-semibold text-brand-dark hover:bg-brand-soft hover:text-brand-dark;
   }
 
+  /* Kleine Zwischenüberschrift: ruhig, in normaler Schreibweise */
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.08em] text-muted;
+    @apply text-[13px] font-medium text-muted;
   }
   .page-title {
-    @apply text-[28px] font-bold leading-tight tracking-tight text-ink;
+    font-family: var(--font-display);
+    @apply text-[32px] font-bold leading-[1.05] tracking-[-0.03em] text-ink;
+  }
+  .display {
+    font-family: var(--font-display);
+    letter-spacing: -0.03em;
   }
   .segmented {
-    @apply inline-flex rounded-xl bg-snow p-1;
+    @apply inline-flex rounded-2xl bg-snow p-1;
   }
   .segmented > button {
-    @apply rounded-lg px-4 py-1.5 text-sm font-medium text-muted;
+    @apply rounded-xl px-4 py-1.5 text-sm font-medium text-muted;
   }
   .segmented > button[aria-checked='true'],
   .segmented > button[aria-pressed='true'] {
@@ -284,21 +312,6 @@ h1, h2, h3 {
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .glass { background: var(--surface); }
 }
-.tab-btn {
-  position: relative;
-  display: flex;
-  flex: 1;
-  min-height: 3.6rem;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.15rem;
-  border-radius: 26px;
-  font-size: 11px;
-  font-weight: 600;
-  transition: color 0.2s, transform 0.18s var(--ease-out);
-}
-.tab-btn:active { transform: scale(0.93); }
 /* Dinge, die am unteren Rand kleben, müssen über der Tab-Leiste bleiben */
 .above-tabbar { bottom: calc(var(--tabbar-h) + 0.5rem); }
 @media (min-width: 1024px) { .above-tabbar { bottom: 1rem; } }
