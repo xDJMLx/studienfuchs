@@ -355,7 +355,7 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
     inset: 0 auto 0 0;
     width: 40%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.38), transparent);
-    animation: sweep 4.5s ease-in-out infinite;
+    animation: sweep 1.4s ease-out 0.6s 1 both;
     pointer-events: none;
   }
   .mascot-blink .mascot-eye {
@@ -376,7 +376,7 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
 }
 @keyframes float {
   0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
-  50% { transform: translateY(-12px) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-6px) rotate(var(--r, 0deg)); }
 }
 @keyframes blink {
   0%, 91%, 100% { transform: scaleY(1); }
@@ -399,7 +399,7 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
   0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
   50% { transform: translate3d(2%, -3%, 0) scale(1.06); }
 }
-.animate-halo { animation: halo 2s ease-out infinite; }
+.animate-halo { animation: halo 1.8s ease-out 2; }
 .animate-float { animation: float 6s ease-in-out infinite; }
 .animate-blob { animation: blob 14s ease-in-out infinite; }
 
@@ -447,40 +447,16 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
 
 /* ---------- Übungen: Aufgabe und Antworten erscheinen nacheinander ---------- */
 /* "backwards": nach dem Einblenden greift die Animation nicht mehr ein, so bleiben :active und Schütteln unberührt */
-@keyframes tile-in {
-  from { opacity: 0; transform: translateY(14px) scale(0.98); }
-  to { opacity: 1; transform: none; }
-}
-.exercise-in > div > * {
-  animation: tile-in 0.5s var(--ease-out) backwards;
-}
-.exercise-in > div > *:nth-child(2) { animation-delay: 0.06s; }
-.exercise-in > div > *:nth-child(3) { animation-delay: 0.12s; }
-.exercise-in > div > *:nth-child(n + 4) { animation-delay: 0.18s; }
-.exercise-in :is(.grid, [role='radiogroup']) > * {
-  animation: tile-in 0.45s var(--ease-out) backwards;
-}
-.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(1) { animation-delay: 0.16s; }
-.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(2) { animation-delay: 0.21s; }
-.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(3) { animation-delay: 0.26s; }
-.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(4) { animation-delay: 0.31s; }
-.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(5) { animation-delay: 0.36s; }
-.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(6) { animation-delay: 0.41s; }
-.exercise-in :is(.grid, [role='radiogroup']) > *:nth-child(n + 7) { animation-delay: 0.46s; }
-
 /* richtige Antwort federt kurz */
 @keyframes pop-ok {
   0% { transform: scale(1); }
   40% { transform: scale(1.035); }
   100% { transform: scale(1); }
 }
-.tile-correct { animation: pop-ok 0.45s var(--ease-out); }
+.tile-correct { animation: pop-ok 0.36s var(--ease-out); }
 
 @media (prefers-reduced-motion: reduce) {
-  .exercise-in > div > *, .exercise-in :is(.grid, [role='radiogroup']) > *, .tile-correct { animation: none !important; }
-}
-.exercise-in :is(.grid, [role='radiogroup']) > .tile-correct {
-  animation: pop-ok 0.45s var(--ease-out);
+  .tile-correct { animation: none !important; }
 }
 
 /* ---------- Tastaturbedienung: gut sichtbarer Fokus (Felder mit eigenem Fokus-Stil überschreiben das über Utilities) ---------- */

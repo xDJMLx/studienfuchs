@@ -48,7 +48,7 @@ function AnimatedOutlet() {
   const { pathname } = useLocation()
   const reduce = useReducedMotion()
   return (
-    <motion.div key={pathname} initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2, ease: EASE }}>
+    <motion.div key={pathname} initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.14, ease: EASE }}>
       {outlet}
     </motion.div>
   )

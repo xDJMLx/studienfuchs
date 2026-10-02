@@ -5,7 +5,7 @@ import { blockingLesson, grades, isLessonDone, isUnlocked, passMark, units } fro
 import { SpeakButton } from '../../components/exercises/common'
 import { FrenchFlag } from '../../components/ui/CoursePicker'
 import { Bolt, Check, Flame, Lock, Repeat, Right, Sparkle, Trophy } from '../../components/ui/Icons'
-import { EASE } from '../../components/ui/motion'
+import { EASE, SPRING } from '../../components/ui/motion'
 import { Sheet } from '../../components/ui/Sheet'
 import { ProgressBar, ProgressRing } from '../../components/ui/widgets'
 import type { Lesson, Unit } from '../../lib/types'
@@ -32,7 +32,7 @@ function PathLines({ states, offsets }: { states: NodeState[]; offsets: number[]
         const y2 = NODE_CENTER + (i + 1) * ROW
         const d = `M ${x1} ${y1} C ${x1} ${y1 + ROW * 0.55}, ${x2} ${y2 - ROW * 0.55}, ${x2} ${y2}`
         return states[i] === 'done' ? (
-          <motion.path key={i} d={d} fill="none" stroke="var(--brand)" strokeWidth={6} strokeLinecap="round" initial={reduce ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.8, ease: EASE, delay: 0.2 }} />
+          <motion.path key={i} d={d} fill="none" stroke="var(--brand)" strokeWidth={6} strokeLinecap="round" initial={reduce ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, ease: EASE, delay: 0.1 }} />
         ) : (
           <path key={i} d={d} fill="none" stroke="var(--muted)" strokeOpacity={0.4} strokeWidth={5} strokeLinecap="round" strokeDasharray="1 13" />
         )
@@ -244,8 +244,9 @@ export function LearnPage() {
                     <li key={lesson.id} style={{ transform: `translateX(${offset}px)` }} className="relative flex h-[104px] flex-col items-center">
                       {state === 'current' && unit.id === currentUnit?.id && (
                         <motion.span
-                          animate={reduce ? undefined : { y: [0, -4, 0] }}
-                          transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+                          initial={reduce ? false : { opacity: 0, y: 6, scale: 0.9 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          transition={{ ...SPRING.snappy, delay: 0.3 }}
                           className="absolute -top-8 whitespace-nowrap rounded-lg bg-ink px-2.5 py-1 text-xs font-semibold text-surface"
                         >
                           Weiter hier

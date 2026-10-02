@@ -202,10 +202,9 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             className="relative h-full overflow-hidden rounded-full bg-brand"
             initial={false}
             animate={{ width: `${Math.max(progress * 100, 3)}%` }}
-            transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 110, damping: 18 }}
+            transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 220, damping: 30 }}
           >
             <div className="mx-2 mt-1 h-1 rounded-full bg-white/40" />
-            {!reduce && <span className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-transparent via-white/30 to-transparent" style={{ animation: 'shimmer 2.6s ease-in-out infinite' }} />}
           </motion.div>
         </div>
         <AnimatePresence mode="popLayout" initial={false}>
@@ -240,10 +239,10 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           <motion.div
             key={ex.id + idx}
             className="exercise-in"
-            initial={reduce ? false : { opacity: 0, x: 44 }}
-            animate={{ opacity: 1, x: bad && !reduce ? [0, -9, 9, -6, 6, 0] : 0 }}
-            exit={reduce ? undefined : { opacity: 0, x: -32, transition: { duration: 0.12, ease: 'easeIn' } }}
-            transition={{ duration: bad ? 0.4 : 0.38, ease: EASE }}
+            initial={reduce ? false : { opacity: 0, x: 28 }}
+            animate={{ opacity: 1, x: bad && !reduce ? [0, -8, 8, -5, 5, 0] : 0 }}
+            exit={reduce ? undefined : { opacity: 0, x: -20, transition: { duration: 0.1, ease: 'easeIn' } }}
+            transition={{ duration: bad ? 0.36 : 0.26, ease: EASE }}
           >
             {body}
             {!result && ((ex.kind === 'type' && !ex.hint) || ex.kind === 'listen') && (

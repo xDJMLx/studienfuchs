@@ -42,9 +42,9 @@ const SPEECH: Record<FlowStep, string> = {
 const MOOD: Record<FlowStep, Mood> = { course: 'happy', grade: 'think', goal: 'happy', ready: 'cheer' }
 
 const slide = {
-  enter: (d: number) => ({ opacity: 0, x: d * 40 }),
-  center: { opacity: 1, x: 0, transition: { duration: 0.32, ease: EASE } },
-  exit: (d: number) => ({ opacity: 0, x: d * -40, transition: { duration: 0.14 } }),
+  enter: (d: number) => ({ opacity: 0, x: d * 24 }),
+  center: { opacity: 1, x: 0, transition: { duration: 0.26, ease: EASE } },
+  exit: (d: number) => ({ opacity: 0, x: d * -16, transition: { duration: 0.1 } }),
 }
 
 /** Einführung: ein Bildschirm pro Schritt, ohne Scrollen, wie bei einer richtigen App. */
@@ -103,7 +103,7 @@ export function Welcome() {
               <motion.div
                 initial={reduce ? false : { opacity: 0, y: 10, scale: 0.94 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ ...SPRING.snappy, delay: 0.35 }}
+                transition={{ ...SPRING.snappy, delay: 0.2 }}
                 className="relative mb-5 max-w-[19rem] rounded-3xl border-2 border-line bg-surface px-5 py-3.5 text-[17px] font-semibold leading-snug"
               >
                 Hallo! Ich bin Fenni. Ich zeige dir, wie Französisch hängen bleibt.
@@ -117,20 +117,20 @@ export function Welcome() {
               <motion.h1
                 initial={reduce ? false : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, ease: EASE, delay: 0.5 }}
+                transition={{ duration: 0.36, ease: EASE, delay: 0.22 }}
                 className="mt-5 text-[28px] font-bold leading-tight tracking-tight"
               >
                 Lernen für die Schule,
                 <br />
                 das hängen bleibt.
               </motion.h1>
-              <motion.p initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.45, delay: 0.6 }} className="mt-2 text-[15px] text-muted">
+              <motion.p initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, delay: 0.3 }} className="mt-2 text-[15px] text-muted">
                 Französisch Klasse 7 bis 10 · kostenlos · ohne Konto
               </motion.p>
             </main>
 
             <footer className="mx-auto w-full max-w-md px-6 pt-3" style={{ paddingBottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}>
-              <motion.div initial={reduce ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: EASE, delay: 0.65 }} className="grid gap-3">
+              <motion.div initial={reduce ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.36, ease: EASE, delay: 0.36 }} className="grid gap-3">
                 <button className="btn btn-primary press w-full !py-4 text-base" onClick={() => go(FLOW[0])} autoFocus>
                   Jetzt starten
                 </button>

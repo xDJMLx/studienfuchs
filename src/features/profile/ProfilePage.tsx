@@ -149,7 +149,7 @@ export function ProfilePage() {
                         className={`w-full rounded-lg ${hit ? 'bg-good' : 'bg-brand'}`}
                         initial={reduce ? false : { height: 0 }}
                         animate={{ height: `${Math.max((v / maxXp) * 100, v ? 5 : 2)}%` }}
-                        transition={{ duration: 0.8, ease: EASE, delay: 0.25 + i * 0.07 }}
+                        transition={{ duration: 0.5, ease: EASE, delay: 0.1 + i * 0.04 }}
                         style={{ opacity: v ? 1 : 0.25 }}
                       />
                     </div>
@@ -178,7 +178,7 @@ export function ProfilePage() {
                       title={`${h.label}: ${h.v} XP`}
                       initial={reduce ? false : { opacity: 0, scale: 0.5 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      transition={{ ...SPRING.snappy, delay: i * 0.012 }}
+                      transition={{ ...SPRING.snappy, delay: i * 0.007 }}
                       className={`h-7 rounded-md ${h.future ? 'border border-dashed border-line' : bg}`}
                     />
                   )

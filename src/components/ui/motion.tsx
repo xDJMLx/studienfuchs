@@ -4,6 +4,9 @@ import { useEffect, type ReactNode } from 'react'
 /** Gemeinsame Bewegungssprache: schnell anlaufen, weich ausklingen (ease-out-quint). */
 export const EASE = [0.22, 1, 0.36, 1] as const
 
+/** Dauern: alles, was der Nutzer antippt, antwortet in unter 0,3 Sekunden. */
+export const DUR = { fast: 0.16, base: 0.28, slow: 0.4 } as const
+
 export const SPRING = {
   snappy: { type: 'spring', stiffness: 520, damping: 34 },
   soft: { type: 'spring', stiffness: 260, damping: 26 },
@@ -16,9 +19,13 @@ const container = (stagger: number, delay: number): Variants => ({
 })
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 18 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0, transition: { duration: DUR.slow - 0.04, ease: EASE } },
 }
+
+/** Eintrittsstaffel nie länger als nötig: Abstand höchstens 45 ms, Verzögerung höchstens 120 ms. */
+const capStagger = (s: number) => Math.min(s, 0.045)
+const capDelay = (d: number) => Math.min(d, 0.12)
 
 interface StaggerProps {
   children: ReactNode
@@ -32,7 +39,7 @@ interface StaggerProps {
 export function Stagger({ children, className, stagger = 0.07, delay = 0 }: StaggerProps) {
   const reduce = useReducedMotion()
   return (
-    <motion.div className={className} variants={container(stagger, delay)} initial={reduce ? false : 'hidden'} animate="show">
+    <motion.div className={className} variants={container(capStagger(stagger), capDelay(delay))} initial={reduce ? false : 'hidden'} animate="show">
       {children}
     </motion.div>
   )
@@ -41,7 +48,7 @@ export function Stagger({ children, className, stagger = 0.07, delay = 0 }: Stag
 export function StaggerList({ children, className, stagger = 0.05, delay = 0 }: StaggerProps) {
   const reduce = useReducedMotion()
   return (
-    <motion.ul className={className} variants={container(stagger, delay)} initial={reduce ? false : 'hidden'} animate="show">
+    <motion.ul className={className} variants={container(capStagger(stagger), capDelay(delay))} initial={reduce ? false : 'hidden'} animate="show">
       {children}
     </motion.ul>
   )
@@ -64,14 +71,14 @@ export function ItemLi({ children, className }: { children: ReactNode; className
 }
 
 /** Blendet beim Laden der Seite weich ein. Bewusst nicht erst beim Hineinscrollen: Bei schnellem Wischen blieben sonst Bereiche leer. */
-export function Reveal({ children, className, delay = 0, y = 18 }: { children: ReactNode; className?: string; delay?: number; y?: number }) {
+export function Reveal({ children, className, delay = 0, y = 10 }: { children: ReactNode; className?: string; delay?: number; y?: number }) {
   const reduce = useReducedMotion()
   return (
     <motion.div
       className={className}
       initial={reduce ? false : { opacity: 0, y }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, ease: EASE, delay }}
+      transition={{ duration: DUR.slow - 0.04, ease: EASE, delay: capDelay(delay) }}
     >
       {children}
     </motion.div>
@@ -79,7 +86,7 @@ export function Reveal({ children, className, delay = 0, y = 18 }: { children: R
 }
 
 /** Zahl, die hochzählt. */
-export function CountUp({ to, prefix = '', suffix = '', duration = 0.9, delay = 0 }: { to: number; prefix?: string; suffix?: string; duration?: number; delay?: number }) {
+export function CountUp({ to, prefix = '', suffix = '', duration = 0.7, delay = 0 }: { to: number; prefix?: string; suffix?: string; duration?: number; delay?: number }) {
   const reduce = useReducedMotion()
   const v = useMotionValue(reduce ? to : 0)
   const text = useTransform(v, (n) => `${prefix}${Math.round(n).toLocaleString('de-DE')}${suffix}`)

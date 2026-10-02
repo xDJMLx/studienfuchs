@@ -246,7 +246,7 @@ function ResultScreen({
                 key={i}
                 initial={reduce ? false : { scale: 0, rotate: -70, opacity: 0 }}
                 animate={{ scale: 1, rotate: 0, opacity: 1 }}
-                transition={{ ...SPRING.bouncy, delay: 0.5 + i * 0.2 }}
+                transition={{ ...SPRING.bouncy, delay: 0.25 + i * 0.12 }}
                 className={i < stars ? 'text-gold drop-shadow-[0_2px_6px_rgba(245,184,46,0.55)]' : 'text-line'}
               >
                 <Star size={i === 1 ? 52 : 40} />
@@ -254,19 +254,19 @@ function ResultScreen({
             ))}
           </div>
         )}
-        <motion.h1 initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: EASE, delay: 0.35 }} className="mt-3 text-3xl font-semibold">{headline}</motion.h1>
-        <motion.p initial={reduce ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, ease: EASE, delay: 0.45 }} className="mt-1 max-w-sm text-sm text-muted">{sub}</motion.p>
+        <motion.h1 initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.34, ease: EASE, delay: 0.15 }} className="mt-3 text-3xl font-semibold">{headline}</motion.h1>
+        <motion.p initial={reduce ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.34, ease: EASE, delay: 0.22 }} className="mt-1 max-w-sm text-sm text-muted">{sub}</motion.p>
         <p className="mt-1 text-sm font-medium text-muted">{title}</p>
         <div className="mt-6 grid w-full max-w-sm grid-cols-3 gap-3">
-          <Stat tone="gold" icon={<Xp size={22} />} label="XP" delay={0.7}><CountUp to={xp} prefix="+" delay={0.8} /></Stat>
-          <Stat tone="good" label="Beim 1. Mal richtig" delay={0.85}><CountUp to={pct} suffix=" %" delay={0.95} /></Stat>
-          <Stat tone="fox" icon={<Flame size={22} />} label="Serie" delay={1}><CountUp to={streak} delay={1.1} /></Stat>
+          <Stat tone="gold" icon={<Xp size={22} />} label="XP" delay={0.3}><CountUp to={xp} prefix="+" delay={0.4} /></Stat>
+          <Stat tone="good" label="Beim 1. Mal richtig" delay={0.38}><CountUp to={pct} suffix=" %" delay={0.48} /></Stat>
+          <Stat tone="fox" icon={<Flame size={22} />} label="Serie" delay={0.46}><CountUp to={streak} delay={0.56} /></Stat>
         </div>
         {coins > 0 && (
           <motion.p
             initial={reduce ? false : { opacity: 0, scale: 0.7, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ ...SPRING.bouncy, delay: 1.15 }}
+            transition={{ ...SPRING.bouncy, delay: 0.6 }}
             className="mt-4 flex items-center gap-2 rounded-xl bg-gold/20 px-4 py-2 font-semibold text-gold-dark"
           >
             <Coin size={20} /> +{coins} {coins === 1 ? 'Münze' : 'Münzen'}
@@ -276,7 +276,7 @@ function ResultScreen({
           <motion.p
             initial={reduce ? false : { opacity: 0, scale: 0.7, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ ...SPRING.bouncy, delay: 1.2 }}
+            transition={{ ...SPRING.bouncy, delay: 0.68 }}
             className="mt-4 flex items-center gap-2 rounded-xl bg-good-soft px-4 py-2 font-semibold text-good-dark"
           >
             <Target size={18} /> {bonusTier <= 1 ? 'Tagesziel geschafft!' : `Bonusziel ${bonusTier - 1} geschafft!`}
@@ -286,7 +286,7 @@ function ResultScreen({
           <motion.p
             initial={reduce ? false : { opacity: 0, scale: 0.7, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ ...SPRING.bouncy, delay: 1.3 }}
+            transition={{ ...SPRING.bouncy, delay: 0.76 }}
             className="mt-4 flex items-center gap-2 rounded-xl bg-gold/20 px-4 py-2 font-semibold text-gold-dark"
           >
             <Sparkle size={18} /> Level aufgestiegen!

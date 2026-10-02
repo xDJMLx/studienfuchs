@@ -52,7 +52,7 @@ export function MatchExercise({ exercise: ex, onChange, result }: ExerciseProps<
                 speak(p.left)
               }}
               animate={motionFor(p.id, false)}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.25 }}
               whileTap={reduce ? undefined : { scale: 0.97 }}
               lang="fr"
               className={`tile justify-center ${done.has(p.id) ? 'tile-correct opacity-40' : selLeft === p.id ? 'tile-selected' : ''}`}
@@ -69,7 +69,7 @@ export function MatchExercise({ exercise: ex, onChange, result }: ExerciseProps<
               disabled={done.has(r.id) || !!result}
               onClick={() => pickRight(r.id)}
               animate={motionFor(r.id, flashWrong === r.id)}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.25 }}
               whileTap={reduce ? undefined : { scale: 0.97 }}
               className={`tile justify-center ${done.has(r.id) ? 'tile-correct opacity-40' : flashWrong === r.id ? 'tile-wrong' : ''}`}
             >

@@ -152,7 +152,7 @@ export function SettingsPage() {
     <div className="mx-auto max-w-2xl px-4 pb-6 pt-6 lg:pt-8">
       <div className="mb-7 flex items-center gap-4">
         <motion.div initial={reduce ? false : { rotate: -30, scale: 0.6, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} transition={SPRING.bouncy} className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-soft text-brand-dark">
-          <motion.span animate={reduce ? undefined : { rotate: 360 }} transition={{ duration: 18, repeat: Infinity, ease: 'linear' }} className="flex">
+          <motion.span initial={reduce ? false : { rotate: -90 }} animate={{ rotate: 0 }} transition={{ duration: 0.7, ease: EASE, delay: 0.1 }} className="flex">
             <Gear size={30} />
           </motion.span>
         </motion.div>

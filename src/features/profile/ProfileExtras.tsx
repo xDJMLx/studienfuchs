@@ -32,7 +32,7 @@ export function Karteikasten() {
               className={`w-full rounded-t-xl ${shades[i]} ${c === 0 ? 'opacity-25' : ''}`}
               initial={reduce ? false : { height: 0 }}
               animate={{ height: `${Math.max(6, (c / max) * 84)}%` }}
-              transition={{ duration: 0.6, ease: EASE, delay: 0.05 * i }}
+              transition={{ duration: 0.45, ease: EASE, delay: 0.03 * i }}
             />
           </div>
         ))}
