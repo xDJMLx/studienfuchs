@@ -29,7 +29,7 @@ export const safeStorage: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'> = 
         MEMORY_STORAGE.delete(key)
         return
       } catch {
-        // Fallback für Browser mit aktivierter Storage-Quota oder fehlendem Zugriff.
+        // Fallback when quota is exceeded or browser storage is unavailable.
       }
     }
     MEMORY_STORAGE.set(key, value)
@@ -41,7 +41,7 @@ export const safeStorage: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'> = 
       try {
         storage.removeItem(key)
       } catch {
-        // Ignore: der Key war bereits nicht verfügbar.
+        // Ignore: key was unavailable or already missing.
       }
     }
     MEMORY_STORAGE.delete(key)

@@ -10,7 +10,6 @@ const LEGACY: [from: string, to: string][] = [
   ['lernfuchs-ai', STORAGE.ai],
 ]
 
-/** Kopiert alte Einträge zu den neuen Schlüsseln (nur wenn der neue noch fehlt) und räumt die alten auf. */
 export function migrateLegacyStorage(storage: Pick<Storage, 'getItem' | 'setItem' | 'removeItem'> = safeStorage): string[] {
   const moved: string[] = []
   for (const [from, to] of LEGACY) {
@@ -23,10 +22,16 @@ export function migrateLegacyStorage(storage: Pick<Storage, 'getItem' | 'setItem
       }
       storage.removeItem(from)
     } catch {
-      /* Speicher nicht verfügbar: nichts zu tun */
+      // Storage unavailable: do nothing and keep app usable.
     }
   }
   return moved
 }
 
-migrateLegacyStorage(safeStorage)
+if (typeof globalThis !== 'undefined' && 'localStorage' in globalThis) {
+  try {
+    migrateLegacyStorage(globalThis.localStorage)
+  } catch {
+    migrateLegacyStorage(safeStorage)
+  }
+}
