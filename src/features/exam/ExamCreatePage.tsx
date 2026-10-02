@@ -25,13 +25,13 @@ export function ExamCreatePage() {
 
   const [type, setType] = useState<ExamData['type']>(params.get('type') === 'kurztest' ? 'kurztest' : 'arbeit')
   const startBook = params.get('book') ?? books[0]?.id ?? ''
-  const [source, setSource] = useState<Source>(params.get('book') ? 'book' : books.length ? 'book' : 'unit')
+  const [source, setSource] = useState<Source>(params.get('set') ? 'set' : params.get('book') ? 'book' : books.length ? 'book' : 'unit')
   const [bookId, setBookId] = useState(startBook)
   const [from, setFrom] = useState(params.get('from') ?? '')
   const [to, setTo] = useState(params.get('to') ?? '')
   const gradeUnits = useMemo(() => units.filter((u) => u.grade === (grades.includes(grade) ? grade : grades[0])), [grade])
   const [unitId, setUnitId] = useState(gradeUnits[0]?.id ?? '')
-  const [setId, setSetId] = useState(sets[0]?.id ?? '')
+  const [setId, setSetId] = useState(params.get('set') ?? sets[0]?.id ?? '')
   const [topic, setTopic] = useState('')
   const [size, setSize] = useState(params.get('type') === 'kurztest' ? 15 : 45)
   const [busy, setBusy] = useState(false)

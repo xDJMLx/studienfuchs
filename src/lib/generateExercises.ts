@@ -279,9 +279,14 @@ export const WARMUP_SIZE = 3
  * Aufwärmen: pro fälligem älterem Wort genau eine Abruf-Aufgabe (Tippen), vor dem neuen Stoff.
  * So wird Wiederholen nach Plan (Spacing) mit dem Neulernen gemischt (Interleaving), statt dass fällige Wörter liegenbleiben.
  */
-export function generateWarmup(items: Item[], pool: Item[], rng: () => number = Math.random): Exercise[] {
+export function generateWarmup(items: Item[], pool: Item[], rng: () => number = Math.random, mastery: (itemId: string) => Mastery = () => 2): Exercise[] {
   if (!items.length) return []
-  return generateExercises({ items, pool, mastery: () => 2, maxExercises: items.length, allowListen: false, focus: 'write', rng }).map((e) => ({ ...e, warm: true }))
+  return generateExercises({ items, pool, mastery: () => 2, maxExercises: items.length, allowListen: false, focus: 'write', rng }).map((e) => ({
+    ...e,
+    warm: true,
+    // Was noch nicht fest sitzt, wird mit Stütze (erster Buchstabe) abgefragt
+    ...(e.kind === 'type' && mastery(e.itemId) < 2 ? { hint: true } : {}),
+  }))
 }
 
 /** Wie viele neue Wörter auf einmal gezeigt werden, bevor sie sofort abgefragt werden. */

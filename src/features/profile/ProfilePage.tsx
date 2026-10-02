@@ -179,7 +179,7 @@ export function ProfilePage() {
                       initial={reduce ? false : { opacity: 0, scale: 0.5 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ ...SPRING.snappy, delay: i * 0.012 }}
-                      className={`aspect-square rounded-md ${h.future ? 'border border-dashed border-line' : bg}`}
+                      className={`h-7 rounded-md ${h.future ? 'border border-dashed border-line' : bg}`}
                     />
                   )
                 })}

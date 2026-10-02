@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { Fr } from '../../components/exercises/common'
-import { Back, Cards, Headphones, Pencil, Trash, Trophy } from '../../components/ui/Icons'
+import { Back, Cards, Check, Headphones, Pencil, Speaker, Trash, Trophy } from '../../components/ui/Icons'
 import { Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { AiError, enrichItems, ensureAiReady } from '../../lib/ai'
 import { planToday } from '../../lib/plan'
@@ -105,6 +105,8 @@ export function SetDetailPage() {
             { to: `/practice/play?mode=mix&scope=set:${set.id}`, label: 'Quiz', icon: <Trophy size={22} /> },
             { to: `/practice/play?mode=write&scope=set:${set.id}`, label: 'Schreiben', icon: <Pencil size={22} /> },
             { to: `/practice/play?mode=listen&scope=set:${set.id}`, label: 'Hören', icon: <Headphones size={22} /> },
+            { to: `/speak?scope=set:${set.id}`, label: 'Sprechen', icon: <Speaker size={22} /> },
+            { to: `/exam/new?type=kurztest&set=${set.id}`, label: 'Kurztest', icon: <Check size={22} /> },
           ].map((m) => (
             <ItemLi key={m.label}>
               <Link to={m.to} className="card lift group flex items-center gap-3 p-4">

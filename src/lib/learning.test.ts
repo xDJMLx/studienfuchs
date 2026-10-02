@@ -200,3 +200,13 @@ describe('Übungstest mit Lernstand', () => {
     expect(kinds(2).every((e) => e.kind === 'type' && !e.hint)).toBe(true)
   })
 })
+
+describe('Aufwärmen für Einsteiger', () => {
+  const old = regular[0].items.slice(0, WARMUP_SIZE)
+  it('fragt Wörter, die noch nicht fest sitzen, mit Stütze ab, sichere ohne', () => {
+    const weak = generateWarmup(old, regular[0].items, Math.random, () => 1)
+    expect(weak.every((e) => e.kind === 'type' && e.hint === true)).toBe(true)
+    const strong = generateWarmup(old, regular[0].items, Math.random, () => 2)
+    expect(strong.every((e) => e.kind === 'type' && !e.hint)).toBe(true)
+  })
+})

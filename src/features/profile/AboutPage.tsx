@@ -31,8 +31,8 @@ function Accordion({ title, icon, children, defaultOpen = false }: { title: stri
 
 const HIGHLIGHTS = [
   { Icon: Hand, title: 'Kein Konto', text: 'Kein Login, kein Tracking, keine Werbung. Wir bekommen keine Nutzerdaten.' },
-  { Icon: Lock, title: 'Nur auf deinem Gerät', text: 'Fortschritt und Sets bleiben im Speicher deines Browsers.' },
-  { Icon: Sparkle, title: 'KI nur auf Klick', text: 'Daten gehen nur dann an die KI, wenn du ausdrücklich „Mit KI“ wählst.' },
+  { Icon: Lock, title: 'Nur auf deinem Gerät', text: 'Fortschritt, Sets, Bücher und Tests bleiben im Speicher deines Browsers.' },
+  { Icon: Sparkle, title: 'KI nur auf Klick', text: 'Daten gehen nur an eine KI, wenn du sie fragst oder einen Test oder eine Arbeit erstellen lässt.' },
 ]
 
 export function AboutPage() {

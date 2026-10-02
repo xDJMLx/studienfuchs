@@ -217,13 +217,13 @@ export function RightRail() {
         <ProgressBar pct={lvl.into / lvl.needed} />
       </Link>
 
-      <Link to="/coach" className={`${card} group flex items-center gap-4`}>
+      <Link to="/books" className={`${card} group flex items-center gap-4`}>
         <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark transition-transform group-hover:scale-105">
           <Camera size={24} />
         </span>
         <span>
-          <span className="block font-semibold">Buchseiten in die KI laden</span>
-          <span className="block text-sm text-muted">Vokabeltest aus deinen eigenen Seiten.</span>
+          <span className="block font-semibold">Deine Bücher</span>
+          <span className="block text-sm text-muted">Seiten fotografieren, die KI kennt dein Buch.</span>
         </span>
       </Link>
 
