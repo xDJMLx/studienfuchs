@@ -13,7 +13,6 @@ import { useStore } from '../../store/useStore'
 type Step = 'hero' | 'course' | 'grade' | 'goal' | 'ready'
 const ORDER: Step[] = ['hero', 'course', 'grade', 'goal', 'ready']
 type FlowStep = Exclude<Step, 'hero'>
-const FLOW: FlowStep[] = ['course', 'grade', 'goal', 'ready']
 
 const GOALS = [
   { xp: 10, label: 'Locker', time: '5 Min. am Tag', bars: 1 },
@@ -30,6 +29,9 @@ const COURSES = [
   { id: 'latin', name: 'Latein', ready: false },
   { id: 'bio', name: 'Biologie', ready: false },
 ]
+
+// Solange nur ein Fach bereit ist (Französisch), entfällt die Fächerauswahl
+const FLOW: FlowStep[] = (['course', 'grade', 'goal', 'ready'] as FlowStep[]).filter((s) => s !== 'course' || COURSES.filter((c) => c.ready).length > 1)
 
 const SPEECH: Record<FlowStep, string> = {
   course: 'Was möchtest du lernen?',
@@ -129,7 +131,7 @@ export function Welcome() {
 
             <footer className="mx-auto w-full max-w-md px-6 pt-3" style={{ paddingBottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}>
               <motion.div initial={reduce ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: EASE, delay: 0.65 }} className="grid gap-3">
-                <button className="btn btn-primary press w-full !py-4 text-base" onClick={() => go('course')} autoFocus>
+                <button className="btn btn-primary press w-full !py-4 text-base" onClick={() => go(FLOW[0])} autoFocus>
                   Jetzt starten
                 </button>
                 <button className="btn btn-ghost press w-full !py-3.5" onClick={() => fileRef.current?.click()}>

@@ -181,7 +181,7 @@ export function LearnPage() {
         )}
       </section>
 
-      <CoachCard />
+      {doneCount > 0 && <CoachCard />}
       <InstallBanner />
       <BackupBanner />
 
