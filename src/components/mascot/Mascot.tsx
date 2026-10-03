@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Outfit } from '../../lib/shop'
 import { idleSeconds, mascotBus, trackGaze, type MascotEvent } from '../../lib/mascotBus'
-import { Fox } from './Fox'
+import { Fox, type FoxHandle } from './Fox'
 import { resolveLook, type Mood, type PoseName } from './look'
 
 export type { Mood } from './look'
@@ -49,15 +49,12 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
   const [temp, setTemp] = useState<PoseName | null>(null)
   const tempRef = useRef<{ pose: PoseName; token: number } | null>(null)
   const token = useRef(0)
+  const fox = useRef<FoxHandle>(null)
   const [talking, setTalking] = useState(false)
-  const [mouthOpen, setMouthOpen] = useState(false)
-  const [bodyClass, setBodyClass] = useState('')
-  const [headClass, setHeadClass] = useState('')
-  const [wagging, setWagging] = useState(false)
+  const lastLevelAt = useRef(0)
   const [bubble, setBubble] = useState<string | null>(null)
   const timers = useRef<number[]>([])
   const taps = useRef<number[]>([])
-  const eyeDelay = useMemo(() => -Math.random() * 5, [])
   const mountedAt = useRef(Date.now())
 
   const later = useCallback((fn: () => void, ms: number) => {
@@ -67,15 +64,15 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
   }, [])
   useEffect(() => () => timers.current.forEach(clearTimeout), [])
 
-  const fire = useCallback(
-    (kind: 'body' | 'head', name: string, ms: number) => {
-      const set = kind === 'body' ? setBodyClass : setHeadClass
-      set('')
-      requestAnimationFrame(() => set(name))
-      later(() => set((c) => (c === name ? '' : c)), ms)
-    },
-    [later],
-  )
+  /** Körperbewegungen laufen im Gerüst des Fuchses (Federn, Flugbahn), hier wird nur ausgelöst. */
+  const fire = useCallback((name: 'hop' | 'boing' | 'shake' | 'dance') => {
+    const f = fox.current
+    if (!f) return
+    if (name === 'hop') f.hop()
+    else if (name === 'boing') f.boing()
+    else if (name === 'shake') f.shake()
+    else f.hop(0.8)
+  }, [])
 
   /** Eine Pose für eine Weile zeigen. Läuft schon etwas Wichtigeres, passiert nichts; sonst gilt immer nur der neueste Auftrag. */
   const react = useCallback(
@@ -118,9 +115,7 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
         const m = Math.min(1, dist / 220)
         const nx = dist ? dx / dist : 0
         const ny = dist ? dy / dist : 0
-        el.style.setProperty('--px', String(Math.round(nx * 5 * m * 10) / 10))
-        el.style.setProperty('--py', String(Math.round(ny * 4.5 * m * 10) / 10))
-        el.style.setProperty('--hx', String(Math.round(nx * 3 * m * 10) / 10))
+        fox.current?.setPointer(Math.round(nx * 5 * m * 10) / 10, Math.round(ny * 4.5 * m * 10) / 10, Math.round(nx * 3 * m * 10) / 10)
       },
       wake: () => {
         if (tempRef.current?.pose === 'sleep') {
@@ -147,19 +142,11 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
           later(() => {
             if (!tempRef.current) hold('sleep')
           }, 1900)
-        } else if (r < 0.38) {
-          el.style.setProperty('--gx', String(rnd([-5, 5])))
-          el.style.setProperty('--gy', String(rnd([-2, 2])))
-          later(() => {
-            el.style.setProperty('--gx', '0')
-            el.style.setProperty('--gy', '0')
-          }, 1300)
-        } else if (r < 0.68) {
-          setWagging(true)
-          later(() => setWagging(false), 1700)
-        } else if (calm && size >= 90 && r < 0.82) {
+        } else if (r < 0.5) {
+          fox.current?.wag(1.7)
+        } else if (calm && size >= 90 && r < 0.72) {
           react('wink', 1300)
-        } else if (calm && size >= 90 && r < 0.9) {
+        } else if (calm && size >= 90 && r < 0.84) {
           react('wave', 1700)
         }
       }
@@ -178,21 +165,22 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
     return mascotBus.on((e: MascotEvent) => {
       if (e === 'correct') {
         react('cheer', 1400)
-        fire('body', 'fox-hop', 1000)
+        fire('hop')
       } else if (e === 'almost') {
         react('surprised', 1200)
+        fire('boing')
       } else if (e === 'wrong') {
         react('sad', 1900)
-        fire('head', 'fox-shake', 600)
+        fire('shake')
       } else if (e === 'cheer') {
         react('cheer', 2200)
-        fire('body', 'fox-hop', 1000)
+        fire('hop')
       } else if (e === 'pass') {
         react('proud', 2400)
-        fire('body', 'fox-hop', 1000)
+        fire('hop')
       } else if (e === 'levelup') {
         react('dance', 2800)
-        fire('body', 'fox-dance', 2700)
+        fire('dance')
       } else if (e === 'fail') {
         react('determined', 2200)
       } else if (e === 'speak:start') {
@@ -203,10 +191,23 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
     })
   }, [listen, react, fire])
 
-  // Mund bewegt sich beim Sprechen
+  // Mund beim Sprechen: nach der echten Lautstärke der Aufnahme; fehlt sie (Gerätestimme), im ungefähren Takt
   useEffect(() => {
-    if (!talking) return setMouthOpen(false)
-    const id = window.setInterval(() => setMouthOpen((o) => !o), 150)
+    if (!listen) return
+    return mascotBus.onLevel((level, bright) => {
+      lastLevelAt.current = Date.now()
+      fox.current?.setTalk(level, bright)
+    })
+  }, [listen])
+  useEffect(() => {
+    if (!talking) {
+      fox.current?.setTalk(null)
+      return
+    }
+    const id = window.setInterval(() => {
+      if (Date.now() - lastLevelAt.current < 250) return
+      fox.current?.setTalk(0.25 + Math.random() * 0.6, Math.random())
+    }, 110)
     const stop = window.setTimeout(() => setTalking(false), 6000)
     return () => {
       clearInterval(id)
@@ -221,10 +222,10 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
     if (tempRef.current?.pose === 'sleep') {
       tempRef.current = null
       react('surprised', 1400)
-      fire('body', 'fox-boing', 520)
+      fire('boing')
       return
     }
-    fire('body', 'fox-boing', 520)
+    fire('boing')
     if (taps.current.length >= 4) {
       react('laugh', 2200)
       say('Hihi, das kitzelt!', 2200)
@@ -234,18 +235,18 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
     const p = rnd<PoseName>(['wave', 'love', 'surprised', 'wink', 'laugh'])
     react(p, 1700)
     say(rnd(PHRASES[p] ?? ['Salut !']))
-    if (p === 'love' || p === 'wave' || p === 'laugh') fire('body', 'fox-hop', 1000)
+    if (p === 'love' || p === 'wave' || p === 'laugh') fire('hop')
   }
 
   const active: PoseName = temp ?? (mood === 'happy' ? 'idle' : mood)
-  const look = resolveLook(active, talking, mouthOpen)
+  const look = useMemo(() => resolveLook(active, false, false), [active])
 
   // Beim ersten Zeigen einer jubelnden Pose hüpft er einmal
   const didIntro = useRef(false)
   useEffect(() => {
     if (didIntro.current || !alive || mood !== 'cheer' || reduced()) return
     didIntro.current = true
-    fire('body', 'fox-hop', 1000)
+    fire('hop')
   }, [alive, mood, fire])
 
   // Begrüßung beim Erscheinen
@@ -264,8 +265,6 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
   const style = {
     width: full ? size * (5 / 6) : size,
     height: size,
-    ['--gx' as string]: look.gaze[0],
-    ['--gy' as string]: look.gaze[1],
   } as React.CSSProperties
 
   return (
@@ -276,7 +275,7 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
       onClick={onTap}
       {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}
     >
-      <Fox look={look} outfit={outfit} pose={pose} alive={alive} bodyClass={bodyClass} headClass={headClass} wagging={wagging} eyeDelay={eyeDelay} />
+      <Fox ref={fox} look={look} outfit={outfit} pose={pose} alive={alive} />
       {bubble && (
         <span className={`${bubbleSide === 'center' ? 'fox-bubble' : 'fox-bubble-side'} pointer-events-none absolute -top-1 z-20 max-w-[220px] rounded-xl border-2 border-line bg-surface px-3 py-1 text-xs font-extrabold text-ink shadow-[0_3px_0_var(--shade-line)] ${bubbleSide === 'center' ? 'left-1/2 -translate-x-1/2 whitespace-nowrap' : bubbleSide === 'right' ? 'right-0 w-max' : 'left-0 w-max'}`}>
           {bubble}

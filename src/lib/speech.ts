@@ -32,6 +32,56 @@ export function hasRecording(text: string): boolean {
 
 let current: HTMLAudioElement | null = null
 
+let audioCtx: AudioContext | null = null
+
+/**
+ * Lippenbewegung nach dem echten Klang: Lautstärke und Helligkeit der Aufnahme gehen an den Fuchs.
+ * Nur wenn der Audio-Kontext schon läuft; sonst würde der Ton über einen angehaltenen Kontext verstummen.
+ * Beim ersten Mal wird er nur gestartet, ab dem nächsten Wort bewegt sich der Mund im Takt der Stimme.
+ */
+function attachLevel(a: HTMLAudioElement): void {
+  try {
+    const AC = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+    if (!AC) return
+    audioCtx ??= new AC()
+    if (audioCtx.state !== 'running') {
+      void audioCtx.resume()
+      return
+    }
+    const ctx = audioCtx
+    const src = ctx.createMediaElementSource(a)
+    const an = ctx.createAnalyser()
+    an.fftSize = 512
+    an.smoothingTimeConstant = 0.35
+    src.connect(an)
+    an.connect(ctx.destination)
+    const wave = new Uint8Array(an.fftSize)
+    const freq = new Uint8Array(an.frequencyBinCount)
+    const split = Math.max(2, Math.floor((1500 / (ctx.sampleRate / 2)) * freq.length))
+    const loop = () => {
+      an.getByteTimeDomainData(wave)
+      let sum = 0
+      for (const v of wave) {
+        const d = (v - 128) / 128
+        sum += d * d
+      }
+      an.getByteFrequencyData(freq)
+      let lo = 0
+      let hi = 0
+      for (let i = 1; i < freq.length; i++) {
+        if (i < split) lo += freq[i]
+        else hi += freq[i]
+      }
+      mascotBus.emitLevel(Math.min(1, Math.sqrt(sum / wave.length) * 4.5), Math.min(1, (hi / (lo + hi + 1)) * 2))
+      if (!a.paused && !a.ended) requestAnimationFrame(loop)
+      else mascotBus.emitLevel(0, 0)
+    }
+    requestAnimationFrame(loop)
+  } catch {
+    // ohne Analyse läuft der Ton ganz normal weiter
+  }
+}
+
 function playRecording(text: string, rate: number): void {
   current?.pause()
   const a = new Audio(`${audioBase}${audioKey(text)}.mp3`)
@@ -41,6 +91,7 @@ function playRecording(text: string, rate: number): void {
   a.addEventListener('ended', () => mascotBus.emit('speak:end'), { once: true })
   a.addEventListener('pause', () => mascotBus.emit('speak:end'), { once: true })
   mascotBus.emit('speak:start')
+  attachLevel(a)
   void a.play().catch(() => mascotBus.emit('speak:end'))
 }
 

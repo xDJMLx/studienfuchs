@@ -7,7 +7,18 @@ export type MascotEvent = 'correct' | 'almost' | 'wrong' | 'cheer' | 'levelup' |
 type Listener = (e: MascotEvent) => void
 const listeners = new Set<Listener>()
 
+type LevelListener = (level: number, bright: number) => void
+const levelListeners = new Set<LevelListener>()
+
 export const mascotBus = {
+  /** Lautstärke (0 bis 1) und Helligkeit des Klangs (0 bis 1) der gerade gesprochenen Aufnahme, einmal pro Bild. */
+  emitLevel(level: number, bright: number) {
+    for (const l of levelListeners) l(level, bright)
+  },
+  onLevel(l: LevelListener): () => void {
+    levelListeners.add(l)
+    return () => levelListeners.delete(l)
+  },
   emit(e: MascotEvent) {
     for (const l of [...listeners]) l(e)
   },

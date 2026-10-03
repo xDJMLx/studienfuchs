@@ -58,7 +58,8 @@ export function mouthLine(p: MouthParams): string {
 /** Zungenellipse: sitzt am Boden des Mundes und ist nur bei offenem Mund zu sehen. */
 export function tonguePos(p: MouthParams): { cy: number; rx: number; ry: number } {
   const bottom = Math.max(p.cornerY, p.centerY) + p.open * 0.78
-  return { cy: bottom + 2, rx: Math.max(0, p.w * 0.62) * p.tongue, ry: Math.max(0, 9 * p.tongue) }
+  const k = Math.max(0, p.tongue)
+  return { cy: bottom + 2, rx: Math.max(0, p.w * 0.62) * k, ry: 9 * k }
 }
 
 const KEYS: (keyof MouthParams)[] = ['w', 'cornerY', 'centerY', 'bump', 'open', 'tongue']

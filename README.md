@@ -45,7 +45,8 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 <p align="center"><img src="docs/screenshots/fox.jpg" width="46%" alt="Fenni in verschiedenen Posen: froh, jubelnd, traurig, nachdenklich"></p>
 
 - Der Fuchs ist komplett selbst gezeichnet und besteht aus einzelnen Teilen, die sich bewegen: Er atmet, blinzelt, wedelt mit dem Schwanz, zuckt mit den Ohren und schaut dem Finger oder der Maus nach.
-- Er reagiert auf das, was du machst: Bei richtigen Antworten hüpft er, bei falschen wird er traurig und schüttelt den Kopf, bei einer Serie jubelt er, bei einer neuen Stufe tanzt er. Wenn eine Vokabel vorgelesen wird, bewegt er den Mund mit. Der Mund wird aus Zahlen gezeichnet und gleitet weich von einer Stimmung zur nächsten.
+- Er reagiert auf das, was du machst: Bei richtigen Antworten hüpft er, bei falschen wird er traurig und schüttelt den Kopf, bei einer Serie jubelt er, bei einer neuen Stufe tanzt er. Wenn eine Vokabel vorgelesen wird, bewegt er den Mund nach der echten Lautstärke der Aufnahme mit. Mund und Augen werden aus Zahlen gezeichnet und gleiten weich von einer Stimmung zur nächsten.
+- Der Körper bewegt sich mit Federphysik statt festen Animationen: Ohren, Arme und Schwanz schwingen nach, er geht beim Hüpfen erst in die Knie, fliegt in einer Bogenbahn und staucht sich beim Landen. Jeder Ablauf ist ein eigener Federzustand und lässt sich mitten in der Bewegung unterbrechen.
 - Er kennt 14 Posen (froh, jubelnd, traurig, nachdenklich, winkend, schlafend, überrascht, verliebt, zwinkernd, lachend, gähnend, tanzend, stolz, entschlossen). Wichtigere Reaktionen unterbrechen unwichtigere.
 - Tippen auf den Fuchs bringt ihn zum Winken, Staunen, Zwinkern oder Lachen. Wer ihn lange nicht anfasst, sieht ihn einschlafen.
 - Fürs Lernen gibt es Münzen. Damit kauft man Mütze, Brille und mehr, die der Fuchs überall in der App trägt.
