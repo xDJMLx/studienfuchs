@@ -50,7 +50,7 @@ export function AnswerInput({
         spellCheck={false}
         placeholder={placeholder}
         aria-label="Deine Antwort"
-        className="w-full resize-none rounded-2xl border-2 border-line bg-snow p-4 text-xl font-bold text-ink outline-none transition-colors placeholder:text-muted focus:border-brand disabled:opacity-70"
+        className="w-full resize-none rounded-2xl border-2 border-line bg-snow p-4 text-xl font-bold text-ink outline-none transition-colors placeholder:text-muted focus:border-sky disabled:opacity-70"
       />
       {lang === 'fr' && (
         <div className="mt-3 flex flex-wrap gap-2">

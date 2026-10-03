@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { grades, units } from '../../content'
 import { useStore } from '../../store/useStore'
 import { Check, Chevron } from './Icons'
@@ -79,6 +80,11 @@ export function CoursePicker({ open, onClose }: { open: boolean; onClose: () => 
           )
         })}
       </StaggerList>
+      <div className="mt-5 grid grid-cols-2 gap-2">
+        <Link to="/catchup" onClick={onClose} className="btn btn-ghost !min-h-11 !px-3 !text-[13px]">Aufholen</Link>
+        <Link to="/placement" onClick={onClose} className="btn btn-ghost !min-h-11 !px-3 !text-[13px]">Einstufungstest</Link>
+      </div>
+      <p className="mt-1 text-center text-xs text-muted">Unterricht schon weiter oder Vorwissen? Hier springst du an die richtige Stelle.</p>
     </Sheet>
   )
 }

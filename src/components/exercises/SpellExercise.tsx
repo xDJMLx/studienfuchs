@@ -38,7 +38,7 @@ export function SpellExercise({ exercise: ex, onChange, result }: ExerciseProps<
         disabled={locked || idx === undefined}
         onClick={() => update(picked.filter((_, k) => k !== at))}
         aria-label={letter ? `Buchstabe ${letter} entfernen` : 'leeres Feld'}
-        className={`flex h-12 w-10 items-center justify-center rounded-xl border-2 text-2xl font-bold ${letter ? 'border-brand bg-brand-soft text-brand-dark' : 'border-line bg-snow'}`}
+        className={`flex h-12 w-10 items-center justify-center rounded-xl border-2 text-2xl font-bold ${letter ? 'border-sky bg-sky-soft text-sky-dark' : 'border-line bg-snow'}`}
         lang="fr"
       >
         {letter}
