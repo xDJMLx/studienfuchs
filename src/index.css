@@ -552,7 +552,9 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
 [data-alive] .fox-tail { animation: fox-tail 3.8s ease-in-out infinite; }
 .fox-tail-wag { animation: fox-tail-wag 0.28s ease-in-out 6; }
 [data-alive] .fox-head { animation: fox-head 6s ease-in-out infinite; }
-[data-alive] .fox-eye { animation: fox-blink 5.6s infinite; }
+@keyframes fox-lid { 0%, 91%, 100% { transform: scaleY(0); } 94.5% { transform: scaleY(1); } }
+[data-alive] .fox-lid { animation: fox-lid 5.6s infinite; }
+.fox-lid { transform: scaleY(0); }
 [data-alive] .fox-ear-l { animation: fox-ear 7.5s ease-in-out infinite; }
 [data-alive] .fox-ear-r { animation: fox-ear 9s ease-in-out 2.4s infinite reverse; }
 .fox-hop { animation: fox-hop 0.95s cubic-bezier(0.3, 0, 0.3, 1) both; }
@@ -571,7 +573,14 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
 .fox-bubble-side { animation: fox-bubble-side 0.22s ease-out both; }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-alive] .fox-breathe, [data-alive] .fox-tail, .fox-tail-wag, [data-alive] .fox-head, [data-alive] .fox-eye,
+  [data-alive] .fox-breathe, [data-alive] .fox-tail, .fox-tail-wag, [data-alive] .fox-head, [data-alive] .fox-lid,
   [data-alive] .fox-ear-l, [data-alive] .fox-ear-r, .fox-hop, .fox-boing, .fox-dance, .fox-shake, .fox-arm-cheer-l, .fox-arm-cheer-r,
   .fox-pop, .fox-fall, .fox-tear, .fox-zzz, .fox-heart, .fox-float-in, .fox-bubble, .fox-bubble-side { animation: none; }
 }
+
+/* Tanz: Arme im Wechsel hoch und runter */
+@keyframes fox-dance-l { 0%, 100% { transform: rotate(12deg) scale(1, 1.2); } 50% { transform: rotate(112deg) scale(1, 1.2); } }
+@keyframes fox-dance-r { 0%, 100% { transform: rotate(-12deg) scale(1, 1.2); } 50% { transform: rotate(-112deg) scale(1, 1.2); } }
+.fox-dance-arm-l { animation: fox-dance-l 0.45s ease-in-out infinite; }
+.fox-dance-arm-r { animation: fox-dance-r 0.45s ease-in-out 0.225s infinite; }
+@media (prefers-reduced-motion: reduce) { .fox-dance-arm-l, .fox-dance-arm-r { animation: none; } }

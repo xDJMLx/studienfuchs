@@ -1,37 +1,13 @@
-import { useId } from 'react'
+import { useId, useLayoutEffect, useRef } from 'react'
 import type { Outfit } from '../../lib/shop'
+import type { Fx, Look } from './look'
+import { MOUTHS, mouthLine, mouthLower, mouthPath, stepMouth, tonguePos, type MouthName, type MouthParams } from './mouth'
 
 /**
  * Fenni, der Fuchs: eigene Zeichnung aus Formen, in Teilen aufgebaut, damit jedes Teil einzeln wackeln, blinzeln,
  * winken oder die Pose wechseln kann. Hier steht nur das Bild; Verhalten und Reaktionen stecken in Mascot.tsx.
  * Koordinaten: 200 breit, 240 hoch. Kopf um (100, 90), Hals bei (100, 140).
  */
-export type Eyes = 'open' | 'happy' | 'closed' | 'wide' | 'sad'
-export type Mouth = 'smile' | 'grin' | 'open' | 'talk' | 'sad' | 'o' | 'flat'
-export type Fx = 'sparkles' | 'tear' | 'question' | 'zzz' | 'hearts' | 'confetti' | null
-
-export interface Look {
-  eyes: Eyes
-  mouth: Mouth
-  /** Augenbrauen: [Verschiebung in y, Drehung in Grad] */
-  browL: [number, number]
-  browR: [number, number]
-  earL: number
-  earR: number
-  armL: number
-  armR: number
-  /** Arme vor dem Kopf zeichnen (Hand am Kinn, Hände an den Wangen) */
-  armFront?: boolean
-  headRot: number
-  headY: number
-  blush: number
-  fx: Fx
-  /** Blickrichtung ohne Zeiger, in Zeichnungseinheiten */
-  gaze: [number, number]
-}
-
-export const NEUTRAL: Look = { eyes: 'open', mouth: 'smile', browL: [0, 0], browR: [0, 0], earL: 0, earR: 0, armL: 0, armR: 0, headRot: 0, headY: 0, blush: 0.35, fx: null, gaze: [0, 0] }
-
 const C = {
   orange: '#ff8a1c',
   orangeLight: '#ffac4d',
@@ -43,11 +19,11 @@ const C = {
   tongue: '#ff7a8d',
 }
 
-const rot = (deg: number, x: number, y: number, ms = 320): React.CSSProperties => ({
+const rot = (deg: number, x: number, y: number, ms = 320, delay = 0): React.CSSProperties => ({
   transform: `rotate(${deg}deg)`,
   transformOrigin: `${x}px ${y}px`,
   transformBox: 'view-box',
-  transition: `transform ${ms}ms cubic-bezier(0.34, 1.5, 0.5, 1)`,
+  transition: `transform ${ms}ms cubic-bezier(0.34, 1.5, 0.5, 1) ${delay}ms`,
 })
 
 interface FoxProps {
@@ -73,13 +49,13 @@ export function Fox({ look, outfit, pose, alive, bodyClass = '', headClass = '',
   const arms = (
     <>
       <g style={rot(look.armL, 64, 160, 380)}>
-        <g className={look.armL > 100 && !look.armFront && alive ? 'fox-arm-cheer-l' : ''} style={{ transformOrigin: '64px 160px', transformBox: 'view-box', transform: `scale(1, ${look.armL > 100 && !look.armFront ? 1.24 : 1})`, transition: 'transform 380ms cubic-bezier(0.34, 1.5, 0.5, 1)' }}>
+        <g className={look.dance ? 'fox-dance-arm-l' : look.armL > 100 && !look.armFront && alive ? 'fox-arm-cheer-l' : ''} style={{ transformOrigin: '64px 160px', transformBox: 'view-box', transform: `scale(1, ${look.armL > 100 && !look.armFront ? 1.24 : 1})`, transition: 'transform 380ms cubic-bezier(0.34, 1.5, 0.5, 1)' }}>
           <path d="M62 154 C46 162 40 186 45 202 C48 210 61 211 64 201 C67 188 72 174 70 158 Z" fill={`url(#${g('fur')})`} />
           <path d="M44 198 C43 208 56 213 65 205 C65 199 61 195 54 195 Z" fill={C.brown} />
         </g>
       </g>
       <g style={rot(look.armR, 136, 160, 380)}>
-        <g className={look.armR < -100 && !look.armFront && alive ? 'fox-arm-cheer-r' : ''} style={{ transformOrigin: '136px 160px', transformBox: 'view-box', transform: `scale(1, ${look.armR < -100 && !look.armFront ? 1.24 : 1})`, transition: 'transform 380ms cubic-bezier(0.34, 1.5, 0.5, 1)' }}>
+        <g className={look.dance ? 'fox-dance-arm-r' : look.armR < -100 && !look.armFront && alive ? 'fox-arm-cheer-r' : ''} style={{ transformOrigin: '136px 160px', transformBox: 'view-box', transform: `scale(1, ${look.armR < -100 && !look.armFront ? 1.24 : 1})`, transition: 'transform 380ms cubic-bezier(0.34, 1.5, 0.5, 1)' }}>
           <path d="M138 154 C154 162 160 186 155 202 C152 210 139 211 136 201 C133 188 128 174 130 158 Z" fill={`url(#${g('fur')})`} />
           <path d="M156 198 C157 208 144 213 135 205 C135 199 139 195 146 195 Z" fill={C.brown} />
         </g>
@@ -114,9 +90,6 @@ export function Fox({ look, outfit, pose, alive, bodyClass = '', headClass = '',
         </clipPath>
         <clipPath id={g('tailTip')}>
           <rect x="140" y="120" width="70" height="48" />
-        </clipPath>
-        <clipPath id={g('mouthClip')}>
-          <path d="M82 126 C86 154 114 154 118 126 C108 131 92 131 82 126 Z" />
         </clipPath>
       </defs>
 
@@ -164,6 +137,9 @@ export function Fox({ look, outfit, pose, alive, bodyClass = '', headClass = '',
           <path d="M56 150 C46 180 52 210 74 219 C90 225 110 225 126 219 C148 210 154 180 144 150 C126 136 74 136 56 150 Z" fill={`url(#${g('fur')})`} />
           <path d="M72 146 C70 178 80 207 100 211 C120 207 130 178 128 146 C116 156 84 156 72 146 Z" fill={`url(#${g('white')})`} />
           <path d="M82 200 C92 208 108 208 118 200" stroke="#f0c9a0" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.6" />
+          {/* Lichtkante links und Schatten rechts geben dem Körper Rundung */}
+          <path d="M62 158 C55 182 59 204 72 214" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" fill="none" opacity="0.28" />
+          <path d="M140 160 C147 184 143 204 130 214" stroke="#c4560a" strokeWidth="5" strokeLinecap="round" fill="none" opacity="0.22" />
           {/* Schatten unter dem Kopf */}
           <ellipse cx="100" cy="148" rx="44" ry="8" fill="#b84d00" opacity="0.12" />
         </g>
@@ -199,7 +175,7 @@ export function Fox({ look, outfit, pose, alive, bodyClass = '', headClass = '',
         <g className={`${headClass} ${alive ? 'fox-head' : ''}`} style={{ transformOrigin: '100px 140px', transformBox: 'view-box' }}>
           <g className="fox-look" style={{ transformOrigin: '100px 140px', transformBox: 'view-box' }}>
             {/* Ohren */}
-            <g style={rot(look.earL, 56, 62, 300)}>
+            <g style={rot(look.earL, 56, 62, 340, 60)}>
               <g className={alive ? 'fox-ear-l' : ''} style={{ transformOrigin: '56px 62px', transformBox: 'view-box' }}>
                 <path d="M38 72 C20 46 20 20 32 4 C52 10 74 26 88 44 Z" fill={C.orange} />
                 <path d="M48 58 C40 42 38 28 42 18 C54 24 66 32 74 44 Z" fill={C.cream} />
@@ -208,7 +184,7 @@ export function Fox({ look, outfit, pose, alive, bodyClass = '', headClass = '',
                 </g>
               </g>
             </g>
-            <g style={rot(look.earR, 144, 62, 300)}>
+            <g style={rot(look.earR, 144, 62, 340, 60)}>
               <g className={alive ? 'fox-ear-r' : ''} style={{ transformOrigin: '144px 62px', transformBox: 'view-box' }}>
                 <path d="M162 72 C180 46 180 20 168 4 C148 10 126 26 112 44 Z" fill={C.orange} />
                 <path d="M152 58 C160 42 162 28 158 18 C146 24 134 32 126 44 Z" fill={C.cream} />
@@ -242,12 +218,18 @@ export function Fox({ look, outfit, pose, alive, bodyClass = '', headClass = '',
             <ellipse cx="42" cy="114" rx="9" ry="6" fill="#ff6f7a" opacity={look.blush} />
             <ellipse cx="158" cy="114" rx="9" ry="6" fill="#ff6f7a" opacity={look.blush} />
 
+            {/* Sommersprossen */}
+            <g fill="#d9955f" opacity="0.75">
+              <circle cx="76" cy="120" r="1.7" /><circle cx="70" cy="125" r="1.7" /><circle cx="77" cy="127" r="1.7" />
+              <circle cx="124" cy="120" r="1.7" /><circle cx="130" cy="125" r="1.7" /><circle cx="123" cy="127" r="1.7" />
+            </g>
+
             {/* Nase */}
             <path d="M90 106 Q100 101 110 106 Q108 117 100 121 Q92 117 90 106 Z" fill={C.brown} />
             <ellipse cx="97" cy="107.5" rx="4" ry="1.7" fill="#fff" opacity="0.5" />
 
             {/* Mund */}
-            <MouthShape mouth={look.mouth} clip={g('mouthClip')} />
+            <AnimatedMouth mouth={look.mouth} clipId={g('mouthClip')} />
 
             {/* Gesichtsschmuck (gekauft) */}
             {gesicht === 'brille' && (
@@ -317,89 +299,108 @@ export function Fox({ look, outfit, pose, alive, bodyClass = '', headClass = '',
 function Eye({ cx, cy, look, lid, eyeDelay, mirror = false }: { cx: number; cy: number; look: Look; lid: string; eyeDelay: number; mirror?: boolean }) {
   const { eyes } = look
   const flip = mirror ? -1 : 1
-  if (eyes === 'happy') {
-    return <path d={`M${cx - 15} ${cy + 6} Q${cx} ${cy - 16} ${cx + 15} ${cy + 6}`} stroke={C.brown} strokeWidth="6.5" strokeLinecap="round" fill="none" />
-  }
-  if (eyes === 'closed') {
-    return <path d={`M${cx - 14} ${cy - 2} Q${cx} ${cy + 10} ${cx + 14} ${cy - 2}`} stroke={C.brown} strokeWidth="6" strokeLinecap="round" fill="none" />
-  }
-  const wide = eyes === 'wide'
-  const rx = wide ? 17 : 15
-  const ry = wide ? 21 : 19
+  // Zwinkern: das rechte Auge ist zu, das linke offen
+  const mode: 'open' | 'happy' | 'closed' = eyes === 'happy' || (eyes === 'wink' && mirror) ? 'happy' : eyes === 'closed' ? 'closed' : 'open'
+  const rx = 15
+  const ry = 19
+  const fade = { transition: 'opacity 120ms ease-out' }
   return (
-    <g className="fox-eye" style={{ transformOrigin: `${cx}px ${cy + 6}px`, transformBox: 'view-box', animationDelay: `${eyeDelay}s` }}>
-      <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="#fff" />
-      <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="none" stroke="#f0d3b4" strokeWidth="1.5" />
-      <g style={{ transform: 'translate(calc((var(--gx, 0) + var(--px, 0)) * 1px), calc((var(--gy, 0) + var(--py, 0)) * 1px))', transition: 'transform 140ms ease-out' }}>
-        <ellipse cx={cx} cy={cy + 1} rx={wide ? 11.5 : 10.5} ry={wide ? 14.5 : 13.5} fill="#2a170a" />
-        <ellipse cx={cx} cy={cy + 8} rx="7" ry="5" fill="#8a4a1c" opacity="0.5" />
-        <circle cx={cx - 3.6 * flip} cy={cy - 5} r="4" fill="#fff" />
-        <circle cx={cx + 4 * flip} cy={cy + 6} r="1.9" fill="#fff" opacity="0.9" />
+    <g>
+      <path d={'M' + (cx - 15) + ' ' + (cy + 6) + ' Q' + cx + ' ' + (cy - 16) + ' ' + (cx + 15) + ' ' + (cy + 6)} stroke={C.brown} strokeWidth="6.5" strokeLinecap="round" fill="none" style={{ ...fade, opacity: mode === 'happy' ? 1 : 0 }} />
+      <path d={'M' + (cx - 14) + ' ' + (cy - 2) + ' Q' + cx + ' ' + (cy + 10) + ' ' + (cx + 14) + ' ' + (cy - 2)} stroke={C.brown} strokeWidth="6" strokeLinecap="round" fill="none" style={{ ...fade, opacity: mode === 'closed' ? 1 : 0 }} />
+      <g style={{ ...fade, opacity: mode === 'open' ? 1 : 0 }}>
+        <g>
+          <g style={{ transform: eyes === 'wide' ? 'scale(1.13)' : 'scale(1)', transformOrigin: cx + 'px ' + cy + 'px', transformBox: 'view-box', transition: 'transform 160ms cubic-bezier(0.34, 1.5, 0.5, 1)' }}>
+            <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="#fff" />
+            <ellipse cx={cx} cy={cy} rx={rx} ry={ry} fill="none" stroke="#f0d3b4" strokeWidth="1.5" />
+            <g style={{ transform: 'translate(calc((var(--gx, 0) + var(--px, 0)) * 1px), calc((var(--gy, 0) + var(--py, 0)) * 1px))', transition: 'transform 140ms ease-out' }}>
+              <ellipse cx={cx} cy={cy + 1} rx="10.5" ry="13.5" fill="#2a170a" />
+              <ellipse cx={cx} cy={cy + 8} rx="7" ry="5" fill="#8a4a1c" opacity="0.5" />
+              <circle cx={cx - 3.6 * flip} cy={cy - 5} r="4" fill="#fff" />
+              <circle cx={cx + 4 * flip} cy={cy + 6} r="1.9" fill="#fff" opacity="0.9" />
+            </g>
+            {/* Lid zum Blinzeln: fährt von oben über das Auge, in Hautfarbe statt als weißer Strich */}
+            <ellipse className="fox-lid" cx={cx} cy={cy} rx={rx + 1.4} ry={ry + 1.4} fill={lid} style={{ transformOrigin: cx + 'px ' + (cy - ry - 1.4) + 'px', transformBox: 'view-box', animationDelay: eyeDelay + 's' }} />
+            {/* Oberlid, außen tiefer: gibt den traurigen Blick */}
+            <path
+              d={mirror ? 'M' + (cx - rx - 2) + ' ' + (cy - 26) + ' L' + (cx + rx + 2) + ' ' + (cy - 26) + ' L' + (cx + rx + 2) + ' ' + (cy - 4) + ' Q' + cx + ' ' + (cy - 20) + ' ' + (cx - rx - 2) + ' ' + (cy - 17) + ' Z' : 'M' + (cx - rx - 2) + ' ' + (cy - 26) + ' L' + (cx + rx + 2) + ' ' + (cy - 26) + ' L' + (cx + rx + 2) + ' ' + (cy - 17) + ' Q' + cx + ' ' + (cy - 20) + ' ' + (cx - rx - 2) + ' ' + (cy - 4) + ' Z'}
+              fill={lid}
+              style={{ ...fade, opacity: eyes === 'sad' ? 1 : 0 }}
+            />
+          </g>
+        </g>
       </g>
-      {eyes === 'sad' && (
-        // Oberlid, außen tiefer: gibt den traurigen Blick
-        <path d={mirror ? `M${cx - rx - 2} ${cy - 26} L${cx + rx + 2} ${cy - 26} L${cx + rx + 2} ${cy - 4} Q${cx} ${cy - 20} ${cx - rx - 2} ${cy - 17} Z` : `M${cx - rx - 2} ${cy - 26} L${cx + rx + 2} ${cy - 26} L${cx + rx + 2} ${cy - 17} Q${cx} ${cy - 20} ${cx - rx - 2} ${cy - 4} Z`} fill={lid} />
-      )}
     </g>
   )
 }
 
-function MouthShape({ mouth, clip }: { mouth: Mouth; clip: string }) {
-  const line = { stroke: C.brown, strokeWidth: 4, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, fill: 'none' }
-  switch (mouth) {
-    case 'grin':
-      return (
-        <g>
-          <path d="M82 126 C86 154 114 154 118 126 C108 131 92 131 82 126 Z" fill={C.mouth} stroke={C.brown} strokeWidth="3.5" strokeLinejoin="round" />
-          <g clipPath={`url(#${clip})`}>
-            <ellipse cx="100" cy="148" rx="13" ry="8" fill={C.tongue} />
-          </g>
-          <path d="M100 121 V127" {...line} strokeWidth="3.4" />
-        </g>
-      )
-    case 'open':
-      return (
-        <g>
-          <path d="M88 128 Q100 150 112 128 Q100 132 88 128 Z" fill={C.mouth} stroke={C.brown} strokeWidth="3.4" strokeLinejoin="round" />
-          <path d="M100 121 V128" {...line} strokeWidth="3.4" />
-        </g>
-      )
-    case 'talk':
-      return (
-        <g>
-          <ellipse cx="100" cy="135" rx="9" ry="8" fill={C.mouth} stroke={C.brown} strokeWidth="3.4" />
-          <path d="M100 121 V127" {...line} strokeWidth="3.4" />
-        </g>
-      )
-    case 'sad':
-      return (
-        <g>
-          <path d="M100 121 V128" {...line} strokeWidth="3.4" />
-          <path d="M86 142 Q100 128 114 142" {...line} />
-        </g>
-      )
-    case 'o':
-      return (
-        <g>
-          <ellipse cx="100" cy="137" rx="7" ry="9" fill={C.mouth} stroke={C.brown} strokeWidth="3.4" />
-          <path d="M100 121 V127" {...line} strokeWidth="3.4" />
-        </g>
-      )
-    case 'flat':
-      return (
-        <g>
-          <path d="M100 121 V128" {...line} strokeWidth="3.4" />
-          <path d="M90 134 Q100 137 110 134" {...line} />
-        </g>
-      )
-    default:
-      return (
-        <g>
-          <path d="M100 121 V129" {...line} strokeWidth="3.4" />
-          <path d="M85 129 Q92.5 139 100 129 Q107.5 139 115 129" {...line} />
-        </g>
-      )
+/**
+ * Mund: wird aus Zahlen gezeichnet und gleitet beim Wechsel der Stimmung weich zur neuen Form.
+ * Die Pfade werden direkt gesetzt (ohne React), damit nicht bei jedem Bild neu gerendert wird.
+ */
+function AnimatedMouth({ mouth, clipId }: { mouth: MouthName; clipId: string }) {
+  const fillRef = useRef<SVGPathElement>(null)
+  const clipRef = useRef<SVGPathElement>(null)
+  const upperRef = useRef<SVGPathElement>(null)
+  const lowerRef = useRef<SVGPathElement>(null)
+  const stemRef = useRef<SVGPathElement>(null)
+  const tongueRef = useRef<SVGEllipseElement>(null)
+  const cur = useRef<MouthParams>({ ...MOUTHS[mouth] })
+  const raf = useRef(0)
+
+  const draw = () => {
+    const p = cur.current
+    const full = mouthPath(p)
+    fillRef.current?.setAttribute('d', full)
+    fillRef.current?.setAttribute('fill-opacity', String(Math.min(1, p.open / 4)))
+    clipRef.current?.setAttribute('d', full)
+    upperRef.current?.setAttribute('d', mouthLine(p))
+    lowerRef.current?.setAttribute('d', mouthLower(p))
+    lowerRef.current?.setAttribute('stroke-opacity', String(Math.min(1, p.open / 4)))
+    stemRef.current?.setAttribute('d', 'M100 121 V' + (p.centerY - 0.5))
+    const t = tonguePos(p)
+    tongueRef.current?.setAttribute('cy', String(t.cy))
+    tongueRef.current?.setAttribute('rx', String(t.rx))
+    tongueRef.current?.setAttribute('ry', String(t.ry))
   }
+
+  useLayoutEffect(() => {
+    const target = MOUTHS[mouth]
+    cancelAnimationFrame(raf.current)
+    if (typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      cur.current = { ...target }
+      draw()
+      return
+    }
+    let last = performance.now()
+    const tick = (now: number) => {
+      const moving = stepMouth(cur.current, target, Math.min(64, now - last))
+      last = now
+      draw()
+      raf.current = moving ? requestAnimationFrame(tick) : 0
+    }
+    raf.current = requestAnimationFrame(tick)
+    draw()
+    return () => cancelAnimationFrame(raf.current)
+    // draw liest nur Refs
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mouth])
+
+  const stroke = { stroke: C.brown, strokeWidth: 3.6, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, fill: 'none' }
+  return (
+    <g>
+      <clipPath id={clipId}>
+        <path ref={clipRef} />
+      </clipPath>
+      <path ref={fillRef} fill={C.mouth} />
+      <g clipPath={'url(#' + clipId + ')'}>
+        <ellipse ref={tongueRef} cx="100" fill={C.tongue} />
+      </g>
+      <path ref={stemRef} {...stroke} strokeWidth="3.4" />
+      <path ref={upperRef} {...stroke} />
+      <path ref={lowerRef} {...stroke} />
+    </g>
+  )
 }
 
 /** Kleine Effekte rund um den Fuchs: Funken, Träne, Fragezeichen, Zzz, Herzen, Konfetti. */

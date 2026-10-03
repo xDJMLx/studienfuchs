@@ -1,33 +1,27 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Outfit } from '../../lib/shop'
 import { idleSeconds, mascotBus, trackGaze, type MascotEvent } from '../../lib/mascotBus'
-import { Fox, NEUTRAL, type Look } from './Fox'
+import { Fox } from './Fox'
+import { resolveLook, type Mood, type PoseName } from './look'
 
-export type Mood = 'happy' | 'cheer' | 'sad' | 'think' | 'wave' | 'sleep' | 'surprised' | 'love'
-type PoseName = Mood | 'idle'
+export type { Mood } from './look'
 
-/** Alle Posen als Abweichung von der ruhigen Grundhaltung. */
-const POSES: Record<PoseName, Partial<Look>> = {
-  idle: {},
-  happy: { mouth: 'grin', blush: 0.5, browL: [-2, -4], browR: [-2, 4] },
-  cheer: { eyes: 'happy', mouth: 'grin', armL: 110, armR: -110, earL: -8, earR: 8, browL: [-4, -6], browR: [-4, 6], blush: 0.6, fx: 'sparkles', headY: -2 },
-  sad: { eyes: 'sad', mouth: 'sad', browL: [2, -14], browR: [2, 14], earL: 16, earR: -16, headRot: -5, headY: 5, gaze: [0, 4], blush: 0.15, fx: 'tear', armL: 6, armR: -6 },
-  think: { mouth: 'flat', browL: [-3, 0], browR: [-9, 10], headRot: 7, armR: 118, armFront: true, gaze: [5, -5], fx: 'question', earL: -4 },
-  wave: { mouth: 'grin', armR: -112, headRot: -4, blush: 0.5 },
-  sleep: { eyes: 'closed', mouth: 'flat', headRot: 9, headY: 7, earL: 10, earR: -10, armL: 4, armR: -4, fx: 'zzz', browL: [3, 0], browR: [3, 0] },
-  surprised: { eyes: 'wide', mouth: 'o', browL: [-8, -6], browR: [-8, 6], earL: -10, earR: 10, armL: 28, armR: -28 },
-  love: { eyes: 'happy', mouth: 'grin', blush: 0.75, fx: 'hearts', headRot: -4, armL: 128, armR: -128, armFront: true },
-}
-
-const PHRASES: Record<string, string[]> = {
+const PHRASES: Partial<Record<PoseName, string[]>> = {
   wave: ['Salut !', 'Hallo!', 'Bonjour !'],
   love: ['Hihi!', 'Du bist super!', 'Merci !'],
   surprised: ['Oh!', 'Huch!', 'Ça va ?'],
+  wink: ['Tu peux le faire !', 'Zwinker, zwinker!', 'Allez !'],
+  laugh: ['Haha!', 'Das war lustig!', 'Hihihi!'],
   cheer: ['Bravo !', 'Weiter so!', 'Allez !'],
 }
 
 const rnd = <T,>(a: T[]): T => a[Math.floor(Math.random() * a.length)]
 const reduced = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+
+/** Wichtigere Reaktionen unterbrechen unwichtigere, nie umgekehrt (z. B. Jubel schlägt Winken). */
+const PRIORITY: Record<PoseName, number> = {
+  idle: 0, happy: 0, wave: 1, wink: 1, yawn: 1, sleep: 1, think: 2, proud: 2, love: 2, laugh: 2, surprised: 2, determined: 2, sad: 3, cheer: 3, dance: 4,
+}
 
 export interface MascotProps {
   mood?: Mood
@@ -53,6 +47,8 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
   const alive = (aliveProp ?? blink) && size >= 56
   const wrap = useRef<HTMLDivElement>(null)
   const [temp, setTemp] = useState<PoseName | null>(null)
+  const tempRef = useRef<{ pose: PoseName; token: number } | null>(null)
+  const token = useRef(0)
   const [talking, setTalking] = useState(false)
   const [mouthOpen, setMouthOpen] = useState(false)
   const [bodyClass, setBodyClass] = useState('')
@@ -63,7 +59,6 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
   const taps = useRef<number[]>([])
   const eyeDelay = useMemo(() => -Math.random() * 5, [])
   const mountedAt = useRef(Date.now())
-  const sleeping = useRef(false)
 
   const later = useCallback((fn: () => void, ms: number) => {
     const id = window.setTimeout(fn, ms)
@@ -77,18 +72,33 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
       const set = kind === 'body' ? setBodyClass : setHeadClass
       set('')
       requestAnimationFrame(() => set(name))
-      later(() => set(''), ms)
+      later(() => set((c) => (c === name ? '' : c)), ms)
     },
     [later],
   )
 
+  /** Eine Pose für eine Weile zeigen. Läuft schon etwas Wichtigeres, passiert nichts; sonst gilt immer nur der neueste Auftrag. */
   const react = useCallback(
     (p: PoseName, ms = 1500) => {
+      const running = tempRef.current
+      if (running && PRIORITY[running.pose] > PRIORITY[p]) return
+      const mine = ++token.current
+      tempRef.current = { pose: p, token: mine }
       setTemp(p)
-      later(() => setTemp((cur) => (cur === p ? null : cur)), ms)
+      later(() => {
+        if (tempRef.current?.token !== mine) return
+        tempRef.current = null
+        setTemp(null)
+      }, ms)
     },
     [later],
   )
+
+  /** Dauerhafte Pose (Schlaf), die nur durch eine Berührung endet. */
+  const hold = useCallback((p: PoseName) => {
+    tempRef.current = { pose: p, token: ++token.current }
+    setTemp(p)
+  }, [])
 
   const say = useCallback(
     (text: string, ms = 1900) => {
@@ -113,12 +123,15 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
         el.style.setProperty('--hx', String(Math.round(nx * 3 * m * 10) / 10))
       },
       wake: () => {
-        if (sleeping.current) react('surprised', 1400)
+        if (tempRef.current?.pose === 'sleep') {
+          tempRef.current = null
+          react('surprised', 1400)
+        }
       },
     })
   }, [alive, react])
 
-  // kleine Eigenheiten, wenn nichts passiert: umschauen, Schwanz wedeln, einschlafen
+  // kleine Eigenheiten, wenn nichts passiert: umschauen, Schwanz wedeln, zwinkern, gähnen und einschlafen
   useEffect(() => {
     if (!alive || reduced()) return
     let stop = false
@@ -126,21 +139,27 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
       if (stop) return
       const el = wrap.current
       const r = Math.random()
+      const calm = mood === 'happy' && !tempRef.current
       if (el) {
-        if (idleSeconds() > 45 && Date.now() - mountedAt.current > 45000 && size >= 90 && mood === 'happy') {
-          setTemp('sleep')
-        } else if (r < 0.4) {
-          const gx = rnd([-5, 5])
-          el.style.setProperty('--gx', String(gx))
+        if (calm && idleSeconds() > 45 && Date.now() - mountedAt.current > 45000 && size >= 90) {
+          // erst gähnen, dann einschlafen
+          react('yawn', 1800)
+          later(() => {
+            if (!tempRef.current) hold('sleep')
+          }, 1900)
+        } else if (r < 0.38) {
+          el.style.setProperty('--gx', String(rnd([-5, 5])))
           el.style.setProperty('--gy', String(rnd([-2, 2])))
           later(() => {
             el.style.setProperty('--gx', '0')
             el.style.setProperty('--gy', '0')
           }, 1300)
-        } else if (r < 0.75) {
+        } else if (r < 0.68) {
           setWagging(true)
           later(() => setWagging(false), 1700)
-        } else if (r < 0.88 && size >= 90 && mood === 'happy') {
+        } else if (calm && size >= 90 && r < 0.82) {
+          react('wink', 1300)
+        } else if (calm && size >= 90 && r < 0.9) {
           react('wave', 1700)
         }
       }
@@ -151,7 +170,7 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
       stop = true
       clearTimeout(first)
     }
-  }, [alive, size, mood, later, react])
+  }, [alive, size, mood, later, react, hold])
 
   // Meldungen aus der App
   useEffect(() => {
@@ -165,14 +184,17 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
       } else if (e === 'wrong') {
         react('sad', 1900)
         fire('head', 'fox-shake', 600)
-      } else if (e === 'cheer' || e === 'pass') {
+      } else if (e === 'cheer') {
         react('cheer', 2200)
         fire('body', 'fox-hop', 1000)
+      } else if (e === 'pass') {
+        react('proud', 2400)
+        fire('body', 'fox-hop', 1000)
       } else if (e === 'levelup') {
-        react('cheer', 3000)
+        react('dance', 2800)
         fire('body', 'fox-dance', 2700)
       } else if (e === 'fail') {
-        react('think', 2200)
+        react('determined', 2200)
       } else if (e === 'speak:start') {
         setTalking(true)
       } else if (e === 'speak:end') {
@@ -196,24 +218,29 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
     if (!alive) return
     const now = Date.now()
     taps.current = [...taps.current.filter((t) => now - t < 2200), now]
+    if (tempRef.current?.pose === 'sleep') {
+      tempRef.current = null
+      react('surprised', 1400)
+      fire('body', 'fox-boing', 520)
+      return
+    }
     fire('body', 'fox-boing', 520)
     if (taps.current.length >= 4) {
-      react('love', 2200)
+      react('laugh', 2200)
       say('Hihi, das kitzelt!', 2200)
       taps.current = []
       return
     }
-    const p = rnd<PoseName>(['wave', 'love', 'surprised'])
+    const p = rnd<PoseName>(['wave', 'love', 'surprised', 'wink', 'laugh'])
     react(p, 1700)
-    say(rnd(PHRASES[p]))
-    if (p === 'love' || p === 'wave') fire('body', 'fox-hop', 1000)
+    say(rnd(PHRASES[p] ?? ['Salut !']))
+    if (p === 'love' || p === 'wave' || p === 'laugh') fire('body', 'fox-hop', 1000)
   }
 
   const active: PoseName = temp ?? (mood === 'happy' ? 'idle' : mood)
-  sleeping.current = active === 'sleep'
-  const look: Look = { ...NEUTRAL, ...POSES[active] }
-  if (talking && (look.mouth === 'smile' || look.mouth === 'grin' || look.mouth === 'flat')) look.mouth = mouthOpen ? 'talk' : 'smile'
-  // Dauerhaft fröhliche Pose beim ersten Zeigen: einmal hüpfen
+  const look = resolveLook(active, talking, mouthOpen)
+
+  // Beim ersten Zeigen einer jubelnden Pose hüpft er einmal
   const didIntro = useRef(false)
   useEffect(() => {
     if (didIntro.current || !alive || mood !== 'cheer' || reduced()) return
