@@ -305,14 +305,12 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           </g>
 
           {/* Kopfform und weißes Gesicht */}
-          <path d="M100 28 C142 28 170 54 172 90 C173 101 177 109 184 117 C170 120 161 120 153 115 C145 135 125 148 100 148 C75 148 55 135 47 115 C39 120 30 120 16 117 C23 109 27 101 28 90 C30 54 58 28 100 28 Z" fill={`url(#${g('face')})`} />
-          <path d="M28 98 C46 92 70 98 82 114 C88 122 94 127 100 127 C106 127 112 122 118 114 C130 98 154 92 172 98 C175 106 179 111 184 117 C170 120 161 120 153 115 C145 135 125 148 100 148 C75 148 55 135 47 115 C39 120 30 120 16 117 C21 111 25 106 28 98 Z" fill={`url(#${g('white')})`} />
+          <path d="M100 28 C142 28 170 54 172 90 C173 104 180 112 178 121 C176 128 167 127 159 123 C149 139 127 148 100 148 C73 148 51 139 41 123 C33 127 24 128 22 121 C20 112 27 104 28 90 C30 54 58 28 100 28 Z" fill={`url(#${g('face')})`} />
+          <path d="M28 98 C46 92 70 98 82 114 C88 122 94 127 100 127 C106 127 112 122 118 114 C130 98 154 92 172 98 C174 105 180 112 178 121 C176 128 167 127 159 123 C149 139 127 148 100 148 C73 148 51 139 41 123 C33 127 24 128 22 121 C20 112 26 105 28 98 Z" fill={`url(#${g('white')})`} />
           <path d="M60 52 C74 40 92 36 106 36" stroke="#fff" strokeWidth="5" strokeLinecap="round" fill="none" opacity="0.28" />
           {/* Haarbüschel */}
           <path d="M96 31 C90 17 102 8 112 14 C104 16 102 24 104 31 Z" fill={C.orangeLight} />
           <path d="M104 31 C102 22 108 18 116 20 C110 23 110 28 112 31 Z" fill={C.orange} />
-          {/* Wangenfell */}
-          <path d="M36 112 l-8 4 M40 117 l-9 5 M164 112 l8 4 M160 117 l9 5" stroke="#f1c9a2" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
 
           {/* Augen */}
           <Eye cx={69} cy={90} clipId={g('eyeL')} flip={1} side="L" reg={reg} />
