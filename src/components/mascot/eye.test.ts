@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { BLINK_TOTAL, EYE_OPEN, blinkClosed, blinked, eyeArc, eyeLid, eyeTarget, eyeWindow, lidCurve, lidOpacity, stepEye } from './eye'
+import { BLINK_TOTAL, EYE_OPEN, blinkClosed, blinked, eyeArc, eyeLid, eyeTarget, eyeWindow, lidCurve, lidOpacity, shutScale, stepEye } from './eye'
 import { FoxEngine } from './engine'
 import { resolveLook } from './look'
 
@@ -65,20 +65,35 @@ describe('Blinzeln', () => {
     expect(down).toBeLessThan(up)
   })
 
-  it('beim Blinzeln treffen sich Ober- und Unterlid in der Augenmitte, die Pose selbst bleibt unverändert', () => {
+  it('beim Blinzeln staucht sich das Auge senkrecht, die Pose selbst bleibt unverändert', () => {
     const base = { ...EYE_OPEN }
     const b = blinked(base, 1)
     expect(b.shut).toBe(1)
     expect(b.open).toBe(1)
     expect(base.shut).toBe(0)
     expect(blinked(base, 0)).toBe(base)
-    // ganz zu: Oberkante und Unterkante des Fensters liegen auf derselben Höhe, in der Augenmitte
-    const win = eyeWindow(b, 69, 90, false)
-    const nums = win.match(/-?[0-9]+(?:[.][0-9]+)?/g)!.map(Number)
-    const ys = nums.filter((_, i) => i % 2 === 1)
-    expect(Math.max(...ys) - Math.min(...ys)).toBeLessThan(10)
-    expect(Math.min(...ys)).toBeGreaterThan(90) // unter dem Augenmittelpunkt, nicht am Wangenrand
-    expect(Math.max(...ys)).toBeLessThan(90 + 19)
+    expect(shutScale(base)).toBe(1)
+    expect(shutScale(blinked(base, 0.5))).toBeLessThan(0.7)
+    expect(shutScale(b)).toBeLessThan(0.1)
+    expect(shutScale(b)).toBeGreaterThan(0)
+  })
+
+  it('die Stauchung läuft gleichmäßig und ohne Sprünge mit dem Blinzelverlauf', () => {
+    let prev = shutScale(blinked(EYE_OPEN, blinkClosed(0)))
+    for (let d = 0.004; d <= BLINK_TOTAL; d += 0.004) {
+      const cur = shutScale(blinked(EYE_OPEN, blinkClosed(d)))
+      expect(Math.abs(cur - prev)).toBeLessThan(0.35)
+      prev = cur
+    }
+  })
+
+  it('ganz zu liegt die Schlusslinie leicht unter der Augenmitte und im Auge', () => {
+    const d = eyeLid(blinked(EYE_OPEN, 1), 69, 90, false)
+    const nums = d.match(/-?[0-9]+(?:[.][0-9]+)?/g)!.map(Number)
+    expect(nums[1]).toBeGreaterThan(90)
+    expect(nums[1]).toBeLessThan(100)
+    expect(nums[0]).toBeGreaterThan(69 - 16)
+    expect(nums[4]).toBeLessThan(69 + 16)
   })
 
   it('die Lidlinie ist beim Blinzeln deckend und bei Bogenaugen aus', () => {

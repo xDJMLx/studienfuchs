@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useId, useImperativeHandle, useLayoutEffect, useMemo, useRef } from 'react'
 import type { Outfit } from '../../lib/shop'
 import { FoxEngine } from './engine'
-import { eyeArc, eyeLid, eyeWindow, lidOpacity, EYE_RX, EYE_RY, type EyeParams } from './eye'
+import { eyeArc, eyeLid, eyeWindow, lidOpacity, shutScale, SHUT_PIVOT, EYE_RX, EYE_RY, type EyeParams } from './eye'
 import type { Fx, Look } from './look'
 import { mouthLine, mouthLower, mouthPath, tonguePos, type MouthParams } from './mouth'
 
@@ -452,7 +452,10 @@ function drawEye(p: EyeParams, cx: number, cy: number, mirror: boolean, side: 'L
   set('arc' + side, 'd', eyeArc(p, cx, cy))
   set('arc' + side, 'stroke-opacity', String(Math.round(p.arcOn * 100) / 100))
   set('pup' + side, 'transform', 'translate(' + gx + ' ' + gy + ') translate(' + cx + ' ' + (cy + 1) + ') scale(' + Math.round(p.pupil * 100) / 100 + ') translate(' + -cx + ' ' + -(cy + 1) + ')')
-  set('scale' + side, 'transform', 'translate(' + cx + ' ' + cy + ') scale(' + Math.round(p.scale * 100) / 100 + ') translate(' + -cx + ' ' + -cy + ')')
+  const piv = cy + SHUT_PIVOT * p.shut
+  const sx = Math.round(p.scale * 100) / 100
+  const sy = Math.round(p.scale * shutScale(p) * 1000) / 1000
+  set('scale' + side, 'transform', 'translate(' + cx + ' ' + piv + ') scale(' + sx + ' ' + sy + ') translate(' + -cx + ' ' + -piv + ')')
 }
 
 function drawMouth(m: MouthParams, set: Setter) {
