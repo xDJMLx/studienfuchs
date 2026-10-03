@@ -343,31 +343,32 @@ h1, h2, h3 {
 }
 
 /* ---------- Lernpfad: runde Spielsteine mit Unterkante ---------- */
+/* Fläche und Unterkante sind gleich große Kreise; die Unterkante liegt 8 px tiefer. Alles, was die Fläche umgibt
+   (Schein der aktuellen Lektion), richtet sich an der Fläche aus, nicht am ganzen Stein. */
 .path-node {
+  --face: 72px;
   position: relative;
   display: block;
-  width: 78px;
-  height: 76px;
+  width: var(--face);
+  height: calc(var(--face) + 8px);
 }
 .path-node-big {
-  width: 88px;
-  height: 84px;
+  --face: 84px;
 }
 .path-node-edge,
 .path-node-face {
   position: absolute;
   left: 0;
-  right: 0;
+  width: var(--face);
+  height: var(--face);
   border-radius: 50%;
 }
 .path-node-edge {
-  bottom: 0;
-  height: calc(100% - 8px);
+  top: 8px;
   background: var(--node-shade);
 }
 .path-node-face {
   top: 0;
-  height: calc(100% - 8px);
   background: var(--node);
   display: flex;
   align-items: center;
@@ -375,12 +376,32 @@ h1, h2, h3 {
   transition: transform 0.1s ease-out;
 }
 .path-node-face::after {
-  /* sanfter Glanz oben, damit der Stein greifbar wirkt */
+  /* sanfter Glanz oben, mittig, damit der Stein greifbar wirkt */
   content: '';
   position: absolute;
-  inset: 9% 22% 58% 22%;
+  left: 50%;
+  top: 9%;
+  width: 52%;
+  height: 26%;
+  transform: translateX(-50%);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.2);
+  pointer-events: none;
+}
+/* Die aktuelle Lektion: weicher, pulsierender Schein genau um die Fläche */
+.path-node-halo {
+  position: absolute;
+  left: -14px;
+  top: -14px;
+  width: calc(var(--face) + 28px);
+  height: calc(var(--face) + 28px);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--node) 24%, transparent);
+  animation: halo-pulse 2.4s ease-in-out infinite;
+}
+@keyframes halo-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.06); opacity: 1; }
 }
 .path-btn:active .path-node-face {
   transform: translateY(8px);
@@ -391,6 +412,9 @@ h1, h2, h3 {
 }
 @media (hover: hover) and (pointer: fine) {
   .path-btn:hover .path-node-face { filter: brightness(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .path-node-halo { animation: none; }
 }
 
 @keyframes pop {

@@ -42,7 +42,7 @@ type NodeState = 'done' | 'current' | 'open' | 'locked'
 type UnitStatus = 'done' | 'current' | 'upcoming'
 
 /** Runder Spielstein mit Unterkante; sinkt beim Drücken ein. */
-function PathNode({ state, kind, color, perfect }: { state: NodeState; kind: 'lesson' | 'review' | 'test'; color: { c: string; s: string }; perfect: boolean }) {
+function PathNode({ state, kind, color }: { state: NodeState; kind: 'lesson' | 'review' | 'test'; color: { c: string; s: string } }) {
   const locked = state === 'locked'
   const style = {
     '--node': locked ? 'var(--line)' : color.c,
@@ -52,13 +52,9 @@ function PathNode({ state, kind, color, perfect }: { state: NodeState; kind: 'le
     state === 'done' ? <Check size={34} /> : kind === 'test' ? <Trophy size={34} /> : kind === 'review' ? <Repeat size={32} /> : <Star size={34} />
   return (
     <span className={`path-node ${kind === 'test' ? 'path-node-big' : ''}`} style={style} aria-hidden>
+      {state === 'current' && <span className="path-node-halo" />}
       <span className="path-node-edge" />
       <span className={`path-node-face ${locked ? 'text-muted' : 'text-white'}`}>{icon}</span>
-      {perfect && (
-        <span className="absolute -right-1 -top-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-surface bg-gold text-white">
-          <Star size={15} />
-        </span>
-      )}
     </span>
   )
 }
@@ -220,7 +216,7 @@ export function LearnPage() {
                       <li key={lesson.id} data-lesson={lesson.id} ref={state === 'current' ? currentRef : undefined} style={{ transform: `translateX(${offset}px)` }} className={`relative flex flex-col items-center ${isOpen ? 'z-30' : ''}`}>
                         {state === 'current' && (
                           <>
-                            <span className="animate-bob absolute -top-10 z-10 whitespace-nowrap rounded-xl border-2 border-line bg-surface px-3 py-1.5 text-[13px] font-extrabold uppercase tracking-wide shadow-[0_3px_0_var(--shade-line)]" style={{ color: world.c }}>
+                            <span className="animate-bob absolute -top-12 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-xl border-2 border-line bg-surface px-3 py-1.5 text-[13px] font-extrabold uppercase tracking-wide shadow-[0_3px_0_var(--shade-line)]" style={{ color: world.c }}>
                               {rec ? 'Weiter' : 'Los!'}
                               <span aria-hidden className="absolute -bottom-[7px] left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-b-2 border-r-2 border-line bg-surface" />
                             </span>
@@ -234,13 +230,12 @@ export function LearnPage() {
                           aria-label={`${kindLabel}: ${lesson.title}${state === 'done' ? ', geschafft' : state === 'locked' ? ', gesperrt' : state === 'current' ? ', als Nächstes' : ''}`}
                           className="path-btn relative"
                         >
-                          {state === 'current' && <span aria-hidden className="absolute -inset-[9px] bottom-[-3px] rounded-full border-[6px]" style={{ borderColor: `color-mix(in srgb, ${world.c} 30%, transparent)` }} />}
                           {celebrate.current === lesson.id && state === 'done' ? (
                             <motion.span className="block" initial={reduce ? false : { scale: 0.55 }} animate={{ scale: [0.55, 1.18, 1] }} transition={{ duration: 0.7, delay: 0.45, ease: 'easeOut' }}>
-                              <PathNode state={state} kind={kind} color={world} perfect={(rec?.bestAccuracy ?? 0) >= 0.95} />
+                              <PathNode state={state} kind={kind} color={world} />
                             </motion.span>
                           ) : (
-                            <PathNode state={state} kind={kind} color={world} perfect={state === 'done' && (rec?.bestAccuracy ?? 0) >= 0.95} />
+                            <PathNode state={state} kind={kind} color={world} />
                           )}
                           {celebrate.current === lesson.id && state === 'done' && <Burst delay={0.6} />}
                         </button>
