@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Outfit } from '../../lib/shop'
 import { idleSeconds, mascotBus, trackGaze, type MascotEvent } from '../../lib/mascotBus'
 import { Fox, type FoxHandle } from './Fox'
+import { FoxBubble } from './FoxBubble'
 import { resolveLook, type Mood, type PoseName } from './look'
 
 export type { Mood } from './look'
@@ -38,12 +39,12 @@ export interface MascotProps {
   outfit?: Outfit
   /** Begrüßung: winkt kurz nach dem Erscheinen und sagt diesen Satz */
   greet?: string
-  /** Seite, an der die Sprechblase ansetzt (Standard: mittig über dem Fuchs) */
+  /** Veraltet: die Sprechblase steht immer über dem Fuchs und bleibt von selbst im Bildschirm */
   bubbleSide?: 'center' | 'above' | 'left' | 'right'
 }
 
 /** Fenni, der Fuchs: lebendiges Maskottchen mit Posen, Tippen und Reaktionen. */
-export function Mascot({ mood = 'happy', size = 120, className = '', blink = false, alive: aliveProp, listen = false, pose = 'bust', label, outfit, greet, bubbleSide = 'center' }: MascotProps) {
+export function Mascot({ mood = 'happy', size = 120, className = '', blink = false, alive: aliveProp, listen = false, pose = 'bust', label, outfit, greet }: MascotProps) {
   const alive = (aliveProp ?? blink) && size >= 56
   const wrap = useRef<HTMLDivElement>(null)
   const [temp, setTemp] = useState<PoseName | null>(null)
@@ -269,11 +270,7 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
       {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}
     >
       <Fox ref={fox} look={look} outfit={outfit} pose={pose} alive={alive} />
-      {bubble && (
-        <span className={`${bubbleSide === 'center' || bubbleSide === 'above' ? 'fox-bubble' : 'fox-bubble-side'} pointer-events-none absolute z-20 rounded-xl border-2 border-line bg-surface px-3 py-1 text-xs font-extrabold text-ink shadow-[0_3px_0_var(--shade-line)] ${bubbleSide === 'center' ? '-top-1 left-1/2 max-w-[220px] -translate-x-1/2 whitespace-nowrap' : bubbleSide === 'above' ? 'bottom-[92%] left-1/2 w-max max-w-[8.5rem] -translate-x-1/2 text-center leading-tight' : bubbleSide === 'right' ? 'bottom-[88%] right-1 w-max max-w-[8.75rem] text-center leading-tight' : 'bottom-[88%] left-1 w-max max-w-[8.75rem] text-center leading-tight'}`}>
-          {bubble}
-        </span>
-      )}
+      {bubble && <FoxBubble anchor={wrap.current} text={bubble} />}
     </div>
   )
 }

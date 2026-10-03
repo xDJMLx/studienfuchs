@@ -53,7 +53,7 @@ export const Close = ({ size, ...p }: P) => (
 
 export const Star = ({ size, ...p }: P) => (
   <svg {...base(size)} {...p}>
-    <path d="m12 2.8 2.6 6.2 6.6.4-5.1 4.2 1.7 6.4-5.8-3.5-5.8 3.5 1.7-6.4L2.8 9.4l6.6-.4L12 2.8Z" fill="currentColor" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round" />
+    <path d="M12.00 3.40 L14.53 9.32 L20.94 9.90 L16.09 14.13 L17.53 20.40 L12.00 17.10 L6.47 20.40 L7.91 14.13 L3.06 9.90 L9.47 9.32Z" fill="currentColor" stroke="currentColor" strokeWidth="2.2" strokeLinejoin="round" />
   </svg>
 )
 
