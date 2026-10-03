@@ -11,7 +11,7 @@ import { mascotBus } from '../../lib/mascotBus'
 import { generateLesson, generateTest, generateWarmup } from '../../lib/generateExercises'
 import { recognitionAvailable } from '../../lib/recognition'
 import { playDone } from '../../lib/sound'
-import { hasFrenchVoice, loadAudioIndex } from '../../lib/speech'
+import { hasFrenchVoice, loadAudioIndex, prefetchRecordings } from '../../lib/speech'
 import { masteryOf } from '../../lib/srs'
 import type { Explanation, FillTask, Item } from '../../lib/types'
 import { goalInfo, levelFromXp, lessonXp } from '../../lib/xp'
@@ -70,6 +70,11 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
     const st = useStore.getState()
     return { exercises, xpBefore: st.xp, todayBefore: xpToday(st.xpByDay), goal: st.dailyGoal }
   })
+
+  // Aufnahmen der Wörter dieser Übung schon im Hintergrund holen
+  useEffect(() => {
+    prefetchRecordings(items.map((i) => i.front))
+  }, [items])
 
   // Erklärung nur beim ersten Versuch zeigen
   const [stage, setStage] = useState<Stage>(!isTest && explanation && attempt === 0 ? 'explain' : 'practice')

@@ -10,6 +10,7 @@ import { itemsForScope, scopeLabel, type Scope } from '../../lib/scope'
 import { speak } from '../../lib/speech'
 import type { Item } from '../../lib/types'
 import { useStore } from '../../store/useStore'
+import { useShallow } from 'zustand/react/shallow'
 
 const ROUND = 10
 
@@ -75,7 +76,7 @@ function useRecorder() {
 export function SpeakTrainingPage() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
-  const { cards, favorites, sets, grade, finishSession } = useStore()
+  const { cards, favorites, sets, grade, finishSession } = useStore(useShallow((s) => ({ cards: s.cards, favorites: s.favorites, sets: s.sets, grade: s.grade, finishSession: s.finishSession })))
   const scope = (params.get('scope') as Scope | null) ?? 'learned'
   const [stage, setStage] = useState<'intro' | 'play' | 'done'>('intro')
   const [tips, setTips] = useState(false)
@@ -208,7 +209,7 @@ function Screen({ children, onExit }: { children: React.ReactNode; onExit: () =>
   return (
     <div className="flex h-full flex-col bg-surface">
       <header className="mx-auto flex w-full max-w-2xl items-center px-4 py-3">
-        <button type="button" onClick={onExit} aria-label="Schließen" className="-ml-1 text-muted transition-colors hover:text-ink">
+        <button type="button" onClick={onExit} aria-label="Schließen" className="press -ml-2 flex h-11 w-11 items-center justify-center rounded-xl text-muted transition-colors hover:text-ink">
           <Close size={28} />
         </button>
       </header>

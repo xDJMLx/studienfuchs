@@ -123,13 +123,16 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
   useEffect(() => {
     if (!alive) return
     engine.setIdle(!reduced)
+    // Außerhalb des Bildschirms oder bei verborgenem Tab rechnet der Fuchs nicht (spart Akku, besonders mit mehreren Füchsen)
+    let onScreen = true
     const loop = (now: number) => {
-      const dt = last.current ? now - last.current : 16
-      last.current = now
-      if (document.hidden) {
-        raf.current = requestAnimationFrame(loop)
+      if (document.hidden || !onScreen) {
+        raf.current = 0
+        last.current = 0
         return
       }
+      const dt = last.current ? now - last.current : 16
+      last.current = now
       const more = engine.tick(dt)
       apply()
       raf.current = more ? requestAnimationFrame(loop) : 0
@@ -143,7 +146,21 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
     }
     engine.onWake = start
     start()
+    const el = root.current
+    const io = el && typeof IntersectionObserver !== 'undefined'
+      ? new IntersectionObserver((entries) => {
+          onScreen = entries[entries.length - 1].isIntersecting
+          if (onScreen) start()
+        })
+      : null
+    if (el) io?.observe(el)
+    const onVisible = () => {
+      if (!document.hidden) start()
+    }
+    document.addEventListener('visibilitychange', onVisible)
     return () => {
+      io?.disconnect()
+      document.removeEventListener('visibilitychange', onVisible)
       cancelAnimationFrame(raf.current)
       raf.current = 0
       engine.onWake = () => {}

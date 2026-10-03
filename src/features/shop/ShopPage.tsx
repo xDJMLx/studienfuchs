@@ -7,11 +7,12 @@ import { Back, Check, Coin } from '../../components/ui/Icons'
 import { SPRING } from '../../components/ui/motion'
 import { ITEMS, SLOTS, type Slot } from '../../lib/shop'
 import { useStore } from '../../store/useStore'
+import { useShallow } from 'zustand/react/shallow'
 
 /** Fuchs-Laden: Münzen gibt es nur fürs Lernen, hier werden sie gegen Zubehör für den Fuchs getauscht. */
 export function ShopPage() {
   const reduce = useReducedMotion()
-  const { coins, owned, outfit, buyItem, equipItem } = useStore()
+  const { coins, owned, outfit, buyItem, equipItem } = useStore(useShallow((s) => ({ coins: s.coins, owned: s.owned, outfit: s.outfit, buyItem: s.buyItem, equipItem: s.equipItem })))
   const [slot, setSlot] = useState<Slot>('kopf')
   // Zweiter Tipp bestätigt den Kauf (Münzen gibt es nicht zurück)
   const [pending, setPending] = useState<string | null>(null)
@@ -51,7 +52,7 @@ export function ShopPage() {
               setSlot(s.id)
               setPending(null)
             }}
-            className={`press shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${slot === s.id ? 'bg-brand-strong text-on-brand' : 'bg-snow text-muted'}`}
+            className={`press min-h-11 shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${slot === s.id ? 'bg-brand-strong text-on-brand' : 'bg-snow text-muted'}`}
           >
             {s.label}
           </button>

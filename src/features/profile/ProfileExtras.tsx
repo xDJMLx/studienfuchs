@@ -10,6 +10,7 @@ import { buildWeeklyReport } from '../../lib/report'
 import { levelFromXp } from '../../lib/xp'
 import { streakNow, useStore } from '../../store/useStore'
 import { useDue, useLearned } from '../review/ReviewPage'
+import { useShallow } from 'zustand/react/shallow'
 
 /** Karteikasten: wie fest die geübten Wörter sitzen, verteilt auf fünf Fächer (wie bei Phase 6, nur ohne Abo). */
 export function Karteikasten() {
@@ -54,7 +55,7 @@ export function Karteikasten() {
 
 /** Wochenbericht zum Teilen (z. B. mit den Eltern): Text über die letzten sieben Tage, ohne Namen. */
 export function WeeklyReport() {
-  const { xpByDay, dailyGoal, lessons, streak, bestStreak, xp, sets, examDates } = useStore()
+  const { xpByDay, dailyGoal, lessons, streak, bestStreak, xp, sets, examDates } = useStore(useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, lessons: s.lessons, streak: s.streak, bestStreak: s.bestStreak, xp: s.xp, sets: s.sets, examDates: s.examDates })))
   const { learned, byMastery } = useLearned()
   const { due } = useDue()
   const [open, setOpen] = useState(false)

@@ -12,6 +12,7 @@ import { levelFromXp } from '../../lib/xp'
 import { streakNow, useStore } from '../../store/useStore'
 import { useLearned } from '../review/ReviewPage'
 import { Karteikasten, WeeklyReport } from './ProfileExtras'
+import { useShallow } from 'zustand/react/shallow'
 
 const WEEKDAYS = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
 const HEAT_DAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
@@ -23,7 +24,7 @@ const COURSE_WORDS = COURSE_STATS.words
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
-  const { xp, xpByDay, streak, dailyGoal, lessons, sets, outfit, coins } = useStore()
+  const { xp, xpByDay, streak, dailyGoal, lessons, sets, outfit, coins } = useStore(useShallow((s) => ({ xp: s.xp, xpByDay: s.xpByDay, streak: s.streak, dailyGoal: s.dailyGoal, lessons: s.lessons, sets: s.sets, outfit: s.outfit, coins: s.coins })))
   const { learned, byMastery } = useLearned()
   const lvl = levelFromXp(xp)
   const streakDays = streakNow(streak)

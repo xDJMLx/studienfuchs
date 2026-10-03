@@ -147,7 +147,7 @@ h1, h2, h3 {
 @layer components {
   /* Knöpfe wie bei SideMe: dick, mit kräftiger Unterkante, die beim Drücken einsinkt */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-[14px] font-extrabold uppercase tracking-[0.04em]
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-[14px] font-extrabold uppercase tracking-[0.04em]
       transition-[transform,box-shadow,filter,background-color] duration-100 select-none disabled:cursor-not-allowed;
     --edge: var(--shade-line);
     box-shadow: 0 4px 0 var(--edge);
@@ -230,7 +230,7 @@ h1, h2, h3 {
 
   /* Auswahl-Chips: dick umrandet mit Unterkante, gewählt in vollem Orange */
   .chip {
-    @apply inline-flex items-center gap-2 rounded-xl border-2 border-line bg-surface px-4 py-2 text-sm font-bold text-ink transition-colors select-none;
+    @apply inline-flex items-center gap-2 min-h-11 rounded-xl border-2 border-line bg-surface px-4 py-2 text-sm font-bold text-ink transition-colors select-none;
     box-shadow: 0 3px 0 var(--shade-line);
     margin-bottom: 3px;
   }

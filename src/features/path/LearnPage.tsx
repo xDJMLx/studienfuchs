@@ -15,6 +15,7 @@ import { catchUpStatus } from '../../lib/catchup'
 import { goalInfo } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { useDue } from '../review/ReviewPage'
+import { useShallow } from 'zustand/react/shallow'
 
 const OFFSETS = [0, 46, 70, 46, 0, -46, -70, -46]
 
@@ -39,7 +40,7 @@ function HexNode({ state, test, children }: { state: NodeState; test: boolean; c
 /** Heute: Tagesziel, fällige Wörter und Aufholplan als eine ruhige Liste. */
 function TodayCard() {
   const navigate = useNavigate()
-  const { xpByDay, dailyGoal, streak, classUnit, catchUpTarget, catchUpAll, catchUpExtras, catchUpOngoing, lessons } = useStore()
+  const { xpByDay, dailyGoal, streak, classUnit, catchUpTarget, catchUpAll, catchUpExtras, catchUpOngoing, lessons } = useStore(useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, streak: s.streak, classUnit: s.classUnit, catchUpTarget: s.catchUpTarget, catchUpAll: s.catchUpAll, catchUpExtras: s.catchUpExtras, catchUpOngoing: s.catchUpOngoing, lessons: s.lessons })))
   const { due } = useDue()
   const plan = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll, catchUpExtras, catchUpOngoing) : null
   const today = xpToday(xpByDay)

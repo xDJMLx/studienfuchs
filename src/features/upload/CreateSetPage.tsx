@@ -193,7 +193,7 @@ export function CreateSetPage() {
                   </span>
                   <p className="font-semibold">Fotos hierher ziehen oder auswählen</p>
                   <div className="flex flex-wrap justify-center gap-2">
-                    <button className="btn btn-primary !px-4 !py-2 !text-sm" onClick={() => inputRef.current?.click()}>
+                    <button className="btn btn-primary !px-4 !text-sm" onClick={() => inputRef.current?.click()}>
                       Dateien wählen
                     </button>
                     <label className="btn btn-ghost cursor-pointer !px-4 !py-2 !text-sm">

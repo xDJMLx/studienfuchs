@@ -8,6 +8,7 @@ import { Confetti } from '../../components/ui/Confetti'
 import { Back, Right } from '../../components/ui/Icons'
 import { Wordmark } from '../../components/ui/Layout'
 import { useStore } from '../../store/useStore'
+import { useShallow } from 'zustand/react/shallow'
 
 type Step = 'hero' | 'grade' | 'goal' | 'ready'
 const ORDER: Step[] = ['hero', 'grade', 'goal', 'ready']
@@ -40,7 +41,7 @@ const slide = {
 export function Welcome() {
   const navigate = useNavigate()
   const reduce = useReducedMotion()
-  const { grade, dailyGoal, setGrade, setDailyGoal, setOnboarded, importData } = useStore()
+  const { grade, dailyGoal, setGrade, setDailyGoal, setOnboarded, importData } = useStore(useShallow((s) => ({ grade: s.grade, dailyGoal: s.dailyGoal, setGrade: s.setGrade, setDailyGoal: s.setDailyGoal, setOnboarded: s.setOnboarded, importData: s.importData })))
   const hasProgress = useStore((s) => s.xp > 0 || Object.keys(s.lessons).length > 0)
   const [step, setStep] = useState<Step>('hero')
   const [dir, setDir] = useState(1)

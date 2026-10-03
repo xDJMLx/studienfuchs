@@ -1,5 +1,6 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
+import { debouncedStorage } from '../lib/storage'
 import { STORAGE } from '../lib/migrate'
 import { booksSnapshot, useBooks } from './useBooks'
 import { examsSnapshot, useExams } from './useExams'
@@ -254,6 +255,7 @@ export const useStore = create<Data & Actions>()(
     {
       name: STORAGE.state,
       version: 1,
+      storage: createJSONStorage(() => debouncedStorage),
       merge: (persisted, current) => {
         const p = (persisted ?? {}) as Record<string, unknown>
         const merged = { ...current, ...p } as Data & Actions

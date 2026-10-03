@@ -118,3 +118,12 @@ Den ausführlichen Prüfbericht (was schlecht war und was geändert wurde) finde
 - `src/lib/mascotBus.ts`: Nachrichtenkanal. Die App meldet `correct`, `wrong`, `almost`, `cheer`, `levelup`, `speak:start` und `speak:end`; jeder Fuchs mit `listen` reagiert. Dazu ein einziger Zeigerbeobachter, der nur einen schlafenden Fuchs weckt (der Fuchs schaut dem Zeiger bewusst nicht nach).
 - Im Entwicklungsmodus zeigt `/#/fox` alle Posen, Kleidung und Auslöser auf einen Blick.
 - Bewegungen sind kurz, laufen nicht endlos außer dem leisen Atmen und werden bei „Bewegung reduzieren“ abgeschaltet.
+
+## Handy und Leistung
+- **Start:** Seiten werden mit `React.lazy` erst beim Öffnen geladen (`lazyPage` in `src/App.tsx`, mit einmaligem Neuladen, falls nach einer neuen Version eine alte Datei fehlt). Der Lehrstoff wird beim Start nicht mehr mit zod geprüft; das erledigt `src/content/content.test.ts` vor jeder Veröffentlichung. Die Prüfbibliothek ist damit nicht mehr im Paket.
+- **Speichern:** Die großen Zustände (Lernstand, Bücher, Tests) werden über `debouncedStorage` (`src/lib/storage.ts`) gebündelt geschrieben (alle 0,5 s) und sofort beim Verlassen der App (`pagehide`, `visibilitychange`). Vorher wurde bei jeder Antwort alles serialisiert.
+- **Re-Rendern:** Seiten abonnieren nur noch die Teile des Zustands, die sie brauchen (`useShallow`), nicht den ganzen Speicher.
+- **Fuchs:** Seine Bildschleife pausiert, wenn er nicht auf dem Bildschirm ist (`IntersectionObserver`) oder der Tab verborgen ist.
+- **Töne:** Aufnahmen der Wörter einer Übung werden im Hintergrund vorgeladen (`prefetchRecordings`), nicht bei „Datensparmodus“.
+- **Bedienung:** Alle Tippflächen sind mindestens 40 bis 44 px hoch (`.btn`, `.chip`, Reiter), Eingabefelder 16 px (kein Zoom auf iOS), `interactive-widget=resizes-content` für die Bildschirmtastatur. Auf kleinen Handys (320 × 568) steht „Weiß ich nicht“ neben „Prüfen“ statt darüber.
+- **Prüfen:** `.claude/mobile-check.js` ist ein Skript für das Browserfenster, das alle Seiten bei der aktuellen Fensterbreite auf seitliches Überlaufen, zu kleine Tippflächen und zu kleine Eingabeschrift prüft.

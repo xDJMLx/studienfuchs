@@ -6,6 +6,7 @@ import { EASE } from '../../components/ui/motion'
 import { recognitionAvailable } from '../../lib/recognition'
 import { frenchVoices, loadAudioIndex, speak, speechAvailable } from '../../lib/speech'
 import { useStore } from '../../store/useStore'
+import { useShallow } from 'zustand/react/shallow'
 
 /** Stimmen laden in vielen Browsern erst nach dem Start – daher auf "voiceschanged" hören. */
 function useVoices() {
@@ -39,7 +40,7 @@ function Waves({ active }: { active: boolean }) {
 
 /** Zeilen für die Karte "Sprache" in den Einstellungen. */
 export function SpeechSettings() {
-  const { speechOn, voiceName, speechRate, speakingOn, setSpeech } = useStore()
+  const { speechOn, voiceName, speechRate, speakingOn, setSpeech } = useStore(useShallow((s) => ({ speechOn: s.speechOn, voiceName: s.voiceName, speechRate: s.speechRate, speakingOn: s.speakingOn, setSpeech: s.setSpeech })))
   const voices = useVoices()
   const [playing, setPlaying] = useState(false)
   const timer = useRef<number | undefined>(undefined)

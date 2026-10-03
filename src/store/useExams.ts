@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import type { ExamData } from '../lib/exam'
-import { safeStorage } from '../lib/storage'
+import { debouncedStorage } from '../lib/storage'
 
 export interface ExamResult {
   date: string
@@ -38,7 +38,7 @@ export const useExams = create<ExamsData & ExamsActions>()(
       addResult: (id, r) => set((s) => ({ results: { ...s.results, [id]: [r, ...(s.results[id] ?? [])].slice(0, 10) } })),
       replaceAll: (data) => set({ exams: Array.isArray(data?.exams) ? data.exams : [], results: data?.results && typeof data.results === 'object' ? data.results : {} }),
     }),
-    { name: 'studienfuchs-exams', version: 1, storage: createJSONStorage(() => safeStorage), partialize: (s) => ({ exams: s.exams, results: s.results }) },
+    { name: 'studienfuchs-exams', version: 1, storage: createJSONStorage(() => debouncedStorage), partialize: (s) => ({ exams: s.exams, results: s.results }) },
   ),
 )
 

@@ -9,6 +9,7 @@ import { ProgressBar, ProgressRing } from '../../components/ui/widgets'
 import { BERLIN_LEVEL, DECOUVERTES, expectedUnit, unitAtProgress, type BookUnit } from '../../lib/berlin'
 import { backlog, backlogByUnit, catchUpStatus, classPacePerWeek, COMFORT_MIN_PER_DAY, daysUntil, inDays, MAX_MIN_PER_DAY, nextUnitId, recommendedDays, unitLabel, unitsUpTo } from '../../lib/catchup'
 import { useStore } from '../../store/useStore'
+import { useShallow } from 'zustand/react/shallow'
 
 /** Geschätzte Minuten pro Lektion (neue Wörter zu zweit, erkennen, Buchstaben legen, Fehler wiederholt). */
 const MIN_PER_LESSON = 8
@@ -36,7 +37,7 @@ export function fmtMinutes(min: number): string {
  */
 export function CatchUpPage() {
   const navigate = useNavigate()
-  const { classUnit, catchUpTarget, catchUpAll, catchUpExtras, catchUpOngoing, classBook, classRef, setClassUnit, setCatchUpTarget, setCatchUpAll, setCatchUpExtras, setCatchUpOngoing, setClassBook, setClassRef, setGrade, lessons } = useStore()
+  const { classUnit, catchUpTarget, catchUpAll, catchUpExtras, catchUpOngoing, classBook, classRef, setClassUnit, setCatchUpTarget, setCatchUpAll, setCatchUpExtras, setCatchUpOngoing, setClassBook, setClassRef, setGrade, lessons } = useStore(useShallow((s) => ({ classUnit: s.classUnit, catchUpTarget: s.catchUpTarget, catchUpAll: s.catchUpAll, catchUpExtras: s.catchUpExtras, catchUpOngoing: s.catchUpOngoing, classBook: s.classBook, classRef: s.classRef, setClassUnit: s.setClassUnit, setCatchUpTarget: s.setCatchUpTarget, setCatchUpAll: s.setCatchUpAll, setCatchUpExtras: s.setCatchUpExtras, setCatchUpOngoing: s.setCatchUpOngoing, setClassBook: s.setClassBook, setClassRef: s.setClassRef, setGrade: s.setGrade, lessons: s.lessons })))
   const storedGrade = useStore((s) => s.grade)
   const classGrade = classUnit ? (units.find((u) => u.id === classUnit)?.grade ?? storedGrade) : storedGrade
   const [grade, setGradeView] = useState<number>(grades.includes(classGrade) ? classGrade : grades[0])
@@ -278,7 +279,7 @@ export function CatchUpPage() {
                     Dir fehlen noch <b className="text-ink">{status.remaining} Lektionen</b> mit <b className="text-ink">{status.remainingWords} Wörtern</b>, ungefähr {fmtMinutes(status.remaining * MIN_PER_LESSON)} Lernzeit.
                   </p>
                 )}
-                <button type="button" className="press mt-2 -ml-2 rounded-lg px-2 py-1 text-sm font-semibold text-brand-dark hover:bg-brand-soft" onClick={() => setPicking(true)}>
+                <button type="button" className="press mt-1 -ml-2 inline-flex min-h-11 items-center rounded-lg px-2 py-1 text-sm font-semibold text-brand-dark hover:bg-brand-soft" onClick={() => setPicking(true)}>
                   Andere Einheit wählen
                 </button>
               </div>

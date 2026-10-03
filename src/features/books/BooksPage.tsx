@@ -11,6 +11,7 @@ import { chapterOf } from '../../lib/books'
 import { dayKey } from '../../lib/streak'
 import { useBooks } from '../../store/useBooks'
 import { useStore } from '../../store/useStore'
+import { useShallow } from 'zustand/react/shallow'
 
 const dayText = (days: number) => (days === 0 ? 'heute' : days === 1 ? 'morgen' : `in ${days} Tagen`)
 const field = 'rounded-xl border border-line bg-snow px-3 py-2.5 font-medium outline-none focus:border-brand'
@@ -22,7 +23,7 @@ const longDate = (d: string) => new Date(d).toLocaleDateString('de-DE', { weekda
  */
 export function BooksPage() {
   const navigate = useNavigate()
-  const { classUnit, catchUpTarget, catchUpAll, catchUpExtras, catchUpOngoing, lessons, sets, examDates, setExamDate, grade } = useStore()
+  const { classUnit, catchUpTarget, catchUpAll, catchUpExtras, catchUpOngoing, lessons, sets, examDates, setExamDate, grade } = useStore(useShallow((s) => ({ classUnit: s.classUnit, catchUpTarget: s.catchUpTarget, catchUpAll: s.catchUpAll, catchUpExtras: s.catchUpExtras, catchUpOngoing: s.catchUpOngoing, lessons: s.lessons, sets: s.sets, examDates: s.examDates, setExamDate: s.setExamDate, grade: s.grade })))
   const { books, exams, addBook, addExam, deleteExam } = useBooks()
   const status = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll, catchUpExtras, catchUpOngoing) : null
 

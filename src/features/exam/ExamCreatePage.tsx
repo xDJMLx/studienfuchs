@@ -152,7 +152,7 @@ export function ExamCreatePage() {
             )
               .filter(([, , show]) => show)
               .map(([id, label]) => (
-                <button key={id} type="button" onClick={() => setSource(id)} className={`press rounded-full px-4 py-2 text-sm font-semibold transition-colors ${source === id ? 'bg-brand-strong text-on-brand' : 'bg-snow text-muted'}`}>
+                <button key={id} type="button" onClick={() => setSource(id)} className={`press min-h-11 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${source === id ? 'bg-brand-strong text-on-brand' : 'bg-snow text-muted'}`}>
                   {label}
                 </button>
               ))}
@@ -205,7 +205,7 @@ export function ExamCreatePage() {
           <h2 className="mb-2 text-sm font-semibold">Länge ({sizeLabel})</h2>
           <div className="flex gap-2">
             {sizes.map((n) => (
-              <button key={n} type="button" onClick={() => setSize(n)} className={`press rounded-full px-4 py-2 text-sm font-semibold transition-colors ${size === n ? 'bg-brand-strong text-on-brand' : 'bg-snow text-muted'}`}>
+              <button key={n} type="button" onClick={() => setSize(n)} className={`press min-h-11 min-w-11 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${size === n ? 'bg-brand-strong text-on-brand' : 'bg-snow text-muted'}`}>
                 {n}
               </button>
             ))}

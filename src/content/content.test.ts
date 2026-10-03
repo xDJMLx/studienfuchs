@@ -1,7 +1,18 @@
 import { describe, expect, it } from 'vitest'
 import { allItems, allLessons, grades, units } from './index'
+import { unitSchema } from './schema'
+
+const rawFiles = import.meta.glob('./*/*/*.json', { eager: true, import: 'default' }) as Record<string, unknown>
 
 describe('Kursinhalte', () => {
+  it('jede Inhaltsdatei entspricht dem Schema (die App prüft beim Start nicht mehr selbst)', () => {
+    const paths = Object.keys(rawFiles)
+    expect(paths.length).toBeGreaterThan(30)
+    for (const p of paths) {
+      const r = unitSchema.safeParse(rawFiles[p])
+      expect(r.success, p + ': ' + (r.success ? '' : JSON.stringify(r.error.issues.slice(0, 2)))).toBe(true)
+    }
+  })
   it('Einheiten sind nach Klassenstufe numerisch sortiert und decken 7–10 ab', () => {
     expect(grades).toEqual([7, 8, 9, 10])
     const order = units.map((u) => u.grade)

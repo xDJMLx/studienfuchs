@@ -11,9 +11,9 @@ Stand: 3. Oktober 2026. Die App ist als reine Französisch-App startklar. Weiter
 - Die Dev-Seite `/#/fox` (Fuchs-Labor) ist im Produktions-Build nicht enthalten.
 
 ## Was nur du erledigen kannst
-1. **Impressum ausfüllen**: Name, Anschrift und E-Mail in `src/lib/legal.ts` eintragen. Sie erscheinen dann automatisch unter „Datenschutz & Impressum“. Solange sie leer sind, steht dort nur „privates, nicht kommerzielles Lernprojekt“ mit Link zum GitHub-Projekt. Für eine öffentlich erreichbare Seite in Deutschland ist das rechtlich nicht sicher; ob eine Anschrift nötig ist, hängt von deiner Lage ab (privat, ohne Werbung, minderjährig o. Ä.). Das kann ich nicht für dich entscheiden.
+1. **Impressum ausfüllen** (von dir bewusst auf später verschoben): Name, Anschrift und E-Mail in `src/lib/legal.ts` eintragen. Sie erscheinen dann automatisch unter „Datenschutz & Impressum“. Solange sie leer sind, steht dort nur „privates, nicht kommerzielles Lernprojekt“ mit Link zum GitHub-Projekt. Für eine öffentlich erreichbare Seite in Deutschland ist das rechtlich nicht sicher; ob eine Anschrift nötig ist, hängt von deiner Lage ab (privat, ohne Werbung, minderjährig o. Ä.). Das kann ich nicht für dich entscheiden.
 2. **GitHub-Beschreibung** (About) im Repository per Hand setzen: Zeile „Französisch lernen für die Schule (Klasse 7 bis 10)“ und die Adresse der Seite.
-3. **Lizenz** wählen, falls andere den Code nutzen dürfen sollen (`LICENSE` fehlt bewusst). Ohne Lizenz gilt „alle Rechte vorbehalten“.
+3. ~~Lizenz~~ erledigt: `LICENSE` sagt „alle Rechte vorbehalten“, andere dürfen den Code nicht verwenden.
 4. **Inhalte prüfen**: Die Vokabellisten und Erklärungen sind eigene Texte, orientiert am Berliner Lehrplan und an den Themen der gängigen Lehrwerke. Sie wurden nicht gegen ein bestimmtes Lehrbuch geprüft. Wenn Lehrwerk-Wortlisten wörtlich übernommen wären, wäre das urheberrechtlich heikel.
 5. **Kostenlose KI** (optional): Relais nach `relay/README.md` einrichten und die Adresse in `src/lib/freeAi.ts` eintragen. Ohne sie geht die KI nur über Puter mit Anmeldung (Gastkonto) oder eigenem Anthropic-Schlüssel.
 

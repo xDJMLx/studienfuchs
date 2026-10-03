@@ -71,3 +71,6 @@ npm run dev      # http://localhost:5173
 npm test
 npm run build
 ```
+
+## Lizenz
+Alle Rechte vorbehalten (siehe [LICENSE](LICENSE)). Den Quelltext, die Inhalte, das Maskottchen und die Aufnahmen darf ohne Erlaubnis niemand kopieren oder weiterverwenden. Die App selbst darf jede und jeder im Browser benutzen. Hinweis: Auf GitHub kann jeder ein öffentliches Repository ansehen und forken; das regelt GitHub, die Lizenz schränkt die Nutzung trotzdem ein. Soll auch der Quelltext nicht sichtbar sein, muss das Repository privat werden (GitHub Pages braucht dafür einen bezahlten Tarif).

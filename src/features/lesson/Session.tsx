@@ -284,7 +284,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             />
           )}
         </AnimatePresence>
-        <div className="relative mx-auto flex w-full max-w-2xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className={`relative mx-auto flex w-full max-w-2xl gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:py-4 ${!result && !isTeach ? 'flex-row items-center' : 'flex-col'}`}>
           {isTeach ? (
             <p className="hidden text-sm text-muted sm:block">Prägt euch die Wörter kurz ein. Gleich kommt die erste Frage dazu.</p>
           ) : result ? (
@@ -331,7 +331,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             </motion.div>
           ) : (
             !isMatch && (
-              <button type="button" className="btn btn-ghost w-full !text-muted sm:w-44" onClick={() => check(answer ?? '')}>
+              <button type="button" className="btn btn-ghost shrink-0 !px-4 !text-xs !text-muted sm:w-44 sm:!text-[14px]" onClick={() => check(answer ?? '')}>
                 Weiß ich nicht
               </button>
             )
@@ -347,7 +347,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             </button>
           ) : (
             !isMatch && (
-              <button type="button" disabled={answer === null} onClick={() => check(answer)} className="btn btn-primary w-full sm:ml-auto sm:w-44">
+              <button type="button" disabled={answer === null} onClick={() => check(answer)} className="btn btn-primary min-w-0 flex-1 sm:ml-auto sm:w-44 sm:flex-none">
                 Prüfen
               </button>
             )

@@ -91,7 +91,7 @@ export function GrammarPage({ embedded = false }: { embedded?: boolean } = {}) {
         {(['all', ...grades] as const).map((g) => {
           const on = grade === g
           return (
-            <button key={g} role="tab" aria-selected={on} onClick={() => setGrade(g)} className={`press relative shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${on ? 'border-transparent text-brand-dark' : 'border-line text-muted hover:bg-snow'}`}>
+            <button key={g} role="tab" aria-selected={on} onClick={() => setGrade(g)} className={`press relative min-h-11 shrink-0 rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${on ? 'border-transparent text-brand-dark' : 'border-line text-muted hover:bg-snow'}`}>
               {on && <motion.span layoutId="grammar-chip" className="absolute inset-0 rounded-full bg-brand-soft ring-1 ring-brand/40" transition={SPRING.snappy} />}
               <span className="relative">{g === 'all' ? 'Alle Klassen' : `Klasse ${g}`}</span>
             </button>

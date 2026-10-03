@@ -13,7 +13,7 @@ export function Switch({ checked, onChange, label, disabled = false }: { checked
       aria-label={label}
       disabled={disabled}
       onClick={() => onChange(!checked)}
-      className={`relative h-8 w-14 shrink-0 rounded-full transition-colors duration-300 disabled:cursor-not-allowed disabled:opacity-40 ${checked ? 'bg-brand' : 'bg-line'}`}
+      className={`relative h-8 w-14 shrink-0 rounded-full transition-colors duration-300 before:absolute before:-inset-x-1 before:-inset-y-2 before:content-[''] disabled:cursor-not-allowed disabled:opacity-40 ${checked ? 'bg-brand' : 'bg-line'}`}
     >
       <motion.span
         className="absolute left-1 top-1 h-6 w-6 rounded-full bg-white shadow-md"
@@ -51,7 +51,7 @@ export function Segmented<T extends string | number>({
             role="radio"
             aria-checked={active}
             onClick={() => onChange(o.value)}
-            className={`relative rounded-lg px-3.5 py-1.5 text-sm font-medium transition-colors ${active ? 'text-ink' : 'text-muted hover:text-ink'}`}
+            className={`relative min-h-10 rounded-lg px-3.5 py-1.5 text-sm font-medium transition-colors ${active ? 'text-ink' : 'text-muted hover:text-ink'}`}
           >
             {active && <motion.span layoutId={`seg-${id}`} className="absolute inset-0 rounded-lg bg-surface" style={{ boxShadow: 'var(--shadow)' }} transition={SPRING.snappy} />}
             <span className="relative">{o.label}</span>

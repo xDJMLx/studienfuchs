@@ -159,3 +159,27 @@ export function speak(text: string, lang = 'fr-FR', rateFactor = 1): void {
 
 // Aufnahmen-Liste direkt beim Start laden, damit der erste Klick sofort die gute Stimme nutzt.
 void loadAudioIndex()
+
+const warmed = new Set<string>()
+
+/**
+ * Lädt die Aufnahmen der nächsten Wörter im Hintergrund vor (landen im Browser- und App-Cache),
+ * damit das Vorlesen im Mobilnetz ohne Wartezeit startet. Nur wenige, nur wenn nicht gespart werden soll.
+ */
+export function prefetchRecordings(texts: string[], max = 10): void {
+  if (typeof window === 'undefined') return
+  const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
+  if (conn?.saveData) return
+  void loadAudioIndex().then(() => {
+    let n = 0
+    for (const t of texts) {
+      if (n >= max) break
+      if (!t || !hasRecording(t)) continue
+      const url = `${audioBase}${audioKey(t)}.mp3`
+      if (warmed.has(url)) continue
+      warmed.add(url)
+      n++
+      fetch(url, { priority: 'low' } as RequestInit).catch(() => warmed.delete(url))
+    }
+  })
+}

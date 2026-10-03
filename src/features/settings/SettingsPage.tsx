@@ -13,6 +13,7 @@ import { applyUpdate, BUILD_ID, checkForUpdate } from '../../lib/updates'
 import { useStore } from '../../store/useStore'
 import { SpeechSettings } from '../profile/SpeechSettings'
 import { AiSettings } from './AiSettings'
+import { useShallow } from 'zustand/react/shallow'
 
 const GOALS = [
   { xp: 10, label: 'Locker', time: '5 Min. am Tag', bars: 1 },
@@ -66,7 +67,7 @@ export function SettingsPage() {
   const reduce = useReducedMotion()
   const navigate = useNavigate()
   const setOnboarded = useStore((s) => s.setOnboarded)
-  const { theme, setTheme, dailyGoal, setDailyGoal, soundOn, setSoundOn, grade, setGrade, exportData, importData, resetAll, lessons, cards, sets } = useStore()
+  const { theme, setTheme, dailyGoal, setDailyGoal, soundOn, setSoundOn, grade, setGrade, exportData, importData, resetAll, lessons, cards, sets } = useStore(useShallow((s) => ({ theme: s.theme, setTheme: s.setTheme, dailyGoal: s.dailyGoal, setDailyGoal: s.setDailyGoal, soundOn: s.soundOn, setSoundOn: s.setSoundOn, grade: s.grade, setGrade: s.setGrade, exportData: s.exportData, importData: s.importData, resetAll: s.resetAll, lessons: s.lessons, cards: s.cards, sets: s.sets })))
   const fileRef = useRef<HTMLInputElement>(null)
   const install = useInstallFlow()
   const [toast, setToast] = useState<{ ok: boolean; text: string } | null>(null)
@@ -167,7 +168,7 @@ export function SettingsPage() {
         <ul className="flex gap-2 overflow-x-auto [scrollbar-width:none]">
           {SECTIONS.map(({ id, label, Icon }) => (
             <li key={id} className="shrink-0">
-              <button type="button" onClick={() => go(id)} className={`press relative flex items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${active === id ? 'border-transparent text-brand-dark' : 'border-line text-muted hover:bg-snow hover:text-ink'}`}>
+              <button type="button" onClick={() => go(id)} className={`press relative flex min-h-11 items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${active === id ? 'border-transparent text-brand-dark' : 'border-line text-muted hover:bg-snow hover:text-ink'}`}>
                 {active === id && <motion.span layoutId="settings-nav" className="absolute inset-0 rounded-full bg-brand-soft ring-1 ring-brand/40" transition={SPRING.snappy} />}
                 <span className="relative"><Icon size={16} /></span>
                 <span className="relative">{label}</span>

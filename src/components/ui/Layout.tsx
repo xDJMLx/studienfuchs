@@ -12,6 +12,7 @@ import { CoachComposer } from './CoachComposer'
 import { TabBar } from './TabBar'
 import { useDue } from '../../features/review/ReviewPage'
 import { ProgressBar, ProgressRing, WeekStrip } from './widgets'
+import { useShallow } from 'zustand/react/shallow'
 
 interface NavItem {
   to: string
@@ -157,7 +158,7 @@ function DueBadge({ n, className = '' }: { n: number; className?: string }) {
 
 /** Kopfzeile auf dem Handy: Kurs links, Serie und XP rechts (antippen öffnet das Profil). */
 function TopBar({ className = '' }: { className?: string }) {
-  const { streak, xpByDay, dailyGoal, coins } = useStore()
+  const { streak, xpByDay, dailyGoal, coins } = useStore(useShallow((s) => ({ streak: s.streak, xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, coins: s.coins })))
   const s = streakNow(streak)
   const today = xpToday(xpByDay)
   return (
@@ -177,7 +178,7 @@ function TopBar({ className = '' }: { className?: string }) {
 }
 
 export function RightRail() {
-  const { streak, xp, xpByDay, dailyGoal } = useStore()
+  const { streak, xp, xpByDay, dailyGoal } = useStore(useShallow((s) => ({ streak: s.streak, xp: s.xp, xpByDay: s.xpByDay, dailyGoal: s.dailyGoal })))
   const s = streakNow(streak)
   const lvl = levelFromXp(xp)
   const today = xpToday(xpByDay)

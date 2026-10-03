@@ -1,4 +1,4 @@
-import { unitSchema } from './schema'
+import type { UnitFile } from './schema'
 import type { Item, Lesson, Unit } from '../lib/types'
 
 const slug = (s: string) =>
@@ -19,7 +19,9 @@ function fileNumber(path: string): number {
 function load(): Unit[] {
   const units: Unit[] = []
   const parsedAll = Object.keys(files).map((path) => {
-    const parsed = unitSchema.parse(files[path]) // bricht beim Start laut ab, wenn Inhalte kaputt sind
+    // Geprüft wird nicht beim Start, sondern in den Tests (content.test.ts). Die Veröffentlichung läuft nur nach grünen Tests,
+    // so muss die App rund 900 KB Lehrstoff nicht bei jedem Start prüfen und die Prüfbibliothek nicht ausliefern.
+    const parsed = files[path] as UnitFile
     return { parsed, order: parsed.order ?? fileNumber(path) }
   })
   parsedAll.sort((a, b) => a.parsed.grade - b.parsed.grade || a.order - b.order)

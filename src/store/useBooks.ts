@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 import { MAX_PAGE_CHARS, type Book, type BookExam, type BookPage, type Chapter } from '../lib/books'
-import { safeStorage } from '../lib/storage'
+import { debouncedStorage } from '../lib/storage'
 
 interface BooksData {
   books: Book[]
@@ -99,7 +99,7 @@ export const useBooks = create<BooksData & BooksActions>()(
 
       replaceAll: (data) => set({ books: Array.isArray(data?.books) ? data.books : [], exams: Array.isArray(data?.exams) ? data.exams : [] }),
     }),
-    { name: 'studienfuchs-books', version: 1, storage: createJSONStorage(() => safeStorage), partialize: (s) => ({ books: s.books, exams: s.exams }) },
+    { name: 'studienfuchs-books', version: 1, storage: createJSONStorage(() => debouncedStorage), partialize: (s) => ({ books: s.books, exams: s.exams }) },
   ),
 )
 
