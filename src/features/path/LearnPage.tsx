@@ -1,119 +1,65 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { useMemo, useState } from 'react'
+import { motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { blockingLesson, grades, isLessonDone, isUnlocked, passMark, units } from '../../content'
+import { blockingLesson, grades, isLessonDone, isRegular, isUnlocked, passMark, units } from '../../content'
 import { SpeakButton } from '../../components/exercises/common'
-import { Bolt, Check, Flame, Lock, Repeat, Right, Sparkle, Target, Trophy } from '../../components/ui/Icons'
+import { Check, Chevron, Lock, Repeat, Star, Trophy } from '../../components/ui/Icons'
 import { Mascot } from '../../components/mascot/Mascot'
-import { EASE, SPRING } from '../../components/ui/motion'
+import { SPRING } from '../../components/ui/motion'
 import { Sheet } from '../../components/ui/Sheet'
-import { ProgressRing } from '../../components/ui/widgets'
 import type { Lesson, Unit } from '../../lib/types'
 import { BackupBanner } from '../../components/ui/BackupBanner'
 import { InstallBanner } from '../../components/ui/InstallApp'
-import { catchUpStatus } from '../../lib/catchup'
+import { backupDue } from '../../lib/backup'
 import { goalInfo } from '../../lib/xp'
 import { chestReady, daysBetween, foxGreeting } from '../../lib/rewards'
 import { dayKey } from '../../lib/streak'
-import { DailyRewards } from './DailyQuests'
-import { streakNow, useStore, xpToday } from '../../store/useStore'
-import { useDue } from '../review/ReviewPage'
-import { useShallow } from 'zustand/react/shallow'
+import { streakNow, useStore } from '../../store/useStore'
+import { TodayStrip } from './TodayCard'
+import { DesignNotice } from './DesignNotice'
 
-const OFFSETS = [0, 46, 70, 46, 0, -46, -70, -46]
+/** Jede Einheit ist eine kleine Welt mit eigener Farbe (Fläche und dunklere Unterkante). */
+export const WORLDS = [
+  { c: '#ff8a1f', s: '#d66a00' },
+  { c: '#1e96fa', s: '#1474cc' },
+  { c: '#8b5cf6', s: '#6a3ad6' },
+  { c: '#ff5c9a', s: '#d43b77' },
+  { c: '#14b8a6', s: '#0d8f80' },
+  { c: '#58c234', s: '#3e9a1f' },
+  { c: '#ff6b5a', s: '#d6493a' },
+  { c: '#5b6cff', s: '#3c4bd8' },
+]
 
-/** Sechseck-Knoten mit Unterkante, wie die Lektions-Symbole bei SideMe, nur in Orange. */
-function HexNode({ state, test, children }: { state: NodeState; test: boolean; children: React.ReactNode }) {
+/** Schlängellinie des Pfads: so weit (px) weicht jeder Knoten von der Mitte ab. */
+const OFFSETS = [0, 44, 68, 44, 0, -44, -68, -44]
+
+type NodeState = 'done' | 'current' | 'open' | 'locked'
+type UnitStatus = 'done' | 'current' | 'upcoming'
+
+/** Runder Spielstein mit Unterkante; sinkt beim Drücken ein. */
+function PathNode({ state, kind, color, perfect }: { state: NodeState; kind: 'lesson' | 'review' | 'test'; color: { c: string; s: string }; perfect: boolean }) {
   const locked = state === 'locked'
-  const main = locked ? 'var(--snow)' : test ? 'var(--gold)' : 'var(--brand)'
-  const shade = locked ? 'var(--shade-line)' : test ? 'var(--shade-gold)' : 'var(--shade-brand)'
-  const d = 'M32 5 L58 20 L58 50 L32 65 L6 50 L6 20 Z'
+  const style = {
+    '--node': locked ? 'var(--line)' : color.c,
+    '--node-shade': locked ? 'var(--shade-line)' : color.s,
+  } as React.CSSProperties
+  const icon =
+    state === 'done' ? <Check size={34} /> : kind === 'test' ? <Trophy size={34} /> : kind === 'review' ? <Repeat size={32} /> : <Star size={34} />
   return (
-    <span className="relative block h-[80px] w-[72px]" aria-hidden>
-      <svg viewBox="0 0 64 72" width="72" height="80" className="absolute inset-0 overflow-visible">
-        <path d={d} transform="translate(0 6)" fill={shade} stroke={shade} strokeWidth="8" strokeLinejoin="round" />
-        <path d={d} fill={main} stroke={main} strokeWidth="8" strokeLinejoin="round" />
-        {!locked && <path d={d} transform="translate(32 35) scale(0.7) translate(-32 -35)" fill="#ffffff" fillOpacity="0.22" stroke="#ffffff" strokeOpacity="0.22" strokeWidth="6" strokeLinejoin="round" />}
-      </svg>
-      <span className={`absolute inset-x-0 top-0 flex h-[70px] items-center justify-center ${locked ? 'text-muted' : 'text-on-brand'}`}>{children}</span>
+    <span className={`path-node ${kind === 'test' ? 'path-node-big' : ''}`} style={style} aria-hidden>
+      <span className="path-node-edge" />
+      <span className={`path-node-face ${locked ? 'text-muted' : 'text-white'}`}>{icon}</span>
+      {perfect && (
+        <span className="absolute -right-1 -top-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-surface bg-gold text-white">
+          <Star size={15} />
+        </span>
+      )}
     </span>
   )
 }
 
-/** Heute: Tagesziel, fällige Wörter und Aufholplan als eine ruhige Liste. */
-function TodayCard() {
-  const navigate = useNavigate()
-  const { xpByDay, dailyGoal, streak, classUnit, catchUpTarget, catchUpAll, catchUpExtras, catchUpOngoing, lessons } = useStore(useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, streak: s.streak, classUnit: s.classUnit, catchUpTarget: s.catchUpTarget, catchUpAll: s.catchUpAll, catchUpExtras: s.catchUpExtras, catchUpOngoing: s.catchUpOngoing, lessons: s.lessons })))
-  const { due } = useDue()
-  const plan = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll, catchUpExtras, catchUpOngoing) : null
-  const today = xpToday(xpByDay)
-  const g = goalInfo(dailyGoal, today)
-  const days = streakNow(streak)
-  const done = g.baseReached
-  const row = 'press flex w-full items-center gap-3.5 px-4 py-3.5 text-left'
-  return (
-    <section className="card mb-5 divide-y divide-line overflow-hidden" aria-label="Heute">
-      <div className="flex items-center gap-4 px-4 py-4">
-        <ProgressRing key={g.goal} pct={g.pct} size={52} stroke={5} color={done ? 'var(--good)' : 'var(--gold)'}>
-          {done ? <Check size={20} className="text-good" /> : <Bolt size={22} />}
-        </ProgressRing>
-        <div className="min-w-0 flex-1">
-          <p className="font-semibold leading-tight">{done ? (g.tier === 1 ? 'Tagesziel geschafft' : 'Bonusziel geschafft') : `Noch ${g.goal - today} XP bis zum Tagesziel`}</p>
-          <p className="mt-0.5 flex items-center gap-1.5 text-sm text-muted">
-            <Flame size={15} /> {days} {days === 1 ? 'Tag' : 'Tage'} Serie
-            {done ? `, nächstes Bonusziel bei ${g.goal} XP` : ', danach wartet eine Truhe'}
-          </p>
-        </div>
-      </div>
-      <DailyRewards />
-      {due.length > 0 && (
-        <button type="button" className={row} onClick={() => navigate('/review/play')}>
-          <Repeat size={22} className="shrink-0 text-brand-dark" />
-          <span className="min-w-0 flex-1">
-            <span className="block font-semibold">
-              {due.length} {due.length === 1 ? 'Wort' : 'Wörter'} wiederholen
-            </span>
-            <span className="block text-sm text-muted">{due.length >= 20 ? 'Erst das, dann Neues: So bleibt es länger hängen.' : 'Kurz bevor du sie vergessen würdest'}</span>
-          </span>
-          <Right size={16} className="shrink-0 text-muted" />
-        </button>
-      )}
-      {plan && !plan.finished && (
-        <button type="button" className={row} onClick={() => navigate('/catchup')}>
-          <Target size={22} className="shrink-0 text-brand-dark" />
-          <span className="min-w-0 flex-1">
-            <span className="block font-semibold">Aufholen: {plan.toGoToday > 0 ? `heute noch ${plan.toGoToday} ${plan.toGoToday === 1 ? 'Lektion' : 'Lektionen'}` : 'Tagesziel geschafft'}</span>
-            <span className="block text-sm text-muted">
-              Noch {plan.remaining} Lektionen in {plan.daysLeft} {plan.daysLeft === 1 ? 'Tag' : 'Tagen'}
-            </span>
-          </span>
-          <Right size={16} className="shrink-0 text-muted" />
-        </button>
-      )}
-    </section>
-  )
-}
-/** KI auf der Startseite: eine ruhige Zeile, die Beispielfragen stehen im KI-Tab. */
-function CoachCard() {
-  return (
-    <Link to="/coach" className="card press group mb-4 flex items-center gap-3.5 p-4" aria-label="KI öffnen">
-      <span className="flex h-10 w-10 shrink-0 items-center justify-center text-brand-dark">
-        <Sparkle size={26} />
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="block font-semibold leading-tight">Frag die KI</span>
-        <span className="block text-sm text-muted">Für Klassenarbeiten, Grammatik und schwierige Wörter</span>
-      </span>
-      <Right size={16} className="shrink-0 text-muted transition-transform group-hover:translate-x-0.5" />
-    </Link>
-  )
-}
-
-type NodeState = 'done' | 'current' | 'open' | 'locked'
-
 export function LearnPage() {
   const reduce = useReducedMotion()
-  const navigate = useNavigate()
   const lessons = useStore((s) => s.lessons)
   const classUnit = useStore((s) => s.classUnit)
   const storedGrade = useStore((s) => s.grade)
@@ -121,15 +67,15 @@ export function LearnPage() {
   const shown = useMemo(() => units.filter((u) => u.grade === grade), [grade])
   // Zusatzeinheiten (Berliner Lehrwerke) sind freiwillig und zählen nicht zum Kursfortschritt
   const all = shown.filter((u) => !u.extra).flatMap((u) => u.lessons)
-  const regular = all.filter((l) => !l.review && !l.test)
+  const regular = all.filter(isRegular)
   const doneCount = regular.filter((l) => isLessonDone(l, lessons[l.id])).length
-  // Nächste Lektion: die erste offene, die noch nicht geschafft ist
+  // Nächste Lektion: die erste offene, die noch nicht geschafft ist (erst Neues, Wiederholungen erst danach)
   const open = (l: Lesson) => !isLessonDone(l, lessons[l.id]) && isUnlocked(l.id, lessons) && !l.test
-  // Erst die nächste normale Lektion, Wiederholungen der Einheit erst, wenn nichts Neues mehr offen ist
   const current = all.find((l) => open(l) && !l.review) ?? all.find(open)
   const currentUnit = shown.find((u) => u.lessons.some((l) => l.id === current?.id))
+  const currentIndex = currentUnit ? shown.indexOf(currentUnit) : -1
 
-  // Der Fuchs begrüßt dich passend zum Tag
+  // Der Fuchs neben der aktuellen Lektion begrüßt passend zur Lage
   const greeting = (() => {
     const st = useStore.getState()
     const today = dayKey()
@@ -146,11 +92,25 @@ export function LearnPage() {
     })
   })()
 
+  const [pop, setPop] = useState<string | null>(null)
+  const currentRef = useRef<HTMLLIElement>(null)
+
+  // Beim Öffnen zur aktuellen Lektion gleiten, falls sie unter der Kante liegt (nach dem Hochscrollen des Layouts)
+  useEffect(() => {
+    const id = window.setTimeout(() => {
+      const el = currentRef.current
+      const main = el?.closest('main')
+      if (!el || !main) return
+      const r = el.getBoundingClientRect()
+      if (r.bottom < window.innerHeight - 140) return
+      main.scrollTo({ top: main.scrollTop + r.top - window.innerHeight * 0.4, behavior: reduce ? 'auto' : 'smooth' })
+    }, 160)
+    return () => clearTimeout(id)
+    // nur beim Öffnen der Seite
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const [lessonSheet, setLessonSheet] = useState<{ lesson: Lesson; unit: Unit } | null>(null)
-  /** Nur die Einheit, in der man gerade lernt, ist offen. Alles andere klappt man bei Bedarf auf. */
-  const [openUnits, setOpenUnits] = useState<Record<string, boolean>>({})
-  const isOpen = (u: Unit) => openUnits[u.id] ?? u.id === currentUnit?.id
-  const toggle = (u: Unit) => setOpenUnits((o) => ({ ...o, [u.id]: !isOpen(u) }))
+  const [toggled, setToggled] = useState<Record<string, boolean>>({})
 
   const stateOf = (l: Lesson): NodeState => {
     if (isLessonDone(l, lessons[l.id])) return 'done'
@@ -158,142 +118,203 @@ export function LearnPage() {
     return l.id === current?.id ? 'current' : 'open'
   }
 
+  let worldNo = 0
   return (
-    <div className="mx-auto max-w-[620px] px-4 pb-10 pt-4 lg:pt-6">
-      {/* Weiterlernen: der eine große Block der Startseite, mit dem Fuchs */}
-      <section className="relative mb-5 overflow-hidden rounded-[28px] bg-brand-strong p-5 pr-28 text-on-brand" aria-label="Weiterlernen">
-        <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] opacity-80">Französisch, Klasse {grade}</p>
-        {current ? (
-          <>
-            <h1 className="mt-1 text-[28px] font-extrabold leading-tight">{doneCount === 0 ? 'Fang hier an' : 'Weiter geht’s'}</h1>
-            <p className="mt-0.5 text-[17px] font-medium leading-snug opacity-95">{current.title}</p>
-          </>
-        ) : (
-          <h1 className="mt-1 text-[22px] font-bold leading-tight">Alle Lektionen dieser Klasse sind geschafft</h1>
-        )}
-        <div className="mt-4 h-2.5 w-full max-w-[14rem] overflow-hidden rounded-full bg-black/20" role="progressbar" aria-valuemin={0} aria-valuemax={regular.length} aria-valuenow={doneCount} aria-label="Fortschritt in dieser Klasse">
-          <div className="h-full rounded-full bg-on-brand" style={{ width: `${regular.length ? Math.max(4, (doneCount / regular.length) * 100) : 0}%` }} />
+    <div className="mx-auto max-w-[560px] px-4 pb-16 pt-4 lg:pt-6">
+      {doneCount > 0 && <DesignNotice />}
+      <div className="xl:hidden">
+        <TodayStrip />
+      </div>
+
+      {doneCount === 0 && (
+        <div className="card mb-4 flex flex-wrap items-center gap-x-3 gap-y-2 p-4">
+          <p className="min-w-[10rem] flex-1 text-[15px] font-bold">Schon Französisch gehabt?</p>
+          <Link to="/placement" className="btn btn-ghost !min-h-10 !px-3 !py-2 !text-xs">Einstufungstest</Link>
+          <Link to="/catchup" className="btn btn-ghost !min-h-10 !px-3 !py-2 !text-xs">Aufholen</Link>
         </div>
-        <p className="mt-1.5 text-sm opacity-85">
-          {doneCount} von {regular.length} Lektionen geschafft
-        </p>
-        {current ? (
-          <button className="press mt-4 mb-1 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-[#0e1b28] px-5 text-[14px] font-extrabold uppercase tracking-[0.04em] text-white shadow-[0_4px_0_rgba(0,0,0,0.35)]" onClick={() => navigate(`/lesson/${current.id}`)}>
-            {doneCount === 0 ? 'Los geht’s' : 'Weitermachen'} <Right size={18} />
-          </button>
-        ) : (
-          <p className="mt-3 text-sm opacity-90">Wiederhole sie im Tab „Üben“.</p>
-        )}
-        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium">
-          <Link to="/catchup" className="underline decoration-current/50 underline-offset-4">
-            Unterricht schon weiter? Aufholen
-          </Link>
-          {doneCount === 0 && (
-            <Link to="/placement" className="underline decoration-current/50 underline-offset-4">
-              Vorwissen? Einstufungstest
-            </Link>
-          )}
-        </div>
-        <Mascot size={128} alive greet={greeting} bubbleSide="right" className="absolute -bottom-4 -right-3" />
-      </section>
+      )}
+      {/* Höchstens ein Hinweis gleichzeitig: Sichern geht vor Installieren */}
+      {backupDue(doneCount > 0) ? <BackupBanner /> : <InstallBanner />}
 
-      <TodayCard />
-
-      {doneCount > 0 && <CoachCard />}
-      <InstallBanner />
-      <BackupBanner />
-
-      <div className="grid gap-5">
+      <div className="mt-2 grid gap-5">
         {shown.map((unit, ui) => {
-          const regularInUnit = unit.lessons.filter((l) => !l.review && !l.test)
-          const done = regularInUnit.filter((l) => isLessonDone(l, lessons[l.id])).length
-          const pct = regularInUnit.length ? done / regularInUnit.length : 0
-          const unitDone = regularInUnit.length > 0 && done === regularInUnit.length
-          const unitLocked = !isUnlocked(regularInUnit[0].id, lessons)
-          const expanded = isOpen(unit)
+          const world = WORLDS[(unit.extra ? ui : worldNo++) % WORLDS.length]
           const number = shown.slice(0, ui + 1).filter((u) => !u.extra).length
-          const states = unit.lessons.map(stateOf)
-          const offsets = unit.lessons.map((_, li) => OFFSETS[(ui * 3 + li) % OFFSETS.length])
+          const reg = unit.lessons.filter(isRegular)
+          const done = reg.filter((l) => isLessonDone(l, lessons[l.id])).length
+          const unitDone = reg.length > 0 && done === reg.length
+          const status: UnitStatus = unit === currentUnit ? 'current' : unitDone ? 'done' : 'upcoming'
+          // Offen: die aktuelle Einheit und die zwei danach; Geschafftes und Fernes klappt man bei Bedarf auf
+          const autoOpen = status === 'current' || (status === 'upcoming' && currentIndex >= 0 && ui > currentIndex && ui <= currentIndex + 2) || (currentIndex < 0 && status !== 'done')
+          const expanded = toggled[unit.id] ?? autoOpen
+          const locked = !isUnlocked(reg[0]?.id ?? '', lessons)
+          const label = unit.extra ? 'Zusatz, freiwillig' : `Klasse ${unit.grade} · Einheit ${number}`
           return (
             <section key={unit.id} aria-labelledby={`h-${unit.id}`}>
-              {/* Kapitel-Banner wie bei SideMe: die offene Einheit in Orange, alle anderen ruhig */}
-              <button
-                type="button"
-                aria-expanded={expanded}
-                onClick={() => toggle(unit)}
-                className={`press sticky top-2 z-10 flex w-full items-center gap-3.5 rounded-[20px] p-4 text-left ${expanded ? 'bg-brand-strong text-on-brand shadow-[0_4px_0_var(--shade-brand)]' : 'card'} ${unitLocked && !expanded ? 'opacity-70' : ''}`}
-              >
-                <span className="min-w-0 flex-1">
-                  <span className={`flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] ${expanded ? 'opacity-80' : 'text-muted'}`}>
-                    <span className="truncate">{unit.extra ? 'Zusatz, freiwillig' : `Klasse ${unit.grade}, Einheit ${number}`}</span>
-                    {unit.id === classUnit && <span className={`shrink-0 rounded px-1.5 py-px text-[10px] ${expanded ? 'bg-on-brand text-brand-strong' : 'bg-brand-strong text-on-brand'}`}>Eure Klasse</span>}
+              {expanded ? (
+                <button
+                  type="button"
+                  onClick={() => setToggled((t) => ({ ...t, [unit.id]: false }))}
+                  aria-expanded
+                  className="sticky top-2 z-10 flex w-full items-center gap-3 rounded-[18px] px-4 py-3.5 text-left text-white"
+                  style={{ background: world.c, boxShadow: `0 5px 0 ${world.s}` }}
+                >
+                  <span className="min-w-0 flex-1">
+                    <span className="flex items-center gap-2 text-[12px] font-extrabold uppercase tracking-[0.1em] opacity-90">
+                      <span className="truncate">{label}</span>
+                      {unit.id === classUnit && <span className="shrink-0 rounded-md bg-white/25 px-1.5 py-px text-[10px]">Eure Klasse</span>}
+                    </span>
+                    <span id={`h-${unit.id}`} className="block truncate text-[21px] font-extrabold leading-tight" style={{ textShadow: '0 1px 0 rgba(0,0,0,0.12)' }}>
+                      {unit.title}
+                    </span>
+                    {status === 'current' && <span className="mt-0.5 line-clamp-2 block text-[13px] font-bold opacity-90">{unit.description}</span>}
                   </span>
-                  <span id={`h-${unit.id}`} className="block truncate text-[19px] font-extrabold leading-tight">{unit.title}</span>
-                  {expanded && <span className="mt-0.5 block text-sm font-medium opacity-80">{unit.description}</span>}
-                </span>
-                <ProgressRing pct={pct} size={46} stroke={5} color={expanded ? 'var(--on-brand)' : unitDone ? 'var(--good)' : 'var(--brand)'} track={expanded ? 'rgba(0,0,0,0.2)' : undefined}>
-                  {unitDone ? <Check size={18} /> : unitLocked ? <Lock size={16} /> : <span className="text-[12px] font-extrabold tabular-nums">{done}/{regularInUnit.length}</span>}
-                </ProgressRing>
-              </button>
-              <AnimatePresence initial={false}>
-                {expanded && (
-                  <motion.div
-                    key="nodes"
-                    initial={reduce ? false : { height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={reduce ? undefined : { height: 0, opacity: 0 }}
-                    transition={{ duration: 0.24, ease: EASE }}
-                    className="overflow-hidden"
-                  >
-                    <ol className="relative flex flex-col items-center gap-3 pb-4 pt-8">
-                      {unit.lessons.map((lesson, li) => {
-                        const state = states[li]
-                        const rec = lessons[lesson.id]
-                        const attempted = !!rec && state !== 'done'
-                        const offset = offsets[li]
-                        const kind = lesson.test ? 'Einheitentest' : lesson.review ? 'Wiederholung' : 'Lektion'
-                        return (
-                          // Bewusst ohne Einblend-Animation beim Scrollen: Bei schnellem Wischen blieben sonst Knoten unsichtbar
-                          <li key={lesson.id} style={{ transform: `translateX(${offset}px)` }} className="relative flex flex-col items-center">
-                            {state === 'current' && (
-                              <>
-                                <motion.span
-                                  initial={reduce ? false : { opacity: 0, y: 6, scale: 0.9 }}
-                                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                                  transition={{ ...SPRING.snappy, delay: 0.3 }}
-                                  className="absolute -top-7 z-10 whitespace-nowrap rounded-xl bg-ink px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-surface"
-                                >
-                                  Start
-                                  <span aria-hidden className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-ink" />
-                                </motion.span>
-                                <Mascot size={68} alive className={`pointer-events-none absolute top-0 ${offset >= 0 ? 'right-full mr-2' : 'left-full ml-2'}`} />
-                              </>
-                            )}
-                            <button
-                              type="button"
-                              onClick={() => setLessonSheet({ lesson, unit })}
-                              aria-label={`${kind}: ${lesson.title}${state === 'done' ? ', geschafft' : state === 'locked' ? ', gesperrt' : state === 'current' ? ', als Nächstes' : ''}`}
-                              className="press relative"
-                            >
-                              {state === 'current' && !reduce && <span aria-hidden className="animate-halo absolute inset-1 rounded-full bg-brand" />}
-                              <HexNode state={state} test={!!lesson.test}>
-                                {state === 'done' ? <Check size={26} /> : lesson.test ? <Trophy size={26} /> : lesson.review ? <Repeat size={26} /> : state === 'locked' ? <Lock size={22} /> : <span className="text-xl font-extrabold">{li + 1}</span>}
-                              </HexNode>
-                              {attempted && <span className="absolute -right-2 -top-1 rounded-full bg-gold px-1.5 text-[10px] font-extrabold text-on-brand">{Math.round(rec.bestAccuracy * 100)}%</span>}
-                            </button>
-                          </li>
-                        )
-                      })}
-                    </ol>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                  <span className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-2xl bg-white/20 text-[13px] font-extrabold tabular-nums leading-none">
+                    {done === reg.length && reg.length > 0 ? <Check size={22} /> : <>{done}<span className="mt-0.5 text-[10px] opacity-80">von {reg.length}</span></>}
+                  </span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setToggled((t) => ({ ...t, [unit.id]: true }))}
+                  aria-expanded={false}
+                  className="card press flex w-full items-center gap-3 px-4 py-3 text-left"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white" style={{ background: locked ? 'var(--line)' : world.c, boxShadow: `0 3px 0 ${locked ? 'var(--shade-line)' : world.s}` }}>
+                    {status === 'done' ? <Check size={20} /> : locked ? <Lock size={17} className="text-muted" /> : <Star size={18} />}
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[11px] font-extrabold uppercase tracking-[0.1em] text-muted">{label}</span>
+                    <span id={`h-${unit.id}`} className="block truncate text-[17px] font-extrabold leading-tight">{unit.title}</span>
+                  </span>
+                  <span className="text-sm font-extrabold tabular-nums text-muted">{done}/{reg.length}</span>
+                  <Chevron size={18} className="text-muted" />
+                </button>
+              )}
+
+              {expanded && (
+                <ol className="relative flex flex-col items-center gap-4 pb-2 pt-9">
+                  {unit.lessons.map((lesson, li) => {
+                    const state = stateOf(lesson)
+                    const rec = lessons[lesson.id]
+                    const offset = OFFSETS[(ui * 3 + li) % OFFSETS.length]
+                    const kind = lesson.test ? 'test' : lesson.review ? 'review' : 'lesson'
+                    const kindLabel = lesson.test ? 'Einheitentest' : lesson.review ? 'Wiederholung' : 'Lektion'
+                    const isOpen = pop === lesson.id
+                    return (
+                      // Bewusst ohne Einblend-Animation beim Scrollen: Bei schnellem Wischen blieben sonst Knoten unsichtbar
+                      <li key={lesson.id} ref={state === 'current' ? currentRef : undefined} style={{ transform: `translateX(${offset}px)` }} className={`relative flex flex-col items-center ${isOpen ? 'z-30' : ''}`}>
+                        {state === 'current' && (
+                          <>
+                            <span className="animate-bob absolute -top-10 z-10 whitespace-nowrap rounded-xl border-2 border-line bg-surface px-3 py-1.5 text-[13px] font-extrabold uppercase tracking-wide shadow-[0_3px_0_var(--shade-line)]" style={{ color: world.c }}>
+                              {rec ? 'Weiter' : 'Los!'}
+                              <span aria-hidden className="absolute -bottom-[7px] left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-b-2 border-r-2 border-line bg-surface" />
+                            </span>
+                            <Mascot size={74} alive greet={greeting} bubbleSide="above" className={`absolute -top-3 ${offset >= 0 ? 'right-full mr-5' : 'left-full ml-5'}`} />
+                          </>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => setPop(isOpen ? null : lesson.id)}
+                          aria-expanded={isOpen}
+                          aria-label={`${kindLabel}: ${lesson.title}${state === 'done' ? ', geschafft' : state === 'locked' ? ', gesperrt' : state === 'current' ? ', als Nächstes' : ''}`}
+                          className="path-btn relative"
+                        >
+                          {state === 'current' && <span aria-hidden className="absolute -inset-[9px] bottom-[-3px] rounded-full border-[6px]" style={{ borderColor: `color-mix(in srgb, ${world.c} 30%, transparent)` }} />}
+                          <PathNode state={state} kind={kind} color={world} perfect={state === 'done' && (rec?.bestAccuracy ?? 0) >= 0.95} />
+                        </button>
+                        {isOpen && (
+                          <LessonPopover
+                            lesson={lesson}
+                            unit={unit}
+                            state={state}
+                            color={world}
+                            offset={offset}
+                            reduce={!!reduce}
+                            onWords={() => {
+                              setPop(null)
+                              setLessonSheet({ lesson, unit })
+                            }}
+                          />
+                        )}
+                      </li>
+                    )
+                  })}
+                </ol>
+              )}
             </section>
           )
         })}
       </div>
 
+      {/* Tippen außerhalb schließt das Lektions-Kärtchen (Klick, nicht schon beim Drücken) */}
+      {pop && <button type="button" aria-label="Schließen" className="fixed inset-0 z-20 cursor-default" onClick={() => setPop(null)} />}
       <LessonSheet data={lessonSheet} onClose={() => setLessonSheet(null)} />
+    </div>
+  )
+}
+
+/** Kärtchen unter dem angetippten Knoten: Titel, worum es geht, und der große Start-Knopf. */
+function LessonPopover({ lesson, unit, state, color, offset, reduce, onWords }: { lesson: Lesson; unit: Unit; state: NodeState; color: { c: string; s: string }; offset: number; reduce: boolean; onWords: () => void }) {
+  const navigate = useNavigate()
+  const records = useStore((s) => s.lessons)
+  const rec = records[lesson.id]
+  const locked = state === 'locked'
+  const blocker = locked ? blockingLesson(lesson.id, records) : undefined
+  const regular = unit.lessons.filter(isRegular)
+  const pos = regular.findIndex((l) => l.id === lesson.id)
+  const sub = lesson.test
+    ? '15 Fragen ohne Hilfe, bestanden ab 70 %'
+    : lesson.review
+      ? 'Die Wörter der Einheit, gemischt'
+      : `Lektion ${pos + 1} von ${regular.length} · ${lesson.items.length} Wörter`
+  const bg = locked ? 'var(--snow)' : color.c
+  const box = useRef<HTMLDivElement>(null)
+  // Ganz sichtbar machen: nicht hinter der Tab-Leiste verstecken
+  useEffect(() => {
+    const el = box.current
+    const main = el?.closest('main')
+    if (!el || !main) return
+    const bottomLimit = window.innerHeight - (window.matchMedia('(min-width: 1024px)').matches ? 24 : 112)
+    const over = el.getBoundingClientRect().bottom - bottomLimit
+    if (over > 0) main.scrollBy({ top: over + 8, behavior: reduce ? 'auto' : 'smooth' })
+  }, [reduce])
+  return (
+    // Das Kärtchen steht mittig in der Spalte, der Pfeil zeigt auf den Knoten
+    <div ref={box} className="absolute top-[96px] z-30 w-[min(310px,calc(100vw-2rem))]" style={{ left: '50%', marginLeft: `calc(-1 * min(155px, calc(50vw - 1rem)) - ${offset}px)` }}>
+      <motion.div
+        initial={reduce ? false : { opacity: 0, y: -8, scale: 0.95 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={SPRING.snappy}
+        className={`relative rounded-[20px] p-4 ${locked ? 'border-2 border-line text-ink' : 'text-white'}`}
+        style={{ background: bg, boxShadow: locked ? '0 4px 0 var(--shade-line)' : `0 5px 0 ${color.s}`, transformOrigin: `calc(50% + ${offset}px) 0` }}
+      >
+        <span aria-hidden className={`absolute -top-2 h-4 w-4 rotate-45 ${locked ? 'border-l-2 border-t-2 border-line' : ''}`} style={{ left: `calc(50% + ${offset}px - 8px)`, background: bg }} />
+        <p className="text-[19px] font-extrabold leading-tight">{lesson.title}</p>
+        <p className={`mt-0.5 text-sm font-bold ${locked ? 'text-muted' : 'opacity-90'}`}>{sub}</p>
+        {rec && state !== 'done' && !locked && <p className="mt-1 text-sm font-bold opacity-90">Bisher {Math.round(rec.bestAccuracy * 100)} %, nötig {Math.round(passMark(lesson) * 100)} %</p>}
+        {locked ? (
+          <>
+            <p className="mt-2 text-sm text-muted">Schließe zuerst {blocker ? <b className="text-ink">„{blocker.title}“</b> : 'die Lektionen davor'} ab.</p>
+            <button type="button" disabled className="btn mt-3 w-full">Gesperrt</button>
+          </>
+        ) : (
+          <button
+            type="button"
+            onClick={() => navigate(`/lesson/${lesson.id}`)}
+            className="btn mt-3 w-full bg-white"
+            style={{ color: color.s, '--edge': 'rgba(0,0,0,0.2)' } as React.CSSProperties}
+            autoFocus
+          >
+            {state === 'done' ? 'Nochmal üben' : rec ? 'Nochmal versuchen' : state === 'current' ? 'Los geht’s' : 'Starten'}
+          </button>
+        )}
+        {!lesson.review && !lesson.test && (
+          <button type="button" onClick={onWords} className={`mt-1 w-full rounded-xl py-2 text-sm font-extrabold underline-offset-4 hover:underline ${locked ? 'text-sky-dark' : 'text-white/95'}`}>
+            Wörter ansehen
+          </button>
+        )}
+      </motion.div>
     </div>
   )
 }
@@ -303,9 +324,6 @@ function LessonSheet({ data, onClose }: { data: { lesson: Lesson; unit: Unit } |
   const records = useStore((s) => s.lessons)
   const lesson = data?.lesson
   const unit = data?.unit
-  const rec = lesson ? records[lesson.id] : undefined
-  const done = lesson ? isLessonDone(lesson, rec) : false
-  const blocker = lesson ? blockingLesson(lesson.id, records) : undefined
   const locked = !!lesson && !isUnlocked(lesson.id, records)
 
   return (
@@ -313,51 +331,29 @@ function LessonSheet({ data, onClose }: { data: { lesson: Lesson; unit: Unit } |
       {lesson && unit && (
         <div>
           <p className="eyebrow mb-1">{unit.title}</p>
-          <h2 className="mb-1 text-2xl font-semibold">{lesson.title}</h2>
+          <h2 className="mb-1 text-2xl font-extrabold">{lesson.title}</h2>
           <p className="mb-4 text-sm text-muted">
-            {lesson.test
-              ? '15 gemischte Fragen ohne Hilfe. Bestanden ab 70 % richtig.'
-              : lesson.review
-                ? 'Die schwächsten Wörter dieser Einheit, gemischt abgefragt.'
-                : `${lesson.items.length} neue Wörter${lesson.explanation ? ' · mit kurzer Erklärung' : ''} · ca. ${Math.max(3, Math.round(lesson.items.length * 1.2))} Minuten`}
+            {lesson.items.length} neue Wörter{lesson.explanation ? ' · mit kurzer Erklärung' : ''} · ca. {Math.max(3, Math.round(lesson.items.length * 1.2))} Minuten
           </p>
-
-          {!lesson.review && !lesson.test && (
-            <ul className="mb-5 grid gap-1.5">
-              {lesson.items.map((it) => (
-                <li key={it.id} className="flex items-center gap-3 rounded-xl bg-snow px-3 py-2">
-                  <SpeakButton text={it.front} />
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate font-medium">{it.front}</span>
-                    <span className="block truncate text-sm text-muted">{it.back}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-
-          {rec && !done && (
-            <p className="mb-4 rounded-xl bg-gold/15 px-4 py-3 text-sm text-gold-dark">
-              Letzter Versuch: {Math.round(rec.bestAccuracy * 100)} % beim ersten Mal. Du brauchst {Math.round(passMark(lesson) * 100)} %, damit es weitergeht.
-            </p>
-          )}
-
+          <ul className="mb-5 grid gap-1.5">
+            {lesson.items.map((it) => (
+              <li key={it.id} className="flex items-center gap-3 rounded-2xl bg-snow px-3 py-2">
+                <SpeakButton text={it.front} />
+                <span className="min-w-0 flex-1">
+                  <span lang="fr" className="block truncate font-extrabold">{it.front}</span>
+                  <span className="block truncate text-sm text-muted">{it.back}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
           {locked ? (
-            <div>
-              <p className="mb-3 flex items-start gap-2 rounded-xl bg-snow px-4 py-3 text-sm">
-                <span className="mt-0.5 text-muted"><Lock size={18} /></span>
-                <span>Gesperrt. Schließe zuerst {blocker ? <b>„{blocker.title}“</b> : 'die vorherigen Lektionen'} ab. So bleibt alles im Kopf, statt dass du Lücken mitschleppst.</span>
-              </p>
-              <div className="flex flex-col gap-2 sm:flex-row">
-                {blocker && isUnlocked(blocker.id, records) && (
-                  <button className="btn btn-primary" onClick={() => navigate(`/lesson/${blocker.id}`)}>Zu „{blocker.title}“</button>
-                )}
-                <Link to="/placement" className="btn btn-ghost">Einstufungstest machen</Link>
-              </div>
-            </div>
+            <p className="flex items-start gap-2 rounded-2xl bg-snow px-4 py-3 text-sm">
+              <span className="mt-0.5 text-muted"><Lock size={18} /></span>
+              <span>Noch gesperrt. Schließe zuerst die Lektionen davor ab, dann geht es hier weiter.</span>
+            </p>
           ) : (
             <button className="btn btn-primary w-full" onClick={() => navigate(`/lesson/${lesson.id}`)} autoFocus>
-              {done ? 'Nochmal üben' : rec ? 'Nochmal versuchen' : 'Start'}
+              Starten
             </button>
           )}
         </div>

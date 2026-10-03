@@ -248,17 +248,17 @@ export function CoachPage() {
                 setInput(PAGES_PROMPT)
                 window.setTimeout(() => box.current?.focus(), 50)
               }}
-              className="press group flex items-center gap-3 rounded-2xl border border-brand/40 bg-brand-soft px-4 py-3 text-left"
+              className="press group flex items-center gap-3 rounded-2xl border-2 border-violet bg-violet-soft px-4 py-3 text-left shadow-[0_3px_0_var(--shade-violet)]"
             >
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-strong text-on-brand">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet text-white">
                 <Sparkle size={18} />
               </span>
-              <span className="flex-1 font-medium">Vokabeltest aus meinen Buchseiten</span>
+              <span className="flex-1 font-bold text-violet-dark">Vokabeltest aus meinen Buchseiten</span>
               <Right size={16} className="shrink-0 text-muted transition-transform group-hover:translate-x-0.5" />
             </button>
             {SUGGESTIONS.map((s) => (
-              <button key={s} type="button" onClick={() => send(s)} className="press group flex items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3 text-left transition-colors hover:bg-snow">
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center text-brand-dark">
+              <button key={s} type="button" onClick={() => send(s)} className="press group flex items-center gap-3 rounded-2xl border-2 border-line bg-surface px-4 py-3 text-left shadow-[0_3px_0_var(--shade-line)] transition-colors hover:bg-snow">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-soft text-violet-dark">
                   <Sparkle size={18} />
                 </span>
                 <span className="flex-1 font-medium">{s}</span>

@@ -9,7 +9,7 @@ export function useApplyTheme() {
     const apply = () => {
       const dark = theme === 'dark' || (theme === 'system' && mq.matches)
       document.documentElement.classList.toggle('dark', dark)
-      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', dark ? '#0e1b28' : '#ffffff')
+      document.querySelectorAll('meta[name="theme-color"]').forEach((m) => m.setAttribute('content', dark ? '#111a20' : '#ffffff'))
     }
     apply()
     mq.addEventListener('change', apply)

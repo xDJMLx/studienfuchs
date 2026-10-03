@@ -10,25 +10,19 @@ export function BackupBanner() {
   const [hidden, setHidden] = useState(false)
   const [due] = useState(() => backupDue(hasProgress))
   if (!due || hidden) return null
+  const save = async () => {
+    const r = await shareBackup(exportData())
+    if (r !== 'cancelled') setHidden(true)
+  }
   return (
-    <div className="card mb-4 flex items-center gap-3 p-3 pr-2">
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center text-brand-dark">
-        <Upload size={22} />
+    <div className="card mb-3 flex items-center gap-3 py-2 pl-3 pr-1.5">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-sky-soft text-sky-dark">
+        <Upload size={20} />
       </span>
-      <div className="min-w-0 flex-1">
-        <p className="font-semibold leading-tight">Fortschritt sichern</p>
-        <p className="text-sm text-muted">Er liegt nur auf diesem Handy. Mit einer Sicherung geht nichts verloren.</p>
-        <button
-          type="button"
-          className="press mt-2 rounded-lg bg-brand-strong px-3 py-1.5 text-sm font-semibold text-on-brand"
-          onClick={async () => {
-            const r = await shareBackup(exportData())
-            if (r !== 'cancelled') setHidden(true)
-          }}
-        >
-          Jetzt sichern
-        </button>
-      </div>
+      <button type="button" onClick={save} className="press min-w-0 flex-1 text-left">
+        <span className="block truncate text-[15px] font-extrabold">Fortschritt sichern</span>
+        <span className="block truncate text-[13px] text-muted">Er liegt nur auf diesem Gerät. Tippen zum Sichern.</span>
+      </button>
       <button
         type="button"
         aria-label="Später erinnern"

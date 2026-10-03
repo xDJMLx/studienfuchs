@@ -16,7 +16,7 @@ export function TeachExercise({ exercise: ex }: { exercise: Extract<Exercise, { 
   return (
     <div>
       <p className="eyebrow mb-1">Neu</p>
-      <h2 className="mb-5 text-2xl font-semibold">{ex.items.length === 1 ? 'Ein neues Wort' : 'Zwei neue Wörter'}</h2>
+      <h2 className="mb-5 text-[25px] font-extrabold">{ex.items.length === 1 ? 'Ein neues Wort' : 'Zwei neue Wörter'}</h2>
       <ul className="grid gap-4">
         {ex.items.map((it, i) => (
           <motion.li
@@ -29,7 +29,7 @@ export function TeachExercise({ exercise: ex }: { exercise: Extract<Exercise, { 
             <div className="flex items-start gap-4">
               <SpeakButton text={it.front} />
               <div className="min-w-0 flex-1">
-                <Fr className="block text-3xl font-semibold leading-tight">{it.front}</Fr>
+                <Fr className="block text-[32px] font-extrabold leading-tight">{it.front}</Fr>
                 <p className="mt-1 text-lg text-muted">{it.back}</p>
               </div>
             </div>

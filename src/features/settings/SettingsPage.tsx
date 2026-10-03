@@ -40,16 +40,16 @@ const SECTIONS = [
 /** Kleine Vorschau, wie die App im jeweiligen Farbschema aussieht (feste Farben, unabhängig vom aktuellen Schema). */
 function ThemePreview({ kind }: { kind: 'light' | 'dark' | 'system' }) {
   const pane = (dark: boolean) => (
-    <div className="h-full w-full p-2.5" style={{ background: dark ? '#0d0e11' : '#f6f6f7' }}>
+    <div className="h-full w-full p-2.5" style={{ background: dark ? '#111a20' : '#f4f5f7' }}>
       <div className="mb-2 flex items-center gap-1.5">
-        <span className="h-2.5 w-2.5 rounded-full" style={{ background: dark ? '#ff7a24' : '#f2690f' }} />
-        <span className="h-1.5 w-8 rounded" style={{ background: dark ? '#292c34' : '#e7e7ea' }} />
+        <span className="h-2.5 w-2.5 rounded-full" style={{ background: dark ? '#ff8a2a' : '#ff7a1a' }} />
+        <span className="h-1.5 w-8 rounded" style={{ background: dark ? '#2d3d47' : '#e5e6eb' }} />
       </div>
-      <div className="rounded-md p-1.5" style={{ background: dark ? '#17181d' : '#ffffff', boxShadow: dark ? 'none' : '0 1px 2px rgba(0,0,0,.08)' }}>
-        <div className="mb-1 h-1.5 w-full rounded" style={{ background: dark ? '#292c34' : '#e7e7ea' }} />
-        <div className="h-1.5 w-2/3 rounded" style={{ background: dark ? '#292c34' : '#e7e7ea' }} />
+      <div className="rounded-md p-1.5" style={{ background: dark ? '#19252d' : '#ffffff', boxShadow: dark ? 'none' : '0 1px 2px rgba(0,0,0,.08)' }}>
+        <div className="mb-1 h-1.5 w-full rounded" style={{ background: dark ? '#2d3d47' : '#e5e6eb' }} />
+        <div className="h-1.5 w-2/3 rounded" style={{ background: dark ? '#2d3d47' : '#e5e6eb' }} />
       </div>
-      <div className="mt-2 h-3 w-12 rounded-md" style={{ background: dark ? '#ff7a24' : '#f2690f' }} />
+      <div className="mt-2 h-3 w-12 rounded-md" style={{ background: dark ? '#ff8a2a' : '#ff7a1a' }} />
     </div>
   )
   if (kind === 'system') {

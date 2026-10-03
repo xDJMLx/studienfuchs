@@ -5,13 +5,14 @@ import { goalInfo, levelFromXp } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
 import { CourseChip } from './CoursePicker'
-import { Camera, Coin, Flame, Gear, TabBooks, TabHome, TabKi, TabRepeat, TabUser, Trophy, Xp } from './Icons'
+import { Coin, Flame, Gear, TabBooks, TabHome, TabKi, TabRepeat, TabUser, Xp } from './Icons'
 import { EASE } from './motion'
 import { useCoachComposer } from '../../lib/coachComposer'
 import { CoachComposer } from './CoachComposer'
 import { TabBar } from './TabBar'
 import { useDue } from '../../features/review/ReviewPage'
-import { ProgressBar, ProgressRing, WeekStrip } from './widgets'
+import { ProgressBar, WeekStrip } from './widgets'
+import { TodayCard } from '../../features/path/TodayCard'
 import { useShallow } from 'zustand/react/shallow'
 
 interface NavItem {
@@ -33,7 +34,7 @@ const NAV: NavItem[] = [
 
 export function Wordmark({ size = 'md', tone = 'default' }: { size?: 'md' | 'lg'; tone?: 'default' | 'light' }) {
   return (
-    <span className={`flex items-center gap-2.5 font-bold tracking-tight ${tone === 'light' ? 'text-white' : 'text-ink'} ${size === 'lg' ? 'text-3xl' : 'text-xl'}`}>
+    <span className={`flex items-center gap-2.5 font-black tracking-tight ${tone === 'light' ? 'text-white' : 'text-brand'} ${size === 'lg' ? 'text-[32px]' : 'text-[24px]'}`}>
       <Mascot size={size === 'lg' ? 46 : 32} />
       Studienfuchs
     </span>
@@ -77,18 +78,17 @@ export function Layout() {
         Zum Inhalt springen
       </button>
       {/* Seitenleiste (Desktop) */}
-      <aside className="hidden w-[260px] shrink-0 flex-col border-r border-line bg-surface px-4 py-5 lg:flex">
+      <aside className="hidden w-[256px] shrink-0 flex-col border-r-2 border-line bg-surface px-4 py-6 lg:flex">
         <Link to="/" className="mb-7 px-2" aria-label="Zur Startseite">
           <Wordmark />
         </Link>
         <nav className="grid gap-1" aria-label="Hauptnavigation">
           {NAV.map(({ to, label, Icon, end }) => (
-            <NavLink key={to} to={to} end={end} className={({ isActive }) => `nav-link press relative ${isActive ? 'text-brand-dark' : ''}`}>
-              {({ isActive }) => (
+            <NavLink key={to} to={to} end={end} className={({ isActive }) => `nav-link press relative ${isActive ? 'nav-link-active' : ''}`}>
+              {() => (
                 <>
-                  {isActive && <motion.span layoutId="sidebar-active" className="absolute inset-0 rounded-xl bg-brand-soft" transition={{ type: 'spring', stiffness: 400, damping: 34 }} />}
-                  <span className="relative flex items-center gap-3.5">
-                    <Icon size={22} />
+                  <span className="relative flex w-full items-center gap-4">
+                    <Icon size={26} />
                     {label}
                     {to === '/practice' && dueCount > 0 && <DueBadge n={dueCount} className="ml-auto" />}
                   </span>
@@ -97,8 +97,8 @@ export function Layout() {
             </NavLink>
           ))}
         </nav>
-        <NavLink to="/settings" className={({ isActive }) => `nav-link press mt-auto ${isActive ? 'text-brand-dark' : ''}`}>
-          <Gear size={22} />
+        <NavLink to="/settings" className={({ isActive }) => `nav-link press mt-auto ${isActive ? 'nav-link-active' : ''}`}>
+          <Gear size={26} />
           Einstellungen
         </NavLink>
       </aside>
@@ -156,21 +156,27 @@ function DueBadge({ n, className = '' }: { n: number; className?: string }) {
   )
 }
 
-/** Kopfzeile auf dem Handy: Kurs links, Serie und XP rechts (antippen öffnet das Profil). */
+/** Kopfzeile auf dem Handy: Kurs links, rechts Serie, XP von heute und Münzen als kräftige Zahlen. */
 function TopBar({ className = '' }: { className?: string }) {
   const { streak, xpByDay, dailyGoal, coins } = useStore(useShallow((s) => ({ streak: s.streak, xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, coins: s.coins })))
   const s = streakNow(streak)
   const today = xpToday(xpByDay)
+  const stat = 'press flex min-h-11 items-center gap-1.5 rounded-xl px-2 text-[16px] font-extrabold tabular-nums transition-colors hover:bg-snow'
   return (
-    <header className={`flex items-center justify-between border-b border-line bg-surface px-3 py-2 ${className}`}>
+    <header className={`flex items-center justify-between border-b-2 border-line bg-page px-3 py-1.5 ${className}`}>
       <CourseChip />
-      <div className="flex items-center">
-        <Link to="/profile" className="press flex min-h-11 items-center gap-3 rounded-xl px-2 text-sm font-semibold transition-colors hover:bg-snow" aria-label="Profil öffnen">
-          <span className="flex items-center gap-1 text-fox-dark" title="Serie"><Flame size={20} />{s}</span>
-          <span className="flex items-center gap-1 text-gold-dark" title="Heute gesammelte XP"><Xp size={20} />{today}/{goalInfo(dailyGoal, today).goal}</span>
+      <div className="flex items-center gap-0.5">
+        <Link to="/profile" className={`${stat} ${s > 0 ? 'text-fox-dark' : 'text-muted'}`} aria-label={`${s} Tage Serie, Profil öffnen`} title="Serie">
+          <Flame size={24} className={s > 0 ? '' : 'grayscale opacity-60'} />
+          {s}
         </Link>
-        <Link to="/shop" className="press flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-gold-dark transition-colors hover:bg-snow" aria-label={`${coins} Münzen, zum Fuchs-Laden`} title="Münzen">
-          <Coin size={20} />{coins}
+        <Link to="/profile" className={`${stat} text-gold-dark`} aria-label={`Heute ${today} von ${goalInfo(dailyGoal, today).goal} XP`} title="XP heute">
+          <Xp size={24} />
+          {today}
+        </Link>
+        <Link to="/shop" className={`${stat} text-gold-dark`} aria-label={`${coins} Münzen, zum Fuchs-Laden`} title="Münzen">
+          <Coin size={24} />
+          {coins}
         </Link>
       </div>
     </header>
@@ -178,62 +184,24 @@ function TopBar({ className = '' }: { className?: string }) {
 }
 
 export function RightRail() {
-  const { streak, xp, xpByDay, dailyGoal } = useStore(useShallow((s) => ({ streak: s.streak, xp: s.xp, xpByDay: s.xpByDay, dailyGoal: s.dailyGoal })))
+  const { streak, xp } = useStore(useShallow((s) => ({ streak: s.streak, xp: s.xp })))
   const s = streakNow(streak)
   const lvl = levelFromXp(xp)
-  const today = xpToday(xpByDay)
-  const g = goalInfo(dailyGoal, today)
-  const goalPct = g.pct
-  const card = 'card lift block p-5'
   return (
     <div className="grid gap-4">
-      <div className="card p-5">
+      <TodayCard />
+      <Link to="/profile" className="card lift block p-5">
         <div className="mb-4 flex items-center justify-between">
-          <Link to="/profile" className="group">
-            <p className="eyebrow">Serie</p>
-            <p className="flex items-center gap-1.5 text-2xl font-bold transition-colors group-hover:text-brand-dark"><Flame size={26} />{s} {s === 1 ? 'Tag' : 'Tage'}</p>
-          </Link>
-          <CourseChip />
+          <p className="flex items-center gap-2 text-[20px] font-extrabold"><Flame size={28} />{s} {s === 1 ? 'Tag' : 'Tage'} Serie</p>
         </div>
         <WeekStrip />
-      </div>
-
-      <Link to="/settings" className={`${card} flex items-center gap-4`} aria-label="Tagesziel anpassen">
-        <ProgressRing pct={goalPct} size={72} color="var(--gold)">
-          <Xp size={26} />
-        </ProgressRing>
-        <div>
-          <p className="eyebrow">{g.baseReached ? 'Bonusziel' : 'Tagesziel'}</p>
-          <p className="text-xl font-bold">{today} / {g.goal} XP</p>
-          <p className="text-sm text-muted">{g.baseReached ? `Mindestziel geschafft${g.tier > 1 ? `, Bonus ${g.tier - 1}` : ''}` : `Noch ${g.goal - today} XP`}</p>
-        </div>
       </Link>
-
-      <Link to="/profile" className={card}>
+      <Link to="/profile" className="card lift block p-5">
         <div className="mb-2 flex items-baseline justify-between">
-          <p className="eyebrow">Level</p>
-          <p className="text-sm text-muted">{lvl.into} / {lvl.needed} XP</p>
+          <p className="text-[18px] font-extrabold">Level {lvl.level}</p>
+          <p className="text-sm font-bold text-muted">{lvl.into} / {lvl.needed} XP</p>
         </div>
-        <p className="mb-3 text-xl font-bold">Level {lvl.level}</p>
-        <ProgressBar pct={lvl.into / lvl.needed} />
-      </Link>
-
-      <Link to="/books" className={`${card} group flex items-center gap-4`}>
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center text-brand-dark transition-transform group-hover:scale-105">
-          <Camera size={24} />
-        </span>
-        <span>
-          <span className="block font-semibold">Deine Bücher</span>
-          <span className="block text-sm text-muted">Seiten fotografieren, die KI kennt dein Buch.</span>
-        </span>
-      </Link>
-
-      <Link to="/practice" className={`${card} flex items-center gap-4`}>
-        <span className="flex h-12 w-12 shrink-0 items-center justify-center text-muted"><Trophy size={24} /></span>
-        <span>
-          <span className="block font-semibold">Frei üben</span>
-          <span className="block text-sm text-muted">Karteikarten, Schreiben, Hören.</span>
-        </span>
+        <ProgressBar pct={lvl.into / lvl.needed} color="bg-gold" className="!h-3" />
       </Link>
     </div>
   )

@@ -25,6 +25,16 @@ jobs:
         env:
           VITE_BASE: /${{ github.event.repository.name }}/
       - run: cp dist/index.html dist/404.html
+      # Zum Vergleich: das vorige Design (Tag design-v2) unter /alt/. Fällt der Bau aus, geht die normale Seite trotzdem online.
+      - name: Altes Design unter /alt/ bauen
+        continue-on-error: true
+        run: |
+          git fetch --depth=1 --no-tags origin refs/tags/design-v2:refs/tags/design-v2
+          git worktree add ../alt design-v2
+          cd ../alt
+          npm ci --no-audit --no-fund
+          VITE_BASE=/${{ github.event.repository.name }}/alt/ npm run build
+          cp -r dist "$GITHUB_WORKSPACE/dist/alt"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

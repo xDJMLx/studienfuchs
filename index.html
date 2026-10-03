@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" />
-    <meta name="theme-color" content="#0e1b28" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111a20" media="(prefers-color-scheme: dark)" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -23,7 +24,7 @@
       // Dark-Mode vor dem ersten Rendern setzen, damit nichts aufblitzt
       try {
         var t = (JSON.parse(localStorage.getItem("studienfuchs-v1") || localStorage.getItem("lernfuchs-v1")) || {}).state || {};
-        var dark = (t.theme || "dark") === "dark" || ((t.theme || "dark") === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+        var th = t.theme || "system"; var dark = th === "dark" || (th === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
         if (dark) document.documentElement.classList.add("dark");
       } catch (e) {}
     </script>

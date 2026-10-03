@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { COURSE_STATS } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
 import { IconChip } from '../../components/ui/controls'
-import { Check, Coin, Flame, Gear, Right, Shield } from '../../components/ui/Icons'
+import { Check, Coin, Flame, Gear, Right, Shield, Star, Trophy, Xp } from '../../components/ui/Icons'
 import { CountUp, EASE, Item, SPRING, Stagger } from '../../components/ui/motion'
-import { SegmentedBar } from '../../components/ui/widgets'
+import { ProgressRing, SegmentedBar } from '../../components/ui/widgets'
 import { achievements } from '../../lib/achievements'
 import { dayKey } from '../../lib/streak'
 import { levelFromXp } from '../../lib/xp'
@@ -24,7 +24,7 @@ const COURSE_WORDS = COURSE_STATS.words
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
-  const { xp, xpByDay, streak, dailyGoal, lessons, sets, outfit, coins } = useStore(useShallow((s) => ({ xp: s.xp, xpByDay: s.xpByDay, streak: s.streak, dailyGoal: s.dailyGoal, lessons: s.lessons, sets: s.sets, outfit: s.outfit, coins: s.coins })))
+  const { xp, xpByDay, streak, dailyGoal, lessons, sets, outfit, coins, bestStreak } = useStore(useShallow((s) => ({ xp: s.xp, xpByDay: s.xpByDay, streak: s.streak, dailyGoal: s.dailyGoal, lessons: s.lessons, sets: s.sets, outfit: s.outfit, coins: s.coins, bestStreak: s.bestStreak })))
   const { learned, byMastery } = useLearned()
   const lvl = levelFromXp(xp)
   const streakDays = streakNow(streak)
@@ -76,16 +76,16 @@ export function ProfilePage() {
       <Stagger stagger={0.09}>
         {/* Kopfbereich: flacher Markenblock, der Fuchs schaut herein */}
         <Item>
-          <section className="relative overflow-hidden rounded-[28px] bg-brand-strong p-5 pr-32 text-on-brand">
+          <section className="relative overflow-hidden rounded-[22px] bg-brand-strong p-5 pr-32 text-on-brand shadow-[0_5px_0_var(--shade-brand)]">
             <Link to="/settings" aria-label="Einstellungen" className="press absolute right-3 top-3 z-10 flex h-11 w-11 items-center justify-center rounded-full text-on-brand/90 hover:bg-white/15">
               <Gear size={22} />
             </Link>
             <p className="text-sm font-medium opacity-85">Level {lvl.level}</p>
-            <h1 className="mt-0.5 text-[28px] font-bold leading-[1.1]">{titleFor(lvl.level)}</h1>
+            <h1 className="mt-0.5 text-[30px] font-black leading-[1.05]">{titleFor(lvl.level)}</h1>
             <p className="mt-1 text-[15px] opacity-90">
               <CountUp to={xp} /> XP gesamt
             </p>
-            <div className="mt-4 h-1.5 w-full max-w-[15rem] overflow-hidden rounded-full bg-white/30" role="progressbar" aria-valuemin={0} aria-valuemax={lvl.needed} aria-valuenow={lvl.into} aria-label={`Fortschritt zu Level ${lvl.level + 1}`}>
+            <div className="mt-4 h-3 w-full max-w-[15rem] overflow-hidden rounded-full bg-black/15" role="progressbar" aria-valuemin={0} aria-valuemax={lvl.needed} aria-valuenow={lvl.into} aria-label={`Fortschritt zu Level ${lvl.level + 1}`}>
               <motion.div className="h-full rounded-full bg-white" initial={reduce ? false : { width: 0 }} animate={{ width: `${Math.max(3, (lvl.into / lvl.needed) * 100)}%` }} transition={{ duration: 0.6, ease: EASE, delay: 0.15 }} />
             </div>
             <p className="mt-1.5 text-sm opacity-85">
@@ -128,17 +128,22 @@ export function ProfilePage() {
           </Link>
         </Item>
 
-        {/* Zahlen als Liste statt als Kachelraster */}
+        {/* Statistik als Kacheln: Symbol, große Zahl, kurze Bezeichnung */}
         <Item>
-          <dl className="card mt-4 divide-y divide-line overflow-hidden text-[15px]">
+          <h2 className="mb-3 mt-6 px-1 text-[20px] font-extrabold">Statistik</h2>
+          <dl className="grid grid-cols-2 gap-3">
             {[
-              ['XP gesamt', xp.toLocaleString('de-DE')],
-              ['Lektionen geschafft', String(Object.keys(lessons).length)],
-              ['Wörter gefestigt', `${mastered} von ${learned.length}`],
-            ].map(([k, v]) => (
-              <div key={k} className="flex items-baseline justify-between px-4 py-3">
-                <dt className="text-muted">{k}</dt>
-                <dd className="text-lg font-bold tabular-nums">{v}</dd>
+              { k: 'XP gesamt', v: xp.toLocaleString('de-DE'), icon: <Xp size={26} /> },
+              { k: 'Längste Serie', v: `${Math.max(bestStreak ?? 0, streakDays)} ${Math.max(bestStreak ?? 0, streakDays) === 1 ? 'Tag' : 'Tage'}`, icon: <Flame size={26} /> },
+              { k: 'Lektionen', v: String(Object.keys(lessons).length), icon: <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-sky text-white"><Check size={15} /></span> },
+              { k: 'Wörter gefestigt', v: String(mastered), icon: <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-good text-white"><Star size={15} /></span> },
+            ].map(({ k, v, icon }) => (
+              <div key={k} className="card flex items-center gap-3 px-3.5 py-3">
+                <span className="shrink-0">{icon}</span>
+                <div className="min-w-0">
+                  <dd className="truncate text-[19px] font-extrabold leading-tight tabular-nums">{v}</dd>
+                  <dt className="truncate text-[13px] text-muted">{k}</dt>
+                </div>
               </div>
             ))}
           </dl>
@@ -238,27 +243,25 @@ export function ProfilePage() {
         <Item>
           <section className="mt-6">
             <div className="mb-3 flex items-baseline justify-between px-1">
-              <h2 className="text-lg font-semibold">Erfolge</h2>
+              <h2 className="text-[20px] font-extrabold">Erfolge</h2>
               <span className="text-sm text-muted"><span className="font-semibold text-ink">{unlocked}</span> von {badges.length}</span>
             </div>
-            <ul className="card divide-y divide-line overflow-hidden">
+            <ul className="grid grid-cols-3 gap-2.5">
               {badges.map((b) => {
                 const done = b.value >= b.goal
                 return (
-                  <li key={b.id} className="flex items-center gap-3.5 px-4 py-3.5">
-                    <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${done ? 'bg-brand-strong text-on-brand' : 'border-2 border-line text-transparent'}`} aria-hidden>
-                      <Check size={15} />
-                    </span>
-                    <div className="min-w-0 flex-1">
-                      <p className={`font-semibold leading-tight ${done ? '' : 'text-ink/90'}`}>{b.title}</p>
-                      <p className="text-sm text-muted">{b.description}</p>
-                      {!done && (
-                        <div className="mt-1.5 h-1 w-full overflow-hidden rounded-full bg-snow" aria-hidden>
-                          <div className="h-full rounded-full bg-brand" style={{ width: `${Math.round((b.value / b.goal) * 100)}%` }} />
-                        </div>
-                      )}
-                    </div>
-                    <span className={`shrink-0 text-sm font-semibold tabular-nums ${done ? 'text-good-dark' : 'text-muted'}`}>{done ? 'geschafft' : `${b.value} / ${b.goal}`}</span>
+                  <li key={b.id} className="card flex flex-col items-center px-2 pb-3 pt-3.5 text-center" title={b.description}>
+                    {done ? (
+                      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gold text-white" style={{ boxShadow: '0 4px 0 var(--shade-gold)' }}>
+                        <Trophy size={28} />
+                      </span>
+                    ) : (
+                      <ProgressRing pct={b.value / b.goal} size={58} stroke={5} color="var(--gold)" track="var(--line)">
+                        <span className="text-muted opacity-70"><Trophy size={24} /></span>
+                      </ProgressRing>
+                    )}
+                    <p className="mt-2 line-clamp-2 text-[13px] font-extrabold leading-tight">{b.title}</p>
+                    <p className={`mt-0.5 text-[12px] font-bold tabular-nums ${done ? 'text-gold-dark' : 'text-muted'}`}>{done ? 'geschafft' : `${b.value} / ${b.goal}`}</p>
                   </li>
                 )
               })}

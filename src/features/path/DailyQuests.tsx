@@ -8,7 +8,7 @@ import { goalInfo } from '../../lib/xp'
 import { useStore } from '../../store/useStore'
 
 /** Truhe und Tagesaufgaben: das Extra für jeden Tag, ohne Druck (verpasste Tage kosten nichts). */
-export function DailyRewards() {
+export function DailyRewards({ onChest }: { onChest?: () => void } = {}) {
   const reduce = useReducedMotion()
   const daily = useStore((s) => s.daily)
   const goalReached = useStore((s) => goalInfo(s.dailyGoal, s.xpByDay[dayKey()] ?? 0).baseReached)
@@ -30,7 +30,7 @@ export function DailyRewards() {
   return (
     <>
       {(ready || opened) && (
-        <button type="button" onClick={() => setSheet(true)} className="press flex w-full items-center gap-3.5 px-4 py-3.5 text-left">
+        <button type="button" onClick={() => (onChest ? onChest() : setSheet(true))} className="press flex w-full items-center gap-3.5 px-4 py-3.5 text-left">
           <motion.span
             className={`flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-2xl ${ready ? 'bg-gold/25 text-gold-dark' : 'bg-snow text-muted'}`}
             animate={ready && !reduce ? { rotate: [0, -6, 6, -4, 4, 0], scale: [1, 1.06, 1] } : undefined}
@@ -39,7 +39,7 @@ export function DailyRewards() {
             <Chest size={34} open={opened} />
           </motion.span>
           <span className="min-w-0 flex-1">
-            <span className="block font-semibold">{ready ? 'Deine Truhe wartet!' : 'Truhe von heute'}</span>
+            <span className="block font-extrabold">{ready ? 'Deine Truhe wartet!' : 'Truhe von heute'}</span>
             <span className="block text-sm text-muted">{ready ? 'Tippe zum Öffnen. Fenni hat etwas versteckt.' : 'Schon geöffnet. Morgen gibt es die nächste.'}</span>
           </span>
           <Right size={16} className="shrink-0 text-muted" />
@@ -48,7 +48,7 @@ export function DailyRewards() {
 
       <div className="px-4 py-3.5" aria-label="Tagesaufgaben">
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-[15px] font-bold">Heutige Aufgaben</h2>
+          <h2 className="text-[16px] font-extrabold">Heutige Aufgaben</h2>
           <span className="text-sm font-semibold text-muted">
             {doneCount} von {quests.length}
           </span>
@@ -91,7 +91,7 @@ export function DailyRewards() {
           </p>
         )}
       </div>
-      <ChestSheet open={sheet} onClose={() => setSheet(false)} />
+      {!onChest && <ChestSheet open={sheet} onClose={() => setSheet(false)} />}
     </>
   )
 }

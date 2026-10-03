@@ -137,3 +137,11 @@ Ziel: Jeder Tag soll sich ein bisschen anders und lohnend anfühlen, ohne Druck.
 - **Blitzrunde** (`BlitzPage.tsx`, `src/lib/blitz.ts`): 60 Sekunden, Faktor ×1 bis ×4 mit der Reihe, falsch kostet 3 Sekunden, Rekord wird gespeichert. Ablenker, die für dasselbe Wort ebenfalls richtig wären (gleiches Wort mit anderer Übersetzung in einer anderen Lektion), werden ausgeschlossen. Die Runde ändert den Lernplan (FSRS) nicht.
 - **Begrüßung des Fuchses** (`foxGreeting`): passt zur Lage (Truhe wartet, nur noch eine Aufgabe, nach einer Pause „Schön, dass du wieder da bist“), ohne Vorwürfe.
 - **Dev-Seite** `/#/result-lab` zeigt den Ergebnisbildschirm mit Testdaten (nur beim Entwickeln).
+
+## Design v3 „Fennis Welt“ (seit Oktober 2026)
+- **Grundidee:** hell, klar, verspielt; dunkel ist eine gleichwertige Variante. Neue Nutzer bekommen „Automatisch“ (folgt dem Handy).
+- **Schrift:** Nunito (lokal über `@fontsource-variable/nunito`), Schriftstärken im Theme eine Stufe kräftiger (`--font-weight-*` in `src/index.css`).
+- **Farben mit Bedeutung:** Orange = Lernen und Hauptknöpfe, Blau (`sky`) = Auswahl und Wiederholen, Violett (`violet`) = KI und Blitzrunde, Gold = XP, Münzen, Erfolge, Grün/Rot = richtig/falsch. Alles als Tokens in `src/index.css` (hell in `:root`, dunkel in `.dark`).
+- **Bausteine:** `.btn` (dicke Unterkante, sinkt beim Drücken ein), `.tile` (Antwortkacheln: weiß, gewählt blau), `.chip` (runde Filter), `.card` (2 px Rahmen), `.path-node` (runde Spielsteine des Lernpfads).
+- **Lernpfad** (`LearnPage.tsx`): jede Einheit eine „Welt“ mit eigener Farbe (`WORLDS`), angeheftetes Banner, Schlängelpfad, „LOS!“ über der aktuellen Lektion, Kärtchen beim Antippen, geschaffte Einheiten eingeklappt, beim Öffnen gleitet die Seite zur aktuellen Lektion. Die Heute-Leiste (`TodayCard.tsx`) bündelt Tagesziel, Aufgaben und Truhe; am Computer steht die volle Heute-Karte rechts.
+- **Zurück zum alten Design:** Das vorige Design liegt im Tag `design-v2` (und Branch `design-v2-backup`). Bis zur Entscheidung baut die Veröffentlichung es zusätzlich unter `/studienfuchs/alt/`. Rückweg: den Design-v3-Commit auf `main` mit `git revert` zurücknehmen und den Schritt „Altes Design unter /alt/ bauen“ in `.github/workflows/deploy.yml` löschen.

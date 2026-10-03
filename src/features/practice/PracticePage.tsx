@@ -21,6 +21,15 @@ const SCOPES: { id: Scope; label: string }[] = [
   { id: 'favorites', label: 'Merkliste' },
 ]
 
+/** Jede Übungsart hat ihre Farbe (Fläche, Unterkante), so findet man sie schnell wieder. */
+const MODE_COLORS: Record<string, { c: string; s: string }> = {
+  cards: { c: '#1e96fa', s: '#1474cc' },
+  mix: { c: '#ff8a1f', s: '#d66a00' },
+  write: { c: '#8b5cf6', s: '#6a3ad6' },
+  speak: { c: '#ff5c9a', s: '#d43b77' },
+  listen: { c: '#14b8a6', s: '#0d8f80' },
+}
+
 const MODES = [
   { id: 'cards', title: 'Karteikarten', text: 'Wort anschauen, Bedeutung überlegen, umdrehen. Schnell und ohne Tippen.', to: (s: string) => `/practice/cards?scope=${s}`, icon: <Cards size={24} /> },
   { id: 'mix', title: 'Gemischtes Quiz', text: 'Auswahl, Tippen, Hören und Sätze bauen im Wechsel.', to: (s: string) => `/practice/play?mode=mix&scope=${s}`, icon: <Trophy size={24} /> },
@@ -76,28 +85,28 @@ function PracticeTab() {
 
       {/* Wiederholung: das wirksamste, deshalb ganz oben */}
       <Item>
-        <section className="card mb-7 p-5" aria-label="Wiederholung">
+        <section className={`mb-6 rounded-[20px] p-5 ${due.length > 0 ? 'bg-sky text-white' : 'card'}`} style={due.length > 0 ? { boxShadow: '0 5px 0 var(--shade-sky)' } : undefined} aria-label="Wiederholung">
           <div className="relative flex items-start gap-4">
             <div className="min-w-0 flex-1">
               {due.length > 0 ? (
                 <>
-                  <h2 className="text-xl font-bold leading-tight">{due.length} {due.length === 1 ? 'Wort ist' : 'Wörter sind'} jetzt fällig</h2>
-                  <p className="mt-1 text-sm text-muted">Jetzt kurz wiederholen, kurz bevor du sie vergessen würdest. Dann bleiben sie dauerhaft hängen.</p>
+                  <h2 className="text-[22px] font-extrabold leading-tight">{due.length} {due.length === 1 ? 'Wort ist' : 'Wörter sind'} jetzt fällig</h2>
+                  <p className="mt-1 text-sm font-bold opacity-90">Jetzt kurz wiederholen, kurz bevor du sie vergessen würdest. Dann bleiben sie dauerhaft hängen.</p>
                 </>
               ) : learnedCount > 0 ? (
                 <>
-                  <h2 className="text-xl font-bold leading-tight">Alles wiederholt</h2>
+                  <h2 className="text-[20px] font-extrabold leading-tight">Alles wiederholt</h2>
                   <p className="mt-1 text-sm text-muted">{next ? `Das nächste Wort ist ${dueLabel(next)} dran. ` : ''}Bis dahin kannst du frei üben oder eine neue Lektion lernen.</p>
                 </>
               ) : (
                 <>
-                  <h2 className="text-xl font-bold leading-tight">Noch nichts zu wiederholen</h2>
+                  <h2 className="text-[20px] font-extrabold leading-tight">Noch nichts zu wiederholen</h2>
                   <p className="mt-1 text-sm text-muted">Schließe eine Lektion ab. Danach plane ich automatisch, wann du welches Wort wiederholen solltest.</p>
                 </>
               )}
               <div className="mt-4 flex flex-wrap gap-2">
                 {due.length > 0 ? (
-                  <button className="btn btn-primary btn-shine press" onClick={() => navigate('/review/play')}>
+                  <button className="btn press bg-white text-sky-dark" style={{ '--edge': 'rgba(0,0,0,0.18)' } as React.CSSProperties} onClick={() => navigate('/review/play')}>
                     Wiederholung starten <Right size={16} />
                   </button>
                 ) : learnedCount > 0 ? (
@@ -166,23 +175,24 @@ function PracticeTab() {
 
       <Item>
         <p className="text-[17px] font-semibold mb-2.5">Wie üben?</p>
-        <ul className="card divide-y divide-line overflow-hidden">
+        <ul className="grid grid-cols-2 gap-3">
           {MODES.map((m) => {
             const disabled = count === 0
+            const col = MODE_COLORS[m.id]
             return (
-              <li key={m.id}>
+              <li key={m.id} className={m.id === 'mix' ? 'col-span-2' : ''}>
                 <Link
                   to={disabled ? '#' : m.to(scope)}
                   aria-disabled={disabled}
                   onClick={(e) => disabled && e.preventDefault()}
-                  className={`flex items-center gap-4 px-4 py-3.5 ${disabled ? 'opacity-50' : 'press hover:bg-snow'}`}
+                  className={`card flex h-full gap-3 p-3.5 ${m.id === 'mix' ? 'items-center' : 'flex-col'} ${disabled ? 'opacity-50' : 'press hover:bg-snow'}`}
+                  style={{ boxShadow: '0 4px 0 var(--shade-line)' }}
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center text-brand-dark">{m.icon}</span>
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white" style={{ background: col.c, boxShadow: `0 3px 0 ${col.s}` }}>{m.icon}</span>
                   <span className="min-w-0 flex-1">
-                    <span className="block font-semibold">{m.title}</span>
-                    <span className="block text-sm text-muted">{m.text}</span>
+                    <span className="block text-[16px] font-extrabold leading-tight">{m.title}</span>
+                    <span className="mt-0.5 block text-[13px] leading-snug text-muted">{m.text}</span>
                   </span>
-                  <Right size={16} className="shrink-0 text-muted" />
                 </Link>
               </li>
             )
@@ -258,8 +268,8 @@ function ExamCard() {
 function BlitzCard() {
   const best = useStore((s) => s.blitzBest ?? 0)
   return (
-    <Link to="/blitz" className="press relative mb-6 flex items-center gap-4 overflow-hidden rounded-[22px] bg-brand-strong p-4 text-on-brand shadow-[0_5px_0_var(--shade-brand)]">
-      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-black/20"><Flame size={30} /></span>
+    <Link to="/blitz" className="press relative mb-6 flex items-center gap-4 overflow-hidden rounded-[20px] bg-violet p-4 text-white shadow-[0_5px_0_var(--shade-violet)]">
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/20"><Flame size={30} /></span>
       <span className="min-w-0 flex-1">
         <span className="block text-lg font-extrabold leading-tight">Blitzrunde</span>
         <span className="block text-sm font-medium opacity-95">{best > 0 ? `60 Sekunden. Dein Rekord: ${best} Punkte` : '60 Sekunden, so viele Wörter wie möglich'}</span>
