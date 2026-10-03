@@ -111,7 +111,7 @@ export function Welcome() {
               </motion.div>
               <motion.div initial={reduce ? false : { opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...SPRING.soft, delay: 0.05 }}>
                 <div className="animate-float" style={{ animationDuration: '6s' }}>
-                  <Mascot mood="cheer" size={220} blink className="!h-[min(30dvh,230px)] !w-[min(30dvh,230px)]" />
+                  <Mascot mood="wave" size={220} pose="full" alive className="!h-[min(30dvh,230px)] !w-[min(30dvh,230px)]" />
                 </div>
               </motion.div>
               <motion.h1

@@ -124,6 +124,10 @@ export function LearnPage() {
   const current = all.find((l) => open(l) && !l.review) ?? all.find(open)
   const currentUnit = shown.find((u) => u.lessons.some((l) => l.id === current?.id))
 
+  // Der Fuchs begrüßt dich passend zum Tag
+  const streakDays = streakNow(useStore.getState().streak)
+  const greeting = doneCount === 0 ? 'Bonjour ! Fangen wir an.' : streakDays >= 3 ? `${streakDays} Tage Serie, weiter so!` : 'Salut ! Weiter geht’s.'
+
   const [lessonSheet, setLessonSheet] = useState<{ lesson: Lesson; unit: Unit } | null>(null)
   /** Nur die Einheit, in der man gerade lernt, ist offen. Alles andere klappt man bei Bedarf auf. */
   const [openUnits, setOpenUnits] = useState<Record<string, boolean>>({})
@@ -172,7 +176,7 @@ export function LearnPage() {
             </Link>
           )}
         </div>
-        <Mascot mood="cheer" size={112} className="pointer-events-none absolute -bottom-3 -right-3 rotate-[-6deg]" blink />
+        <Mascot size={128} alive greet={greeting} bubbleSide="right" className="absolute -bottom-4 -right-3" />
       </section>
 
       <TodayCard />
@@ -244,7 +248,7 @@ export function LearnPage() {
                                   Start
                                   <span aria-hidden className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-ink" />
                                 </motion.span>
-                                <Mascot size={68} mood="cheer" blink className={`pointer-events-none absolute top-0 ${offset >= 0 ? 'right-full mr-2' : 'left-full ml-2'}`} />
+                                <Mascot size={68} alive className={`pointer-events-none absolute top-0 ${offset >= 0 ? 'right-full mr-2' : 'left-full ml-2'}`} />
                               </>
                             )}
                             <button

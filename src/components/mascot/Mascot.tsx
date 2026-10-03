@@ -1,156 +1,260 @@
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { Outfit } from '../../lib/shop'
+import { idleSeconds, mascotBus, trackGaze, type MascotEvent } from '../../lib/mascotBus'
+import { Fox, NEUTRAL, type Look } from './Fox'
 
-export type Mood = 'happy' | 'cheer' | 'sad' | 'think'
+export type Mood = 'happy' | 'cheer' | 'sad' | 'think' | 'wave' | 'sleep' | 'surprised' | 'love'
+type PoseName = Mood | 'idle'
 
-/** Fenni, der Fuchs – unser eigenes Maskottchen (eigene Zeichnung, kein Duolingo-Asset). */
-export function Mascot({ mood = 'happy', size = 120, className = '', blink = false, label, outfit }: { mood?: Mood; size?: number; className?: string; blink?: boolean; label?: string; outfit?: Outfit }) {
-  const { kopf, gesicht, hals, hintergrund } = outfit ?? {}
-  const sad = mood === 'sad'
-  const cheer = mood === 'cheer'
+/** Alle Posen als Abweichung von der ruhigen Grundhaltung. */
+const POSES: Record<PoseName, Partial<Look>> = {
+  idle: {},
+  happy: { mouth: 'grin', blush: 0.5, browL: [-2, -4], browR: [-2, 4] },
+  cheer: { eyes: 'happy', mouth: 'grin', armL: 110, armR: -110, earL: -8, earR: 8, browL: [-4, -6], browR: [-4, 6], blush: 0.6, fx: 'sparkles', headY: -2 },
+  sad: { eyes: 'sad', mouth: 'sad', browL: [2, -14], browR: [2, 14], earL: 16, earR: -16, headRot: -5, headY: 5, gaze: [0, 4], blush: 0.15, fx: 'tear', armL: 6, armR: -6 },
+  think: { mouth: 'flat', browL: [-3, 0], browR: [-9, 10], headRot: 7, armR: 118, armFront: true, gaze: [5, -5], fx: 'question', earL: -4 },
+  wave: { mouth: 'grin', armR: -112, headRot: -4, blush: 0.5 },
+  sleep: { eyes: 'closed', mouth: 'flat', headRot: 9, headY: 7, earL: 10, earR: -10, armL: 4, armR: -4, fx: 'zzz', browL: [3, 0], browR: [3, 0] },
+  surprised: { eyes: 'wide', mouth: 'o', browL: [-8, -6], browR: [-8, 6], earL: -10, earR: 10, armL: 28, armR: -28 },
+  love: { eyes: 'happy', mouth: 'grin', blush: 0.75, fx: 'hearts', headRot: -4, armL: 128, armR: -128, armFront: true },
+}
+
+const PHRASES: Record<string, string[]> = {
+  wave: ['Salut !', 'Hallo!', 'Bonjour !'],
+  love: ['Hihi!', 'Du bist super!', 'Merci !'],
+  surprised: ['Oh!', 'Huch!', 'Ça va ?'],
+  cheer: ['Bravo !', 'Weiter so!', 'Allez !'],
+}
+
+const rnd = <T,>(a: T[]): T => a[Math.floor(Math.random() * a.length)]
+const reduced = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+
+export interface MascotProps {
+  mood?: Mood
+  size?: number
+  className?: string
+  /** läuft in Ruhe: atmet, blinzelt, wedelt, schaut dem Zeiger nach (alter Name: blink) */
+  blink?: boolean
+  alive?: boolean
+  /** reagiert auf Richtig/Falsch, Sprache und Erfolge aus der App */
+  listen?: boolean
+  /** Kopf und Oberkörper (Standard) oder ganzer Fuchs */
+  pose?: 'bust' | 'full'
+  label?: string
+  outfit?: Outfit
+  /** Begrüßung: winkt kurz nach dem Erscheinen und sagt diesen Satz */
+  greet?: string
+  /** Seite, an der die Sprechblase ansetzt (Standard: mittig über dem Fuchs) */
+  bubbleSide?: 'center' | 'left' | 'right'
+}
+
+/** Fenni, der Fuchs: lebendiges Maskottchen mit Posen, Blick zum Zeiger, Tippen und Reaktionen. */
+export function Mascot({ mood = 'happy', size = 120, className = '', blink = false, alive: aliveProp, listen = false, pose = 'bust', label, outfit, greet, bubbleSide = 'center' }: MascotProps) {
+  const alive = (aliveProp ?? blink) && size >= 56
+  const wrap = useRef<HTMLDivElement>(null)
+  const [temp, setTemp] = useState<PoseName | null>(null)
+  const [talking, setTalking] = useState(false)
+  const [mouthOpen, setMouthOpen] = useState(false)
+  const [bodyClass, setBodyClass] = useState('')
+  const [headClass, setHeadClass] = useState('')
+  const [wagging, setWagging] = useState(false)
+  const [bubble, setBubble] = useState<string | null>(null)
+  const timers = useRef<number[]>([])
+  const taps = useRef<number[]>([])
+  const eyeDelay = useMemo(() => -Math.random() * 5, [])
+  const mountedAt = useRef(Date.now())
+  const sleeping = useRef(false)
+
+  const later = useCallback((fn: () => void, ms: number) => {
+    const id = window.setTimeout(fn, ms)
+    timers.current.push(id)
+    return id
+  }, [])
+  useEffect(() => () => timers.current.forEach(clearTimeout), [])
+
+  const fire = useCallback(
+    (kind: 'body' | 'head', name: string, ms: number) => {
+      const set = kind === 'body' ? setBodyClass : setHeadClass
+      set('')
+      requestAnimationFrame(() => set(name))
+      later(() => set(''), ms)
+    },
+    [later],
+  )
+
+  const react = useCallback(
+    (p: PoseName, ms = 1500) => {
+      setTemp(p)
+      later(() => setTemp((cur) => (cur === p ? null : cur)), ms)
+    },
+    [later],
+  )
+
+  const say = useCallback(
+    (text: string, ms = 1900) => {
+      setBubble(text)
+      later(() => setBubble((b) => (b === text ? null : b)), ms)
+    },
+    [later],
+  )
+
+  // Blick und Kopfdrehung zum Zeiger hin
+  useEffect(() => {
+    const el = wrap.current
+    if (!alive || !el || reduced()) return
+    return trackGaze({
+      el,
+      gaze: (dx, dy, dist) => {
+        const m = Math.min(1, dist / 220)
+        const nx = dist ? dx / dist : 0
+        const ny = dist ? dy / dist : 0
+        el.style.setProperty('--px', String(Math.round(nx * 5 * m * 10) / 10))
+        el.style.setProperty('--py', String(Math.round(ny * 4.5 * m * 10) / 10))
+        el.style.setProperty('--hx', String(Math.round(nx * 3 * m * 10) / 10))
+      },
+      wake: () => {
+        if (sleeping.current) react('surprised', 1400)
+      },
+    })
+  }, [alive, react])
+
+  // kleine Eigenheiten, wenn nichts passiert: umschauen, Schwanz wedeln, einschlafen
+  useEffect(() => {
+    if (!alive || reduced()) return
+    let stop = false
+    const tick = () => {
+      if (stop) return
+      const el = wrap.current
+      const r = Math.random()
+      if (el) {
+        if (idleSeconds() > 45 && Date.now() - mountedAt.current > 45000 && size >= 90 && mood === 'happy') {
+          setTemp('sleep')
+        } else if (r < 0.4) {
+          const gx = rnd([-5, 5])
+          el.style.setProperty('--gx', String(gx))
+          el.style.setProperty('--gy', String(rnd([-2, 2])))
+          later(() => {
+            el.style.setProperty('--gx', '0')
+            el.style.setProperty('--gy', '0')
+          }, 1300)
+        } else if (r < 0.75) {
+          setWagging(true)
+          later(() => setWagging(false), 1700)
+        } else if (r < 0.88 && size >= 90 && mood === 'happy') {
+          react('wave', 1700)
+        }
+      }
+      later(tick, 4500 + Math.random() * 5000)
+    }
+    const first = later(tick, 3000 + Math.random() * 3000)
+    return () => {
+      stop = true
+      clearTimeout(first)
+    }
+  }, [alive, size, mood, later, react])
+
+  // Meldungen aus der App
+  useEffect(() => {
+    if (!listen) return
+    return mascotBus.on((e: MascotEvent) => {
+      if (e === 'correct') {
+        react('cheer', 1400)
+        fire('body', 'fox-hop', 1000)
+      } else if (e === 'almost') {
+        react('surprised', 1200)
+      } else if (e === 'wrong') {
+        react('sad', 1900)
+        fire('head', 'fox-shake', 600)
+      } else if (e === 'cheer' || e === 'pass') {
+        react('cheer', 2200)
+        fire('body', 'fox-hop', 1000)
+      } else if (e === 'levelup') {
+        react('cheer', 3000)
+        fire('body', 'fox-dance', 2700)
+      } else if (e === 'fail') {
+        react('think', 2200)
+      } else if (e === 'speak:start') {
+        setTalking(true)
+      } else if (e === 'speak:end') {
+        setTalking(false)
+      }
+    })
+  }, [listen, react, fire])
+
+  // Mund bewegt sich beim Sprechen
+  useEffect(() => {
+    if (!talking) return setMouthOpen(false)
+    const id = window.setInterval(() => setMouthOpen((o) => !o), 150)
+    const stop = window.setTimeout(() => setTalking(false), 6000)
+    return () => {
+      clearInterval(id)
+      clearTimeout(stop)
+    }
+  }, [talking])
+
+  const onTap = () => {
+    if (!alive) return
+    const now = Date.now()
+    taps.current = [...taps.current.filter((t) => now - t < 2200), now]
+    fire('body', 'fox-boing', 520)
+    if (taps.current.length >= 4) {
+      react('love', 2200)
+      say('Hihi, das kitzelt!', 2200)
+      taps.current = []
+      return
+    }
+    const p = rnd<PoseName>(['wave', 'love', 'surprised'])
+    react(p, 1700)
+    say(rnd(PHRASES[p]))
+    if (p === 'love' || p === 'wave') fire('body', 'fox-hop', 1000)
+  }
+
+  const active: PoseName = temp ?? (mood === 'happy' ? 'idle' : mood)
+  sleeping.current = active === 'sleep'
+  const look: Look = { ...NEUTRAL, ...POSES[active] }
+  if (talking && (look.mouth === 'smile' || look.mouth === 'grin' || look.mouth === 'flat')) look.mouth = mouthOpen ? 'talk' : 'smile'
+  // Dauerhaft fröhliche Pose beim ersten Zeigen: einmal hüpfen
+  const didIntro = useRef(false)
+  useEffect(() => {
+    if (didIntro.current || !alive || mood !== 'cheer' || reduced()) return
+    didIntro.current = true
+    fire('body', 'fox-hop', 1000)
+  }, [alive, mood, fire])
+
+  // Begrüßung beim Erscheinen
+  useEffect(() => {
+    if (!greet || !alive || reduced()) return
+    const id = window.setTimeout(() => {
+      react('wave', 2400)
+      say(greet, 3600)
+    }, 900)
+    return () => clearTimeout(id)
+    // nur einmal pro Erscheinen
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const full = pose === 'full'
+  const style = {
+    width: full ? size * (5 / 6) : size,
+    height: size,
+    ['--gx' as string]: look.gaze[0],
+    ['--gy' as string]: look.gaze[1],
+  } as React.CSSProperties
+
   return (
-    <svg viewBox="0 0 120 120" width={size} height={size} className={`${blink ? 'mascot-blink' : ''} ${className}`} {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}>
-      {/* Hintergrund (gekauft) */}
-      {hintergrund === 'sonne' && (
-        <g>
-          <circle cx="60" cy="60" r="58" fill="#ffd75e" />
-          <circle cx="60" cy="60" r="46" fill="#ffe99a" />
-        </g>
+    <div
+      ref={wrap}
+      className={`${/(absolute|fixed)/.test(className) ? '' : 'relative '}inline-block shrink-0 ${alive && !className.includes('pointer-events-none') ? 'cursor-pointer' : ''} ${className}`}
+      style={style}
+      onClick={onTap}
+      {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}
+    >
+      <Fox look={look} outfit={outfit} pose={pose} alive={alive} bodyClass={bodyClass} headClass={headClass} wagging={wagging} eyeDelay={eyeDelay} />
+      {bubble && (
+        <span className={`${bubbleSide === 'center' ? 'fox-bubble' : 'fox-bubble-side'} pointer-events-none absolute -top-1 z-20 max-w-[220px] rounded-xl border-2 border-line bg-surface px-3 py-1 text-xs font-extrabold text-ink shadow-[0_3px_0_var(--shade-line)] ${bubbleSide === 'center' ? 'left-1/2 -translate-x-1/2 whitespace-nowrap' : bubbleSide === 'right' ? 'right-0 w-max' : 'left-0 w-max'}`}>
+          {bubble}
+        </span>
       )}
-      {hintergrund === 'nacht' && (
-        <g>
-          <circle cx="60" cy="60" r="58" fill="#1d2b64" />
-          <path d="M96 16 a11 11 0 1 0 8 18 a9 9 0 1 1 -8 -18 Z" fill="#ffe99a" />
-          <path d="M14 30 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2 Z M22 98 l1.6 4 4 1.6 -4 1.6 -1.6 4 -1.6 -4 -4 -1.6 4 -1.6 Z M106 88 l1.4 3.4 3.4 1.4 -3.4 1.4 -1.4 3.4 -1.4 -3.4 -3.4 -1.4 3.4 -1.4 Z" fill="#fff" />
-        </g>
-      )}
-      {hintergrund === 'aura' && (
-        <g>
-          <defs>
-            <radialGradient id="aura-g" cx="50%" cy="50%" r="50%">
-              <stop offset="55%" stopColor="#ffd75e" stopOpacity="0.95" />
-              <stop offset="100%" stopColor="#f5b82e" stopOpacity="0.15" />
-            </radialGradient>
-          </defs>
-          <circle cx="60" cy="60" r="58" fill="url(#aura-g)" />
-          <circle cx="60" cy="60" r="56" fill="none" stroke="#f5b82e" strokeWidth="2.5" strokeDasharray="3 7" strokeLinecap="round" />
-        </g>
-      )}
-      {/* Ohren */}
-      <path className="mascot-ear-l" d="M18 14 L44 36 L22 52 Z" fill="#ff8a2a" />
-      <path d="M102 14 L76 36 L98 52 Z" fill="#ff8a2a" />
-      <path d="M24 26 L38 38 L26 46 Z" fill="#3b2a1a" opacity="0.85" />
-      <path d="M96 26 L82 38 L94 46 Z" fill="#3b2a1a" opacity="0.85" />
-      {/* Kopf */}
-      <path d="M12 58 C12 36 34 26 60 26 C86 26 108 36 108 58 C108 86 86 104 60 104 C34 104 12 86 12 58 Z" fill="#ff8a2a" />
-      {/* Weißes Gesicht */}
-      <path d="M12 64 C26 60 38 66 48 80 C54 88 66 88 72 80 C82 66 94 60 108 64 C106 88 86 104 60 104 C34 104 14 88 12 64 Z" fill="#fff" />
-      {/* Augen */}
-      {cheer ? (
-        <>
-          <path d="M34 54 q6 -9 12 0" stroke="#3b2a1a" strokeWidth="4" fill="none" strokeLinecap="round" />
-          <path d="M74 54 q6 -9 12 0" stroke="#3b2a1a" strokeWidth="4" fill="none" strokeLinecap="round" />
-        </>
-      ) : (
-        <>
-          <g className="mascot-eye">
-            <ellipse cx="40" cy="54" rx="6" ry={sad ? 6 : 7.5} fill="#3b2a1a" />
-            <circle cx="42" cy="51" r="2.2" fill="#fff" />
-          </g>
-          <g className="mascot-eye">
-            <ellipse cx="80" cy="54" rx="6" ry={sad ? 6 : 7.5} fill="#3b2a1a" />
-            <circle cx="82" cy="51" r="2.2" fill="#fff" />
-          </g>
-        </>
-      )}
-      {sad && (
-        <>
-          <path d="M31 44 l16 4" stroke="#3b2a1a" strokeWidth="3" strokeLinecap="round" />
-          <path d="M89 44 l-16 4" stroke="#3b2a1a" strokeWidth="3" strokeLinecap="round" />
-        </>
-      )}
-      {mood === 'think' && <path d="M72 40 l16 -4" stroke="#3b2a1a" strokeWidth="3" strokeLinecap="round" />}
-      {/* Nase */}
-      <ellipse cx="60" cy="76" rx="7" ry="5" fill="#3b2a1a" />
-      {/* Mund */}
-      {sad ? (
-        <path d="M50 92 q10 -8 20 0" stroke="#3b2a1a" strokeWidth="3.5" fill="none" strokeLinecap="round" />
-      ) : cheer ? (
-        <path d="M46 84 q14 20 28 0 Z" fill="#c63840" stroke="#3b2a1a" strokeWidth="3" strokeLinejoin="round" />
-      ) : (
-        <path d="M50 84 q10 10 20 0" stroke="#3b2a1a" strokeWidth="3.5" fill="none" strokeLinecap="round" />
-      )}
-      {/* Wangen */}
-      <circle cx="26" cy="72" r="5" fill="#ff9aa2" opacity="0.6" />
-      <circle cx="94" cy="72" r="5" fill="#ff9aa2" opacity="0.6" />
-      {/* Zubehör (gekauft) */}
-      {hals === 'schal' && (
-        <g>
-          <path d="M16 90 C38 108 82 108 104 90 L108 102 C84 122 36 122 12 102 Z" fill="#e5484d" />
-          <path d="M30 100 q30 14 60 0" stroke="#fff" strokeWidth="3" fill="none" opacity="0.7" strokeLinecap="round" />
-          <path d="M78 104 l6 16 l14 -4 l-6 -16 Z" fill="#c93a40" />
-        </g>
-      )}
-      {hals === 'fliege' && (
-        <g strokeLinejoin="round">
-          <path d="M60 103 L42 92 L42 114 Z" fill="#3b6fe0" stroke="#24429a" strokeWidth="2" />
-          <path d="M60 103 L78 92 L78 114 Z" fill="#3b6fe0" stroke="#24429a" strokeWidth="2" />
-          <rect x="54" y="97" width="12" height="12" rx="3" fill="#2a56c4" stroke="#24429a" strokeWidth="2" />
-        </g>
-      )}
-      {hals === 'medaille' && (
-        <g strokeLinejoin="round">
-          <path d="M40 92 L60 112 L80 92" stroke="#e5484d" strokeWidth="6" fill="none" strokeLinecap="round" />
-          <circle cx="60" cy="112" r="8" fill="#f5b82e" stroke="#b8860b" strokeWidth="2.5" />
-          <path d="M60 107 l1.8 3.6 4 .6 -2.9 2.8 .7 4 -3.6 -1.9 -3.6 1.9 .7 -4 -2.9 -2.8 4 -.6 Z" fill="#b8860b" />
-        </g>
-      )}
-      {gesicht === 'brille' && (
-        <g fill="none" stroke="#3b2a1a" strokeWidth="3.2">
-          <circle cx="40" cy="54" r="12" fill="rgba(255,255,255,0.18)" />
-          <circle cx="80" cy="54" r="12" fill="rgba(255,255,255,0.18)" />
-          <path d="M52 53 q8 -5 16 0" strokeLinecap="round" />
-          <path d="M28 52 l-8 -4 M92 52 l8 -4" strokeLinecap="round" />
-        </g>
-      )}
-      {gesicht === 'sonnenbrille' && (
-        <g>
-          <path d="M24 46 h32 v10 a10 10 0 0 1 -10 10 h-12 a10 10 0 0 1 -10 -10 Z" fill="#1f1f24" />
-          <path d="M64 46 h32 v10 a10 10 0 0 1 -10 10 h-12 a10 10 0 0 1 -10 -10 Z" fill="#1f1f24" />
-          <path d="M56 49 q4 -3 8 0" stroke="#1f1f24" strokeWidth="3.4" fill="none" strokeLinecap="round" />
-          <path d="M24 48 l-8 -3 M96 48 l8 -3" stroke="#1f1f24" strokeWidth="3.4" strokeLinecap="round" />
-          <path d="M30 50 l8 0 M70 50 l8 0" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" opacity="0.5" />
-        </g>
-      )}
-      {gesicht === 'schnurrbart' && (
-        <path d="M60 81 C54 75 42 76 38 84 C44 82 52 84 60 87 C68 84 76 82 82 84 C78 76 66 75 60 81 Z" fill="#3b2a1a" stroke="#3b2a1a" strokeWidth="2" strokeLinejoin="round" />
-      )}
-      {kopf === 'muetze' && (
-        <g>
-          <path d="M20 42 C22 12 98 12 100 42 C82 34 38 34 20 42 Z" fill="#3b82f6" />
-          <path d="M20 42 C38 34 82 34 100 42 L98 50 C80 42 40 42 22 50 Z" fill="#1d4ed8" />
-          <circle cx="60" cy="13" r="7" fill="#fff" />
-        </g>
-      )}
-      {kopf === 'kappe' && (
-        <g strokeLinejoin="round">
-          <path d="M24 42 C24 14 96 14 96 42 C78 36 42 36 24 42 Z" fill="#e5484d" stroke="#b8343a" strokeWidth="2" />
-          <path d="M70 39 C88 36 106 40 112 47 C96 49 80 47 68 44 Z" fill="#b8343a" />
-          <circle cx="60" cy="19" r="3.2" fill="#b8343a" />
-        </g>
-      )}
-      {kopf === 'zylinder' && (
-        <g strokeLinejoin="round">
-          <rect x="40" y="2" width="40" height="28" rx="3" fill="#2a2a30" />
-          <rect x="40" y="20" width="40" height="7" fill="#e5484d" />
-          <ellipse cx="60" cy="31" rx="36" ry="6" fill="#2a2a30" />
-        </g>
-      )}
-      {kopf === 'krone' && (
-        <g>
-          <path d="M36 32 L42 10 L54 24 L60 6 L66 24 L78 10 L84 32 Z" fill="#f5b82e" stroke="#b8860b" strokeWidth="2.5" strokeLinejoin="round" />
-          <circle cx="60" cy="22" r="2.6" fill="#e5484d" />
-        </g>
-      )}
-    </svg>
+    </div>
   )
 }

@@ -90,7 +90,7 @@ export function ProfilePage() {
             <p className="mt-1.5 text-sm opacity-85">
               Noch {lvl.needed - lvl.into} XP bis Level {lvl.level + 1}
             </p>
-            <Mascot size={132} blink outfit={outfit} className="pointer-events-none absolute -bottom-4 -right-3 rotate-[-5deg]" />
+            <Mascot size={140} alive listen outfit={outfit} className="absolute -bottom-5 -right-3" />
           </section>
         </Item>
 

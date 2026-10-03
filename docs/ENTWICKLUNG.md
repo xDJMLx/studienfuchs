@@ -108,3 +108,10 @@ Den ausführlichen Prüfbericht (was schlecht war und was geändert wurde) finde
 - Weitere Fächer (Mathe, Deutsch, Englisch, …) mit eigenen Übungstypen (z. B. Rechenaufgaben).
 - Die KI-Anbindung (Puter) ist programmiert und typgeprüft, aber ein echter Durchlauf braucht ein Puter-Gastkonto: einmal selbst unter „Neues Set → Mit KI“ mit einem Foto ausprobieren.
 - Optional: Login/Backend für geräteübergreifenden Fortschritt.
+
+## Fuchs-Maskottchen (Aufbau)
+- `src/components/mascot/Fox.tsx`: die Zeichnung in Teilen (Kopf, Ohren, Augen mit Pupillen, Brauen, Mund, Körper, Arme, Schwanz, Zubehör). Eine `Look`-Beschreibung legt fest, wie jedes Teil steht; Drehungen laufen über CSS mit Überschwingen.
+- `src/components/mascot/Mascot.tsx`: Verhalten. Posen (froh, jubelnd, traurig, nachdenklich, winkend, schlafend, überrascht, verliebt), Ruhe-Eigenheiten (umschauen, wedeln, winken, einschlafen), Tippen mit Sprechblase, Begrüßung, Mundbewegung beim Sprechen.
+- `src/lib/mascotBus.ts`: Nachrichtenkanal. Die App meldet `correct`, `wrong`, `almost`, `cheer`, `levelup`, `speak:start` und `speak:end`; jeder Fuchs mit `listen` reagiert. Dazu ein einziger Zeigerbeobachter für den Blick (setzt nur CSS-Variablen, kein React-Rendern).
+- Im Entwicklungsmodus zeigt `/#/fox` alle Posen, Kleidung und Auslöser auf einen Blick.
+- Bewegungen sind kurz, laufen nicht endlos außer dem leisen Atmen und werden bei „Bewegung reduzieren“ abgeschaltet.

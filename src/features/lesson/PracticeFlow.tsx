@@ -7,6 +7,7 @@ import { Mascot } from '../../components/mascot/Mascot'
 import { Confetti } from '../../components/ui/Confetti'
 import { Bulb, Close, Coin, Flame, Right, Sparkle, Star, Target, Xp } from '../../components/ui/Icons'
 import { CountUp, EASE, Item as FadeItem, ItemLi, SPRING, Stagger, StaggerList } from '../../components/ui/motion'
+import { mascotBus } from '../../lib/mascotBus'
 import { generateLesson, generateTest, generateWarmup } from '../../lib/generateExercises'
 import { recognitionAvailable } from '../../lib/recognition'
 import { playDone } from '../../lib/sound'
@@ -198,6 +199,12 @@ function ResultScreen({
   // Direkt weiterlernen: die nächste offene Lektion (nach dem Speichern des Ergebnisses berechnet)
   const next = passed && lessonId ? nextLessonAfter(lessonId, useStore.getState().lessons) : undefined
   const stars = !passed ? 0 : pct >= 90 ? 3 : pct >= 75 ? 2 : 1
+  // Der Fuchs freut sich mit, wenn eine neue Stufe erreicht ist
+  useEffect(() => {
+    if (!leveledUp) return
+    const id = window.setTimeout(() => mascotBus.emit('levelup'), 900)
+    return () => clearTimeout(id)
+  }, [leveledUp])
   const freeHeadline = pct >= 90 ? 'Sehr gut!' : pct >= 70 ? 'Gut gemacht!' : 'Ein guter Anfang'
   const headline = free && test ? freeHeadline : test ? (passed ? 'Test bestanden!' : 'Noch nicht bestanden') : passed ? (pct >= 90 ? 'Perfekt!' : 'Lektion geschafft!') : 'Fast geschafft'
   const sub = free && test
@@ -237,7 +244,7 @@ function ResultScreen({
       {passed && <Confetti count={stars === 3 ? 64 : 36} />}
       <div className="flex flex-col items-center pt-2 text-center">
         <motion.div initial={reduce ? false : { scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: 'spring', stiffness: 260, damping: 14 }}>
-          <Mascot mood={passed ? 'cheer' : 'think'} size={120} outfit={outfit} />
+          <Mascot mood={passed ? 'cheer' : 'think'} size={150} pose="full" alive listen outfit={outfit} />
         </motion.div>
         {passed && (
           <div className="mt-3 flex gap-2" role="img" aria-label={`${stars} von 3 Sternen`}>

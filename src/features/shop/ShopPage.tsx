@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useState } from 'react'
+import { mascotBus } from '../../lib/mascotBus'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Link } from 'react-router-dom'
 import { Back, Check, Coin } from '../../components/ui/Icons'
@@ -25,7 +26,7 @@ export function ShopPage() {
       <h1 className="mb-3 text-2xl font-bold">Fuchs &amp; Shop</h1>
       <section className="card flex flex-col items-center px-5 pb-5 pt-6 text-center">
         <motion.div key={JSON.stringify(outfit)} initial={reduce ? false : { scale: 0.9 }} animate={{ scale: 1 }} transition={SPRING.bouncy}>
-          <Mascot size={156} mood="cheer" blink outfit={outfit} label="Dein Fuchs" />
+          <Mascot size={190} pose="full" alive listen outfit={outfit} label="Dein Fuchs" />
         </motion.div>
         <p className="mt-3 flex items-center gap-2 rounded-full bg-gold/20 px-4 py-1.5 text-lg font-bold text-gold-dark" aria-label={`${coins} Münzen`}>
           <Coin size={22} />
@@ -68,7 +69,10 @@ export function ShopPage() {
               <Mascot size={84} outfit={{ [it.slot]: it.id }} />
               <p className="mt-1 text-sm font-semibold leading-tight">{it.label}</p>
               {has ? (
-                <button type="button" onClick={() => equipItem(it.id)} className={`press mt-2 flex min-h-10 w-full items-center justify-center gap-1.5 rounded-xl px-2 text-sm font-semibold ${on ? 'bg-brand-soft text-brand-dark' : 'bg-brand-strong text-on-brand'}`}>
+                <button type="button" onClick={() => {
+                    equipItem(it.id)
+                    mascotBus.emit('correct')
+                  }} className={`press mt-2 flex min-h-10 w-full items-center justify-center gap-1.5 rounded-xl px-2 text-sm font-semibold ${on ? 'bg-brand-soft text-brand-dark' : 'bg-brand-strong text-on-brand'}`}>
                   {on ? (
                     <>
                       <Check size={16} /> Angelegt
@@ -84,6 +88,7 @@ export function ShopPage() {
                   onClick={() => {
                     if (confirm) {
                       buyItem(it.id)
+                      mascotBus.emit('cheer')
                       setPending(null)
                     } else setPending(it.id)
                   }}

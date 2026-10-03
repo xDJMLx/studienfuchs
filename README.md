@@ -41,7 +41,12 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 - Eigene Schulbücher anlegen und Seiten fotografieren. Die Texterkennung läuft auf dem Gerät, die KI bekommt nur die passenden Seiten.
 - Sprechtraining mit Spracherkennung und eine kleine Lautschule.
 
-**Fuchs und Shop**
+**Fenni, der Fuchs**
+<p align="center"><img src="docs/screenshots/fox.jpg" width="46%" alt="Fenni in verschiedenen Posen: froh, jubelnd, traurig, nachdenklich"></p>
+
+- Der Fuchs ist komplett selbst gezeichnet und besteht aus einzelnen Teilen, die sich bewegen: Er atmet, blinzelt, wedelt mit dem Schwanz, zuckt mit den Ohren und schaut dem Finger oder der Maus nach.
+- Er reagiert auf das, was du machst: Bei richtigen Antworten hüpft er, bei falschen wird er traurig und schüttelt den Kopf, bei einer Serie jubelt er, bei einer neuen Stufe tanzt er. Wenn eine Vokabel vorgelesen wird, bewegt er den Mund mit.
+- Tippen auf den Fuchs bringt ihn zum Winken, Staunen oder Lachen. Wer ihn lange nicht anfasst, sieht ihn einschlafen.
 - Fürs Lernen gibt es Münzen. Damit kauft man Mütze, Brille und mehr, die der Fuchs überall in der App trägt.
 
 ## Gebaut für Handys

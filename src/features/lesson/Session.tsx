@@ -1,5 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { mascotBus } from '../../lib/mascotBus'
 import { BuildExercise } from '../../components/exercises/BuildExercise'
 import { ChoiceExercise } from '../../components/exercises/ChoiceExercise'
 import { FillExercise } from '../../components/exercises/FillExercise'
@@ -71,12 +72,18 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
   const isMatch = ex?.kind === 'match'
   const baseId = ex ? ex.id.replace(/:retry\d+$/, '') : ''
 
+  // Vier richtige Antworten in Folge: der Fuchs freut sich mit
+  useEffect(() => {
+    if (combo > 0 && combo % 4 === 0) mascotBus.emit('cheer')
+  }, [combo])
+
   const check = useCallback(
     (given: Answer | null) => {
       if (!ex || ex.kind === 'teach' || result) return
       let ev = evaluate(ex, given ?? '')
       if (hintFor === ex.id && ev.status === 'correct') ev = { ...ev, status: 'almost', feedback: 'Richtig, aber mit Tipp. Das üben wir gleich nochmal.' }
       setResult(ev)
+      mascotBus.emit(ev.status === 'wrong' ? 'wrong' : ev.status === 'almost' ? 'almost' : 'correct')
       // Fertigen französischen Satz nach der Antwort vorlesen (Hörverstehen und Aussprache zum Mitsprechen)
       if (ex.kind === 'fill') speak(fillSentence(ex.sentence, ex.answer))
       else if (ex.kind === 'build' || ex.kind === 'spell') speak(ex.kind === 'build' ? ex.answer : ex.speak)

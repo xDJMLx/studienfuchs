@@ -1,6 +1,7 @@
 // Sprachausgabe. Vorrang haben die mitgelieferten Aufnahmen (public/audio, mit Piper erzeugt): Sie klingen bei allen gleich gut.
 // Fehlt eine Aufnahme (z. B. bei eigenen Sets), springt die Stimme des Geräts über die Web Speech API ein.
 import { useStore } from '../store/useStore'
+import { mascotBus } from './mascotBus'
 import { audioKey, speechText } from './audioKey'
 
 export const speechAvailable = typeof window !== 'undefined' && 'speechSynthesis' in window
@@ -37,7 +38,10 @@ function playRecording(text: string, rate: number): void {
   a.playbackRate = rate
   a.preservesPitch = true
   current = a
-  void a.play().catch(() => {})
+  a.addEventListener('ended', () => mascotBus.emit('speak:end'), { once: true })
+  a.addEventListener('pause', () => mascotBus.emit('speak:end'), { once: true })
+  mascotBus.emit('speak:start')
+  void a.play().catch(() => mascotBus.emit('speak:end'))
 }
 
 // ---- Stimmen des Geräts (Reserve) ----
@@ -96,6 +100,9 @@ export function speak(text: string, lang = 'fr-FR', rateFactor = 1): void {
   u.rate = rate
   const v = deviceVoice()
   if (v) u.voice = v
+  u.onstart = () => mascotBus.emit('speak:start')
+  u.onend = () => mascotBus.emit('speak:end')
+  u.onerror = () => mascotBus.emit('speak:end')
   window.speechSynthesis.speak(u)
 }
 

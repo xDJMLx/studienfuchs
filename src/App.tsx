@@ -20,6 +20,7 @@ import { FlashcardsPage } from './features/practice/FlashcardsPage'
 import { PracticePage } from './features/practice/PracticePage'
 import { PracticePlay } from './features/practice/PracticePlay'
 import { AboutPage } from './features/profile/AboutPage'
+import { FoxLab } from './features/dev/FoxLab'
 import { ProfilePage } from './features/profile/ProfilePage'
 import { ShopPage } from './features/shop/ShopPage'
 import { ReviewPage } from './features/review/ReviewPage'
@@ -101,6 +102,7 @@ export default function App() {
             <Route path="profile" element={<ProfilePage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="about" element={<AboutPage />} />
+            {import.meta.env.DEV && <Route path="fox" element={<FoxLab />} />}
           </Route>
           {/* Lern-Sessions ohne Navigation, damit nichts ablenkt */}
           <Route path="lesson/:lessonId" element={<LessonPage />} />
