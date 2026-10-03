@@ -54,4 +54,4 @@ Stand: 1. Oktober 2026. Alles unten wurde angeschaut (Browser auf Handy- und Des
 - Die Puter-KI wurde nie mit einem echten Gastkonto durchlaufen (dafür müsste ein Konto angelegt werden).
 - Auf einem echten Handy (Touch, Bildschirmtastatur, Ziehen am Sheet-Griff) wurde nicht getestet, nur im Browser-Pane mit Handygröße.
 - Inhalte (Vokabeln, Erklärungen) wurden nicht gegen ein bestimmtes Lehrwerk geprüft.
-- Impressum ist weiter ein Platzhalter und muss vor der Veröffentlichung ausgefüllt werden.
+- Das Impressum nennt noch keinen Namen und keine Anschrift: Sie werden in `src/lib/legal.ts` eingetragen (siehe `docs/VEROEFFENTLICHUNG.md`).

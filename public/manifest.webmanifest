@@ -1,14 +1,14 @@
 {
   "name": "Studienfuchs – Lernen für die Schule",
   "short_name": "Studienfuchs",
-  "description": "Lern-App für die Schule: kurze Lektionen, Wiederholung nach Plan und eigene Vokabeln aus dem Schulbuch.",
+  "description": "Französisch für die Schule: kurze Lektionen, orientiert am Berliner Lehrplan, Wiederholung nach Plan und eigene Vokabeln aus dem Schulbuch.",
   "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#fff1e5",
-  "theme_color": "#ffffff",
+  "background_color": "#0e1b28",
+  "theme_color": "#0e1b28",
   "lang": "de",
   "categories": ["education"],
   "icons": [

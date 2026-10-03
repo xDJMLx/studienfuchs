@@ -4,6 +4,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { IconChip } from '../../components/ui/controls'
 import { Back, Camera, Chevron, Database, Hand, Info, Lock, Right, Shield, Sparkle, Speaker } from '../../components/ui/Icons'
 import { EASE, Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
+import { FREE_AI_URL } from '../../lib/freeAi'
+import { hasLegalContact, LEGAL, PROJECT_URL } from '../../lib/legal'
 
 /** Aufklappbarer Abschnitt mit weich gleitender Höhe. */
 function Accordion({ title, icon, children, defaultOpen = false }: { title: string; icon: ReactNode; children: ReactNode; defaultOpen?: boolean }) {
@@ -89,8 +91,10 @@ export function AboutPage() {
             </Accordion>
             <Accordion title="KI-Funktion (optional)" icon={<Sparkle size={20} />}>
               <p>Nur wenn du <b className="text-ink">„Mit KI erstellen“</b> oder <b className="text-ink">„Mit KI ergänzen“</b> klickst oder im <b className="text-ink">KI-Chat</b> eine Nachricht sendest, werden die ausgewählten Seitenbilder, Vokabeln bzw. deine Nachricht an eine KI-Plattform gesendet. Beim KI-Chat gehören dazu dein Lernstand (Klasse, Fortschritt, Klassenarbeits-Termine, Wörter, bei denen es hakt) und, wenn du Bücher angelegt hast, deren Titel, Kapitel, der Stand der Klasse und die zur Frage passenden Seitentexte, aber kein Name.</p>
-              <p>Im KI-Chat gibt es zuerst eine <b className="text-ink">kostenlose KI ohne Anmeldung</b>. Sie läuft über ein kleines Relais zu den Gratis-Modellen von Kilo. Das Relais speichert nichts. Die Anbieter der Gratis-Modelle dürfen Eingaben aber mitlesen und zur Verbesserung ihrer Produkte nutzen. Schreibe dort also nichts Privates hinein. Fotos von Buchseiten gehen nicht an diese Stufe.</p>
-              <p>Für Fotos und bessere Antworten wird beim ersten Mal automatisch ein kostenloses Puter-Gastkonto in deinem Browser angelegt; es gelten die Datenschutzbestimmungen von Puter. Alternativ kannst du einen eigenen Anthropic-API-Schlüssel hinterlegen.</p>
+              {FREE_AI_URL && (
+                <p>Im KI-Chat gibt es zuerst eine <b className="text-ink">kostenlose KI ohne Anmeldung</b>. Sie läuft über ein kleines Relais zu den Gratis-Modellen von Kilo. Das Relais speichert nichts. Die Anbieter der Gratis-Modelle dürfen Eingaben aber mitlesen und zur Verbesserung ihrer Produkte nutzen. Schreibe dort also nichts Privates hinein. Fotos von Buchseiten gehen nicht an diese Stufe.</p>
+              )}
+              <p>{FREE_AI_URL ? 'Für Fotos und bessere Antworten' : 'Für die KI-Funktionen'} wird beim ersten Mal automatisch ein kostenloses Puter-Gastkonto in deinem Browser angelegt; es gelten die Datenschutzbestimmungen von Puter. Alternativ kannst du einen eigenen Anthropic-API-Schlüssel hinterlegen.</p>
               <p>Ohne diese Funktion (und mit der Offline-Texterkennung) verlässt nichts dein Gerät.</p>
             </Accordion>
             <Accordion title="Sprachausgabe" icon={<Speaker size={20} />}>
@@ -108,8 +112,19 @@ export function AboutPage() {
           <section className="card mb-7 p-5">
             <p className="leading-relaxed text-muted">
               <b>Verantwortlich für den Inhalt:</b><br />
-              Studienfuchs<br />
-              Kontakt für Rechtsfragen verfügbar über das GitHub-Projekt.<br />
+              {hasLegalContact() ? (
+                <>
+                  {LEGAL.name}<br />
+                  {LEGAL.street}<br />
+                  {LEGAL.city}<br />
+                  E-Mail: <a className="font-semibold text-brand-dark underline" href={`mailto:${LEGAL.email}`}>{LEGAL.email}</a><br />
+                </>
+              ) : (
+                <>
+                  Studienfuchs, ein privates, nicht kommerzielles Lernprojekt ohne Werbung.<br />
+                  Kontakt: über die <a className="font-semibold text-brand-dark underline" href={PROJECT_URL} target="_blank" rel="noreferrer">Projektseite auf GitHub</a>.<br />
+                </>
+              )}
               <br />
               <b>Haftungsausschluss:</b><br />
               Diese Lernapp wird ohne Gewähr bereitgestellt. Der Betreiber haftet nicht für Fehler in den Inhalten oder Lernmaterialien. Die App ist ein Bildungswerkzeug und ersetzt keine professionelle Unterweisung.

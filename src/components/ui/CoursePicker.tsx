@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { grades, units } from '../../content'
 import { useStore } from '../../store/useStore'
-import { Check, Chevron, Lock } from './Icons'
+import { Check, Chevron } from './Icons'
 import { ItemLi, StaggerList, SPRING } from './motion'
 import { Sheet } from './Sheet'
 
@@ -43,8 +43,6 @@ export function CourseChip({ className = '' }: { className?: string }) {
   )
 }
 
-const SOON = ['Englisch', 'Mathe', 'Deutsch', 'Latein', 'Biologie', 'Physik']
-
 export function CoursePicker({ open, onClose }: { open: boolean; onClose: () => void }) {
   const lessons = useStore((s) => s.lessons)
   const grade = useStore((s) => s.grade)
@@ -81,15 +79,6 @@ export function CoursePicker({ open, onClose }: { open: boolean; onClose: () => 
           )
         })}
       </StaggerList>
-      <h3 className="mb-2 mt-6 text-sm font-semibold text-muted">Bald verfügbar</h3>
-      <ul className="grid grid-cols-2 gap-2">
-        {SOON.map((s) => (
-          <li key={s} className="flex items-center gap-2 rounded-2xl border border-line px-3 py-2 text-muted opacity-70">
-            <Lock size={18} />
-            <span className="font-semibold">{s}</span>
-          </li>
-        ))}
-      </ul>
     </Sheet>
   )
 }

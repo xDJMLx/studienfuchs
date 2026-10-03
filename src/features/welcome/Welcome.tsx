@@ -5,13 +5,12 @@ import { CountUp, EASE, SPRING } from '../../components/ui/motion'
 import { gradeStats, grades, units } from '../../content'
 import { Mascot, type Mood } from '../../components/mascot/Mascot'
 import { Confetti } from '../../components/ui/Confetti'
-import { FrenchFlag } from '../../components/ui/CoursePicker'
-import { Back, Check, Lock, Right } from '../../components/ui/Icons'
+import { Back, Right } from '../../components/ui/Icons'
 import { Wordmark } from '../../components/ui/Layout'
 import { useStore } from '../../store/useStore'
 
-type Step = 'hero' | 'course' | 'grade' | 'goal' | 'ready'
-const ORDER: Step[] = ['hero', 'course', 'grade', 'goal', 'ready']
+type Step = 'hero' | 'grade' | 'goal' | 'ready'
+const ORDER: Step[] = ['hero', 'grade', 'goal', 'ready']
 type FlowStep = Exclude<Step, 'hero'>
 
 const GOALS = [
@@ -21,25 +20,15 @@ const GOALS = [
   { xp: 50, label: 'Intensiv', time: '20+ Min. am Tag', bars: 4 },
 ]
 
-const COURSES = [
-  { id: 'french', name: 'Französisch', ready: true },
-  { id: 'english', name: 'Englisch', ready: false },
-  { id: 'math', name: 'Mathe', ready: false },
-  { id: 'german', name: 'Deutsch', ready: false },
-  { id: 'latin', name: 'Latein', ready: false },
-  { id: 'bio', name: 'Biologie', ready: false },
-]
-
-// Solange nur ein Fach bereit ist (Französisch), entfällt die Fächerauswahl
-const FLOW: FlowStep[] = (['course', 'grade', 'goal', 'ready'] as FlowStep[]).filter((s) => s !== 'course' || COURSES.filter((c) => c.ready).length > 1)
+// Aktuell gibt es nur Französisch, darum keine Fächerauswahl
+const FLOW: FlowStep[] = ['grade', 'goal', 'ready']
 
 const SPEECH: Record<FlowStep, string> = {
-  course: 'Was möchtest du lernen?',
   grade: 'In welche Klasse gehst du?',
   goal: 'Wie viel möchtest du täglich lernen?',
   ready: 'Super! Dein Lernpfad ist fertig. Los geht’s!',
 }
-const MOOD: Record<FlowStep, Mood> = { course: 'happy', grade: 'think', goal: 'happy', ready: 'cheer' }
+const MOOD: Record<FlowStep, Mood> = { grade: 'think', goal: 'happy', ready: 'cheer' }
 
 const slide = {
   enter: (d: number) => ({ opacity: 0, x: d * 24 }),
@@ -56,7 +45,6 @@ export function Welcome() {
   const [step, setStep] = useState<Step>('hero')
   const [dir, setDir] = useState(1)
   const [importMsg, setImportMsg] = useState<string | null>(null)
-  const [shake, setShake] = useState<string | null>(null)
   const fileRef = useRef<HTMLInputElement>(null)
 
   const go = (to: Step) => {
@@ -185,28 +173,6 @@ export function Welcome() {
 
               <AnimatePresence mode="wait" custom={dir} initial={false}>
                 <motion.div key={step} custom={dir} variants={slide} initial="enter" animate="center" exit="exit">
-                  {step === 'course' && (
-                    <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-                      {COURSES.map((c) => (
-                        <li key={c.id}>
-                          <motion.button
-                            type="button"
-                            onClick={() => (c.ready ? next() : setShake(c.id))}
-                            animate={shake === c.id && !reduce ? { x: [0, -7, 7, -5, 5, 0] } : { x: 0 }}
-                            onAnimationComplete={() => shake === c.id && setShake(null)}
-                            className={`tile relative h-full w-full flex-col justify-center !gap-1.5 !px-3 !py-2.5 text-center ${c.ready ? 'tile-selected' : 'opacity-60'}`}
-                            aria-label={c.ready ? c.name : `${c.name}, kommt bald`}
-                          >
-                            {c.ready ? <FrenchFlag size={38} /> : <Lock size={28} className="text-muted" />}
-                            <span className="text-base font-semibold">{c.name}</span>
-                            {!c.ready && <span className="text-xs font-semibold">{shake === c.id ? 'kommt bald!' : 'bald'}</span>}
-                            {c.ready && <span className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-brand text-on-brand"><Check size={13} /></span>}
-                          </motion.button>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-
                   {step === 'grade' && (
                     <ul className="grid grid-cols-1 gap-3" role="radiogroup" aria-label="Klasse">
                       {grades.map((g) => {

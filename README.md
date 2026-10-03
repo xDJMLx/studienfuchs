@@ -63,7 +63,7 @@ Kein Konto, keine Werbung, kein Tracking. Alles liegt im Browser des Geräts. Nu
 ## Technik
 React 19, TypeScript, Vite, Tailwind CSS 4, Zustand, Framer Motion, `ts-fsrs`, Tesseract.js, Piper TTS, Vitest (133 Tests). Gehostet über GitHub Pages.
 
-Mehr zur Lernmethode, zum Aufbau der Inhalte, zum Erzeugen der Aufnahmen und zum Entwickeln steht in der [technischen Doku](docs/ENTWICKLUNG.md).
+Mehr zur Lernmethode, zum Aufbau der Inhalte, zum Erzeugen der Aufnahmen und zum Entwickeln steht in der [technischen Doku](docs/ENTWICKLUNG.md). Was vor einer öffentlichen Veröffentlichung zu tun ist, steht in der [Checkliste](docs/VEROEFFENTLICHUNG.md).
 
 ```bash
 npm install
