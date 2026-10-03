@@ -64,7 +64,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
     const allowListen = hasFrenchVoice()
     const warm = !isTest && warmup?.length ? generateWarmup(warmup, pool, Math.random, mastery) : []
     const exercises = isTest
-      ? generateTest({ items, pool, allowListen, focus, count: maxExercises, mastery: noPassMark ? mastery : undefined })
+      ? generateTest({ items, pool, allowListen, focus, count: maxExercises, mastery })
       : [...warm, ...generateLesson({ items, pool, mastery, fills, maxExercises, allowListen, allowSpeak: recognitionAvailable && useStore.getState().speakingOn, focus })]
     const st = useStore.getState()
     return { exercises, xpBefore: st.xp, todayBefore: xpToday(st.xpByDay), goal: st.dailyGoal }

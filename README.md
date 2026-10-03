@@ -18,7 +18,7 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 **Der Kurs**
 - 4 Klassenstufen, 56 Einheiten, 393 Lektionen und 2.166 Wörter. Klasse 7 und 8 folgen den Themen von *À plus!* Band 1 und 2.
 - Zu jedem Wort gibt es einen Beispielsatz mit Übersetzung und eine Aufnahme. Alle 4.384 Sprachdateien sind vorab mit dem Sprachmodell Piper erzeugt, die App klingt also auf jedem Gerät gleich.
-- Neue Wörter kommen nur zu zweit und werden sofort abgefragt. Erst erkennen (auswählen, hören, zuordnen), dann aus Buchstaben legen, erst später frei schreiben.
+- Neue Wörter kommen nur zu zweit und werden sofort abgefragt. Beim ersten Kennenlernen wird nur erkannt (auswählen, hören, zuordnen), geschrieben wird nichts. Erst beim Wiederholen legt man Wörter aus Buchstaben, und frei tippen kommt zuletzt.
 
 **Lernen, das hängen bleibt**
 - Abrufen statt Wiederlesen: Jede Lektion besteht aus aktiven Aufgaben.

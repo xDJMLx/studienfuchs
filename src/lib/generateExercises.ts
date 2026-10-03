@@ -194,19 +194,15 @@ export function generateExercises(opts: GenOptions): Exercise[] {
   for (const item of items) {
     const m = mastery(item.id)
     if (fresh(item.id)) {
-      // Einsteiger-Leiter: erkennen, hören, Buchstaben legen. Freies Schreiben kommt erst in späteren Runden (mit Stütze).
+      // Erstes Kennenlernen: nur erkennen, hören und zuordnen. Geschrieben wird hier noch nichts.
       if (m === 0) add(1, 0, choice(item, pool, 'fr-de', rng, items))
-      add(1, 1, choice(item, pool, 'de-fr', rng, items))
+      add(1, 0, choice(item, pool, 'de-fr', rng, items))
       add(1, 1, allowListen ? listenChoiceEx(item, pool, rng, items) : null)
-      const spell = spellEx(item, rng)
-      add(2, 0, spell ?? typeEx(item, sameMeaning(item), true))
-      add(2, 2, buildEx(item, rng))
-      if (spell) add(2, 3, typeEx(item, sameMeaning(item), true))
     } else if (m === 1) {
-      // Wird schon geübt, sitzt aber noch nicht: Schreiben mit Stütze (erster Buchstabe), Hören nur zum Auswählen
+      // Schon einmal gesehen, sitzt aber noch nicht: erst Auswahl, dann das Wort aus Buchstaben legen (noch nicht frei tippen)
       add(1, 1, choice(item, pool, 'de-fr', rng, items))
       add(1, 1, allowListen ? listenChoiceEx(item, pool, rng, items) : null)
-      add(2, 0, typeEx(item, sameMeaning(item), true))
+      add(2, 0, spellEx(item, rng))
       add(2, 2, buildEx(item, rng))
     } else {
       add(2, 0, typeEx(item, sameMeaning(item)))
@@ -226,7 +222,7 @@ export function generateExercises(opts: GenOptions): Exercise[] {
   }
 
   // Schwerpunkt: nur bestimmte Aufgabentypen
-  const wanted = focus === 'write' ? ['type', 'build'] : focus === 'listen' ? ['listen', 'listenChoice'] : null
+  const wanted = focus === 'write' ? ['type', 'spell', 'build'] : focus === 'listen' ? ['listen', 'listenChoice'] : null
   const pickFrom = wanted ? planned.filter((p) => wanted.includes(p.ex.kind)) : planned
   const kept = [...(pickFrom.length ? pickFrom : planned)].sort((a, b) => a.priority - b.priority).slice(0, maxExercises)
   const round1 = interleave(kept.filter((p) => p.round === 1), rng)
@@ -252,11 +248,11 @@ export function generateExercises(opts: GenOptions): Exercise[] {
  */
 export function generateTest(opts: { items: Item[]; pool: Item[]; count?: number; allowListen?: boolean; focus?: 'mix' | 'write' | 'listen'; mastery?: (itemId: string) => Mastery; rng?: () => number }): Exercise[] {
   const { items, pool, count = 15, allowListen = true, focus = 'mix', rng = Math.random } = opts
-  // Noch nie geübte Wörter werden aus Buchstaben gelegt, halb gelernte mit Stütze geschrieben, sichere frei (ohne "mastery" gilt alles als sicher, z. B. im Einheitentest)
+  // Noch nicht sichere Wörter werden aus Buchstaben gelegt (länger Wendungen mit Stütze geschrieben), erst sichere frei getippt
   const typed = (item: Item): Exercise => {
     const m = opts.mastery?.(item.id) ?? 2
-    if (m === 0) return spellEx(item, rng) ?? typeEx(item, sameMeaning(item), true)
-    return typeEx(item, sameMeaning(item), m === 1)
+    if (m <= 1) return spellEx(item, rng) ?? typeEx(item, sameMeaning(item), true)
+    return typeEx(item, sameMeaning(item))
   }
   const sameMeaning = (item: Item) =>
     [...pool, ...items].filter((o) => o.id !== item.id && o.back.trim().toLowerCase() === item.back.trim().toLowerCase()).map((o) => o.front)
@@ -282,12 +278,11 @@ export const WARMUP_SIZE = 3
  */
 export function generateWarmup(items: Item[], pool: Item[], rng: () => number = Math.random, mastery: (itemId: string) => Mastery = () => 2): Exercise[] {
   if (!items.length) return []
-  return generateExercises({ items, pool, mastery: () => 2, maxExercises: items.length, allowListen: false, focus: 'write', rng }).map((e) => ({
-    ...e,
-    warm: true,
-    // Was noch nicht fest sitzt, wird mit Stütze (erster Buchstabe) abgefragt
-    ...(e.kind === 'type' && mastery(e.itemId) < 2 ? { hint: true } : {}),
-  }))
+  // Was noch nicht fest sitzt, wird nur ausgewählt (de → fr); nur sichere Wörter werden getippt
+  const strong = items.filter((i) => mastery(i.id) >= 2)
+  const typed = strong.length ? generateExercises({ items: strong, pool, mastery: () => 2, maxExercises: strong.length, allowListen: false, focus: 'write', rng }) : []
+  const picked = items.filter((i) => mastery(i.id) < 2).map((i) => choice(i, pool, 'de-fr', rng, items))
+  return [...typed, ...picked].map((e) => ({ ...e, warm: true }))
 }
 
 /** Wie viele neue Wörter auf einmal gezeigt werden, bevor sie sofort abgefragt werden. */

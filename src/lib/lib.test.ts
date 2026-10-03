@@ -109,7 +109,7 @@ describe('generateExercises', () => {
   const mk = (n: number): Item[] =>
     Array.from({ length: n }, (_, i) => ({
       id: `i${i}`,
-      front: `fr${i}`,
+      front: `mot${String.fromCharCode(97 + i)}`,
       back: `de${i}`,
       example: i === 0 ? 'Je suis très content' : undefined,
       exampleDe: i === 0 ? 'Ich bin sehr froh' : undefined,
@@ -118,10 +118,14 @@ describe('generateExercises', () => {
   const run = (mastery: 0 | 1 | 2, max?: number) =>
     generateExercises({ items, pool: items, mastery: () => mastery, maxExercises: max })
 
-  it('neue Items: Erkennen vor Produzieren, Match bei ≥4 neuen', () => {
+  it('neue Items: nur Erkennen (kein Schreiben), Match bei ≥4 neuen', () => {
     const ex = run(0)
     expect(ex.some((e) => e.kind === 'match')).toBe(true)
-    const firstProduce = ex.findIndex((e) => e.kind === 'type' || e.kind === 'spell')
+    expect(ex.some((e) => e.kind === 'type' || e.kind === 'spell')).toBe(false)
+  })
+  it('lernende Items: erst Erkennen, dann Buchstaben legen', () => {
+    const ex = run(1)
+    const firstProduce = ex.findIndex((e) => e.kind === 'spell')
     const lastChoice = ex.map((e) => e.kind).lastIndexOf('choice')
     expect(firstProduce).toBeGreaterThan(-1)
     expect(lastChoice).toBeLessThan(firstProduce)
@@ -129,12 +133,13 @@ describe('generateExercises', () => {
   it('respektiert die Obergrenze', () => {
     expect(run(0, 10).length).toBeLessThanOrEqual(10)
   })
-  it('jedes neue Item wird erkannt und produziert (auch bei 10 Items)', () => {
+  it('jedes Item wird erkannt, lernende auch geschrieben (auch bei 10 Items)', () => {
     const ten = mk(10)
     const ex = generateExercises({ items: ten, pool: ten, mastery: () => 0 })
+    const ex1 = generateExercises({ items: ten, pool: ten, mastery: () => 1 })
     for (const it of ten) {
       expect(ex.some((e) => e.kind === 'choice' && e.itemId === it.id)).toBe(true)
-      expect(ex.some((e) => (e.kind === 'type' || e.kind === 'spell') && e.itemId === it.id)).toBe(true)
+      expect(ex1.some((e) => e.kind === 'spell' && e.itemId === it.id)).toBe(true)
     }
   })
   it('gefestigte Items bekommen kein Multiple Choice', () => {

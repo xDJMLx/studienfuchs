@@ -59,15 +59,23 @@ describe('Lernschritte', () => {
       // direkt danach kommt eine Frage zu einem der gerade gezeigten Wörter
       expect(t.items.map((x) => x.id)).toContain(ex[i + 1].itemId)
     }
-    // jedes Wort wird später auch aus dem Gedächtnis abgefragt
-    for (const it of items) expect(ex.some((e) => (e.kind === 'type' || e.kind === 'spell') && e.itemId === it.id)).toBe(true)
+    // jedes Wort wird erkannt, aber beim ersten Mal noch nicht geschrieben
+    for (const it of items) expect(ex.some((e) => e.kind === 'choice' && e.itemId === it.id)).toBe(true)
+    expect(ex.some((e) => e.kind === 'type' || e.kind === 'spell')).toBe(false)
   })
 
-  it('Einsteiger-Leiter: in der ersten Lektion kein freies Schreiben und kein Diktat, stattdessen Buchstaben legen', () => {
+  it('Einsteiger-Leiter: in der ersten Lektion wird gar nicht geschrieben, nur erkannt und gehört', () => {
     const items = regular[0].items
     const ex = generateLesson({ items, pool: items, mastery: () => 0, allowListen: true })
+    for (const k of ['listen', 'type', 'spell', 'build']) expect(ex.some((e) => e.kind === k)).toBe(false)
+    expect(ex.some((e) => e.kind === 'listenChoice')).toBe(true)
+  })
+
+  it('beim zweiten Kontakt werden Wörter erst aus Buchstaben gelegt, noch nicht frei getippt', () => {
+    const items = regular[0].items
+    const ex = generateLesson({ items, pool: items, mastery: () => 1, allowListen: true })
+    expect(ex.some((e) => e.kind === 'type')).toBe(false)
     expect(ex.some((e) => e.kind === 'listen')).toBe(false)
-    expect(ex.every((e) => e.kind !== 'type' || e.hint === true)).toBe(true)
     const spells = ex.filter((e) => e.kind === 'spell')
     expect(spells.length).toBeGreaterThan(0)
     for (const s of spells) {
@@ -81,15 +89,6 @@ describe('Lernschritte', () => {
         have.splice(i, 1)
       }
     }
-  })
-
-  it('wer schon übt, aber noch nicht sicher ist, schreibt mit Stütze statt ohne Hilfe', () => {
-    const items = regular[0].items
-    const ex = generateLesson({ items, pool: items, mastery: () => 1, allowListen: true })
-    const types = ex.filter((e) => e.kind === 'type')
-    expect(types.length).toBeGreaterThan(0)
-    expect(types.every((e) => e.kind === 'type' && e.hint === true)).toBe(true)
-    expect(ex.some((e) => e.kind === 'listen')).toBe(false)
   })
 
   it('gefestigte Wörter werden ohne Stütze geschrieben und diktiert', () => {
@@ -180,7 +179,7 @@ describe('Aufwärmen mit fälligen alten Wörtern', () => {
   const old = regular[0].items.slice(0, WARMUP_SIZE)
 
   it('fragt jedes alte Wort genau einmal aus dem Gedächtnis ab und markiert die Aufgabe', () => {
-    const ex = generateWarmup(old, regular[0].items)
+    const ex = generateWarmup(old, regular[0].items, Math.random, () => 2)
     expect(ex).toHaveLength(old.length)
     expect(ex.every((e) => e.warm && e.kind === 'type')).toBe(true)
     expect(new Set(ex.map((e) => e.itemId)).size).toBe(old.length)
@@ -192,20 +191,20 @@ describe('Aufwärmen mit fälligen alten Wörtern', () => {
 })
 
 describe('Übungstest mit Lernstand', () => {
-  it('noch nie geübte Wörter werden gelegt, halb gelernte mit Stütze geschrieben, sichere frei', () => {
+  it('noch nicht sichere Wörter werden aus Buchstaben gelegt, erst sichere frei geschrieben', () => {
     const items = regular[0].items
     const kinds = (m: 0 | 1 | 2) => generateTest({ items, pool: items, focus: 'write', count: items.length, mastery: () => m, allowListen: false })
     expect(kinds(0).every((e) => e.kind === 'spell' || (e.kind === 'type' && e.hint))).toBe(true)
-    expect(kinds(1).every((e) => e.kind === 'type' && e.hint === true)).toBe(true)
+    expect(kinds(1).every((e) => e.kind === 'spell' || (e.kind === 'type' && e.hint))).toBe(true)
     expect(kinds(2).every((e) => e.kind === 'type' && !e.hint)).toBe(true)
   })
 })
 
 describe('Aufwärmen für Einsteiger', () => {
   const old = regular[0].items.slice(0, WARMUP_SIZE)
-  it('fragt Wörter, die noch nicht fest sitzen, mit Stütze ab, sichere ohne', () => {
+  it('lässt Wörter, die noch nicht fest sitzen, nur auswählen, sichere werden getippt', () => {
     const weak = generateWarmup(old, regular[0].items, Math.random, () => 1)
-    expect(weak.every((e) => e.kind === 'type' && e.hint === true)).toBe(true)
+    expect(weak.every((e) => e.warm && e.kind === 'choice')).toBe(true)
     const strong = generateWarmup(old, regular[0].items, Math.random, () => 2)
     expect(strong.every((e) => e.kind === 'type' && !e.hint)).toBe(true)
   })
@@ -213,7 +212,7 @@ describe('Aufwärmen für Einsteiger', () => {
 
 describe('Buchstaben legen nur bei reinen Wörtern', () => {
   const mk = (front: string) => ({ id: 'x', front, back: 'b' })
-  const run = (front: string) => generateExercises({ items: [mk(front)], pool: [mk(front)], mastery: () => 0, allowListen: false, maxExercises: 20 }).some((e) => e.kind === 'spell')
+  const run = (front: string) => generateExercises({ items: [mk(front)], pool: [mk(front)], mastery: () => 1, allowListen: false, maxExercises: 20 }).some((e) => e.kind === 'spell')
   it('ja bei Wort und kurzer Wendung, nein bei Satzzeichen, Alternativen und Langem', () => {
     expect(run('bonjour')).toBe(true)
     expect(run("l'addition")).toBe(true)
