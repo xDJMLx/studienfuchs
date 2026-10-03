@@ -6,10 +6,10 @@ import { booksSnapshot, useBooks } from './useBooks'
 import { examsSnapshot, useExams } from './useExams'
 import { masteryOf, reviewCard, seedKnownCard, type Grade, type SrsCard } from '../lib/srs'
 import { achievements as computeAchievements, type AchievementInput } from '../lib/achievements'
-import { addProgress, chestReady, emptyDaily, rollChest, type ChestReward, type DailyState } from '../lib/rewards'
+import { addProgress, chestReady, emptyDaily, rollChest, UNIT_CHEST_COINS, type ChestReward, type DailyState } from '../lib/rewards'
 import { goalInfo } from '../lib/xp'
 import { useRewardEvents } from './useRewardEvents'
-import { findLesson, isLessonDone, isRegular, itemMeta } from '../content'
+import { findLesson, isLessonDone, isRegular, itemMeta, units } from '../content'
 import { buy, coinsForSession, itemById, toggleEquip, type Outfit } from '../lib/shop'
 import { MAX_FREEZES, currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
 import type { Item, VocabSet } from '../lib/types'
@@ -69,6 +69,8 @@ interface Data {
   blitzBest: number
   /** Wie viele Truhen schon geöffnet wurden (für den Zufall der nächsten) */
   chestsOpened: number
+  /** Einheiten, deren Truhe am Ende des Pfads schon geöffnet wurde */
+  unitChests: string[]
 }
 
 interface Actions {
@@ -76,6 +78,8 @@ interface Actions {
   ensureDaily: () => void
   /** Öffnet die Truhe von heute (null, wenn sie nicht bereit ist). */
   openChest: () => ChestReward | null
+  /** Öffnet die Truhe am Ende einer Einheit; gibt die Münzen zurück (0, wenn es noch nicht geht oder schon offen ist). */
+  openUnitChest: (unitId: string) => number
   /** Blitzrunde ist zu Ende: zahlt XP und Münzen aus, merkt sich den Rekord. */
   finishBlitz: (r: { score: number; correct: number }) => { xp: number; coins: number; record: boolean; questCoins: number; questsDone: number; allQuests: boolean }
   /** Gibt zurück, wie viele Münzen es für diese Einheit gab. */
@@ -138,6 +142,7 @@ const initial: Data = {
   daily: null,
   blitzBest: 0,
   chestsOpened: 0,
+  unitChests: [],
 }
 
 const DATA_KEYS = Object.keys(initial) as (keyof Data)[]
@@ -185,6 +190,16 @@ export const useStore = create<Data & Actions>()(
           owned: reward.kind === 'item' ? [...(s.owned ?? []), reward.id] : s.owned,
         })
         return reward
+      },
+
+      openUnitChest: (unitId) => {
+        const s = get()
+        if ((s.unitChests ?? []).includes(unitId)) return 0
+        const unit = units.find((u) => u.id === unitId)
+        const regular = unit?.lessons.filter(isRegular) ?? []
+        if (!regular.length || !regular.every((l) => isLessonDone(l, s.lessons[l.id]))) return 0
+        set({ unitChests: [...(s.unitChests ?? []), unitId], coins: (s.coins ?? 0) + UNIT_CHEST_COINS })
+        return UNIT_CHEST_COINS
       },
 
       finishBlitz: ({ score, correct }) => {
@@ -248,7 +263,10 @@ export const useStore = create<Data & Actions>()(
         const unit = unitOf(lessonId)
         const regular = unit?.lessons.filter(isRegular) ?? []
         const unitNow = !!unit && regular.length > 0 && regular.every((l) => isLessonDone(l, lessons[l.id])) && !regular.every((l) => isLessonDone(l, s.lessons[l.id]))
+        const found = lessonId ? findLesson(lessonId) : undefined
+        const becameDone = !!found && isLessonDone(found.lesson, lessons[found.lesson.id]) && !isLessonDone(found.lesson, s.lessons[found.lesson.id])
         useRewardEvents.setState({
+          pathDone: becameDone ? found!.lesson.id : null,
           last: {
             quests: upd.completed,
             questCoins,

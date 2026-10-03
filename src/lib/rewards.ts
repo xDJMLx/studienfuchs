@@ -37,6 +37,8 @@ export interface DailyState {
 }
 
 export const QUEST_BONUS = 10
+/** Münzen in der Truhe am Ende jeder Einheit (einmal pro Einheit, sobald alle Lektionen geschafft sind). */
+export const UNIT_CHEST_COINS = 25
 
 const TEXT: Record<QuestMetric, (n: number) => string> = {
   newWords: (n) => `Lerne ${n} neue Wörter`,

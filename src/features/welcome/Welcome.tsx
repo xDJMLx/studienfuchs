@@ -69,6 +69,8 @@ export function Welcome() {
     }
   }
 
+  // Erste Lektion der gewählten Klasse (für den Sofort-Start am Ende)
+  const firstLesson = units.find((u) => u.grade === grade && !u.extra)?.lessons[0]
   const idx = FLOW.indexOf(step as FlowStep)
   const next = () => go(idx >= FLOW.length - 1 ? step : FLOW[idx + 1])
   const back = () => go(idx <= 0 ? 'hero' : FLOW[idx - 1])
@@ -257,10 +259,22 @@ export function Welcome() {
             </main>
 
             <footer className="border-t border-line bg-bg" style={{ paddingBottom: 'max(0px, env(safe-area-inset-bottom))' }}>
-              <div className="mx-auto flex w-full max-w-3xl justify-end px-5 py-4">
-                <button className="btn btn-primary press w-full !py-4 text-base sm:w-64" onClick={step === 'ready' ? () => finish() : next} autoFocus>
-                  {step === 'ready' ? 'Los geht’s' : 'Weiter'}
-                </button>
+              <div className="mx-auto flex w-full max-w-3xl flex-col items-stretch gap-1 px-5 py-4 sm:flex-row-reverse sm:items-center">
+                {step === 'ready' && firstLesson && !hasProgress ? (
+                  <>
+                    {/* Gleich richtig loslegen: die erste Lektion startet sofort (wie bei Duolingo), umschauen geht trotzdem */}
+                    <button className="btn btn-primary btn-shine press w-full !py-4 text-base sm:w-72" onClick={() => finish(`/lesson/${firstLesson.id}`)} autoFocus>
+                      Erste Lektion starten
+                    </button>
+                    <button type="button" className="press min-h-11 rounded-xl px-3 text-sm font-extrabold uppercase tracking-wide text-sky-dark sm:mr-auto" onClick={() => finish()}>
+                      Erst umschauen
+                    </button>
+                  </>
+                ) : (
+                  <button className="btn btn-primary press w-full !py-4 text-base sm:ml-auto sm:w-64" onClick={step === 'ready' ? () => finish() : next} autoFocus>
+                    {step === 'ready' ? 'Los geht’s' : 'Weiter'}
+                  </button>
+                )}
               </div>
             </footer>
           </motion.div>

@@ -37,6 +37,10 @@
   --violet-text: #6a3ad6;
   --violet-soft: #f1ebff;
   --shade-violet: #6a3ad6;
+  --teal: #14b8a6;
+  --teal-text: #0b7a6e;
+  --pink: #ff5c9a;
+  --pink-text: #c22f68;
 
   --good: #2dbd57;
   --good-text: #1b8a3c;
@@ -85,6 +89,10 @@
   --violet-text: #c3abff;
   --violet-soft: #2a2347;
   --shade-violet: #6c47d6;
+  --teal: #2dd4bf;
+  --teal-text: #6ee7d8;
+  --pink: #ff6fa8;
+  --pink-text: #ffa3c7;
 
   --good: #3ccf64;
   --good-text: #7ae596;
@@ -310,7 +318,9 @@ h1, h2, h3 {
     @apply flex items-center gap-4 rounded-2xl border-2 border-transparent px-4 py-2.5 text-[15px] font-extrabold uppercase tracking-[0.05em] text-muted hover:bg-snow;
   }
   .nav-link-active {
-    @apply border-sky bg-sky-soft text-sky-dark hover:bg-sky-soft;
+    border-color: var(--nav-c, var(--sky));
+    background: color-mix(in srgb, var(--nav-c, var(--sky)) 13%, var(--surface));
+    color: var(--nav-t, var(--sky-text));
   }
 
   .eyebrow {

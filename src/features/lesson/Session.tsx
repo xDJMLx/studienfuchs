@@ -16,7 +16,7 @@ import { EASE, SPRING } from '../../components/ui/motion'
 import { evaluate, type Answer, type Evaluation } from '../../lib/evaluate'
 import { fillSentence } from '../../lib/fillSentence'
 import { makeHint } from '../../lib/hint'
-import { playCorrect, playWrong } from '../../lib/sound'
+import { buzz, playCorrect, playWrong } from '../../lib/sound'
 import { speak } from '../../lib/speech'
 import type { Grade } from '../../lib/srs'
 import type { Exercise } from '../../lib/types'
@@ -95,6 +95,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
       if (ev.status === 'almost' && ex.kind !== 'match') almostCount.current[ex.itemId] = (almostCount.current[ex.itemId] ?? 0) + 1
       if (ev.status === 'wrong') {
         playWrong()
+        buzz([25, 40, 25])
         setCombo(0)
         if (!noRetry) {
           // Gleiche Aufgabe wiederholen, bis sie sitzt (nach ein paar anderen, damit es kein Auswendig-Klicken wird)
@@ -107,6 +108,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           })
         }
       } else {
+        buzz(12)
         playCorrect(!isRetry && !ex.warm && ev.status === 'correct' ? combo + 1 : 0)
         if (!isRetry && !ex.warm && ev.status === 'correct') {
           firstTry.current += 1
@@ -211,7 +213,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           aria-valuenow={Math.round(progress * 100)}
         >
           <motion.div
-            className="relative h-full overflow-hidden rounded-full bg-brand"
+            className={`relative h-full overflow-hidden rounded-full transition-[background,box-shadow] duration-500 ${combo >= 5 ? 'bg-gradient-to-r from-gold to-brand shadow-[0_0_14px_var(--gold)]' : 'bg-brand'}`}
             initial={false}
             animate={{ width: `${Math.max(progress * 100, 3)}%` }}
             transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 220, damping: 30 }}
