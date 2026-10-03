@@ -305,8 +305,8 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           </g>
 
           {/* Kopfform und weißes Gesicht */}
-          <path d="M100 28 C142 28 170 54 172 90 C173 104 180 112 178 121 C176 128 167 127 159 123 C149 139 127 148 100 148 C73 148 51 139 41 123 C33 127 24 128 22 121 C20 112 27 104 28 90 C30 54 58 28 100 28 Z" fill={`url(#${g('face')})`} />
-          <path d="M28 98 C46 92 70 98 82 114 C88 122 94 127 100 127 C106 127 112 122 118 114 C130 98 154 92 172 98 C174 105 180 112 178 121 C176 128 167 127 159 123 C149 139 127 148 100 148 C73 148 51 139 41 123 C33 127 24 128 22 121 C20 112 26 105 28 98 Z" fill={`url(#${g('white')})`} />
+          <path d="M100 28 C142 28 170 54 172 90 C173 121 146 148 100 148 C54 148 27 121 28 90 C30 54 58 28 100 28 Z" fill={`url(#${g('face')})`} />
+          <path d="M28 98 C46 92 70 98 82 114 C88 122 94 127 100 127 C106 127 112 122 118 114 C130 98 154 92 172 98 C172.5 121 146 148 100 148 C54 148 27.5 121 28 98 Z" fill={`url(#${g('white')})`} />
           <path d="M60 52 C74 40 92 36 106 36" stroke="#fff" strokeWidth="5" strokeLinecap="round" fill="none" opacity="0.28" />
           {/* Haarbüschel */}
           <path d="M96 31 C90 17 102 8 112 14 C104 16 102 24 104 31 Z" fill={C.orangeLight} />
@@ -325,8 +325,8 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           </g>
 
           {/* Wangen */}
-          <ellipse cx="42" cy="114" rx="9" ry="6" fill="#ff6f7a" style={{ opacity: 'var(--blush, 0.35)' as unknown as number }} />
-          <ellipse cx="158" cy="114" rx="9" ry="6" fill="#ff6f7a" style={{ opacity: 'var(--blush, 0.35)' as unknown as number }} />
+          <ellipse cx="46" cy="115" rx="8.5" ry="5.5" fill="#ff6f7a" style={{ opacity: 'var(--blush, 0.35)' as unknown as number }} />
+          <ellipse cx="154" cy="115" rx="8.5" ry="5.5" fill="#ff6f7a" style={{ opacity: 'var(--blush, 0.35)' as unknown as number }} />
 
           {/* Sommersprossen */}
           <g fill="#d9955f" opacity="0.75">
