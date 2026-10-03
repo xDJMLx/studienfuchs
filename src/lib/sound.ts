@@ -36,3 +36,17 @@ export const playWrong = () => {
 export const playDone = () => {
   ;[523, 659, 784, 1047].forEach((f, i) => tone(f, i * 0.12, 0.3))
 }
+/** Truhe öffnen: ein aufsteigendes Glitzern. */
+export const playChest = () => {
+  ;[784, 988, 1175, 1568, 1976].forEach((f, i) => tone(f, i * 0.07, 0.22, 'triangle', 0.09))
+}
+
+/** Kurzes Vibrieren auf dem Handy (wo es geht); gehört zu den Tönen und lässt sich mit ihnen abschalten. */
+export function buzz(pattern: number | number[]): void {
+  if (!useStore.getState().soundOn) return
+  try {
+    navigator.vibrate?.(pattern)
+  } catch {
+    /* nicht unterstützt */
+  }
+}

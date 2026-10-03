@@ -142,3 +142,32 @@ describe('Blitzrunde', () => {
     expect(useStore.getState().streak.count).toBe(1)
   })
 })
+
+describe('Truhe am Ende einer Einheit', () => {
+  it('geht erst auf, wenn alle Lektionen der Einheit geschafft sind, und nur einmal', () => {
+    expect(useStore.getState().openUnitChest(unit.id)).toBe(0)
+    for (let i = 0; i < regular.length - 1; i++) finish(i)
+    expect(useStore.getState().openUnitChest(unit.id)).toBe(0)
+    finish(regular.length - 1)
+    const before = useStore.getState().coins
+    expect(useStore.getState().openUnitChest(unit.id)).toBe(25)
+    expect(useStore.getState().coins).toBe(before + 25)
+    expect(useStore.getState().unitChests).toContain(unit.id)
+    expect(useStore.getState().openUnitChest(unit.id)).toBe(0)
+    expect(useStore.getState().openUnitChest('gibt-es-nicht')).toBe(0)
+  })
+})
+
+describe('Feier auf dem Lernpfad', () => {
+  it('merkt sich eine frisch geschaffte Lektion, aber nicht eine, die schon geschafft war', () => {
+    finish(0, 1)
+    expect(useRewardEvents.getState().pathDone).toBe(regular[0].id)
+    finish(0, 1)
+    expect(useRewardEvents.getState().pathDone).toBeNull()
+  })
+
+  it('eine nicht bestandene Lektion wird nicht gefeiert', () => {
+    finish(1, 0.3)
+    expect(useRewardEvents.getState().pathDone).toBeNull()
+  })
+})

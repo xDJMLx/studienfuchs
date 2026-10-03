@@ -3,7 +3,12 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { blockingLesson, grades, isLessonDone, isRegular, isUnlocked, passMark, units } from '../../content'
 import { SpeakButton } from '../../components/exercises/common'
-import { Check, Chevron, Lock, Repeat, Star, Trophy } from '../../components/ui/Icons'
+import { Check, Chest, Chevron, Coin, Lock, Repeat, Star, Trophy } from '../../components/ui/Icons'
+import { Burst } from '../../components/ui/Burst'
+import { Confetti } from '../../components/ui/Confetti'
+import { mascotBus } from '../../lib/mascotBus'
+import { playChest } from '../../lib/sound'
+import { useRewardEvents } from '../../store/useRewardEvents'
 import { Mascot } from '../../components/mascot/Mascot'
 import { SPRING } from '../../components/ui/motion'
 import { Sheet } from '../../components/ui/Sheet'
@@ -12,7 +17,7 @@ import { BackupBanner } from '../../components/ui/BackupBanner'
 import { InstallBanner } from '../../components/ui/InstallApp'
 import { backupDue } from '../../lib/backup'
 import { goalInfo } from '../../lib/xp'
-import { chestReady, daysBetween, foxGreeting } from '../../lib/rewards'
+import { chestReady, daysBetween, foxGreeting, UNIT_CHEST_COINS } from '../../lib/rewards'
 import { dayKey } from '../../lib/streak'
 import { streakNow, useStore } from '../../store/useStore'
 import { TodayStrip } from './TodayCard'
@@ -93,17 +98,26 @@ export function LearnPage() {
   })()
 
   const [pop, setPop] = useState<string | null>(null)
+  const unitChests = useStore((s) => s.unitChests ?? [])
+  const [chestReward, setChestReward] = useState<{ unit: Unit; coins: number } | null>(null)
+  // Gerade geschaffte Lektion: ihr Stein poppt beim Zurückkommen mit einem kleinen Feuerwerk auf
+  const celebrate = useRef(useRewardEvents.getState().pathDone)
+  useEffect(() => {
+    if (celebrate.current) useRewardEvents.setState({ pathDone: null })
+  }, [])
   const currentRef = useRef<HTMLLIElement>(null)
 
   // Beim Öffnen zur aktuellen Lektion gleiten, falls sie unter der Kante liegt (nach dem Hochscrollen des Layouts)
   useEffect(() => {
     const id = window.setTimeout(() => {
-      const el = currentRef.current
+      // Nach einer frisch geschafften Lektion zu ihr (sie wird gefeiert), sonst zur aktuellen
+      const fresh = celebrate.current ? document.querySelector<HTMLElement>(`[data-lesson="${celebrate.current}"]`) : null
+      const el = fresh ?? currentRef.current
       const main = el?.closest('main')
       if (!el || !main) return
       const r = el.getBoundingClientRect()
-      if (r.bottom < window.innerHeight - 140) return
-      main.scrollTo({ top: main.scrollTop + r.top - window.innerHeight * 0.4, behavior: reduce ? 'auto' : 'smooth' })
+      if (!fresh && r.bottom < window.innerHeight - 140) return
+      main.scrollTo({ top: main.scrollTop + r.top - window.innerHeight * (fresh ? 0.42 : 0.4), behavior: reduce ? 'auto' : 'smooth' })
     }, 160)
     return () => clearTimeout(id)
     // nur beim Öffnen der Seite
@@ -203,7 +217,7 @@ export function LearnPage() {
                     const isOpen = pop === lesson.id
                     return (
                       // Bewusst ohne Einblend-Animation beim Scrollen: Bei schnellem Wischen blieben sonst Knoten unsichtbar
-                      <li key={lesson.id} ref={state === 'current' ? currentRef : undefined} style={{ transform: `translateX(${offset}px)` }} className={`relative flex flex-col items-center ${isOpen ? 'z-30' : ''}`}>
+                      <li key={lesson.id} data-lesson={lesson.id} ref={state === 'current' ? currentRef : undefined} style={{ transform: `translateX(${offset}px)` }} className={`relative flex flex-col items-center ${isOpen ? 'z-30' : ''}`}>
                         {state === 'current' && (
                           <>
                             <span className="animate-bob absolute -top-10 z-10 whitespace-nowrap rounded-xl border-2 border-line bg-surface px-3 py-1.5 text-[13px] font-extrabold uppercase tracking-wide shadow-[0_3px_0_var(--shade-line)]" style={{ color: world.c }}>
@@ -221,7 +235,14 @@ export function LearnPage() {
                           className="path-btn relative"
                         >
                           {state === 'current' && <span aria-hidden className="absolute -inset-[9px] bottom-[-3px] rounded-full border-[6px]" style={{ borderColor: `color-mix(in srgb, ${world.c} 30%, transparent)` }} />}
-                          <PathNode state={state} kind={kind} color={world} perfect={state === 'done' && (rec?.bestAccuracy ?? 0) >= 0.95} />
+                          {celebrate.current === lesson.id && state === 'done' ? (
+                            <motion.span className="block" initial={reduce ? false : { scale: 0.55 }} animate={{ scale: [0.55, 1.18, 1] }} transition={{ duration: 0.7, delay: 0.45, ease: 'easeOut' }}>
+                              <PathNode state={state} kind={kind} color={world} perfect={(rec?.bestAccuracy ?? 0) >= 0.95} />
+                            </motion.span>
+                          ) : (
+                            <PathNode state={state} kind={kind} color={world} perfect={state === 'done' && (rec?.bestAccuracy ?? 0) >= 0.95} />
+                          )}
+                          {celebrate.current === lesson.id && state === 'done' && <Burst delay={0.6} />}
                         </button>
                         {isOpen && (
                           <LessonPopover
@@ -240,6 +261,52 @@ export function LearnPage() {
                       </li>
                     )
                   })}
+                  {!unit.extra && reg.length > 0 && (() => {
+                    const key = `chest:${unit.id}`
+                    const ready = done === reg.length
+                    const opened = unitChests.includes(unit.id)
+                    const offset = OFFSETS[(ui * 3 + unit.lessons.length) % OFFSETS.length]
+                    const isOpen = pop === key
+                    return (
+                      <li key={key} style={{ transform: `translateX(${offset}px)` }} className={`relative flex flex-col items-center pt-1 ${isOpen ? 'z-30' : ''}`}>
+                        <button
+                          type="button"
+                          className="path-btn relative"
+                          aria-label={opened ? 'Truhe dieser Einheit, schon geöffnet' : ready ? 'Truhe dieser Einheit öffnen' : 'Truhe dieser Einheit, noch verschlossen'}
+                          onClick={() => {
+                            if (ready && !opened) {
+                              const coins = useStore.getState().openUnitChest(unit.id)
+                              if (coins > 0) {
+                                playChest()
+                                setChestReward({ unit, coins })
+                                window.setTimeout(() => mascotBus.emit('cheer'), 300)
+                              }
+                              return
+                            }
+                            setPop(isOpen ? null : key)
+                          }}
+                        >
+                          <motion.span
+                            className="block drop-shadow-[0_6px_0_rgba(0,0,0,0.12)]"
+                            animate={ready && !opened && !reduce ? { rotate: [0, -7, 7, -4, 4, 0], y: [0, -6, 0] } : undefined}
+                            transition={{ duration: 1.1, repeat: Infinity, repeatDelay: 1.2 }}
+                          >
+                            <Chest size={76} open={opened} className={ready || opened ? '' : 'opacity-40 grayscale'} />
+                          </motion.span>
+                          {ready && !opened && <span aria-hidden className="absolute -right-2 top-0 rounded-full bg-bad px-1.5 text-[11px] font-black text-white">!</span>}
+                        </button>
+                        {isOpen && (
+                          <div className="absolute top-[88px] z-30 w-[min(280px,calc(100vw-2rem))]" style={{ left: '50%', marginLeft: `calc(-1 * min(140px, calc(50vw - 1rem)) - ${offset}px)` }}>
+                            <div className="card relative p-4 text-center" style={{ boxShadow: '0 4px 0 var(--shade-line)' }}>
+                              <p className="text-[17px] font-extrabold">{opened ? 'Schon geöffnet' : 'Truhe der Einheit'}</p>
+                              <p className="mt-1 text-sm text-muted">{opened ? `Die Münzen dieser Einheit hast du dir schon geholt.` : `Schaffe alle Lektionen von „${unit.title}“, dann gibt es hier ${UNIT_CHEST_COINS} Münzen.`}</p>
+                              {!opened && <p className="mt-2 text-sm font-extrabold text-gold-dark">Noch {reg.length - done} {reg.length - done === 1 ? 'Lektion' : 'Lektionen'}</p>}
+                            </div>
+                          </div>
+                        )}
+                      </li>
+                    )
+                  })()}
                 </ol>
               )}
             </section>
@@ -250,6 +317,22 @@ export function LearnPage() {
       {/* Tippen außerhalb schließt das Lektions-Kärtchen (Klick, nicht schon beim Drücken) */}
       {pop && <button type="button" aria-label="Schließen" className="fixed inset-0 z-20 cursor-default" onClick={() => setPop(null)} />}
       <LessonSheet data={lessonSheet} onClose={() => setLessonSheet(null)} />
+      <Sheet open={!!chestReward} onClose={() => setChestReward(null)} title="Truhe geöffnet!">
+        {chestReward && (
+          <div className="relative flex flex-col items-center pb-2 text-center">
+            <Confetti count={44} />
+            <div className="mt-8">
+              <Mascot mood="cheer" size={110} pose="full" alive listen />
+            </div>
+            <span className="mt-2 flex h-20 w-20 items-center justify-center rounded-full bg-gold/20"><Coin size={46} /></span>
+            <p className="mt-3 text-[26px] font-black text-gold-dark">+{chestReward.coins} Münzen</p>
+            <p className="mt-1 max-w-xs text-muted">Für die ganze Einheit „{chestReward.unit.title}“. Stark!</p>
+            <button type="button" className="btn btn-primary press mt-5 w-full sm:w-64" onClick={() => setChestReward(null)} autoFocus>
+              Super
+            </button>
+          </div>
+        )}
+      </Sheet>
     </div>
   )
 }
