@@ -24,7 +24,7 @@ export function ResultLab() {
   return (
     <ResultScreen
       title="Das Verb être (2/2)"
-      outcome={{ result, xp: 20, coins: 12, leveledUp: true, goalReached: true, bonusTier: 1, comboXp: 4 }}
+      outcome={{ result, xp: 20, coins: 12, leveledUp: true, goalReached: true, bonusTier: 1, comboXp: 4, streakUp: true }}
       items={[]}
       test={false}
       free={false}

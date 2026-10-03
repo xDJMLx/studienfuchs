@@ -122,7 +122,7 @@ const initial: Data = {
   speechRate: 0.9,
   speakingOn: false,
   favorites: [],
-  theme: 'dark',
+  theme: 'system',
   onboarded: false,
   classUnit: null,
   catchUpTarget: null,

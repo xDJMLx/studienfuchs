@@ -47,7 +47,7 @@ export function SpeakButton({ text, size = 'md', slow = false, quiet = false }: 
 }
 
 export function Instruction({ children }: { children: React.ReactNode }) {
-  return <h2 className="mb-5 text-2xl font-semibold text-ink">{children}</h2>
+  return <h2 className="mb-5 text-[25px] font-extrabold leading-tight text-ink">{children}</h2>
 }
 
 /** Aufgabe als ruhige Karte: optional mit Vorlesen-Knopf, der Text ist das Wichtigste. */
@@ -60,7 +60,7 @@ export function PromptBubble({ children, speak: text, lang }: { children: React.
         <span aria-hidden className="absolute -left-[7px] top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 border-b-2 border-l-2 border-line bg-surface" />
         <div className="flex items-center gap-3.5">
           {text && <SpeakButton text={text} />}
-          <span lang={lang} className="min-w-0 text-2xl font-bold leading-snug">{children}</span>
+          <span lang={lang} className="min-w-0 text-[24px] font-extrabold leading-snug">{children}</span>
         </div>
       </div>
     </div>

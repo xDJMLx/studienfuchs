@@ -1,87 +1,120 @@
 @import 'tailwindcss';
-@import '@fontsource-variable/inter';
+@import '@fontsource-variable/nunito';
+
+/*
+ * Design v3 "Fennis Welt": hell, klar und verspielt. Weiße Flächen, kräftige Farben mit fester Bedeutung,
+ * runde Schrift (Nunito), dicke 3D-Kanten an allem, was man drücken kann. Dunkel ist eine gleichwertige Variante.
+ * Farben: Orange = Lernen und Hauptknöpfe, Blau = Auswahl und Wiederholen, Violett = KI und Blitz,
+ * Gold = XP, Münzen, Erfolge, Grün/Rot = richtig/falsch.
+ */
 
 /* Dark-Mode wird über die Klasse "dark" auf <html> gesteuert (System / Hell / Dunkel in den Einstellungen). */
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   color-scheme: light;
-  --page: #f6f6f7; /* App-Hintergrund */
+  --page: #ffffff;
   --bg: #ffffff;
-  --surface: #ffffff; /* Karten */
-  --snow: #f4f4f5; /* ruhige Flächen, Hover */
-  --line: #e7e7ea;
-  --ink: #1d1d20;
-  --muted: #6c6c75;
+  --surface: #ffffff;
+  --snow: #f4f5f7;
+  --line: #e5e6eb;
+  --ink: #23252c;
+  --muted: #868a95;
 
-  /* Marke: Fuchs-Orange auf Weiß */
-  --brand: #f2690f;
-  --brand-text: #bf520a;
-  --brand-soft: #fff1e5;
-  --shade-brand: #c9540a;
-  /* Knöpfe mit Text: weißer Text braucht mindestens 4,5:1 Kontrast (AA) */
-  --brand-strong: #c65209;
+  --brand: #ff7a1a;
+  --brand-text: #c4530a;
+  --brand-soft: #fff1e6;
+  --shade-brand: #d65f0a;
+  --brand-strong: #ff7a1a;
   --on-brand: #ffffff;
 
-  /* richtig / falsch */
-  --good: #2faa4a;
-  --good-text: #1f7f36;
-  --good-soft: #e6f6ea;
-  --shade-good: #1f7f36;
-  --bad: #e5484d;
-  --bad-text: #b8343a;
-  --bad-soft: #fdeaeb;
-  --shade-bad: #b8343a;
+  --sky: #1e96fa;
+  --sky-text: #1270c4;
+  --sky-soft: #e7f3ff;
+  --shade-sky: #1677d1;
 
-  --gold: #f5b82e;
-  --gold-text: #a97800;
-  --flame: #f2690f;
-  --flame-text: #bf520a;
-  --shade-gold: #c99200;
-  --shade-line: #d3d6dc;
-  --shadow: 0 1px 2px rgba(16, 16, 20, 0.05), 0 1px 1px rgba(16, 16, 20, 0.03);
-  --shadow-lift: 0 14px 32px -16px rgba(16, 16, 20, 0.3);
+  --violet: #8b5cf6;
+  --violet-text: #6a3ad6;
+  --violet-soft: #f1ebff;
+  --shade-violet: #6a3ad6;
+
+  --good: #2dbd57;
+  --good-text: #1b8a3c;
+  --good-soft: #e4f8e9;
+  --shade-good: #1f9442;
+  --bad: #ff4b55;
+  --bad-text: #cf2f39;
+  --bad-soft: #ffebec;
+  --shade-bad: #cf2f39;
+
+  --gold: #ffbf1f;
+  --gold-text: #a87300;
+  --shade-gold: #df9f00;
+  --flame: #ff7a1a;
+  --flame-text: #d9590a;
+  --shade-line: #d8dae0;
+  --shadow: 0 1px 2px rgba(20, 22, 30, 0.05);
+  --shadow-lift: 0 16px 34px -18px rgba(20, 22, 30, 0.35);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .dark {
   color-scheme: dark;
-  /* Tiefes Navy wie SideMe, aber mit Orange als Akzent */
-  --page: #0e1b28;
-  --bg: #0e1b28;
-  --surface: #162838;
-  --snow: #1d3346;
-  --line: #2a4358;
-  --ink: #f5f8fb;
-  --muted: #8da3b7;
+  /* Graphit mit einem Hauch Petrol: ruhig, damit die Farben leuchten */
+  --page: #111a20;
+  --bg: #111a20;
+  --surface: #19252d;
+  --snow: #22313a;
+  --line: #2d3d47;
+  --ink: #f1f5f8;
+  --muted: #92a3ae;
 
-  --brand: #ff8a14;
-  --brand-text: #ffa84d;
-  --brand-soft: #38291a;
-  --shade-brand: #c4600a; /* Unterkante der dicken Knöpfe */
-  --brand-strong: #ff8a14;
-  --on-brand: #0e1b28; /* dunkler Text auf hellem Orange: 7:1 */
+  --brand: #ff8a2a;
+  --brand-text: #ffab66;
+  --brand-soft: #3a2617;
+  --shade-brand: #c75d0d;
+  --brand-strong: #ff7f1f;
+  --on-brand: #ffffff;
 
-  --good: #35d05c;
+  --sky: #3aa4ff;
+  --sky-text: #82c6ff;
+  --sky-soft: #15314a;
+  --shade-sky: #1b73c8;
+
+  --violet: #9d78ff;
+  --violet-text: #c3abff;
+  --violet-soft: #2a2347;
+  --shade-violet: #6c47d6;
+
+  --good: #3ccf64;
   --good-text: #7ae596;
-  --good-soft: #15352b;
-  --shade-good: #1d9a3d;
-  --bad: #ff6a6f;
-  --bad-text: #ff9da1;
-  --bad-soft: #3b2029;
-  --shade-bad: #c4363c;
+  --good-soft: #163826;
+  --shade-good: #22953f;
+  --bad: #ff5d66;
+  --bad-text: #ff9ca1;
+  --bad-soft: #3c1f25;
+  --shade-bad: #c4353f;
 
-  --gold: #ffc233;
+  --gold: #ffc533;
   --gold-text: #ffd36b;
-  --flame-text: #ffa84d;
   --shade-gold: #c99200;
-  --shade-line: #0a1620; /* Unterkante der Antwort-Kacheln und Knöpfe */
+  --flame-text: #ffab66;
+  --shade-line: #0b1216;
   --shadow: none;
-  --shadow-lift: 0 14px 32px -16px rgba(0, 0, 0, 0.75);
+  --shadow-lift: 0 16px 34px -16px rgba(0, 0, 0, 0.75);
+}
+
+/* Schriftstärken eine Stufe kräftiger: In Nunito sehen Überschriften sonst kaum anders aus als Text */
+@theme {
+  --font-weight-medium: 600;
+  --font-weight-semibold: 700;
+  --font-weight-bold: 800;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
 }
 
 @theme inline {
-  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans: 'Nunito Variable', ui-rounded, system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   --color-page: var(--page);
   --color-bg: var(--bg);
@@ -96,10 +129,12 @@
   --color-brand-soft: var(--brand-soft);
   --color-brand-strong: var(--brand-strong);
   --color-on-brand: var(--on-brand);
-  /* "sky" war früher blau – jetzt ebenfalls Orange, damit alles orange-weiß bleibt */
-  --color-sky: var(--brand);
-  --color-sky-dark: var(--brand-text);
-  --color-sky-soft: var(--brand-soft);
+  --color-sky: var(--sky);
+  --color-sky-dark: var(--sky-text);
+  --color-sky-soft: var(--sky-soft);
+  --color-violet: var(--violet);
+  --color-violet-dark: var(--violet-text);
+  --color-violet-soft: var(--violet-soft);
 
   --color-good: var(--good);
   --color-good-dark: var(--good-text);
@@ -133,7 +168,7 @@ body,
 }
 body {
   font-family: var(--font-sans);
-  font-feature-settings: 'cv11', 'ss01';
+  font-weight: 600;
   color: var(--ink);
   background: var(--page);
   -webkit-font-smoothing: antialiased;
@@ -141,13 +176,13 @@ body {
   overscroll-behavior-y: none;
 }
 h1, h2, h3 {
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
 }
 
 @layer components {
-  /* Knöpfe wie bei SideMe: dick, mit kräftiger Unterkante, die beim Drücken einsinkt */
+  /* Knöpfe: dick, rund, mit kräftiger Unterkante, die beim Drücken einsinkt */
   .btn {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-[14px] font-extrabold uppercase tracking-[0.04em]
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-5 py-3 text-[15px] font-extrabold uppercase tracking-[0.06em]
       transition-[transform,box-shadow,filter,background-color] duration-100 select-none disabled:cursor-not-allowed;
     --edge: var(--shade-line);
     box-shadow: 0 4px 0 var(--edge);
@@ -160,26 +195,40 @@ h1, h2, h3 {
   .btn-primary {
     @apply bg-brand-strong text-on-brand;
     --edge: var(--shade-brand);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
   }
   @media (hover: hover) and (pointer: fine) {
-    .btn-primary:hover:not(:disabled) {
+    .btn-primary:hover:not(:disabled),
+    .btn-sky:hover:not(:disabled),
+    .btn-violet:hover:not(:disabled),
+    .btn-good:hover:not(:disabled),
+    .btn-bad:hover:not(:disabled) {
       filter: brightness(1.06);
     }
   }
   .btn-sky {
-    @apply bg-brand-strong text-on-brand;
-    --edge: var(--shade-brand);
+    @apply bg-sky text-white;
+    --edge: var(--shade-sky);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
+  }
+  .btn-violet {
+    @apply bg-violet text-white;
+    --edge: var(--shade-violet);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
   }
   .btn-good {
-    @apply bg-good text-on-brand;
+    @apply bg-good text-white;
     --edge: var(--shade-good);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
   }
   .btn-bad {
-    @apply bg-bad text-on-brand;
+    @apply bg-bad text-white;
     --edge: var(--shade-bad);
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
   }
+  /* Zweitknopf: weiß mit Rahmen, Schrift in Blau (wie ein Link, nur greifbarer) */
   .btn-ghost {
-    @apply border-2 border-line bg-surface text-ink;
+    @apply border-2 border-line bg-surface text-sky-dark;
     --edge: var(--shade-line);
   }
   @media (hover: hover) and (pointer: fine) {
@@ -190,11 +239,12 @@ h1, h2, h3 {
   .btn:disabled {
     @apply bg-snow text-muted;
     --edge: var(--shade-line);
+    text-shadow: none;
   }
 
-  /* Antwort-Kacheln: dunkle Marke mit Rahmen und dicker Unterkante, wie die Code-Bausteine bei SideMe */
+  /* Antwort-Kacheln: weiß mit Rahmen und dicker Unterkante; gewählt in Blau, richtig grün, falsch rot */
   .tile {
-    @apply flex items-center gap-3 rounded-2xl border-2 border-line bg-surface px-4 py-3 text-left text-[16px] font-semibold text-ink transition-colors select-none;
+    @apply flex items-center gap-3 rounded-2xl border-2 border-line bg-surface px-4 py-3 text-left text-[17px] font-bold text-ink transition-colors select-none;
     box-shadow: 0 4px 0 var(--shade-line);
     margin-bottom: 4px;
   }
@@ -208,8 +258,13 @@ h1, h2, h3 {
     box-shadow: 0 0 0 var(--shade-line);
   }
   .tile-selected {
-    @apply border-brand bg-brand-soft text-brand-dark;
-    box-shadow: 0 4px 0 var(--shade-brand);
+    @apply border-sky bg-sky-soft text-sky-dark;
+    box-shadow: 0 4px 0 var(--shade-sky);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .tile-selected:hover:not(:disabled) {
+      @apply bg-sky-soft;
+    }
   }
   .tile-correct {
     @apply border-good bg-good-soft text-good-dark;
@@ -220,17 +275,17 @@ h1, h2, h3 {
     box-shadow: 0 4px 0 var(--shade-bad);
   }
 
-  /* Farbige Etiketten mit Unterkante (SideMe: "Leaderboard", "Daily", "Projects") */
+  /* Farbige Etiketten */
   .tag {
-    @apply inline-flex items-center gap-1.5 rounded-xl px-3 py-1 text-sm font-extrabold text-on-brand;
+    @apply inline-flex items-center gap-1.5 rounded-xl px-3 py-1 text-sm font-extrabold text-white;
     background: var(--tag, var(--brand));
     box-shadow: 0 3px 0 var(--tag-edge, var(--shade-brand));
     margin-bottom: 3px;
   }
 
-  /* Auswahl-Chips: dick umrandet mit Unterkante, gewählt in vollem Orange */
+  /* Auswahl-Chips: rund, mit Rahmen und Unterkante; gewählt in Blau */
   .chip {
-    @apply inline-flex items-center gap-2 min-h-11 rounded-xl border-2 border-line bg-surface px-4 py-2 text-sm font-bold text-ink transition-colors select-none;
+    @apply inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-line bg-surface px-4 py-2 text-sm font-extrabold text-ink transition-colors select-none;
     box-shadow: 0 3px 0 var(--shade-line);
     margin-bottom: 3px;
   }
@@ -239,41 +294,93 @@ h1, h2, h3 {
     box-shadow: 0 0 0 var(--shade-line);
   }
   .chip-on {
-    @apply border-brand bg-brand-strong text-on-brand;
-    box-shadow: 0 3px 0 var(--shade-brand);
+    @apply border-sky bg-sky-soft text-sky-dark;
+    box-shadow: 0 3px 0 var(--shade-sky);
   }
   .chip-on:active {
-    box-shadow: 0 0 0 var(--shade-brand);
+    box-shadow: 0 0 0 var(--shade-sky);
   }
 
   .card {
-    @apply rounded-[20px] border-2 border-line bg-surface;
+    @apply rounded-[18px] border-2 border-line bg-surface;
   }
 
+  /* Seitenleiste (Computer): große, fette Einträge, aktiv mit blauem Rahmen */
   .nav-link {
-    @apply flex items-center gap-3.5 rounded-xl px-4 py-2.5 text-[15px] font-medium text-muted hover:bg-snow hover:text-ink;
+    @apply flex items-center gap-4 rounded-2xl border-2 border-transparent px-4 py-2.5 text-[15px] font-extrabold uppercase tracking-[0.05em] text-muted hover:bg-snow;
   }
   .nav-link-active {
-    @apply bg-brand-soft font-semibold text-brand-dark hover:bg-brand-soft hover:text-brand-dark;
+    @apply border-sky bg-sky-soft text-sky-dark hover:bg-sky-soft;
   }
 
   .eyebrow {
-    @apply text-[13px] font-medium text-muted;
+    @apply text-[13px] font-extrabold uppercase tracking-[0.08em] text-muted;
   }
   .page-title {
-    @apply text-[28px] font-bold leading-tight tracking-tight text-ink;
+    @apply text-[30px] font-extrabold leading-tight tracking-tight text-ink;
   }
   .segmented {
-    @apply inline-flex rounded-xl bg-snow p-1;
+    @apply inline-flex rounded-2xl bg-snow p-1;
   }
   .segmented > button {
-    @apply rounded-lg px-4 py-1.5 text-sm font-medium text-muted;
+    @apply rounded-xl px-4 py-1.5 text-sm font-bold text-muted;
   }
   .segmented > button[aria-checked='true'],
   .segmented > button[aria-pressed='true'] {
-    @apply bg-surface font-semibold text-ink;
+    @apply bg-surface font-extrabold text-ink;
     box-shadow: var(--shadow);
   }
+}
+
+/* ---------- Lernpfad: runde Spielsteine mit Unterkante ---------- */
+.path-node {
+  position: relative;
+  display: block;
+  width: 78px;
+  height: 76px;
+}
+.path-node-big {
+  width: 88px;
+  height: 84px;
+}
+.path-node-edge,
+.path-node-face {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: 50%;
+}
+.path-node-edge {
+  bottom: 0;
+  height: calc(100% - 8px);
+  background: var(--node-shade);
+}
+.path-node-face {
+  top: 0;
+  height: calc(100% - 8px);
+  background: var(--node);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease-out;
+}
+.path-node-face::after {
+  /* sanfter Glanz oben, damit der Stein greifbar wirkt */
+  content: '';
+  position: absolute;
+  inset: 9% 22% 58% 22%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+.path-btn:active .path-node-face {
+  transform: translateY(8px);
+}
+.path-btn {
+  touch-action: manipulation;
+  transition: transform 0.15s var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .path-btn:hover .path-node-face { filter: brightness(1.06); }
 }
 
 @keyframes pop {
@@ -308,27 +415,14 @@ h1, h2, h3 {
 /* ---------- Handy: Glas-Leiste und Bedienung ---------- */
 :root { --tabbar-h: calc(5.25rem + env(safe-area-inset-bottom, 0px)); }
 
-/* Nachbau des iOS-Glases im Browser: Unschärfe, Transparenz, Lichtkante. Das echte System-Glas gibt es nur in nativen Apps. */
+/* Schwebende Leiste: klare, deckende Kapsel mit Rahmen und weichem Schatten (keine Unschärfe: sauberer und schneller) */
 .glass {
-  background: color-mix(in srgb, var(--surface) 52%, transparent);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  transform: translateZ(0);
-  border: 1px solid color-mix(in srgb, #ffffff 60%, transparent);
-  box-shadow:
-    0 10px 34px -8px rgba(16, 16, 20, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.18);
+  background: var(--surface);
+  border: 2px solid var(--line);
+  box-shadow: 0 10px 30px -12px rgba(20, 22, 30, 0.28);
 }
 .dark .glass {
-  border-color: color-mix(in srgb, #ffffff 14%, transparent);
-  box-shadow:
-    0 12px 36px -8px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    inset 0 -1px 0 rgba(255, 255, 255, 0.04);
-}
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .glass { background: var(--surface); }
+  box-shadow: 0 12px 34px -10px rgba(0, 0, 0, 0.7);
 }
 /* Dinge, die am unteren Rand kleben, müssen über der Tab-Leiste bleiben */
 .above-tabbar { bottom: calc(var(--tabbar-h) + 0.5rem); }
@@ -512,7 +606,7 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
 @keyframes fox-tear { 0% { transform: translateY(-6px); opacity: 0; } 25% { opacity: 1; } 100% { transform: translateY(26px); opacity: 0; } }
 @keyframes fox-rise { 0% { transform: translateY(8px); opacity: 0; } 25% { opacity: 1; } 100% { transform: translateY(-14px); opacity: 0; } }
 @keyframes fox-in { 0% { transform: scale(0.4) rotate(-12deg); opacity: 0; } 70% { transform: scale(1.1) rotate(4deg); opacity: 1; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
-@keyframes fox-bubble { 0% { transform: translate(-50%, 6px) scale(0.8); opacity: 0; } 100% { transform: translate(-50%, 0) scale(1); opacity: 1; } }
+@keyframes fox-bubble { 0% { transform: translateY(6px) scale(0.8); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
 @keyframes fox-bubble-side { 0% { transform: translateY(6px) scale(0.8); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
 .fox-pop { animation: fox-pop 1.1s ease-out both; }
 .fox-fall { animation: fox-fall 1.8s ease-in both; }

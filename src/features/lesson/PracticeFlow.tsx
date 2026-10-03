@@ -7,6 +7,7 @@ import { Mascot } from '../../components/mascot/Mascot'
 import { Confetti } from '../../components/ui/Confetti'
 import { Bulb, Check, Chest, Close, Coin, Flame, Right, Sparkle, Star, Target, Trophy, Xp } from '../../components/ui/Icons'
 import { ChestSheet } from '../../components/ui/ChestSheet'
+import { WeekStrip } from '../../components/ui/widgets'
 import { CountUp, EASE, Item as FadeItem, ItemLi, SPRING, Stagger, StaggerList } from '../../components/ui/motion'
 import { mascotBus } from '../../lib/mascotBus'
 import { generateLesson, generateTest, generateWarmup } from '../../lib/generateExercises'
@@ -81,7 +82,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
 
   // Erklärung nur beim ersten Versuch zeigen
   const [stage, setStage] = useState<Stage>(!isTest && explanation && attempt === 0 ? 'explain' : 'practice')
-  const [outcome, setOutcome] = useState<{ result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number } | null>(null)
+  const [outcome, setOutcome] = useState<{ result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number; streakUp: boolean } | null>(null)
   const gradedIds = useMemo(() => new Set([...items, ...(warmup ?? [])].map((i) => i.id)), [items, warmup])
   const finished = useRef(false)
 
@@ -91,12 +92,15 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
       finished.current = true
       const comboXp = comboBonus(result.bestCombo)
       const xp = lessonXp(result.firstTry, result.total) + comboXp
+      const lastDayBefore = useStore.getState().streak.lastDay
       const coins = finishSession({ xp, grades: result.grades, lessonId, accuracy: result.accuracy })
+      // Erstes Lernen heute: die Serie ist gerade um einen Tag gewachsen
+      const streakUp = useStore.getState().streak.lastDay !== lastDayBefore
       const xpBefore = setup.xpBefore
       // Neue Stufe erreicht? (Mindestziel oder ein Bonusziel)
       const bonusTier = goalInfo(setup.goal, setup.todayBefore + xp).tier
       const goalReached = bonusTier > goalInfo(setup.goal, setup.todayBefore).tier
-      setOutcome({ result, xp, coins, leveledUp: levelFromXp(xpBefore + xp).level > levelFromXp(xpBefore).level, goalReached, bonusTier, comboXp })
+      setOutcome({ result, xp, coins, leveledUp: levelFromXp(xpBefore + xp).level > levelFromXp(xpBefore).level, goalReached, bonusTier, comboXp, streakUp })
       playDone()
       setStage('done')
     },
@@ -188,7 +192,7 @@ export function ResultScreen({
   onNext,
 }: {
   title: string
-  outcome: { result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number }
+  outcome: { result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number; streakUp?: boolean }
   items: Item[]
   test: boolean
   free: boolean
@@ -200,7 +204,7 @@ export function ResultScreen({
 }) {
   const reduce = useReducedMotion()
   const streak = streakNow(useStore.getState().streak)
-  const { result, xp, coins, leveledUp, goalReached, bonusTier, comboXp } = outcome
+  const { result, xp, coins, leveledUp, goalReached, bonusTier, comboXp, streakUp } = outcome
   // Was in dieser Einheit Neues passiert ist (Tagesaufgaben, Erfolge, Einheit, Truhe); wird beim Verlassen gelöscht
   const [events] = useState(() => useRewardEvents.getState().last)
   useEffect(() => () => useRewardEvents.setState({ last: null }), [])
@@ -274,14 +278,32 @@ export function ResultScreen({
             ))}
           </div>
         )}
-        <motion.h1 initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.34, ease: EASE, delay: 0.15 }} className="mt-3 text-3xl font-semibold">{headline}</motion.h1>
+        <motion.h1 initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.34, ease: EASE, delay: 0.15 }} className={`mt-3 text-[32px] font-black leading-tight ${passed ? 'text-brand' : 'text-ink'}`}>{headline}</motion.h1>
         <motion.p initial={reduce ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.34, ease: EASE, delay: 0.22 }} className="mt-1 max-w-sm text-sm text-muted">{sub}</motion.p>
         <p className="mt-1 text-sm font-medium text-muted">{title}</p>
         <div className="mt-6 grid w-full max-w-sm grid-cols-3 gap-3">
           <Stat tone="gold" icon={<Xp size={22} />} label="XP" delay={0.3}><CountUp to={xp} prefix="+" delay={0.4} /></Stat>
-          <Stat tone="good" label="Beim 1. Mal richtig" delay={0.38}><CountUp to={pct} suffix=" %" delay={0.48} /></Stat>
+          <Stat tone="good" label="Richtig" delay={0.38}><CountUp to={pct} suffix=" %" delay={0.48} /></Stat>
           <Stat tone="fox" icon={<Flame size={22} />} label="Serie" delay={0.46}><CountUp to={streak} delay={0.56} /></Stat>
         </div>
+        {streakUp && streak > 0 && (
+          <motion.div
+            initial={reduce ? false : { opacity: 0, scale: 0.85, y: 14 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ ...SPRING.bouncy, delay: 0.55 }}
+            className="mt-5 w-full max-w-sm rounded-[20px] border-2 border-fox bg-brand-soft px-4 pb-4 pt-3 text-center"
+          >
+            <div className="flex items-center justify-center gap-2">
+              <motion.span animate={reduce ? undefined : { scale: [1, 1.18, 1], rotate: [0, -6, 6, 0] }} transition={{ duration: 0.9, delay: 0.9 }}>
+                <Flame size={44} />
+              </motion.span>
+              <span className="text-[38px] font-black leading-none text-fox-dark tabular-nums">{streak}</span>
+            </div>
+            <p className="mt-1 text-[18px] font-extrabold text-fox-dark">{streak === 1 ? 'Deine Serie startet!' : 'Serie verlängert!'}</p>
+            <p className="mb-3 text-sm text-muted">Lern morgen wieder, dann sind es {streak + 1} Tage.</p>
+            <WeekStrip compact />
+          </motion.div>
+        )}
         {coins > 0 && (
           <motion.p
             initial={reduce ? false : { opacity: 0, scale: 0.7, y: 10 }}
@@ -415,26 +437,28 @@ export function ResultScreen({
 }
 
 const TONES = {
-  gold: { box: 'border-gold', text: 'text-gold-dark' },
-  good: { box: 'border-good', text: 'text-good-dark' },
-  fox: { box: 'border-fox', text: 'text-fox-dark' },
+  gold: 'var(--gold)',
+  good: 'var(--good)',
+  fox: 'var(--flame)',
 } as const
 
 function Stat({ tone, label, icon, children, delay = 0 }: { tone: keyof typeof TONES; label: string; icon?: React.ReactNode; children: React.ReactNode; delay?: number }) {
   const reduce = useReducedMotion()
-  const t = TONES[tone]
+  const color = TONES[tone]
+  // Wertkarte mit farbigem Kopf: oben die Bezeichnung, darunter groß die Zahl
   return (
     <motion.div
       initial={reduce ? false : { opacity: 0, y: 18, scale: 0.9 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ ...SPRING.soft, delay }}
-      className={`overflow-hidden rounded-2xl border bg-surface px-2 py-3 text-center ${t.box}`}
+      className="overflow-hidden rounded-2xl border-2 text-center"
+      style={{ borderColor: color, background: color }}
     >
-      <div className={`flex items-center justify-center gap-1 text-2xl font-bold ${t.text}`}>
+      <div className="truncate px-1.5 py-1 text-[11px] font-extrabold uppercase leading-tight tracking-[0.06em] text-white">{label}</div>
+      <div className="flex items-center justify-center gap-1 rounded-[13px] bg-surface py-3 text-[24px] font-extrabold" style={{ color }}>
         {icon}
         {children}
       </div>
-      <div className="mt-0.5 text-[11px] font-medium leading-tight text-muted">{label}</div>
     </motion.div>
   )
 }

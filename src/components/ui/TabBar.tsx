@@ -122,14 +122,13 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
             style={
               pressed
                 ? {
-                    background: 'color-mix(in srgb, var(--brand) 14%, rgba(255,255,255,0.22))',
-                    border: '1px solid rgba(255,255,255,0.5)',
-                    boxShadow: '0 14px 30px -10px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.65), inset 0 -8px 16px -8px rgba(255,255,255,0.18)',
+                    background: 'var(--brand-soft)',
+                    border: '2px solid var(--brand)',
+                    boxShadow: '0 12px 26px -12px rgba(0,0,0,0.45)',
                   }
                 : {
-                    background: 'color-mix(in srgb, var(--brand) 17%, transparent)',
-                    border: '1px solid color-mix(in srgb, var(--brand) 28%, transparent)',
-                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.3)',
+                    background: 'var(--brand-soft)',
+                    border: '2px solid color-mix(in srgb, var(--brand) 55%, transparent)',
                   }
             }
           />
@@ -155,7 +154,7 @@ function Tab({ tab, index, pos, press, current, isActive, onKey }: { tab: TabDef
       onClick={(e) => {
         if (e.detail === 0) onKey()
       }}
-      className={`relative z-10 flex min-h-[3.6rem] flex-1 flex-col items-center justify-center gap-0.5 rounded-[28px] text-[11px] font-semibold outline-offset-[-2px] transition-colors duration-200 ${current ? 'text-brand-dark' : 'text-muted'}`}
+      className={`relative z-10 flex min-h-[3.6rem] flex-1 flex-col items-center justify-center gap-0.5 rounded-[28px] text-[11px] font-extrabold outline-offset-[-2px] transition-colors duration-200 ${current ? 'text-brand-dark' : 'text-muted'}`}
     >
       <motion.span className="relative block" style={{ scale }}>
         {tab.icon}

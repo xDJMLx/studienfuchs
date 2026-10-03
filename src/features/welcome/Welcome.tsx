@@ -78,10 +78,10 @@ export function Welcome() {
       <AnimatePresence mode="wait" initial={false}>
         {step === 'hero' ? (
           <motion.div key="hero" className="flex min-h-0 flex-1 flex-col" exit={reduce ? undefined : { opacity: 0, transition: { duration: 0.14 } }}>
-            <header className="relative mx-auto flex w-full max-w-md items-center justify-center px-6 pt-4">
+            <header className={`mx-auto flex w-full max-w-md items-center px-6 pt-4 ${hasProgress ? 'justify-between' : 'justify-center'}`}>
               <Wordmark />
               {hasProgress && (
-                <button type="button" onClick={() => finish()} className="press absolute right-4 top-4 flex min-h-11 items-center gap-1 rounded-xl px-3 text-sm font-semibold text-brand-dark">
+                <button type="button" onClick={() => finish()} className="press flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-extrabold uppercase tracking-wide text-sky-dark">
                   Zur App <Right size={14} />
                 </button>
               )}
@@ -107,13 +107,13 @@ export function Welcome() {
                 initial={reduce ? false : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.36, ease: EASE, delay: 0.22 }}
-                className="mt-5 text-[28px] font-bold leading-tight tracking-tight"
+                className="mt-5 text-[32px] font-black leading-[1.1] tracking-tight"
               >
                 Lernen für die Schule,
                 <br />
                 das hängen bleibt.
               </motion.h1>
-              <motion.p initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, delay: 0.3 }} className="mt-2 text-[15px] text-muted">
+              <motion.p initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, delay: 0.3 }} className="mt-2 text-[16px] font-bold text-muted">
                 Französisch Klasse 7 bis 10, kostenlos und ohne Konto
               </motion.p>
             </main>

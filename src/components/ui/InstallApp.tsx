@@ -69,13 +69,13 @@ export function InstallBanner() {
   if (state === 'manual' && !mobile) return null
   return (
     <>
-      <div className="card mb-4 flex items-center gap-3 p-3 pr-2">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center text-brand-dark">
-          <Download size={22} />
+      <div className="card mb-3 flex items-center gap-3 py-2 pl-3 pr-1.5">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
+          <Download size={20} />
         </span>
         <button type="button" onClick={start} className="press min-w-0 flex-1 text-left">
-          <span className="block font-semibold">Als App aufs Handy holen</span>
-          <span className="block text-sm text-muted">Ohne Adressleiste, direkt vom Startbildschirm</span>
+          <span className="block truncate text-[15px] font-extrabold">Als App aufs Handy holen</span>
+          <span className="block truncate text-[13px] text-muted">Ohne Adressleiste, direkt vom Startbildschirm</span>
         </button>
         <button
           type="button"

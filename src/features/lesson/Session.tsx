@@ -204,7 +204,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           <Close size={28} />
         </button>
         <div
-          className="h-4 flex-1 overflow-hidden rounded-full bg-snow"
+          className="h-[18px] flex-1 overflow-hidden rounded-full bg-line"
           role="progressbar"
           aria-valuemin={0}
           aria-valuemax={100}
@@ -216,7 +216,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             animate={{ width: `${Math.max(progress * 100, 3)}%` }}
             transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 220, damping: 30 }}
           >
-            <div className="mx-2 mt-1 h-1 rounded-full bg-white/35" />
+            <div className="mx-2.5 mt-[4px] h-[5px] rounded-full bg-white/40" />
           </motion.div>
         </div>
         <AnimatePresence mode="popLayout" initial={false}>
@@ -320,7 +320,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
                 </motion.span>
               </span>
               <div className="min-w-0">
-                <p className="text-2xl font-semibold">
+                <p className="text-[24px] font-black leading-tight">
                   {bad ? 'Leider falsch' : result.status === 'almost' ? (ex.kind === 'match' ? 'Geschafft!' : hintFor === ex.id ? 'Mit Tipp geschafft' : 'Fast richtig!') :['Super!', 'Richtig!', 'Stark!', 'Genau!'][idx % 4]}
                 </p>
                 {bad && result.correctAnswer && (

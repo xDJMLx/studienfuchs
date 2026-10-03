@@ -39,7 +39,7 @@ export interface MascotProps {
   /** Begrüßung: winkt kurz nach dem Erscheinen und sagt diesen Satz */
   greet?: string
   /** Seite, an der die Sprechblase ansetzt (Standard: mittig über dem Fuchs) */
-  bubbleSide?: 'center' | 'left' | 'right'
+  bubbleSide?: 'center' | 'above' | 'left' | 'right'
 }
 
 /** Fenni, der Fuchs: lebendiges Maskottchen mit Posen, Tippen und Reaktionen. */
@@ -270,7 +270,7 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
     >
       <Fox ref={fox} look={look} outfit={outfit} pose={pose} alive={alive} />
       {bubble && (
-        <span className={`${bubbleSide === 'center' ? 'fox-bubble' : 'fox-bubble-side'} pointer-events-none absolute z-20 rounded-xl border-2 border-line bg-surface px-3 py-1 text-xs font-extrabold text-ink shadow-[0_3px_0_var(--shade-line)] ${bubbleSide === 'center' ? '-top-1 left-1/2 max-w-[220px] -translate-x-1/2 whitespace-nowrap' : bubbleSide === 'right' ? 'bottom-[88%] right-1 w-max max-w-[8.75rem] text-center leading-tight' : 'bottom-[88%] left-1 w-max max-w-[8.75rem] text-center leading-tight'}`}>
+        <span className={`${bubbleSide === 'center' || bubbleSide === 'above' ? 'fox-bubble' : 'fox-bubble-side'} pointer-events-none absolute z-20 rounded-xl border-2 border-line bg-surface px-3 py-1 text-xs font-extrabold text-ink shadow-[0_3px_0_var(--shade-line)] ${bubbleSide === 'center' ? '-top-1 left-1/2 max-w-[220px] -translate-x-1/2 whitespace-nowrap' : bubbleSide === 'above' ? 'bottom-[92%] left-1/2 w-max max-w-[8.5rem] -translate-x-1/2 text-center leading-tight' : bubbleSide === 'right' ? 'bottom-[88%] right-1 w-max max-w-[8.75rem] text-center leading-tight' : 'bottom-[88%] left-1 w-max max-w-[8.75rem] text-center leading-tight'}`}>
           {bubble}
         </span>
       )}
