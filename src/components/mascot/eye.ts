@@ -18,21 +18,23 @@ export interface EyeParams {
   arcOn: number
   /** Gesamtgröße (überrascht) */
   scale: number
+  /** Blinzeln: 0 = offen, 1 = Ober- und Unterlid treffen sich in der Augenmitte */
+  shut: number
 }
 
-export const EYE_OPEN: EyeParams = { open: 1, cheek: 0, tilt: 0, pupil: 1, arc: 0, arcOn: 0, scale: 1 }
+export const EYE_OPEN: EyeParams = { open: 1, cheek: 0, tilt: 0, pupil: 1, arc: 0, arcOn: 0, scale: 1, shut: 0 }
 
 /** Zielwerte je Augenform; beim Zwinkern ist das rechte Auge das froh-geschlossene. */
 export function eyeTarget(eyes: Eyes, mirror: boolean): EyeParams {
   switch (eyes) {
     case 'happy':
-      return { open: 0.04, cheek: 0.9, tilt: 0, pupil: 1, arc: -16, arcOn: 1, scale: 1 }
+      return { open: 0.04, cheek: 0.9, tilt: 0, pupil: 1, arc: -16, arcOn: 1, scale: 1, shut: 0 }
     case 'closed':
-      return { open: 0.02, cheek: 0.3, tilt: 0, pupil: 1, arc: 10, arcOn: 1, scale: 1 }
+      return { open: 0.02, cheek: 0.3, tilt: 0, pupil: 1, arc: 10, arcOn: 1, scale: 1, shut: 0 }
     case 'wide':
-      return { open: 1, cheek: 0, tilt: 0, pupil: 0.78, arc: 0, arcOn: 0, scale: 1.13 }
+      return { open: 1, cheek: 0, tilt: 0, pupil: 0.78, arc: 0, arcOn: 0, scale: 1.13, shut: 0 }
     case 'sad':
-      return { open: 0.86, cheek: 0.08, tilt: 1, pupil: 1.1, arc: 0, arcOn: 0, scale: 1 }
+      return { open: 0.86, cheek: 0.08, tilt: 1, pupil: 1.1, arc: 0, arcOn: 0, scale: 1, shut: 0 }
     case 'wink':
       return mirror ? eyeTarget('happy', false) : { ...EYE_OPEN }
     default:
@@ -40,7 +42,7 @@ export function eyeTarget(eyes: Eyes, mirror: boolean): EyeParams {
   }
 }
 
-const KEYS: (keyof EyeParams)[] = ['open', 'cheek', 'tilt', 'pupil', 'arc', 'arcOn', 'scale']
+const KEYS: (keyof EyeParams)[] = ['open', 'cheek', 'tilt', 'pupil', 'arc', 'arcOn', 'scale', 'shut']
 
 /** Weiches Annähern an das Ziel (Lider sind schnell, daher hohe Geschwindigkeit). Gibt zurück, ob noch Bewegung ist. */
 export function stepEye(cur: EyeParams, target: EyeParams, dtMs: number, speed = 0.03): boolean {
@@ -76,11 +78,16 @@ export function blinkClosed(d: number): number {
   return Math.pow(1 - u, 1.8)
 }
 
-/** Das Auge während des Blinzelns: Lid zu, das Unterlid hebt sich leicht mit. */
+/** Das Auge während des Blinzelns: Ober- und Unterlid laufen zur Augenmitte zusammen. */
 export function blinked(base: EyeParams, k: number): EyeParams {
   if (k <= 0) return base
-  return { ...base, open: base.open * (1 - k) + 0.02 * k, cheek: base.cheek + k * 0.2 }
+  return { ...base, shut: Math.max(base.shut, k) }
 }
+
+/** Linie, auf der sich die Lider beim Blinzeln treffen: leicht nach unten gewölbt, etwas unter der Augenmitte. */
+const SHUT_Y = 5
+const SHUT_SAG = 8
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 
 export const EYE_RX = 15
 export const EYE_RY = 19
@@ -105,15 +112,31 @@ export function lidCurve(p: EyeParams, cx: number, cy: number, mirror: boolean):
 
 export function eyeWindow(p: EyeParams, cx: number, cy: number, mirror: boolean): string {
   const c = lidCurve(p, cx, cy, mirror)
+  const sh = p.shut
   const bottom = cy + EYE_RY * p.scale + 4
   const lift = p.cheek * EYE_RY * 1.5
-  return `M${r(c.xl)} ${r(c.yl)} Q${r(cx)} ${r(c.cy)} ${r(c.xr)} ${r(c.yr)} L${r(c.xr)} ${r(bottom)} Q${r(cx)} ${r(bottom - lift * 1.8)} ${r(c.xl)} ${r(bottom)} Z`
+  const bCtrl = bottom - lift * 1.8
+  const mY = cy + SHUT_Y
+  const mCtrl = cy + SHUT_Y + SHUT_SAG
+  const yl = lerp(c.yl, mY, sh)
+  const yr = lerp(c.yr, mY, sh)
+  const tc = lerp(c.cy, mCtrl, sh)
+  const yb = lerp(bottom, mY, sh)
+  const bc = lerp(bCtrl, mCtrl, sh)
+  return `M${r(c.xl)} ${r(yl)} Q${r(cx)} ${r(tc)} ${r(c.xr)} ${r(yr)} L${r(c.xr)} ${r(yb)} Q${r(cx)} ${r(bc)} ${r(c.xl)} ${r(yb)} Z`
 }
 
 /** Linie des Oberlids genau auf der Kante des Sichtfensters. */
 export function eyeLid(p: EyeParams, cx: number, cy: number, mirror: boolean): string {
   const c = lidCurve(p, cx, cy, mirror)
-  return `M${r(c.xl)} ${r(c.yl)} Q${r(cx)} ${r(c.cy)} ${r(c.xr)} ${r(c.yr)}`
+  const sh = p.shut
+  const mY = cy + SHUT_Y
+  return `M${r(c.xl)} ${r(lerp(c.yl, mY, sh))} Q${r(cx)} ${r(lerp(c.cy, cy + SHUT_Y + SHUT_SAG, sh))} ${r(c.xr)} ${r(lerp(c.yr, mY, sh))}`
+}
+
+/** Wie deutlich die Lidlinie zu sehen ist: sobald das Lid sinkt oder die Lider zugehen, nicht bei Bogenaugen. */
+export function lidOpacity(p: EyeParams): number {
+  return Math.round(Math.max(0, Math.min(1, Math.max((1 - p.open) * 3, p.shut * 4))) * (1 - p.arcOn) * 100) / 100
 }
 
 /** Bogenlinie für froh ("^") und schlafend ("u"). */

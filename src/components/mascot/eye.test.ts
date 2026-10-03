@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { BLINK_TOTAL, EYE_OPEN, blinkClosed, blinked, eyeArc, eyeLid, eyeTarget, eyeWindow, lidCurve, stepEye } from './eye'
+import { BLINK_TOTAL, EYE_OPEN, blinkClosed, blinked, eyeArc, eyeLid, eyeTarget, eyeWindow, lidCurve, lidOpacity, stepEye } from './eye'
 import { FoxEngine } from './engine'
 import { resolveLook } from './look'
 
@@ -65,13 +65,26 @@ describe('Blinzeln', () => {
     expect(down).toBeLessThan(up)
   })
 
-  it('das Unterlid hebt sich leicht mit, die Pose selbst bleibt unverändert', () => {
+  it('beim Blinzeln treffen sich Ober- und Unterlid in der Augenmitte, die Pose selbst bleibt unverändert', () => {
     const base = { ...EYE_OPEN }
     const b = blinked(base, 1)
-    expect(b.open).toBeLessThan(0.05)
-    expect(b.cheek).toBeGreaterThan(0.1)
-    expect(base.open).toBe(1)
+    expect(b.shut).toBe(1)
+    expect(b.open).toBe(1)
+    expect(base.shut).toBe(0)
     expect(blinked(base, 0)).toBe(base)
+    // ganz zu: Oberkante und Unterkante des Fensters liegen auf derselben Höhe, in der Augenmitte
+    const win = eyeWindow(b, 69, 90, false)
+    const nums = win.match(/-?[0-9]+(?:[.][0-9]+)?/g)!.map(Number)
+    const ys = nums.filter((_, i) => i % 2 === 1)
+    expect(Math.max(...ys) - Math.min(...ys)).toBeLessThan(10)
+    expect(Math.min(...ys)).toBeGreaterThan(90) // unter dem Augenmittelpunkt, nicht am Wangenrand
+    expect(Math.max(...ys)).toBeLessThan(90 + 19)
+  })
+
+  it('die Lidlinie ist beim Blinzeln deckend und bei Bogenaugen aus', () => {
+    expect(lidOpacity(blinked(EYE_OPEN, 1))).toBe(1)
+    expect(lidOpacity(EYE_OPEN)).toBe(0)
+    expect(lidOpacity(eyeTarget('happy', false))).toBe(0)
   })
 
   it('der Fuchs blinzelt von selbst oft genug und kommt jedes Mal ganz zurück', () => {
@@ -84,13 +97,14 @@ describe('Blinzeln', () => {
     let closed = false
     for (let i = 0; i < 60 * 40; i++) {
       e.tick(16)
-      const o = e.out.eyeL.open
-      if (!closed && o < 0.2) { closed = true; blinks++ }
-      if (closed && o > 0.98) closed = false
+      const o = e.out.eyeL.shut
+      if (!closed && o > 0.95) { closed = true; blinks++ }
+      if (closed && o < 0.02) closed = false
     }
     expect(blinks).toBeGreaterThanOrEqual(4)
     expect(blinks).toBeLessThanOrEqual(20)
     expect(e.out.eyeL.open).toBeGreaterThan(0.9)
+    expect(e.out.eyeL.shut).toBeLessThan(0.5)
   })
 
   it('beim Zwinkern blinzelt das zwinkernde Auge nicht', () => {

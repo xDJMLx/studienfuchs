@@ -108,13 +108,13 @@ describe('Fuchs-Gerüst', () => {
 
   it('blinzelt von selbst und schließt dabei beide offenen Augen', () => {
     const e = new FoxEngine({ idle: true, rnd: seeded() })
-    let min = 1
+    let max = 0
     let reopened = false
     run(e, 9, 16, () => {
-      min = Math.min(min, e.out.eyeL.open)
-      if (min < 0.2 && e.out.eyeL.open > 0.9) reopened = true
+      max = Math.max(max, e.out.eyeL.shut)
+      if (max > 0.95 && e.out.eyeL.shut < 0.02) reopened = true
     })
-    expect(min).toBeLessThan(0.2)
+    expect(max).toBeGreaterThan(0.95)
     expect(reopened).toBe(true)
   })
 

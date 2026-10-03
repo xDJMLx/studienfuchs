@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useId, useImperativeHandle, useLayoutEffect, useMemo, useRef } from 'react'
 import type { Outfit } from '../../lib/shop'
 import { FoxEngine } from './engine'
-import { eyeArc, eyeLid, eyeWindow, EYE_RX, EYE_RY, type EyeParams } from './eye'
+import { eyeArc, eyeLid, eyeWindow, lidOpacity, EYE_RX, EYE_RY, type EyeParams } from './eye'
 import type { Fx, Look } from './look'
 import { mouthLine, mouthLower, mouthPath, tonguePos, type MouthParams } from './mouth'
 
@@ -448,7 +448,7 @@ function drawEye(p: EyeParams, cx: number, cy: number, mirror: boolean, side: 'L
   set('clip' + side, 'd', win)
   // Lidlinie genau auf der Kante des Fensters, sichtbar sobald das Auge nicht mehr ganz offen ist
   set('lid' + side, 'd', eyeLid(p, cx, cy, mirror))
-  set('lid' + side, 'stroke-opacity', String(Math.round(Math.max(0, Math.min(1, (1 - p.open) * 3)) * (1 - p.arcOn) * 100) / 100))
+  set('lid' + side, 'stroke-opacity', String(lidOpacity(p)))
   set('arc' + side, 'd', eyeArc(p, cx, cy))
   set('arc' + side, 'stroke-opacity', String(Math.round(p.arcOn * 100) / 100))
   set('pup' + side, 'transform', 'translate(' + gx + ' ' + gy + ') translate(' + cx + ' ' + (cy + 1) + ') scale(' + Math.round(p.pupil * 100) / 100 + ') translate(' + -cx + ' ' + -(cy + 1) + ')')

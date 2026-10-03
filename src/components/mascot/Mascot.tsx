@@ -27,7 +27,7 @@ export interface MascotProps {
   mood?: Mood
   size?: number
   className?: string
-  /** läuft in Ruhe: atmet, blinzelt, wedelt, schaut dem Zeiger nach (alter Name: blink) */
+  /** läuft in Ruhe: atmet, blinzelt, wedelt, schaut sich um (alter Name: blink) */
   blink?: boolean
   alive?: boolean
   /** reagiert auf Richtig/Falsch, Sprache und Erfolge aus der App */
@@ -42,7 +42,7 @@ export interface MascotProps {
   bubbleSide?: 'center' | 'left' | 'right'
 }
 
-/** Fenni, der Fuchs: lebendiges Maskottchen mit Posen, Blick zum Zeiger, Tippen und Reaktionen. */
+/** Fenni, der Fuchs: lebendiges Maskottchen mit Posen, Tippen und Reaktionen. */
 export function Mascot({ mood = 'happy', size = 120, className = '', blink = false, alive: aliveProp, listen = false, pose = 'bust', label, outfit, greet, bubbleSide = 'center' }: MascotProps) {
   const alive = (aliveProp ?? blink) && size >= 56
   const wrap = useRef<HTMLDivElement>(null)
@@ -105,18 +105,11 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
     [later],
   )
 
-  // Blick und Kopfdrehung zum Zeiger hin
+  // Der Fuchs schaut nicht dem Zeiger nach; die Maus weckt ihn nur, wenn er schläft
   useEffect(() => {
-    const el = wrap.current
-    if (!alive || !el || reduced()) return
+    if (!alive) return
     return trackGaze({
-      el,
-      gaze: (dx, dy, dist) => {
-        const m = Math.min(1, dist / 220)
-        const nx = dist ? dx / dist : 0
-        const ny = dist ? dy / dist : 0
-        fox.current?.setPointer(Math.round(nx * 5 * m * 10) / 10, Math.round(ny * 4.5 * m * 10) / 10, Math.round(nx * 3 * m * 10) / 10)
-      },
+      el: wrap.current as HTMLElement,
       wake: () => {
         if (tempRef.current?.pose === 'sleep') {
           tempRef.current = null

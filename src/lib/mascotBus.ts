@@ -32,7 +32,7 @@ export const mascotBus = {
  * Zeigerposition für die Augen: ein einziger Beobachter für die ganze App, der die angemeldeten Füchse
  * pro Bildschirmbild (requestAnimationFrame) einmal neu ausrichtet. Kein React-Zustand, damit nichts neu gezeichnet wird.
  */
-type Target = { el: HTMLElement; gaze: (dx: number, dy: number, dist: number) => void; wake: () => void }
+type Target = { el: HTMLElement; gaze?: (dx: number, dy: number, dist: number) => void; wake: () => void }
 const targets = new Set<Target>()
 let pointer: { x: number; y: number } | null = null
 let raf = 0
@@ -43,6 +43,7 @@ function flush() {
   raf = 0
   if (!pointer) return
   for (const t of targets) {
+    if (!t.gaze) continue
     const r = t.el.getBoundingClientRect()
     if (!r.width) continue
     const dx = pointer.x - (r.left + r.width / 2)
