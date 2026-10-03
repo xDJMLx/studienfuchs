@@ -107,7 +107,7 @@ export function Welcome() {
                 initial={reduce ? false : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.36, ease: EASE, delay: 0.22 }}
-                className="mt-5 text-[32px] font-black leading-[1.1] tracking-tight"
+                className="mt-5 text-[28px] font-black leading-[1.12] tracking-tight sm:text-[34px]"
               >
                 Lernen für die Schule,
                 <br />
