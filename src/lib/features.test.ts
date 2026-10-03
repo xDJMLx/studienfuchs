@@ -42,8 +42,10 @@ describe('Zahlen zum Kurs', () => {
   it('zählt Wiederholungen und Einheitentests nicht als Lektionen oder Wörter', () => {
     for (const g of grades) {
       const manual = units.filter((u) => u.grade === g).flatMap((u) => u.lessons).filter(isRegular)
+      const core = units.filter((u) => u.grade === g && !u.extra).flatMap((u) => u.lessons).filter(isRegular)
       const s = gradeStats(g)
-      expect(s.lessons).toBe(manual.length)
+      // Lektionen: nur der Grundkurs, Wörter: alles inklusive Zusatzwortschatz
+      expect(s.lessons).toBe(core.length)
       expect(s.words).toBe(new Set(manual.flatMap((l) => l.items.map((i) => i.id))).size)
     }
   })

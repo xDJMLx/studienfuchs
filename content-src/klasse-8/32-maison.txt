@@ -1,0 +1,24 @@
+id: f8-x3
+title: Chez nous : la maison
+desc: Zusatz: Wohnung, Zimmer, Gäste empfangen, Wochenende
+extra: yes
+order: 32
+
+= Räume
+- la salle à manger = das Esszimmer | Nous mangeons dans la salle à manger. = Wir essen im Esszimmer.
+- le matelas = die Matratze | Le matelas est dans le salon. = Die Matratze ist im Wohnzimmer.
+- le mari = der Ehemann | Son mari travaille à Lyon. = Ihr Mann arbeitet in Lyon.
+
+= Winter, Zeit und Entdecken
+- le ski = das Skifahren | Il fait du ski en hiver. = Er fährt im Winter Ski.
+- la neige = der Schnee | Il y a de la neige dans les montagnes. = In den Bergen liegt Schnee.
+- tôt = früh | Je me lève tôt. = Ich stehe früh auf.
+- longtemps = lange | Nous attendons longtemps. = Wir warten lange.
+- pendant = während | Pendant les vacances, je dors beaucoup. = In den Ferien schlafe ich viel.
+- découvrir = entdecken | Nous découvrons la ville. = Wir entdecken die Stadt.
+
+= Verneinung und Eigenschaften
+- ne … personne = niemand | Il n'y a personne ici. = Hier ist niemand.
+- seulement = nur | J'ai seulement dix euros. = Ich habe nur zehn Euro.
+- nombreux = zahlreich | Les touristes sont nombreux. = Die Touristen sind zahlreich.
+- mignon = niedlich | Ton chat est mignon. = Deine Katze ist niedlich.

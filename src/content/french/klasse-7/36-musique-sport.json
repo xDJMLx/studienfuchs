@@ -1,0 +1,167 @@
+{
+  "id": "f7-x2",
+  "title": "Musique, sport et loisirs",
+  "description": "Zusatz: Musikstile, Instrumente, Sportarten, Freizeit",
+  "grade": 7,
+  "subject": "french",
+  "order": 36,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f7-x2-l1",
+      "title": "Musikstile",
+      "items": [
+        {
+          "front": "le rock",
+          "back": "der Rock",
+          "example": "Mon frère écoute du rock.",
+          "exampleDe": "Mein Bruder hört Rock."
+        },
+        {
+          "front": "le rap",
+          "back": "der Rap",
+          "example": "Le rap français est génial.",
+          "exampleDe": "Der französische Rap ist genial."
+        },
+        {
+          "front": "la pop",
+          "back": "die Popmusik",
+          "example": "Ma sœur adore la pop.",
+          "exampleDe": "Meine Schwester liebt Popmusik."
+        },
+        {
+          "front": "la musique classique",
+          "back": "die klassische Musik",
+          "example": "Mon grand-père écoute la musique classique.",
+          "exampleDe": "Mein Großvater hört klassische Musik."
+        },
+        {
+          "front": "le casque",
+          "back": "der Kopfhörer",
+          "example": "Je mets mon casque dans le bus.",
+          "exampleDe": "Ich setze im Bus meine Kopfhörer auf."
+        }
+      ]
+    },
+    {
+      "id": "f7-x2-l2",
+      "title": "Instrumente und Verein",
+      "items": [
+        {
+          "front": "la batterie",
+          "back": "das Schlagzeug",
+          "example": "Mon cousin joue de la batterie.",
+          "exampleDe": "Mein Cousin spielt Schlagzeug."
+        },
+        {
+          "front": "l'accordéon",
+          "back": "das Akkordeon",
+          "example": "Mon grand-père joue de l'accordéon.",
+          "exampleDe": "Mein Großvater spielt Akkordeon."
+        },
+        {
+          "front": "jouer de",
+          "back": "(ein Instrument) spielen",
+          "example": "Tu joues d'un instrument ?",
+          "exampleDe": "Spielst du ein Instrument?"
+        },
+        {
+          "front": "le club",
+          "back": "der Verein, die AG",
+          "example": "Je suis dans le club de théâtre.",
+          "exampleDe": "Ich bin in der Theater-AG."
+        }
+      ]
+    },
+    {
+      "id": "f7-x2-l3",
+      "title": "Sportarten",
+      "items": [
+        {
+          "front": "le ping-pong",
+          "back": "das Tischtennis",
+          "example": "Nous jouons au ping-pong après les cours.",
+          "exampleDe": "Wir spielen nach dem Unterricht Tischtennis."
+        },
+        {
+          "front": "l'escalade",
+          "back": "das Klettern",
+          "example": "Mon amie fait de l'escalade.",
+          "exampleDe": "Meine Freundin geht klettern."
+        },
+        {
+          "front": "le skate",
+          "back": "das Skateboardfahren",
+          "example": "Je fais du skate dans le parc.",
+          "exampleDe": "Ich fahre im Park Skateboard."
+        },
+        {
+          "front": "l'athlétisme",
+          "back": "die Leichtathletik",
+          "example": "Elle fait de l'athlétisme le samedi.",
+          "exampleDe": "Sie macht samstags Leichtathletik."
+        },
+        {
+          "front": "la musculation",
+          "back": "das Krafttraining",
+          "example": "Mon père fait de la musculation.",
+          "exampleDe": "Mein Vater macht Krafttraining."
+        }
+      ]
+    },
+    {
+      "id": "f7-x2-l4",
+      "title": "Zuschauen und mitspielen",
+      "items": [
+        {
+          "front": "le cheval",
+          "back": "das Pferd",
+          "example": "Elle adore les chevaux.",
+          "exampleDe": "Sie liebt Pferde."
+        },
+        {
+          "front": "la nature",
+          "back": "die Natur",
+          "example": "J'aime la nature.",
+          "exampleDe": "Ich mag die Natur."
+        },
+        {
+          "front": "la pièce de théâtre",
+          "back": "das Theaterstück",
+          "example": "Nous préparons une pièce de théâtre.",
+          "exampleDe": "Wir bereiten ein Theaterstück vor."
+        }
+      ]
+    },
+    {
+      "id": "f7-x2-l5",
+      "title": "Meinung und Reaktion",
+      "items": [
+        {
+          "front": "détester",
+          "back": "hassen, nicht mögen",
+          "example": "Je déteste le rap.",
+          "exampleDe": "Ich kann Rap nicht leiden."
+        },
+        {
+          "front": "C'est nul !",
+          "back": "Das ist schlecht!",
+          "example": "Ce film ? C'est nul !",
+          "exampleDe": "Dieser Film? Der ist schlecht!"
+        },
+        {
+          "front": "Pourquoi pas ?",
+          "back": "Warum nicht?",
+          "example": "On joue au foot ? – Pourquoi pas ?",
+          "exampleDe": "Spielen wir Fußball? – Warum nicht?"
+        },
+        {
+          "front": "l'activité",
+          "back": "die Aktivität",
+          "example": "Quelle est ton activité préférée ?",
+          "exampleDe": "Was ist deine Lieblingsbeschäftigung?"
+        }
+      ]
+    }
+  ]
+}

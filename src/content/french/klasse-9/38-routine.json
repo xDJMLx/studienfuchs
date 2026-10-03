@@ -1,0 +1,245 @@
+{
+  "id": "f9-x4",
+  "title": "Routine et ménage",
+  "description": "Zusatz: reflexive Verben im Alltag, Haushalt",
+  "grade": 9,
+  "subject": "french",
+  "order": 38,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f9-x4-l1",
+      "title": "Morgens",
+      "items": [
+        {
+          "front": "se réveiller",
+          "back": "aufwachen",
+          "example": "Je me réveille à sept heures.",
+          "exampleDe": "Ich wache um sieben Uhr auf."
+        },
+        {
+          "front": "se lever",
+          "back": "aufstehen",
+          "example": "Il se lève tôt.",
+          "exampleDe": "Er steht früh auf."
+        },
+        {
+          "front": "se laver",
+          "back": "sich waschen",
+          "example": "Elle se lave les mains.",
+          "exampleDe": "Sie wäscht sich die Hände."
+        },
+        {
+          "front": "s'habiller",
+          "back": "sich anziehen",
+          "example": "Je m'habille vite.",
+          "exampleDe": "Ich ziehe mich schnell an."
+        },
+        {
+          "front": "se dépêcher",
+          "back": "sich beeilen",
+          "example": "Dépêche-toi, le bus arrive !",
+          "exampleDe": "Beeil dich, der Bus kommt!"
+        },
+        {
+          "front": "se préparer",
+          "back": "sich fertig machen",
+          "example": "Nous nous préparons pour l'école.",
+          "exampleDe": "Wir machen uns für die Schule fertig."
+        }
+      ]
+    },
+    {
+      "id": "f9-x4-l2",
+      "title": "Tagsüber und abends",
+      "items": [
+        {
+          "front": "se coucher",
+          "back": "ins Bett gehen",
+          "example": "Je me couche à dix heures.",
+          "exampleDe": "Ich gehe um zehn Uhr ins Bett."
+        },
+        {
+          "front": "s'asseoir",
+          "back": "sich setzen",
+          "example": "Assieds-toi ici !",
+          "exampleDe": "Setz dich hierhin!"
+        },
+        {
+          "front": "se retrouver",
+          "back": "sich treffen",
+          "example": "Nous nous retrouvons devant le cinéma.",
+          "exampleDe": "Wir treffen uns vor dem Kino."
+        },
+        {
+          "front": "s'occuper de",
+          "back": "sich kümmern um",
+          "example": "Elle s'occupe de son petit frère.",
+          "exampleDe": "Sie kümmert sich um ihren kleinen Bruder."
+        },
+        {
+          "front": "se mettre à",
+          "back": "anfangen zu",
+          "example": "Il se met à pleuvoir.",
+          "exampleDe": "Es fängt an zu regnen."
+        },
+        {
+          "front": "s'installer",
+          "back": "sich einrichten, sich niederlassen",
+          "example": "Ils s'installent dans la nouvelle maison.",
+          "exampleDe": "Sie richten sich im neuen Haus ein."
+        }
+      ]
+    },
+    {
+      "id": "f9-x4-l3",
+      "title": "Mit anderen",
+      "items": [
+        {
+          "front": "s'entendre avec",
+          "back": "sich verstehen mit",
+          "example": "Je m'entends bien avec mes voisins.",
+          "exampleDe": "Ich verstehe mich gut mit meinen Nachbarn."
+        },
+        {
+          "front": "se disputer avec",
+          "back": "sich streiten mit",
+          "example": "Il se dispute avec sa sœur.",
+          "exampleDe": "Er streitet sich mit seiner Schwester."
+        },
+        {
+          "front": "se débrouiller",
+          "back": "zurechtkommen",
+          "example": "Je me débrouille en français.",
+          "exampleDe": "Ich komme in Französisch zurecht."
+        },
+        {
+          "front": "s'organiser",
+          "back": "sich organisieren",
+          "example": "Nous nous organisons bien.",
+          "exampleDe": "Wir organisieren uns gut."
+        },
+        {
+          "front": "s'informer sur",
+          "back": "sich informieren über",
+          "example": "Il s'informe sur le projet.",
+          "exampleDe": "Er informiert sich über das Projekt."
+        }
+      ]
+    },
+    {
+      "id": "f9-x4-l4",
+      "title": "Haushalt",
+      "items": [
+        {
+          "front": "le ménage",
+          "back": "der Haushalt",
+          "example": "Mon père fait le ménage le samedi.",
+          "exampleDe": "Mein Vater putzt samstags."
+        },
+        {
+          "front": "la tâche",
+          "back": "die Aufgabe",
+          "example": "Chacun a une tâche.",
+          "exampleDe": "Jeder hat eine Aufgabe."
+        },
+        {
+          "front": "nettoyer",
+          "back": "putzen",
+          "example": "Je nettoie ma chambre.",
+          "exampleDe": "Ich putze mein Zimmer."
+        },
+        {
+          "front": "le lave-vaisselle",
+          "back": "die Spülmaschine",
+          "example": "Je vide le lave-vaisselle.",
+          "exampleDe": "Ich räume die Spülmaschine aus."
+        },
+        {
+          "front": "l'aspirateur",
+          "back": "der Staubsauger",
+          "example": "Elle passe l'aspirateur.",
+          "exampleDe": "Sie saugt Staub."
+        },
+        {
+          "front": "débarrasser la table",
+          "back": "den Tisch abräumen",
+          "example": "Je débarrasse la table après le dîner.",
+          "exampleDe": "Ich räume nach dem Abendessen den Tisch ab."
+        }
+      ]
+    },
+    {
+      "id": "f9-x4-l5",
+      "title": "Handeln und Reparieren",
+      "items": [
+        {
+          "front": "vider",
+          "back": "leeren",
+          "example": "Vide la poubelle, s'il te plaît !",
+          "exampleDe": "Leere bitte den Mülleimer!"
+        },
+        {
+          "front": "réparer",
+          "back": "reparieren",
+          "example": "Il répare son vélo.",
+          "exampleDe": "Er repariert sein Fahrrad."
+        },
+        {
+          "front": "la réparation",
+          "back": "die Reparatur",
+          "example": "La réparation coûte cher.",
+          "exampleDe": "Die Reparatur kostet viel."
+        },
+        {
+          "front": "fonctionner",
+          "back": "funktionieren",
+          "example": "Mon téléphone ne fonctionne plus.",
+          "exampleDe": "Mein Telefon funktioniert nicht mehr."
+        },
+        {
+          "front": "plaire à",
+          "back": "gefallen",
+          "example": "Ce film plaît à mon frère.",
+          "exampleDe": "Dieser Film gefällt meinem Bruder."
+        }
+      ]
+    },
+    {
+      "id": "f9-x4-l6",
+      "title": "Was gerade passiert",
+      "items": [
+        {
+          "front": "être en train de",
+          "back": "gerade dabei sein",
+          "example": "Je suis en train de manger.",
+          "exampleDe": "Ich bin gerade beim Essen."
+        },
+        {
+          "front": "venir de",
+          "back": "gerade getan haben",
+          "example": "Il vient d'arriver.",
+          "exampleDe": "Er ist gerade angekommen."
+        },
+        {
+          "front": "à partir de",
+          "back": "ab",
+          "example": "À partir de lundi, je commence.",
+          "exampleDe": "Ab Montag fange ich an."
+        },
+        {
+          "front": "fou",
+          "back": "verrückt",
+          "example": "Il est fou de joie.",
+          "exampleDe": "Er ist außer sich vor Freude."
+        },
+        {
+          "front": "s'approcher de",
+          "back": "sich nähern",
+          "example": "Il s'approche de la porte.",
+          "exampleDe": "Er nähert sich der Tür."
+        }
+      ]
+    }
+  ]
+}

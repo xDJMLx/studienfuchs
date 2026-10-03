@@ -42,6 +42,14 @@ interface Data {
   catchUpTarget: string | null
   /** Aufholen: auch alle früheren Klassen komplett nachholen */
   catchUpAll: boolean
+  /** Zusatzwortschatz (Berliner Lehrwerke) zählt im Aufholplan mit */
+  catchUpExtras: boolean
+  /** Der Unterricht läuft weiter: im Aufholplan werden die neuen Lektionen der Klasse eingerechnet */
+  catchUpOngoing: boolean
+  /** Welches Lehrbuch die Klasse benutzt (für die Auswahl der Einheit beim Aufholen) */
+  classBook: 'aplus' | 'decouvertes'
+  /** Gewählte Einheit des Lehrbuchs, z. B. "d2-u3" (nur zur Anzeige der Auswahl) */
+  classRef: string | null
   /** Münzen: gibt es fürs Lernen, ausgegeben werden sie im Fuchs-Laden (siehe shop.ts) */
   coins: number
   /** Gekaufte Zubehörteile */
@@ -71,6 +79,10 @@ interface Actions {
   setClassUnit: (unitId: string | null) => void
   setCatchUpTarget: (date: string | null) => void
   setCatchUpAll: (v: boolean) => void
+  setCatchUpExtras: (v: boolean) => void
+  setCatchUpOngoing: (v: boolean) => void
+  setClassBook: (b: Data['classBook']) => void
+  setClassRef: (ref: string | null) => void
   setSpeech: (patch: Partial<Pick<Data, 'speechOn' | 'voiceName' | 'speechRate' | 'speakingOn'>>) => void
   exportData: () => string
   importData: (json: string) => void
@@ -98,6 +110,10 @@ const initial: Data = {
   classUnit: null,
   catchUpTarget: null,
   catchUpAll: false,
+  catchUpExtras: false,
+  catchUpOngoing: true,
+  classBook: 'aplus',
+  classRef: null,
   coins: 0,
   owned: [],
   outfit: {},
@@ -206,6 +222,10 @@ export const useStore = create<Data & Actions>()(
       setClassUnit: (unitId) => set(unitId ? { classUnit: unitId } : { classUnit: null, catchUpTarget: null }),
       setCatchUpTarget: (date) => set({ catchUpTarget: date }),
       setCatchUpAll: (v) => set({ catchUpAll: v }),
+      setCatchUpExtras: (v) => set({ catchUpExtras: v }),
+      setCatchUpOngoing: (v) => set({ catchUpOngoing: v }),
+      setClassBook: (b) => set({ classBook: b, classRef: null }),
+      setClassRef: (ref) => set({ classRef: ref }),
 
       exportData: () => {
         const s = get()

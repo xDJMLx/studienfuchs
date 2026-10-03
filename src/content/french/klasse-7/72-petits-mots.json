@@ -1,0 +1,215 @@
+{
+  "id": "f7-x4",
+  "title": "Mots utiles en plus",
+  "description": "Zusatz: kleine Wörter, Reaktionen, Uhrzeit, Familie, Stadt und Reise",
+  "grade": 7,
+  "subject": "french",
+  "order": 72,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f7-x4-l1",
+      "title": "Kleine Wörter",
+      "items": [
+        {
+          "front": "encore",
+          "back": "noch, schon wieder",
+          "example": "Il est encore là.",
+          "exampleDe": "Er ist noch da."
+        },
+        {
+          "front": "tard",
+          "back": "spät",
+          "example": "Il est tard.",
+          "exampleDe": "Es ist spät."
+        },
+        {
+          "front": "maintenant",
+          "back": "jetzt",
+          "example": "Je fais mes devoirs maintenant.",
+          "exampleDe": "Ich mache jetzt meine Hausaufgaben."
+        },
+        {
+          "front": "en plus",
+          "back": "außerdem",
+          "example": "En plus, il pleut.",
+          "exampleDe": "Außerdem regnet es."
+        },
+        {
+          "front": "comme ça",
+          "back": "so",
+          "example": "Fais comme ça !",
+          "exampleDe": "Mach es so!"
+        }
+      ]
+    },
+    {
+      "id": "f7-x4-l2",
+      "title": "Reaktionen im Gespräch",
+      "items": [
+        {
+          "front": "Tiens !",
+          "back": "Sieh mal an! Hier!",
+          "example": "Tiens, voilà ton livre.",
+          "exampleDe": "Hier, da ist dein Buch."
+        },
+        {
+          "front": "Chut !",
+          "back": "Pst! Still!",
+          "example": "Chut ! Le cours commence.",
+          "exampleDe": "Pst! Der Unterricht beginnt."
+        },
+        {
+          "front": "Allez !",
+          "back": "Los! Komm!",
+          "example": "Allez, on y va !",
+          "exampleDe": "Los, gehen wir!"
+        },
+        {
+          "front": "C'est normal.",
+          "back": "Das ist normal.",
+          "example": "Il est fatigué, c'est normal.",
+          "exampleDe": "Er ist müde, das ist normal."
+        }
+      ]
+    },
+    {
+      "id": "f7-x4-l3",
+      "title": "Familie ergänzt",
+      "items": [
+        {
+          "front": "maman",
+          "back": "Mama",
+          "example": "Maman prépare le dîner.",
+          "exampleDe": "Mama macht das Abendessen."
+        },
+        {
+          "front": "papa",
+          "back": "Papa",
+          "example": "Papa travaille à Berlin.",
+          "exampleDe": "Papa arbeitet in Berlin."
+        },
+        {
+          "front": "la demi-sœur",
+          "back": "die Halbschwester",
+          "example": "Ma demi-sœur a dix ans.",
+          "exampleDe": "Meine Halbschwester ist zehn Jahre alt."
+        },
+        {
+          "front": "le compagnon",
+          "back": "der Lebensgefährte",
+          "example": "Le compagnon de ma mère est sympa.",
+          "exampleDe": "Der Lebensgefährte meiner Mutter ist nett."
+        },
+        {
+          "front": "l'enfant",
+          "back": "das Kind",
+          "example": "Elle a un enfant.",
+          "exampleDe": "Sie hat ein Kind."
+        }
+      ]
+    },
+    {
+      "id": "f7-x4-l4",
+      "title": "Uhrzeit ergänzt",
+      "items": [
+        {
+          "front": "Quelle heure est-il ?",
+          "back": "Wie spät ist es?",
+          "example": "Quelle heure est-il ? – Il est midi.",
+          "exampleDe": "Wie spät ist es? – Es ist zwölf Uhr."
+        },
+        {
+          "front": "huit heures et quart",
+          "back": "Viertel nach acht",
+          "example": "Le cours commence à huit heures et quart.",
+          "exampleDe": "Der Unterricht beginnt um Viertel nach acht."
+        },
+        {
+          "front": "neuf heures et demie",
+          "back": "halb zehn",
+          "example": "Il est neuf heures et demie.",
+          "exampleDe": "Es ist halb zehn."
+        },
+        {
+          "front": "dix heures moins le quart",
+          "back": "Viertel vor zehn",
+          "example": "Il est dix heures moins le quart.",
+          "exampleDe": "Es ist Viertel vor zehn."
+        }
+      ]
+    },
+    {
+      "id": "f7-x4-l5",
+      "title": "Zeitangaben",
+      "items": [
+        {
+          "front": "le calendrier",
+          "back": "der Kalender",
+          "example": "Regarde le calendrier !",
+          "exampleDe": "Schau auf den Kalender!"
+        },
+        {
+          "front": "ce soir",
+          "back": "heute Abend",
+          "example": "Ce soir, je regarde un film.",
+          "exampleDe": "Heute Abend schaue ich einen Film."
+        },
+        {
+          "front": "en janvier",
+          "back": "im Januar",
+          "example": "En janvier, il fait froid.",
+          "exampleDe": "Im Januar ist es kalt."
+        }
+      ]
+    },
+    {
+      "id": "f7-x4-l6",
+      "title": "Stadt und Reise",
+      "items": [
+        {
+          "front": "le restaurant",
+          "back": "das Restaurant",
+          "example": "Nous mangeons au restaurant.",
+          "exampleDe": "Wir essen im Restaurant."
+        },
+        {
+          "front": "le taxi",
+          "back": "das Taxi",
+          "example": "Nous prenons un taxi.",
+          "exampleDe": "Wir nehmen ein Taxi."
+        },
+        {
+          "front": "l'avion",
+          "back": "das Flugzeug",
+          "example": "L'avion part à midi.",
+          "exampleDe": "Das Flugzeug fliegt um zwölf Uhr ab."
+        },
+        {
+          "front": "à droite de",
+          "back": "rechts von",
+          "example": "La poste est à droite de la banque.",
+          "exampleDe": "Die Post ist rechts von der Bank."
+        },
+        {
+          "front": "à gauche de",
+          "back": "links von",
+          "example": "Le café est à gauche de l'église.",
+          "exampleDe": "Das Café ist links von der Kirche."
+        },
+        {
+          "front": "la vieille ville",
+          "back": "die Altstadt",
+          "example": "La vieille ville est très jolie.",
+          "exampleDe": "Die Altstadt ist sehr schön."
+        },
+        {
+          "front": "le palmier",
+          "back": "die Palme",
+          "example": "Il y a des palmiers sur la plage.",
+          "exampleDe": "Am Strand gibt es Palmen."
+        }
+      ]
+    }
+  ]
+}

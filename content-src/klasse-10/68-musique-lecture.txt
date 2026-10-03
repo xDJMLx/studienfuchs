@@ -1,0 +1,41 @@
+id: f10-x5
+title: Musique et lecture
+desc: Zusatz: Musik, Gefühle, Lesen, Bücher und Serien
+extra: yes
+order: 68
+
+= Musik
+- le morceau = das Stück | J'aime ce morceau de piano. = Ich mag dieses Klavierstück.
+- la mélodie = die Melodie | La mélodie est très douce. = Die Melodie ist sehr sanft.
+- le pianiste = der Pianist | Le pianiste joue Chopin. = Der Pianist spielt Chopin.
+- le guitariste = der Gitarrist | Le guitariste joue très vite. = Der Gitarrist spielt sehr schnell.
+- l'album = das Album | Son nouvel album sort demain. = Sein neues Album erscheint morgen.
+- dansant = tanzbar | Cette chanson est très dansante. = Dieses Lied ist sehr tanzbar.
+
+= Gefühle
+- l'émotion = die Emotion | Cette musique me donne des émotions. = Diese Musik weckt Emotionen in mir.
+- bouleverser = tief bewegen | Ce film me bouleverse. = Dieser Film bewegt mich tief.
+- le bonheur = das Glück | Je suis plein de bonheur. = Ich bin voller Glück.
+- pleurer = weinen | Elle pleure de joie. = Sie weint vor Freude.
+- furieux = wütend | Il est furieux contre moi. = Er ist wütend auf mich.
+
+= Lesen
+- le manga = der Manga | Je lis un manga japonais. = Ich lese einen japanischen Manga.
+- le thriller = der Thriller | Ce thriller est passionnant. = Dieser Thriller ist spannend.
+- la fiction = die Fiktion, der Roman | J'aime lire de la fiction. = Ich lese gern Romane.
+- le suspense = die Spannung | Il y a beaucoup de suspense. = Es gibt viel Spannung.
+- passionné = leidenschaftlich | C'est un lecteur passionné. = Er ist ein leidenschaftlicher Leser.
+- s'ennuyer = sich langweilen | Je ne m'ennuie jamais avec un livre. = Mit einem Buch langweile ich mich nie.
+
+= Erzählen
+- par hasard = zufällig | Je l'ai rencontré par hasard. = Ich habe ihn zufällig getroffen.
+- se tromper = sich irren | Je me suis trompé. = Ich habe mich geirrt.
+- le plaisir = das Vergnügen | Lire est un plaisir. = Lesen ist ein Vergnügen.
+- régulièrement = regelmäßig | Je lis régulièrement. = Ich lese regelmäßig.
+
+= Beurteilen
+- injuste = ungerecht | Cette note est injuste. = Diese Note ist ungerecht.
+- marrant = lustig | Cet auteur est marrant. = Dieser Autor ist lustig.
+- agréable = angenehm | Cette musique est agréable. = Diese Musik ist angenehm.
+- désagréable = unangenehm | Le bruit est désagréable. = Der Lärm ist unangenehm.
+- essentiel = wesentlich | L'essentiel, c'est d'essayer. = Das Wesentliche ist, es zu versuchen.

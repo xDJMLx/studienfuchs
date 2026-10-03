@@ -11,7 +11,7 @@ describe('Aufholen über mehrere Klassen', () => {
     const only = unitsUpTo(firstUnitOfLast.id)
     const all = unitsUpTo(firstUnitOfLast.id, true)
     expect(only.map((u) => u.id)).toEqual([firstUnitOfLast.id])
-    const earlier = units.filter((u) => u.grade < lastGrade)
+    const earlier = units.filter((u) => u.grade < lastGrade && !u.extra)
     expect(all).toHaveLength(earlier.length + 1)
     expect(all[0].grade).toBe(grades[0])
   })
@@ -19,7 +19,7 @@ describe('Aufholen über mehrere Klassen', () => {
   it('der Rückstand wächst um die offenen Lektionen früherer Klassen', () => {
     const own = backlog(firstUnitOfLast.id, {}).length
     const everything = backlog(firstUnitOfLast.id, {}, true).length
-    const earlierLessons = units.filter((u) => u.grade < lastGrade).flatMap((u) => u.lessons.filter(isRegular)).length
+    const earlierLessons = units.filter((u) => u.grade < lastGrade && !u.extra).flatMap((u) => u.lessons.filter(isRegular)).length
     expect(everything).toBe(own + earlierLessons)
   })
 

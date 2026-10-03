@@ -1,0 +1,46 @@
+id: f10-x3
+title: Régions, tradition et avenir
+desc: Zusatz: Region und Identität, Wirtschaft, Herkunft, Zukunftsträume
+extra: yes
+order: 34
+
+= Region und Landschaft
+- la falaise = die Klippe | Les falaises sont très hautes. = Die Klippen sind sehr hoch.
+- sauvage = wild | La nature est encore sauvage. = Die Natur ist noch wild.
+- le paradis = das Paradies | Cette plage est un paradis. = Dieser Strand ist ein Paradies.
+- la vache = die Kuh | Il y a des vaches dans le champ. = Auf dem Feld stehen Kühe.
+- la laine = die Wolle | Ce pull est en laine. = Dieser Pullover ist aus Wolle.
+
+= Arbeit und Wirtschaft
+- l'économie = die Wirtschaft | L'économie de la région est forte. = Die Wirtschaft der Region ist stark.
+- l'innovation = die Innovation | Cette innovation est géniale. = Diese Neuerung ist genial.
+- le matériau = das Material | Le bois est un bon matériau. = Holz ist ein gutes Material.
+- recyclable = wiederverwertbar | Cet emballage est recyclable. = Diese Verpackung ist wiederverwertbar.
+
+= Generationen und Einsatz
+- la génération = die Generation | Notre génération doit agir. = Unsere Generation muss handeln.
+- interdire = verbieten | On interdit les sacs en plastique. = Plastiktüten sind verboten.
+- la pétition = die Petition | Nous signons une pétition. = Wir unterschreiben eine Petition.
+- promettre = versprechen | Je te promets de venir. = Ich verspreche dir zu kommen.
+
+= Herkunft und Weggehen
+- la racine = die Wurzel | Ma famille a des racines en Italie. = Meine Familie hat Wurzeln in Italien.
+- l'émigration = die Auswanderung | L'émigration a beaucoup changé la région. = Die Auswanderung hat die Region sehr verändert.
+- la condition = die Bedingung | Les conditions de vie sont difficiles. = Die Lebensbedingungen sind schwierig.
+- augmenter = steigen, erhöhen | Les prix augmentent. = Die Preise steigen.
+- le récit = die Erzählung | Je lis le récit d'un voyage. = Ich lese den Bericht einer Reise.
+
+= Zukunft planen
+- l'entrepreneur = der Unternehmer | Son rêve : devenir entrepreneur. = Ihr Traum: Unternehmerin werden.
+- la bourse = das Stipendium | Il reçoit une bourse. = Er bekommt ein Stipendium.
+- la demande = der Antrag, die Nachfrage | Je fais une demande de stage. = Ich stelle einen Praktikumsantrag.
+- honnête = ehrlich | Elle est honnête avec moi. = Sie ist ehrlich zu mir.
+- s'inquiéter = sich Sorgen machen | Ne t'inquiète pas ! = Mach dir keine Sorgen!
+
+= Eigenschaften
+- intelligent = intelligent | Elle est très intelligente. = Sie ist sehr intelligent.
+- capable = fähig | Il est capable de tout. = Er ist zu allem fähig.
+- exact = genau | Ce chiffre est exact. = Diese Zahl ist genau.
+- simple = einfach | Le texte est simple. = Der Text ist einfach.
+- rare = selten | Ce livre est rare. = Dieses Buch ist selten.
+- délicieux = köstlich | Le gâteau est délicieux. = Der Kuchen ist köstlich.

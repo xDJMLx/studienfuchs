@@ -44,9 +44,9 @@ function PathLines({ states, offsets }: { states: NodeState[]; offsets: number[]
 /** Heute: Tagesziel, fällige Wörter und Aufholplan als eine ruhige Liste. */
 function TodayCard() {
   const navigate = useNavigate()
-  const { xpByDay, dailyGoal, streak, classUnit, catchUpTarget, catchUpAll, lessons } = useStore()
+  const { xpByDay, dailyGoal, streak, classUnit, catchUpTarget, catchUpAll, catchUpExtras, catchUpOngoing, lessons } = useStore()
   const { due } = useDue()
-  const plan = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll) : null
+  const plan = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll, catchUpExtras, catchUpOngoing) : null
   const today = xpToday(xpByDay)
   const g = goalInfo(dailyGoal, today)
   const days = streakNow(streak)
@@ -134,7 +134,8 @@ export function LearnPage() {
   const storedGrade = useStore((s) => s.grade)
   const grade = grades.includes(storedGrade) ? storedGrade : grades[0]
   const shown = useMemo(() => units.filter((u) => u.grade === grade), [grade])
-  const all = shown.flatMap((u) => u.lessons)
+  // Zusatzeinheiten (Berliner Lehrwerke) sind freiwillig und zählen nicht zum Kursfortschritt
+  const all = shown.filter((u) => !u.extra).flatMap((u) => u.lessons)
   const regular = all.filter((l) => !l.review && !l.test)
   const doneCount = regular.filter((l) => isLessonDone(l, lessons[l.id])).length
   // Nächste Lektion: die erste offene, die noch nicht geschafft ist
@@ -214,12 +215,12 @@ export function LearnPage() {
           >
             <button type="button" onClick={() => setUnitSheet(unit)} className={`card lift sticky top-2 z-10 flex w-full items-center gap-4 p-4 text-left ${unitLocked ? 'opacity-70' : ''}`}>
               <ProgressRing pct={pct} size={52} stroke={5}>
-                {unitLocked ? <Lock size={18} /> : <span className="text-sm font-bold">{ui + 1}</span>}
+                {unitLocked ? <Lock size={18} /> : <span className="text-sm font-bold">{unit.extra ? '+' : shown.slice(0, ui + 1).filter((u) => !u.extra).length}</span>}
               </ProgressRing>
               <div className="min-w-0 flex-1">
-                {(unit.book || unit.id === classUnit) && (
+                {(unit.book || unit.extra || unit.id === classUnit) && (
                   <p className="flex items-center gap-1.5 text-[11px] font-semibold text-muted">
-                    <span className="truncate">{unit.book}</span>
+                    <span className="truncate">{unit.extra ? 'Zusatzwortschatz, freiwillig' : unit.book}</span>
                     {unit.id === classUnit && <span className="shrink-0 rounded bg-brand-strong px-1.5 py-px text-[10px] text-on-brand">Eure Klasse</span>}
                   </p>
                 )}

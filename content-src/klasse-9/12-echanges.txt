@@ -1,0 +1,42 @@
+id: f9-x1
+title: Échanges et correspondants
+desc: Zusatz: Schüleraustausch, Gastfamilie, Gefühle im Ausland
+extra: yes
+order: 12
+
+= Vorher
+- l'accueil = der Empfang | L'accueil dans la famille est chaleureux. = Der Empfang in der Familie ist herzlich.
+- le programme d'échange = das Austauschprogramm | Le programme d'échange commence en mars. = Das Austauschprogramm beginnt im März.
+- la possibilité = die Möglichkeit | C'est une belle possibilité. = Das ist eine schöne Möglichkeit.
+- plusieurs = mehrere | Plusieurs élèves participent à l'échange. = Mehrere Schüler nehmen am Austausch teil.
+- rechercher = suchen | Nous recherchons un correspondant. = Wir suchen einen Austauschpartner.
+- excité = aufgeregt | Je suis très excité avant le départ. = Ich bin vor der Abreise sehr aufgeregt.
+- impatient = ungeduldig | Elle est impatiente de partir. = Sie kann es kaum erwarten abzufahren.
+
+= Gefühle im Ausland
+- être embêté = in Verlegenheit sein | Je suis embêté, je ne comprends pas. = Ich bin in Verlegenheit, ich verstehe nicht.
+- Ne t'en fais pas. = Mach dir keine Sorgen. | Ne t'en fais pas, ça va aller ! = Mach dir keine Sorgen, das wird schon!
+- exprimer = ausdrücken | Je veux exprimer mes idées. = Ich möchte meine Ideen ausdrücken.
+- incroyable = unglaublich | Cette ville est incroyable ! = Diese Stadt ist unglaublich!
+
+= Alltag und Unterschiede
+- typique = typisch | C'est un plat typique de la région. = Das ist ein typisches Gericht der Region.
+- la réalité = die Wirklichkeit | La réalité est différente. = Die Wirklichkeit ist anders.
+- par contre = dagegen | J'aime la ville, par contre je déteste le bruit. = Ich mag die Stadt, dagegen hasse ich den Lärm.
+- pareil = gleich | Chez nous, c'est pareil. = Bei uns ist es genauso.
+
+= Gespräche und Höflichkeit
+- Excusez-moi. = Entschuldigen Sie. | Excusez-moi, où est la gare ? = Entschuldigen Sie, wo ist der Bahnhof?
+- poli = höflich | Il est toujours poli avec les adultes. = Er ist immer höflich zu Erwachsenen.
+- occupé = beschäftigt | Elle est occupée ce soir. = Sie ist heute Abend beschäftigt.
+- sonner = klingeln | Le téléphone sonne. = Das Telefon klingelt.
+- sauf = außer | Tout le monde vient, sauf Paul. = Alle kommen, außer Paul.
+- manquer = fehlen, verpassen | Ma famille me manque. = Meine Familie fehlt mir.
+
+= Reisetagebuch
+- noter = notieren | Je note tout dans mon carnet. = Ich notiere alles in meinem Heft.
+- le carnet de voyage = das Reisetagebuch | Elle écrit dans son carnet de voyage. = Sie schreibt in ihr Reisetagebuch.
+- la balade = der Spaziergang | Nous faisons une balade en ville. = Wir machen einen Stadtspaziergang.
+- des hauts et des bas = Höhen und Tiefen | Un échange, c'est des hauts et des bas. = Ein Austausch bedeutet Höhen und Tiefen.
+- revenir = zurückkommen | Je reviens dans deux semaines. = Ich komme in zwei Wochen zurück.
+- confondre = verwechseln | Je confonds souvent ces deux mots. = Ich verwechsle oft diese beiden Wörter.

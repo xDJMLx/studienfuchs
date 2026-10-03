@@ -1,0 +1,43 @@
+id: f10-x4
+title: Environnement et valeurs
+desc: Zusatz: Klima, Umweltschutz, Engagement, Energie, Stadt und Wohnen
+extra: yes
+order: 44
+
+= Klima und Umwelt
+- l'écologiste = der Umweltschützer | Cette écologiste lutte pour la planète. = Diese Umweltschützerin kämpft für den Planeten.
+- la protection = der Schutz | La protection de la nature est importante. = Der Schutz der Natur ist wichtig.
+- la biodiversité = die Artenvielfalt | Il faut protéger la biodiversité. = Man muss die Artenvielfalt schützen.
+- le glacier = der Gletscher | Les glaciers fondent. = Die Gletscher schmelzen.
+
+= Handeln für die Zukunft
+- le militant = der Aktivist | Un militant distribue des tracts. = Ein Aktivist verteilt Flugblätter.
+- agir = handeln | Il faut agir maintenant. = Man muss jetzt handeln.
+- la solidarité = die Solidarität | La solidarité est une belle valeur. = Solidarität ist ein schöner Wert.
+- le mouvement = die Bewegung | Ce mouvement grandit. = Diese Bewegung wächst.
+- la collecte = die Sammlung | Nous organisons une collecte de vêtements. = Wir organisieren eine Kleidersammlung.
+
+= Wünsche und Sorgen
+- mondial = weltweit | C'est un problème mondial. = Das ist ein weltweites Problem.
+- nécessaire = notwendig | C'est nécessaire de changer. = Es ist notwendig, sich zu ändern.
+- optimiste = optimistisch | Je reste optimiste. = Ich bleibe optimistisch.
+- le souci = die Sorge | Mon souci, c'est le climat. = Meine Sorge ist das Klima.
+
+= Energie
+- l'énergie = die Energie | Nous devons économiser l'énergie. = Wir müssen Energie sparen.
+- l'éolienne = das Windrad | Il y a des éoliennes sur la côte. = An der Küste stehen Windräder.
+- renouvelable = erneuerbar | Le soleil est une énergie renouvelable. = Die Sonne ist eine erneuerbare Energie.
+- produire = herstellen, erzeugen | Cette usine produit de l'électricité. = Diese Fabrik erzeugt Strom.
+- détruire = zerstören | La tempête détruit les maisons. = Der Sturm zerstört die Häuser.
+
+= Streit und Debatte
+- le manifestant = der Demonstrant | Les manifestants marchent dans la rue. = Die Demonstranten laufen durch die Straße.
+- construire = bauen | On construit une nouvelle école. = Man baut eine neue Schule.
+- artificiel = künstlich | La neige artificielle est un problème. = Kunstschnee ist ein Problem.
+- le commerçant = der Händler | Le commerçant ferme sa boutique. = Der Händler schließt sein Geschäft.
+
+= Wohnen und Stadt
+- l'immeuble = das Gebäude | J'habite dans un grand immeuble. = Ich wohne in einem großen Gebäude.
+- l'inondation = die Überschwemmung | L'inondation a détruit la route. = Die Überschwemmung hat die Straße zerstört.
+- l'incendie = der Brand | Un incendie a lieu dans la forêt. = Im Wald gibt es einen Brand.
+- la publicité = die Werbung | La publicité est partout. = Werbung ist überall.

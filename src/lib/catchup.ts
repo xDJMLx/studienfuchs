@@ -5,17 +5,18 @@ import type { Lesson, Unit } from './types'
  * Stand der Klasse im Buch: alle normalen Lektionen bis einschließlich dieser Einheit sollten sitzen.
  * Mit `allGrades` zählen auch alle früheren Klassen komplett dazu (für alle, die früher kaum aufgepasst haben oder neu einsteigen).
  */
-export function unitsUpTo(unitId: string, allGrades = false): Unit[] {
+export function unitsUpTo(unitId: string, allGrades = false, extras = false): Unit[] {
   const target = units.find((u) => u.id === unitId)
   if (!target) return []
+  const wanted = (u: Unit) => extras || !u.extra
   const sameGrade = units.filter((u) => u.grade === target.grade)
-  const current = sameGrade.slice(0, sameGrade.findIndex((u) => u.id === unitId) + 1)
-  return allGrades ? [...units.filter((u) => u.grade < target.grade), ...current] : current
+  const current = sameGrade.slice(0, sameGrade.findIndex((u) => u.id === unitId) + 1).filter(wanted)
+  return allGrades ? [...units.filter((u) => u.grade < target.grade).filter(wanted), ...current] : current
 }
 
 /** Lektionen, die bis zum Stand der Klasse noch nicht (gut genug) geschafft sind. */
-export function backlog(unitId: string, records: Record<string, LessonRecordLike | undefined>, allGrades = false): Lesson[] {
-  return unitsUpTo(unitId, allGrades)
+export function backlog(unitId: string, records: Record<string, LessonRecordLike | undefined>, allGrades = false, extras = false): Lesson[] {
+  return unitsUpTo(unitId, allGrades, extras)
     .flatMap((u) => u.lessons)
     .filter((l) => isRegular(l) && !isLessonDone(l, records[l.id]))
 }
@@ -36,6 +37,26 @@ export interface CatchUpStatus {
   finished: boolean
   /** Der Zieltermin des Plans liegt schon in der Vergangenheit */
   expired: boolean
+  /** Lektionen, die eure Klasse bis zum Zieltermin im Unterricht neu dazubekommt (0, wenn nicht eingerechnet) */
+  ahead: number
+}
+
+/** Wie viele Lektionen schafft eine Berliner Klasse dieser Jahrgangsstufe pro Woche? (Kurs verteilt auf die Unterrichtswochen) */
+export const COURSE_WEEKS = 34
+export function classPacePerWeek(grade: number): number {
+  const core = units.filter((u) => u.grade === grade && !u.extra)
+  const n = core.flatMap((u) => u.lessons).filter(isRegular).length
+  return n / COURSE_WEEKS
+}
+
+/** Pro Tag sind in der Regel höchstens so viele Minuten für Französisch drin (neben Hausaufgaben und Hobbys). */
+export const COMFORT_MIN_PER_DAY = 30
+export const MAX_MIN_PER_DAY = 45
+
+/** Empfohlener Zeitraum in Tagen (volle Wochen), damit es bei höchstens 30 Minuten am Tag bleibt. */
+export function recommendedDays(lessonCount: number, minPerLesson: number, maxMinPerDay = COMFORT_MIN_PER_DAY): number {
+  const days = Math.ceil((lessonCount * minPerLesson) / maxMinPerDay)
+  return Math.min(180, Math.max(7, Math.ceil(days / 7) * 7))
 }
 
 export const dayStart = (d: Date) => new Date(d.getFullYear(), d.getMonth(), d.getDate())
@@ -54,8 +75,10 @@ export function catchUpStatus(
   records: Record<string, (LessonRecordLike & { lastDone?: string }) | undefined>,
   now = new Date(),
   allGrades = false,
+  extras = false,
+  ongoing = false,
 ): CatchUpStatus {
-  const upTo = unitsUpTo(unitId, allGrades)
+  const upTo = unitsUpTo(unitId, allGrades, extras)
   const all = upTo.flatMap((u) => u.lessons).filter(isRegular)
   const open = all.filter((l) => !isLessonDone(l, records[l.id]))
   const today = iso(now)
@@ -63,7 +86,10 @@ export function catchUpStatus(
   const doneToday = all.filter((l) => isLessonDone(l, records[l.id]) && records[l.id]?.lastDone === today).length
   const left = daysUntil(targetDate, now)
   const startOfDay = open.length + doneToday
-  const perDay = Math.ceil(startOfDay / left)
+  // Der Unterricht läuft weiter: Was die Klasse bis zum Zieltermin neu durchnimmt, kommt zum Rückstand dazu
+  const grade = units.find((u) => u.id === unitId)?.grade ?? 0
+  const ahead = ongoing ? Math.round((classPacePerWeek(grade) / 7) * (left - 1)) : 0
+  const perDay = Math.ceil((startOfDay + ahead) / left)
   const remainingWords = new Set(open.flatMap((l) => l.items.map((i) => i.id))).size
   return {
     total: all.length,
@@ -75,18 +101,20 @@ export function catchUpStatus(
     toGoToday: Math.max(0, perDay - doneToday),
     finished: open.length === 0,
     expired: dayStart(now).getTime() > new Date(targetDate.replace(/-/g, '/')).getTime(),
+    ahead,
   }
 }
 
-/** Die nächste Einheit nach dieser (gleiche Klasse, sonst die erste der nächsten Klasse), für "Meine Klasse ist weiter". */
+/** Die nächste Einheit nach dieser (gleiche Klasse, sonst die erste der nächsten Klasse), für "Meine Klasse ist weiter". Zusatzeinheiten werden übersprungen. */
 export function nextUnitId(unitId: string): string | null {
   const i = units.findIndex((u) => u.id === unitId)
-  return i >= 0 && i + 1 < units.length ? units[i + 1].id : null
+  if (i < 0) return null
+  return units.slice(i + 1).find((u) => !u.extra)?.id ?? null
 }
 
 /** Offene Lektionen, gruppiert nach Einheit (für die Liste "Das fehlt dir noch"). */
-export function backlogByUnit(unitId: string, records: Record<string, LessonRecordLike | undefined>, allGrades = false): { unit: Unit; lessons: Lesson[]; total: number }[] {
-  return unitsUpTo(unitId, allGrades)
+export function backlogByUnit(unitId: string, records: Record<string, LessonRecordLike | undefined>, allGrades = false, extras = false): { unit: Unit; lessons: Lesson[]; total: number }[] {
+  return unitsUpTo(unitId, allGrades, extras)
     .map((unit) => {
       const regular = unit.lessons.filter(isRegular)
       return { unit, total: regular.length, lessons: regular.filter((l) => !isLessonDone(l, records[l.id])) }

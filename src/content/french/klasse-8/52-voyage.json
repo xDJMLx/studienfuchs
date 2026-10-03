@@ -1,0 +1,221 @@
+{
+  "id": "f8-x5",
+  "title": "Voyage, météo et saisons",
+  "description": "Zusatz: Himmelsrichtungen, Jahreszeiten, Wetter, Reise und Verkehrsmittel",
+  "grade": 8,
+  "subject": "french",
+  "order": 52,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f8-x5-l1",
+      "title": "Himmelsrichtungen",
+      "items": [
+        {
+          "front": "le nord",
+          "back": "der Norden",
+          "example": "La Bretagne est au nord-ouest.",
+          "exampleDe": "Die Bretagne liegt im Nordwesten."
+        },
+        {
+          "front": "le sud",
+          "back": "der Süden",
+          "example": "Marseille est dans le sud.",
+          "exampleDe": "Marseille liegt im Süden."
+        },
+        {
+          "front": "l'est",
+          "back": "der Osten",
+          "example": "Strasbourg est à l'est.",
+          "exampleDe": "Straßburg liegt im Osten."
+        },
+        {
+          "front": "l'ouest",
+          "back": "der Westen",
+          "example": "Nantes est à l'ouest.",
+          "exampleDe": "Nantes liegt im Westen."
+        },
+        {
+          "front": "la route",
+          "back": "die Straße, die Route",
+          "example": "La route est longue.",
+          "exampleDe": "Die Strecke ist lang."
+        },
+        {
+          "front": "le ciel",
+          "back": "der Himmel",
+          "example": "Le ciel est bleu.",
+          "exampleDe": "Der Himmel ist blau."
+        }
+      ]
+    },
+    {
+      "id": "f8-x5-l2",
+      "title": "Wetter",
+      "items": [
+        {
+          "front": "la pluie",
+          "back": "der Regen",
+          "example": "La pluie tombe depuis ce matin.",
+          "exampleDe": "Der Regen fällt seit heute Morgen."
+        },
+        {
+          "front": "le nuage",
+          "back": "die Wolke",
+          "example": "Il y a un gros nuage.",
+          "exampleDe": "Da ist eine große Wolke."
+        },
+        {
+          "front": "l'orage",
+          "back": "das Gewitter",
+          "example": "Il y a un orage ce soir.",
+          "exampleDe": "Heute Abend gibt es ein Gewitter."
+        },
+        {
+          "front": "la tempête",
+          "back": "der Sturm",
+          "example": "La tempête arrive demain.",
+          "exampleDe": "Der Sturm kommt morgen."
+        },
+        {
+          "front": "neiger",
+          "back": "schneien",
+          "example": "Il neige en janvier.",
+          "exampleDe": "Im Januar schneit es."
+        },
+        {
+          "front": "la marée",
+          "back": "die Gezeiten",
+          "example": "La marée est basse.",
+          "exampleDe": "Es ist Ebbe."
+        }
+      ]
+    },
+    {
+      "id": "f8-x5-l3",
+      "title": "Am Meer",
+      "items": [
+        {
+          "front": "la dune",
+          "back": "die Düne",
+          "example": "Nous marchons sur la dune.",
+          "exampleDe": "Wir gehen über die Düne."
+        },
+        {
+          "front": "le pêcheur",
+          "back": "der Fischer",
+          "example": "Le pêcheur est au port.",
+          "exampleDe": "Der Fischer ist im Hafen."
+        },
+        {
+          "front": "la planche à voile",
+          "back": "das Windsurfen",
+          "example": "Il fait de la planche à voile.",
+          "exampleDe": "Er windsurft."
+        }
+      ]
+    },
+    {
+      "id": "f8-x5-l4",
+      "title": "Reise",
+      "items": [
+        {
+          "front": "le moyen de transport",
+          "back": "das Verkehrsmittel",
+          "example": "Quel moyen de transport tu prends ?",
+          "exampleDe": "Welches Verkehrsmittel nimmst du?"
+        },
+        {
+          "front": "la trottinette",
+          "back": "der Roller",
+          "example": "Il va au collège en trottinette.",
+          "exampleDe": "Er fährt mit dem Roller zum Collège."
+        },
+        {
+          "front": "l'office de tourisme",
+          "back": "das Verkehrsamt",
+          "example": "Nous allons à l'office de tourisme.",
+          "exampleDe": "Wir gehen zum Verkehrsamt."
+        },
+        {
+          "front": "le souvenir",
+          "back": "die Erinnerung, das Souvenir",
+          "example": "J'achète un souvenir.",
+          "exampleDe": "Ich kaufe ein Souvenir."
+        }
+      ]
+    },
+    {
+      "id": "f8-x5-l5",
+      "title": "Vorschläge machen",
+      "items": [
+        {
+          "front": "Ça te dit ?",
+          "back": "Hast du Lust?",
+          "example": "On va au cinéma, ça te dit ?",
+          "exampleDe": "Wir gehen ins Kino, hast du Lust?"
+        },
+        {
+          "front": "Qu'est-ce que tu en penses ?",
+          "back": "Was denkst du darüber?",
+          "example": "Qu'est-ce que tu en penses ?",
+          "exampleDe": "Was denkst du darüber?"
+        },
+        {
+          "front": "on pourrait",
+          "back": "wir könnten",
+          "example": "On pourrait aller à la plage.",
+          "exampleDe": "Wir könnten an den Strand gehen."
+        },
+        {
+          "front": "parfait",
+          "back": "perfekt",
+          "example": "C'est parfait !",
+          "exampleDe": "Das ist perfekt!"
+        },
+        {
+          "front": "imaginer",
+          "back": "sich vorstellen",
+          "example": "Imagine une île déserte !",
+          "exampleDe": "Stell dir eine einsame Insel vor!"
+        }
+      ]
+    },
+    {
+      "id": "f8-x5-l6",
+      "title": "Natur und Gefahr",
+      "items": [
+        {
+          "front": "la plante",
+          "back": "die Pflanze",
+          "example": "Cette plante pousse dans le sable.",
+          "exampleDe": "Diese Pflanze wächst im Sand."
+        },
+        {
+          "front": "crier",
+          "back": "schreien",
+          "example": "Il crie très fort.",
+          "exampleDe": "Er schreit sehr laut."
+        },
+        {
+          "front": "prudent",
+          "back": "vorsichtig",
+          "example": "Sois prudent sur la route !",
+          "exampleDe": "Sei vorsichtig auf der Straße!"
+        },
+        {
+          "front": "glisser",
+          "back": "rutschen",
+          "example": "Attention, je glisse !",
+          "exampleDe": "Vorsicht, ich rutsche!"
+        },
+        {
+          "front": "presque",
+          "back": "fast",
+          "example": "Il est presque midi.",
+          "exampleDe": "Es ist fast zwölf Uhr."
+        }
+      ]
+    }
+  ]
+}

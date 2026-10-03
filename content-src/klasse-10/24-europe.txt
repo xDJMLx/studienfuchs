@@ -1,0 +1,35 @@
+id: f10-x2
+title: L'Europe et l'amitié franco-allemande
+desc: Zusatz: EU, deutsch-französische Freundschaft, Studium und Austausch, Vorurteile
+extra: yes
+order: 24
+
+= Die Europäische Union
+- l'organisation = die Organisation | Cette organisation aide les jeunes. = Diese Organisation hilft jungen Leuten.
+- politique = politisch | Il y a un débat politique. = Es gibt eine politische Debatte.
+- économique = wirtschaftlich | La crise économique est grave. = Die Wirtschaftskrise ist ernst.
+
+= Geschichte und Versöhnung
+- la Seconde Guerre mondiale = der Zweite Weltkrieg | La Seconde Guerre mondiale a fini en 1945. = Der Zweite Weltkrieg endete 1945.
+- surmonter = überwinden | Ils surmontent leurs différences. = Sie überwinden ihre Unterschiede.
+- la réconciliation = die Versöhnung | La réconciliation franco-allemande est un exemple. = Die deutsch-französische Versöhnung ist ein Vorbild.
+- le traité = der Vertrag | Le traité est signé en 1963. = Der Vertrag wurde 1963 unterzeichnet.
+- signer = unterschreiben | Les deux présidents signent le traité. = Die beiden Präsidenten unterzeichnen den Vertrag.
+
+= Leben und Lernen in Europa
+- l'ambassadeur = der Botschafter | L'ambassadeur parle aux élèves. = Der Botschafter spricht zu den Schülern.
+- la nationalité = die Staatsangehörigkeit | Il a deux nationalités. = Er hat zwei Staatsangehörigkeiten.
+- l'étudiant = der Student | Les étudiants voyagent en Europe. = Die Studenten reisen durch Europa.
+
+= Zahlen und Mengen
+- la population = die Bevölkerung | La population augmente. = Die Bevölkerung wächst.
+- la minorité = die Minderheit | Une minorité refuse. = Eine Minderheit lehnt ab.
+- la plupart = die meisten | La plupart des jeunes aiment voyager. = Die meisten Jugendlichen reisen gern.
+- parmi = unter, inmitten | Parmi mes amis, il y a un Français. = Unter meinen Freunden ist ein Franzose.
+- le tiers = das Drittel | Un tiers des élèves apprend le français. = Ein Drittel der Schüler lernt Französisch.
+- la valeur = der Wert | L'amitié est une valeur importante. = Freundschaft ist ein wichtiger Wert.
+
+= Grenzen und Bräuche
+- encourager = ermutigen | Mes parents m'encouragent. = Meine Eltern ermutigen mich.
+- le baccalauréat = das Abitur | Il passe le baccalauréat en juin. = Er macht im Juni das Abitur.
+- constater = feststellen | Je constate une grande différence. = Ich stelle einen großen Unterschied fest.

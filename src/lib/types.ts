@@ -47,6 +47,8 @@ export interface Unit {
   subject: string
   /** Schulbuch-Zuordnung, z. B. "À plus ! 1 · Unité 2" */
   book?: string
+  /** Zusatzwortschatz (z. B. aus Découvertes): freiwillig, bremst den Lernpfad nicht */
+  extra?: boolean
   lessons: Lesson[]
 }
 

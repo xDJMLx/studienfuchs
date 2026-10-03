@@ -68,11 +68,12 @@ export const isRegular = (l: Lesson): boolean => !l.review && !l.test
 export function gradeStats(grade: number): { units: number; lessons: number; words: number } {
   const us = units.filter((u) => u.grade === grade)
   const regular = us.flatMap((u) => u.lessons).filter(isRegular)
-  return { units: us.length, lessons: regular.length, words: new Set(regular.flatMap((l) => l.items.map((i) => i.id))).size }
+  const core = us.filter((u) => !u.extra)
+  return { units: core.length, lessons: core.flatMap((u) => u.lessons).filter(isRegular).length, words: new Set(regular.flatMap((l) => l.items.map((i) => i.id))).size }
 }
 export const COURSE_STATS = {
   grades: grades.length,
-  lessons: allLessons.filter(isRegular).length,
+  lessons: units.filter((u) => !u.extra).flatMap((u) => u.lessons).filter(isRegular).length,
   words: new Set(allItems.map((i) => i.id)).size,
 }
 
@@ -116,6 +117,13 @@ export function isLessonDone(lesson: Lesson, record: LessonRecordLike | undefine
  * Freischaltung: Lektionen einer Einheit der Reihe nach. Wiederholung und Einheitentest öffnen,
  * sobald alle normalen Lektionen der Einheit geschafft sind. Die nächste Einheit öffnet, wenn alle normalen Lektionen der vorigen geschafft sind.
  */
+/** Die Einheit davor, die den Lernpfad tatsächlich sperrt (Zusatzeinheiten zählen nicht). */
+export function previousCoreUnit(unit: Unit): Unit | undefined {
+  const sameGrade = units.filter((u) => u.grade === unit.grade)
+  const i = sameGrade.findIndex((u) => u.id === unit.id)
+  return sameGrade.slice(0, Math.max(0, i)).filter((u) => !u.extra).pop()
+}
+
 export function isUnlocked(lessonId: string, records: Record<string, LessonRecordLike | undefined>): boolean {
   const found = findLesson(lessonId)
   if (!found) return false
@@ -128,11 +136,10 @@ export function isUnlocked(lessonId: string, records: Record<string, LessonRecor
   const idx = regular.findIndex((l) => l.id === lesson.id)
   if (idx > 0) return done(regular[idx - 1])
 
-  // erste Lektion der Einheit: vorherige Einheit derselben Klasse muss geschafft sein
-  const sameGrade = units.filter((u) => u.grade === unit.grade)
-  const uIdx = sameGrade.findIndex((u) => u.id === unit.id)
-  if (uIdx <= 0) return true
-  return sameGrade[uIdx - 1].lessons.filter((l) => !l.review && !l.test).every(done)
+  // erste Lektion der Einheit: vorherige Einheit derselben Klasse muss geschafft sein (Zusatzeinheiten sperren nicht)
+  const prev = previousCoreUnit(unit)
+  if (!prev) return true
+  return prev.lessons.filter((l) => !l.review && !l.test).every(done)
 }
 
 /** Die nächste Lektion der Klasse nach dieser, die schon offen und noch nicht geschafft ist (für "Nächste Lektion" im Ergebnis). */
@@ -155,7 +162,6 @@ export function blockingLesson(lessonId: string, records: Record<string, LessonR
   if (lesson.review || lesson.test) return regular.find((l) => !done(l))
   const idx = regular.findIndex((l) => l.id === lesson.id)
   if (idx > 0) return regular[idx - 1]
-  const sameGrade = units.filter((u) => u.grade === unit.grade)
-  const prev = sameGrade[sameGrade.findIndex((u) => u.id === unit.id) - 1]
+  const prev = previousCoreUnit(unit)
   return prev?.lessons.filter((l) => !l.review && !l.test).find((l) => !done(l))
 }

@@ -1,0 +1,20 @@
+id: f8-x4
+title: À table : repas et cuisine
+desc: Zusatz: Mahlzeiten, Geschirr, Zutaten, Rezept, Einkaufen
+extra: yes
+order: 42
+
+= Beilagen und Getränke
+- le vin = der Wein | Mon père boit du vin. = Mein Vater trinkt Wein.
+- mettre la table = den Tisch decken | Je mets la table. = Ich decke den Tisch.
+- le sel = das Salz | Passe-moi le sel, s'il te plaît. = Gib mir bitte das Salz.
+- le four = der Backofen | Le gâteau est dans le four. = Der Kuchen ist im Backofen.
+- faire la cuisine = kochen | Mon père fait la cuisine le dimanche. = Mein Vater kocht sonntags.
+- le kilo = das Kilo | Un kilo de pommes, s'il vous plaît. = Ein Kilo Äpfel, bitte.
+- le gramme = das Gramm | Cinq cents grammes de farine. = Fünfhundert Gramm Mehl.
+
+= Essen und Umwelt
+- bio = Bio-, ökologisch | Je mange des légumes bio. = Ich esse Biogemüse.
+- le gaspillage = die Verschwendung | Le gaspillage alimentaire est un problème. = Lebensmittelverschwendung ist ein Problem.
+- le sac en plastique = die Plastiktüte | Je n'utilise pas de sac en plastique. = Ich benutze keine Plastiktüte.
+- faire attention à = achten auf | Je fais attention à mon alimentation. = Ich achte auf meine Ernährung.

@@ -1,0 +1,203 @@
+{
+  "id": "f9-x1",
+  "title": "Échanges et correspondants",
+  "description": "Zusatz: Schüleraustausch, Gastfamilie, Gefühle im Ausland",
+  "grade": 9,
+  "subject": "french",
+  "order": 12,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f9-x1-l1",
+      "title": "Vorher",
+      "items": [
+        {
+          "front": "l'accueil",
+          "back": "der Empfang",
+          "example": "L'accueil dans la famille est chaleureux.",
+          "exampleDe": "Der Empfang in der Familie ist herzlich."
+        },
+        {
+          "front": "le programme d'échange",
+          "back": "das Austauschprogramm",
+          "example": "Le programme d'échange commence en mars.",
+          "exampleDe": "Das Austauschprogramm beginnt im März."
+        },
+        {
+          "front": "la possibilité",
+          "back": "die Möglichkeit",
+          "example": "C'est une belle possibilité.",
+          "exampleDe": "Das ist eine schöne Möglichkeit."
+        },
+        {
+          "front": "plusieurs",
+          "back": "mehrere",
+          "example": "Plusieurs élèves participent à l'échange.",
+          "exampleDe": "Mehrere Schüler nehmen am Austausch teil."
+        },
+        {
+          "front": "rechercher",
+          "back": "suchen",
+          "example": "Nous recherchons un correspondant.",
+          "exampleDe": "Wir suchen einen Austauschpartner."
+        },
+        {
+          "front": "excité",
+          "back": "aufgeregt",
+          "example": "Je suis très excité avant le départ.",
+          "exampleDe": "Ich bin vor der Abreise sehr aufgeregt."
+        },
+        {
+          "front": "impatient",
+          "back": "ungeduldig",
+          "example": "Elle est impatiente de partir.",
+          "exampleDe": "Sie kann es kaum erwarten abzufahren."
+        }
+      ]
+    },
+    {
+      "id": "f9-x1-l2",
+      "title": "Gefühle im Ausland",
+      "items": [
+        {
+          "front": "être embêté",
+          "back": "in Verlegenheit sein",
+          "example": "Je suis embêté, je ne comprends pas.",
+          "exampleDe": "Ich bin in Verlegenheit, ich verstehe nicht."
+        },
+        {
+          "front": "Ne t'en fais pas.",
+          "back": "Mach dir keine Sorgen.",
+          "example": "Ne t'en fais pas, ça va aller !",
+          "exampleDe": "Mach dir keine Sorgen, das wird schon!"
+        },
+        {
+          "front": "exprimer",
+          "back": "ausdrücken",
+          "example": "Je veux exprimer mes idées.",
+          "exampleDe": "Ich möchte meine Ideen ausdrücken."
+        },
+        {
+          "front": "incroyable",
+          "back": "unglaublich",
+          "example": "Cette ville est incroyable !",
+          "exampleDe": "Diese Stadt ist unglaublich!"
+        }
+      ]
+    },
+    {
+      "id": "f9-x1-l3",
+      "title": "Alltag und Unterschiede",
+      "items": [
+        {
+          "front": "typique",
+          "back": "typisch",
+          "example": "C'est un plat typique de la région.",
+          "exampleDe": "Das ist ein typisches Gericht der Region."
+        },
+        {
+          "front": "la réalité",
+          "back": "die Wirklichkeit",
+          "example": "La réalité est différente.",
+          "exampleDe": "Die Wirklichkeit ist anders."
+        },
+        {
+          "front": "par contre",
+          "back": "dagegen",
+          "example": "J'aime la ville, par contre je déteste le bruit.",
+          "exampleDe": "Ich mag die Stadt, dagegen hasse ich den Lärm."
+        },
+        {
+          "front": "pareil",
+          "back": "gleich",
+          "example": "Chez nous, c'est pareil.",
+          "exampleDe": "Bei uns ist es genauso."
+        }
+      ]
+    },
+    {
+      "id": "f9-x1-l4",
+      "title": "Gespräche und Höflichkeit",
+      "items": [
+        {
+          "front": "Excusez-moi.",
+          "back": "Entschuldigen Sie.",
+          "example": "Excusez-moi, où est la gare ?",
+          "exampleDe": "Entschuldigen Sie, wo ist der Bahnhof?"
+        },
+        {
+          "front": "poli",
+          "back": "höflich",
+          "example": "Il est toujours poli avec les adultes.",
+          "exampleDe": "Er ist immer höflich zu Erwachsenen."
+        },
+        {
+          "front": "occupé",
+          "back": "beschäftigt",
+          "example": "Elle est occupée ce soir.",
+          "exampleDe": "Sie ist heute Abend beschäftigt."
+        },
+        {
+          "front": "sonner",
+          "back": "klingeln",
+          "example": "Le téléphone sonne.",
+          "exampleDe": "Das Telefon klingelt."
+        },
+        {
+          "front": "sauf",
+          "back": "außer",
+          "example": "Tout le monde vient, sauf Paul.",
+          "exampleDe": "Alle kommen, außer Paul."
+        },
+        {
+          "front": "manquer",
+          "back": "fehlen, verpassen",
+          "example": "Ma famille me manque.",
+          "exampleDe": "Meine Familie fehlt mir."
+        }
+      ]
+    },
+    {
+      "id": "f9-x1-l5",
+      "title": "Reisetagebuch",
+      "items": [
+        {
+          "front": "noter",
+          "back": "notieren",
+          "example": "Je note tout dans mon carnet.",
+          "exampleDe": "Ich notiere alles in meinem Heft."
+        },
+        {
+          "front": "le carnet de voyage",
+          "back": "das Reisetagebuch",
+          "example": "Elle écrit dans son carnet de voyage.",
+          "exampleDe": "Sie schreibt in ihr Reisetagebuch."
+        },
+        {
+          "front": "la balade",
+          "back": "der Spaziergang",
+          "example": "Nous faisons une balade en ville.",
+          "exampleDe": "Wir machen einen Stadtspaziergang."
+        },
+        {
+          "front": "des hauts et des bas",
+          "back": "Höhen und Tiefen",
+          "example": "Un échange, c'est des hauts et des bas.",
+          "exampleDe": "Ein Austausch bedeutet Höhen und Tiefen."
+        },
+        {
+          "front": "revenir",
+          "back": "zurückkommen",
+          "example": "Je reviens dans deux semaines.",
+          "exampleDe": "Ich komme in zwei Wochen zurück."
+        },
+        {
+          "front": "confondre",
+          "back": "verwechseln",
+          "example": "Je confonds souvent ces deux mots.",
+          "exampleDe": "Ich verwechsle oft diese beiden Wörter."
+        }
+      ]
+    }
+  ]
+}

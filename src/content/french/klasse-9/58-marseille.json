@@ -1,0 +1,233 @@
+{
+  "id": "f9-x6",
+  "title": "Marseille, histoire et sport",
+  "description": "Zusatz: Hafenstadt, Escape Game, Sport, Zusammenleben, Fest",
+  "grade": 9,
+  "subject": "french",
+  "order": 58,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f9-x6-l1",
+      "title": "Ein Escape Game",
+      "items": [
+        {
+          "front": "le jeu d'évasion",
+          "back": "das Escape-Spiel",
+          "example": "Nous jouons à un jeu d'évasion.",
+          "exampleDe": "Wir spielen ein Escape-Spiel."
+        },
+        {
+          "front": "l'indice",
+          "back": "der Hinweis",
+          "example": "Cet indice est important.",
+          "exampleDe": "Dieser Hinweis ist wichtig."
+        },
+        {
+          "front": "le code",
+          "back": "der Code",
+          "example": "Quel est le code ?",
+          "exampleDe": "Wie lautet der Code?"
+        },
+        {
+          "front": "le prisonnier",
+          "back": "der Gefangene",
+          "example": "Le prisonnier cherche la sortie.",
+          "exampleDe": "Der Gefangene sucht den Ausgang."
+        },
+        {
+          "front": "le trésor",
+          "back": "der Schatz",
+          "example": "Ils trouvent un trésor.",
+          "exampleDe": "Sie finden einen Schatz."
+        }
+      ]
+    },
+    {
+      "id": "f9-x6-l2",
+      "title": "Geschichte und Gefühle",
+      "items": [
+        {
+          "front": "le mensonge",
+          "back": "die Lüge",
+          "example": "Il dit un mensonge.",
+          "exampleDe": "Er sagt eine Lüge."
+        },
+        {
+          "front": "la mort",
+          "back": "der Tod",
+          "example": "La mort du héros est triste.",
+          "exampleDe": "Der Tod des Helden ist traurig."
+        },
+        {
+          "front": "se cacher",
+          "back": "sich verstecken",
+          "example": "Le chat se cache sous la table.",
+          "exampleDe": "Die Katze versteckt sich unter dem Tisch."
+        },
+        {
+          "front": "le marin",
+          "back": "der Seemann",
+          "example": "Le marin travaille sur un bateau.",
+          "exampleDe": "Der Seemann arbeitet auf einem Boot."
+        },
+        {
+          "front": "l'ennemi",
+          "back": "der Feind",
+          "example": "Il n'a pas d'ennemi.",
+          "exampleDe": "Er hat keinen Feind."
+        }
+      ]
+    },
+    {
+      "id": "f9-x6-l3",
+      "title": "Stadt und Zusammenleben",
+      "items": [
+        {
+          "front": "le carrefour",
+          "back": "die Kreuzung, der Treffpunkt",
+          "example": "Marseille est un carrefour de cultures.",
+          "exampleDe": "Marseille ist ein Treffpunkt der Kulturen."
+        },
+        {
+          "front": "multiculturel",
+          "back": "multikulturell",
+          "example": "Notre classe est multiculturelle.",
+          "exampleDe": "Unsere Klasse ist multikulturell."
+        },
+        {
+          "front": "l'origine",
+          "back": "die Herkunft",
+          "example": "Elle est d'origine italienne.",
+          "exampleDe": "Sie hat italienische Wurzeln."
+        },
+        {
+          "front": "la visite guidée",
+          "back": "die Führung",
+          "example": "Nous faisons une visite guidée.",
+          "exampleDe": "Wir machen eine Führung."
+        },
+        {
+          "front": "authentique",
+          "back": "echt",
+          "example": "C'est un marché authentique.",
+          "exampleDe": "Das ist ein echter Markt."
+        }
+      ]
+    },
+    {
+      "id": "f9-x6-l4",
+      "title": "Sport und Erfolg",
+      "items": [
+        {
+          "front": "le terrain de sport",
+          "back": "der Sportplatz",
+          "example": "Le terrain de sport est grand.",
+          "exampleDe": "Der Sportplatz ist groß."
+        },
+        {
+          "front": "la médaille",
+          "back": "die Medaille",
+          "example": "Elle gagne une médaille.",
+          "exampleDe": "Sie gewinnt eine Medaille."
+        },
+        {
+          "front": "pratiquer",
+          "back": "ausüben",
+          "example": "Je pratique le judo.",
+          "exampleDe": "Ich übe Judo aus."
+        },
+        {
+          "front": "se décourager",
+          "back": "den Mut verlieren",
+          "example": "Ne te décourage pas !",
+          "exampleDe": "Verlier nicht den Mut!"
+        },
+        {
+          "front": "la confiance en soi",
+          "back": "das Selbstvertrauen",
+          "example": "Elle a confiance en elle.",
+          "exampleDe": "Sie hat Selbstvertrauen."
+        }
+      ]
+    },
+    {
+      "id": "f9-x6-l5",
+      "title": "Bewertung und Meinung",
+      "items": [
+        {
+          "front": "briller",
+          "back": "glänzen, strahlen",
+          "example": "Le soleil brille.",
+          "exampleDe": "Die Sonne scheint."
+        },
+        {
+          "front": "réfléchir à",
+          "back": "nachdenken über",
+          "example": "Je réfléchis à ma réponse.",
+          "exampleDe": "Ich denke über meine Antwort nach."
+        },
+        {
+          "front": "à l'extérieur",
+          "back": "draußen",
+          "example": "Nous mangeons à l'extérieur.",
+          "exampleDe": "Wir essen draußen."
+        },
+        {
+          "front": "dur",
+          "back": "hart",
+          "example": "La vie est dure ici.",
+          "exampleDe": "Das Leben ist hier hart."
+        },
+        {
+          "front": "social",
+          "back": "sozial",
+          "example": "C'est un problème social.",
+          "exampleDe": "Das ist ein soziales Problem."
+        },
+        {
+          "front": "mourir",
+          "back": "sterben",
+          "example": "Les fleurs meurent en hiver.",
+          "exampleDe": "Die Blumen sterben im Winter."
+        }
+      ]
+    },
+    {
+      "id": "f9-x6-l6",
+      "title": "Überraschungsfest",
+      "items": [
+        {
+          "front": "la fête surprise",
+          "back": "die Überraschungsparty",
+          "example": "Nous organisons une fête surprise.",
+          "exampleDe": "Wir organisieren eine Überraschungsparty."
+        },
+        {
+          "front": "la décoration",
+          "back": "die Dekoration",
+          "example": "La décoration est jolie.",
+          "exampleDe": "Die Dekoration ist hübsch."
+        },
+        {
+          "front": "apporter",
+          "back": "mitbringen",
+          "example": "J'apporte un gâteau.",
+          "exampleDe": "Ich bringe einen Kuchen mit."
+        },
+        {
+          "front": "inoubliable",
+          "back": "unvergesslich",
+          "example": "C'est un souvenir inoubliable.",
+          "exampleDe": "Das ist eine unvergessliche Erinnerung."
+        },
+        {
+          "front": "artistique",
+          "back": "künstlerisch",
+          "example": "Elle a un talent artistique.",
+          "exampleDe": "Sie hat ein künstlerisches Talent."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+id: f7-x2
+title: Musique, sport et loisirs
+desc: Zusatz: Musikstile, Instrumente, Sportarten, Freizeit
+extra: yes
+order: 36
+
+= Musikstile
+- le rock = der Rock | Mon frère écoute du rock. = Mein Bruder hört Rock.
+- le rap = der Rap | Le rap français est génial. = Der französische Rap ist genial.
+- la pop = die Popmusik | Ma sœur adore la pop. = Meine Schwester liebt Popmusik.
+- la musique classique = die klassische Musik | Mon grand-père écoute la musique classique. = Mein Großvater hört klassische Musik.
+- le casque = der Kopfhörer | Je mets mon casque dans le bus. = Ich setze im Bus meine Kopfhörer auf.
+
+= Instrumente und Verein
+- la batterie = das Schlagzeug | Mon cousin joue de la batterie. = Mein Cousin spielt Schlagzeug.
+- l'accordéon = das Akkordeon | Mon grand-père joue de l'accordéon. = Mein Großvater spielt Akkordeon.
+- jouer de = (ein Instrument) spielen | Tu joues d'un instrument ? = Spielst du ein Instrument?
+- le club = der Verein, die AG | Je suis dans le club de théâtre. = Ich bin in der Theater-AG.
+
+= Sportarten
+- le ping-pong = das Tischtennis | Nous jouons au ping-pong après les cours. = Wir spielen nach dem Unterricht Tischtennis.
+- l'escalade = das Klettern | Mon amie fait de l'escalade. = Meine Freundin geht klettern.
+- le skate = das Skateboardfahren | Je fais du skate dans le parc. = Ich fahre im Park Skateboard.
+- l'athlétisme = die Leichtathletik | Elle fait de l'athlétisme le samedi. = Sie macht samstags Leichtathletik.
+- la musculation = das Krafttraining | Mon père fait de la musculation. = Mein Vater macht Krafttraining.
+
+= Zuschauen und mitspielen
+- le cheval = das Pferd | Elle adore les chevaux. = Sie liebt Pferde.
+- la nature = die Natur | J'aime la nature. = Ich mag die Natur.
+- la pièce de théâtre = das Theaterstück | Nous préparons une pièce de théâtre. = Wir bereiten ein Theaterstück vor.
+
+= Meinung und Reaktion
+- détester = hassen, nicht mögen | Je déteste le rap. = Ich kann Rap nicht leiden.
+- C'est nul ! = Das ist schlecht! | Ce film ? C'est nul ! = Dieser Film? Der ist schlecht!
+- Pourquoi pas ? = Warum nicht? | On joue au foot ? – Pourquoi pas ? = Spielen wir Fußball? – Warum nicht?
+- l'activité = die Aktivität | Quelle est ton activité préférée ? = Was ist deine Lieblingsbeschäftigung?

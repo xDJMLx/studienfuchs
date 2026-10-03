@@ -1,0 +1,161 @@
+{
+  "id": "f8-x1",
+  "title": "Look et vêtements",
+  "description": "Zusatz: Kleidung, Aussehen, Gefühle, Rückkehr in die Schule",
+  "grade": 8,
+  "subject": "french",
+  "order": 12,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f8-x1-l1",
+      "title": "Kleidung",
+      "items": [
+        {
+          "front": "le jean",
+          "back": "die Jeans",
+          "example": "Je porte un jean bleu.",
+          "exampleDe": "Ich trage eine blaue Jeans."
+        },
+        {
+          "front": "la jupe",
+          "back": "der Rock",
+          "example": "Elle met une jupe noire.",
+          "exampleDe": "Sie zieht einen schwarzen Rock an."
+        },
+        {
+          "front": "le pull",
+          "back": "der Pullover",
+          "example": "J'ai froid, je mets un pull.",
+          "exampleDe": "Mir ist kalt, ich ziehe einen Pullover an."
+        }
+      ]
+    },
+    {
+      "id": "f8-x1-l2",
+      "title": "Mehr Kleidung",
+      "items": [
+        {
+          "front": "la veste",
+          "back": "die Jacke",
+          "example": "Ma veste est dans le sac.",
+          "exampleDe": "Meine Jacke ist in der Tasche."
+        },
+        {
+          "front": "le chemisier",
+          "back": "die Bluse",
+          "example": "Ce chemisier est très joli.",
+          "exampleDe": "Diese Bluse ist sehr hübsch."
+        },
+        {
+          "front": "l'anorak",
+          "back": "die Winterjacke",
+          "example": "En hiver, je porte un anorak.",
+          "exampleDe": "Im Winter trage ich eine Winterjacke."
+        },
+        {
+          "front": "la chaussure",
+          "back": "der Schuh",
+          "example": "Mes chaussures sont neuves.",
+          "exampleDe": "Meine Schuhe sind neu."
+        }
+      ]
+    },
+    {
+      "id": "f8-x1-l3",
+      "title": "Aussehen",
+      "items": [
+        {
+          "front": "le cheveu",
+          "back": "das Haar",
+          "example": "Elle a les cheveux longs.",
+          "exampleDe": "Sie hat lange Haare."
+        },
+        {
+          "front": "l'œil",
+          "back": "das Auge",
+          "example": "Il a les yeux bleus.",
+          "exampleDe": "Er hat blaue Augen."
+        },
+        {
+          "front": "les lunettes",
+          "back": "die Brille",
+          "example": "Mon frère porte des lunettes.",
+          "exampleDe": "Mein Bruder trägt eine Brille."
+        },
+        {
+          "front": "la bouche",
+          "back": "der Mund",
+          "example": "Elle a une petite bouche.",
+          "exampleDe": "Sie hat einen kleinen Mund."
+        },
+        {
+          "front": "le sourire",
+          "back": "das Lächeln",
+          "example": "Elle a un beau sourire.",
+          "exampleDe": "Sie hat ein schönes Lächeln."
+        },
+        {
+          "front": "le look",
+          "back": "der Look",
+          "example": "J'aime ton look.",
+          "exampleDe": "Ich mag deinen Look."
+        },
+        {
+          "front": "court",
+          "back": "kurz",
+          "example": "Il a les cheveux courts.",
+          "exampleDe": "Er hat kurze Haare."
+        }
+      ]
+    },
+    {
+      "id": "f8-x1-l4",
+      "title": "Gefühle und Gespräch",
+      "items": [
+        {
+          "front": "la colère",
+          "back": "die Wut",
+          "example": "Elle est en colère.",
+          "exampleDe": "Sie ist wütend."
+        },
+        {
+          "front": "être en forme",
+          "back": "fit sein",
+          "example": "Aujourd'hui, je suis en forme.",
+          "exampleDe": "Heute bin ich fit."
+        },
+        {
+          "front": "horrible",
+          "back": "schrecklich",
+          "example": "Ce film est horrible.",
+          "exampleDe": "Dieser Film ist schrecklich."
+        },
+        {
+          "front": "dommage",
+          "back": "schade",
+          "example": "C'est dommage !",
+          "exampleDe": "Das ist schade!"
+        },
+        {
+          "front": "surtout",
+          "back": "vor allem",
+          "example": "J'aime surtout le sport.",
+          "exampleDe": "Ich mag vor allem Sport."
+        },
+        {
+          "front": "la conversation",
+          "back": "das Gespräch",
+          "example": "Nous avons une conversation.",
+          "exampleDe": "Wir führen ein Gespräch."
+        },
+        {
+          "front": "penser à",
+          "back": "denken an",
+          "example": "Je pense à mes amis.",
+          "exampleDe": "Ich denke an meine Freunde."
+        }
+      ]
+    }
+  ]
+}

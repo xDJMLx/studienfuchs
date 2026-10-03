@@ -1,0 +1,197 @@
+{
+  "id": "f9-x5",
+  "title": "Martinique et outre-mer",
+  "description": "Zusatz: Überseegebiete, Natur, Klima, Karneval, Musik",
+  "grade": 9,
+  "subject": "french",
+  "order": 52,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f9-x5-l1",
+      "title": "Überseegebiete",
+      "items": [
+        {
+          "front": "le département",
+          "back": "das Departement",
+          "example": "La Martinique est un département français.",
+          "exampleDe": "Martinique ist ein französisches Departement."
+        },
+        {
+          "front": "se trouver",
+          "back": "sich befinden",
+          "example": "L'île se trouve dans la mer des Caraïbes.",
+          "exampleDe": "Die Insel liegt in der Karibik."
+        },
+        {
+          "front": "le centre",
+          "back": "die Mitte",
+          "example": "Au centre de l'île, il y a un volcan.",
+          "exampleDe": "In der Mitte der Insel gibt es einen Vulkan."
+        }
+      ]
+    },
+    {
+      "id": "f9-x5-l2",
+      "title": "Natur",
+      "items": [
+        {
+          "front": "la rivière",
+          "back": "der Fluss",
+          "example": "Nous traversons la rivière.",
+          "exampleDe": "Wir überqueren den Fluss."
+        },
+        {
+          "front": "le sable",
+          "back": "der Sand",
+          "example": "Le sable est chaud.",
+          "exampleDe": "Der Sand ist heiß."
+        },
+        {
+          "front": "la fleur",
+          "back": "die Blume",
+          "example": "Cette fleur est rouge.",
+          "exampleDe": "Diese Blume ist rot."
+        }
+      ]
+    },
+    {
+      "id": "f9-x5-l3",
+      "title": "Wetter und Gefahr",
+      "items": [
+        {
+          "front": "le cyclone",
+          "back": "der Wirbelsturm",
+          "example": "Un cyclone arrive.",
+          "exampleDe": "Ein Wirbelsturm zieht auf."
+        },
+        {
+          "front": "l'ouragan",
+          "back": "der Hurrikan",
+          "example": "L'ouragan est dangereux.",
+          "exampleDe": "Der Hurrikan ist gefährlich."
+        },
+        {
+          "front": "se protéger",
+          "back": "sich schützen",
+          "example": "Il faut se protéger du soleil.",
+          "exampleDe": "Man muss sich vor der Sonne schützen."
+        },
+        {
+          "front": "l'urgence",
+          "back": "der Notfall",
+          "example": "En cas d'urgence, appelez le 15.",
+          "exampleDe": "Im Notfall rufen Sie die 15 an."
+        }
+      ]
+    },
+    {
+      "id": "f9-x5-l4",
+      "title": "Essen und Tradition",
+      "items": [
+        {
+          "front": "l'ananas",
+          "back": "die Ananas",
+          "example": "J'adore l'ananas.",
+          "exampleDe": "Ich liebe Ananas."
+        },
+        {
+          "front": "la noix de coco",
+          "back": "die Kokosnuss",
+          "example": "Elle boit du lait de noix de coco.",
+          "exampleDe": "Sie trinkt Kokosmilch."
+        },
+        {
+          "front": "épicé",
+          "back": "würzig, scharf",
+          "example": "Le plat est épicé.",
+          "exampleDe": "Das Gericht ist scharf."
+        },
+        {
+          "front": "le carnaval",
+          "back": "der Karneval",
+          "example": "Le carnaval est une grande fête.",
+          "exampleDe": "Der Karneval ist ein großes Fest."
+        },
+        {
+          "front": "le costume",
+          "back": "das Kostüm",
+          "example": "Elle porte un costume coloré.",
+          "exampleDe": "Sie trägt ein buntes Kostüm."
+        },
+        {
+          "front": "traditionnel",
+          "back": "traditionell",
+          "example": "C'est un plat traditionnel.",
+          "exampleDe": "Das ist ein traditionelles Gericht."
+        }
+      ]
+    },
+    {
+      "id": "f9-x5-l5",
+      "title": "Musik und Sprache",
+      "items": [
+        {
+          "front": "le tambour",
+          "back": "die Trommel",
+          "example": "Il joue du tambour.",
+          "exampleDe": "Er spielt Trommel."
+        },
+        {
+          "front": "les paroles",
+          "back": "der Liedtext",
+          "example": "Je comprends les paroles.",
+          "exampleDe": "Ich verstehe den Liedtext."
+        },
+        {
+          "front": "le refrain",
+          "back": "der Refrain",
+          "example": "Le refrain est facile.",
+          "exampleDe": "Der Refrain ist leicht."
+        },
+        {
+          "front": "officiel",
+          "back": "offiziell",
+          "example": "Le français est la langue officielle.",
+          "exampleDe": "Französisch ist die Amtssprache."
+        }
+      ]
+    },
+    {
+      "id": "f9-x5-l6",
+      "title": "Geschichte und Gesellschaft",
+      "items": [
+        {
+          "front": "le mélange",
+          "back": "die Mischung",
+          "example": "Cette culture est un mélange.",
+          "exampleDe": "Diese Kultur ist eine Mischung."
+        },
+        {
+          "front": "l'esclave",
+          "back": "der Sklave",
+          "example": "Autrefois, il y avait des esclaves.",
+          "exampleDe": "Früher gab es Sklaven."
+        },
+        {
+          "front": "le niveau",
+          "back": "das Niveau, der Pegel",
+          "example": "Le niveau de la mer monte.",
+          "exampleDe": "Der Meeresspiegel steigt."
+        },
+        {
+          "front": "une sorte de",
+          "back": "eine Art",
+          "example": "C'est une sorte de fruit.",
+          "exampleDe": "Das ist eine Art Frucht."
+        },
+        {
+          "front": "indiquer",
+          "back": "anzeigen, angeben",
+          "example": "Peux-tu m'indiquer le chemin ?",
+          "exampleDe": "Kannst du mir den Weg zeigen?"
+        }
+      ]
+    }
+  ]
+}

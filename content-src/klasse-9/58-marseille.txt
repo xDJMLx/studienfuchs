@@ -1,0 +1,48 @@
+id: f9-x6
+title: Marseille, histoire et sport
+desc: Zusatz: Hafenstadt, Escape Game, Sport, Zusammenleben, Fest
+extra: yes
+order: 58
+
+= Ein Escape Game
+- le jeu d'évasion = das Escape-Spiel | Nous jouons à un jeu d'évasion. = Wir spielen ein Escape-Spiel.
+- l'indice = der Hinweis | Cet indice est important. = Dieser Hinweis ist wichtig.
+- le code = der Code | Quel est le code ? = Wie lautet der Code?
+- le prisonnier = der Gefangene | Le prisonnier cherche la sortie. = Der Gefangene sucht den Ausgang.
+- le trésor = der Schatz | Ils trouvent un trésor. = Sie finden einen Schatz.
+
+= Geschichte und Gefühle
+- le mensonge = die Lüge | Il dit un mensonge. = Er sagt eine Lüge.
+- la mort = der Tod | La mort du héros est triste. = Der Tod des Helden ist traurig.
+- se cacher = sich verstecken | Le chat se cache sous la table. = Die Katze versteckt sich unter dem Tisch.
+- le marin = der Seemann | Le marin travaille sur un bateau. = Der Seemann arbeitet auf einem Boot.
+- l'ennemi = der Feind | Il n'a pas d'ennemi. = Er hat keinen Feind.
+
+= Stadt und Zusammenleben
+- le carrefour = die Kreuzung, der Treffpunkt | Marseille est un carrefour de cultures. = Marseille ist ein Treffpunkt der Kulturen.
+- multiculturel = multikulturell | Notre classe est multiculturelle. = Unsere Klasse ist multikulturell.
+- l'origine = die Herkunft | Elle est d'origine italienne. = Sie hat italienische Wurzeln.
+- la visite guidée = die Führung | Nous faisons une visite guidée. = Wir machen eine Führung.
+- authentique = echt | C'est un marché authentique. = Das ist ein echter Markt.
+
+= Sport und Erfolg
+- le terrain de sport = der Sportplatz | Le terrain de sport est grand. = Der Sportplatz ist groß.
+- la médaille = die Medaille | Elle gagne une médaille. = Sie gewinnt eine Medaille.
+- pratiquer = ausüben | Je pratique le judo. = Ich übe Judo aus.
+- se décourager = den Mut verlieren | Ne te décourage pas ! = Verlier nicht den Mut!
+- la confiance en soi = das Selbstvertrauen | Elle a confiance en elle. = Sie hat Selbstvertrauen.
+
+= Bewertung und Meinung
+- briller = glänzen, strahlen | Le soleil brille. = Die Sonne scheint.
+- réfléchir à = nachdenken über | Je réfléchis à ma réponse. = Ich denke über meine Antwort nach.
+- à l'extérieur = draußen | Nous mangeons à l'extérieur. = Wir essen draußen.
+- dur = hart | La vie est dure ici. = Das Leben ist hier hart.
+- social = sozial | C'est un problème social. = Das ist ein soziales Problem.
+- mourir = sterben | Les fleurs meurent en hiver. = Die Blumen sterben im Winter.
+
+= Überraschungsfest
+- la fête surprise = die Überraschungsparty | Nous organisons une fête surprise. = Wir organisieren eine Überraschungsparty.
+- la décoration = die Dekoration | La décoration est jolie. = Die Dekoration ist hübsch.
+- apporter = mitbringen | J'apporte un gâteau. = Ich bringe einen Kuchen mit.
+- inoubliable = unvergesslich | C'est un souvenir inoubliable. = Das ist eine unvergessliche Erinnerung.
+- artistique = künstlerisch | Elle a un talent artistique. = Sie hat ein künstlerisches Talent.

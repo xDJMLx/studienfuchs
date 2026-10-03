@@ -1,0 +1,31 @@
+id: f7-x1
+title: Matières et collège
+desc: Zusatz: Schulfächer, Collège-Alltag, Stundenplan
+extra: yes
+order: 52
+
+= Schulfächer
+- les mathématiques = Mathematik | Les mathématiques sont difficiles. = Mathe ist schwierig.
+- l'histoire-géo = Geschichte und Erdkunde | J'ai histoire-géo le mardi. = Ich habe dienstags Geschichte und Erdkunde.
+- la chimie = Chemie | J'ai chimie le jeudi. = Ich habe donnerstags Chemie.
+- la technologie = Technik | En technologie, nous construisons un robot. = In Technik bauen wir einen Roboter.
+- l'éducation musicale = Musikunterricht | L'éducation musicale est amusante. = Der Musikunterricht macht Spaß.
+
+= Orte im Collège
+- la permanence = Aufenthaltsraum, Freistunde | Je fais mes devoirs en permanence. = Ich mache meine Hausaufgaben in der Freistunde.
+- les toilettes = die Toilette | Où sont les toilettes ? = Wo ist die Toilette?
+- l'arrêt de bus = die Bushaltestelle | Mon arrêt de bus est devant le collège. = Meine Bushaltestelle ist vor dem Collège.
+- le gymnase = die Sporthalle | Nous avons sport au gymnase. = Wir haben Sport in der Sporthalle.
+- la salle de cours = der Unterrichtsraum | La salle de cours est au premier étage. = Der Unterrichtsraum ist im ersten Stock.
+
+= Unterricht und Klassenarbeit
+- l'interrogation écrite = der kurze Test | Nous avons une interrogation écrite demain. = Wir schreiben morgen einen kurzen Test.
+- le devoir = die Hausaufgabe, die Klassenarbeit | J'ai un devoir de maths. = Ich habe eine Mathe-Hausaufgabe.
+- avoir cours = Unterricht haben | Le mardi, nous avons cours jusqu'à cinq heures. = Dienstags haben wir bis fünf Uhr Unterricht.
+- arriver en retard = zu spät kommen | Il arrive en retard au collège. = Er kommt zu spät ins Collège.
+
+= Schulleben
+- le carnet de correspondance = das Mitteilungsheft | Mes parents signent le carnet de correspondance. = Meine Eltern unterschreiben das Mitteilungsheft.
+- la vie de classe = die Klassenstunde | À la vie de classe, nous parlons de nos problèmes. = In der Klassenstunde sprechen wir über unsere Probleme.
+- le sondage = die Umfrage | Il y a un sondage sur la cantine. = Es gibt eine Umfrage zur Kantine.
+- le style = der Stil | Elle a un style cool. = Sie hat einen coolen Stil.

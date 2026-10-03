@@ -1,0 +1,221 @@
+{
+  "id": "f10-x3",
+  "title": "Régions, tradition et avenir",
+  "description": "Zusatz: Region und Identität, Wirtschaft, Herkunft, Zukunftsträume",
+  "grade": 10,
+  "subject": "french",
+  "order": 34,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f10-x3-l1",
+      "title": "Region und Landschaft",
+      "items": [
+        {
+          "front": "la falaise",
+          "back": "die Klippe",
+          "example": "Les falaises sont très hautes.",
+          "exampleDe": "Die Klippen sind sehr hoch."
+        },
+        {
+          "front": "sauvage",
+          "back": "wild",
+          "example": "La nature est encore sauvage.",
+          "exampleDe": "Die Natur ist noch wild."
+        },
+        {
+          "front": "le paradis",
+          "back": "das Paradies",
+          "example": "Cette plage est un paradis.",
+          "exampleDe": "Dieser Strand ist ein Paradies."
+        },
+        {
+          "front": "la vache",
+          "back": "die Kuh",
+          "example": "Il y a des vaches dans le champ.",
+          "exampleDe": "Auf dem Feld stehen Kühe."
+        },
+        {
+          "front": "la laine",
+          "back": "die Wolle",
+          "example": "Ce pull est en laine.",
+          "exampleDe": "Dieser Pullover ist aus Wolle."
+        }
+      ]
+    },
+    {
+      "id": "f10-x3-l2",
+      "title": "Arbeit und Wirtschaft",
+      "items": [
+        {
+          "front": "l'économie",
+          "back": "die Wirtschaft",
+          "example": "L'économie de la région est forte.",
+          "exampleDe": "Die Wirtschaft der Region ist stark."
+        },
+        {
+          "front": "l'innovation",
+          "back": "die Innovation",
+          "example": "Cette innovation est géniale.",
+          "exampleDe": "Diese Neuerung ist genial."
+        },
+        {
+          "front": "le matériau",
+          "back": "das Material",
+          "example": "Le bois est un bon matériau.",
+          "exampleDe": "Holz ist ein gutes Material."
+        },
+        {
+          "front": "recyclable",
+          "back": "wiederverwertbar",
+          "example": "Cet emballage est recyclable.",
+          "exampleDe": "Diese Verpackung ist wiederverwertbar."
+        }
+      ]
+    },
+    {
+      "id": "f10-x3-l3",
+      "title": "Generationen und Einsatz",
+      "items": [
+        {
+          "front": "la génération",
+          "back": "die Generation",
+          "example": "Notre génération doit agir.",
+          "exampleDe": "Unsere Generation muss handeln."
+        },
+        {
+          "front": "interdire",
+          "back": "verbieten",
+          "example": "On interdit les sacs en plastique.",
+          "exampleDe": "Plastiktüten sind verboten."
+        },
+        {
+          "front": "la pétition",
+          "back": "die Petition",
+          "example": "Nous signons une pétition.",
+          "exampleDe": "Wir unterschreiben eine Petition."
+        },
+        {
+          "front": "promettre",
+          "back": "versprechen",
+          "example": "Je te promets de venir.",
+          "exampleDe": "Ich verspreche dir zu kommen."
+        }
+      ]
+    },
+    {
+      "id": "f10-x3-l4",
+      "title": "Herkunft und Weggehen",
+      "items": [
+        {
+          "front": "la racine",
+          "back": "die Wurzel",
+          "example": "Ma famille a des racines en Italie.",
+          "exampleDe": "Meine Familie hat Wurzeln in Italien."
+        },
+        {
+          "front": "l'émigration",
+          "back": "die Auswanderung",
+          "example": "L'émigration a beaucoup changé la région.",
+          "exampleDe": "Die Auswanderung hat die Region sehr verändert."
+        },
+        {
+          "front": "la condition",
+          "back": "die Bedingung",
+          "example": "Les conditions de vie sont difficiles.",
+          "exampleDe": "Die Lebensbedingungen sind schwierig."
+        },
+        {
+          "front": "augmenter",
+          "back": "steigen, erhöhen",
+          "example": "Les prix augmentent.",
+          "exampleDe": "Die Preise steigen."
+        },
+        {
+          "front": "le récit",
+          "back": "die Erzählung",
+          "example": "Je lis le récit d'un voyage.",
+          "exampleDe": "Ich lese den Bericht einer Reise."
+        }
+      ]
+    },
+    {
+      "id": "f10-x3-l5",
+      "title": "Zukunft planen",
+      "items": [
+        {
+          "front": "l'entrepreneur",
+          "back": "der Unternehmer",
+          "example": "Son rêve : devenir entrepreneur.",
+          "exampleDe": "Ihr Traum: Unternehmerin werden."
+        },
+        {
+          "front": "la bourse",
+          "back": "das Stipendium",
+          "example": "Il reçoit une bourse.",
+          "exampleDe": "Er bekommt ein Stipendium."
+        },
+        {
+          "front": "la demande",
+          "back": "der Antrag, die Nachfrage",
+          "example": "Je fais une demande de stage.",
+          "exampleDe": "Ich stelle einen Praktikumsantrag."
+        },
+        {
+          "front": "honnête",
+          "back": "ehrlich",
+          "example": "Elle est honnête avec moi.",
+          "exampleDe": "Sie ist ehrlich zu mir."
+        },
+        {
+          "front": "s'inquiéter",
+          "back": "sich Sorgen machen",
+          "example": "Ne t'inquiète pas !",
+          "exampleDe": "Mach dir keine Sorgen!"
+        }
+      ]
+    },
+    {
+      "id": "f10-x3-l6",
+      "title": "Eigenschaften",
+      "items": [
+        {
+          "front": "intelligent",
+          "back": "intelligent",
+          "example": "Elle est très intelligente.",
+          "exampleDe": "Sie ist sehr intelligent."
+        },
+        {
+          "front": "capable",
+          "back": "fähig",
+          "example": "Il est capable de tout.",
+          "exampleDe": "Er ist zu allem fähig."
+        },
+        {
+          "front": "exact",
+          "back": "genau",
+          "example": "Ce chiffre est exact.",
+          "exampleDe": "Diese Zahl ist genau."
+        },
+        {
+          "front": "simple",
+          "back": "einfach",
+          "example": "Le texte est simple.",
+          "exampleDe": "Der Text ist einfach."
+        },
+        {
+          "front": "rare",
+          "back": "selten",
+          "example": "Ce livre est rare.",
+          "exampleDe": "Dieses Buch ist selten."
+        },
+        {
+          "front": "délicieux",
+          "back": "köstlich",
+          "example": "Le gâteau est délicieux.",
+          "exampleDe": "Der Kuchen ist köstlich."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,233 @@
+{
+  "id": "f8-x6",
+  "title": "Médias, sport et verbes réfléchis",
+  "description": "Zusatz: Medien, Sport, reflexive Verben",
+  "grade": 8,
+  "subject": "french",
+  "order": 57,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f8-x6-l1",
+      "title": "Medien",
+      "items": [
+        {
+          "front": "les médias",
+          "back": "die Medien",
+          "example": "Les médias sont importants.",
+          "exampleDe": "Die Medien sind wichtig."
+        },
+        {
+          "front": "le podcast",
+          "back": "der Podcast",
+          "example": "J'écoute un podcast.",
+          "exampleDe": "Ich höre einen Podcast."
+        },
+        {
+          "front": "le tutoriel",
+          "back": "die Videoanleitung",
+          "example": "Je regarde un tutoriel pour cuisiner.",
+          "exampleDe": "Ich schaue eine Videoanleitung zum Kochen."
+        },
+        {
+          "front": "l'application",
+          "back": "die App",
+          "example": "Cette application est gratuite.",
+          "exampleDe": "Diese App ist kostenlos."
+        },
+        {
+          "front": "le smartphone",
+          "back": "das Smartphone",
+          "example": "Mon smartphone est neuf.",
+          "exampleDe": "Mein Smartphone ist neu."
+        },
+        {
+          "front": "la tablette",
+          "back": "das Tablet",
+          "example": "Elle lit sur sa tablette.",
+          "exampleDe": "Sie liest auf ihrem Tablet."
+        }
+      ]
+    },
+    {
+      "id": "f8-x6-l2",
+      "title": "Online",
+      "items": [
+        {
+          "front": "le site Internet",
+          "back": "die Internetseite",
+          "example": "Je cherche sur un site Internet.",
+          "exampleDe": "Ich suche auf einer Internetseite."
+        },
+        {
+          "front": "le compte",
+          "back": "das Konto, der Account",
+          "example": "J'ai un compte sur ce site.",
+          "exampleDe": "Ich habe einen Account auf dieser Seite."
+        },
+        {
+          "front": "le message vocal",
+          "back": "die Sprachnachricht",
+          "example": "J'envoie un message vocal.",
+          "exampleDe": "Ich schicke eine Sprachnachricht."
+        },
+        {
+          "front": "le commentaire",
+          "back": "der Kommentar",
+          "example": "Elle écrit un commentaire.",
+          "exampleDe": "Sie schreibt einen Kommentar."
+        }
+      ]
+    },
+    {
+      "id": "f8-x6-l3",
+      "title": "Sendungen und Serien",
+      "items": [
+        {
+          "front": "l'émission",
+          "back": "die Sendung",
+          "example": "J'aime cette émission.",
+          "exampleDe": "Ich mag diese Sendung."
+        },
+        {
+          "front": "l'épisode",
+          "back": "die Folge",
+          "example": "C'est le dernier épisode.",
+          "exampleDe": "Das ist die letzte Folge."
+        },
+        {
+          "front": "l'actualité",
+          "back": "das aktuelle Geschehen",
+          "example": "Je lis l'actualité chaque jour.",
+          "exampleDe": "Ich lese täglich die Nachrichten."
+        }
+      ]
+    },
+    {
+      "id": "f8-x6-l4",
+      "title": "Sport im Team",
+      "items": [
+        {
+          "front": "le rugby",
+          "back": "das Rugby",
+          "example": "Le rugby est populaire en France.",
+          "exampleDe": "Rugby ist in Frankreich beliebt."
+        },
+        {
+          "front": "le joueur",
+          "back": "der Spieler",
+          "example": "Le joueur marque un but.",
+          "exampleDe": "Der Spieler schießt ein Tor."
+        },
+        {
+          "front": "le sport collectif",
+          "back": "die Mannschaftssportart",
+          "example": "Le foot est un sport collectif.",
+          "exampleDe": "Fußball ist eine Mannschaftssportart."
+        },
+        {
+          "front": "l'athlète",
+          "back": "der Athlet",
+          "example": "Cette athlète court vite.",
+          "exampleDe": "Diese Athletin läuft schnell."
+        },
+        {
+          "front": "l'entraîneur",
+          "back": "der Trainer",
+          "example": "L'entraîneur parle à l'équipe.",
+          "exampleDe": "Der Trainer spricht mit der Mannschaft."
+        },
+        {
+          "front": "la course",
+          "back": "das Rennen",
+          "example": "Il gagne la course.",
+          "exampleDe": "Er gewinnt das Rennen."
+        }
+      ]
+    },
+    {
+      "id": "f8-x6-l5",
+      "title": "Sportlich sein",
+      "items": [
+        {
+          "front": "courir",
+          "back": "laufen, rennen",
+          "example": "Je cours le matin.",
+          "exampleDe": "Ich laufe morgens."
+        },
+        {
+          "front": "lent",
+          "back": "langsam",
+          "example": "Le bus est lent.",
+          "exampleDe": "Der Bus ist langsam."
+        },
+        {
+          "front": "populaire",
+          "back": "beliebt",
+          "example": "Ce sport est populaire.",
+          "exampleDe": "Diese Sportart ist beliebt."
+        },
+        {
+          "front": "féminin",
+          "back": "weiblich",
+          "example": "Le foot féminin devient populaire.",
+          "exampleDe": "Der Frauenfußball wird beliebt."
+        },
+        {
+          "front": "masculin",
+          "back": "männlich",
+          "example": "Il y a une équipe masculine.",
+          "exampleDe": "Es gibt eine Männermannschaft."
+        },
+        {
+          "front": "de plus en plus",
+          "back": "immer mehr",
+          "example": "Il y a de plus en plus de fans.",
+          "exampleDe": "Es gibt immer mehr Fans."
+        }
+      ]
+    },
+    {
+      "id": "f8-x6-l6",
+      "title": "Reflexive Verben",
+      "items": [
+        {
+          "front": "se lever",
+          "back": "aufstehen",
+          "example": "Je me lève à sept heures.",
+          "exampleDe": "Ich stehe um sieben Uhr auf."
+        },
+        {
+          "front": "s'amuser",
+          "back": "sich amüsieren",
+          "example": "Nous nous amusons bien.",
+          "exampleDe": "Wir amüsieren uns gut."
+        },
+        {
+          "front": "se promener",
+          "back": "spazieren gehen",
+          "example": "Il se promène dans le parc.",
+          "exampleDe": "Er geht im Park spazieren."
+        },
+        {
+          "front": "s'arrêter",
+          "back": "anhalten",
+          "example": "Le bus s'arrête ici.",
+          "exampleDe": "Der Bus hält hier."
+        },
+        {
+          "front": "s'intéresser à",
+          "back": "sich interessieren für",
+          "example": "Elle s'intéresse au rugby.",
+          "exampleDe": "Sie interessiert sich für Rugby."
+        },
+        {
+          "front": "se préparer pour",
+          "back": "sich vorbereiten auf",
+          "example": "Je me prépare pour le test.",
+          "exampleDe": "Ich bereite mich auf den Test vor."
+        }
+      ]
+    }
+  ]
+}

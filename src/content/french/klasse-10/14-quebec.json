@@ -1,0 +1,215 @@
+{
+  "id": "f10-x1",
+  "title": "Québec et francophonie",
+  "description": "Zusatz: Frankophonie, Québec, Geschichte der Kolonisierung, Stadtleben",
+  "grade": 10,
+  "subject": "french",
+  "order": 14,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f10-x1-l1",
+      "title": "Die Frankophonie",
+      "items": [
+        {
+          "front": "francophone",
+          "back": "französischsprachig",
+          "example": "Le Québec est une région francophone.",
+          "exampleDe": "Québec ist eine französischsprachige Region."
+        },
+        {
+          "front": "anglophone",
+          "back": "englischsprachig",
+          "example": "Au Canada, il y a des régions anglophones.",
+          "exampleDe": "In Kanada gibt es englischsprachige Regionen."
+        },
+        {
+          "front": "la civilisation",
+          "back": "die Zivilisation, die Kultur",
+          "example": "Cette civilisation est très ancienne.",
+          "exampleDe": "Diese Kultur ist sehr alt."
+        },
+        {
+          "front": "le continent",
+          "back": "der Kontinent",
+          "example": "L'Afrique est un continent.",
+          "exampleDe": "Afrika ist ein Kontinent."
+        }
+      ]
+    },
+    {
+      "id": "f10-x1-l2",
+      "title": "Landschaft und Klima",
+      "items": [
+        {
+          "front": "le territoire",
+          "back": "das Gebiet",
+          "example": "Ce territoire est immense.",
+          "exampleDe": "Dieses Gebiet ist riesig."
+        },
+        {
+          "front": "immense",
+          "back": "riesig",
+          "example": "Le Canada est immense.",
+          "exampleDe": "Kanada ist riesig."
+        },
+        {
+          "front": "le drapeau",
+          "back": "die Flagge",
+          "example": "Le drapeau est rouge et blanc.",
+          "exampleDe": "Die Flagge ist rot und weiß."
+        }
+      ]
+    },
+    {
+      "id": "f10-x1-l3",
+      "title": "Geschichte",
+      "items": [
+        {
+          "front": "le siècle",
+          "back": "das Jahrhundert",
+          "example": "Cette ville existe depuis quatre siècles.",
+          "exampleDe": "Diese Stadt gibt es seit vier Jahrhunderten."
+        },
+        {
+          "front": "l'explorateur",
+          "back": "der Entdecker",
+          "example": "L'explorateur arrive en bateau.",
+          "exampleDe": "Der Entdecker kommt mit dem Schiff an."
+        },
+        {
+          "front": "coloniser",
+          "back": "kolonisieren",
+          "example": "Les Français ont colonisé cette région.",
+          "exampleDe": "Die Franzosen haben diese Region kolonisiert."
+        },
+        {
+          "front": "la colonie",
+          "back": "die Kolonie",
+          "example": "Le Québec était une colonie française.",
+          "exampleDe": "Québec war eine französische Kolonie."
+        },
+        {
+          "front": "indépendant",
+          "back": "unabhängig",
+          "example": "Le pays est indépendant.",
+          "exampleDe": "Das Land ist unabhängig."
+        },
+        {
+          "front": "le peuple",
+          "back": "das Volk",
+          "example": "Ce peuple a une longue histoire.",
+          "exampleDe": "Dieses Volk hat eine lange Geschichte."
+        }
+      ]
+    },
+    {
+      "id": "f10-x1-l4",
+      "title": "Leben in der Stadt",
+      "items": [
+        {
+          "front": "cosmopolite",
+          "back": "weltoffen",
+          "example": "Montréal est une ville cosmopolite.",
+          "exampleDe": "Montréal ist eine weltoffene Stadt."
+        },
+        {
+          "front": "vivant",
+          "back": "lebendig",
+          "example": "Le quartier est très vivant.",
+          "exampleDe": "Das Viertel ist sehr lebendig."
+        },
+        {
+          "front": "la boutique",
+          "back": "der Laden",
+          "example": "Il y a beaucoup de boutiques ici.",
+          "exampleDe": "Hier gibt es viele Läden."
+        },
+        {
+          "front": "la terrasse",
+          "back": "die Terrasse",
+          "example": "Nous mangeons sur la terrasse.",
+          "exampleDe": "Wir essen auf der Terrasse."
+        },
+        {
+          "front": "surprenant",
+          "back": "überraschend",
+          "example": "Cette ville est surprenante.",
+          "exampleDe": "Diese Stadt ist überraschend."
+        }
+      ]
+    },
+    {
+      "id": "f10-x1-l5",
+      "title": "Tradition und Sport",
+      "items": [
+        {
+          "front": "le hockey",
+          "back": "das Eishockey",
+          "example": "Le hockey est très populaire au Canada.",
+          "exampleDe": "Eishockey ist in Kanada sehr beliebt."
+        },
+        {
+          "front": "la motoneige",
+          "back": "das Schneemobil",
+          "example": "Ils font de la motoneige.",
+          "exampleDe": "Sie fahren Schneemobil."
+        },
+        {
+          "front": "profiter",
+          "back": "profitieren, genießen",
+          "example": "Je profite du soleil.",
+          "exampleDe": "Ich genieße die Sonne."
+        },
+        {
+          "front": "extraordinaire",
+          "back": "außergewöhnlich",
+          "example": "C'est un voyage extraordinaire.",
+          "exampleDe": "Das ist eine außergewöhnliche Reise."
+        }
+      ]
+    },
+    {
+      "id": "f10-x1-l6",
+      "title": "Lernen und Studieren",
+      "items": [
+        {
+          "front": "l'université",
+          "back": "die Universität",
+          "example": "Elle étudie à l'université.",
+          "exampleDe": "Sie studiert an der Universität."
+        },
+        {
+          "front": "les études",
+          "back": "das Studium",
+          "example": "Il fait des études de médecine.",
+          "exampleDe": "Er studiert Medizin."
+        },
+        {
+          "front": "la raison",
+          "back": "der Grund",
+          "example": "Quelle est la raison ?",
+          "exampleDe": "Was ist der Grund?"
+        },
+        {
+          "front": "remporter",
+          "back": "gewinnen, erringen",
+          "example": "Elle remporte la finale.",
+          "exampleDe": "Sie gewinnt das Finale."
+        },
+        {
+          "front": "l'enfance",
+          "back": "die Kindheit",
+          "example": "Mon enfance était heureuse.",
+          "exampleDe": "Meine Kindheit war glücklich."
+        },
+        {
+          "front": "la légende",
+          "back": "die Legende",
+          "example": "Cette légende est célèbre.",
+          "exampleDe": "Diese Legende ist berühmt."
+        }
+      ]
+    }
+  ]
+}

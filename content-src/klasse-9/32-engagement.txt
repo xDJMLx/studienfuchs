@@ -1,0 +1,38 @@
+id: f9-x3
+title: Engagement et petits boulots
+desc: Zusatz: Ehrenamt, Nebenjobs, Taschengeld, Berufe
+extra: yes
+order: 32
+
+= Ehrenamt
+- le bénévole = der Ehrenamtliche | Mon frère est bénévole dans une association. = Mein Bruder ist ehrenamtlich in einem Verein tätig.
+- s'engager pour = sich engagieren für | Je m'engage pour l'environnement. = Ich engagiere mich für die Umwelt.
+- l'engagement = das Engagement | Son engagement est impressionnant. = Ihr Engagement ist beeindruckend.
+- l'association = der Verein | Elle travaille pour une association. = Sie arbeitet für einen Verein.
+- lutter pour = kämpfen für | Ils luttent pour la paix. = Sie kämpfen für den Frieden.
+- l'entraide = die gegenseitige Hilfe | L'entraide est importante. = Gegenseitige Hilfe ist wichtig.
+
+= Nebenjobs
+- le petit boulot = der Nebenjob | J'ai un petit boulot le week-end. = Ich habe am Wochenende einen Nebenjob.
+- gagner de l'argent = Geld verdienen | Il gagne de l'argent en jardinant. = Er verdient Geld mit Gartenarbeit.
+- le babysitting = das Babysitten | Elle fait du babysitting le samedi. = Sie babysittet samstags.
+- promener le chien = den Hund ausführen | Je promène le chien de mon voisin. = Ich führe den Hund meines Nachbarn aus.
+- le cours particulier = die Nachhilfe | Il donne des cours particuliers. = Er gibt Nachhilfe.
+
+= Berufe
+- le jardinier = der Gärtner | Le jardinier travaille dans le parc. = Der Gärtner arbeitet im Park.
+- l'animateur = der Betreuer, der Moderator | L'animateur organise des jeux. = Der Betreuer organisiert Spiele.
+- le comptable = der Buchhalter | Mon oncle est comptable. = Mein Onkel ist Buchhalter.
+- l'atelier = die Werkstatt, der Workshop | Elle participe à un atelier de théâtre. = Sie nimmt an einem Theater-Workshop teil.
+
+= Bewerben und Fragen
+- la recherche = die Suche | Je suis à la recherche d'un job. = Ich suche einen Job.
+- l'offre = das Angebot | Il y a une offre intéressante. = Es gibt ein interessantes Angebot.
+- avoir le droit de = dürfen | Tu as le droit de venir. = Du darfst kommen.
+- le participant = der Teilnehmer | Il y a vingt participants. = Es gibt zwanzig Teilnehmer.
+- le courage = der Mut | Il faut du courage ! = Man braucht Mut!
+
+= Gesellschaft
+- pauvre = arm | Cette famille est pauvre. = Diese Familie ist arm.
+- âgé = alt, betagt | Elle aide une dame âgée. = Sie hilft einer älteren Dame.
+- l'objet = der Gegenstand | Cet objet est très vieux. = Dieser Gegenstand ist sehr alt.

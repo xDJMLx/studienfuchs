@@ -5,6 +5,7 @@
 //   id: f7-u1
 //   title: Bienvenue à Paris
 //   book: À plus ! 1 · Unité 1
+//   extra: yes                       (optional: Zusatzwortschatz, bremst den Lernpfad nicht)
 //   desc: Kurzbeschreibung
 //   order: 10
 //
@@ -31,7 +32,7 @@ function parseFile(file, grade) {
     meta[m[1]] = m[2].trim()
   }
   for (const k of ['id', 'title', 'desc', 'order']) if (!meta[k]) throw new Error(`${file}: "${k}:" fehlt`)
-  const unit = { id: meta.id, title: meta.title, description: meta.desc, grade, subject: 'french', order: Number(meta.order), ...(meta.book ? { book: meta.book } : {}), lessons: [] }
+  const unit = { id: meta.id, title: meta.title, description: meta.desc, grade, subject: 'french', order: Number(meta.order), ...(meta.book ? { book: meta.book } : {}), ...(/^(yes|ja|true)$/i.test(meta.extra ?? '') ? { extra: true } : {}), lessons: [] }
   let lesson = null
   const need = (n, msg) => {
     if (!lesson) throw new Error(`${file}:${n}: ${msg} steht vor der ersten Lektion`)

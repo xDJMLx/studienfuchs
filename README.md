@@ -16,8 +16,9 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 ## Was die App kann
 
 **Der Kurs**
-- 4 Klassenstufen, 56 Einheiten, 393 Lektionen und 2.166 Wörter. Klasse 7 und 8 folgen den Themen von *À plus!* Band 1 und 2.
-- Zu jedem Wort gibt es einen Beispielsatz mit Übersetzung und eine Aufnahme. Alle 4.384 Sprachdateien sind vorab mit dem Sprachmodell Piper erzeugt, die App klingt also auf jedem Gerät gleich.
+- Auf den Berliner Rahmenlehrplan abgestimmt: Klasse 7 bis 10 entsprechen den Niveaus A1, A2, B1 und B1+ (Niveaustufen E bis H). Der Kurs folgt den Themen von *À plus!* und deckt die Themen und Wörter von *Découvertes* ab, den beiden häufigsten Lehrwerken an Berliner Gymnasien.
+- 56 Einheiten mit 393 Lektionen im Grundkurs, dazu 20 freiwillige Einheiten Zusatzwortschatz aus den Lehrbüchern (102 Lektionen). Zusammen sind es über 2.600 Wörter. Der Zusatz bremst den Lernpfad nicht.
+- Zu jedem Wort gibt es einen Beispielsatz mit Übersetzung und eine Aufnahme. Alle 5.356 Sprachdateien sind vorab mit dem Sprachmodell Piper erzeugt, die App klingt also auf jedem Gerät gleich.
 - Neue Wörter kommen nur zu zweit und werden sofort abgefragt. Beim ersten Kennenlernen wird nur erkannt (auswählen, hören, zuordnen), geschrieben wird nichts. Erst beim Wiederholen legt man Wörter aus Buchstaben, und frei tippen kommt zuletzt.
 
 **Lernen, das hängen bleibt**
@@ -28,7 +29,8 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 - Tagesziel als Minimum: Wer es schafft, bekommt ein Bonusziel, ohne Strafe am nächsten Tag.
 
 **Aufholen**
-- Einheit wählen, die die Klasse gerade im Unterricht macht. Die App zeigt den Rückstand und macht einen Plan bis zu einem Wunschdatum, mit Lektionen pro Tag und Zeitbedarf.
+- Einheit wählen, die die Klasse gerade im Unterricht macht, wahlweise nach À plus! oder nach Découvertes. Die App schlägt vor, wo eine Berliner Klasse zu dieser Jahreszeit meist steht (Schuljahr, Ferien und Stoffverteilungspläne eingerechnet).
+- Der Plan geht bis zu einem Wunschdatum. Empfohlen wird ein Zeitraum, bei dem es höchstens 30 Minuten am Tag sind, und der Unterricht, der inzwischen weiterläuft, wird eingerechnet.
 - Ein Einstufungstest lässt überspringen, was schon sitzt. Übersprungene Wörter kommen in den nächsten Tagen zur Wiederholung.
 - Auch frühere Klassen lassen sich nachholen, zum Beispiel für Quereinsteiger.
 

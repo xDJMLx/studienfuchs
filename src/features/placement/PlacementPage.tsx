@@ -22,11 +22,12 @@ export function PlacementPage() {
   const reduce = useReducedMotion()
   const storedGrade = useStore((s) => s.grade)
   const markLessonsDone = useStore((s) => s.markLessonsDone)
+  const catchUpExtras = useStore((s) => s.catchUpExtras)
   // Aus dem Aufhol-Modus: nur Einheiten bis zum Stand der Klasse abfragen
   const query = useSearchParams()[0]
   const upTo = query.get('upTo')
   const onlyGrade = Number(query.get('g')) || null
-  const limited = useMemo(() => (upTo ? unitsUpTo(upTo, query.get('all') === '1').filter((u) => !onlyGrade || u.grade === onlyGrade) : []), [upTo, query, onlyGrade])
+  const limited = useMemo(() => (upTo ? unitsUpTo(upTo, query.get('all') === '1', catchUpExtras).filter((u) => !onlyGrade || u.grade === onlyGrade) : []), [upTo, query, onlyGrade, catchUpExtras])
   const grade = limited.length ? limited[0].grade : grades.includes(storedGrade) ? storedGrade : grades[0]
   const gradeUnits = useMemo(() => (limited.length ? limited : units.filter((u) => u.grade === grade)), [grade, limited])
 

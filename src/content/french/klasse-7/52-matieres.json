@@ -1,0 +1,143 @@
+{
+  "id": "f7-x1",
+  "title": "Matières et collège",
+  "description": "Zusatz: Schulfächer, Collège-Alltag, Stundenplan",
+  "grade": 7,
+  "subject": "french",
+  "order": 52,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f7-x1-l1",
+      "title": "Schulfächer",
+      "items": [
+        {
+          "front": "les mathématiques",
+          "back": "Mathematik",
+          "example": "Les mathématiques sont difficiles.",
+          "exampleDe": "Mathe ist schwierig."
+        },
+        {
+          "front": "l'histoire-géo",
+          "back": "Geschichte und Erdkunde",
+          "example": "J'ai histoire-géo le mardi.",
+          "exampleDe": "Ich habe dienstags Geschichte und Erdkunde."
+        },
+        {
+          "front": "la chimie",
+          "back": "Chemie",
+          "example": "J'ai chimie le jeudi.",
+          "exampleDe": "Ich habe donnerstags Chemie."
+        },
+        {
+          "front": "la technologie",
+          "back": "Technik",
+          "example": "En technologie, nous construisons un robot.",
+          "exampleDe": "In Technik bauen wir einen Roboter."
+        },
+        {
+          "front": "l'éducation musicale",
+          "back": "Musikunterricht",
+          "example": "L'éducation musicale est amusante.",
+          "exampleDe": "Der Musikunterricht macht Spaß."
+        }
+      ]
+    },
+    {
+      "id": "f7-x1-l2",
+      "title": "Orte im Collège",
+      "items": [
+        {
+          "front": "la permanence",
+          "back": "Aufenthaltsraum, Freistunde",
+          "example": "Je fais mes devoirs en permanence.",
+          "exampleDe": "Ich mache meine Hausaufgaben in der Freistunde."
+        },
+        {
+          "front": "les toilettes",
+          "back": "die Toilette",
+          "example": "Où sont les toilettes ?",
+          "exampleDe": "Wo ist die Toilette?"
+        },
+        {
+          "front": "l'arrêt de bus",
+          "back": "die Bushaltestelle",
+          "example": "Mon arrêt de bus est devant le collège.",
+          "exampleDe": "Meine Bushaltestelle ist vor dem Collège."
+        },
+        {
+          "front": "le gymnase",
+          "back": "die Sporthalle",
+          "example": "Nous avons sport au gymnase.",
+          "exampleDe": "Wir haben Sport in der Sporthalle."
+        },
+        {
+          "front": "la salle de cours",
+          "back": "der Unterrichtsraum",
+          "example": "La salle de cours est au premier étage.",
+          "exampleDe": "Der Unterrichtsraum ist im ersten Stock."
+        }
+      ]
+    },
+    {
+      "id": "f7-x1-l3",
+      "title": "Unterricht und Klassenarbeit",
+      "items": [
+        {
+          "front": "l'interrogation écrite",
+          "back": "der kurze Test",
+          "example": "Nous avons une interrogation écrite demain.",
+          "exampleDe": "Wir schreiben morgen einen kurzen Test."
+        },
+        {
+          "front": "le devoir",
+          "back": "die Hausaufgabe, die Klassenarbeit",
+          "example": "J'ai un devoir de maths.",
+          "exampleDe": "Ich habe eine Mathe-Hausaufgabe."
+        },
+        {
+          "front": "avoir cours",
+          "back": "Unterricht haben",
+          "example": "Le mardi, nous avons cours jusqu'à cinq heures.",
+          "exampleDe": "Dienstags haben wir bis fünf Uhr Unterricht."
+        },
+        {
+          "front": "arriver en retard",
+          "back": "zu spät kommen",
+          "example": "Il arrive en retard au collège.",
+          "exampleDe": "Er kommt zu spät ins Collège."
+        }
+      ]
+    },
+    {
+      "id": "f7-x1-l4",
+      "title": "Schulleben",
+      "items": [
+        {
+          "front": "le carnet de correspondance",
+          "back": "das Mitteilungsheft",
+          "example": "Mes parents signent le carnet de correspondance.",
+          "exampleDe": "Meine Eltern unterschreiben das Mitteilungsheft."
+        },
+        {
+          "front": "la vie de classe",
+          "back": "die Klassenstunde",
+          "example": "À la vie de classe, nous parlons de nos problèmes.",
+          "exampleDe": "In der Klassenstunde sprechen wir über unsere Probleme."
+        },
+        {
+          "front": "le sondage",
+          "back": "die Umfrage",
+          "example": "Il y a un sondage sur la cantine.",
+          "exampleDe": "Es gibt eine Umfrage zur Kantine."
+        },
+        {
+          "front": "le style",
+          "back": "der Stil",
+          "example": "Elle a un style cool.",
+          "exampleDe": "Sie hat einen coolen Stil."
+        }
+      ]
+    }
+  ]
+}

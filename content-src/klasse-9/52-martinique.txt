@@ -1,0 +1,42 @@
+id: f9-x5
+title: Martinique et outre-mer
+desc: Zusatz: Überseegebiete, Natur, Klima, Karneval, Musik
+extra: yes
+order: 52
+
+= Überseegebiete
+- le département = das Departement | La Martinique est un département français. = Martinique ist ein französisches Departement.
+- se trouver = sich befinden | L'île se trouve dans la mer des Caraïbes. = Die Insel liegt in der Karibik.
+- le centre = die Mitte | Au centre de l'île, il y a un volcan. = In der Mitte der Insel gibt es einen Vulkan.
+
+= Natur
+- la rivière = der Fluss | Nous traversons la rivière. = Wir überqueren den Fluss.
+- le sable = der Sand | Le sable est chaud. = Der Sand ist heiß.
+- la fleur = die Blume | Cette fleur est rouge. = Diese Blume ist rot.
+
+= Wetter und Gefahr
+- le cyclone = der Wirbelsturm | Un cyclone arrive. = Ein Wirbelsturm zieht auf.
+- l'ouragan = der Hurrikan | L'ouragan est dangereux. = Der Hurrikan ist gefährlich.
+- se protéger = sich schützen | Il faut se protéger du soleil. = Man muss sich vor der Sonne schützen.
+- l'urgence = der Notfall | En cas d'urgence, appelez le 15. = Im Notfall rufen Sie die 15 an.
+
+= Essen und Tradition
+- l'ananas = die Ananas | J'adore l'ananas. = Ich liebe Ananas.
+- la noix de coco = die Kokosnuss | Elle boit du lait de noix de coco. = Sie trinkt Kokosmilch.
+- épicé = würzig, scharf | Le plat est épicé. = Das Gericht ist scharf.
+- le carnaval = der Karneval | Le carnaval est une grande fête. = Der Karneval ist ein großes Fest.
+- le costume = das Kostüm | Elle porte un costume coloré. = Sie trägt ein buntes Kostüm.
+- traditionnel = traditionell | C'est un plat traditionnel. = Das ist ein traditionelles Gericht.
+
+= Musik und Sprache
+- le tambour = die Trommel | Il joue du tambour. = Er spielt Trommel.
+- les paroles = der Liedtext | Je comprends les paroles. = Ich verstehe den Liedtext.
+- le refrain = der Refrain | Le refrain est facile. = Der Refrain ist leicht.
+- officiel = offiziell | Le français est la langue officielle. = Französisch ist die Amtssprache.
+
+= Geschichte und Gesellschaft
+- le mélange = die Mischung | Cette culture est un mélange. = Diese Kultur ist eine Mischung.
+- l'esclave = der Sklave | Autrefois, il y avait des esclaves. = Früher gab es Sklaven.
+- le niveau = das Niveau, der Pegel | Le niveau de la mer monte. = Der Meeresspiegel steigt.
+- une sorte de = eine Art | C'est une sorte de fruit. = Das ist eine Art Frucht.
+- indiquer = anzeigen, angeben | Peux-tu m'indiquer le chemin ? = Kannst du mir den Weg zeigen?

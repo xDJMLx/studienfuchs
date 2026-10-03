@@ -1,0 +1,179 @@
+{
+  "id": "f9-x3",
+  "title": "Engagement et petits boulots",
+  "description": "Zusatz: Ehrenamt, Nebenjobs, Taschengeld, Berufe",
+  "grade": 9,
+  "subject": "french",
+  "order": 32,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f9-x3-l1",
+      "title": "Ehrenamt",
+      "items": [
+        {
+          "front": "le bénévole",
+          "back": "der Ehrenamtliche",
+          "example": "Mon frère est bénévole dans une association.",
+          "exampleDe": "Mein Bruder ist ehrenamtlich in einem Verein tätig."
+        },
+        {
+          "front": "s'engager pour",
+          "back": "sich engagieren für",
+          "example": "Je m'engage pour l'environnement.",
+          "exampleDe": "Ich engagiere mich für die Umwelt."
+        },
+        {
+          "front": "l'engagement",
+          "back": "das Engagement",
+          "example": "Son engagement est impressionnant.",
+          "exampleDe": "Ihr Engagement ist beeindruckend."
+        },
+        {
+          "front": "l'association",
+          "back": "der Verein",
+          "example": "Elle travaille pour une association.",
+          "exampleDe": "Sie arbeitet für einen Verein."
+        },
+        {
+          "front": "lutter pour",
+          "back": "kämpfen für",
+          "example": "Ils luttent pour la paix.",
+          "exampleDe": "Sie kämpfen für den Frieden."
+        },
+        {
+          "front": "l'entraide",
+          "back": "die gegenseitige Hilfe",
+          "example": "L'entraide est importante.",
+          "exampleDe": "Gegenseitige Hilfe ist wichtig."
+        }
+      ]
+    },
+    {
+      "id": "f9-x3-l2",
+      "title": "Nebenjobs",
+      "items": [
+        {
+          "front": "le petit boulot",
+          "back": "der Nebenjob",
+          "example": "J'ai un petit boulot le week-end.",
+          "exampleDe": "Ich habe am Wochenende einen Nebenjob."
+        },
+        {
+          "front": "gagner de l'argent",
+          "back": "Geld verdienen",
+          "example": "Il gagne de l'argent en jardinant.",
+          "exampleDe": "Er verdient Geld mit Gartenarbeit."
+        },
+        {
+          "front": "le babysitting",
+          "back": "das Babysitten",
+          "example": "Elle fait du babysitting le samedi.",
+          "exampleDe": "Sie babysittet samstags."
+        },
+        {
+          "front": "promener le chien",
+          "back": "den Hund ausführen",
+          "example": "Je promène le chien de mon voisin.",
+          "exampleDe": "Ich führe den Hund meines Nachbarn aus."
+        },
+        {
+          "front": "le cours particulier",
+          "back": "die Nachhilfe",
+          "example": "Il donne des cours particuliers.",
+          "exampleDe": "Er gibt Nachhilfe."
+        }
+      ]
+    },
+    {
+      "id": "f9-x3-l3",
+      "title": "Berufe",
+      "items": [
+        {
+          "front": "le jardinier",
+          "back": "der Gärtner",
+          "example": "Le jardinier travaille dans le parc.",
+          "exampleDe": "Der Gärtner arbeitet im Park."
+        },
+        {
+          "front": "l'animateur",
+          "back": "der Betreuer, der Moderator",
+          "example": "L'animateur organise des jeux.",
+          "exampleDe": "Der Betreuer organisiert Spiele."
+        },
+        {
+          "front": "le comptable",
+          "back": "der Buchhalter",
+          "example": "Mon oncle est comptable.",
+          "exampleDe": "Mein Onkel ist Buchhalter."
+        },
+        {
+          "front": "l'atelier",
+          "back": "die Werkstatt, der Workshop",
+          "example": "Elle participe à un atelier de théâtre.",
+          "exampleDe": "Sie nimmt an einem Theater-Workshop teil."
+        }
+      ]
+    },
+    {
+      "id": "f9-x3-l4",
+      "title": "Bewerben und Fragen",
+      "items": [
+        {
+          "front": "la recherche",
+          "back": "die Suche",
+          "example": "Je suis à la recherche d'un job.",
+          "exampleDe": "Ich suche einen Job."
+        },
+        {
+          "front": "l'offre",
+          "back": "das Angebot",
+          "example": "Il y a une offre intéressante.",
+          "exampleDe": "Es gibt ein interessantes Angebot."
+        },
+        {
+          "front": "avoir le droit de",
+          "back": "dürfen",
+          "example": "Tu as le droit de venir.",
+          "exampleDe": "Du darfst kommen."
+        },
+        {
+          "front": "le participant",
+          "back": "der Teilnehmer",
+          "example": "Il y a vingt participants.",
+          "exampleDe": "Es gibt zwanzig Teilnehmer."
+        },
+        {
+          "front": "le courage",
+          "back": "der Mut",
+          "example": "Il faut du courage !",
+          "exampleDe": "Man braucht Mut!"
+        }
+      ]
+    },
+    {
+      "id": "f9-x3-l5",
+      "title": "Gesellschaft",
+      "items": [
+        {
+          "front": "pauvre",
+          "back": "arm",
+          "example": "Cette famille est pauvre.",
+          "exampleDe": "Diese Familie ist arm."
+        },
+        {
+          "front": "âgé",
+          "back": "alt, betagt",
+          "example": "Elle aide une dame âgée.",
+          "exampleDe": "Sie hilft einer älteren Dame."
+        },
+        {
+          "front": "l'objet",
+          "back": "der Gegenstand",
+          "example": "Cet objet est très vieux.",
+          "exampleDe": "Dieser Gegenstand ist sehr alt."
+        }
+      ]
+    }
+  ]
+}

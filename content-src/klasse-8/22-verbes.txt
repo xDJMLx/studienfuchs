@@ -1,0 +1,38 @@
+id: f8-x2
+title: Verbes et mots d'aventure
+desc: Zusatz: wichtige Verben, Abenteuer, Stadtgeschichten
+extra: yes
+order: 22
+
+= Wichtige Verben
+- savoir = wissen, können | Je sais nager. = Ich kann schwimmen.
+- ouvrir = öffnen | Ouvre la porte, s'il te plaît ! = Öffne bitte die Tür!
+- fermer = schließen | Il ferme la fenêtre. = Er schließt das Fenster.
+- changer = ändern, wechseln | Je change de classe. = Ich wechsle die Klasse.
+- marcher = gehen, laufen | Nous marchons dans le parc. = Wir gehen durch den Park.
+- arrêter = anhalten, aufhören | Il arrête de parler. = Er hört auf zu sprechen.
+- allumer = anmachen | Allume la lumière ! = Mach das Licht an!
+- participer à = teilnehmen an | Nous participons à un concours. = Wir nehmen an einem Wettbewerb teil.
+
+= Abenteuer und Entscheidungen
+- décider de = beschließen | Elle décide de partir. = Sie beschließt abzureisen.
+- un concours = der Wettbewerb | Il y a un concours de dessin. = Es gibt einen Zeichenwettbewerb.
+- un fantôme = das Gespenst | Il y a un fantôme dans le métro. = Es gibt ein Gespenst in der Metro.
+- un tunnel = der Tunnel | Nous marchons dans un tunnel. = Wir gehen durch einen Tunnel.
+- la lumière = das Licht | La lumière est allumée. = Das Licht ist an.
+
+= Beschreiben
+- sombre = dunkel | La rue est sombre. = Die Straße ist dunkel.
+- dangereux = gefährlich | Ce tunnel est dangereux. = Dieser Tunnel ist gefährlich.
+- sûr = sicher | Je suis sûr de ma réponse. = Ich bin mir meiner Antwort sicher.
+- seul = allein | Elle est seule à la maison. = Sie ist allein zu Hause.
+- partout = überall | Il y a des graffitis partout. = Es gibt überall Graffiti.
+- quand même = trotzdem | Il pleut, mais nous sortons quand même. = Es regnet, aber wir gehen trotzdem raus.
+
+= Kunst und Meinung
+- un artiste = der Künstler | Cet artiste fait des graffitis. = Dieser Künstler macht Graffiti.
+- un plan = der Plan, der Stadtplan | J'ai un plan de Paris. = Ich habe einen Stadtplan von Paris.
+- une action = die Aktion, die Handlung | C'est un film d'action. = Das ist ein Actionfilm.
+- autre chose = etwas anderes | Tu veux autre chose ? = Willst du etwas anderes?
+- autorisé = erlaubt | Le graffiti n'est pas autorisé ici. = Graffiti ist hier nicht erlaubt.
+- mort = tot | Le vieux tunnel est mort. = Der alte Tunnel ist stillgelegt.

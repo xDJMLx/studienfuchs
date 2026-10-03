@@ -1,0 +1,45 @@
+id: f7-x4
+title: Mots utiles en plus
+desc: Zusatz: kleine Wörter, Reaktionen, Uhrzeit, Familie, Stadt und Reise
+extra: yes
+order: 72
+
+= Kleine Wörter
+- encore = noch, schon wieder | Il est encore là. = Er ist noch da.
+- tard = spät | Il est tard. = Es ist spät.
+- maintenant = jetzt | Je fais mes devoirs maintenant. = Ich mache jetzt meine Hausaufgaben.
+- en plus = außerdem | En plus, il pleut. = Außerdem regnet es.
+- comme ça = so | Fais comme ça ! = Mach es so!
+
+= Reaktionen im Gespräch
+- Tiens ! = Sieh mal an! Hier! | Tiens, voilà ton livre. = Hier, da ist dein Buch.
+- Chut ! = Pst! Still! | Chut ! Le cours commence. = Pst! Der Unterricht beginnt.
+- Allez ! = Los! Komm! | Allez, on y va ! = Los, gehen wir!
+- C'est normal. = Das ist normal. | Il est fatigué, c'est normal. = Er ist müde, das ist normal.
+
+= Familie ergänzt
+- maman = Mama | Maman prépare le dîner. = Mama macht das Abendessen.
+- papa = Papa | Papa travaille à Berlin. = Papa arbeitet in Berlin.
+- la demi-sœur = die Halbschwester | Ma demi-sœur a dix ans. = Meine Halbschwester ist zehn Jahre alt.
+- le compagnon = der Lebensgefährte | Le compagnon de ma mère est sympa. = Der Lebensgefährte meiner Mutter ist nett.
+- l'enfant = das Kind | Elle a un enfant. = Sie hat ein Kind.
+
+= Uhrzeit ergänzt
+- Quelle heure est-il ? = Wie spät ist es? | Quelle heure est-il ? – Il est midi. = Wie spät ist es? – Es ist zwölf Uhr.
+- huit heures et quart = Viertel nach acht | Le cours commence à huit heures et quart. = Der Unterricht beginnt um Viertel nach acht.
+- neuf heures et demie = halb zehn | Il est neuf heures et demie. = Es ist halb zehn.
+- dix heures moins le quart = Viertel vor zehn | Il est dix heures moins le quart. = Es ist Viertel vor zehn.
+
+= Zeitangaben
+- le calendrier = der Kalender | Regarde le calendrier ! = Schau auf den Kalender!
+- ce soir = heute Abend | Ce soir, je regarde un film. = Heute Abend schaue ich einen Film.
+- en janvier = im Januar | En janvier, il fait froid. = Im Januar ist es kalt.
+
+= Stadt und Reise
+- le restaurant = das Restaurant | Nous mangeons au restaurant. = Wir essen im Restaurant.
+- le taxi = das Taxi | Nous prenons un taxi. = Wir nehmen ein Taxi.
+- l'avion = das Flugzeug | L'avion part à midi. = Das Flugzeug fliegt um zwölf Uhr ab.
+- à droite de = rechts von | La poste est à droite de la banque. = Die Post ist rechts von der Bank.
+- à gauche de = links von | Le café est à gauche de l'église. = Das Café ist links von der Kirche.
+- la vieille ville = die Altstadt | La vieille ville est très jolie. = Die Altstadt ist sehr schön.
+- le palmier = die Palme | Il y a des palmiers sur la plage. = Am Strand gibt es Palmen.

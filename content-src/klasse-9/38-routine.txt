@@ -1,0 +1,50 @@
+id: f9-x4
+title: Routine et ménage
+desc: Zusatz: reflexive Verben im Alltag, Haushalt
+extra: yes
+order: 38
+
+= Morgens
+- se réveiller = aufwachen | Je me réveille à sept heures. = Ich wache um sieben Uhr auf.
+- se lever = aufstehen | Il se lève tôt. = Er steht früh auf.
+- se laver = sich waschen | Elle se lave les mains. = Sie wäscht sich die Hände.
+- s'habiller = sich anziehen | Je m'habille vite. = Ich ziehe mich schnell an.
+- se dépêcher = sich beeilen | Dépêche-toi, le bus arrive ! = Beeil dich, der Bus kommt!
+- se préparer = sich fertig machen | Nous nous préparons pour l'école. = Wir machen uns für die Schule fertig.
+
+= Tagsüber und abends
+- se coucher = ins Bett gehen | Je me couche à dix heures. = Ich gehe um zehn Uhr ins Bett.
+- s'asseoir = sich setzen | Assieds-toi ici ! = Setz dich hierhin!
+- se retrouver = sich treffen | Nous nous retrouvons devant le cinéma. = Wir treffen uns vor dem Kino.
+- s'occuper de = sich kümmern um | Elle s'occupe de son petit frère. = Sie kümmert sich um ihren kleinen Bruder.
+- se mettre à = anfangen zu | Il se met à pleuvoir. = Es fängt an zu regnen.
+- s'installer = sich einrichten, sich niederlassen | Ils s'installent dans la nouvelle maison. = Sie richten sich im neuen Haus ein.
+
+= Mit anderen
+- s'entendre avec = sich verstehen mit | Je m'entends bien avec mes voisins. = Ich verstehe mich gut mit meinen Nachbarn.
+- se disputer avec = sich streiten mit | Il se dispute avec sa sœur. = Er streitet sich mit seiner Schwester.
+- se débrouiller = zurechtkommen | Je me débrouille en français. = Ich komme in Französisch zurecht.
+- s'organiser = sich organisieren | Nous nous organisons bien. = Wir organisieren uns gut.
+- s'informer sur = sich informieren über | Il s'informe sur le projet. = Er informiert sich über das Projekt.
+
+= Haushalt
+- le ménage = der Haushalt | Mon père fait le ménage le samedi. = Mein Vater putzt samstags.
+- la tâche = die Aufgabe | Chacun a une tâche. = Jeder hat eine Aufgabe.
+- nettoyer = putzen | Je nettoie ma chambre. = Ich putze mein Zimmer.
+- le lave-vaisselle = die Spülmaschine | Je vide le lave-vaisselle. = Ich räume die Spülmaschine aus.
+- l'aspirateur = der Staubsauger | Elle passe l'aspirateur. = Sie saugt Staub.
+- débarrasser la table = den Tisch abräumen | Je débarrasse la table après le dîner. = Ich räume nach dem Abendessen den Tisch ab.
+
+= Handeln und Reparieren
+- vider = leeren | Vide la poubelle, s'il te plaît ! = Leere bitte den Mülleimer!
+- réparer = reparieren | Il répare son vélo. = Er repariert sein Fahrrad.
+- la réparation = die Reparatur | La réparation coûte cher. = Die Reparatur kostet viel.
+- fonctionner = funktionieren | Mon téléphone ne fonctionne plus. = Mein Telefon funktioniert nicht mehr.
+- plaire à = gefallen | Ce film plaît à mon frère. = Dieser Film gefällt meinem Bruder.
+
+= Was gerade passiert
+- être en train de = gerade dabei sein | Je suis en train de manger. = Ich bin gerade beim Essen.
+- venir de = gerade getan haben | Il vient d'arriver. = Er ist gerade angekommen.
+- à partir de = ab | À partir de lundi, je commence. = Ab Montag fange ich an.
+- fou = verrückt | Il est fou de joie. = Er ist außer sich vor Freude.
+- s'approcher de = sich nähern | Il s'approche de la porte. = Er nähert sich der Tür.

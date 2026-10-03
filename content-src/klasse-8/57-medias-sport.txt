@@ -1,0 +1,48 @@
+id: f8-x6
+title: Médias, sport et verbes réfléchis
+desc: Zusatz: Medien, Sport, reflexive Verben
+extra: yes
+order: 57
+
+= Medien
+- les médias = die Medien | Les médias sont importants. = Die Medien sind wichtig.
+- le podcast = der Podcast | J'écoute un podcast. = Ich höre einen Podcast.
+- le tutoriel = die Videoanleitung | Je regarde un tutoriel pour cuisiner. = Ich schaue eine Videoanleitung zum Kochen.
+- l'application = die App | Cette application est gratuite. = Diese App ist kostenlos.
+- le smartphone = das Smartphone | Mon smartphone est neuf. = Mein Smartphone ist neu.
+- la tablette = das Tablet | Elle lit sur sa tablette. = Sie liest auf ihrem Tablet.
+
+= Online
+- le site Internet = die Internetseite | Je cherche sur un site Internet. = Ich suche auf einer Internetseite.
+- le compte = das Konto, der Account | J'ai un compte sur ce site. = Ich habe einen Account auf dieser Seite.
+- le message vocal = die Sprachnachricht | J'envoie un message vocal. = Ich schicke eine Sprachnachricht.
+- le commentaire = der Kommentar | Elle écrit un commentaire. = Sie schreibt einen Kommentar.
+
+= Sendungen und Serien
+- l'émission = die Sendung | J'aime cette émission. = Ich mag diese Sendung.
+- l'épisode = die Folge | C'est le dernier épisode. = Das ist die letzte Folge.
+- l'actualité = das aktuelle Geschehen | Je lis l'actualité chaque jour. = Ich lese täglich die Nachrichten.
+
+= Sport im Team
+- le rugby = das Rugby | Le rugby est populaire en France. = Rugby ist in Frankreich beliebt.
+- le joueur = der Spieler | Le joueur marque un but. = Der Spieler schießt ein Tor.
+- le sport collectif = die Mannschaftssportart | Le foot est un sport collectif. = Fußball ist eine Mannschaftssportart.
+- l'athlète = der Athlet | Cette athlète court vite. = Diese Athletin läuft schnell.
+- l'entraîneur = der Trainer | L'entraîneur parle à l'équipe. = Der Trainer spricht mit der Mannschaft.
+- la course = das Rennen | Il gagne la course. = Er gewinnt das Rennen.
+
+= Sportlich sein
+- courir = laufen, rennen | Je cours le matin. = Ich laufe morgens.
+- lent = langsam | Le bus est lent. = Der Bus ist langsam.
+- populaire = beliebt | Ce sport est populaire. = Diese Sportart ist beliebt.
+- féminin = weiblich | Le foot féminin devient populaire. = Der Frauenfußball wird beliebt.
+- masculin = männlich | Il y a une équipe masculine. = Es gibt eine Männermannschaft.
+- de plus en plus = immer mehr | Il y a de plus en plus de fans. = Es gibt immer mehr Fans.
+
+= Reflexive Verben
+- se lever = aufstehen | Je me lève à sept heures. = Ich stehe um sieben Uhr auf.
+- s'amuser = sich amüsieren | Nous nous amusons bien. = Wir amüsieren uns gut.
+- se promener = spazieren gehen | Il se promène dans le parc. = Er geht im Park spazieren.
+- s'arrêter = anhalten | Le bus s'arrête ici. = Der Bus hält hier.
+- s'intéresser à = sich interessieren für | Elle s'intéresse au rugby. = Sie interessiert sich für Rugby.
+- se préparer pour = sich vorbereiten auf | Je me prépare pour le test. = Ich bereite mich auf den Test vor.

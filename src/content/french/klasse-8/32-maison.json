@@ -1,0 +1,107 @@
+{
+  "id": "f8-x3",
+  "title": "Chez nous : la maison",
+  "description": "Zusatz: Wohnung, Zimmer, Gäste empfangen, Wochenende",
+  "grade": 8,
+  "subject": "french",
+  "order": 32,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f8-x3-l1",
+      "title": "Räume",
+      "items": [
+        {
+          "front": "la salle à manger",
+          "back": "das Esszimmer",
+          "example": "Nous mangeons dans la salle à manger.",
+          "exampleDe": "Wir essen im Esszimmer."
+        },
+        {
+          "front": "le matelas",
+          "back": "die Matratze",
+          "example": "Le matelas est dans le salon.",
+          "exampleDe": "Die Matratze ist im Wohnzimmer."
+        },
+        {
+          "front": "le mari",
+          "back": "der Ehemann",
+          "example": "Son mari travaille à Lyon.",
+          "exampleDe": "Ihr Mann arbeitet in Lyon."
+        }
+      ]
+    },
+    {
+      "id": "f8-x3-l2",
+      "title": "Winter, Zeit und Entdecken",
+      "items": [
+        {
+          "front": "le ski",
+          "back": "das Skifahren",
+          "example": "Il fait du ski en hiver.",
+          "exampleDe": "Er fährt im Winter Ski."
+        },
+        {
+          "front": "la neige",
+          "back": "der Schnee",
+          "example": "Il y a de la neige dans les montagnes.",
+          "exampleDe": "In den Bergen liegt Schnee."
+        },
+        {
+          "front": "tôt",
+          "back": "früh",
+          "example": "Je me lève tôt.",
+          "exampleDe": "Ich stehe früh auf."
+        },
+        {
+          "front": "longtemps",
+          "back": "lange",
+          "example": "Nous attendons longtemps.",
+          "exampleDe": "Wir warten lange."
+        },
+        {
+          "front": "pendant",
+          "back": "während",
+          "example": "Pendant les vacances, je dors beaucoup.",
+          "exampleDe": "In den Ferien schlafe ich viel."
+        },
+        {
+          "front": "découvrir",
+          "back": "entdecken",
+          "example": "Nous découvrons la ville.",
+          "exampleDe": "Wir entdecken die Stadt."
+        }
+      ]
+    },
+    {
+      "id": "f8-x3-l3",
+      "title": "Verneinung und Eigenschaften",
+      "items": [
+        {
+          "front": "ne … personne",
+          "back": "niemand",
+          "example": "Il n'y a personne ici.",
+          "exampleDe": "Hier ist niemand."
+        },
+        {
+          "front": "seulement",
+          "back": "nur",
+          "example": "J'ai seulement dix euros.",
+          "exampleDe": "Ich habe nur zehn Euro."
+        },
+        {
+          "front": "nombreux",
+          "back": "zahlreich",
+          "example": "Les touristes sont nombreux.",
+          "exampleDe": "Die Touristen sind zahlreich."
+        },
+        {
+          "front": "mignon",
+          "back": "niedlich",
+          "example": "Ton chat est mignon.",
+          "exampleDe": "Deine Katze ist niedlich."
+        }
+      ]
+    }
+  ]
+}

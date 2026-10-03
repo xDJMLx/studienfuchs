@@ -1,0 +1,203 @@
+{
+  "id": "f10-x4",
+  "title": "Environnement et valeurs",
+  "description": "Zusatz: Klima, Umweltschutz, Engagement, Energie, Stadt und Wohnen",
+  "grade": 10,
+  "subject": "french",
+  "order": 44,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f10-x4-l1",
+      "title": "Klima und Umwelt",
+      "items": [
+        {
+          "front": "l'écologiste",
+          "back": "der Umweltschützer",
+          "example": "Cette écologiste lutte pour la planète.",
+          "exampleDe": "Diese Umweltschützerin kämpft für den Planeten."
+        },
+        {
+          "front": "la protection",
+          "back": "der Schutz",
+          "example": "La protection de la nature est importante.",
+          "exampleDe": "Der Schutz der Natur ist wichtig."
+        },
+        {
+          "front": "la biodiversité",
+          "back": "die Artenvielfalt",
+          "example": "Il faut protéger la biodiversité.",
+          "exampleDe": "Man muss die Artenvielfalt schützen."
+        },
+        {
+          "front": "le glacier",
+          "back": "der Gletscher",
+          "example": "Les glaciers fondent.",
+          "exampleDe": "Die Gletscher schmelzen."
+        }
+      ]
+    },
+    {
+      "id": "f10-x4-l2",
+      "title": "Handeln für die Zukunft",
+      "items": [
+        {
+          "front": "le militant",
+          "back": "der Aktivist",
+          "example": "Un militant distribue des tracts.",
+          "exampleDe": "Ein Aktivist verteilt Flugblätter."
+        },
+        {
+          "front": "agir",
+          "back": "handeln",
+          "example": "Il faut agir maintenant.",
+          "exampleDe": "Man muss jetzt handeln."
+        },
+        {
+          "front": "la solidarité",
+          "back": "die Solidarität",
+          "example": "La solidarité est une belle valeur.",
+          "exampleDe": "Solidarität ist ein schöner Wert."
+        },
+        {
+          "front": "le mouvement",
+          "back": "die Bewegung",
+          "example": "Ce mouvement grandit.",
+          "exampleDe": "Diese Bewegung wächst."
+        },
+        {
+          "front": "la collecte",
+          "back": "die Sammlung",
+          "example": "Nous organisons une collecte de vêtements.",
+          "exampleDe": "Wir organisieren eine Kleidersammlung."
+        }
+      ]
+    },
+    {
+      "id": "f10-x4-l3",
+      "title": "Wünsche und Sorgen",
+      "items": [
+        {
+          "front": "mondial",
+          "back": "weltweit",
+          "example": "C'est un problème mondial.",
+          "exampleDe": "Das ist ein weltweites Problem."
+        },
+        {
+          "front": "nécessaire",
+          "back": "notwendig",
+          "example": "C'est nécessaire de changer.",
+          "exampleDe": "Es ist notwendig, sich zu ändern."
+        },
+        {
+          "front": "optimiste",
+          "back": "optimistisch",
+          "example": "Je reste optimiste.",
+          "exampleDe": "Ich bleibe optimistisch."
+        },
+        {
+          "front": "le souci",
+          "back": "die Sorge",
+          "example": "Mon souci, c'est le climat.",
+          "exampleDe": "Meine Sorge ist das Klima."
+        }
+      ]
+    },
+    {
+      "id": "f10-x4-l4",
+      "title": "Energie",
+      "items": [
+        {
+          "front": "l'énergie",
+          "back": "die Energie",
+          "example": "Nous devons économiser l'énergie.",
+          "exampleDe": "Wir müssen Energie sparen."
+        },
+        {
+          "front": "l'éolienne",
+          "back": "das Windrad",
+          "example": "Il y a des éoliennes sur la côte.",
+          "exampleDe": "An der Küste stehen Windräder."
+        },
+        {
+          "front": "renouvelable",
+          "back": "erneuerbar",
+          "example": "Le soleil est une énergie renouvelable.",
+          "exampleDe": "Die Sonne ist eine erneuerbare Energie."
+        },
+        {
+          "front": "produire",
+          "back": "herstellen, erzeugen",
+          "example": "Cette usine produit de l'électricité.",
+          "exampleDe": "Diese Fabrik erzeugt Strom."
+        },
+        {
+          "front": "détruire",
+          "back": "zerstören",
+          "example": "La tempête détruit les maisons.",
+          "exampleDe": "Der Sturm zerstört die Häuser."
+        }
+      ]
+    },
+    {
+      "id": "f10-x4-l5",
+      "title": "Streit und Debatte",
+      "items": [
+        {
+          "front": "le manifestant",
+          "back": "der Demonstrant",
+          "example": "Les manifestants marchent dans la rue.",
+          "exampleDe": "Die Demonstranten laufen durch die Straße."
+        },
+        {
+          "front": "construire",
+          "back": "bauen",
+          "example": "On construit une nouvelle école.",
+          "exampleDe": "Man baut eine neue Schule."
+        },
+        {
+          "front": "artificiel",
+          "back": "künstlich",
+          "example": "La neige artificielle est un problème.",
+          "exampleDe": "Kunstschnee ist ein Problem."
+        },
+        {
+          "front": "le commerçant",
+          "back": "der Händler",
+          "example": "Le commerçant ferme sa boutique.",
+          "exampleDe": "Der Händler schließt sein Geschäft."
+        }
+      ]
+    },
+    {
+      "id": "f10-x4-l6",
+      "title": "Wohnen und Stadt",
+      "items": [
+        {
+          "front": "l'immeuble",
+          "back": "das Gebäude",
+          "example": "J'habite dans un grand immeuble.",
+          "exampleDe": "Ich wohne in einem großen Gebäude."
+        },
+        {
+          "front": "l'inondation",
+          "back": "die Überschwemmung",
+          "example": "L'inondation a détruit la route.",
+          "exampleDe": "Die Überschwemmung hat die Straße zerstört."
+        },
+        {
+          "front": "l'incendie",
+          "back": "der Brand",
+          "example": "Un incendie a lieu dans la forêt.",
+          "exampleDe": "Im Wald gibt es einen Brand."
+        },
+        {
+          "front": "la publicité",
+          "back": "die Werbung",
+          "example": "La publicité est partout.",
+          "exampleDe": "Werbung ist überall."
+        }
+      ]
+    }
+  ]
+}

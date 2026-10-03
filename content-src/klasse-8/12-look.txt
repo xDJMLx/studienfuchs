@@ -1,0 +1,34 @@
+id: f8-x1
+title: Look et vêtements
+desc: Zusatz: Kleidung, Aussehen, Gefühle, Rückkehr in die Schule
+extra: yes
+order: 12
+
+= Kleidung
+- le jean = die Jeans | Je porte un jean bleu. = Ich trage eine blaue Jeans.
+- la jupe = der Rock | Elle met une jupe noire. = Sie zieht einen schwarzen Rock an.
+- le pull = der Pullover | J'ai froid, je mets un pull. = Mir ist kalt, ich ziehe einen Pullover an.
+
+= Mehr Kleidung
+- la veste = die Jacke | Ma veste est dans le sac. = Meine Jacke ist in der Tasche.
+- le chemisier = die Bluse | Ce chemisier est très joli. = Diese Bluse ist sehr hübsch.
+- l'anorak = die Winterjacke | En hiver, je porte un anorak. = Im Winter trage ich eine Winterjacke.
+- la chaussure = der Schuh | Mes chaussures sont neuves. = Meine Schuhe sind neu.
+
+= Aussehen
+- le cheveu = das Haar | Elle a les cheveux longs. = Sie hat lange Haare.
+- l'œil = das Auge | Il a les yeux bleus. = Er hat blaue Augen.
+- les lunettes = die Brille | Mon frère porte des lunettes. = Mein Bruder trägt eine Brille.
+- la bouche = der Mund | Elle a une petite bouche. = Sie hat einen kleinen Mund.
+- le sourire = das Lächeln | Elle a un beau sourire. = Sie hat ein schönes Lächeln.
+- le look = der Look | J'aime ton look. = Ich mag deinen Look.
+- court = kurz | Il a les cheveux courts. = Er hat kurze Haare.
+
+= Gefühle und Gespräch
+- la colère = die Wut | Elle est en colère. = Sie ist wütend.
+- être en forme = fit sein | Aujourd'hui, je suis en forme. = Heute bin ich fit.
+- horrible = schrecklich | Ce film est horrible. = Dieser Film ist schrecklich.
+- dommage = schade | C'est dommage ! = Das ist schade!
+- surtout = vor allem | J'aime surtout le sport. = Ich mag vor allem Sport.
+- la conversation = das Gespräch | Nous avons une conversation. = Wir führen ein Gespräch.
+- penser à = denken an | Je pense à mes amis. = Ich denke an meine Freunde.

@@ -43,6 +43,8 @@ export const unitSchema = z.object({
   order: z.number().optional(),
   /** Zuordnung zum Schulbuch, z. B. "À plus ! 1 · Unité 2" (für Aufhol-Modus und Anzeige). */
   book: z.string().optional(),
+  /** Zusatzwortschatz aus Berliner Lehrwerken: nicht verpflichtend, sperrt die nächste Einheit nicht. */
+  extra: z.boolean().optional(),
   lessons: z.array(lessonSchema).min(1),
 })
 

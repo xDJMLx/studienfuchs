@@ -1,0 +1,45 @@
+id: f10-x1
+title: Québec et francophonie
+desc: Zusatz: Frankophonie, Québec, Geschichte der Kolonisierung, Stadtleben
+extra: yes
+order: 14
+
+= Die Frankophonie
+- francophone = französischsprachig | Le Québec est une région francophone. = Québec ist eine französischsprachige Region.
+- anglophone = englischsprachig | Au Canada, il y a des régions anglophones. = In Kanada gibt es englischsprachige Regionen.
+- la civilisation = die Zivilisation, die Kultur | Cette civilisation est très ancienne. = Diese Kultur ist sehr alt.
+- le continent = der Kontinent | L'Afrique est un continent. = Afrika ist ein Kontinent.
+
+= Landschaft und Klima
+- le territoire = das Gebiet | Ce territoire est immense. = Dieses Gebiet ist riesig.
+- immense = riesig | Le Canada est immense. = Kanada ist riesig.
+- le drapeau = die Flagge | Le drapeau est rouge et blanc. = Die Flagge ist rot und weiß.
+
+= Geschichte
+- le siècle = das Jahrhundert | Cette ville existe depuis quatre siècles. = Diese Stadt gibt es seit vier Jahrhunderten.
+- l'explorateur = der Entdecker | L'explorateur arrive en bateau. = Der Entdecker kommt mit dem Schiff an.
+- coloniser = kolonisieren | Les Français ont colonisé cette région. = Die Franzosen haben diese Region kolonisiert.
+- la colonie = die Kolonie | Le Québec était une colonie française. = Québec war eine französische Kolonie.
+- indépendant = unabhängig | Le pays est indépendant. = Das Land ist unabhängig.
+- le peuple = das Volk | Ce peuple a une longue histoire. = Dieses Volk hat eine lange Geschichte.
+
+= Leben in der Stadt
+- cosmopolite = weltoffen | Montréal est une ville cosmopolite. = Montréal ist eine weltoffene Stadt.
+- vivant = lebendig | Le quartier est très vivant. = Das Viertel ist sehr lebendig.
+- la boutique = der Laden | Il y a beaucoup de boutiques ici. = Hier gibt es viele Läden.
+- la terrasse = die Terrasse | Nous mangeons sur la terrasse. = Wir essen auf der Terrasse.
+- surprenant = überraschend | Cette ville est surprenante. = Diese Stadt ist überraschend.
+
+= Tradition und Sport
+- le hockey = das Eishockey | Le hockey est très populaire au Canada. = Eishockey ist in Kanada sehr beliebt.
+- la motoneige = das Schneemobil | Ils font de la motoneige. = Sie fahren Schneemobil.
+- profiter = profitieren, genießen | Je profite du soleil. = Ich genieße die Sonne.
+- extraordinaire = außergewöhnlich | C'est un voyage extraordinaire. = Das ist eine außergewöhnliche Reise.
+
+= Lernen und Studieren
+- l'université = die Universität | Elle étudie à l'université. = Sie studiert an der Universität.
+- les études = das Studium | Il fait des études de médecine. = Er studiert Medizin.
+- la raison = der Grund | Quelle est la raison ? = Was ist der Grund?
+- remporter = gewinnen, erringen | Elle remporte la finale. = Sie gewinnt das Finale.
+- l'enfance = die Kindheit | Mon enfance était heureuse. = Meine Kindheit war glücklich.
+- la légende = die Legende | Cette légende est célèbre. = Diese Legende ist berühmt.

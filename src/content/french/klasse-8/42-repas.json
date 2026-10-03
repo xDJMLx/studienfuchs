@@ -1,0 +1,89 @@
+{
+  "id": "f8-x4",
+  "title": "À table : repas et cuisine",
+  "description": "Zusatz: Mahlzeiten, Geschirr, Zutaten, Rezept, Einkaufen",
+  "grade": 8,
+  "subject": "french",
+  "order": 42,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f8-x4-l1",
+      "title": "Beilagen und Getränke",
+      "items": [
+        {
+          "front": "le vin",
+          "back": "der Wein",
+          "example": "Mon père boit du vin.",
+          "exampleDe": "Mein Vater trinkt Wein."
+        },
+        {
+          "front": "mettre la table",
+          "back": "den Tisch decken",
+          "example": "Je mets la table.",
+          "exampleDe": "Ich decke den Tisch."
+        },
+        {
+          "front": "le sel",
+          "back": "das Salz",
+          "example": "Passe-moi le sel, s'il te plaît.",
+          "exampleDe": "Gib mir bitte das Salz."
+        },
+        {
+          "front": "le four",
+          "back": "der Backofen",
+          "example": "Le gâteau est dans le four.",
+          "exampleDe": "Der Kuchen ist im Backofen."
+        },
+        {
+          "front": "faire la cuisine",
+          "back": "kochen",
+          "example": "Mon père fait la cuisine le dimanche.",
+          "exampleDe": "Mein Vater kocht sonntags."
+        },
+        {
+          "front": "le kilo",
+          "back": "das Kilo",
+          "example": "Un kilo de pommes, s'il vous plaît.",
+          "exampleDe": "Ein Kilo Äpfel, bitte."
+        },
+        {
+          "front": "le gramme",
+          "back": "das Gramm",
+          "example": "Cinq cents grammes de farine.",
+          "exampleDe": "Fünfhundert Gramm Mehl."
+        }
+      ]
+    },
+    {
+      "id": "f8-x4-l2",
+      "title": "Essen und Umwelt",
+      "items": [
+        {
+          "front": "bio",
+          "back": "Bio-, ökologisch",
+          "example": "Je mange des légumes bio.",
+          "exampleDe": "Ich esse Biogemüse."
+        },
+        {
+          "front": "le gaspillage",
+          "back": "die Verschwendung",
+          "example": "Le gaspillage alimentaire est un problème.",
+          "exampleDe": "Lebensmittelverschwendung ist ein Problem."
+        },
+        {
+          "front": "le sac en plastique",
+          "back": "die Plastiktüte",
+          "example": "Je n'utilise pas de sac en plastique.",
+          "exampleDe": "Ich benutze keine Plastiktüte."
+        },
+        {
+          "front": "faire attention à",
+          "back": "achten auf",
+          "example": "Je fais attention à mon alimentation.",
+          "exampleDe": "Ich achte auf meine Ernährung."
+        }
+      ]
+    }
+  ]
+}

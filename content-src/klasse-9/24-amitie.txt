@@ -1,0 +1,43 @@
+id: f9-x2
+title: Amitié, famille et conflits
+desc: Zusatz: Freundschaft, Liebe, Patchworkfamilie, Streit und Versöhnung
+extra: yes
+order: 24
+
+= Freundschaft und Liebe
+- l'amitié = die Freundschaft | Notre amitié est très forte. = Unsere Freundschaft ist sehr stark.
+- la relation = die Beziehung | Elle a une bonne relation avec sa mère. = Sie hat eine gute Beziehung zu ihrer Mutter.
+- amoureux = verliebt | Il est amoureux de Léa. = Er ist in Léa verliebt.
+- tomber amoureux de = sich verlieben in | Elle tombe amoureuse de son voisin. = Sie verliebt sich in ihren Nachbarn.
+- doux = sanft, süß | Sa voix est douce. = Ihre Stimme ist sanft.
+- le portrait = das Porträt | Je fais le portrait de mon ami. = Ich beschreibe meinen Freund.
+
+= Familie heute
+- la famille recomposée = die Patchworkfamilie | Il vit dans une famille recomposée. = Er lebt in einer Patchworkfamilie.
+- la situation = die Lage | La situation est compliquée. = Die Lage ist kompliziert.
+- le déménagement = der Umzug | Le déménagement est difficile. = Der Umzug ist schwierig.
+- emmener = mitnehmen | Je t'emmène au cinéma. = Ich nehme dich mit ins Kino.
+- changer d'avis = seine Meinung ändern | Il change d'avis. = Er ändert seine Meinung.
+
+= Streit
+- le conflit = der Konflikt | Ce conflit est grave. = Dieser Konflikt ist ernst.
+- énervant = nervig | Mon frère est énervant. = Mein Bruder ist nervig.
+- déranger = stören | Je ne veux pas te déranger. = Ich möchte dich nicht stören.
+- silencieux = leise, still | Il est silencieux ce soir. = Er ist heute Abend still.
+
+= Vertrauen und Gefühle
+- faire confiance à = vertrauen | Je fais confiance à mes amis. = Ich vertraue meinen Freunden.
+- ressentir = empfinden | Elle ressent de la joie. = Sie empfindet Freude.
+- la douleur = der Schmerz | Il a une douleur au dos. = Er hat Rückenschmerzen.
+- malheureux = unglücklich | Il est malheureux sans elle. = Er ist ohne sie unglücklich.
+
+= Ein Buch lesen
+- l'extrait = der Auszug | Nous lisons un extrait de ce roman. = Wir lesen einen Auszug aus diesem Roman.
+- le chapitre = das Kapitel | Le premier chapitre est court. = Das erste Kapitel ist kurz.
+- le journal intime = das Tagebuch | Elle écrit dans son journal intime. = Sie schreibt in ihr Tagebuch.
+
+= Meinung und Erklärung
+- tellement = so sehr | Je suis tellement fatigué ! = Ich bin so müde!
+- absolument = unbedingt | Il faut absolument venir ! = Du musst unbedingt kommen!
+- terrible = schrecklich, toll | C'est une terrible nouvelle. = Das ist eine schreckliche Nachricht.
+- finir par = schließlich tun | Elle finit par accepter. = Sie stimmt schließlich zu.

@@ -6,6 +6,15 @@ Lern-App für die Schule im Stil moderner Sprach-Apps (Start: Französisch, Klas
 
 **Was anders ist als bei Duolingo:** Erst erklären, dann üben · keine Herzen, keine Werbung, keine Bezahlschranke · Lernpfad nach Lehrplanthemen · eigene Buchseiten hochladen und daraus ein Quiz machen.
 
+## Berlin: Lehrplan, Lehrbücher und Takt (Stand Oktober 2026)
+Recherchiert wurden der Rahmenlehrplan Berlin-Brandenburg (Teil C Moderne Fremdsprachen, Niveaustufen A bis H) sowie die Stoffverteilungspläne von Klett (*Découvertes*, Ausgabe ab 2020, eigene Fassung für Berlin/Brandenburg) und Cornelsen (*À plus!*).
+- **Niveau (Gymnasium, 2. Fremdsprache ab Klasse 7):** Klasse 7 = Stufe E (A1), 8 = F (A2), 9 = G (B1), 10 = H (B1+). Integrierte Sekundarschule: 7/8 Stufe E (teils F), 9/10 Stufen F bis G. Wer erst in Klasse 8 oder 9 beginnt (3. Fremdsprache), erreicht G/H bis Ende 10 (Rahmenlehrplan). Dafür gibt es "Auch frühere Klassen nachholen".
+- **Stunden:** 4 Wochenstunden in Klasse 7 und 8, 3 in Klasse 9 und 10 (Beispiel Gottfried-Keller-Gymnasium). Der Klett-Plan für Berlin rechnet in Klasse 8 mit 32 Unterrichtswochen: Unité 1 Woche 1 bis 4, Unité 2 bis Woche 9, Unité 3 bis 15, Unité 4 bis 20, Unité 5 bis 26, Unité 6 bis 30, danach das Modul.
+- **Lehrwerke an Berliner Gymnasien:** *À plus!* (Cornelsen) und *Découvertes* (Klett). Integrierte Sekundarschulen: *À toi!* (Cornelsen), noch nicht abgebildet.
+- **Takt in der App:** `src/lib/berlin.ts` rechnet das Berliner Schuljahr mit Ferien aus (Start Ende August, Herbst-, Weihnachts-, Winter- und Osterferien) und verteilt die Kerneinheiten einer Klasse auf 34 Unterrichtswochen. Daraus kommt der Vorschlag "Meist um diese Zeit" beim Aufholen. Die Découvertes-Einheiten sind mit ihrem Anteil am Schuljahr hinterlegt und werden damit der passenden App-Einheit zugeordnet.
+- **Zusatzwortschatz:** Der Abgleich mit den veröffentlichten Vokabellisten von Découvertes 1 bis 4 zeigte, dass der Grundkurs vor allem in Klasse 9 und 10 viele Lehrbuchthemen nicht abdeckt (Austausch, Engagement, reflexive Verben, Überseegebiete, Québec, EU, Umwelt). Dafür gibt es 20 Zusatzeinheiten (`extra: yes` im Quelltext). Sie sind freiwillig: Sie sperren die nächste Einheit nicht, zählen nicht zum Kursfortschritt und kommen nur in den Aufholplan, wenn man "Zusatzwortschatz mitlernen" anhakt (bei Découvertes automatisch).
+- **Machbarer Aufholplan:** Pro Lektion werden 8 Minuten gerechnet. Empfohlen wird ein Zeitraum mit höchstens 30 Minuten am Tag. Der Unterricht läuft weiter: Die Lektionen, die die Klasse bis zum Zieltermin neu bekommt (Kurs geteilt durch 34 Wochen), werden eingerechnet.
+
 ## Lernmethode (kurz)
 - **Abrufen statt Wiederlesen**: jede Lektion besteht aus aktiven Aufgaben (Dunlosky et al. 2013: Selbsttest + verteiltes Üben haben den größten Nutzen).
 - **Erkennen → Produzieren**: neue Wörter erst per Auswahl/Zuordnen, danach aus dem Gedächtnis tippen, hören, Sätze bauen.

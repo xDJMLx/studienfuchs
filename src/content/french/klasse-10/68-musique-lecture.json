@@ -1,0 +1,197 @@
+{
+  "id": "f10-x5",
+  "title": "Musique et lecture",
+  "description": "Zusatz: Musik, Gefühle, Lesen, Bücher und Serien",
+  "grade": 10,
+  "subject": "french",
+  "order": 68,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f10-x5-l1",
+      "title": "Musik",
+      "items": [
+        {
+          "front": "le morceau",
+          "back": "das Stück",
+          "example": "J'aime ce morceau de piano.",
+          "exampleDe": "Ich mag dieses Klavierstück."
+        },
+        {
+          "front": "la mélodie",
+          "back": "die Melodie",
+          "example": "La mélodie est très douce.",
+          "exampleDe": "Die Melodie ist sehr sanft."
+        },
+        {
+          "front": "le pianiste",
+          "back": "der Pianist",
+          "example": "Le pianiste joue Chopin.",
+          "exampleDe": "Der Pianist spielt Chopin."
+        },
+        {
+          "front": "le guitariste",
+          "back": "der Gitarrist",
+          "example": "Le guitariste joue très vite.",
+          "exampleDe": "Der Gitarrist spielt sehr schnell."
+        },
+        {
+          "front": "l'album",
+          "back": "das Album",
+          "example": "Son nouvel album sort demain.",
+          "exampleDe": "Sein neues Album erscheint morgen."
+        },
+        {
+          "front": "dansant",
+          "back": "tanzbar",
+          "example": "Cette chanson est très dansante.",
+          "exampleDe": "Dieses Lied ist sehr tanzbar."
+        }
+      ]
+    },
+    {
+      "id": "f10-x5-l2",
+      "title": "Gefühle",
+      "items": [
+        {
+          "front": "l'émotion",
+          "back": "die Emotion",
+          "example": "Cette musique me donne des émotions.",
+          "exampleDe": "Diese Musik weckt Emotionen in mir."
+        },
+        {
+          "front": "bouleverser",
+          "back": "tief bewegen",
+          "example": "Ce film me bouleverse.",
+          "exampleDe": "Dieser Film bewegt mich tief."
+        },
+        {
+          "front": "le bonheur",
+          "back": "das Glück",
+          "example": "Je suis plein de bonheur.",
+          "exampleDe": "Ich bin voller Glück."
+        },
+        {
+          "front": "pleurer",
+          "back": "weinen",
+          "example": "Elle pleure de joie.",
+          "exampleDe": "Sie weint vor Freude."
+        },
+        {
+          "front": "furieux",
+          "back": "wütend",
+          "example": "Il est furieux contre moi.",
+          "exampleDe": "Er ist wütend auf mich."
+        }
+      ]
+    },
+    {
+      "id": "f10-x5-l3",
+      "title": "Lesen",
+      "items": [
+        {
+          "front": "le manga",
+          "back": "der Manga",
+          "example": "Je lis un manga japonais.",
+          "exampleDe": "Ich lese einen japanischen Manga."
+        },
+        {
+          "front": "le thriller",
+          "back": "der Thriller",
+          "example": "Ce thriller est passionnant.",
+          "exampleDe": "Dieser Thriller ist spannend."
+        },
+        {
+          "front": "la fiction",
+          "back": "die Fiktion, der Roman",
+          "example": "J'aime lire de la fiction.",
+          "exampleDe": "Ich lese gern Romane."
+        },
+        {
+          "front": "le suspense",
+          "back": "die Spannung",
+          "example": "Il y a beaucoup de suspense.",
+          "exampleDe": "Es gibt viel Spannung."
+        },
+        {
+          "front": "passionné",
+          "back": "leidenschaftlich",
+          "example": "C'est un lecteur passionné.",
+          "exampleDe": "Er ist ein leidenschaftlicher Leser."
+        },
+        {
+          "front": "s'ennuyer",
+          "back": "sich langweilen",
+          "example": "Je ne m'ennuie jamais avec un livre.",
+          "exampleDe": "Mit einem Buch langweile ich mich nie."
+        }
+      ]
+    },
+    {
+      "id": "f10-x5-l4",
+      "title": "Erzählen",
+      "items": [
+        {
+          "front": "par hasard",
+          "back": "zufällig",
+          "example": "Je l'ai rencontré par hasard.",
+          "exampleDe": "Ich habe ihn zufällig getroffen."
+        },
+        {
+          "front": "se tromper",
+          "back": "sich irren",
+          "example": "Je me suis trompé.",
+          "exampleDe": "Ich habe mich geirrt."
+        },
+        {
+          "front": "le plaisir",
+          "back": "das Vergnügen",
+          "example": "Lire est un plaisir.",
+          "exampleDe": "Lesen ist ein Vergnügen."
+        },
+        {
+          "front": "régulièrement",
+          "back": "regelmäßig",
+          "example": "Je lis régulièrement.",
+          "exampleDe": "Ich lese regelmäßig."
+        }
+      ]
+    },
+    {
+      "id": "f10-x5-l5",
+      "title": "Beurteilen",
+      "items": [
+        {
+          "front": "injuste",
+          "back": "ungerecht",
+          "example": "Cette note est injuste.",
+          "exampleDe": "Diese Note ist ungerecht."
+        },
+        {
+          "front": "marrant",
+          "back": "lustig",
+          "example": "Cet auteur est marrant.",
+          "exampleDe": "Dieser Autor ist lustig."
+        },
+        {
+          "front": "agréable",
+          "back": "angenehm",
+          "example": "Cette musique est agréable.",
+          "exampleDe": "Diese Musik ist angenehm."
+        },
+        {
+          "front": "désagréable",
+          "back": "unangenehm",
+          "example": "Le bruit est désagréable.",
+          "exampleDe": "Der Lärm ist unangenehm."
+        },
+        {
+          "front": "essentiel",
+          "back": "wesentlich",
+          "example": "L'essentiel, c'est d'essayer.",
+          "exampleDe": "Das Wesentliche ist, es zu versuchen."
+        }
+      ]
+    }
+  ]
+}

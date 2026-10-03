@@ -1,0 +1,46 @@
+id: f8-x5
+title: Voyage, météo et saisons
+desc: Zusatz: Himmelsrichtungen, Jahreszeiten, Wetter, Reise und Verkehrsmittel
+extra: yes
+order: 52
+
+= Himmelsrichtungen
+- le nord = der Norden | La Bretagne est au nord-ouest. = Die Bretagne liegt im Nordwesten.
+- le sud = der Süden | Marseille est dans le sud. = Marseille liegt im Süden.
+- l'est = der Osten | Strasbourg est à l'est. = Straßburg liegt im Osten.
+- l'ouest = der Westen | Nantes est à l'ouest. = Nantes liegt im Westen.
+- la route = die Straße, die Route | La route est longue. = Die Strecke ist lang.
+- le ciel = der Himmel | Le ciel est bleu. = Der Himmel ist blau.
+
+= Wetter
+- la pluie = der Regen | La pluie tombe depuis ce matin. = Der Regen fällt seit heute Morgen.
+- le nuage = die Wolke | Il y a un gros nuage. = Da ist eine große Wolke.
+- l'orage = das Gewitter | Il y a un orage ce soir. = Heute Abend gibt es ein Gewitter.
+- la tempête = der Sturm | La tempête arrive demain. = Der Sturm kommt morgen.
+- neiger = schneien | Il neige en janvier. = Im Januar schneit es.
+- la marée = die Gezeiten | La marée est basse. = Es ist Ebbe.
+
+= Am Meer
+- la dune = die Düne | Nous marchons sur la dune. = Wir gehen über die Düne.
+- le pêcheur = der Fischer | Le pêcheur est au port. = Der Fischer ist im Hafen.
+- la planche à voile = das Windsurfen | Il fait de la planche à voile. = Er windsurft.
+
+= Reise
+- le moyen de transport = das Verkehrsmittel | Quel moyen de transport tu prends ? = Welches Verkehrsmittel nimmst du?
+- la trottinette = der Roller | Il va au collège en trottinette. = Er fährt mit dem Roller zum Collège.
+- l'office de tourisme = das Verkehrsamt | Nous allons à l'office de tourisme. = Wir gehen zum Verkehrsamt.
+- le souvenir = die Erinnerung, das Souvenir | J'achète un souvenir. = Ich kaufe ein Souvenir.
+
+= Vorschläge machen
+- Ça te dit ? = Hast du Lust? | On va au cinéma, ça te dit ? = Wir gehen ins Kino, hast du Lust?
+- Qu'est-ce que tu en penses ? = Was denkst du darüber? | Qu'est-ce que tu en penses ? = Was denkst du darüber?
+- on pourrait = wir könnten | On pourrait aller à la plage. = Wir könnten an den Strand gehen.
+- parfait = perfekt | C'est parfait ! = Das ist perfekt!
+- imaginer = sich vorstellen | Imagine une île déserte ! = Stell dir eine einsame Insel vor!
+
+= Natur und Gefahr
+- la plante = die Pflanze | Cette plante pousse dans le sable. = Diese Pflanze wächst im Sand.
+- crier = schreien | Il crie très fort. = Er schreit sehr laut.
+- prudent = vorsichtig | Sois prudent sur la route ! = Sei vorsichtig auf der Straße!
+- glisser = rutschen | Attention, je glisse ! = Vorsicht, ich rutsche!
+- presque = fast | Il est presque midi. = Es ist fast zwölf Uhr.

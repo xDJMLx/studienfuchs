@@ -1,0 +1,161 @@
+{
+  "id": "f10-x2",
+  "title": "L'Europe et l'amitié franco-allemande",
+  "description": "Zusatz: EU, deutsch-französische Freundschaft, Studium und Austausch, Vorurteile",
+  "grade": 10,
+  "subject": "french",
+  "order": 24,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f10-x2-l1",
+      "title": "Die Europäische Union",
+      "items": [
+        {
+          "front": "l'organisation",
+          "back": "die Organisation",
+          "example": "Cette organisation aide les jeunes.",
+          "exampleDe": "Diese Organisation hilft jungen Leuten."
+        },
+        {
+          "front": "politique",
+          "back": "politisch",
+          "example": "Il y a un débat politique.",
+          "exampleDe": "Es gibt eine politische Debatte."
+        },
+        {
+          "front": "économique",
+          "back": "wirtschaftlich",
+          "example": "La crise économique est grave.",
+          "exampleDe": "Die Wirtschaftskrise ist ernst."
+        }
+      ]
+    },
+    {
+      "id": "f10-x2-l2",
+      "title": "Geschichte und Versöhnung",
+      "items": [
+        {
+          "front": "la Seconde Guerre mondiale",
+          "back": "der Zweite Weltkrieg",
+          "example": "La Seconde Guerre mondiale a fini en 1945.",
+          "exampleDe": "Der Zweite Weltkrieg endete 1945."
+        },
+        {
+          "front": "surmonter",
+          "back": "überwinden",
+          "example": "Ils surmontent leurs différences.",
+          "exampleDe": "Sie überwinden ihre Unterschiede."
+        },
+        {
+          "front": "la réconciliation",
+          "back": "die Versöhnung",
+          "example": "La réconciliation franco-allemande est un exemple.",
+          "exampleDe": "Die deutsch-französische Versöhnung ist ein Vorbild."
+        },
+        {
+          "front": "le traité",
+          "back": "der Vertrag",
+          "example": "Le traité est signé en 1963.",
+          "exampleDe": "Der Vertrag wurde 1963 unterzeichnet."
+        },
+        {
+          "front": "signer",
+          "back": "unterschreiben",
+          "example": "Les deux présidents signent le traité.",
+          "exampleDe": "Die beiden Präsidenten unterzeichnen den Vertrag."
+        }
+      ]
+    },
+    {
+      "id": "f10-x2-l3",
+      "title": "Leben und Lernen in Europa",
+      "items": [
+        {
+          "front": "l'ambassadeur",
+          "back": "der Botschafter",
+          "example": "L'ambassadeur parle aux élèves.",
+          "exampleDe": "Der Botschafter spricht zu den Schülern."
+        },
+        {
+          "front": "la nationalité",
+          "back": "die Staatsangehörigkeit",
+          "example": "Il a deux nationalités.",
+          "exampleDe": "Er hat zwei Staatsangehörigkeiten."
+        },
+        {
+          "front": "l'étudiant",
+          "back": "der Student",
+          "example": "Les étudiants voyagent en Europe.",
+          "exampleDe": "Die Studenten reisen durch Europa."
+        }
+      ]
+    },
+    {
+      "id": "f10-x2-l4",
+      "title": "Zahlen und Mengen",
+      "items": [
+        {
+          "front": "la population",
+          "back": "die Bevölkerung",
+          "example": "La population augmente.",
+          "exampleDe": "Die Bevölkerung wächst."
+        },
+        {
+          "front": "la minorité",
+          "back": "die Minderheit",
+          "example": "Une minorité refuse.",
+          "exampleDe": "Eine Minderheit lehnt ab."
+        },
+        {
+          "front": "la plupart",
+          "back": "die meisten",
+          "example": "La plupart des jeunes aiment voyager.",
+          "exampleDe": "Die meisten Jugendlichen reisen gern."
+        },
+        {
+          "front": "parmi",
+          "back": "unter, inmitten",
+          "example": "Parmi mes amis, il y a un Français.",
+          "exampleDe": "Unter meinen Freunden ist ein Franzose."
+        },
+        {
+          "front": "le tiers",
+          "back": "das Drittel",
+          "example": "Un tiers des élèves apprend le français.",
+          "exampleDe": "Ein Drittel der Schüler lernt Französisch."
+        },
+        {
+          "front": "la valeur",
+          "back": "der Wert",
+          "example": "L'amitié est une valeur importante.",
+          "exampleDe": "Freundschaft ist ein wichtiger Wert."
+        }
+      ]
+    },
+    {
+      "id": "f10-x2-l5",
+      "title": "Grenzen und Bräuche",
+      "items": [
+        {
+          "front": "encourager",
+          "back": "ermutigen",
+          "example": "Mes parents m'encouragent.",
+          "exampleDe": "Meine Eltern ermutigen mich."
+        },
+        {
+          "front": "le baccalauréat",
+          "back": "das Abitur",
+          "example": "Il passe le baccalauréat en juin.",
+          "exampleDe": "Er macht im Juni das Abitur."
+        },
+        {
+          "front": "constater",
+          "back": "feststellen",
+          "example": "Je constate une grande différence.",
+          "exampleDe": "Ich stelle einen großen Unterschied fest."
+        }
+      ]
+    }
+  ]
+}

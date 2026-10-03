@@ -1,0 +1,203 @@
+{
+  "id": "f9-x2",
+  "title": "Amitié, famille et conflits",
+  "description": "Zusatz: Freundschaft, Liebe, Patchworkfamilie, Streit und Versöhnung",
+  "grade": 9,
+  "subject": "french",
+  "order": 24,
+  "extra": true,
+  "lessons": [
+    {
+      "id": "f9-x2-l1",
+      "title": "Freundschaft und Liebe",
+      "items": [
+        {
+          "front": "l'amitié",
+          "back": "die Freundschaft",
+          "example": "Notre amitié est très forte.",
+          "exampleDe": "Unsere Freundschaft ist sehr stark."
+        },
+        {
+          "front": "la relation",
+          "back": "die Beziehung",
+          "example": "Elle a une bonne relation avec sa mère.",
+          "exampleDe": "Sie hat eine gute Beziehung zu ihrer Mutter."
+        },
+        {
+          "front": "amoureux",
+          "back": "verliebt",
+          "example": "Il est amoureux de Léa.",
+          "exampleDe": "Er ist in Léa verliebt."
+        },
+        {
+          "front": "tomber amoureux de",
+          "back": "sich verlieben in",
+          "example": "Elle tombe amoureuse de son voisin.",
+          "exampleDe": "Sie verliebt sich in ihren Nachbarn."
+        },
+        {
+          "front": "doux",
+          "back": "sanft, süß",
+          "example": "Sa voix est douce.",
+          "exampleDe": "Ihre Stimme ist sanft."
+        },
+        {
+          "front": "le portrait",
+          "back": "das Porträt",
+          "example": "Je fais le portrait de mon ami.",
+          "exampleDe": "Ich beschreibe meinen Freund."
+        }
+      ]
+    },
+    {
+      "id": "f9-x2-l2",
+      "title": "Familie heute",
+      "items": [
+        {
+          "front": "la famille recomposée",
+          "back": "die Patchworkfamilie",
+          "example": "Il vit dans une famille recomposée.",
+          "exampleDe": "Er lebt in einer Patchworkfamilie."
+        },
+        {
+          "front": "la situation",
+          "back": "die Lage",
+          "example": "La situation est compliquée.",
+          "exampleDe": "Die Lage ist kompliziert."
+        },
+        {
+          "front": "le déménagement",
+          "back": "der Umzug",
+          "example": "Le déménagement est difficile.",
+          "exampleDe": "Der Umzug ist schwierig."
+        },
+        {
+          "front": "emmener",
+          "back": "mitnehmen",
+          "example": "Je t'emmène au cinéma.",
+          "exampleDe": "Ich nehme dich mit ins Kino."
+        },
+        {
+          "front": "changer d'avis",
+          "back": "seine Meinung ändern",
+          "example": "Il change d'avis.",
+          "exampleDe": "Er ändert seine Meinung."
+        }
+      ]
+    },
+    {
+      "id": "f9-x2-l3",
+      "title": "Streit",
+      "items": [
+        {
+          "front": "le conflit",
+          "back": "der Konflikt",
+          "example": "Ce conflit est grave.",
+          "exampleDe": "Dieser Konflikt ist ernst."
+        },
+        {
+          "front": "énervant",
+          "back": "nervig",
+          "example": "Mon frère est énervant.",
+          "exampleDe": "Mein Bruder ist nervig."
+        },
+        {
+          "front": "déranger",
+          "back": "stören",
+          "example": "Je ne veux pas te déranger.",
+          "exampleDe": "Ich möchte dich nicht stören."
+        },
+        {
+          "front": "silencieux",
+          "back": "leise, still",
+          "example": "Il est silencieux ce soir.",
+          "exampleDe": "Er ist heute Abend still."
+        }
+      ]
+    },
+    {
+      "id": "f9-x2-l4",
+      "title": "Vertrauen und Gefühle",
+      "items": [
+        {
+          "front": "faire confiance à",
+          "back": "vertrauen",
+          "example": "Je fais confiance à mes amis.",
+          "exampleDe": "Ich vertraue meinen Freunden."
+        },
+        {
+          "front": "ressentir",
+          "back": "empfinden",
+          "example": "Elle ressent de la joie.",
+          "exampleDe": "Sie empfindet Freude."
+        },
+        {
+          "front": "la douleur",
+          "back": "der Schmerz",
+          "example": "Il a une douleur au dos.",
+          "exampleDe": "Er hat Rückenschmerzen."
+        },
+        {
+          "front": "malheureux",
+          "back": "unglücklich",
+          "example": "Il est malheureux sans elle.",
+          "exampleDe": "Er ist ohne sie unglücklich."
+        }
+      ]
+    },
+    {
+      "id": "f9-x2-l5",
+      "title": "Ein Buch lesen",
+      "items": [
+        {
+          "front": "l'extrait",
+          "back": "der Auszug",
+          "example": "Nous lisons un extrait de ce roman.",
+          "exampleDe": "Wir lesen einen Auszug aus diesem Roman."
+        },
+        {
+          "front": "le chapitre",
+          "back": "das Kapitel",
+          "example": "Le premier chapitre est court.",
+          "exampleDe": "Das erste Kapitel ist kurz."
+        },
+        {
+          "front": "le journal intime",
+          "back": "das Tagebuch",
+          "example": "Elle écrit dans son journal intime.",
+          "exampleDe": "Sie schreibt in ihr Tagebuch."
+        }
+      ]
+    },
+    {
+      "id": "f9-x2-l6",
+      "title": "Meinung und Erklärung",
+      "items": [
+        {
+          "front": "tellement",
+          "back": "so sehr",
+          "example": "Je suis tellement fatigué !",
+          "exampleDe": "Ich bin so müde!"
+        },
+        {
+          "front": "absolument",
+          "back": "unbedingt",
+          "example": "Il faut absolument venir !",
+          "exampleDe": "Du musst unbedingt kommen!"
+        },
+        {
+          "front": "terrible",
+          "back": "schrecklich, toll",
+          "example": "C'est une terrible nouvelle.",
+          "exampleDe": "Das ist eine schreckliche Nachricht."
+        },
+        {
+          "front": "finir par",
+          "back": "schließlich tun",
+          "example": "Elle finit par accepter.",
+          "exampleDe": "Sie stimmt schließlich zu."
+        }
+      ]
+    }
+  ]
+}
