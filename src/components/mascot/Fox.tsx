@@ -448,7 +448,7 @@ function drawEye(p: EyeParams, cx: number, cy: number, mirror: boolean, side: 'L
   const m = /^M(-?[0-9.]+) (-?[0-9.]+) L(-?[0-9.]+) (-?[0-9.]+)/.exec(win)
   if (m) {
     set('lid' + side, 'd', 'M' + m[1] + ' ' + m[2] + ' Q' + (Number(m[1]) + Number(m[3])) / 2 + ' ' + ((Number(m[2]) + Number(m[4])) / 2 - 3) + ' ' + m[3] + ' ' + m[4])
-    set('lid' + side, 'stroke-opacity', String(Math.max(0, Math.min(1, (1 - p.open) * 3 - p.arcOn))))
+    set('lid' + side, 'stroke-opacity', String(Math.round(Math.max(0, Math.min(1, (1 - p.open) * 3)) * (1 - p.arcOn) * 100) / 100))
   }
   set('arc' + side, 'd', eyeArc(p, cx, cy))
   set('arc' + side, 'stroke-opacity', String(Math.round(p.arcOn * 100) / 100))
