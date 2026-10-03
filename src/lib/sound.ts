@@ -23,9 +23,11 @@ function tone(freq: number, start: number, dur: number, type: OscillatorType = '
   }
 }
 
-export const playCorrect = () => {
-  tone(660, 0, 0.14)
-  tone(880, 0.1, 0.22)
+/** Richtig-Ton: mit jeder richtigen Antwort in Folge einen Halbton höher (höchstens eine Quinte), das fühlt sich nach Schwung an. */
+export const playCorrect = (combo = 0) => {
+  const k = 2 ** (Math.min(7, Math.max(0, combo - 1)) / 12)
+  tone(660 * k, 0, 0.14)
+  tone(880 * k, 0.1, 0.22)
 }
 export const playWrong = () => {
   tone(220, 0, 0.18, 'triangle', 0.14)

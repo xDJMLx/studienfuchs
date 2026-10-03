@@ -30,6 +30,8 @@ export interface SessionResult {
   mistakeItemIds: string[]
   /** Wie oft eine Aufgabe wiederholt werden musste, bis sie saß */
   retries: number
+  /** Längste Reihe richtiger Antworten auf Anhieb */
+  bestCombo: number
 }
 
 interface Props {
@@ -73,7 +75,9 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
   const baseId = ex ? ex.id.replace(/:retry\d+$/, '') : ''
 
   // Vier richtige Antworten in Folge: der Fuchs freut sich mit
+  const bestCombo = useRef(0)
   useEffect(() => {
+    bestCombo.current = Math.max(bestCombo.current, combo)
     if (combo > 0 && combo % 4 === 0) mascotBus.emit('cheer')
   }, [combo])
 
@@ -103,14 +107,14 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           })
         }
       } else {
-        playCorrect()
+        playCorrect(!isRetry && !ex.warm && ev.status === 'correct' ? combo + 1 : 0)
         if (!isRetry && !ex.warm && ev.status === 'correct') {
           firstTry.current += 1
           setCombo((c) => c + 1)
         } else if (!isRetry && !ex.warm && ev.status === 'almost') almostFirst.current += 1
       }
     },
-    [ex, result, isRetry, noRetry, baseId, idx, hintFor],
+    [ex, result, isRetry, noRetry, baseId, idx, hintFor, combo],
   )
 
   // Zuordnen prüft sich selbst: sobald alle Paare gefunden sind, kommt das Ergebnis.
@@ -143,13 +147,14 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
         grades,
         mistakeItemIds,
         retries: retries.current,
+        bestCombo: Math.max(bestCombo.current, combo),
       })
       return
     }
     setIdx(idx + 1)
     setAnswer(null)
     setResult(null)
-  }, [idx, queue.length, exercises, gradedItemIds, onComplete, total])
+  }, [idx, queue.length, exercises, gradedItemIds, onComplete, total, combo])
 
   // Enter = Prüfen bzw. Weiter
   useEffect(() => {

@@ -270,7 +270,7 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
     >
       <Fox ref={fox} look={look} outfit={outfit} pose={pose} alive={alive} />
       {bubble && (
-        <span className={`${bubbleSide === 'center' ? 'fox-bubble' : 'fox-bubble-side'} pointer-events-none absolute -top-1 z-20 max-w-[220px] rounded-xl border-2 border-line bg-surface px-3 py-1 text-xs font-extrabold text-ink shadow-[0_3px_0_var(--shade-line)] ${bubbleSide === 'center' ? 'left-1/2 -translate-x-1/2 whitespace-nowrap' : bubbleSide === 'right' ? 'right-0 w-max' : 'left-0 w-max'}`}>
+        <span className={`${bubbleSide === 'center' ? 'fox-bubble' : 'fox-bubble-side'} pointer-events-none absolute z-20 rounded-xl border-2 border-line bg-surface px-3 py-1 text-xs font-extrabold text-ink shadow-[0_3px_0_var(--shade-line)] ${bubbleSide === 'center' ? '-top-1 left-1/2 max-w-[220px] -translate-x-1/2 whitespace-nowrap' : bubbleSide === 'right' ? 'bottom-[88%] right-1 w-max max-w-[8.75rem] text-center leading-tight' : 'bottom-[88%] left-1 w-max max-w-[8.75rem] text-center leading-tight'}`}>
           {bubble}
         </span>
       )}

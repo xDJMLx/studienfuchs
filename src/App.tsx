@@ -44,6 +44,7 @@ const BooksPage = lazyPage(() => import('./features/books/BooksPage'), 'BooksPag
 const FlashcardsPage = lazyPage(() => import('./features/practice/FlashcardsPage'), 'FlashcardsPage')
 const PracticePage = lazyPage(() => import('./features/practice/PracticePage'), 'PracticePage')
 const PracticePlay = lazyPage(() => import('./features/practice/PracticePlay'), 'PracticePlay')
+const BlitzPage = lazyPage(() => import('./features/practice/BlitzPage'), 'BlitzPage')
 const AboutPage = lazyPage(() => import('./features/profile/AboutPage'), 'AboutPage')
 const ProfilePage = lazyPage(() => import('./features/profile/ProfilePage'), 'ProfilePage')
 const ShopPage = lazyPage(() => import('./features/shop/ShopPage'), 'ShopPage')
@@ -54,6 +55,7 @@ const SetDetailPage = lazyPage(() => import('./features/sets/SetDetailPage'), 'S
 const SetPlay = lazyPage(() => import('./features/sets/SetPlay'), 'SetPlay')
 const CreateSetPage = lazyPage(() => import('./features/upload/CreateSetPage'), 'CreateSetPage')
 const FoxLab = import.meta.env.DEV ? lazyPage(() => import('./features/dev/FoxLab'), 'FoxLab') : null
+const ResultLab = import.meta.env.DEV ? lazyPage(() => import('./features/dev/ResultLab'), 'ResultLab') : null
 
 function PageFallback() {
   return <div role="status" aria-label="Lädt" className="flex h-full min-h-[40vh] items-center justify-center"><span className="h-8 w-8 animate-spin rounded-full border-4 border-line border-t-brand" /></div>
@@ -72,6 +74,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/exam/', 'Test'],
   ['/shop', 'Fuchs & Shop'],
   ['/practice/cards', 'Karteikarten'],
+  ['/blitz', 'Blitzrunde'],
   ['/practice', 'Üben'],
   ['/review/play', 'Wiederholung'],
   ['/review', 'Lernstand'],
@@ -150,6 +153,8 @@ export default function App() {
           <Route path="exam/:examId" element={<ExamPlayPage />} />
           <Route path="speak" element={<SpeakTrainingPage />} />
           <Route path="practice/play" element={<PracticePlay />} />
+          {ResultLab && <Route path="result-lab" element={<ResultLab />} />}
+          <Route path="blitz" element={<BlitzPage />} />
           <Route path="practice/cards" element={<FlashcardsPage />} />
           <Route path="sets/:setId/cards" element={<FlashcardsPage />} />
           <Route path="review/play" element={<ReviewPlay />} />

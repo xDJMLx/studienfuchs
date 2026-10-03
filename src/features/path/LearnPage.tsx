@@ -13,6 +13,9 @@ import { BackupBanner } from '../../components/ui/BackupBanner'
 import { InstallBanner } from '../../components/ui/InstallApp'
 import { catchUpStatus } from '../../lib/catchup'
 import { goalInfo } from '../../lib/xp'
+import { chestReady, daysBetween, foxGreeting } from '../../lib/rewards'
+import { dayKey } from '../../lib/streak'
+import { DailyRewards } from './DailyQuests'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { useDue } from '../review/ReviewPage'
 import { useShallow } from 'zustand/react/shallow'
@@ -58,10 +61,11 @@ function TodayCard() {
           <p className="font-semibold leading-tight">{done ? (g.tier === 1 ? 'Tagesziel geschafft' : 'Bonusziel geschafft') : `Noch ${g.goal - today} XP bis zum Tagesziel`}</p>
           <p className="mt-0.5 flex items-center gap-1.5 text-sm text-muted">
             <Flame size={15} /> {days} {days === 1 ? 'Tag' : 'Tage'} Serie
-            {done ? `, nächstes Bonusziel bei ${g.goal} XP` : today === 0 && days > 0 ? ', heute lernen hält sie' : ''}
+            {done ? `, nächstes Bonusziel bei ${g.goal} XP` : ', danach wartet eine Truhe'}
           </p>
         </div>
       </div>
+      <DailyRewards />
       {due.length > 0 && (
         <button type="button" className={row} onClick={() => navigate('/review/play')}>
           <Repeat size={22} className="shrink-0 text-brand-dark" />
@@ -126,8 +130,21 @@ export function LearnPage() {
   const currentUnit = shown.find((u) => u.lessons.some((l) => l.id === current?.id))
 
   // Der Fuchs begrüßt dich passend zum Tag
-  const streakDays = streakNow(useStore.getState().streak)
-  const greeting = doneCount === 0 ? 'Bonjour ! Fangen wir an.' : streakDays >= 3 ? `${streakDays} Tage Serie, weiter so!` : 'Salut ! Weiter geht’s.'
+  const greeting = (() => {
+    const st = useStore.getState()
+    const today = dayKey()
+    const d = st.daily?.day === today ? st.daily : null
+    const gi = goalInfo(st.dailyGoal, st.xpByDay[today] ?? 0)
+    return foxGreeting({
+      doneLessons: doneCount,
+      streakDays: streakNow(st.streak),
+      daysAway: daysBetween(st.streak.lastDay, today) ?? 0,
+      chestReady: chestReady(gi.baseReached, d),
+      questsLeft: d ? d.quests.length - d.claimed.length : 3,
+      goalLeft: gi.baseReached ? 0 : gi.goal - (st.xpByDay[today] ?? 0),
+      hour: new Date().getHours(),
+    })
+  })()
 
   const [lessonSheet, setLessonSheet] = useState<{ lesson: Lesson; unit: Unit } | null>(null)
   /** Nur die Einheit, in der man gerade lernt, ist offen. Alles andere klappt man bei Bedarf auf. */

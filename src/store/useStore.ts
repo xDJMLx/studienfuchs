@@ -4,10 +4,14 @@ import { debouncedStorage } from '../lib/storage'
 import { STORAGE } from '../lib/migrate'
 import { booksSnapshot, useBooks } from './useBooks'
 import { examsSnapshot, useExams } from './useExams'
-import { reviewCard, seedKnownCard, type Grade, type SrsCard } from '../lib/srs'
-import { findLesson } from '../content'
+import { masteryOf, reviewCard, seedKnownCard, type Grade, type SrsCard } from '../lib/srs'
+import { achievements as computeAchievements, type AchievementInput } from '../lib/achievements'
+import { addProgress, chestReady, emptyDaily, rollChest, type ChestReward, type DailyState } from '../lib/rewards'
+import { goalInfo } from '../lib/xp'
+import { useRewardEvents } from './useRewardEvents'
+import { findLesson, isLessonDone, isRegular, itemMeta } from '../content'
 import { buy, coinsForSession, itemById, toggleEquip, type Outfit } from '../lib/shop'
-import { currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
+import { MAX_FREEZES, currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
 import type { Item, VocabSet } from '../lib/types'
 
 export interface LessonRecord {
@@ -59,9 +63,21 @@ interface Data {
   outfit: Outfit
   /** Längste Serie in Tagen (die aktuelle Serie allein reicht für Belohnungen nicht, sie bricht ab) */
   bestStreak: number
+  /** Tagesaufgaben, Zähler und Truhe von heute (siehe rewards.ts) */
+  daily: DailyState | null
+  /** Bester Punktestand der Blitzrunde */
+  blitzBest: number
+  /** Wie viele Truhen schon geöffnet wurden (für den Zufall der nächsten) */
+  chestsOpened: number
 }
 
 interface Actions {
+  /** Stellt sicher, dass es für heute Tagesaufgaben gibt. */
+  ensureDaily: () => void
+  /** Öffnet die Truhe von heute (null, wenn sie nicht bereit ist). */
+  openChest: () => ChestReward | null
+  /** Blitzrunde ist zu Ende: zahlt XP und Münzen aus, merkt sich den Rekord. */
+  finishBlitz: (r: { score: number; correct: number }) => { xp: number; coins: number; record: boolean; questCoins: number; questsDone: number; allQuests: boolean }
   /** Gibt zurück, wie viele Münzen es für diese Einheit gab. */
   finishSession: (r: { xp: number; grades: Record<string, Grade>; lessonId?: string; accuracy: number }) => number
   buyItem: (id: string) => boolean
@@ -119,19 +135,87 @@ const initial: Data = {
   owned: [],
   outfit: {},
   bestStreak: 0,
+  daily: null,
+  blitzBest: 0,
+  chestsOpened: 0,
 }
 
 const DATA_KEYS = Object.keys(initial) as (keyof Data)[]
+
+/** Die Zahlen, aus denen die Erfolge berechnet werden (wie auf der Profilseite). */
+function achievementInput(s: Pick<Data, 'cards' | 'sets' | 'lessons' | 'xp' | 'xpByDay' | 'dailyGoal'>, streakDays: number): AchievementInput {
+  const setIds = new Set(s.sets.flatMap((x) => x.items.map((i) => i.id)))
+  const known = Object.keys(s.cards).filter((id) => itemMeta.has(id) || setIds.has(id))
+  return {
+    lessons: Object.keys(s.lessons).length,
+    streak: streakDays,
+    xp: s.xp,
+    learnedWords: known.length,
+    masteredWords: known.filter((id) => masteryOf(s.cards[id]) === 2).length,
+    sets: s.sets.length,
+    goalDays: Object.values(s.xpByDay).filter((v) => v >= s.dailyGoal).length,
+  }
+}
+
+const unitOf = (lessonId?: string) => (lessonId ? findLesson(lessonId)?.unit : undefined)
 
 export const useStore = create<Data & Actions>()(
   persist(
     (set, get) => ({
       ...initial,
 
+      ensureDaily: () => {
+        const s = get()
+        const today = dayKey(new Date())
+        if (s.daily?.day === today) return
+        set({ daily: emptyDaily(today, { knownWords: Object.keys(s.cards).length }) })
+      },
+
+      openChest: () => {
+        const s = get()
+        const today = dayKey(new Date())
+        const daily = s.daily?.day === today ? s.daily : emptyDaily(today, { knownWords: Object.keys(s.cards).length })
+        if (!chestReady(goalInfo(s.dailyGoal, s.xpByDay[today] ?? 0).baseReached, daily)) return null
+        const reward = rollChest(today, s.chestsOpened ?? 0, { owned: s.owned ?? [], freezes: s.streak.freezes, maxFreezes: MAX_FREEZES })
+        set({
+          daily: { ...daily, chest: reward },
+          chestsOpened: (s.chestsOpened ?? 0) + 1,
+          coins: (s.coins ?? 0) + (reward.kind === 'coins' ? reward.amount : 0),
+          streak: reward.kind === 'freeze' ? { ...s.streak, freezes: Math.min(MAX_FREEZES, s.streak.freezes + 1) } : s.streak,
+          owned: reward.kind === 'item' ? [...(s.owned ?? []), reward.id] : s.owned,
+        })
+        return reward
+      },
+
+      finishBlitz: ({ score, correct }) => {
+        const s = get()
+        const now = new Date()
+        const today = dayKey(now)
+        const xp = Math.min(15, Math.floor(correct / 3))
+        const coins = Math.min(20, Math.floor(score / 40))
+        const daily = s.daily?.day === today ? s.daily : emptyDaily(today, { knownWords: Object.keys(s.cards).length })
+        const upd = addProgress(daily, { blitz: 1 })
+        const streak = registerActivity(s.streak, now)
+        const record = score > (s.blitzBest ?? 0)
+        const questCoins = upd.coins + upd.bonus
+        set({
+          daily: upd.daily,
+          blitzBest: Math.max(s.blitzBest ?? 0, score),
+          xp: s.xp + xp,
+          xpByDay: { ...s.xpByDay, [today]: (s.xpByDay[today] ?? 0) + xp },
+          streak,
+          bestStreak: Math.max(s.bestStreak ?? 0, streak.count),
+          coins: (s.coins ?? 0) + coins + questCoins,
+        })
+        return { xp, coins, record, questCoins, questsDone: upd.completed.length, allQuests: upd.allDone }
+      },
+
       finishSession: ({ xp, grades, lessonId, accuracy }) => {
         const s = get()
         const now = new Date()
         const cards = { ...s.cards }
+        const ids = Object.keys(grades)
+        const newWords = ids.filter((id) => !s.cards[id]).length
         for (const [itemId, grade] of Object.entries(grades)) cards[itemId] = reviewCard(cards[itemId], grade, now)
         const today = dayKey(now)
         const nextStreak = registerActivity(s.streak, now)
@@ -144,15 +228,47 @@ export const useStore = create<Data & Actions>()(
             lastDone: today,
           }
         }
-        const gain = coinsForSession({ xp, dailyGoal: s.dailyGoal, todayBefore: s.xpByDay[today] ?? 0, streakBefore: s.streak.count, streakAfter: nextStreak.count }).total
+        const todayBefore = s.xpByDay[today] ?? 0
+        const gain = coinsForSession({ xp, dailyGoal: s.dailyGoal, todayBefore, streakBefore: s.streak.count, streakAfter: nextStreak.count }).total
+
+        // Tagesaufgaben zählen und auszahlen
+        const dailyBase = s.daily?.day === today ? s.daily : emptyDaily(today, { knownWords: Object.keys(s.cards).length })
+        const upd = addProgress(dailyBase, {
+          newWords,
+          reviewed: ids.length - newWords,
+          practiced: ids.length,
+          lessons: lessonId && accuracy >= 0.7 ? 1 : 0,
+          perfect: lessonId && accuracy >= 0.9 ? 1 : 0,
+        })
+        const questCoins = upd.coins + upd.bonus
+
+        // Was ist neu? Erfolge, abgeschlossene Einheit, Truhe
+        const before = computeAchievements(achievementInput(s, currentStreak(s.streak, now))).filter((x) => x.value >= x.goal).map((x) => x.id)
+        const after = computeAchievements(achievementInput({ ...s, cards, lessons, xp: s.xp + xp, xpByDay: { ...s.xpByDay, [today]: todayBefore + xp } }, nextStreak.count))
+        const unit = unitOf(lessonId)
+        const regular = unit?.lessons.filter(isRegular) ?? []
+        const unitNow = !!unit && regular.length > 0 && regular.every((l) => isLessonDone(l, lessons[l.id])) && !regular.every((l) => isLessonDone(l, s.lessons[l.id]))
+        useRewardEvents.setState({
+          last: {
+            quests: upd.completed,
+            questCoins,
+            allQuests: upd.allDone,
+            bonus: upd.bonus,
+            achievements: after.filter((x) => x.value >= x.goal && !before.includes(x.id)),
+            unit: unitNow && unit ? { id: unit.id, title: unit.title, description: unit.description } : null,
+            chestUnlocked: !goalInfo(s.dailyGoal, todayBefore).baseReached && goalInfo(s.dailyGoal, todayBefore + xp).baseReached,
+          },
+        })
+
         set({
           cards,
           lessons,
+          daily: upd.daily,
           xp: s.xp + xp,
-          xpByDay: { ...s.xpByDay, [today]: (s.xpByDay[today] ?? 0) + xp },
+          xpByDay: { ...s.xpByDay, [today]: todayBefore + xp },
           streak: nextStreak,
           bestStreak: Math.max(s.bestStreak ?? 0, nextStreak.count),
-          coins: (s.coins ?? 0) + gain,
+          coins: (s.coins ?? 0) + gain + questCoins,
         })
         return gain
       },

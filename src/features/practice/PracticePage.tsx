@@ -3,7 +3,7 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { grades, units } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Cards, Headphones, Pencil, Right, Sparkle, Speaker, Star, Trophy } from '../../components/ui/Icons'
+import { Cards, Flame, Headphones, Pencil, Right, Sparkle, Speaker, Star, Trophy } from '../../components/ui/Icons'
 import { Segmented } from '../../components/ui/controls'
 import { EASE, Item, Stagger } from '../../components/ui/motion'
 import { itemsForScope, type Scope } from '../../lib/scope'
@@ -112,6 +112,10 @@ function PracticeTab() {
             </div>
           </div>
         </section>
+      </Item>
+
+      <Item>
+        <BlitzCard />
       </Item>
 
       <Item>
@@ -247,5 +251,20 @@ function ExamCard() {
         </ul>
       )}
     </section>
+  )
+}
+
+/** Die Blitzrunde: der kurze, schnelle Weg zu Punkten und Rekord, ohne Lernplan. */
+function BlitzCard() {
+  const best = useStore((s) => s.blitzBest ?? 0)
+  return (
+    <Link to="/blitz" className="press relative mb-6 flex items-center gap-4 overflow-hidden rounded-[22px] bg-brand-strong p-4 text-on-brand shadow-[0_5px_0_var(--shade-brand)]">
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-black/20"><Flame size={30} /></span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-lg font-extrabold leading-tight">Blitzrunde</span>
+        <span className="block text-sm font-medium opacity-95">{best > 0 ? `60 Sekunden. Dein Rekord: ${best} Punkte` : '60 Sekunden, so viele Wörter wie möglich'}</span>
+      </span>
+      <Right size={18} className="shrink-0" />
+    </Link>
   )
 }

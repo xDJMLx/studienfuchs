@@ -41,6 +41,12 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 - Eigene Schulbücher anlegen und Seiten fotografieren. Die Texterkennung läuft auf dem Gerät, die KI bekommt nur die passenden Seiten.
 - Sprechtraining mit Spracherkennung und eine kleine Lautschule.
 
+**Jeden Tag ein Grund wiederzukommen**
+- Drei Tagesaufgaben, die jeden Tag anders sind, und eine Überraschungs-Truhe, sobald das Tagesziel geschafft ist (meist Münzen, manchmal ein Glückstreffer, selten Serien-Schutz oder ein Geschenk für den Fuchs).
+- Die Blitzrunde: 60 Sekunden, so viele Wörter wie möglich, mit Combo-Faktor bis ×4 und eigenem Rekord.
+- Neue Erfolge, eine geschaffte Einheit („Das kannst du jetzt: …“) und gute Reihen werden gefeiert. Die Töne werden mit jeder richtigen Antwort höher.
+- Alles ohne Strafen: Wer einen Tag auslässt, verpasst nur die Extras dieses Tages.
+
 **Fenni, der Fuchs**
 <p align="center"><img src="docs/screenshots/fox.jpg" width="46%" alt="Fenni in verschiedenen Posen: froh, jubelnd, traurig, nachdenklich"></p>
 

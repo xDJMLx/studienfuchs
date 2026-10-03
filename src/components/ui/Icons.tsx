@@ -359,3 +359,18 @@ export const TabBooks = ({ size, ...p }: P) => (
     <path d="M5 3h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a1 1 0 0 1 1-1Zm1.5 14a.5.5 0 0 0 0 1H17v-1H6.5ZM7 7v2h8V7H7Z" fill="currentColor" />
   </svg>
 )
+
+/** Truhe: kleine Holztruhe mit Goldbeschlag; mit open=true ist der Deckel aufgeklappt und es glänzt. */
+export const Chest = ({ size, open = false, ...p }: P & { open?: boolean }) => (
+  <svg {...base(size)} {...p}>
+    {open && <path d="M12 2.2 13.2 5.4 16.4 4.6 15.2 7.6 18.6 8.6 15.6 10.2 12 9 8.4 10.2 5.4 8.6 8.8 7.6 7.6 4.6 10.8 5.4Z" fill="#ffd75e" opacity=".9" />}
+    <path d="M3.2 12.4h17.6v7.4a1.6 1.6 0 0 1-1.6 1.6H4.8a1.6 1.6 0 0 1-1.6-1.6Z" fill="#a9622b" stroke="#6b3a14" strokeWidth="1.3" strokeLinejoin="round" />
+    <path d="M8 12.4v9M16 12.4v9" stroke="#6b3a14" strokeWidth="1.1" opacity=".55" />
+    <g style={{ transformOrigin: '3.4px 12.4px', transform: open ? 'rotate(-32deg)' : 'none', transition: 'transform .3s cubic-bezier(.3,1.4,.5,1)' }}>
+      <path d="M3.2 12.4V9.6a4.4 4.4 0 0 1 4.4-4.4h8.8a4.4 4.4 0 0 1 4.4 4.4v2.8Z" fill="#c47a35" stroke="#6b3a14" strokeWidth="1.3" strokeLinejoin="round" />
+      <path d="M3.2 10.4h17.6" stroke="#ffc531" strokeWidth="1.6" />
+    </g>
+    <rect x="10.3" y="11" width="3.4" height="4.4" rx="1" fill="#ffc531" stroke="#c98f00" strokeWidth="1" />
+    <circle cx="12" cy="13.2" r=".7" fill="#6b3a14" />
+  </svg>
+)

@@ -127,3 +127,13 @@ Den ausführlichen Prüfbericht (was schlecht war und was geändert wurde) finde
 - **Töne:** Aufnahmen der Wörter einer Übung werden im Hintergrund vorgeladen (`prefetchRecordings`), nicht bei „Datensparmodus“.
 - **Bedienung:** Alle Tippflächen sind mindestens 40 bis 44 px hoch (`.btn`, `.chip`, Reiter), Eingabefelder 16 px (kein Zoom auf iOS), `interactive-widget=resizes-content` für die Bildschirmtastatur. Auf kleinen Handys (320 × 568) steht „Weiß ich nicht“ neben „Prüfen“ statt darüber.
 - **Prüfen:** `.claude/mobile-check.js` ist ein Skript für das Browserfenster, das alle Seiten bei der aktuellen Fensterbreite auf seitliches Überlaufen, zu kleine Tippflächen und zu kleine Eingabeschrift prüft.
+
+## Belohnungen und Motivation
+Ziel: Jeder Tag soll sich ein bisschen anders und lohnend anfühlen, ohne Druck. Es gibt nie Strafen; wer einen Tag auslässt, verpasst nur dessen Extras.
+- **Tagesaufgaben** (`src/lib/rewards.ts`): drei verschiedene Aufgaben pro Tag (neue Wörter, Wörter üben, Wiederholen, Lektionen, eine Lektion mit mindestens 90 %, Blitzrunde). Welche das sind, folgt allein aus dem Datum (stabil, aber jeden Tag anders); mindestens eine ist immer leicht, Wiederholen gibt es erst mit genug bekannten Wörtern. Münzen gibt es pro Aufgabe, +10 für alle drei. Gezählt wird in `finishSession` und `finishBlitz` (`useStore.ts`, Feld `daily`).
+- **Überraschungs-Truhe** (`ChestSheet.tsx`, `rollChest`): wartet, sobald das Tagesziel geschafft ist, einmal pro Tag. Meist Münzen, manchmal ein Glückstreffer, selten ein Serien-Schutz oder ein Geschenk aus dem Laden. Der Zufall hängt an Datum und Anzahl bisher geöffneter Truhen, ein Neuladen würfelt nichts neu.
+- **Meldungen nach einer Lektion** (`useRewardEvents.ts`, `ResultScreen`): neue Erfolge (vorher wurden sie nie verkündet), „Einheit geschafft“ mit dem Satz „Das kannst du jetzt: …“ aus der Einheitenbeschreibung, geschaffte Tagesaufgaben, die Truhe, Combo-Bonus.
+- **Combo:** die längste Reihe richtiger Antworten auf Anhieb bringt bis zu +6 XP (`comboBonus`); die Töne steigen mit der Reihe um Halbtöne.
+- **Blitzrunde** (`BlitzPage.tsx`, `src/lib/blitz.ts`): 60 Sekunden, Faktor ×1 bis ×4 mit der Reihe, falsch kostet 3 Sekunden, Rekord wird gespeichert. Ablenker, die für dasselbe Wort ebenfalls richtig wären (gleiches Wort mit anderer Übersetzung in einer anderen Lektion), werden ausgeschlossen. Die Runde ändert den Lernplan (FSRS) nicht.
+- **Begrüßung des Fuchses** (`foxGreeting`): passt zur Lage (Truhe wartet, nur noch eine Aufgabe, nach einer Pause „Schön, dass du wieder da bist“), ohne Vorwürfe.
+- **Dev-Seite** `/#/result-lab` zeigt den Ergebnisbildschirm mit Testdaten (nur beim Entwickeln).
