@@ -3,6 +3,7 @@ import type { Answer, Evaluation } from '../../lib/evaluate'
 import type { Exercise } from '../../lib/types'
 import { speak } from '../../lib/speech'
 import { useStore } from '../../store/useStore'
+import { Mascot } from '../mascot/Mascot'
 import { Speaker } from '../ui/Icons'
 
 export interface ExerciseProps<K extends Exercise['kind']> {
@@ -52,9 +53,16 @@ export function Instruction({ children }: { children: React.ReactNode }) {
 /** Aufgabe als ruhige Karte: optional mit Vorlesen-Knopf, der Text ist das Wichtigste. */
 export function PromptBubble({ children, speak: text, lang }: { children: React.ReactNode; speak?: string; lang?: 'fr' | 'de' }) {
   return (
-    <div className="card mb-6 flex items-center gap-4 p-4">
-      {text && <SpeakButton text={text} />}
-      <span lang={lang} className="text-2xl font-semibold leading-snug">{children}</span>
+    // Der Fuchs "sagt" die Aufgabe in einer Sprechblase, wie die Figur bei SideMe
+    <div className="mb-6 flex items-center gap-1">
+      <Mascot size={78} blink className="-ml-2 shrink-0" />
+      <div className="relative min-w-0 flex-1 rounded-2xl border-2 border-line bg-surface p-3.5">
+        <span aria-hidden className="absolute -left-[7px] top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 border-b-2 border-l-2 border-line bg-surface" />
+        <div className="flex items-center gap-3.5">
+          {text && <SpeakButton text={text} />}
+          <span lang={lang} className="min-w-0 text-2xl font-bold leading-snug">{children}</span>
+        </div>
+      </div>
     </div>
   )
 }

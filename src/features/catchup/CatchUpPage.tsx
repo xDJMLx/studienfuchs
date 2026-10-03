@@ -44,6 +44,8 @@ export function CatchUpPage() {
   const [days, setDays] = useState<number>(0)
   const [custom, setCustom] = useState('')
   const [open, setOpen] = useState(false)
+  /** Die Liste der Einheiten ist nur offen, solange man den Stand der Klasse wählt */
+  const [picking, setPicking] = useState(!classUnit)
 
   const gradeUnits = useMemo(() => units.filter((u) => u.grade === grade && !u.extra), [grade])
   const all = catchUpAll && classGrade > grades[0]
@@ -51,8 +53,14 @@ export function CatchUpPage() {
   // Empfohlener Zeitraum: höchstens 30 Minuten am Tag, inklusive dem, was die Klasse bis dahin neu durchnimmt
   const rec = useMemo(() => {
     const pace = classUnit ? classPacePerWeek(units.find((u) => u.id === classUnit)?.grade ?? 7) : 0
-    const first = recommendedDays(missing.length, MIN_PER_LESSON)
-    return recommendedDays(missing.length + (catchUpOngoing ? Math.round((pace / 7) * first) : 0), MIN_PER_LESSON)
+    // Der Unterricht läuft weiter: Mit jedem Tag mehr kommen neue Lektionen dazu. Wenige Durchgänge reichen, bis der Wert sich nicht mehr ändert.
+    let d = recommendedDays(missing.length, MIN_PER_LESSON)
+    for (let i = 0; i < 4 && catchUpOngoing; i++) {
+      const next = recommendedDays(missing.length + Math.round((pace / 7) * d), MIN_PER_LESSON)
+      if (next === d) break
+      d = next
+    }
+    return d
   }, [classUnit, missing.length, catchUpOngoing])
   const target = custom || inDays(days || rec)
   const groups = useMemo(() => (classUnit ? backlogByUnit(classUnit, lessons, all, catchUpExtras) : []), [classUnit, lessons, all, catchUpExtras])
@@ -64,6 +72,7 @@ export function CatchUpPage() {
     () => (classUnit ? unitsUpTo(classUnit, all, true).filter((u) => u.extra).flatMap((u) => u.lessons.filter(isRegular)).filter((l) => !isLessonDone(l, lessons[l.id])).length : 0),
     [classUnit, all, lessons],
   )
+  const showPicker = picking || !classUnit
   const planActive = !!catchUpTarget && !!classUnit && !status?.expired
   const earlierLessons = useMemo(() => {
     if (!classUnit) return 0
@@ -129,7 +138,8 @@ export function CatchUpPage() {
         </div>
       </Item>
 
-      {/* 1) Wo ist die Klasse? */}
+      {/* 1) Wo ist die Klasse? Nur offen, solange man wählt */}
+      {showPicker && (
       <Item>
         <h2 className="text-[17px] font-semibold mb-2.5">Wo ist deine Klasse im Buch?</h2>
         <p className="mb-3 text-sm text-muted">Wähle die Einheit, die ihr gerade im Unterricht macht. Alles bis dahin sollst du können.</p>
@@ -157,6 +167,7 @@ export function CatchUpPage() {
                 setClassBook('aplus')
                 setClassUnit(berlinUnit)
                 setGrade(grade)
+                setPicking(false)
               }}
             >
               Das passt
@@ -188,6 +199,7 @@ export function CatchUpPage() {
                       setGrade(grade)
                       setClassRef(b.id)
                       setCatchUpExtras(true)
+                      setPicking(false)
                     }}
                     aria-pressed={on}
                     className={'press flex w-full items-center gap-3 px-4 py-3 text-left transition-colors ' + (on ? 'bg-brand-soft' : 'hover:bg-snow')}
@@ -219,6 +231,7 @@ export function CatchUpPage() {
                     setClassUnit(u.id)
                     setGrade(u.grade)
                     setClassRef(null)
+                    setPicking(false)
                   }}
                   aria-pressed={on}
                   className={'press flex w-full items-center gap-3 px-4 py-3 text-left transition-colors ' + (on ? 'bg-brand-soft' : 'hover:bg-snow')}
@@ -242,18 +255,49 @@ export function CatchUpPage() {
         </ul>
         )}
 
+      </Item>
+      )}
+
+      {/* 2) Rückstand und Plan */}
+      {classUnit && status && preview && (
+        <Item>
+          <section className="card mt-6 overflow-hidden" aria-label="Rückstand">
+            <div className="flex items-center gap-4 p-5">
+              <ProgressRing pct={status.total ? (status.total - status.remaining) / status.total : 1} size={72} stroke={7} color={status.finished ? 'var(--good)' : 'var(--brand)'}>
+                <span className="text-center text-sm font-bold leading-tight">
+                  <CountUp to={status.total - status.remaining} />/{status.total}
+                </span>
+              </ProgressRing>
+              <div className="min-w-0">
+                <p className="text-sm font-medium text-muted">Stand deiner Klasse</p>
+                <p className="font-semibold leading-tight">{unitLabel(classUnit)}</p>
+                {status.finished ? (
+                  <p className="mt-1 text-sm font-medium text-good-dark">Geschafft: du bist auf dem Stand deiner Klasse.</p>
+                ) : (
+                  <p className="mt-1 text-sm text-muted">
+                    Dir fehlen noch <b className="text-ink">{status.remaining} Lektionen</b> mit <b className="text-ink">{status.remainingWords} Wörtern</b>, ungefähr {fmtMinutes(status.remaining * MIN_PER_LESSON)} Lernzeit.
+                  </p>
+                )}
+                <button type="button" className="press mt-2 -ml-2 rounded-lg px-2 py-1 text-sm font-semibold text-brand-dark hover:bg-brand-soft" onClick={() => setPicking(true)}>
+                  Andere Einheit wählen
+                </button>
+              </div>
+            </div>
+
+            {(extraOpen > 0 || (classGrade > grades[0])) && (
+              <div className="grid gap-3 border-t border-line px-5 py-4 text-sm">
         {classUnit && extraOpen > 0 && (
-          <label className="card mt-3 flex cursor-pointer items-start gap-3 p-4">
+          <label className="flex cursor-pointer items-start gap-3">
             <input type="checkbox" checked={catchUpExtras} onChange={(e) => setCatchUpExtras(e.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-[var(--brand)]" />
             <span className="min-w-0">
               <span className="block font-semibold">Zusatzwortschatz mitlernen</span>
-              <span className="block text-sm text-muted">Wörter, die in Berliner Lehrbüchern wie Découvertes vorkommen und im Grundkurs fehlen. Das sind {extraOpen} Lektionen mehr. Nimm sie dazu, wenn ihr mit Découvertes arbeitet.</span>
+              <span className="block text-sm text-muted">Wörter aus Berliner Lehrbüchern wie Découvertes, die im Grundkurs fehlen ({extraOpen} Lektionen mehr). Sinnvoll, wenn ihr mit Découvertes arbeitet.</span>
             </span>
           </label>
         )}
 
         {classUnit && classGrade > grades[0] && (
-          <label className="card mt-3 flex cursor-pointer items-start gap-3 p-4">
+          <label className="flex cursor-pointer items-start gap-3">
             <input type="checkbox" checked={catchUpAll} onChange={(e) => setCatchUpAll(e.target.checked)} className="mt-1 h-5 w-5 shrink-0 accent-[var(--brand)]" />
             <span className="min-w-0">
               <span className="block font-semibold">Auch frühere Klassen nachholen</span>
@@ -264,30 +308,8 @@ export function CatchUpPage() {
             </span>
           </label>
         )}
-      </Item>
-
-      {/* 2) Rückstand und Plan */}
-      {classUnit && status && preview && (
-        <Item>
-          <section className="card mt-6 overflow-hidden" aria-label="Rückstand">
-            <div className="flex items-center gap-4 p-5">
-              <ProgressRing pct={status.total ? (status.total - status.remaining) / status.total : 1} size={84} stroke={8} color={status.finished ? 'var(--good)' : 'var(--brand)'}>
-                <span className="text-center text-sm font-bold leading-tight">
-                  <CountUp to={status.total - status.remaining} />/{status.total}
-                </span>
-              </ProgressRing>
-              <div className="min-w-0">
-                <p className="eyebrow">Stand deiner Klasse</p>
-                <p className="font-semibold leading-tight">{unitLabel(classUnit)}</p>
-                {status.finished ? (
-                  <p className="mt-1 text-sm font-medium text-good-dark">Geschafft: du bist auf dem Stand deiner Klasse.</p>
-                ) : (
-                  <p className="mt-1 text-sm text-muted">
-                    Dir fehlen noch <b className="text-ink">{status.remaining} Lektionen</b> mit <b className="text-ink">{status.remainingWords} Wörtern</b>, ungefähr {fmtMinutes(status.remaining * MIN_PER_LESSON)} Lernzeit.
-                  </p>
-                )}
               </div>
-            </div>
+            )}
 
             {status.finished && nextUnit && (
               <div className="border-t border-line p-5">

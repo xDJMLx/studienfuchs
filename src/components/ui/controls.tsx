@@ -121,9 +121,8 @@ export function ChipTabs<T extends string | number>({
   label: string
   className?: string
 }) {
-  const id = useId()
   return (
-    <div className={`-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] ${className}`} role="tablist" aria-label={label}>
+    <div className={`-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none] ${className}`} role="tablist" aria-label={label}>
       {options.map((o) => {
         const on = o.value === value
         return (
@@ -133,9 +132,8 @@ export function ChipTabs<T extends string | number>({
             role="tab"
             aria-selected={on}
             onClick={() => onChange(o.value)}
-            className={`press relative shrink-0 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${on ? 'border-transparent text-brand-dark' : 'border-line text-muted hover:bg-snow hover:text-ink'}`}
+            className={`chip shrink-0 ${on ? 'chip-on' : ''}`}
           >
-            {on && <motion.span layoutId={`chip-${id}`} className="absolute inset-0 rounded-full bg-brand-soft ring-1 ring-brand/40" transition={SPRING.snappy} />}
             <span className="relative">{o.label}</span>
           </button>
         )

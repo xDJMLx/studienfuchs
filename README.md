@@ -7,10 +7,11 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 **[Jetzt ausprobieren: xdjmlx.github.io/studienfuchs](https://xdjmlx.github.io/studienfuchs/)**
 
 <p align="center">
-  <img src="docs/screenshots/home.jpg" width="23%" alt="Startseite mit Fuchs, aktueller Lektion und Tagesziel">
-  <img src="docs/screenshots/lesson.jpg" width="23%" alt="Aufgabe in einer Lektion mit grüner Rückmeldung">
-  <img src="docs/screenshots/catchup.jpg" width="23%" alt="Aufholplan bis zu einem Wunschdatum">
-  <img src="docs/screenshots/profile.jpg" width="23%" alt="Profil mit Level, Zahlen und Fuchs">
+  <img src="docs/screenshots/home.jpg" width="19%" alt="Startseite mit Fuchs, aktueller Lektion und Tagesziel">
+  <img src="docs/screenshots/lesson.jpg" width="19%" alt="Aufgabe in einer Lektion, der Fuchs stellt die Frage">
+  <img src="docs/screenshots/path.jpg" width="19%" alt="Lernpfad mit Sechseck-Knoten und Kapitel-Banner">
+  <img src="docs/screenshots/catchup.jpg" width="19%" alt="Aufholplan bis zu einem Wunschdatum">
+  <img src="docs/screenshots/profile.jpg" width="19%" alt="Profil mit Level, Zahlen und Fuchs">
 </p>
 
 ## Was die App kann

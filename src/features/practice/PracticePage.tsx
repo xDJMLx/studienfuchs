@@ -125,11 +125,11 @@ function PracticeTab() {
               role="radio"
               aria-checked={scope === s.id}
               onClick={() => setScope(s.id)}
-              className={`press flex items-center gap-2 rounded-xl border px-4 py-2.5 text-sm font-medium transition-colors ${scope === s.id ? 'border-brand bg-brand-soft text-brand-dark' : 'border-line bg-surface text-muted hover:bg-snow'}`}
+              className={`chip ${scope === s.id ? 'chip-on' : ''}`}
             >
               {s.id === 'favorites' && <Star size={14} />}
               {s.label}
-              <span className="rounded-md bg-snow px-1.5 text-xs">{counts[s.id]}</span>
+              <span className="rounded-md bg-black/15 px-1.5 text-xs">{counts[s.id]}</span>
             </button>
           ))}
           <select

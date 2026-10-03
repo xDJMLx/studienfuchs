@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { blockingLesson, grades, isLessonDone, isUnlocked, passMark, units } from '../../content'
@@ -16,28 +16,23 @@ import { goalInfo } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { useDue } from '../review/ReviewPage'
 
-const OFFSETS = [0, 34, 52, 34, 0, -34, -52, -34]
-/** Höhe einer Zeile im Pfad: Knoten 64 + Abstand 8 + Beschriftung 32 + Lücke 36. Feste Höhe, damit die Linien exakt treffen. */
-const ROW = 140
-const NODE_CENTER = 32
+const OFFSETS = [0, 46, 70, 46, 0, -46, -70, -46]
 
-/** Verbindungslinien zwischen den Knoten: erledigte Strecken durchgezogen, der Rest gepunktet. */
-function PathLines({ states, offsets }: { states: NodeState[]; offsets: number[] }) {
-  const reduce = useReducedMotion()
+/** Sechseck-Knoten mit Unterkante, wie die Lektions-Symbole bei SideMe, nur in Orange. */
+function HexNode({ state, test, children }: { state: NodeState; test: boolean; children: React.ReactNode }) {
+  const locked = state === 'locked'
+  const main = locked ? 'var(--snow)' : test ? 'var(--gold)' : 'var(--brand)'
+  const shade = locked ? 'var(--shade-line)' : test ? 'var(--shade-gold)' : 'var(--shade-brand)'
+  const d = 'M32 5 L58 20 L58 50 L32 65 L6 50 L6 20 Z'
   return (
-    <svg aria-hidden className="pointer-events-none absolute left-1/2 top-0 overflow-visible" width="1" height="1">
-      {offsets.slice(0, -1).map((x1, i) => {
-        const x2 = offsets[i + 1]
-        const y1 = NODE_CENTER + i * ROW
-        const y2 = NODE_CENTER + (i + 1) * ROW
-        const d = `M ${x1} ${y1} C ${x1} ${y1 + ROW * 0.55}, ${x2} ${y2 - ROW * 0.55}, ${x2} ${y2}`
-        return states[i] === 'done' ? (
-          <motion.path key={i} d={d} fill="none" stroke="var(--brand)" strokeWidth={6} strokeLinecap="round" initial={reduce ? false : { pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.6, ease: EASE, delay: 0.1 }} />
-        ) : (
-          <path key={i} d={d} fill="none" stroke="var(--muted)" strokeOpacity={0.4} strokeWidth={5} strokeLinecap="round" strokeDasharray="1 13" />
-        )
-      })}
-    </svg>
+    <span className="relative block h-[80px] w-[72px]" aria-hidden>
+      <svg viewBox="0 0 64 72" width="72" height="80" className="absolute inset-0 overflow-visible">
+        <path d={d} transform="translate(0 6)" fill={shade} stroke={shade} strokeWidth="8" strokeLinejoin="round" />
+        <path d={d} fill={main} stroke={main} strokeWidth="8" strokeLinejoin="round" />
+        {!locked && <path d={d} transform="translate(32 35) scale(0.7) translate(-32 -35)" fill="#ffffff" fillOpacity="0.22" stroke="#ffffff" strokeOpacity="0.22" strokeWidth="6" strokeLinejoin="round" />}
+      </svg>
+      <span className={`absolute inset-x-0 top-0 flex h-[70px] items-center justify-center ${locked ? 'text-muted' : 'text-on-brand'}`}>{children}</span>
+    </span>
   )
 }
 
@@ -93,36 +88,21 @@ function TodayCard() {
     </section>
   )
 }
-/** KI direkt auf der Startseite: Ein Tipp auf eine Frage öffnet die KI mit der Frage schon im Eingabefeld. */
-const COACH_QUESTIONS = [
-  { label: 'Klassenarbeit planen', q: 'Hilf mir, mich auf meine nächste Klassenarbeit vorzubereiten.' },
-  { label: 'Wörter abfragen', q: 'Frag mich Vokabeln ab, bei denen es bei mir hakt.' },
-  { label: 'Grammatik erklären', q: 'Erkläre mir den Unterschied zwischen passé composé und imparfait.' },
-]
+/** KI auf der Startseite: eine ruhige Zeile, die Beispielfragen stehen im KI-Tab. */
 function CoachCard() {
   return (
-    <section className="card mb-4 p-4" aria-label="KI">
-      <Link to="/coach" className="press group flex items-center gap-3.5">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center text-brand-dark">
-          <Sparkle size={26} />
-        </span>
-        <span className="min-w-0 flex-1">
-          <span className="block font-semibold leading-tight">Frag die KI</span>
-          <span className="block text-sm text-muted">Für Klassenarbeiten, Grammatik und schwierige Wörter</span>
-        </span>
-        <Right size={16} className="shrink-0 text-muted transition-transform group-hover:translate-x-0.5" />
-      </Link>
-      <div className="-mx-4 mt-3.5 flex gap-2 overflow-x-auto px-4 pb-0.5" role="list" aria-label="Fragen an die KI">
-        {COACH_QUESTIONS.map((c) => (
-          <Link key={c.label} role="listitem" to={`/coach?q=${encodeURIComponent(c.q)}`} className="press shrink-0 rounded-full border border-line bg-snow px-3.5 py-2 text-sm font-medium text-ink transition-colors hover:border-brand/40 hover:bg-brand-soft">
-            {c.label}
-          </Link>
-        ))}
-      </div>
-    </section>
+    <Link to="/coach" className="card press group mb-4 flex items-center gap-3.5 p-4" aria-label="KI öffnen">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center text-brand-dark">
+        <Sparkle size={26} />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block font-semibold leading-tight">Frag die KI</span>
+        <span className="block text-sm text-muted">Für Klassenarbeiten, Grammatik und schwierige Wörter</span>
+      </span>
+      <Right size={16} className="shrink-0 text-muted transition-transform group-hover:translate-x-0.5" />
+    </Link>
   )
 }
-
 
 type NodeState = 'done' | 'current' | 'open' | 'locked'
 
@@ -139,11 +119,16 @@ export function LearnPage() {
   const regular = all.filter((l) => !l.review && !l.test)
   const doneCount = regular.filter((l) => isLessonDone(l, lessons[l.id])).length
   // Nächste Lektion: die erste offene, die noch nicht geschafft ist
-  const current = all.find((l) => !isLessonDone(l, lessons[l.id]) && isUnlocked(l.id, lessons) && !l.test)
+  const open = (l: Lesson) => !isLessonDone(l, lessons[l.id]) && isUnlocked(l.id, lessons) && !l.test
+  // Erst die nächste normale Lektion, Wiederholungen der Einheit erst, wenn nichts Neues mehr offen ist
+  const current = all.find((l) => open(l) && !l.review) ?? all.find(open)
   const currentUnit = shown.find((u) => u.lessons.some((l) => l.id === current?.id))
 
   const [lessonSheet, setLessonSheet] = useState<{ lesson: Lesson; unit: Unit } | null>(null)
-  const [unitSheet, setUnitSheet] = useState<Unit | null>(null)
+  /** Nur die Einheit, in der man gerade lernt, ist offen. Alles andere klappt man bei Bedarf auf. */
+  const [openUnits, setOpenUnits] = useState<Record<string, boolean>>({})
+  const isOpen = (u: Unit) => openUnits[u.id] ?? u.id === currentUnit?.id
+  const toggle = (u: Unit) => setOpenUnits((o) => ({ ...o, [u.id]: !isOpen(u) }))
 
   const stateOf = (l: Lesson): NodeState => {
     if (isLessonDone(l, lessons[l.id])) return 'done'
@@ -155,36 +140,34 @@ export function LearnPage() {
     <div className="mx-auto max-w-[620px] px-4 pb-10 pt-4 lg:pt-6">
       {/* Weiterlernen: der eine große Block der Startseite, mit dem Fuchs */}
       <section className="relative mb-5 overflow-hidden rounded-[28px] bg-brand-strong p-5 pr-28 text-on-brand" aria-label="Weiterlernen">
-        <p className="text-sm font-medium opacity-85">
-          Französisch, Klasse {grade}
-        </p>
+        <p className="text-[12px] font-extrabold uppercase tracking-[0.12em] opacity-80">Französisch, Klasse {grade}</p>
         {current ? (
           <>
-            <h1 className="mt-1 text-[26px] font-bold leading-tight">{doneCount === 0 ? 'Fang hier an' : 'Weiter geht’s'}</h1>
+            <h1 className="mt-1 text-[28px] font-extrabold leading-tight">{doneCount === 0 ? 'Fang hier an' : 'Weiter geht’s'}</h1>
             <p className="mt-0.5 text-[17px] font-medium leading-snug opacity-95">{current.title}</p>
           </>
         ) : (
           <h1 className="mt-1 text-[22px] font-bold leading-tight">Alle Lektionen dieser Klasse sind geschafft</h1>
         )}
-        <div className="mt-4 h-1.5 w-full max-w-[14rem] overflow-hidden rounded-full bg-white/30" role="progressbar" aria-valuemin={0} aria-valuemax={regular.length} aria-valuenow={doneCount} aria-label="Fortschritt in dieser Klasse">
-          <div className="h-full rounded-full bg-white" style={{ width: `${regular.length ? Math.max(3, (doneCount / regular.length) * 100) : 0}%` }} />
+        <div className="mt-4 h-2.5 w-full max-w-[14rem] overflow-hidden rounded-full bg-black/20" role="progressbar" aria-valuemin={0} aria-valuemax={regular.length} aria-valuenow={doneCount} aria-label="Fortschritt in dieser Klasse">
+          <div className="h-full rounded-full bg-on-brand" style={{ width: `${regular.length ? Math.max(4, (doneCount / regular.length) * 100) : 0}%` }} />
         </div>
         <p className="mt-1.5 text-sm opacity-85">
           {doneCount} von {regular.length} Lektionen geschafft
         </p>
         {current ? (
-          <button className="press mt-4 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-white px-5 text-[15px] font-bold text-brand-dark" onClick={() => navigate(`/lesson/${current.id}`)}>
+          <button className="press mt-4 mb-1 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-[#0e1b28] px-5 text-[14px] font-extrabold uppercase tracking-[0.04em] text-white shadow-[0_4px_0_rgba(0,0,0,0.35)]" onClick={() => navigate(`/lesson/${current.id}`)}>
             {doneCount === 0 ? 'Los geht’s' : 'Weitermachen'} <Right size={18} />
           </button>
         ) : (
           <p className="mt-3 text-sm opacity-90">Wiederhole sie im Tab „Üben“.</p>
         )}
         <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium">
-          <Link to="/catchup" className="underline decoration-white/50 underline-offset-4">
+          <Link to="/catchup" className="underline decoration-current/50 underline-offset-4">
             Unterricht schon weiter? Aufholen
           </Link>
           {doneCount === 0 && (
-            <Link to="/placement" className="underline decoration-white/50 underline-offset-4">
+            <Link to="/placement" className="underline decoration-current/50 underline-offset-4">
               Vorwissen? Einstufungstest
             </Link>
           )}
@@ -198,101 +181,97 @@ export function LearnPage() {
       <InstallBanner />
       <BackupBanner />
 
-      {shown.map((unit, ui) => {
-        const regularInUnit = unit.lessons.filter((l) => !l.review && !l.test)
-        const done = regularInUnit.filter((l) => isLessonDone(l, lessons[l.id])).length
-        const pct = regularInUnit.length ? done / regularInUnit.length : 0
-        const unitLocked = !isUnlocked(regularInUnit[0].id, lessons)
-        const states = unit.lessons.map(stateOf)
-        const offsets = unit.lessons.map((_, li) => OFFSETS[(ui * 3 + li) % OFFSETS.length])
-        return (
-          <section
-            key={unit.id}
-            className="mb-10"
-            aria-labelledby={`h-${unit.id}`}
-            // Weit entfernte Einheiten werden erst beim Heranscrollen gezeichnet: spart viel Arbeit auf dem Handy
-            style={ui > 0 ? { contentVisibility: 'auto', containIntrinsicSize: `auto ${unit.lessons.length * 140 + 120}px` } : undefined}
-          >
-            <button type="button" onClick={() => setUnitSheet(unit)} className={`card lift sticky top-2 z-10 flex w-full items-center gap-4 p-4 text-left ${unitLocked ? 'opacity-70' : ''}`}>
-              <ProgressRing pct={pct} size={52} stroke={5}>
-                {unitLocked ? <Lock size={18} /> : <span className="text-sm font-bold">{unit.extra ? '+' : shown.slice(0, ui + 1).filter((u) => !u.extra).length}</span>}
-              </ProgressRing>
-              <div className="min-w-0 flex-1">
-                {(unit.book || unit.extra || unit.id === classUnit) && (
-                  <p className="flex items-center gap-1.5 text-[11px] font-semibold text-muted">
-                    <span className="truncate">{unit.extra ? 'Zusatzwortschatz, freiwillig' : unit.book}</span>
-                    {unit.id === classUnit && <span className="shrink-0 rounded bg-brand-strong px-1.5 py-px text-[10px] text-on-brand">Eure Klasse</span>}
-                  </p>
+      <div className="grid gap-5">
+        {shown.map((unit, ui) => {
+          const regularInUnit = unit.lessons.filter((l) => !l.review && !l.test)
+          const done = regularInUnit.filter((l) => isLessonDone(l, lessons[l.id])).length
+          const pct = regularInUnit.length ? done / regularInUnit.length : 0
+          const unitDone = regularInUnit.length > 0 && done === regularInUnit.length
+          const unitLocked = !isUnlocked(regularInUnit[0].id, lessons)
+          const expanded = isOpen(unit)
+          const number = shown.slice(0, ui + 1).filter((u) => !u.extra).length
+          const states = unit.lessons.map(stateOf)
+          const offsets = unit.lessons.map((_, li) => OFFSETS[(ui * 3 + li) % OFFSETS.length])
+          return (
+            <section key={unit.id} aria-labelledby={`h-${unit.id}`}>
+              {/* Kapitel-Banner wie bei SideMe: die offene Einheit in Orange, alle anderen ruhig */}
+              <button
+                type="button"
+                aria-expanded={expanded}
+                onClick={() => toggle(unit)}
+                className={`press sticky top-2 z-10 flex w-full items-center gap-3.5 rounded-[20px] p-4 text-left ${expanded ? 'bg-brand-strong text-on-brand shadow-[0_4px_0_var(--shade-brand)]' : 'card'} ${unitLocked && !expanded ? 'opacity-70' : ''}`}
+              >
+                <span className="min-w-0 flex-1">
+                  <span className={`flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-[0.12em] ${expanded ? 'opacity-80' : 'text-muted'}`}>
+                    <span className="truncate">{unit.extra ? 'Zusatz, freiwillig' : `Klasse ${unit.grade}, Einheit ${number}`}</span>
+                    {unit.id === classUnit && <span className={`shrink-0 rounded px-1.5 py-px text-[10px] ${expanded ? 'bg-on-brand text-brand-strong' : 'bg-brand-strong text-on-brand'}`}>Eure Klasse</span>}
+                  </span>
+                  <span id={`h-${unit.id}`} className="block truncate text-[19px] font-extrabold leading-tight">{unit.title}</span>
+                  {expanded && <span className="mt-0.5 block text-sm font-medium opacity-80">{unit.description}</span>}
+                </span>
+                <ProgressRing pct={pct} size={46} stroke={5} color={expanded ? 'var(--on-brand)' : unitDone ? 'var(--good)' : 'var(--brand)'} track={expanded ? 'rgba(0,0,0,0.2)' : undefined}>
+                  {unitDone ? <Check size={18} /> : unitLocked ? <Lock size={16} /> : <span className="text-[12px] font-extrabold tabular-nums">{done}/{regularInUnit.length}</span>}
+                </ProgressRing>
+              </button>
+              <AnimatePresence initial={false}>
+                {expanded && (
+                  <motion.div
+                    key="nodes"
+                    initial={reduce ? false : { height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={reduce ? undefined : { height: 0, opacity: 0 }}
+                    transition={{ duration: 0.24, ease: EASE }}
+                    className="overflow-hidden"
+                  >
+                    <ol className="relative flex flex-col items-center gap-3 pb-4 pt-8">
+                      {unit.lessons.map((lesson, li) => {
+                        const state = states[li]
+                        const rec = lessons[lesson.id]
+                        const attempted = !!rec && state !== 'done'
+                        const offset = offsets[li]
+                        const kind = lesson.test ? 'Einheitentest' : lesson.review ? 'Wiederholung' : 'Lektion'
+                        return (
+                          // Bewusst ohne Einblend-Animation beim Scrollen: Bei schnellem Wischen blieben sonst Knoten unsichtbar
+                          <li key={lesson.id} style={{ transform: `translateX(${offset}px)` }} className="relative flex flex-col items-center">
+                            {state === 'current' && (
+                              <>
+                                <motion.span
+                                  initial={reduce ? false : { opacity: 0, y: 6, scale: 0.9 }}
+                                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                                  transition={{ ...SPRING.snappy, delay: 0.3 }}
+                                  className="absolute -top-7 z-10 whitespace-nowrap rounded-xl bg-ink px-3 py-1 text-xs font-extrabold uppercase tracking-wide text-surface"
+                                >
+                                  Start
+                                  <span aria-hidden className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-ink" />
+                                </motion.span>
+                                <Mascot size={68} mood="cheer" blink className={`pointer-events-none absolute top-0 ${offset >= 0 ? 'right-full mr-2' : 'left-full ml-2'}`} />
+                              </>
+                            )}
+                            <button
+                              type="button"
+                              onClick={() => setLessonSheet({ lesson, unit })}
+                              aria-label={`${kind}: ${lesson.title}${state === 'done' ? ', geschafft' : state === 'locked' ? ', gesperrt' : state === 'current' ? ', als Nächstes' : ''}`}
+                              className="press relative"
+                            >
+                              {state === 'current' && !reduce && <span aria-hidden className="animate-halo absolute inset-1 rounded-full bg-brand" />}
+                              <HexNode state={state} test={!!lesson.test}>
+                                {state === 'done' ? <Check size={26} /> : lesson.test ? <Trophy size={26} /> : lesson.review ? <Repeat size={26} /> : state === 'locked' ? <Lock size={22} /> : <span className="text-xl font-extrabold">{li + 1}</span>}
+                              </HexNode>
+                              {attempted && <span className="absolute -right-2 -top-1 rounded-full bg-gold px-1.5 text-[10px] font-extrabold text-on-brand">{Math.round(rec.bestAccuracy * 100)}%</span>}
+                            </button>
+                          </li>
+                        )
+                      })}
+                    </ol>
+                  </motion.div>
                 )}
-                <h2 id={`h-${unit.id}`} className="truncate font-semibold leading-tight">{unit.title}</h2>
-                <p className="truncate text-sm text-muted">{unit.description}</p>
-              </div>
-              <span className="shrink-0 text-sm font-medium text-muted">{done}/{regularInUnit.length}</span>
-            </button>
-
-            <div className="relative mt-8">
-              <PathLines states={states} offsets={offsets} />
-              <ol className="relative flex flex-col items-center gap-9">
-                {unit.lessons.map((lesson, li) => {
-                  const state = states[li]
-                  const rec = lessons[lesson.id]
-                  const attempted = !!rec && state !== 'done'
-                  const offset = offsets[li]
-                  const kind = lesson.test ? 'Einheitentest' : lesson.review ? 'Wiederholung' : 'Lektion'
-                  const base = 'relative flex h-16 w-16 items-center justify-center rounded-full text-lg font-bold'
-                  const tone =
-                    state === 'done'
-                      ? 'bg-brand text-white'
-                      : state === 'current'
-                        ? 'bg-brand text-white ring-4 ring-brand/25'
-                        : state === 'locked'
-                          ? 'border border-line bg-snow text-muted'
-                          : lesson.review || lesson.test
-                            ? 'border-2 border-dashed border-brand/60 bg-surface text-brand-dark hover:bg-brand-soft'
-                            : 'border-2 border-brand bg-surface text-brand-dark hover:bg-brand-soft'
-                  const icon =
-                    state === 'done' ? <Check size={26} /> : lesson.test ? <Trophy size={24} /> : lesson.review ? <Repeat size={24} /> : state === 'locked' ? <Lock size={22} /> : li + 1
-                  return (
-                    // Bewusst ohne Einblend-Animation beim Scrollen: Bei schnellem Wischen blieben sonst Knoten unsichtbar
-                    <li key={lesson.id} style={{ transform: `translateX(${offset}px)` }} className="relative flex h-[104px] flex-col items-center">
-                      {state === 'current' && unit.id === currentUnit?.id && (
-                        <motion.span
-                          initial={reduce ? false : { opacity: 0, y: 6, scale: 0.9 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          transition={{ ...SPRING.snappy, delay: 0.3 }}
-                          className="absolute -top-8 whitespace-nowrap rounded-lg bg-ink px-2.5 py-1 text-xs font-semibold text-surface"
-                        >
-                          Weiter hier
-                          <span aria-hidden className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-ink" />
-                        </motion.span>
-                      )}
-                      <span className="relative">
-                        {state === 'current' && !reduce && <span aria-hidden className="animate-halo absolute inset-0 rounded-full bg-brand" />}
-                        <button
-                          type="button"
-                          onClick={() => setLessonSheet({ lesson, unit })}
-                          aria-label={`${kind}: ${lesson.title}${state === 'done' ? ' – geschafft' : state === 'locked' ? ' – gesperrt' : state === 'current' ? ' – als Nächstes' : ''}`}
-                          className={`${base} ${tone} transition-transform duration-150 hover:-translate-y-0.5 hover:scale-[1.06] active:scale-90`}
-                          style={state === 'done' || state === 'current' ? { boxShadow: '0 4px 0 var(--shade-brand)' } : undefined}
-                        >
-                          {icon}
-                          {attempted && <span className="absolute -right-1 -top-1 rounded-full bg-gold px-1.5 text-[10px] font-bold text-ink">{Math.round(rec.bestAccuracy * 100)}%</span>}
-                        </button>
-                      </span>
-                      <p className="mt-2 line-clamp-2 h-8 w-36 text-center text-xs font-medium leading-4 text-muted">
-                        <span className="box-decoration-clone rounded bg-page px-1.5 py-px">{lesson.title}</span>
-                      </p>
-                    </li>
-                  )
-                })}
-              </ol>
-            </div>
-          </section>
-        )
-      })}
+              </AnimatePresence>
+            </section>
+          )
+        })}
+      </div>
 
       <LessonSheet data={lessonSheet} onClose={() => setLessonSheet(null)} />
-      <UnitSheet unit={unitSheet} onClose={() => setUnitSheet(null)} onPick={(lesson, unit) => { setUnitSheet(null); setLessonSheet({ lesson, unit }) }} />
     </div>
   )
 }
@@ -359,40 +338,6 @@ function LessonSheet({ data, onClose }: { data: { lesson: Lesson; unit: Unit } |
               {done ? 'Nochmal üben' : rec ? 'Nochmal versuchen' : 'Start'}
             </button>
           )}
-        </div>
-      )}
-    </Sheet>
-  )
-}
-
-function UnitSheet({ unit, onClose, onPick }: { unit: Unit | null; onClose: () => void; onPick: (lesson: Lesson, unit: Unit) => void }) {
-  const records = useStore((s) => s.lessons)
-  return (
-    <Sheet open={!!unit} onClose={onClose} wide>
-      {unit && (
-        <div>
-          <p className="eyebrow mb-1">Klasse {unit.grade}</p>
-          <h2 className="mb-1 text-2xl font-semibold">{unit.title}</h2>
-          <p className="mb-4 text-muted">{unit.description}</p>
-          <ul className="grid gap-2">
-            {unit.lessons.map((l) => {
-              const done = isLessonDone(l, records[l.id])
-              const locked = !isUnlocked(l.id, records)
-              return (
-                <li key={l.id}>
-                  <button type="button" onClick={() => onPick(l, unit)} className="flex w-full items-center gap-3 rounded-xl border border-line px-4 py-3 text-left transition-colors hover:bg-snow">
-                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${done ? 'bg-brand text-white' : locked ? 'bg-snow text-muted' : 'border-2 border-brand text-brand-dark'}`}>
-                      {done ? <Check size={16} /> : locked ? <Lock size={14} /> : l.test ? <Trophy size={16} /> : l.review ? <Repeat size={16} /> : null}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate font-medium">{l.title}</span>
-                      <span className="block text-xs text-muted">{l.test ? 'Test' : l.review ? 'Wiederholung' : `${l.items.length} Wörter`}</span>
-                    </span>
-                  </button>
-                </li>
-              )
-            })}
-          </ul>
         </div>
       )}
     </Sheet>

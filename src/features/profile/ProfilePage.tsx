@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { COURSE_STATS } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
 import { IconChip } from '../../components/ui/controls'
-import { Check, Coin, Gear, Right, Shield } from '../../components/ui/Icons'
+import { Check, Coin, Flame, Gear, Right, Shield } from '../../components/ui/Icons'
 import { CountUp, EASE, Item, SPRING, Stagger } from '../../components/ui/motion'
 import { SegmentedBar } from '../../components/ui/widgets'
 import { achievements } from '../../lib/achievements'
@@ -32,6 +32,12 @@ export function ProfilePage() {
     const d = new Date()
     d.setDate(d.getDate() - (6 - i))
     return { key: dayKey(d), label: WEEKDAYS[d.getDay()] }
+  })
+  // Diese Woche von Montag bis Sonntag
+  const weekDays = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date()
+    d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + i)
+    return { key: dayKey(d), label: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'][i], today: dayKey(d) === dayKey(), done: (xpByDay[dayKey(d)] ?? 0) > 0 }
   })
   const maxXp = Math.max(dailyGoal, ...days.map((d) => xpByDay[d.key] ?? 0))
   const weekXp = days.reduce((n, d) => n + (xpByDay[d.key] ?? 0), 0)
@@ -88,6 +94,27 @@ export function ProfilePage() {
           </section>
         </Item>
 
+        {/* Serie: große Flamme, Zahl und die Woche als Haken (wie die Serien-Seite bei SideMe) */}
+        <Item>
+          <section className="card mt-4 flex flex-col items-center px-4 pb-5 pt-6 text-center" aria-label="Serie">
+            <Flame size={72} />
+            <p className="mt-1 text-[56px] font-extrabold leading-none text-brand-dark">
+              <CountUp to={streakDays} />
+            </p>
+            <p className="mt-1 text-lg font-bold text-brand-dark">{streakDays === 1 ? 'Tag Serie' : 'Tage Serie'}</p>
+            <div className="mt-5 grid w-full max-w-xs grid-cols-7 gap-1.5">
+              {weekDays.map((d) => (
+                <div key={d.key} className="flex flex-col items-center gap-1.5">
+                  <span className={`text-[11px] font-bold ${d.today ? 'text-ink' : 'text-muted'}`}>{d.label}</span>
+                  <span className={`flex h-7 w-7 items-center justify-center rounded-full ${d.done ? 'bg-brand-strong text-on-brand' : 'bg-snow text-transparent'} ${d.today && !d.done ? 'ring-2 ring-brand' : ''}`} aria-label={d.done ? 'gelernt' : 'nicht gelernt'}>
+                    <Check size={14} />
+                  </span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </Item>
+
         {/* Fuchs anpassen und Shop */}
         <Item>
           <Link to="/shop" className="card lift mt-4 flex items-center gap-3.5 px-4 py-3.5">
@@ -104,7 +131,6 @@ export function ProfilePage() {
         <Item>
           <dl className="card mt-4 divide-y divide-line overflow-hidden text-[15px]">
             {[
-              ['Tage Serie', String(streakDays)],
               ['XP gesamt', xp.toLocaleString('de-DE')],
               ['Lektionen geschafft', String(Object.keys(lessons).length)],
               ['Wörter gefestigt', `${mastered} von ${learned.length}`],

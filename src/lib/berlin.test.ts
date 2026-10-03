@@ -96,7 +96,8 @@ describe('Machbarer Aufholplan', () => {
     expect(recommendedDays(3, 8)).toBe(7)
     const d = recommendedDays(100, 8)
     expect(d % 7).toBe(0)
-    expect((100 * 8) / d).toBeLessThanOrEqual(30)
+    // höchstens 3 Lektionen pro Tag (24 Minuten)
+    expect(Math.ceil(100 / d)).toBeLessThanOrEqual(3)
     expect(recommendedDays(5000, 8)).toBe(180)
   })
 

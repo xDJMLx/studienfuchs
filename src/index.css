@@ -38,7 +38,7 @@
   --flame: #f2690f;
   --flame-text: #bf520a;
   --shade-gold: #c99200;
-  --shade-line: #d6d6db;
+  --shade-line: #d3d6dc;
   --shadow: 0 1px 2px rgba(16, 16, 20, 0.05), 0 1px 1px rgba(16, 16, 20, 0.03);
   --shadow-lift: 0 14px 32px -16px rgba(16, 16, 20, 0.3);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -46,34 +46,37 @@
 
 .dark {
   color-scheme: dark;
-  --page: #0d0e11;
-  --bg: #0d0e11;
-  --surface: #17181d;
-  --snow: #1f2127;
-  --line: #292c34;
-  --ink: #f1f1f3;
-  --muted: #9b9ca6;
+  /* Tiefes Navy wie SideMe, aber mit Orange als Akzent */
+  --page: #0e1b28;
+  --bg: #0e1b28;
+  --surface: #162838;
+  --snow: #1d3346;
+  --line: #2a4358;
+  --ink: #f5f8fb;
+  --muted: #8da3b7;
 
-  --brand: #ff7a24;
-  --brand-text: #ffab6e;
-  --brand-soft: #35210f;
-  --shade-brand: #b84d08;
-  --brand-strong: #ff7a24;
-  --on-brand: #1a0d03; /* dunkler Text auf hellem Orange: 7:1 */
+  --brand: #ff8a14;
+  --brand-text: #ffa84d;
+  --brand-soft: #38291a;
+  --shade-brand: #c4600a; /* Unterkante der dicken Knöpfe */
+  --brand-strong: #ff8a14;
+  --on-brand: #0e1b28; /* dunkler Text auf hellem Orange: 7:1 */
 
-  --good: #4cc468;
-  --good-text: #86dc9a;
-  --good-soft: #17301d;
-  --shade-good: #28803c;
-  --bad: #ff6b70;
-  --bad-text: #ff9a9e;
-  --bad-soft: #3a1c1e;
-  --shade-bad: #b8343a;
+  --good: #35d05c;
+  --good-text: #7ae596;
+  --good-soft: #15352b;
+  --shade-good: #1d9a3d;
+  --bad: #ff6a6f;
+  --bad-text: #ff9da1;
+  --bad-soft: #3b2029;
+  --shade-bad: #c4363c;
 
-  --gold-text: #f7cf6b;
-  --flame-text: #ffab6e;
-  --shade-line: #0b0c0e;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --gold: #ffc233;
+  --gold-text: #ffd36b;
+  --flame-text: #ffa84d;
+  --shade-gold: #c99200;
+  --shade-line: #0a1620; /* Unterkante der Antwort-Kacheln und Knöpfe */
+  --shadow: none;
   --shadow-lift: 0 14px 32px -16px rgba(0, 0, 0, 0.75);
 }
 
@@ -142,18 +145,21 @@ h1, h2, h3 {
 }
 
 @layer components {
-  /* Buttons: ruhig, mit dezenter Unterkante */
+  /* Knöpfe wie bei SideMe: dick, mit kräftiger Unterkante, die beim Drücken einsinkt */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-[15px] font-semibold
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-[14px] font-extrabold uppercase tracking-[0.04em]
       transition-[transform,box-shadow,filter,background-color] duration-100 select-none disabled:cursor-not-allowed;
-    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.16), var(--shadow);
+    --edge: var(--shade-line);
+    box-shadow: 0 4px 0 var(--edge);
+    margin-bottom: 4px;
   }
   .btn:active:not(:disabled) {
-    transform: translateY(1px);
-    box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--edge);
   }
   .btn-primary {
     @apply bg-brand-strong text-on-brand;
+    --edge: var(--shade-brand);
   }
   @media (hover: hover) and (pointer: fine) {
     .btn-primary:hover:not(:disabled) {
@@ -162,16 +168,19 @@ h1, h2, h3 {
   }
   .btn-sky {
     @apply bg-brand-strong text-on-brand;
+    --edge: var(--shade-brand);
   }
   .btn-good {
-    @apply bg-good text-white;
+    @apply bg-good text-on-brand;
+    --edge: var(--shade-good);
   }
   .btn-bad {
-    @apply bg-bad text-white;
+    @apply bg-bad text-on-brand;
+    --edge: var(--shade-bad);
   }
   .btn-ghost {
-    @apply border border-line bg-surface text-ink;
-    box-shadow: var(--shadow);
+    @apply border-2 border-line bg-surface text-ink;
+    --edge: var(--shade-line);
   }
   @media (hover: hover) and (pointer: fine) {
     .btn-ghost:hover:not(:disabled) {
@@ -180,13 +189,14 @@ h1, h2, h3 {
   }
   .btn:disabled {
     @apply bg-snow text-muted;
-    box-shadow: none;
+    --edge: var(--shade-line);
   }
 
-  /* Antwort-Kacheln (Multiple Choice, Wortbausteine) */
+  /* Antwort-Kacheln: dunkle Marke mit Rahmen und dicker Unterkante, wie die Code-Bausteine bei SideMe */
   .tile {
-    @apply flex items-center gap-3 rounded-xl border border-line bg-surface px-4 py-3 text-left text-[16px] font-medium text-ink transition-colors select-none;
-    box-shadow: var(--shadow), 0 2px 0 var(--line);
+    @apply flex items-center gap-3 rounded-2xl border-2 border-line bg-surface px-4 py-3 text-left text-[16px] font-semibold text-ink transition-colors select-none;
+    box-shadow: 0 4px 0 var(--shade-line);
+    margin-bottom: 4px;
   }
   @media (hover: hover) and (pointer: fine) {
     .tile:hover:not(:disabled) {
@@ -194,24 +204,50 @@ h1, h2, h3 {
     }
   }
   .tile:active:not(:disabled) {
-    transform: translateY(2px);
-    box-shadow: var(--shadow);
+    transform: translateY(4px);
+    box-shadow: 0 0 0 var(--shade-line);
   }
   .tile-selected {
     @apply border-brand bg-brand-soft text-brand-dark;
-    box-shadow: 0 2px 0 var(--brand);
+    box-shadow: 0 4px 0 var(--shade-brand);
   }
   .tile-correct {
     @apply border-good bg-good-soft text-good-dark;
-    box-shadow: 0 2px 0 var(--good);
+    box-shadow: 0 4px 0 var(--shade-good);
   }
   .tile-wrong {
     @apply border-bad bg-bad-soft text-bad-dark;
-    box-shadow: 0 2px 0 var(--bad);
+    box-shadow: 0 4px 0 var(--shade-bad);
+  }
+
+  /* Farbige Etiketten mit Unterkante (SideMe: "Leaderboard", "Daily", "Projects") */
+  .tag {
+    @apply inline-flex items-center gap-1.5 rounded-xl px-3 py-1 text-sm font-extrabold text-on-brand;
+    background: var(--tag, var(--brand));
+    box-shadow: 0 3px 0 var(--tag-edge, var(--shade-brand));
+    margin-bottom: 3px;
+  }
+
+  /* Auswahl-Chips: dick umrandet mit Unterkante, gewählt in vollem Orange */
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-xl border-2 border-line bg-surface px-4 py-2 text-sm font-bold text-ink transition-colors select-none;
+    box-shadow: 0 3px 0 var(--shade-line);
+    margin-bottom: 3px;
+  }
+  .chip:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 var(--shade-line);
+  }
+  .chip-on {
+    @apply border-brand bg-brand-strong text-on-brand;
+    box-shadow: 0 3px 0 var(--shade-brand);
+  }
+  .chip-on:active {
+    box-shadow: 0 0 0 var(--shade-brand);
   }
 
   .card {
-    @apply rounded-2xl border border-line bg-surface;
+    @apply rounded-[20px] border-2 border-line bg-surface;
   }
 
   .nav-link {

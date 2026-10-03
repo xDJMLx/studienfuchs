@@ -105,7 +105,7 @@ const initial: Data = {
   speechRate: 0.9,
   speakingOn: false,
   favorites: [],
-  theme: 'system',
+  theme: 'dark',
   onboarded: false,
   classUnit: null,
   catchUpTarget: null,

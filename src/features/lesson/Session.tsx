@@ -192,7 +192,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           <Close size={28} />
         </button>
         <div
-          className="h-3.5 flex-1 overflow-hidden rounded-full bg-snow"
+          className="h-4 flex-1 overflow-hidden rounded-full bg-snow"
           role="progressbar"
           aria-valuemin={0}
           aria-valuemax={100}
@@ -204,7 +204,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             animate={{ width: `${Math.max(progress * 100, 3)}%` }}
             transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 220, damping: 30 }}
           >
-            <div className="mx-2 mt-1 h-1 rounded-full bg-white/40" />
+            <div className="mx-2 mt-1 h-1 rounded-full bg-white/35" />
           </motion.div>
         </div>
         <AnimatePresence mode="popLayout" initial={false}>

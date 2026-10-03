@@ -55,7 +55,9 @@ export const MAX_MIN_PER_DAY = 45
 
 /** Empfohlener Zeitraum in Tagen (volle Wochen), damit es bei höchstens 30 Minuten am Tag bleibt. */
 export function recommendedDays(lessonCount: number, minPerLesson: number, maxMinPerDay = COMFORT_MIN_PER_DAY): number {
-  const days = Math.ceil((lessonCount * minPerLesson) / maxMinPerDay)
+  // Pro Tag ganze Lektionen: bei 8 Minuten pro Lektion sind das höchstens 3
+  const perDay = Math.max(1, Math.floor(maxMinPerDay / minPerLesson))
+  const days = Math.ceil(lessonCount / perDay)
   return Math.min(180, Math.max(7, Math.ceil(days / 7) * 7))
 }
 
