@@ -59,6 +59,29 @@ export function stepEye(cur: EyeParams, target: EyeParams, dtMs: number, speed =
 
 const r = (n: number) => Math.round(n * 100) / 100
 
+/** Dauer eines Blinzelns in Sekunden: schnell zu, kurz geschlossen, langsamer wieder auf (wie ein echtes Lid). */
+export const BLINK_TOTAL = 0.26
+const BLINK_DOWN = 0.07
+const BLINK_HOLD = 0.04
+
+/** Wie weit das Lid zu ist (0 offen bis 1 zu), `d` Sekunden nach Beginn des Blinzelns. */
+export function blinkClosed(d: number): number {
+  if (d <= 0 || d >= BLINK_TOTAL) return 0
+  if (d < BLINK_DOWN) {
+    const u = d / BLINK_DOWN
+    return u * u
+  }
+  if (d < BLINK_DOWN + BLINK_HOLD) return 1
+  const u = (d - BLINK_DOWN - BLINK_HOLD) / (BLINK_TOTAL - BLINK_DOWN - BLINK_HOLD)
+  return Math.pow(1 - u, 1.8)
+}
+
+/** Das Auge während des Blinzelns: Lid zu, das Unterlid hebt sich leicht mit. */
+export function blinked(base: EyeParams, k: number): EyeParams {
+  if (k <= 0) return base
+  return { ...base, open: base.open * (1 - k) + 0.02 * k, cheek: base.cheek + k * 0.2 }
+}
+
 export const EYE_RX = 15
 export const EYE_RY = 19
 
@@ -66,20 +89,31 @@ export const EYE_RY = 19
  * Sichtfenster des Auges (Lid oben, Wange unten) als Beschneidungspfad.
  * Das Lid sitzt oben bei 1 - open der Augenhöhe; tilt kippt es, cheek hebt die Unterkante.
  */
-export function eyeWindow(p: EyeParams, cx: number, cy: number, mirror: boolean): string {
+export function lidCurve(p: EyeParams, cx: number, cy: number, mirror: boolean): { xl: number; yl: number; xr: number; yr: number; cy: number } {
   const rx = EYE_RX + 4
   const top = cy - EYE_RY * p.scale + (1 - p.open) * EYE_RY * 2 * p.scale
   const tiltDy = p.tilt * 9
   // Außen = von der Nase weg: links ist außen links
   const outer = top + tiltDy
   const inner = top - tiltDy * 0.5
-  const xl = cx - rx
-  const xr = cx + rx
   const yl = mirror ? inner : outer
   const yr = mirror ? outer : inner
+  // Ein sinkendes Lid wölbt sich in der Mitte nach unten, ein offenes liegt flach
+  const sag = 7 * Math.max(0, Math.min(1, (1 - p.open) * 1.4)) * (1 - p.arcOn)
+  return { xl: cx - rx, yl, xr: cx + rx, yr, cy: (yl + yr) / 2 + sag * 2 }
+}
+
+export function eyeWindow(p: EyeParams, cx: number, cy: number, mirror: boolean): string {
+  const c = lidCurve(p, cx, cy, mirror)
   const bottom = cy + EYE_RY * p.scale + 4
   const lift = p.cheek * EYE_RY * 1.5
-  return `M${r(xl)} ${r(yl)} L${r(xr)} ${r(yr)} L${r(xr)} ${r(bottom)} Q${r(cx)} ${r(bottom - lift * 1.8)} ${r(xl)} ${r(bottom)} Z`
+  return `M${r(c.xl)} ${r(c.yl)} Q${r(cx)} ${r(c.cy)} ${r(c.xr)} ${r(c.yr)} L${r(c.xr)} ${r(bottom)} Q${r(cx)} ${r(bottom - lift * 1.8)} ${r(c.xl)} ${r(bottom)} Z`
+}
+
+/** Linie des Oberlids genau auf der Kante des Sichtfensters. */
+export function eyeLid(p: EyeParams, cx: number, cy: number, mirror: boolean): string {
+  const c = lidCurve(p, cx, cy, mirror)
+  return `M${r(c.xl)} ${r(c.yl)} Q${r(cx)} ${r(c.cy)} ${r(c.xr)} ${r(c.yr)}`
 }
 
 /** Bogenlinie für froh ("^") und schlafend ("u"). */

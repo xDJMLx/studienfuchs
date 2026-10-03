@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useId, useImperativeHandle, useLayoutEffect, useMemo, useRef } from 'react'
 import type { Outfit } from '../../lib/shop'
 import { FoxEngine } from './engine'
-import { eyeArc, eyeWindow, EYE_RX, EYE_RY, type EyeParams } from './eye'
+import { eyeArc, eyeLid, eyeWindow, EYE_RX, EYE_RY, type EyeParams } from './eye'
 import type { Fx, Look } from './look'
 import { mouthLine, mouthLower, mouthPath, tonguePos, type MouthParams } from './mouth'
 
@@ -106,12 +106,14 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
     drawMouth(o.mouth, set)
   }
 
-  // Pose ans Gerüst geben; kleine, ruhende Füchse springen einfach dorthin
+  // Pose ans Gerüst geben; kleine, ruhende Füchse springen einfach dorthin, lebende erst beim Erscheinen (kein Rohzustand im ersten Bild), danach gleiten sie
+  const placed = useRef(false)
   useLayoutEffect(() => {
     engine.setLook(look)
-    if (!alive) {
+    if (!alive || !placed.current) {
       engine.snap()
       apply()
+      placed.current = true
     }
     // apply liest nur Refs
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -444,12 +446,9 @@ type Setter = (key: string, name: string, value: string) => void
 function drawEye(p: EyeParams, cx: number, cy: number, mirror: boolean, side: 'L' | 'R', set: Setter, gx: number, gy: number) {
   const win = eyeWindow(p, cx, cy, mirror)
   set('clip' + side, 'd', win)
-  // Lidlinie entlang der Oberkante des Fensters, sichtbar sobald das Auge nicht mehr ganz offen ist
-  const m = /^M(-?[0-9.]+) (-?[0-9.]+) L(-?[0-9.]+) (-?[0-9.]+)/.exec(win)
-  if (m) {
-    set('lid' + side, 'd', 'M' + m[1] + ' ' + m[2] + ' Q' + (Number(m[1]) + Number(m[3])) / 2 + ' ' + ((Number(m[2]) + Number(m[4])) / 2 - 3) + ' ' + m[3] + ' ' + m[4])
-    set('lid' + side, 'stroke-opacity', String(Math.round(Math.max(0, Math.min(1, (1 - p.open) * 3)) * (1 - p.arcOn) * 100) / 100))
-  }
+  // Lidlinie genau auf der Kante des Fensters, sichtbar sobald das Auge nicht mehr ganz offen ist
+  set('lid' + side, 'd', eyeLid(p, cx, cy, mirror))
+  set('lid' + side, 'stroke-opacity', String(Math.round(Math.max(0, Math.min(1, (1 - p.open) * 3)) * (1 - p.arcOn) * 100) / 100))
   set('arc' + side, 'd', eyeArc(p, cx, cy))
   set('arc' + side, 'stroke-opacity', String(Math.round(p.arcOn * 100) / 100))
   set('pup' + side, 'transform', 'translate(' + gx + ' ' + gy + ') translate(' + cx + ' ' + (cy + 1) + ') scale(' + Math.round(p.pupil * 100) / 100 + ') translate(' + -cx + ' ' + -(cy + 1) + ')')

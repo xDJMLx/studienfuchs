@@ -1,4 +1,4 @@
-import { EYE_OPEN, eyeTarget, stepEye, type EyeParams } from './eye'
+import { BLINK_TOTAL, EYE_OPEN, blinkClosed, blinked, eyeTarget, stepEye, type EyeParams } from './eye'
 import { NEUTRAL, type Look } from './look'
 import { MOUTHS, stepMouth, type MouthParams } from './mouth'
 import { spring, stepBallistic, stepSpring, type Ballistic, type Spring } from './spring'
@@ -62,7 +62,9 @@ export class FoxEngine {
   private rnd: () => number
   private pending: { at: number; fn: () => void }[] = []
   private blinkAt = 0
-  private blinkEnd = 0
+  private blinkStart = -1
+  private baseL: EyeParams = { ...EYE_OPEN }
+  private baseR: EyeParams = { ...EYE_OPEN }
   private doubleBlink = false
   private noDouble = false
   private saccadeAt = 0
@@ -133,8 +135,10 @@ export class FoxEngine {
       this.ch[n].x = this.tgt[n]
       this.ch[n].v = 0
     }
-    this.out.eyeL = { ...this.targetEyeL }
-    this.out.eyeR = { ...this.targetEyeR }
+    this.baseL = { ...this.targetEyeL }
+    this.baseR = { ...this.targetEyeR }
+    this.out.eyeL = { ...this.baseL }
+    this.out.eyeR = { ...this.baseR }
     this.out.mouth = { ...this.targetMouth }
     this.write()
   }
@@ -256,19 +260,19 @@ export class FoxEngine {
     this.prevHeadRot = this.ch.headRot.x
 
     if (this.idle && !this.reduced) {
-      // Blinzeln, manchmal doppelt: erst das Ende der Lidbewegung behandeln, dann einen neuen Start prüfen
-      if (this.blinkEnd && t >= this.blinkEnd) {
-        this.blinkEnd = 0
+      // Blinzeln, manchmal doppelt: ein Ablauf von festem Verlauf (siehe blinkClosed), danach Pause
+      if (this.blinkStart >= 0 && t - this.blinkStart >= BLINK_TOTAL) {
+        this.blinkStart = -1
         if (this.doubleBlink) {
           this.doubleBlink = false
           this.noDouble = true
-          this.blinkAt = t + 0.1
+          this.blinkAt = t + 0.06
         } else {
           this.noDouble = false
           this.blinkAt = t + 2.4 + this.rnd() * 3.6
         }
-      } else if (!this.blinkEnd && t >= this.blinkAt) {
-        this.blinkEnd = t + 0.14
+      } else if (this.blinkStart < 0 && t >= this.blinkAt) {
+        this.blinkStart = t
         this.doubleBlink = !this.noDouble && this.rnd() < 0.18
       }
       // kleine Blickwechsel
@@ -306,17 +310,12 @@ export class FoxEngine {
       moving = true
     }
 
-    // Augen
-    const blinking = this.blinkEnd > 0 && t < this.blinkEnd
+    // Augen: Grundform gleitet zur Pose, das Blinzeln liegt als eigener Verlauf darüber
     const openEyes = this.look.eyes === 'open' || this.look.eyes === 'wide' || this.look.eyes === 'sad' || this.look.eyes === 'wink'
-    const tl = { ...this.targetEyeL }
-    const tr = { ...this.targetEyeR }
-    if (blinking && openEyes) {
-      tl.open = 0.02
-      if (this.look.eyes !== 'wink') tr.open = 0.02
-    }
-    // Pupille wird beim Sprechen oder Staunen kaum anders: hier nur über die Pose
-    const eyeMoving = stepEye(this.out.eyeL, tl, dtMs, blinking ? 0.06 : 0.028) || stepEye(this.out.eyeR, tr, dtMs, blinking ? 0.06 : 0.028)
+    const k = this.blinkStart >= 0 && openEyes ? blinkClosed(t - this.blinkStart) : 0
+    const eyeMoving = stepEye(this.baseL, this.targetEyeL, dtMs, 0.028) || stepEye(this.baseR, this.targetEyeR, dtMs, 0.028) || this.blinkStart >= 0
+    this.out.eyeL = blinked(this.baseL, k)
+    this.out.eyeR = this.look.eyes === 'wink' ? this.baseR : blinked(this.baseR, k)
 
     // Mund: aus der Pose oder nach der Lautstärke beim Sprechen
     let mt = this.targetMouth
