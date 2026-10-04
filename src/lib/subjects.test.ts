@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { buildCoachPrompt } from './coach'
+import { hasSubjectIcon } from '../components/ui/SubjectIcons'
 import { buildSubjectPrompt, HELP_SUBJECTS, helpSubject } from './subjects'
 
 describe('Fächer mit KI-Hilfe', () => {
@@ -11,6 +12,11 @@ describe('Fächer mit KI-Hilfe', () => {
       expect(s.suggestions.length).toBeGreaterThanOrEqual(3)
       expect(s.rules.length).toBeGreaterThan(0)
     }
+  })
+
+  it('jedes Fach hat ein eigenes Symbol und einen kurzen, richtigen Namen', () => {
+    for (const s of HELP_SUBJECTS) expect(hasSubjectIcon(s.id), s.id).toBe(true)
+    expect(helpSubject('politik')?.name).toBe('Politik')
   })
 
   it('Französisch gehört nicht dazu (dafür gibt es den Kurs)', () => {

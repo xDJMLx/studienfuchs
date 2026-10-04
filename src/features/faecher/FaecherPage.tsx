@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Right } from '../../components/ui/Icons'
+import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { HELP_SUBJECTS } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
@@ -38,8 +39,8 @@ export function FaecherPage() {
               style={{ boxShadow: '0 4px 0 var(--shade-line)' }}
               aria-label={`${s.name}: ${s.blurb}`}
             >
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl text-[19px] font-black text-white" style={{ background: s.c, boxShadow: `0 3px 0 ${s.s}` }} aria-hidden>
-                {s.mark}
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl" style={{ background: s.c, boxShadow: `0 3px 0 ${s.s}` }} aria-hidden>
+                <HelpSubjectIcon id={s.id} ink={s.c} size={30} />
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block text-[17px] font-extrabold leading-tight">{s.name}</span>
