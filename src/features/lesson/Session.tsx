@@ -240,7 +240,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             className={`relative h-full overflow-hidden rounded-full transition-[background,box-shadow] duration-500 ${combo >= 5 ? 'bg-gradient-to-r from-gold to-brand shadow-[0_0_14px_var(--gold)]' : 'bg-brand'}`}
             initial={false}
             animate={{ width: `${Math.max(progress * 100, 3)}%` }}
-            transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 220, damping: 30 }}
+            transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 260, damping: 18 }}
           >
             <div className="mx-2.5 mt-[4px] h-[5px] rounded-full bg-white/40" />
           </motion.div>
@@ -277,10 +277,10 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           <motion.div
             key={ex.id + idx}
             className="exercise-in"
-            initial={reduce ? false : { opacity: 0, x: 28 }}
-            animate={{ opacity: 1, x: bad && !reduce ? [0, -8, 8, -5, 5, 0] : 0 }}
-            exit={reduce ? undefined : { opacity: 0, x: -20, transition: { duration: 0.1, ease: 'easeIn' } }}
-            transition={{ duration: bad ? 0.36 : 0.26, ease: EASE }}
+            initial={reduce ? false : { opacity: 0, x: 34, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, x: bad && !reduce ? [0, -8, 8, -5, 5, 0] : 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+            exit={reduce ? undefined : { opacity: 0, x: -26, filter: 'blur(5px)', transition: { duration: 0.12, ease: 'easeIn' } }}
+            transition={bad ? { duration: 0.36, ease: EASE } : { type: 'spring', stiffness: 430, damping: 30 }}
           >
             {body}
             {!result && (((ex.kind === 'type' || ex.kind === 'qtype') && !ex.hint) || ex.kind === 'listen' || (isMath && mathHint)) && (
@@ -311,7 +311,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
               initial={reduce ? false : { y: '100%' }}
               animate={{ y: 0 }}
               exit={{ opacity: 0, transition: { duration: 0.15 } }}
-              transition={{ type: 'spring', stiffness: 330, damping: 32 }}
+              transition={{ type: 'spring', stiffness: 380, damping: 22 }}
             />
           )}
         </AnimatePresence>
@@ -320,8 +320,9 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             <p className="hidden text-sm text-muted sm:block">Präg dir die Karten kurz ein. Gleich kommt die erste Frage dazu.</p>
           ) : result ? (
             <motion.div
-              initial={reduce ? false : { opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={reduce ? false : { opacity: 0, y: 22, scale: 0.94, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+              transition={{ type: 'spring', stiffness: 420, damping: 20 }}
               className={`flex min-w-0 items-start gap-3 ${bad ? 'text-bad-dark' : 'text-good-dark'}`}
               role="status"
               aria-live="polite"

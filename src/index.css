@@ -630,7 +630,6 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
   40% { transform: scale(1.035); }
   100% { transform: scale(1); }
 }
-.tile-correct { animation: pop-ok 0.36s var(--ease-out); }
 
 @media (prefers-reduced-motion: reduce) {
   .tile-correct { animation: none !important; }
@@ -789,3 +788,38 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
     margin-bottom: 0.6rem;
   }
 }
+
+/* ---------- Antworten (das Klick-Gefühl der Knöpfe steckt in lib/feel.ts) ---------- */
+/* Richtig: federt hoch, strahlt kurz und wackelt aus. Falsch: schüttelt sich mit Schlierenspur. */
+@keyframes answer-right {
+  0% { transform: scale(1); box-shadow: 0 4px 0 var(--shade-good), 0 0 0 0 color-mix(in srgb, var(--good) 55%, transparent); }
+  30% { transform: scale(1.07) rotate(-1deg); filter: blur(0.5px); box-shadow: 0 4px 0 var(--shade-good), 0 0 0 9px color-mix(in srgb, var(--good) 0%, transparent); }
+  55% { transform: scale(0.98) rotate(0.6deg); filter: none; }
+  80% { transform: scale(1.02); }
+  100% { transform: scale(1); box-shadow: 0 4px 0 var(--shade-good), 0 0 0 0 transparent; }
+}
+@keyframes answer-wrong {
+  0%, 100% { transform: translateX(0); filter: none; }
+  14% { transform: translateX(-9px) skewX(-3deg); filter: blur(1.4px); }
+  30% { transform: translateX(8px) skewX(3deg); filter: blur(1.2px); }
+  46% { transform: translateX(-6px) skewX(-2deg); filter: blur(0.8px); }
+  62% { transform: translateX(4px); filter: blur(0.4px); }
+  80% { transform: translateX(-2px); filter: none; }
+}
+.tile-correct { animation: answer-right 0.6s cubic-bezier(0.3, 0.7, 0.4, 1) both; }
+.tile-wrong { animation: answer-wrong 0.5s ease-out both; }
+
+/* Wer lieber weniger Bewegung hat, bekommt keine dieser Animationen. */
+@media (prefers-reduced-motion: reduce) {
+  .tile-correct, .tile-wrong { animation: none !important; }
+}
+
+/* Kalender-Blöcke poppen nacheinander auf, mit kurzem Überschwingen */
+@keyframes block-in {
+  0% { transform: scale(0.55) translateY(8px); opacity: 0; filter: blur(3px); }
+  55% { transform: scale(1.07) translateY(-1px); opacity: 1; filter: blur(0.5px); }
+  80% { transform: scale(0.98); filter: none; }
+  100% { transform: scale(1); opacity: 1; filter: none; }
+}
+.block-in { animation: block-in 0.5s cubic-bezier(0.3, 0.7, 0.4, 1) backwards; }
+@media (prefers-reduced-motion: reduce) { .block-in { animation: none; } }

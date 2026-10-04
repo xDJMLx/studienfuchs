@@ -1,4 +1,4 @@
-import { AnimatePresence, motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from 'framer-motion'
+import { AnimatePresence, motion, useAnimationControls, useMotionValue, useReducedMotion, useSpring, useTransform, useVelocity, type MotionValue } from 'framer-motion'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 
 export interface TabDef {
@@ -24,6 +24,11 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
   const raw = useMotionValue(Math.max(activeIndex, 0))
   const pos = useSpring(raw, reduce ? { duration: 0.01 } : { stiffness: 560, damping: 40, mass: 0.8 })
   const press = useSpring(0, { stiffness: 500, damping: 30 })
+  // Gummi-Effekt: Je schneller die Linse sich bewegt, desto mehr streckt sie sich und verwischt leicht (Bewegungsunschärfe)
+  const speed = useVelocity(pos)
+  const stretchX = useTransform(speed, (v) => 1 + Math.min(0.3, Math.abs(v) * 0.05))
+  const stretchY = useTransform(speed, (v) => 1 - Math.min(0.12, Math.abs(v) * 0.017))
+  const smear = useTransform(speed, (v) => (reduce ? 'none' : `blur(${Math.min(2.2, Math.abs(v) * 0.32).toFixed(2)}px)`))
   const [pressed, setPressed] = useState(false)
   const [focusIndex, setFocusIndex] = useState(activeIndex)
   const dragging = useRef(false)
@@ -121,9 +126,12 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
           transition={{ type: 'spring', stiffness: 420, damping: 24 }}
         >
           {/* Wie bei iOS: eine ruhige, leicht getönte Kapsel ohne Rand. Die Farbe steckt nur in Symbol und Schrift. */}
-          <span
+          <motion.span
             className="absolute inset-0 rounded-full transition-[background,box-shadow] duration-200"
             style={{
+              scaleX: reduce ? 1 : stretchX,
+              scaleY: reduce ? 1 : stretchY,
+              filter: smear,
               background: pressed ? 'color-mix(in srgb, var(--tab-c) 16%, transparent)' : 'color-mix(in srgb, var(--tab-c) 11%, transparent)',
               boxShadow: pressed ? '0 6px 16px -8px rgba(0,0,0,0.35)' : 'none',
             }}
@@ -141,6 +149,16 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
 function Tab({ tab, index, pos, press, current, isActive, onKey }: { tab: TabDef; index: number; pos: MotionValue<number>; press: MotionValue<number>; current: boolean; isActive: boolean; onKey: () => void }) {
   // Unter der Linse wächst das Symbol, wenn der Finger drauf ist
   const scale = useTransform([pos, press], ([v, p]: number[]) => 1 + 0.12 * p * Math.max(0, 1 - Math.abs(index - v)))
+  const reduce = useReducedMotion()
+  const bounce = useAnimationControls()
+  const wasActive = useRef(isActive)
+  // Wird dieser Tab der aktive, hüpft sein Symbol einmal (springt hoch, quetscht beim Landen, wackelt aus)
+  useEffect(() => {
+    if (isActive && !wasActive.current && !reduce) {
+      void bounce.start({ y: [0, -9, 1.5, 0], scaleY: [1, 1.14, 0.9, 1], scaleX: [1, 0.92, 1.1, 1], rotate: [0, -7, 4, 0], transition: { duration: 0.55, times: [0, 0.35, 0.7, 1], ease: 'easeOut' } })
+    }
+    wasActive.current = isActive
+  }, [isActive, bounce, reduce])
   return (
     <button
       type="button"
@@ -153,7 +171,7 @@ function Tab({ tab, index, pos, press, current, isActive, onKey }: { tab: TabDef
       className={`relative z-10 flex min-h-[3.25rem] flex-1 flex-col items-center justify-center gap-px rounded-full text-[10px] font-semibold tracking-wide outline-offset-[-2px] transition-colors duration-200 ${current ? '' : 'text-muted'}`}
       style={current ? { color: tab.textColor ?? 'var(--brand-text)' } : undefined}
     >
-      <motion.span className="relative block" style={{ scale }}>
+      <motion.span className="relative block" style={{ scale }} animate={bounce}>
         {tab.icon}
         {tab.badge}
       </motion.span>

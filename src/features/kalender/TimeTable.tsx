@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { addDays, dateKey, fromMinutes, isoWeek, KINDS, slotOf, startOfWeek, weekRange } from '../../lib/calendar'
@@ -69,6 +70,12 @@ export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onA
   // Am Wochenende zeigt der Plan gleich die kommende Woche (wie WebUntis)
   const home = [0, 6].includes(new Date().getDay()) ? 1 : 0
   const [offset, setOffset] = useState(home)
+  const [dir, setDir] = useState(0)
+  const reduce = useReducedMotion()
+  const go = (to: number) => {
+    setDir(Math.sign(to - offset))
+    setOffset(to)
+  }
   const [now, setNow] = useState(() => new Date())
   const touch = useRef<{ x: number; y: number } | null>(null)
   useEffect(() => {
@@ -112,7 +119,7 @@ export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onA
     if (!t || !end) return
     const dx = end.clientX - t.x
     const dy = end.clientY - t.y
-    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 2) setOffset((o) => o + (dx < 0 ? 1 : -1))
+    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 2) go(offset + (dx < 0 ? 1 : -1))
   }
 
   return (
@@ -125,20 +132,27 @@ export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onA
         </div>
         <span className="flex items-center gap-1">
           {offset !== home && (
-            <button type="button" onClick={() => setOffset(home)} className="press mr-1 rounded-full bg-sky-soft px-3 py-1.5 text-xs font-extrabold text-sky-dark">
+            <button type="button" onClick={() => go(home)} className="press mr-1 rounded-full bg-sky-soft px-3 py-1.5 text-xs font-extrabold text-sky-dark">
               Heute
             </button>
           )}
-          <button type="button" aria-label="Vorige Woche" onClick={() => setOffset((o) => o - 1)} className="press flex h-10 w-10 items-center justify-center rounded-full bg-snow text-lg font-black text-muted">
+          <button type="button" aria-label="Vorige Woche" onClick={() => go(offset - 1)} className="press flex h-10 w-10 items-center justify-center rounded-full bg-snow text-lg font-black text-muted">
             ‹
           </button>
-          <button type="button" aria-label="Nächste Woche" onClick={() => setOffset((o) => o + 1)} className="press flex h-10 w-10 items-center justify-center rounded-full bg-snow text-lg font-black text-muted">
+          <button type="button" aria-label="Nächste Woche" onClick={() => go(offset + 1)} className="press flex h-10 w-10 items-center justify-center rounded-full bg-snow text-lg font-black text-muted">
             ›
           </button>
         </span>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border-2 border-line bg-surface">
+      {/* Beim Wechsel der Woche schiebt sich der Plan in Wischrichtung herein und verwischt dabei kurz */}
+      <motion.div
+        key={offset}
+        className="overflow-hidden rounded-2xl border-2 border-line bg-surface"
+        initial={reduce || dir === 0 ? false : { x: dir * 46, opacity: 0.2, filter: 'blur(5px)' }}
+        animate={{ x: 0, opacity: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none', transform: 'none' } }}
+        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+      >
         {/* Kopf: Wochentag und Datum */}
         <div className="grid border-b-2 border-line bg-snow/60" style={{ gridTemplateColumns: cols }}>
           <span />
@@ -198,11 +212,11 @@ export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onA
                     onAdd(d.key, fromMinutes(snapped))
                   }}
                 />
-                {placed[d.key].map((p) => (
+                {placed[d.key].map((p, bi) => (
                   <div
                     key={p.a.id}
-                    className="absolute px-px"
-                    style={{ top: ((p.start - axisStart) / 60) * HOUR + 1, height: Math.max(30, ((p.end - p.start) / 60) * HOUR - 2), left: `${(p.lane / p.lanes) * 100}%`, width: `${100 / p.lanes}%` }}
+                    className="block-in absolute px-px"
+                    style={{ animationDelay: `${bi * 60 + days.findIndex((x) => x.key === d.key) * 40}ms`, top: ((p.start - axisStart) / 60) * HOUR + 1, height: Math.max(30, ((p.end - p.start) / 60) * HOUR - 2), left: `${(p.lane / p.lanes) * 100}%`, width: `${100 / p.lanes}%` }}
                   >
                     <Block a={p.a} onOpen={onOpen} tall={((p.end - p.start) / 60) * HOUR >= 70} />
                   </div>
@@ -217,7 +231,7 @@ export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onA
             )
           })}
         </div>
-      </div>
+      </motion.div>
       <p className="mt-2 px-1 text-xs text-muted">Tippe auf eine freie Stelle, um etwas einzutragen. Nach links oder rechts wischen wechselt die Woche.</p>
     </section>
   )

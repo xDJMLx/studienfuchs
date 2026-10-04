@@ -5,7 +5,6 @@ import { levelFromXp } from '../../lib/xp'
 import { useStore } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
 import { Coin, Gear, TabCalendar, TabRepeat, TabUser, Xp } from './Icons'
-import { EASE } from './motion'
 import { useCoachComposer } from '../../lib/coachComposer'
 import { CoachComposer } from './CoachComposer'
 import { TabBar } from './TabBar'
@@ -39,6 +38,9 @@ function tabOf(path: string): string {
   return '/'
 }
 
+/** Position des Tabs, zu dem eine Adresse gehört (für die Richtung des Seitenwechsels). */
+const tabIndex = (path: string): number => Math.max(0, NAV.findIndex((n) => n.to === tabOf(path)))
+
 export function Wordmark({ size = 'md', tone = 'default' }: { size?: 'md' | 'lg'; tone?: 'default' | 'light' }) {
   return (
     <span className={`flex items-center gap-2.5 font-black tracking-tight ${tone === 'light' ? 'text-white' : 'text-brand'} ${size === 'lg' ? 'text-[32px]' : 'text-[24px]'}`}>
@@ -56,8 +58,23 @@ function AnimatedOutlet() {
   const outlet = useOutlet()
   const { pathname } = useLocation()
   const reduce = useReducedMotion()
+  // Richtung: Wechsel zwischen Tabs schiebt die Seite von der Seite herein (nach rechts → von rechts), alles andere hebt sich sanft.
+  const last = useRef(pathname)
+  const from = tabIndex(last.current)
+  const to = tabIndex(pathname)
+  const dir = pathname === last.current ? 0 : from !== to ? Math.sign(to - from) : 0
+  useEffect(() => {
+    last.current = pathname
+  }, [pathname])
+  // Fixierte Elemente der Seite bleiben nach der Bewegung unberührt: Transform und Filter werden danach entfernt
+  const initial = reduce ? false : dir !== 0 ? { opacity: 0, x: dir * 36, filter: 'blur(7px)' } : { opacity: 0, y: 10, scale: 0.985, filter: 'blur(4px)' }
   return (
-    <motion.div key={pathname} initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.14, ease: EASE }}>
+    <motion.div
+      key={pathname}
+      initial={initial}
+      animate={{ opacity: 1, x: 0, y: 0, scale: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none', transform: 'none' } }}
+      transition={dir !== 0 ? { type: 'spring', stiffness: 380, damping: 30 } : { type: 'spring', stiffness: 460, damping: 32 }}
+    >
       {outlet}
     </motion.div>
   )

@@ -105,11 +105,12 @@ export function Sheet({
     ? { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } }
     : desktop
       ? {
-          initial: { opacity: 0, scale: 0.96, y: 14 },
+          initial: { opacity: 0, scale: 0.92, y: 18 },
           animate: { opacity: 1, scale: 1, y: 0 },
           exit: { opacity: 0, scale: 0.97, y: 8, transition: { duration: 0.14 } },
         }
       : { initial: { y: '100%' }, animate: { y: 0 }, exit: { y: '100%', transition: { duration: 0.22, ease: EASE } } }
+  // Das Fenster federt beim Öffnen leicht über und beruhigt sich (Handy: aus dem Rand hoch, Desktop: aufpoppen)
 
   return (
     <AnimatePresence>
@@ -117,9 +118,9 @@ export function Sheet({
         <motion.div
           ref={backdrop}
           className="fixed inset-0 z-50 flex items-end justify-center bg-black/50 sm:items-center sm:p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0, transition: { duration: 0.2 } }}
+          initial={{ opacity: 0, backdropFilter: 'blur(0px)' }}
+          animate={{ opacity: 1, backdropFilter: 'blur(3px)' }}
+          exit={{ opacity: 0, backdropFilter: 'blur(0px)', transition: { duration: 0.2 } }}
           transition={{ duration: 0.2 }}
           onMouseDown={(e) => {
             downOnBackdrop.current = e.target === e.currentTarget
@@ -137,7 +138,7 @@ export function Sheet({
             className={`relative max-h-[88dvh] w-full overflow-y-auto overscroll-contain rounded-t-[28px] bg-surface px-5 pt-2 shadow-2xl sm:rounded-3xl sm:pt-5 ${wide ? 'sm:max-w-xl' : 'sm:max-w-md'}`}
             style={{ y, paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 1.25rem)' }}
             {...panelMotion}
-            transition={desktop ? { duration: 0.28, ease: EASE } : { type: 'spring', stiffness: 380, damping: 38, mass: 0.9 }}
+            transition={desktop ? { type: 'spring', stiffness: 420, damping: 26 } : { type: 'spring', stiffness: 400, damping: 29, mass: 0.9 }}
           >
             {/* Griff als Hinweis: gezogen werden kann überall am Fenster */}
             <div className="-mx-5 mb-1 flex justify-center py-2.5 sm:hidden" aria-hidden>

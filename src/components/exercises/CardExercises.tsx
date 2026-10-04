@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { animate, motion, useMotionValue, useReducedMotion, useTransform } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { makeHint } from '../../lib/hint'
 import { speak } from '../../lib/speech'
@@ -123,6 +123,14 @@ export function QCardExercise({ exercise: ex, onChange, result }: ExerciseProps<
   }, [shown, done, onChange])
 
   const reveal = shown || done
+  const flip = useMotionValue(0)
+  const lift = useTransform(flip, (a) => 1 + 0.06 * Math.sin((a * Math.PI) / 180))
+  const smear = useTransform(flip, (a) => `blur(${(2.6 * Math.abs(Math.sin((a * Math.PI) / 180))).toFixed(2)}px)`)
+  useEffect(() => {
+    if (reduce) return flip.set(reveal ? 180 : 0)
+    const c = animate(flip, reveal ? 180 : 0, { type: 'spring', stiffness: 200, damping: 15, mass: 0.9 })
+    return () => c.stop()
+  }, [reveal, reduce, flip])
   const grades = [
     { g: 'again' as const, label: 'Nochmal', cls: 'btn-bad' },
     { g: 'hard' as const, label: 'Schwer', cls: 'btn-ghost' },
@@ -168,10 +176,8 @@ export function QCardExercise({ exercise: ex, onChange, result }: ExerciseProps<
             onClick={() => setShown(true)}
             disabled={reveal}
             className="grid w-full"
-            style={{ transformStyle: 'preserve-3d' }}
-            initial={false}
-            animate={{ rotateY: reveal ? 180 : 0 }}
-            transition={{ type: 'spring', stiffness: 220, damping: 22 }}
+            // In der Mitte der Drehung (quer zum Blick) ist die Karte am schnellsten: dort verwischt sie leicht
+            style={{ transformStyle: 'preserve-3d', rotateY: flip, scale: lift, filter: smear }}
           >
             <span className={`${face} border-line bg-surface`} style={{ boxShadow: '0 5px 0 var(--shade-line)' }} aria-hidden={reveal}>
               {front}
