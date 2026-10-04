@@ -1,7 +1,7 @@
 import type { DeckLang } from '../lib/types'
 
 /**
- * Fertige Stapel zum Hinzufügen: allgemeines Grundwissen, das in fast jedem Unterricht vorkommt.
+ * Fertige Karteikarten zum Hinzufügen: allgemeines Grundwissen, das in fast jedem Unterricht vorkommt.
  * Sie ersetzen das Schulbuch nicht (Lehrer setzen eigene Schwerpunkte): Wer etwas anderes braucht, erstellt eigene Stapel.
  */
 export interface DeckTemplate {

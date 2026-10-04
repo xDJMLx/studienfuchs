@@ -77,7 +77,7 @@ describe('Überraschungs-Truhe', () => {
       }
     }
     expect(kinds.coins).toBeGreaterThan(250)
-    expect(kinds.freeze).toBeGreaterThan(10)
+    expect(kinds.freeze ?? 0).toBe(0)
     expect(kinds.item).toBeGreaterThan(5)
   })
 
@@ -106,7 +106,6 @@ describe('Begrüßung und Combo', () => {
     expect(foxGreeting({ ...base, daysAway: 5 })).toMatch(/wieder da/)
     expect(foxGreeting({ ...base, questsLeft: 1 })).toMatch(/eine Aufgabe/)
     expect(foxGreeting({ ...base, goalLeft: 6 })).toMatch(/6 XP/)
-    expect(foxGreeting({ ...base, streakDays: 4 })).toMatch(/4 Tage/)
     expect(foxGreeting({ ...base, hour: 7 })).toMatch(/Morgen/)
     expect(foxGreeting({ ...base, hour: 21 })).toMatch(/Bonsoir/)
   })

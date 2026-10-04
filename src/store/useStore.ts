@@ -186,13 +186,12 @@ const initial: Data = {
 const DATA_KEYS = Object.keys(initial) as (keyof Data)[]
 
 /** Die Zahlen, aus denen die Erfolge berechnet werden (wie auf der Profilseite). */
-function achievementInput(s: Pick<Data, 'cards' | 'sets' | 'lessons' | 'xp' | 'xpByDay' | 'dailyGoal'> & { rounds?: number; addedUnits?: string[]; arbeiten?: Arbeit[] }, streakDays: number): AchievementInput {
+function achievementInput(s: Pick<Data, 'cards' | 'sets' | 'lessons' | 'xp' | 'xpByDay' | 'dailyGoal'> & { rounds?: number; addedUnits?: string[]; arbeiten?: Arbeit[] }): AchievementInput {
   const setIds = new Set(s.sets.flatMap((x) => x.items.map((i) => i.id)))
   const known = Object.keys(s.cards).filter((id) => itemMeta.has(id) || mathItems.has(id) || setIds.has(id))
   return {
     // Runden und (früher) abgeschlossene Lektionen zählen zusammen
     lessons: (s.rounds ?? 0) + Object.keys(s.lessons).length,
-    streak: streakDays,
     xp: s.xp,
     learnedWords: known.length,
     masteredWords: known.filter((id) => masteryOf(s.cards[id]) === 2).length,
@@ -304,8 +303,8 @@ export const useStore = create<Data & Actions>()(
         const questCoins = upd.coins + upd.bonus
 
         // Was ist neu? Erfolge, abgeschlossene Einheit, Truhe
-        const before = computeAchievements(achievementInput(s, currentStreak(s.streak, now))).filter((x) => x.value >= x.goal).map((x) => x.id)
-        const after = computeAchievements(achievementInput({ ...s, cards, lessons, rounds: (s.rounds ?? 0) + 1, xp: s.xp + xp, xpByDay: { ...s.xpByDay, [today]: todayBefore + xp } }, nextStreak.count))
+        const before = computeAchievements(achievementInput(s)).filter((x) => x.value >= x.goal).map((x) => x.id)
+        const after = computeAchievements(achievementInput({ ...s, cards, lessons, rounds: (s.rounds ?? 0) + 1, xp: s.xp + xp, xpByDay: { ...s.xpByDay, [today]: todayBefore + xp } }))
         const unit = unitOf(lessonId)
         const regular = unit?.lessons.filter(isRegular) ?? []
         const unitNow = !!unit && regular.length > 0 && regular.every((l) => isLessonDone(l, lessons[l.id])) && !regular.every((l) => isLessonDone(l, s.lessons[l.id]))

@@ -170,7 +170,6 @@ export const chestReady = (goalReached: boolean, d: DailyState | null): boolean 
 export function rollChest(day: string, opened: number, ctx: { owned: string[]; freezes: number; maxFreezes: number }): ChestReward {
   const r = rng(`chest:${day}:${opened}`)
   const roll = r()
-  if (roll < 0.1 && ctx.freezes < ctx.maxFreezes) return { kind: 'freeze' }
   if (roll < 0.17) {
     const gift = ITEMS.filter((i) => !ctx.owned.includes(i.id) && i.price <= 150).sort((a, b) => a.price - b.price)[0]
     if (gift) return { kind: 'item', id: gift.id }
@@ -205,8 +204,6 @@ function frenchGreeting(g: GreetingInput): string {
   if (g.daysAway >= 3) return 'Schön, dass du wieder da bist!'
   if (g.questsLeft === 1) return 'Nur noch eine Aufgabe für heute!'
   if (g.goalLeft > 0 && g.goalLeft <= 10) return `Nur noch ${g.goalLeft} XP bis zur Truhe!`
-  if (g.streakDays >= 7) return `${g.streakDays} Tage am Stück. Stark!`
-  if (g.streakDays >= 3) return `${g.streakDays} Tage Serie, weiter so!`
   if (g.hour < 10) return 'Bonjour ! Guten Morgen.'
   if (g.hour >= 20) return 'Bonsoir ! Noch eine kleine Runde?'
   return 'Salut ! Weiter geht’s.'

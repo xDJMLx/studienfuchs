@@ -31,7 +31,7 @@ const EXAMPLES: Record<string, string> = {
   franzoesisch: 'z. B. Vokabeln zum Thema Essen und Trinken',
 }
 
-/** Neuer Stapel: von der KI erstellen lassen (Beschreibung und/oder Fotos) oder selbst schreiben. Vor dem Speichern prüft man alle Karten. */
+/** Neue Karteikarten: von der KI erstellen lassen (Beschreibung und/oder Fotos) oder selbst schreiben. Vor dem Speichern prüft man alle Karten. */
 export function DeckCreatePage() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
@@ -126,7 +126,7 @@ export function DeckCreatePage() {
       ...(r.example?.trim() && r.exampleDe?.trim() ? { example: r.example.trim(), exampleDe: r.exampleDe.trim() } : {}),
       ...(r.note?.trim() ? { note: r.note.trim() } : {}),
     }))
-    const id = addSet(title.trim() || 'Neuer Stapel', items, { subject, lang: sub?.lang, both })
+    const id = addSet(title.trim() || 'Neue Karteikarten', items, { subject, lang: sub?.lang, both })
     navigate(`/stapel/${id}`, { replace: true })
   }
 
@@ -135,7 +135,7 @@ export function DeckCreatePage() {
       <Link to={`/faecher/${subject}`} className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
         <Back size={18} /> {sub?.name ?? 'Fächer'}
       </Link>
-      <h1 className="page-title mb-4">Neuer Stapel</h1>
+      <h1 className="page-title mb-4">Neue Karteikarten</h1>
 
       {!rows && (
         <div className="grid gap-4">
@@ -285,7 +285,7 @@ export function DeckCreatePage() {
             {templatesFor(subject).length > 0 && (
               <>
                 {' '}oder{' '}
-                <button type="button" className="font-extrabold underline" onClick={() => { setError(null); setWay('vorlage') }}>einen fertigen Stapel nehmen</button>
+                <button type="button" className="font-extrabold underline" onClick={() => { setError(null); setWay('vorlage') }}>fertige Karteikarten nehmen</button>
               </>
             )}
             .
@@ -297,7 +297,7 @@ export function DeckCreatePage() {
         <div className="grid gap-4">
           {notice && <p className="rounded-xl bg-snow p-3 text-sm font-semibold" role="status">{notice}</p>}
           <label className="grid gap-1.5 text-sm font-bold text-muted">
-            Name des Stapels
+            Name
             <input className={field} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="z. B. Zelle" maxLength={60} />
           </label>
           <CardTable rows={rows} onChange={setRows} lang={sub?.lang} />
@@ -310,7 +310,7 @@ export function DeckCreatePage() {
           </label>
           <div className="flex flex-col gap-2 sm:flex-row-reverse">
             <button type="button" className="btn btn-primary press w-full sm:w-64" disabled={valid.length === 0} onClick={save}>
-              Stapel speichern ({valid.length})
+              Karteikarten speichern ({valid.length})
             </button>
             <button type="button" className="btn btn-ghost press w-full sm:w-auto" onClick={() => { setRows(null); setNotice(null) }}>
               Zurück

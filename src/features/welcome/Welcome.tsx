@@ -25,12 +25,12 @@ const GOALS = [
 const SPEECH: Record<Exclude<Step, 'hero'>, string> = {
   subjects: 'Welche Fächer hast du? Du kannst später jederzeit mehr hinzufügen.',
   goal: 'Wie viel möchtest du täglich üben?',
-  ready: 'Super! Dann leg los mit deinem ersten Stapel.',
+  ready: 'Super! Dann leg los mit deinen ersten Karteikarten.',
 }
 const MOOD: Record<Exclude<Step, 'hero'>, Mood> = { subjects: 'think', goal: 'happy', ready: 'cheer' }
 
 const HOW = [
-  { n: '1', title: 'Stapel erstellen', text: 'Schreib, was du für ein Fach brauchst, oder lass die KI die Karten machen. Auch aus einem Foto von deinem Heft.' },
+  { n: '1', title: 'Karteikarten erstellen', text: 'Schreib, was du für ein Fach brauchst, oder lass die KI die Karten machen. Auch aus einem Foto von deinem Heft.' },
   { n: '2', title: 'Jeden Tag kurz üben', text: 'Die App sagt dir, was heute dran ist: genau dann, kurz bevor du es vergessen würdest.' },
   { n: '3', title: 'Arbeiten eintragen', text: 'Mit Datum verteilt die App die Karten auf die Tage, damit du rechtzeitig alles kannst.' },
 ]
@@ -234,7 +234,7 @@ export function Welcome() {
                           </li>
                         ))}
                       </ol>
-                      <p className="mt-3 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">Für Französisch gibt es fertige Stapel zum Wortschatz aus dem Unterricht (Klasse 7 bis 10), mit Beispielsätzen und Aufnahmen.</p>
+                      <p className="mt-3 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">Für Französisch gibt es fertige Karteikarten zum Wortschatz aus dem Unterricht (Klasse 7 bis 10), mit Beispielsätzen und Aufnahmen.</p>
                     </div>
                   )}
                 </motion.div>
@@ -246,7 +246,7 @@ export function Welcome() {
                 {step === 'ready' ? (
                   <>
                     <button className="btn btn-primary btn-shine press w-full !py-4 text-base sm:w-72" onClick={() => finish('/stapel/neu')} autoFocus>
-                      Ersten Stapel erstellen
+                      Erste Karteikarten erstellen
                     </button>
                     <button type="button" className="press min-h-11 rounded-xl px-3 text-sm font-extrabold uppercase tracking-wide text-sky-dark sm:mr-auto" onClick={() => finish()}>
                       Erst umschauen

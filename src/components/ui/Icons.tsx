@@ -370,6 +370,15 @@ export const TabSubjects = ({ size, ...p }: P) => (
   </svg>
 )
 
+/** Kalender-Tab: Kalenderblatt mit Ringen und einem markierten Tag */
+export const TabCalendar = ({ size, ...p }: P) => (
+  <svg {...base(size)} {...p}>
+    <path d="M7 2.5a1.2 1.2 0 0 1 1.2 1.2V5h7.6V3.7a1.2 1.2 0 0 1 2.4 0V5H19a2.5 2.5 0 0 1 2.5 2.5V9h-19V7.5A2.5 2.5 0 0 1 5 5h.8V3.7A1.2 1.2 0 0 1 7 2.5Z" fill="currentColor" />
+    <path d="M2.5 10.5h19V19a2.5 2.5 0 0 1-2.5 2.5H5A2.5 2.5 0 0 1 2.5 19v-8.5Z" fill="currentColor" opacity=".72" />
+    <rect x="13.2" y="13.4" width="5" height="4.6" rx="1.4" fill="#fff" />
+  </svg>
+)
+
 /** Truhe: kleine Holztruhe mit Goldbeschlag; mit open=true ist der Deckel aufgeklappt und es glänzt. */
 export const Chest = ({ size, open = false, ...p }: P & { open?: boolean }) => (
   <svg {...base(size)} {...p}>

@@ -26,7 +26,7 @@ export function ProgressSummary({ diff, bonus = 0, decks, arbeiten, solidBySubje
     const id = window.setTimeout(() => mascotBus.emit('levelup'), 1100)
     return () => clearTimeout(id)
   }, [celebrate])
-  const deckTitle = (id: string) => decks.find((d) => d.id === id)?.title ?? 'Stapel'
+  const deckTitle = (id: string) => decks.find((d) => d.id === id)?.title ?? 'Karteikarten'
   const arbeitOf = (id: string) => arbeiten.find((a) => a.id === id)
   const anything = diff.learned > 0 || diff.solidGain > 0 || diff.levelUps.length || diff.newStars.length || diff.arbeit.length
   if (!anything) return null
@@ -80,7 +80,7 @@ export function ProgressSummary({ diff, bonus = 0, decks, arbeiten, solidBySubje
               ))}
             </span>
             <span className="min-w-0">
-              <span className="block text-xs font-extrabold uppercase tracking-wide text-gold-dark">{st.stars === 3 ? 'Stapel gemeistert' : 'Neuer Stern'}</span>
+              <span className="block text-xs font-extrabold uppercase tracking-wide text-gold-dark">{st.stars === 3 ? 'Karteikarten gemeistert' : 'Neuer Stern'}</span>
               <span className="block truncate font-extrabold">{deckTitle(st.deckId)}</span>
             </span>
           </motion.div>

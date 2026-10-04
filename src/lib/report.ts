@@ -40,7 +40,6 @@ export function buildWeeklyReport(i: ReportInput): { text: string; activeDays: n
     `• Aktiv an ${activeDays} von 7 Tagen`,
     `• ${weekXp} XP gesammelt, Tagesziel (${i.dailyGoal} XP) an ${goalDays} ${plural(goalDays, 'Tag', 'Tagen')} erreicht`,
     `• ${lessonsWeek} ${plural(lessonsWeek, 'Lektion', 'Lektionen')} geschafft`,
-    `• Serie: ${i.streak} ${plural(i.streak, 'Tag', 'Tage')} (Rekord ${Math.max(i.bestStreak, i.streak)})`,
     `• Wortschatz: ${i.learnedWords} Wörter geübt, ${i.masteredWords} davon gefestigt (Level ${i.level})`,
     `• Jetzt zu wiederholen: ${i.dueNow} ${plural(i.dueNow, 'Wort', 'Wörter')}`,
   ]

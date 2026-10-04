@@ -4,7 +4,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Row, Section, Switch } from '../../components/ui/controls'
 import { InstallHelp, useInstallFlow } from '../../components/ui/InstallApp'
-import { Check, Database, Download, Gear, Palette, Shield, Sparkle, Speaker, Target, Upload } from '../../components/ui/Icons'
+import { Cards, Check, Database, Download, Gear, Palette, Shield, Sparkle, Speaker, Target, Upload } from '../../components/ui/Icons'
+import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
+import { activeDecks } from '../../lib/decks'
+import { HELP_SUBJECTS } from '../../lib/subjects'
 import { EASE, Item, Stagger, SPRING } from '../../components/ui/motion'
 import { dayKey } from '../../lib/streak'
 import { lastBackupText, markBackup, shareBackup } from '../../lib/backup'
@@ -29,6 +32,7 @@ const THEMES = [
 ] as const
 
 const SECTIONS = [
+  { id: 's-subjects', label: 'Fächer', Icon: Cards },
   { id: 's-look', label: 'Darstellung', Icon: Palette },
   { id: 's-learn', label: 'Lernen', Icon: Target },
   { id: 's-voice', label: 'Sprache', Icon: Speaker },
@@ -67,6 +71,9 @@ export function SettingsPage() {
   const reduce = useReducedMotion()
   const navigate = useNavigate()
   const setOnboarded = useStore((s) => s.setOnboarded)
+  const mySubjects = useStore((s) => s.mySubjects)
+  const toggleSubject = useStore((s) => s.toggleSubject)
+  const addedUnits = useStore((s) => s.addedUnits)
   const { theme, setTheme, dailyGoal, setDailyGoal, soundOn, setSoundOn, exportData, importData, resetAll, cards, sets } = useStore(useShallow((s) => ({ theme: s.theme, setTheme: s.setTheme, dailyGoal: s.dailyGoal, setDailyGoal: s.setDailyGoal, soundOn: s.soundOn, setSoundOn: s.setSoundOn, exportData: s.exportData, importData: s.importData, resetAll: s.resetAll, cards: s.cards, sets: s.sets })))
   const fileRef = useRef<HTMLInputElement>(null)
   const install = useInstallFlow()
@@ -226,6 +233,39 @@ export function SettingsPage() {
 
       <div>
         <Stagger className="grid gap-8" stagger={0.09}>
+ <Item>
+            <Section id="s-subjects" icon={<Cards size={22} />} title="Meine Fächer" description="Die Fächer, die du in der Schule hast">
+              <div className="px-5 py-4">
+                <p className="mb-3 text-sm text-muted">Tipp ein Fach an, um es hinzuzufügen oder wegzunehmen. Fächer, in denen schon Karteikarten liegen, bleiben, bis du die Karteikarten löschst.</p>
+                <ul className="flex flex-wrap gap-2" aria-label="Fächer">
+                  {HELP_SUBJECTS.map((sub) => {
+                    const hasCards = activeDecks({ sets, addedUnits: addedUnits ?? [] }).some((d) => d.subject === sub.id)
+                    const on = hasCards || (mySubjects ?? []).includes(sub.id)
+                    return (
+                      <li key={sub.id}>
+                        <button
+                          type="button"
+                          role="switch"
+                          aria-checked={on}
+                          aria-label={sub.name}
+                          disabled={hasCards}
+                          onClick={() => toggleSubject(sub.id)}
+                          className={`press flex min-h-11 items-center gap-2 rounded-2xl border-2 py-1.5 pl-1.5 pr-3 text-[14px] font-extrabold transition-colors disabled:opacity-100 ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface text-muted'}`}
+                        >
+                          <span className="flex h-8 w-8 items-center justify-center rounded-xl" style={{ background: sub.c, opacity: on ? 1 : 0.55 }}>
+                            <HelpSubjectIcon id={sub.id} ink={sub.c} size={20} />
+                          </span>
+                          {sub.name}
+                          {on && <Check size={14} />}
+                        </button>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
+            </Section>
+          </Item>
+
           <Item>
             <Section id="s-look" icon={<Palette size={22} />} title="Darstellung" description="Farben und Töne">
               <div className="px-5 py-4">
@@ -330,7 +370,7 @@ export function SettingsPage() {
 
           <Item>
             <Section id="s-data" icon={<Database size={22} />} title="Daten" description="Alles liegt nur auf diesem Gerät">
-              <Row title="Gespeichert auf diesem Gerät" hint={`${Object.keys(cards).length} geübte Karten · ${sets.length} ${sets.length === 1 ? 'Stapel' : 'Stapel'}`} />
+              <Row title="Gespeichert auf diesem Gerät" hint={`${Object.keys(cards).length} geübte Karten · ${sets.length} ${sets.length === 1 ? 'Sammlung' : 'Sammlungen'}`} />
               <Row title="Fortschritt sichern" hint="Exportiere eine Sicherung oder lade eine ein, z. B. für ein neues Gerät.">
                 <div className="flex gap-2">
                   <button className="btn btn-ghost press !px-4 !py-2 !text-sm" onClick={doExport}><Download size={16} /> Exportieren</button>

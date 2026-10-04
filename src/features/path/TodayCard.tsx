@@ -3,24 +3,23 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import { ChestSheet } from '../../components/ui/ChestSheet'
-import { Check, Chest, Flame, Repeat, Right, Xp } from '../../components/ui/Icons'
+import { Check, Chest, Repeat, Right, Xp } from '../../components/ui/Icons'
 import { Sheet } from '../../components/ui/Sheet'
 import { ProgressRing } from '../../components/ui/widgets'
 import { chestReady, questDef } from '../../lib/rewards'
 import { dayKey } from '../../lib/streak'
 import { goalInfo } from '../../lib/xp'
-import { streakNow, useStore, xpToday } from '../../store/useStore'
+import { useStore, xpToday } from '../../store/useStore'
 import { useDue } from '../review/ReviewPage'
 import { DailyRewards } from './DailyQuests'
 
 /** Heute: Tagesziel, Truhe, Tagesaufgaben, fällige Wörter und Aufholplan in einer Karte. */
 export function TodayCard({ onChest }: { onChest?: () => void }) {
   const navigate = useNavigate()
-  const { xpByDay, dailyGoal, streak } = useStore(useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, streak: s.streak })))
+  const { xpByDay, dailyGoal } = useStore(useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal })))
   const { due } = useDue()
   const today = xpToday(xpByDay)
   const g = goalInfo(dailyGoal, today)
-  const days = streakNow(streak)
   const done = g.baseReached
   const row = 'press flex w-full items-center gap-3.5 px-4 py-3.5 text-left'
   return (
@@ -31,9 +30,7 @@ export function TodayCard({ onChest }: { onChest?: () => void }) {
         </ProgressRing>
         <div className="min-w-0 flex-1">
           <p className="text-[17px] font-extrabold leading-tight">{done ? (g.tier === 1 ? 'Tagesziel geschafft!' : 'Bonusziel geschafft!') : `Noch ${g.goal - today} XP bis zum Tagesziel`}</p>
-          <p className="mt-0.5 flex items-center gap-1.5 text-sm text-muted">
-            <Flame size={15} /> {days} {days === 1 ? 'Tag' : 'Tage'} Serie{done ? `, nächstes Bonusziel bei ${g.goal} XP` : ', danach wartet eine Truhe'}
-          </p>
+          <p className="mt-0.5 text-sm text-muted">{done ? `Nächstes Bonusziel bei ${g.goal} XP` : 'Danach wartet eine Truhe'}</p>
         </div>
       </div>
       <DailyRewards onChest={onChest} />

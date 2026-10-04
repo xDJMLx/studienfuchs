@@ -195,5 +195,5 @@ function Round({ params, onMore }: { params: URLSearchParams; onMore: () => void
   const [sel] = useState(() => selectRefs(params))
   const mode = (params.get('modus') as RoundMode | null) ?? 'mix'
   if (!sel.refs.length) return <Navigate to="/" replace />
-  return <CardRound title={sel.title} refs={sel.refs} pool={sel.pool} mode={mode} exitTo={params.get('arbeit') || params.get('deck') || params.get('fach') ? '/faecher' : '/'} onMore={onMore} />
+  return <CardRound title={sel.title} refs={sel.refs} pool={sel.pool} mode={mode} exitTo={params.get('arbeit') || params.get('deck') || params.get('fach') ? '/' : '/'} onMore={onMore} />
 }

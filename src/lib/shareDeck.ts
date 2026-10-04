@@ -61,7 +61,7 @@ export async function decodeDeck(code: string): Promise<SharedDeck> {
     .slice(0, 300)
     .map((i) => ({ front: i.front, back: i.back, ...(i.example && i.exampleDe ? { example: i.example, exampleDe: i.exampleDe } : {}), ...(i.note ? { note: i.note } : {}) }))
   const title = str(data.title).slice(0, 80)
-  if (!title || items.length === 0) throw new Error('Im Link steckt kein Stapel.')
+  if (!title || items.length === 0) throw new Error('Im Link stecken keine Karteikarten.')
   return {
     title,
     ...(typeof data.subject === 'string' && /^[a-z-]{2,30}$/.test(data.subject) ? { subject: data.subject } : {}),

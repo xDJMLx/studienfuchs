@@ -87,7 +87,7 @@ describe('Meilenstein-Münzen und Erfolge', () => {
     for (const s of sets) for (const i of s.items) cards[i.id] = strong()
     const stats = deckAchievementStats({ sets, cards, arbeiten: [{ id: '1', subject: 'biologie', title: 't', date: '2030-01-01', deckIds: [] }] })
     expect(stats).toMatchObject({ decks: 3, arbeiten: 1, subjectsPracticed: 3, fullStars: 3 })
-    const got = Object.fromEntries(achievements({ lessons: 0, streak: 0, xp: 0, learnedWords: 0, masteredWords: 0, sets: 0, goalDays: 0, ...stats }).map((a) => [a.id, a.value >= a.goal]))
+    const got = Object.fromEntries(achievements({ lessons: 0, xp: 0, learnedWords: 0, masteredWords: 0, sets: 0, goalDays: 0, ...stats }).map((a) => [a.id, a.value >= a.goal]))
     expect(got).toMatchObject({ set: true, decks5: false, arbeit1: true, subjects3: true, star3: true })
   })
 })

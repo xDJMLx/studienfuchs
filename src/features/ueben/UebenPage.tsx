@@ -8,14 +8,11 @@ import { dateKey, kindLabel, needsFollowUp } from '../../lib/calendar'
 import { activeDecks, cardRefs, daysUntil, planToday, readiness, SESSION_SIZE } from '../../lib/decks'
 import { isDue } from '../../lib/srs'
 import { helpSubject } from '../../lib/subjects'
-import type { Arbeit } from '../../lib/types'
 import { useStore } from '../../store/useStore'
 import { BackupBanner } from '../../components/ui/BackupBanner'
 import { InstallBanner } from '../../components/ui/InstallApp'
 import { backupDue } from '../../lib/backup'
-import { ArbeitSheet } from '../faecher/ArbeitSheet'
 import { ArbeitFollowUp } from '../kalender/KalenderPage'
-import { WeekPlanner } from '../kalender/WeekPlanner'
 import { TodayStrip } from '../path/TodayCard'
 import { BlitzCard } from '../practice/BlitzCard'
 import { dueLabel } from '../review/ReviewPage'
@@ -29,7 +26,6 @@ export function UebenPage() {
   const addedUnits = useStore((s) => s.addedUnits)
   const arbeiten = useStore((s) => s.arbeiten)
   const cards = useStore((s) => s.cards)
-  const [sheet, setSheet] = useState<{ arbeit?: Arbeit; date?: string } | null>(null)
 
   const decks = useMemo(() => activeDecks({ sets, addedUnits: addedUnits ?? [] }), [sets, addedUnits])
   const plan = useMemo(() => planToday(decks, arbeiten ?? [], cards), [decks, arbeiten, cards])
@@ -78,9 +74,9 @@ export function UebenPage() {
           <section className="card mb-5 flex flex-col items-center p-6 text-center">
             <Mascot size={96} mood="happy" alive />
             <h1 className="mt-2 text-[24px] font-black leading-tight">Was willst du üben?</h1>
-            <p className="mt-1 max-w-sm text-muted">Erstelle einen Stapel Karteikarten zu einem Fach, zum Beispiel für die nächste Arbeit. Du schreibst, was du brauchst, und die Karten sind in Sekunden da.</p>
-            <Link to="/faecher" className="btn btn-primary btn-shine press mt-4 w-full sm:w-64">
-              Stapel erstellen
+            <p className="mt-1 max-w-sm text-muted">Erstelle Karteikarten zu einem Fach, zum Beispiel für die nächste Arbeit. Du schreibst, was du brauchst, und die Karten sind in Sekunden da.</p>
+            <Link to="/stapel/neu" className="btn btn-primary btn-shine press mt-4 w-full sm:w-64">
+              Karteikarten erstellen
             </Link>
           </section>
         ) : total > 0 ? (
@@ -121,8 +117,8 @@ export function UebenPage() {
                 <button type="button" className="btn btn-ghost press !min-h-10 !px-4 !text-sm" onClick={() => navigate('/ueben/los')}>
                   Trotzdem üben
                 </button>
-                <Link to="/faecher" className="btn btn-ghost press !min-h-10 !px-4 !text-sm">
-                  Neuer Stapel
+                <Link to="/stapel/neu" className="btn btn-ghost press !min-h-10 !px-4 !text-sm">
+                  Neue Karteikarten
                 </Link>
               </div>
             </div>
@@ -132,21 +128,21 @@ export function UebenPage() {
 
       <Item>
         <div className="mb-2 flex items-center justify-between gap-2">
-          <h2 className="text-lg font-extrabold">Arbeiten &amp; Tests</h2>
-          <span className="flex items-center gap-1">
-            <Link to="/kalender" className="press flex min-h-9 items-center gap-0.5 rounded-xl px-2.5 text-sm font-bold text-sky-dark hover:bg-sky-soft">
-              Wochenplan <Right size={13} />
-            </Link>
-            <button type="button" aria-label="Arbeit eintragen" className="press flex h-9 w-9 items-center justify-center rounded-full bg-sky-soft text-sky-dark" onClick={() => setSheet({ date: today })}>
-              <Plus size={18} />
-            </button>
-          </span>
-        </div>
-        <div className="card mb-3 p-3">
-          <WeekPlanner arbeiten={arbeiten ?? []} weeks={1} rolling pager={false} onAdd={(date) => setSheet({ date })} onOpen={(a) => setSheet({ arbeit: a })} />
+          <h2 className="text-lg font-extrabold">Als Nächstes</h2>
+          <Link to="/kalender" className="press flex min-h-9 items-center gap-0.5 rounded-xl px-2.5 text-sm font-bold text-sky-dark hover:bg-sky-soft">
+            Kalender <Right size={13} />
+          </Link>
         </div>
         {upcoming.length === 0 ? (
-          <p className="mb-5 px-1 text-sm text-muted">Steht eine Arbeit an? Tippe auf den Tag und trag sie ein: Die App verteilt die Karten auf die Tage und zeigt, wie gut alles sitzt.</p>
+          <Link to="/kalender?neu=1" className="press mb-5 flex items-center gap-3 rounded-2xl border-2 border-dashed border-line px-4 py-4 text-muted hover:bg-snow">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sky-soft text-sky-dark">
+              <Plus size={20} />
+            </span>
+            <span>
+              <span className="block font-extrabold text-ink">Steht eine Arbeit an?</span>
+              <span className="block text-sm">Trag sie im Kalender ein: Die App verteilt die Karteikarten auf die Tage bis dahin.</span>
+            </span>
+          </Link>
         ) : (
           <ul className="mb-5 grid gap-3">
             {upcoming.slice(0, 3).map(({ a, days, r }) => {
@@ -194,15 +190,14 @@ export function UebenPage() {
             <span className="min-w-0 font-extrabold leading-tight">Lernstand</span>
             <Right size={14} className="ml-auto text-muted" />
           </Link>
-          <Link to="/faecher" className="card press flex items-center gap-3 p-3.5">
+          <Link to="/stapel/neu" className="card press flex items-center gap-3 p-3.5">
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand-dark"><Plus size={22} /></span>
-            <span className="min-w-0 font-extrabold leading-tight">Neuer Stapel</span>
+            <span className="min-w-0 font-extrabold leading-tight">Neue Karteikarten</span>
             <Right size={14} className="ml-auto text-muted" />
           </Link>
         </div>
       </Item>
 
-      <ArbeitSheet open={!!sheet} onClose={() => setSheet(null)} arbeit={sheet?.arbeit} date={sheet?.date} />
     </Stagger>
   )
 }
@@ -299,7 +294,7 @@ function FreePractice() {
               </button>
             )
           })}
-          <Link to="/faecher" className="press flex w-[4.6rem] shrink-0 flex-col items-center gap-1.5 text-center" aria-label="Fach hinzufügen">
+          <Link to="/settings" className="press flex w-[4.6rem] shrink-0 flex-col items-center gap-1.5 text-center" aria-label="Fach hinzufügen">
             <span className="flex h-[3.6rem] w-[3.6rem] items-center justify-center rounded-[1.1rem] border-2 border-dashed border-line text-muted">
               <Plus size={22} />
             </span>
@@ -310,16 +305,16 @@ function FreePractice() {
         {count === 0 ? (
           <div className="border-t-2 border-line bg-snow px-4 py-4">
             <p className="font-extrabold">In {sub?.name} gibt es noch keine Karten.</p>
-            <p className="mb-3 text-sm text-muted">{subject === 'franzoesisch' ? 'Füge einen fertigen Stapel aus dem Kurs hinzu oder erstelle einen eigenen.' : 'Erstelle den ersten Stapel, dann kannst du hier üben.'}</p>
+            <p className="mb-3 text-sm text-muted">{subject === 'franzoesisch' ? 'Füge fertige Karteikarten aus dem Kurs hinzu oder erstelle eigene.' : 'Erstelle die ersten Karteikarten, dann kannst du hier üben.'}</p>
             <Link to={subject === 'franzoesisch' ? '/faecher/franzoesisch' : `/stapel/neu?fach=${subject}`} className="btn btn-primary press !min-h-10 !px-4 !text-sm">
-              {subject === 'franzoesisch' ? 'Stapel wählen' : 'Stapel erstellen'}
+              {subject === 'franzoesisch' ? 'Karteikarten wählen' : 'Karteikarten erstellen'}
             </Link>
           </div>
         ) : (
           <div className="border-t-2 border-line bg-snow/60 px-4 pb-4 pt-3.5">
             {subjectDecks.length > 1 && (
               <label className="mb-3 block">
-                <span className="mb-1 block text-xs font-extrabold uppercase tracking-wide text-muted">Stapel</span>
+                <span className="mb-1 block text-xs font-extrabold uppercase tracking-wide text-muted">Karteikarten</span>
                 <select value={deck} onChange={(e) => setDeck(e.target.value)} className="w-full rounded-xl border-2 border-line bg-surface px-3 py-2.5 text-[15px] font-bold outline-none focus:border-sky">
                   <option value="">Ganzes Fach ({cardRefs(subjectDecks).length} Karten)</option>
                   {subjectDecks.map((d) => (
@@ -354,6 +349,12 @@ function FreePractice() {
               <span className="rounded-full bg-white/25 px-2.5 py-0.5 text-sm font-extrabold">{count} Karten</span>
             </button>
           </div>
+        )}
+        {sub && (
+          <Link to={`/faecher/${subject}`} className="press flex min-h-12 items-center justify-between border-t-2 border-line px-4 text-sm font-extrabold text-sky-dark hover:bg-snow">
+            <span>Karteikarten in {sub.name} ansehen und verwalten</span>
+            <Right size={14} />
+          </Link>
         )}
       </section>
     </Item>

@@ -39,7 +39,7 @@ export function FachPage() {
   const allActive = useMemo(() => activeDecks({ sets, addedUnits: addedUnits ?? [] }), [sets, addedUnits])
   const plan = useMemo(() => planToday(allActive.filter((d) => d.subject === subjectId), arbeiten ?? [], cards), [allActive, subjectId, arbeiten, cards])
   const mine = useMemo(() => (arbeiten ?? []).filter((a) => a.subject === subjectId).map((a) => ({ a, days: daysUntil(a), r: readiness(a, allActive, cards) })).sort((x, y) => x.days - y.days), [arbeiten, subjectId, allActive, cards])
-  if (!subject) return <Navigate to="/faecher" replace />
+  if (!subject) return <Navigate to="/" replace />
   const stat = subjectStats(allActive, cards)[subjectId]
   const lv = levelOfSolid(stat?.solid ?? 0)
   const isMine = (mySubjects ?? []).includes(subjectId)
@@ -54,8 +54,8 @@ export function FachPage() {
   return (
     <Stagger className="mx-auto max-w-2xl px-4 py-5 lg:py-8" stagger={0.06}>
       <Item>
-        <Link to="/faecher" className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
-          <Back size={18} /> Fächer
+        <Link to="/" className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
+          <Back size={18} /> Üben
         </Link>
         <div className="mb-4 flex items-center gap-3.5">
           <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl" style={{ background: subject.c, boxShadow: `0 4px 0 ${subject.s}` }} aria-hidden>
@@ -86,7 +86,7 @@ export function FachPage() {
             value={tab}
             onChange={(v) => setParams(v === 'stapel' ? {} : { tab: v }, { replace: true })}
             options={[
-              { value: 'stapel', label: 'Stapel' },
+              { value: 'stapel', label: 'Karteikarten' },
               { value: 'nachschlagen', label: 'Nachschlagen' },
             ]}
           />
@@ -115,16 +115,16 @@ export function FachPage() {
 
           <Item>
             <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-lg font-extrabold">Stapel</h2>
+              <h2 className="text-lg font-extrabold">Karteikarten</h2>
               <Link to={`/stapel/neu?fach=${subjectId}`} className="press flex min-h-9 items-center gap-1 rounded-xl px-2.5 text-sm font-extrabold text-sky-dark hover:bg-sky-soft">
-                <Plus size={16} /> Neuer Stapel
+                <Plus size={16} /> Neue Karteikarten
               </Link>
             </div>
             {own.length === 0 ? (
               <Link to={`/stapel/neu?fach=${subjectId}`} className="card press mb-5 flex items-center gap-4 border-dashed p-4">
                 <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-soft text-brand-dark"><Sparkle size={24} /></span>
                 <span className="min-w-0 flex-1">
-                  <span className="block font-extrabold">Erstelle deinen ersten Stapel</span>
+                  <span className="block font-extrabold">Erstelle deine ersten Karteikarten</span>
                   <span className="block text-sm text-muted">Schreib, was du brauchst. Die KI macht die Karten, oder du schreibst sie selbst.</span>
                 </span>
                 <Right size={16} className="text-muted" />
@@ -162,7 +162,7 @@ export function FachPage() {
 
           {!isFrench && templatesFor(subjectId).length > 0 && (
             <Item>
-              <h2 className="mb-1 text-lg font-extrabold">Fertige Stapel</h2>
+              <h2 className="mb-1 text-lg font-extrabold">Fertige Karteikarten</h2>
               <p className="mb-3 text-sm text-muted">Grundwissen zum Hinzufügen. Du kannst die Karten danach bearbeiten.</p>
               <div className="mb-5">
                 <TemplateList subject={subjectId} />
@@ -172,7 +172,7 @@ export function FachPage() {
 
           {isFrench && (
             <Item>
-              <h2 className="mb-1 text-lg font-extrabold">Fertige Stapel aus dem Kurs</h2>
+              <h2 className="mb-1 text-lg font-extrabold">Fertige Karteikarten aus dem Kurs</h2>
               <p className="mb-3 text-sm text-muted">Wortschatz nach Themen für Klasse 7 bis 10, mit Beispielsätzen und Aufnahmen. Füge hinzu, was ihr im Unterricht durchnehmt: Die Karten kommen dann Tag für Tag nach Plan dran.</p>
               {grades.map((g) => (
                 <div key={g} className="mb-4">

@@ -14,7 +14,7 @@ export function buildCardsPrompt(subjectId: string, count: number): string {
   return [
     `Du erstellst Karteikarten für Schüler (Berliner Schulen) im Fach ${name}.`,
     'Antworte NUR mit JSON, ohne Text davor oder danach, in diesem Format:',
-    '{"title": "kurzer Titel des Stapels", "items": [{"front": "...", "back": "...", "example": "...", "exampleDe": "..."}]}',
+    '{"title": "kurzer Titel der Karteikarten", "items": [{"front": "...", "back": "...", "example": "...", "exampleDe": "..."}]}',
     'Regeln:',
     '- "front" ist die Vorderseite (Frage, Begriff, Aufgabe), "back" die Rückseite mit der richtigen, kurzen Antwort. Nur ein Gedanke pro Karte.',
     '- Die Antwort ist kurz: ein Wort, eine Zahl, eine Wendung oder höchstens zwei Sätze. Lange Erklärungen teilst du auf mehrere Karten auf.',
@@ -60,7 +60,7 @@ export async function generateCards({ subjectId, request, count, images = [] }: 
   const vocab = normalizeAiVocab(extractJson<unknown>(text))
   const lang = helpSubject(subjectId)?.lang
   return {
-    title: vocab.title === 'Neues Set' ? 'Neuer Stapel' : vocab.title,
+    title: vocab.title === 'Neues Set' ? 'Neue Karteikarten' : vocab.title,
     // Bei Französisch fehlende Akzente ergänzen
     items: vocab.items.slice(0, Math.max(count, 5)).map((i) => (lang === 'fr' ? { ...i, front: restoreAccents(i.front), ...(i.example ? { example: restoreAccents(i.example) } : {}) } : i)),
   }

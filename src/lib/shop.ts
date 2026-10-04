@@ -50,8 +50,8 @@ export function coinsForSession(p: { xp: number; dailyGoal: number; todayBefore:
     // Mindestziel: 10, jedes Bonusziel danach 5
     for (let t = before + 1; t <= after; t++) goal += t === 1 ? 10 : 5
   }
-  // Alle sieben Tage Serie gibt es 25 Münzen extra (nur einmal je Tag)
-  const streak = p.streakAfter > p.streakBefore && p.streakAfter % 7 === 0 ? 25 : 0
+  // Keine Serien-Prämie: Geübt wird für Arbeiten, nicht für eine Strähne
+  const streak = 0
   return { total: base + goal + streak, base, goal, streak }
 }
 

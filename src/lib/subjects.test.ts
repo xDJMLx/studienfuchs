@@ -31,7 +31,7 @@ describe('Fächer mit KI-Hilfe', () => {
     expect(p).toContain('Arbeiten')
     expect(p).toContain('Hausaufgaben')
     expect(p).toContain('Fach Mathe')
-    expect(p).toContain('Serie 3 Tage')
+    expect(p).not.toContain('Serie')
     expect(p).toContain('Kein LaTeX')
   })
 

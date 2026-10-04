@@ -2,58 +2,38 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { IconChip } from '../../components/ui/controls'
-import { Check, Coin, Flame, Gear, Right, Shield, Star, Trophy, Xp } from '../../components/ui/Icons'
-import { CountUp, EASE, Item, SPRING, Stagger } from '../../components/ui/motion'
+import { Check, Coin, Gear, Right, Shield, Star, Trophy, Xp } from '../../components/ui/Icons'
+import { CountUp, EASE, Item, Stagger } from '../../components/ui/motion'
 import { ProgressRing, SegmentedBar } from '../../components/ui/widgets'
 import { achievements } from '../../lib/achievements'
 import { dayKey } from '../../lib/streak'
 import { levelFromXp } from '../../lib/xp'
-import { streakNow, useStore } from '../../store/useStore'
+import { useStore } from '../../store/useStore'
 import { deckAchievementStats } from '../../lib/progress'
 import { useCourse, useLearned } from '../review/ReviewPage'
 import { Karteikasten, WeeklyReport } from './ProfileExtras'
 import { useShallow } from 'zustand/react/shallow'
 
 const WEEKDAYS = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
-const HEAT_DAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
 const TITLES = ['Fuchsjunges', 'Neugieriger Fuchs', 'Wortsammler', 'Vokabelprofi', 'Sprachfuchs', 'Grammatikmeister', 'Studienfuchs-Legende']
 const titleFor = (level: number) => TITLES[Math.min(TITLES.length - 1, Math.floor((level - 1) / 2))]
 
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
-  const { xp, xpByDay, streak, dailyGoal, lessons, rounds, sets, outfit, coins, bestStreak, addedUnits, arbeiten, cards } = useStore(useShallow((s) => ({ xp: s.xp, xpByDay: s.xpByDay, streak: s.streak, dailyGoal: s.dailyGoal, lessons: s.lessons, rounds: s.rounds, sets: s.sets, outfit: s.outfit, coins: s.coins, bestStreak: s.bestStreak, addedUnits: s.addedUnits, arbeiten: s.arbeiten, cards: s.cards })))
+  const { xp, xpByDay, dailyGoal, lessons, rounds, sets, outfit, coins, addedUnits, arbeiten, cards } = useStore(useShallow((s) => ({ xp: s.xp, xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, lessons: s.lessons, rounds: s.rounds, sets: s.sets, outfit: s.outfit, coins: s.coins, addedUnits: s.addedUnits, arbeiten: s.arbeiten, cards: s.cards })))
   const { learned, byMastery } = useLearned()
   const course = useCourse()
   const lvl = levelFromXp(xp)
-  const streakDays = streakNow(streak)
 
   const days = Array.from({ length: 7 }, (_, i) => {
     const d = new Date()
     d.setDate(d.getDate() - (6 - i))
     return { key: dayKey(d), label: WEEKDAYS[d.getDay()] }
   })
-  // Diese Woche von Montag bis Sonntag
-  const weekDays = Array.from({ length: 7 }, (_, i) => {
-    const d = new Date()
-    d.setDate(d.getDate() - ((d.getDay() + 6) % 7) + i)
-    return { key: dayKey(d), label: ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'][i], today: dayKey(d) === dayKey(), done: (xpByDay[dayKey(d)] ?? 0) > 0 }
-  })
   const maxXp = Math.max(dailyGoal, ...days.map((d) => xpByDay[d.key] ?? 0))
   const weekXp = days.reduce((n, d) => n + (xpByDay[d.key] ?? 0), 0)
   const goalDays = Object.values(xpByDay).filter((v) => v >= dailyGoal).length
-
-  // Letzte fünf Wochen als Raster (Montag bis Sonntag)
-  const today = new Date()
-  const monday = new Date(today)
-  monday.setDate(today.getDate() - ((today.getDay() + 6) % 7))
-  const heat = Array.from({ length: 35 }, (_, i) => {
-    const d = new Date(monday)
-    d.setDate(monday.getDate() - 28 + i)
-    const key = dayKey(d)
-    return { key, v: xpByDay[key] ?? 0, future: d > today, label: d.toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'short' }) }
-  })
-  const activeDays = heat.filter((h) => h.v > 0).length
 
   const learning = byMastery[0]
   const mastered = byMastery[1]
@@ -61,7 +41,6 @@ export function ProfilePage() {
 
   const badges = achievements({
     lessons: (rounds ?? 0) + Object.keys(lessons).length,
-    streak: streakDays,
     xp,
     learnedWords: learned.length,
     masteredWords: mastered,
@@ -95,27 +74,6 @@ export function ProfilePage() {
           </section>
         </Item>
 
-        {/* Serie: große Flamme, Zahl und die Woche als Haken (wie die Serien-Seite bei SideMe) */}
-        <Item>
-          <section className="card mt-4 flex flex-col items-center px-4 pb-5 pt-6 text-center" aria-label="Serie">
-            <Flame size={72} />
-            <p className="mt-1 text-[56px] font-extrabold leading-none text-brand-dark">
-              <CountUp to={streakDays} />
-            </p>
-            <p className="mt-1 text-lg font-bold text-brand-dark">{streakDays === 1 ? 'Tag Serie' : 'Tage Serie'}</p>
-            <div className="mt-5 grid w-full max-w-xs grid-cols-7 gap-1.5">
-              {weekDays.map((d) => (
-                <div key={d.key} className="flex flex-col items-center gap-1.5">
-                  <span className={`text-[11px] font-bold ${d.today ? 'text-ink' : 'text-muted'}`}>{d.label}</span>
-                  <span className={`flex h-7 w-7 items-center justify-center rounded-full ${d.done ? 'bg-brand-strong text-on-brand' : 'bg-snow text-transparent'} ${d.today && !d.done ? 'ring-2 ring-brand' : ''}`} aria-label={d.done ? 'gelernt' : 'nicht gelernt'}>
-                    <Check size={14} />
-                  </span>
-                </div>
-              ))}
-            </div>
-          </section>
-        </Item>
-
         {/* Fuchs anpassen und Shop */}
         <Item>
           <Link to="/shop" className="card lift mt-4 flex items-center gap-3.5 px-4 py-3.5">
@@ -134,7 +92,7 @@ export function ProfilePage() {
           <dl className="grid grid-cols-2 gap-3">
             {[
               { k: 'XP gesamt', v: xp.toLocaleString('de-DE'), icon: <Xp size={26} /> },
-              { k: 'Längste Serie', v: `${Math.max(bestStreak ?? 0, streakDays)} ${Math.max(bestStreak ?? 0, streakDays) === 1 ? 'Tag' : 'Tage'}`, icon: <Flame size={26} /> },
+              { k: 'Arbeiten geschafft', v: String((arbeiten ?? []).filter((a) => a.done).length), icon: <Trophy size={26} /> },
               { k: 'Runden', v: String((rounds ?? 0) + Object.keys(lessons).length), icon: <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-sky text-white"><Check size={15} /></span> },
               { k: 'Karten gefestigt', v: String(mastered), icon: <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-good text-white"><Star size={15} /></span> },
             ].map(({ k, v, icon }) => (
@@ -179,31 +137,6 @@ export function ProfilePage() {
             </div>
             <p className="mt-3 text-xs text-muted">Grün: Tagesziel von {dailyGoal} XP erreicht.</p>
 
-            <div className="mt-6 border-t border-line pt-5">
-              <div className="mb-3 flex items-baseline justify-between">
-                <h3 className="text-sm font-semibold">Letzte fünf Wochen</h3>
-                <span className="text-xs text-muted">{activeDays} aktive Tage</span>
-              </div>
-              <div className="grid grid-cols-7 gap-1.5">
-                {HEAT_DAYS.map((d) => (
-                  <span key={d} className="text-center text-[10px] font-medium text-muted">{d}</span>
-                ))}
-                {heat.map((h, i) => {
-                  const level = h.v <= 0 ? 0 : h.v < dailyGoal / 2 ? 1 : h.v < dailyGoal ? 2 : 3
-                  const bg = ['bg-snow', 'bg-brand/25', 'bg-brand/55', 'bg-brand'][level]
-                  return (
-                    <motion.span
-                      key={h.key}
-                      title={`${h.label}: ${h.v} XP`}
-                      initial={reduce ? false : { opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ ...SPRING.snappy, delay: i * 0.007 }}
-                      className={`h-7 rounded-md ${h.future ? 'border border-dashed border-line' : bg}`}
-                    />
-                  )
-                })}
-              </div>
-            </div>
           </section>
         </Item>
 

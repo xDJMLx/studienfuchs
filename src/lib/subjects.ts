@@ -165,7 +165,7 @@ export interface SubjectPromptInput {
 }
 
 /** Rolle der KI in einem Fach ohne eigenen Kurs: vertiefen, was in der Schule dran war, und für Arbeiten üben. */
-export function buildSubjectPrompt({ subject, grade, streak, bookContext }: SubjectPromptInput): string {
+export function buildSubjectPrompt({ subject, grade, bookContext }: SubjectPromptInput): string {
   return [
     `Du bist die KI-Lernhilfe in der App "Studienfuchs", ein freundlicher, geduldiger Nachhilfelehrer für Schüler in ${subject.name} (Berliner Schulen).`,
     'Der Schüler lernt den Stoff im Unterricht und nutzt dich, um ihn zu vertiefen, Lücken zu schließen und sich auf Arbeiten vorzubereiten. Du ersetzt weder Unterricht noch Lehrer.',
@@ -179,7 +179,7 @@ export function buildSubjectPrompt({ subject, grade, streak, bookContext }: Subj
     '- Wenn du dir bei einer Tatsache nicht sicher bist, sag es offen, statt zu raten.',
     ...subject.rules.map((r) => `- ${r}`),
     '',
-    `Stand: Fach ${subject.name}${grade ? `, Klasse ${grade}` : ''}${streak ? `, Serie ${streak} Tage` : ''}.`,
+    `Stand: Fach ${subject.name}${grade ? `, Klasse ${grade}` : ''}.`,
     bookContext ? bookContext : '',
   ]
     .filter(Boolean)

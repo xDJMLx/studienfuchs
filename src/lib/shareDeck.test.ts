@@ -21,7 +21,7 @@ describe('Stapel teilen', () => {
   it('kaputte oder leere Links werden abgelehnt', async () => {
     await expect(decodeDeck('')).rejects.toThrow()
     await expect(decodeDeck('z.@@@')).rejects.toThrow()
-    await expect(decodeDeck('p.' + Buffer.from('{"title":"x","items":[]}').toString('base64url'))).rejects.toThrow(/kein Stapel/)
+    await expect(decodeDeck('p.' + Buffer.from('{"title":"x","items":[]}').toString('base64url'))).rejects.toThrow(/keine Karteikarten/)
     await expect(decodeDeck('p.' + Buffer.from('{"title":"","items":[{"front":"a","back":"b"}]}').toString('base64url'))).rejects.toThrow()
   })
 

@@ -8,9 +8,8 @@ import { MathText } from '../../components/math/MathText'
 import { SpeakButton } from '../../components/exercises/common'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Confetti } from '../../components/ui/Confetti'
-import { Bulb, Check, Chest, Close, Coin, Flame, Right, Sparkle, Star, Target, Trophy, Xp } from '../../components/ui/Icons'
+import { Bulb, Cards, Check, Chest, Close, Coin, Flame, Right, Sparkle, Star, Target, Trophy, Xp } from '../../components/ui/Icons'
 import { ChestSheet } from '../../components/ui/ChestSheet'
-import { WeekStrip } from '../../components/ui/widgets'
 import { CountUp, EASE, Item as FadeItem, ItemLi, SPRING, Stagger, StaggerList } from '../../components/ui/motion'
 import { mascotBus } from '../../lib/mascotBus'
 import { generateLesson, generateTest, generateWarmup } from '../../lib/generateExercises'
@@ -22,7 +21,7 @@ import type { Explanation, FillTask, Item } from '../../lib/types'
 import { goalInfo, levelFromXp, lessonXp } from '../../lib/xp'
 import { comboBonus } from '../../lib/rewards'
 import { useRewardEvents } from '../../store/useRewardEvents'
-import { streakNow, useStore, xpToday } from '../../store/useStore'
+import { useStore, xpToday } from '../../store/useStore'
 import { Session, type SessionResult } from './Session'
 
 interface Props {
@@ -98,7 +97,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
 
   // Erklärung nur beim ersten Versuch zeigen
   const [stage, setStage] = useState<Stage>(!isTest && explanation && attempt === 0 ? 'explain' : 'practice')
-  const [outcome, setOutcome] = useState<{ result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number; streakUp: boolean } | null>(null)
+  const [outcome, setOutcome] = useState<{ result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number } | null>(null)
   const gradedIds = useMemo(() => new Set([...items, ...(warmup ?? [])].map((i) => i.id)), [items, warmup])
   const finished = useRef(false)
 
@@ -108,15 +107,12 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
       finished.current = true
       const comboXp = comboBonus(result.bestCombo)
       const xp = lessonXp(result.firstTry, result.total) + comboXp
-      const lastDayBefore = useStore.getState().streak.lastDay
       const coins = finishSession({ xp, grades: result.grades, lessonId, accuracy: result.accuracy, ...(math ? { answered: result.total } : {}) })
-      // Erstes Lernen heute: die Serie ist gerade um einen Tag gewachsen
-      const streakUp = useStore.getState().streak.lastDay !== lastDayBefore
       const xpBefore = setup.xpBefore
       // Neue Stufe erreicht? (Mindestziel oder ein Bonusziel)
       const bonusTier = goalInfo(setup.goal, setup.todayBefore + xp).tier
       const goalReached = bonusTier > goalInfo(setup.goal, setup.todayBefore).tier
-      setOutcome({ result, xp, coins, leveledUp: levelFromXp(xpBefore + xp).level > levelFromXp(xpBefore).level, goalReached, bonusTier, comboXp, streakUp })
+      setOutcome({ result, xp, coins, leveledUp: levelFromXp(xpBefore + xp).level > levelFromXp(xpBefore).level, goalReached, bonusTier, comboXp })
       playDone()
       setStage('done')
     },
@@ -218,7 +214,7 @@ export function ResultScreen({
   extra?: React.ReactNode
   onMore?: () => void
   title: string
-  outcome: { result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number; streakUp?: boolean }
+  outcome: { result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number }
   items: Item[]
   test: boolean
   free: boolean
@@ -229,8 +225,7 @@ export function ResultScreen({
   onNext: (lessonId: string) => void
 }) {
   const reduce = useReducedMotion()
-  const streak = streakNow(useStore.getState().streak)
-  const { result, xp, coins, leveledUp, goalReached, bonusTier, comboXp, streakUp } = outcome
+  const { result, xp, coins, leveledUp, goalReached, bonusTier, comboXp } = outcome
   // Was in dieser Einheit Neues passiert ist (Tagesaufgaben, Erfolge, Einheit, Truhe); wird beim Verlassen gelöscht
   const [events] = useState(() => useRewardEvents.getState().last)
   useEffect(() => () => useRewardEvents.setState({ last: null }), [])
@@ -321,27 +316,9 @@ export function ResultScreen({
         <div className="mt-6 grid w-full max-w-sm grid-cols-3 gap-3">
           <Stat tone="gold" icon={<Xp size={22} />} label="XP" delay={0.3}><CountUp to={xp} prefix="+" delay={0.4} /></Stat>
           <Stat tone="good" label="Richtig" delay={0.38}><CountUp to={pct} suffix=" %" delay={0.48} /></Stat>
-          <Stat tone="fox" icon={<Flame size={22} />} label="Serie" delay={0.46}><CountUp to={streak} delay={0.56} /></Stat>
+          <Stat tone="fox" icon={<Cards size={22} />} label="Aufgaben" delay={0.46}><CountUp to={result.total} delay={0.56} /></Stat>
         </div>
         {extra}
-        {streakUp && streak > 0 && (
-          <motion.div
-            initial={reduce ? false : { opacity: 0, scale: 0.85, y: 14 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ ...SPRING.bouncy, delay: 0.55 }}
-            className="mt-5 w-full max-w-sm rounded-[20px] border-2 border-fox bg-brand-soft px-4 pb-4 pt-3 text-center"
-          >
-            <div className="flex items-center justify-center gap-2">
-              <motion.span animate={reduce ? undefined : { scale: [1, 1.18, 1], rotate: [0, -6, 6, 0] }} transition={{ duration: 0.9, delay: 0.9 }}>
-                <Flame size={44} />
-              </motion.span>
-              <span className="text-[38px] font-black leading-none text-fox-dark tabular-nums">{streak}</span>
-            </div>
-            <p className="mt-1 text-[18px] font-extrabold text-fox-dark">{streak === 1 ? 'Deine Serie startet!' : 'Serie verlängert!'}</p>
-            <p className="mb-3 text-sm text-muted">Lern morgen wieder, dann sind es {streak + 1} Tage.</p>
-            <WeekStrip compact />
-          </motion.div>
-        )}
         {coins > 0 && (
           <motion.p
             initial={reduce ? false : { opacity: 0, scale: 0.7, y: 10 }}

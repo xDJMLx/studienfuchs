@@ -67,7 +67,7 @@ export function buildCoachPrompt(input: CoachInput): string {
     '- Rechtschreibung ist im Französischen besonders wichtig (Akzente, Artikel, Genus, Verbformen). Weise bei Korrekturen genau darauf hin.',
     '- Mach keine Hausaufgaben komplett fertig, sondern führe den Schüler zur Lösung. Ermutige ihn, ohne zu übertreiben.',
     '',
-    `Stand des Schülers: Klasse ${input.grade}, ${input.lessonsDone} von ${input.lessonsTotal} Lektionen geschafft, Serie ${input.streak} Tage.${input.classPosition ? ` Die Klasse ist gerade bei: ${input.classPosition}.` : ''}`,
+    `Stand des Schülers: Klasse ${input.grade}, ${input.lessonsDone} von ${input.lessonsTotal} Lektionen geschafft.${input.classPosition ? ` Die Klasse ist gerade bei: ${input.classPosition}.` : ''}`,
     exams.length ? `Anstehende Klassenarbeiten/Tests:\n${exams.join('\n')}` : 'Es ist keine Klassenarbeit eingetragen (der Schüler kann ein Datum bei einem Set eintragen).',
     sets.length ? `Eigene Vokabelsets:\n${sets.join('\n')}` : '',
     weak.length ? `Wörter, bei denen es beim Schüler hakt:\n${weak.map((w) => `- ${w.front} = ${w.back}`).join('\n')}` : '',

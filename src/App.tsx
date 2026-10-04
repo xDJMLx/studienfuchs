@@ -54,7 +54,6 @@ const MathTrainPage = lazyPage(() => import('./features/practice/MathPractice'),
 const FachPage = lazyPage(() => import('./features/faecher/FachPage'), 'FachPage')
 const DeckPage = lazyPage(() => import('./features/faecher/DeckPage'), 'DeckPage')
 const DeckCreatePage = lazyPage(() => import('./features/faecher/DeckCreatePage'), 'DeckCreatePage')
-const FaecherPage = lazyPage(() => import('./features/faecher/FaecherPage'), 'FaecherPage')
 const CoachPage = lazyPage(() => import('./features/coach/CoachPage'), 'CoachPage')
 const ExamCreatePage = lazyPage(() => import('./features/exam/ExamCreatePage'), 'ExamCreatePage')
 const ExamPlayPage = lazyPage(() => import('./features/exam/ExamPlayPage'), 'ExamPlayPage')
@@ -95,9 +94,9 @@ function PageFallback() {
 /** Seitentitel pro Seite: wichtig für Tabs, Verlauf und Screenreader (die Adresse ändert sich nur nach dem #). */
 const TITLES: [prefix: string, title: string][] = [
   ['/welcome', 'Willkommen'],
-  ['/faecher', 'Fächer'],
-  ['/kalender', 'Wochenplan'],
-  ['/stapel', 'Stapel'],
+  ['/faecher', 'Karteikarten'],
+  ['/kalender', 'Kalender'],
+  ['/stapel', 'Karteikarten'],
   ['/ueben/los', 'Üben'],
   ['/math/train', 'Rechentraining'],
   ['/books', 'Bücher'],
@@ -159,7 +158,7 @@ export default function App() {
           <Route element={<Layout />}>
             <Route index element={<UebenPage />} />
             <Route path="review" element={<ReviewPage />} />
-            <Route path="faecher" element={<FaecherPage />} />
+            <Route path="faecher" element={<Navigate to="/" replace />} />
             <Route path="kalender" element={<KalenderPage />} />
             <Route path="faecher/mathe/training" element={<MathTrainingPage />} />
             <Route path="faecher/:subjectId" element={<FachPage />} />
@@ -181,7 +180,7 @@ export default function App() {
             <Route path="plan" element={<Navigate to="/books" replace />} />
             <Route path="words" element={<Navigate to="/faecher/franzoesisch?tab=nachschlagen" replace />} />
             <Route path="grammar" element={<Navigate to="/faecher/franzoesisch?tab=nachschlagen" replace />} />
-            <Route path="sets" element={<Navigate to="/faecher" replace />} />
+            <Route path="sets" element={<Navigate to="/" replace />} />
             <Route path="sets/new" element={<Navigate to="/stapel/neu" replace />} />
             <Route path="sets/:setId" element={<DeckRedirect />} />
             <Route path="catchup" element={<Navigate to="/" replace />} />

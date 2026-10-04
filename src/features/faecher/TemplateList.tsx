@@ -3,7 +3,7 @@ import { templatesFor, type DeckTemplate } from '../../content/templates'
 import { helpSubject } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
 
-/** Fertige Stapel eines Fachs: ein Tipp, und der Stapel gehört dir (du kannst ihn danach bearbeiten). */
+/** Fertige Karteikarten eines Fachs: ein Tipp, und der Stapel gehört dir (du kannst ihn danach bearbeiten). */
 export function TemplateList({ subject, onAdded }: { subject: string; onAdded?: (deckId: string, t: DeckTemplate) => void }) {
   const sets = useStore((s) => s.sets)
   const addSet = useStore((s) => s.addSet)

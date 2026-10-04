@@ -11,7 +11,7 @@ import { useStore } from '../../store/useStore'
 const field = 'w-full rounded-xl border-2 border-line bg-snow px-3 py-2.5 font-semibold outline-none transition-colors focus:border-sky'
 
 /**
- * Arbeit, Test oder anderen Termin eintragen oder ändern: Art, Fach, Tag, Stapel.
+ * Arbeit, Test oder anderen Termin eintragen oder ändern: Fach, Art, Tag, Karteikarten.
  * Unten steht gleich, was das für die Tage bis dahin bedeutet.
  */
 export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, date: presetDate }: { open: boolean; onClose: () => void; subjectId?: string; arbeit?: Arbeit; presetDeckId?: string; date?: string }) {
@@ -21,7 +21,12 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
   const [subject, setSubject] = useState(firstSubject)
   const [title, setTitle] = useState(arbeit?.title ?? '')
   const [date, setDate] = useState(arbeit?.date ?? presetDate ?? '')
-  const [deckIds, setDeckIds] = useState<string[]>(arbeit?.deckIds ?? (presetDeckId ? [presetDeckId] : []))
+  // Gibt es im Fach genau einen Satz Karteikarten, ist er gleich dabei
+  const onlyDeck = (subj: string): string[] => {
+    const own = sets.map(ownDeck).filter((d) => d.subject === subj)
+    return own.length === 1 ? [own[0].id] : []
+  }
+  const [deckIds, setDeckIds] = useState<string[]>(arbeit?.deckIds ?? (presetDeckId ? [presetDeckId] : onlyDeck(firstSubject)))
 
   // Beim Öffnen frisch starten (oder die gewählte Arbeit laden)
   useEffect(() => {
@@ -30,7 +35,7 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
     setSubject(subjectId ?? arbeit?.subject ?? mySubjects?.[0] ?? HELP_SUBJECTS[0].id)
     setTitle(arbeit?.title ?? '')
     setDate(arbeit?.date ?? presetDate ?? '')
-    setDeckIds(arbeit?.deckIds ?? (presetDeckId ? [presetDeckId] : []))
+    setDeckIds(arbeit?.deckIds ?? (presetDeckId ? [presetDeckId] : onlyDeck(subjectId ?? mySubjects?.[0] ?? HELP_SUBJECTS[0].id)))
     // mySubjects bewusst nicht als Abhängigkeit: Das Blatt soll beim Öffnen starten, nicht bei jeder Änderung
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, subjectId, arbeit, presetDeckId, presetDate])
@@ -44,13 +49,17 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
 
   const sub = helpSubject(subject)
   const today = dateKey(new Date())
-  const valid = date !== '' && deckIds.length > 0
+  // Ein Termin geht auch ohne Karteikarten (dann steht er nur im Kalender)
+  const valid = date !== ''
   const toggle = (id: string) => setDeckIds((l) => (l.includes(id) ? l.filter((x) => x !== id) : [...l, id]))
   const subjects = useMemo(() => {
-    // Eigene Fächer zuerst, danach die übrigen
-    const mine = (mySubjects ?? []).filter((id) => helpSubject(id))
-    return [...mine.map((id) => helpSubject(id)!), ...HELP_SUBJECTS.filter((s) => !mine.includes(s.id))]
-  }, [mySubjects])
+    // Nur die eigenen Fächer (die pflegt man in den Einstellungen) plus „Anderes Fach“; ohne Auswahl alle
+    const mine = [...new Set([...(mySubjects ?? []), ...sets.map((x) => ownDeck(x).subject), subject])].filter((id) => helpSubject(id))
+    if (mine.length === 0) return HELP_SUBJECTS
+    const chosen = mine.map((id) => helpSubject(id)!)
+    const other = helpSubject('sonstiges')
+    return other && !mine.includes('sonstiges') ? [...chosen, other] : chosen
+  }, [mySubjects, sets, subject])
 
   // Was bedeutet das für die Tage bis dahin?
   const plan = useMemo(() => {
@@ -72,17 +81,6 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
   return (
     <Sheet open={open} onClose={onClose} title={arbeit ? 'Termin bearbeiten' : 'Arbeit eintragen'}>
       <div className="grid gap-5">
-        <div>
-          <p className="mb-1.5 text-sm font-bold text-muted">Was steht an?</p>
-          <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Art des Termins">
-            {KINDS.map((k) => (
-              <button key={k.id} type="button" role="radio" aria-checked={kind === k.id} onClick={() => setKind(k.id)} className={`chip ${kind === k.id ? 'chip-on' : ''}`}>
-                {k.label}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {!subjectId && !arbeit?.subject && (
           <div>
             <p className="mb-1.5 text-sm font-bold text-muted">In welchem Fach?</p>
@@ -97,7 +95,7 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
                     aria-checked={on}
                     onClick={() => {
                       setSubject(s.id)
-                      setDeckIds([])
+                      setDeckIds(onlyDeck(s.id))
                     }}
                     className={`press flex flex-col items-center gap-1 rounded-2xl border-2 px-1 py-2 text-center transition-colors ${on ? 'border-sky bg-sky-soft' : 'border-line bg-surface'}`}
                   >
@@ -111,6 +109,17 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
             </div>
           </div>
         )}
+
+        <div>
+          <p className="mb-1.5 text-sm font-bold text-muted">Was steht an?</p>
+          <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Art des Termins">
+            {KINDS.map((k) => (
+              <button key={k.id} type="button" role="radio" aria-checked={kind === k.id} onClick={() => setKind(k.id)} className={`chip ${kind === k.id ? 'chip-on' : ''}`}>
+                {k.label}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <div>
           <p className="mb-1.5 text-sm font-bold text-muted">Wann?</p>
@@ -131,12 +140,12 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
         </label>
 
         <div>
-          <p className="mb-1.5 text-sm font-bold text-muted">Welche Stapel gehören dazu?</p>
+          <p className="mb-1.5 text-sm font-bold text-muted">Welche Karteikarten gehören dazu?</p>
           {choices.length === 0 ? (
             <p className="rounded-xl bg-snow p-3 text-sm text-muted">
-              In {sub?.name} gibt es noch keine Stapel.{' '}
+              In {sub?.name} gibt es noch keine Karteikarten.{' '}
               <Link to={`/stapel/neu?fach=${subject}`} onClick={onClose} className="font-extrabold text-sky-dark underline">
-                Stapel erstellen
+                Karteikarten erstellen
               </Link>
             </p>
           ) : (
@@ -186,7 +195,7 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
             </button>
           )}
         </div>
-        {!valid && <p className="-mt-2 text-center text-xs text-muted">{date === '' ? 'Wähle einen Tag.' : 'Wähle mindestens einen Stapel.'}</p>}
+        {!valid ? <p className="-mt-2 text-center text-xs text-muted">Wähle einen Tag.</p> : deckIds.length === 0 && choices.length > 0 ? <p className="-mt-2 text-center text-xs text-muted">Ohne Karteikarten steht der Termin nur im Kalender.</p> : null}
       </div>
     </Sheet>
   )

@@ -55,31 +55,31 @@ describe('Die App als Ganzes', () => {
     await click(/Ernsthaft/, 'radio')
     expect(useStore.getState().dailyGoal).toBe(30)
     await click(/Weiter/)
-    await waitFor(() => expect(text()).toMatch(/Stapel erstellen|Erst umschauen/))
+    await waitFor(() => expect(text()).toMatch(/Karteikarten erstellen|Erst umschauen/))
     await click(/Erst umschauen/)
     await waitFor(() => expect(text()).toMatch(/Was willst du üben/))
     // Drei Tabs, keine Reste des alten Lernpfads
     const nav = screen.getAllByRole('navigation', { name: 'Hauptnavigation' }).at(-1)!
-    expect(within(nav).getAllByRole('button').map((b) => b.getAttribute('aria-label'))).toEqual(['Üben', 'Fächer', 'Profil'])
+    expect(within(nav).getAllByRole('button').map((b) => b.getAttribute('aria-label'))).toEqual(['Üben', 'Kalender', 'Profil'])
   })
 
-  it('Stapel von Hand erstellen, danach steht er auf der Startseite zum Üben bereit', async () => {
+  it('Karteikarten von Hand erstellen, danach steht er auf der Startseite zum Üben bereit', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
     window.location.hash = '#/stapel/neu?fach=biologie'
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Neuer Stapel/))
+    await waitFor(() => expect(text()).toMatch(/Neue Karteikarten/))
     await click(/Selbst schreiben/, 'radio')
     const area = await screen.findByLabelText(/Eine Karte pro Zeile/)
     fireEvent.change(area, { target: { value: 'Zellkern – steuert die Zelle\nRibosom – baut Eiweiße\nVakuole – Speicher\nZellwand – Halt\nMitochondrium – Kraftwerk' } })
     await click(/^Weiter$/)
     await waitFor(() => expect(text()).toMatch(/5 Karten erkannt/))
-    fireEvent.change(screen.getByLabelText(/Name des Stapels/), { target: { value: 'Zelle' } })
-    await click(/Stapel speichern \(5\)/)
+    fireEvent.change(screen.getByLabelText(/^Name/), { target: { value: 'Zelle' } })
+    await click(/Karteikarten speichern \(5\)/)
     await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
     const set = useStore.getState().sets[0]
     expect(set).toMatchObject({ title: 'Zelle', subject: 'biologie' })
     expect(set.items).toHaveLength(5)
-    // Stapel-Seite
+    // Seite der Karteikarten
     await waitFor(() => expect(text()).toMatch(/5 Karten/))
     // Startseite: heute dran
     go('#/')
@@ -87,30 +87,57 @@ describe('Die App als Ganzes', () => {
     expect(text()).toMatch(/5 neue Karten/)
   })
 
-  it('Arbeit im Wochenplan eintragen: Tag antippen, Stapel wählen, speichern, Kachel erscheint', async () => {
+  it('Im Kalender eintragen: Tag wählen, Fach und Art wählen, speichern, Punkt im Kalender und Termin darunter', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
     const id = useStore.getState().addSet('Zelle', Array.from({ length: 12 }, (_, i) => ({ front: `F${i}`, back: `B${i}` })), { subject: 'biologie' })
+    window.location.hash = '#/kalender'
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Arbeiten & Tests/))
+    await waitFor(() => expect(text()).toMatch(/Nichts geplant/))
     const target = dateKey(addDays(new Date(), 3))
     const day = new Date(target + 'T12:00:00')
-    const grid = screen.getAllByRole('gridcell').find((c) => c.querySelector(`button[aria-label^="Am ${day.getDate()}."]`))
-    expect(grid).toBeTruthy()
-    fireEvent.click(grid!.querySelector('button[aria-label^="Am "]')!)
-    await waitFor(() => expect(text()).toMatch(/Was steht an/))
+    // Den Tag im Monatsraster antippen (liegt er im nächsten Monat, erst blättern)
+    const find = () => screen.queryByRole('button', { name: new RegExp(`^[A-Za-zäöü]+, ${day.getDate()}\. ${['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'][day.getMonth()]}`) })
+    if (!find()) fireEvent.click(screen.getByRole('button', { name: 'Nächster Monat' }))
+    fireEvent.click(find()!)
+    // Das runde Plus trägt für den gewählten Tag ein
+    fireEvent.click(screen.getByRole('button', { name: 'Arbeit eintragen' }))
+    await waitFor(() => expect(text()).toMatch(/In welchem Fach/))
     await click(/^Test$/, 'radio')
-    // Fach ist durch die Einführung schon gewählt (Biologie zuerst), Stapel wählen
+    // Ein Satz Karteikarten im Fach ist gleich dabei
     const check = await screen.findByRole('checkbox', { name: /Zelle/ }, { timeout: 4000 })
-    fireEvent.click(check)
+    expect(check.getAttribute('aria-checked')).toBe('true')
     await waitFor(() => expect(text()).toMatch(/12 neue Karten|neue Karten in/))
     fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
     await waitFor(() => expect(useStore.getState().arbeiten).toHaveLength(1))
     expect(useStore.getState().arbeiten[0]).toMatchObject({ kind: 'test', subject: 'biologie', date: target, deckIds: [id] })
-    // Die Kachel steht im Plan
-    await waitFor(() => expect(screen.getAllByRole('button', { name: /Test$/ }).length).toBeGreaterThan(0))
+    // Der Termin steht unter dem Kalender
+    await waitFor(() => expect(text()).toMatch(/Biologie-Test/))
     // Und der Tagesplan verteilt die Karten: mehr als die üblichen acht neuen
     go('#/')
     await waitFor(() => expect(text()).toMatch(/Heute dran/))
+    expect(text()).toMatch(/Biologie-Test/)
+  })
+
+  it('Ein Termin geht auch ohne Karteikarten und ist dann nur im Kalender', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['geschichte'] })
+    window.location.hash = '#/kalender?neu=1'
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/In welchem Fach/))
+    await click(/^Klassenarbeit$/, 'radio')
+    await click(/^Morgen$/)
+    fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
+    await waitFor(() => expect(useStore.getState().arbeiten).toHaveLength(1))
+    expect(useStore.getState().arbeiten[0]).toMatchObject({ subject: 'geschichte', kind: 'klassenarbeit', deckIds: [] })
+  })
+
+  it('Der Kalender merkt sich die Ansicht (Monat oder Woche)', async () => {
+    useStore.setState({ onboarded: true })
+    window.location.hash = '#/kalender'
+    render(<App />)
+    await click(/^Woche$/, 'radio')
+    await waitFor(() => expect(screen.getByRole('region', { name: 'Wochenplan' })).toBeTruthy())
+    expect(localStorage.getItem('studienfuchs-kalender-ansicht')).toBe('woche')
+    localStorage.removeItem('studienfuchs-kalender-ansicht')
   })
 
   it('Frei üben: es wird immer genau ein Fach gewählt, leere Fächer zeigen den Weg zum Stapel', async () => {
@@ -130,17 +157,36 @@ describe('Die App als Ganzes', () => {
     expect(within(group).queryByText(/^Alles$/)).toBeNull()
   })
 
-  it('Fächer-Seite: Level, weitere Fächer hinzufügen, Fach-Seite mit Stapeln', async () => {
+  it('Fächer ändert man in den Einstellungen, die Fach-Seite zeigt Level und Karteikarten', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
+    window.location.hash = '#/settings'
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Meine Fächer/))
+    const geschichte = await screen.findByRole('switch', { name: 'Geschichte' })
+    expect(geschichte.getAttribute('aria-checked')).toBe('false')
+    fireEvent.click(geschichte)
+    expect(useStore.getState().mySubjects).toContain('geschichte')
+    fireEvent.click(screen.getByRole('switch', { name: 'Geschichte' }))
+    expect(useStore.getState().mySubjects).not.toContain('geschichte')
+    go('#/faecher/biologie')
+    await waitFor(() => expect(text()).toMatch(/Erstelle deine ersten Karteikarten/))
+    expect(text()).toMatch(/Noch 5 Karten bis Entdecker/)
+  })
+
+  it('Es gibt keine Serie mehr: weder in der Kopfzeile noch im Profil', async () => {
+    useStore.setState({ onboarded: true })
+    window.location.hash = '#/profile'
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Statistik/))
+    expect(text()).not.toMatch(/Serie|Flamme/)
+    expect(screen.queryByRole('button', { name: /Tage Serie/ })).toBeNull()
+  })
+
+  it('Die alte Fächer-Adresse führt zur Startseite', async () => {
+    useStore.setState({ onboarded: true })
     window.location.hash = '#/faecher'
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Im Unterricht lernst du/))
-    expect(text()).toMatch(/Level 1 · Einsteiger/)
-    await click(/Geschichte hinzufügen/)
-    expect(useStore.getState().mySubjects).toContain('geschichte')
-    go('#/faecher/biologie')
-    await waitFor(() => expect(text()).toMatch(/Erstelle deinen ersten Stapel/))
-    expect(text()).toMatch(/Noch 5 Karten bis Entdecker/)
+    await waitFor(() => expect(text()).toMatch(/Was willst du üben/))
   })
 })
 
@@ -158,12 +204,12 @@ describe('Alte Adressen führen weiter', () => {
 
 void btn
 
-describe('Fertige Stapel', () => {
+describe('Fertige Karteikarten', () => {
   it('Aus der Fach-Seite hinzufügen, danach üben ohne eigene Arbeit', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
     window.location.hash = '#/faecher/biologie'
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Fertige Stapel/))
+    await waitFor(() => expect(text()).toMatch(/Fertige Karteikarten/))
     await click(/Die Zelle hinzufügen/)
     const set = useStore.getState().sets[0]
     expect(set).toMatchObject({ title: 'Die Zelle', subject: 'biologie' })
@@ -175,7 +221,7 @@ describe('Fertige Stapel', () => {
     await waitFor(() => expect(text()).toMatch(/Heute dran/))
   })
 
-  it('Beim Erstellen: Wenn die KI nicht geht, gibt es fertige Stapel und Selbstschreiben als Ausweg', async () => {
+  it('Beim Erstellen: Wenn die KI nicht geht, gibt es fertige Karteikarten und Selbstschreiben als Ausweg', async () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/stapel/neu?fach=physik'
     render(<App />)
@@ -203,7 +249,7 @@ describe('Rechentraining in Mathe', () => {
   })
 })
 
-describe('Stapel mit der KI erstellen', () => {
+describe('Karteikarten mit der KI erstellen', () => {
   it('Beschreibung eingeben, Karten prüfen, speichern', async () => {
     vi.mocked(generateCards).mockResolvedValue({ title: 'Genetik', items: [{ front: 'DNA', back: 'Erbinformation' }, { front: 'Gen', back: 'Abschnitt der DNA' }, { front: 'Allel', back: 'Variante eines Gens' }] })
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
@@ -215,8 +261,8 @@ describe('Stapel mit der KI erstellen', () => {
     await waitFor(() => expect(text()).toMatch(/3 Karten erstellt/))
     expect(vi.mocked(generateCards)).toHaveBeenCalledWith(expect.objectContaining({ subjectId: 'biologie', request: 'Genetik, Grundbegriffe', count: 20 }))
     // Name wurde von der KI vorgeschlagen
-    expect((screen.getByLabelText(/Name des Stapels/) as HTMLInputElement).value).toBe('Genetik')
-    await click(/Stapel speichern \(3\)/)
+    expect((screen.getByLabelText(/^Name/) as HTMLInputElement).value).toBe('Genetik')
+    await click(/Karteikarten speichern \(3\)/)
     await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
     expect(useStore.getState().sets[0]).toMatchObject({ title: 'Genetik', subject: 'biologie' })
   })
@@ -244,23 +290,23 @@ describe('Karten aus Notizen, ohne KI', () => {
     await click(/Karten vorschlagen/)
     await waitFor(() => expect(text()).toMatch(/3 Karten vorgeschlagen/))
     expect((screen.getAllByLabelText('Vorderseite') as HTMLTextAreaElement[]).map((t) => t.value)).toEqual(['Was geschah 1789?', 'Was ist die Reformation?', 'Bastille'])
-    fireEvent.change(screen.getByLabelText(/Name des Stapels/), { target: { value: 'Revolution' } })
-    await click(/Stapel speichern \(3\)/)
+    fireEvent.change(screen.getByLabelText(/^Name/), { target: { value: 'Revolution' } })
+    await click(/Karteikarten speichern \(3\)/)
     await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
     expect(useStore.getState().sets[0]).toMatchObject({ title: 'Revolution', subject: 'geschichte' })
   })
 })
 
-describe('Stapel teilen', () => {
+describe('Karteikarten teilen', () => {
   it('Link öffnen zeigt den Stapel, Speichern legt eine eigene Kopie an; kaputter Link zeigt Hinweis', async () => {
     const { encodeDeck } = await import('./lib/shareDeck')
     useStore.setState({ onboarded: true })
     const code = await encodeDeck({ title: 'Zellen', subject: 'biologie', items: [{ front: 'Was ist ein Ribosom?', back: 'Baut Eiweiße' }, { front: 'Mitochondrium', back: 'Kraftwerk' }] })
     window.location.hash = `#/stapel/teilen?d=${code}`
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Geteilter Stapel/))
+    await waitFor(() => expect(text()).toMatch(/Geteilte Karteikarten/))
     expect(text()).toMatch(/2 Karten/)
-    await click(/Stapel speichern/)
+    await click(/Karteikarten speichern/)
     await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
     expect(useStore.getState().sets[0]).toMatchObject({ title: 'Zellen', subject: 'biologie' })
     expect(useStore.getState().sets[0].items).toHaveLength(2)
@@ -269,7 +315,7 @@ describe('Stapel teilen', () => {
     await waitFor(() => expect(text()).toMatch(/Link nicht lesbar/))
   })
 
-  it('Auf der Stapel-Seite gibt es „Stapel teilen“ und der Link wird kopiert', async () => {
+  it('Auf der Seite der Karteikarten gibt es „Karteikarten teilen“ und der Link wird kopiert', async () => {
     useStore.setState({ onboarded: true })
     const id = useStore.getState().addSet('Zellen', [{ front: 'a', back: 'b' }], { subject: 'biologie' })
     const writeText = vi.fn().mockResolvedValue(undefined)
@@ -277,7 +323,7 @@ describe('Stapel teilen', () => {
     Object.defineProperty(navigator, 'share', { value: undefined, configurable: true })
     window.location.hash = `#/stapel/${id}`
     render(<App />)
-    await click(/Stapel teilen/)
+    await click(/Karteikarten teilen/)
     await waitFor(() => expect(writeText).toHaveBeenCalled())
     expect(writeText.mock.calls[0][0]).toMatch(/#\/stapel\/teilen\?d=[zp]\./)
     await waitFor(() => expect(text()).toMatch(/Link kopiert/))

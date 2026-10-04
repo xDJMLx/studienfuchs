@@ -37,9 +37,8 @@ describe('Fuchs-Laden', () => {
     expect(coinsForSession({ xp: 3, dailyGoal: 20, todayBefore: 2, streakBefore: 1, streakAfter: 1 }).goal).toBe(0)
   })
 
-  it('gibt 25 Münzen, wenn die Serie ein Vielfaches von 7 erreicht', () => {
-    expect(coinsForSession({ xp: 2, dailyGoal: 20, todayBefore: 0, streakBefore: 6, streakAfter: 7 }).streak).toBe(25)
-    expect(coinsForSession({ xp: 2, dailyGoal: 20, todayBefore: 5, streakBefore: 7, streakAfter: 7 }).streak).toBe(0)
+  it('gibt keine Prämie für Tage am Stück (geübt wird für Arbeiten, nicht für eine Strähne)', () => {
+    expect(coinsForSession({ xp: 2, dailyGoal: 20, todayBefore: 0, streakBefore: 6, streakAfter: 7 }).streak).toBe(0)
   })
 
   it('Kauf klappt nur mit genug Münzen und nur einmal', () => {

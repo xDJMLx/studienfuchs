@@ -31,7 +31,7 @@ export function DeckPage() {
   const isCourse = deck?.kind === 'course'
   const added = isCourse && (addedUnits ?? []).includes(deckId.slice(5))
   const plan = useMemo(() => (deck && (!isCourse || added) ? planToday([deck], arbeiten ?? [], cards) : null), [deck, isCourse, added, arbeiten, cards])
-  if (!deck) return <Navigate to="/faecher" replace />
+  if (!deck) return <Navigate to="/" replace />
 
   const sub = helpSubject(deck.subject)
   const fr = deck.lang === 'fr'
@@ -62,12 +62,12 @@ export function DeckPage() {
     setShareMsg(null)
     const link = deckLink(await encodeDeck({ title: set.title, subject: set.subject, lang: set.lang, both: set.both, items: set.items }))
     if (link.length > MAX_LINK) {
-      setShareMsg('Der Stapel ist für einen Link zu groß. Teile ihn in zwei kleinere Stapel auf oder nutze die Sicherung unter Profil.')
+      setShareMsg('Das sind zu viele Karten für einen Link. Teile sie in zwei kleinere Teile auf oder nutze die Sicherung unter Profil.')
       return
     }
     try {
       if (navigator.share) {
-        await navigator.share({ title: set.title, text: `Mein Stapel „${set.title}“ in Studienfuchs`, url: link })
+        await navigator.share({ title: set.title, text: `Meine Karteikarten „${set.title}“ in Studienfuchs`, url: link })
         return
       }
     } catch (e) {
@@ -75,7 +75,7 @@ export function DeckPage() {
     }
     try {
       await navigator.clipboard.writeText(link)
-      setShareMsg('Link kopiert. Schick ihn per Nachricht an dich selbst oder Freunde: Beim Öffnen können sie den Stapel speichern.')
+      setShareMsg('Link kopiert. Schick ihn per Nachricht an dich selbst oder Freunde: Beim Öffnen können sie den Karteikarten speichern.')
     } catch {
       setShareMsg(link)
     }
@@ -108,7 +108,7 @@ export function DeckPage() {
       {isCourse && (
         <Item>
           <div className="card mb-5 p-5">
-            <p className="mb-3 text-sm text-muted">{added ? 'Dieser Stapel ist beim Üben dabei: Neue Karten kommen Tag für Tag dazu, Gelerntes kommt zur Wiederholung.' : 'Füge den Stapel zum Üben hinzu, dann kommen seine Karten jeden Tag nach Plan dran.'}</p>
+            <p className="mb-3 text-sm text-muted">{added ? 'Diese Karteikarten sind beim Üben dabei: Neue Karten kommen Tag für Tag dazu, Gelerntes kommt zur Wiederholung.' : 'Füge die Karteikarten zum Üben hinzu, dann kommen seine Karten jeden Tag nach Plan dran.'}</p>
             <button type="button" className={`btn press w-full sm:w-64 ${added ? 'btn-ghost' : 'btn-primary'}`} onClick={() => toggleUnit(deckId.slice(5))}>
               {added ? 'Wieder entfernen' : 'Zum Üben hinzufügen'}
             </button>
@@ -185,7 +185,7 @@ export function DeckPage() {
       {set && !editing && (
         <Item>
           <div className="mb-4">
-            <button type="button" className="btn btn-ghost press" onClick={share} disabled={set.items.length === 0}>Stapel teilen</button>
+            <button type="button" className="btn btn-ghost press" onClick={share} disabled={set.items.length === 0}>Karteikarten teilen</button>
             {shareMsg && <p role="status" className="mt-2 break-all text-sm text-muted">{shareMsg}</p>}
           </div>
           <label className="mb-4 flex items-start gap-3 rounded-xl bg-snow p-3 text-sm">
@@ -197,7 +197,7 @@ export function DeckPage() {
           </label>
           {confirmDelete ? (
             <div className="card p-4 text-center">
-              <p className="mb-3 font-bold">Stapel und Lernfortschritt wirklich löschen?</p>
+              <p className="mb-3 font-bold">Diese Karteikarten samt Lernfortschritt wirklich löschen?</p>
               <div className="flex gap-3">
                 <button className="btn btn-ghost press flex-1" onClick={() => setConfirmDelete(false)}>Abbrechen</button>
                 <button
@@ -213,7 +213,7 @@ export function DeckPage() {
             </div>
           ) : (
             <button className="press flex min-h-11 items-center gap-2 rounded-xl px-2 text-sm font-semibold text-muted hover:text-bad-dark" onClick={() => setConfirmDelete(true)}>
-              <Trash size={18} /> Stapel löschen
+              <Trash size={18} /> Karteikarten löschen
             </button>
           )}
         </Item>
