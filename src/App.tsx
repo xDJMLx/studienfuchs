@@ -1,12 +1,11 @@
 import { Suspense, lazy, useEffect, type ComponentType } from 'react'
-import { HashRouter, Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
+import { HashRouter, Navigate, Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import { ErrorBoundary } from './components/ui/ErrorBoundary'
 import { Layout } from './components/ui/Layout'
 import { UpdateBanner } from './components/ui/UpdateBanner'
 import { useApplyTheme } from './lib/theme'
 import { useStore } from './store/useStore'
-import { LessonPage } from './features/lesson/LessonPage'
-import { LearnPage } from './features/path/LearnPage'
+import { UebenPage } from './features/ueben/UebenPage'
 import { Welcome } from './features/welcome/Welcome'
 
 /**
@@ -47,30 +46,23 @@ function lazyPage<K extends string>(load: () => Promise<Record<K, ComponentType>
 }
 
 const GrammarTopicPage = lazyPage(() => import('./features/grammar/GrammarPage'), 'GrammarTopicPage')
-const CatchUpPage = lazyPage(() => import('./features/catchup/CatchUpPage'), 'CatchUpPage')
+const UebenPlay = lazyPage(() => import('./features/ueben/CardFlow'), 'UebenPlay')
+const FachPage = lazyPage(() => import('./features/faecher/FachPage'), 'FachPage')
+const DeckPage = lazyPage(() => import('./features/faecher/DeckPage'), 'DeckPage')
+const DeckCreatePage = lazyPage(() => import('./features/faecher/DeckCreatePage'), 'DeckCreatePage')
 const FaecherPage = lazyPage(() => import('./features/faecher/FaecherPage'), 'FaecherPage')
 const CoachPage = lazyPage(() => import('./features/coach/CoachPage'), 'CoachPage')
 const ExamCreatePage = lazyPage(() => import('./features/exam/ExamCreatePage'), 'ExamCreatePage')
 const ExamPlayPage = lazyPage(() => import('./features/exam/ExamPlayPage'), 'ExamPlayPage')
 const SpeakTrainingPage = lazyPage(() => import('./features/speak/SpeakTrainingPage'), 'SpeakTrainingPage')
-const PlacementPage = lazyPage(() => import('./features/placement/PlacementPage'), 'PlacementPage')
 const BookPage = lazyPage(() => import('./features/books/BookPage'), 'BookPage')
 const BooksPage = lazyPage(() => import('./features/books/BooksPage'), 'BooksPage')
-const FlashcardsPage = lazyPage(() => import('./features/practice/FlashcardsPage'), 'FlashcardsPage')
-const PracticePage = lazyPage(() => import('./features/practice/PracticePage'), 'PracticePage')
-const MathPracticePage = lazyPage(() => import('./features/practice/MathPractice'), 'MathPracticePage')
-const MathTrainPage = lazyPage(() => import('./features/practice/MathPractice'), 'MathTrainPage')
-const PracticePlay = lazyPage(() => import('./features/practice/PracticePlay'), 'PracticePlay')
 const BlitzPage = lazyPage(() => import('./features/practice/BlitzPage'), 'BlitzPage')
 const AboutPage = lazyPage(() => import('./features/profile/AboutPage'), 'AboutPage')
 const ProfilePage = lazyPage(() => import('./features/profile/ProfilePage'), 'ProfilePage')
 const ShopPage = lazyPage(() => import('./features/shop/ShopPage'), 'ShopPage')
 const ReviewPage = lazyPage(() => import('./features/review/ReviewPage'), 'ReviewPage')
-const ReviewPlay = lazyPage(() => import('./features/review/ReviewPlay'), 'ReviewPlay')
 const SettingsPage = lazyPage(() => import('./features/settings/SettingsPage'), 'SettingsPage')
-const SetDetailPage = lazyPage(() => import('./features/sets/SetDetailPage'), 'SetDetailPage')
-const SetPlay = lazyPage(() => import('./features/sets/SetPlay'), 'SetPlay')
-const CreateSetPage = lazyPage(() => import('./features/upload/CreateSetPage'), 'CreateSetPage')
 const FoxLab = import.meta.env.DEV ? lazyPage(() => import('./features/dev/FoxLab'), 'FoxLab') : null
 const ResultLab = import.meta.env.DEV ? lazyPage(() => import('./features/dev/ResultLab'), 'ResultLab') : null
 
@@ -80,10 +72,10 @@ function RouteGuard({ children }: { children: React.ReactNode }) {
   return <ErrorBoundary resetKey={pathname}>{children}</ErrorBoundary>
 }
 
-/** Üben-Tab: je nach Fach die Seite für Wörter oder für Mathe. */
-function PracticeRoute() {
-  const math = useStore((s) => (s.subject ?? 'fr') === 'math')
-  return math ? <MathPracticePage /> : <PracticePage />
+/** Alte Adresse eines Stapels (früher "Set") führt zum neuen Stapel. */
+function DeckRedirect() {
+  const { setId = '' } = useParams()
+  return <Navigate to={`/stapel/${setId}`} replace />
 }
 
 function PageFallback() {
@@ -96,8 +88,9 @@ const TITLES: [prefix: string, title: string][] = [
   ['/lesson/', 'Lektion'],
   ['/placement', 'Einstufungstest'],
   ['/catchup', 'Aufholen'],
-  ['/coach', 'KI'],
   ['/faecher', 'Fächer'],
+  ['/stapel', 'Stapel'],
+  ['/ueben/los', 'Üben'],
   ['/books', 'Bücher'],
   ['/speak', 'Sprechtraining'],
   ['/exam/new', 'Test erstellen'],
@@ -121,7 +114,7 @@ function RouteTitle() {
   const { pathname } = useLocation()
   useEffect(() => {
     const hit = TITLES.find(([p]) => (p.endsWith('/') ? pathname.startsWith(p) : pathname === p || pathname.startsWith(p + '/')))
-    document.title = hit ? `${hit[1]} · Studienfuchs` : 'Studienfuchs – Französisch lernen für die Schule'
+    document.title = hit ? `${hit[1]} · Studienfuchs` : 'Studienfuchs – Üben für die Schule'
   }, [pathname])
   return null
 }
@@ -157,42 +150,42 @@ export default function App() {
         <Route path="welcome" element={<Welcome />} />
         <Route element={<RequireOnboarding />}>
           <Route element={<Layout />}>
-            <Route index element={<LearnPage />} />
+            <Route index element={<UebenPage />} />
             <Route path="review" element={<ReviewPage />} />
-            <Route path="catchup" element={<CatchUpPage />} />
-            <Route path="coach" element={<CoachPage />} />
             <Route path="faecher" element={<FaecherPage />} />
-            <Route path="faecher/:subjectId" element={<CoachPage />} />
+            <Route path="faecher/:subjectId" element={<FachPage />} />
+            <Route path="faecher/:subjectId/ki" element={<CoachPage />} />
+            <Route path="stapel/neu" element={<DeckCreatePage />} />
+            <Route path="stapel/:deckId" element={<DeckPage />} />
             <Route path="books" element={<BooksPage />} />
-            <Route path="exam/new" element={<ExamCreatePage />} />
             <Route path="books/:bookId" element={<BookPage />} />
-            <Route path="plan" element={<Navigate to="/books" replace />} />
+            <Route path="exam/new" element={<ExamCreatePage />} />
             <Route path="shop" element={<ShopPage />} />
-            <Route path="practice" element={<PracticeRoute />} />
-            <Route path="words" element={<Navigate to="/practice?tab=words" replace />} />
-            <Route path="grammar" element={<Navigate to="/practice?tab=grammar" replace />} />
             <Route path="grammar/:lessonId" element={<GrammarTopicPage />} />
-            <Route path="sets" element={<Navigate to="/practice" replace />} />
-            <Route path="sets/new" element={<CreateSetPage />} />
-            <Route path="sets/:setId" element={<SetDetailPage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="settings" element={<SettingsPage />} />
             <Route path="about" element={<AboutPage />} />
+            {/* Alte Adressen */}
+            <Route path="practice" element={<Navigate to="/" replace />} />
+            <Route path="coach" element={<Navigate to="/faecher/franzoesisch/ki" replace />} />
+            <Route path="plan" element={<Navigate to="/books" replace />} />
+            <Route path="words" element={<Navigate to="/faecher/franzoesisch?tab=nachschlagen" replace />} />
+            <Route path="grammar" element={<Navigate to="/faecher/franzoesisch?tab=nachschlagen" replace />} />
+            <Route path="sets" element={<Navigate to="/faecher" replace />} />
+            <Route path="sets/new" element={<Navigate to="/stapel/neu" replace />} />
+            <Route path="sets/:setId" element={<DeckRedirect />} />
+            <Route path="catchup" element={<Navigate to="/" replace />} />
+            <Route path="lesson/:lessonId" element={<Navigate to="/" replace />} />
             {FoxLab && <Route path="fox" element={<FoxLab />} />}
           </Route>
-          {/* Lern-Sessions ohne Navigation, damit nichts ablenkt */}
-          <Route path="lesson/:lessonId" element={<LessonPage />} />
-          <Route path="placement" element={<PlacementPage />} />
+          {/* Übungs-Durchgänge ohne Navigation, damit nichts ablenkt */}
+          <Route path="ueben/los" element={<UebenPlay />} />
+          <Route path="review/play" element={<UebenPlay />} />
           <Route path="exam/:examId" element={<ExamPlayPage />} />
           <Route path="speak" element={<SpeakTrainingPage />} />
-          <Route path="practice/play" element={<PracticePlay />} />
-          <Route path="math/train" element={<MathTrainPage />} />
           {ResultLab && <Route path="result-lab" element={<ResultLab />} />}
           <Route path="blitz" element={<BlitzPage />} />
-          <Route path="practice/cards" element={<FlashcardsPage />} />
-          <Route path="sets/:setId/cards" element={<FlashcardsPage />} />
-          <Route path="review/play" element={<ReviewPlay />} />
-          <Route path="sets/:setId/play" element={<SetPlay />} />
+          <Route path="placement" element={<Navigate to="/" replace />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

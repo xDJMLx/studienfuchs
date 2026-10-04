@@ -1,7 +1,7 @@
 {
   "name": "Studienfuchs – Lernen für die Schule",
   "short_name": "Studienfuchs",
-  "description": "Französisch für die Schule: kurze Lektionen, orientiert am Berliner Lehrplan, Wiederholung nach Plan, dazu KI-Hilfe für alle Fächer.",
+  "description": "Üben für die Schule: Karteikarten für jedes Fach, Wiederholung nach Plan, Arbeiten vorbereiten, KI-Hilfe.",
   "id": "./",
   "start_url": "./",
   "scope": "./",

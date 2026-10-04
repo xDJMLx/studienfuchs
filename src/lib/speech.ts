@@ -150,7 +150,8 @@ export function speak(text: string, lang = 'fr-FR', rateFactor = 1): void {
   u.lang = lang
   u.rate = rate
   const v = deviceVoice()
-  if (v) u.voice = v
+  // Die gewählte Stimme ist eine französische: nur dort einsetzen, sonst spricht sie Englisch mit Akzent
+  if (v && lang.startsWith('fr')) u.voice = v
   u.onstart = () => mascotBus.emit('speak:start')
   u.onend = () => mascotBus.emit('speak:end')
   u.onerror = () => mascotBus.emit('speak:end')

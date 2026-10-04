@@ -4,8 +4,7 @@ import { Link, NavLink, useLocation, useNavigate, useOutlet } from 'react-router
 import { goalInfo, levelFromXp } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
-import { CourseChip } from './CoursePicker'
-import { Coin, Flame, Gear, Shield, TabHome, TabKi, TabRepeat, TabSubjects, TabUser, Xp } from './Icons'
+import { Coin, Flame, Gear, Shield, TabRepeat, TabSubjects, TabUser, Xp } from './Icons'
 import { Sheet } from './Sheet'
 import { dayKey } from '../../lib/streak'
 import { EASE } from './motion'
@@ -30,9 +29,7 @@ interface NavItem {
 // Fünf feste Tabs, kein "Mehr": Alles Wichtige ist immer mit einem Tipp erreichbar (Grammatik und Wörter im Üben-Tab,
 // Einstellungen über das Profil). Fuchs anpassen und Shop liegen im Profil.
 const NAV: NavItem[] = [
-  { to: '/', label: 'Lernen', Icon: TabHome, end: true, c: 'var(--brand)', t: 'var(--brand-text)' },
-  { to: '/practice', label: 'Üben', Icon: TabRepeat, c: 'var(--sky)', t: 'var(--sky-text)' },
-  { to: '/coach', label: 'KI', Icon: TabKi, c: 'var(--violet)', t: 'var(--violet-text)' },
+  { to: '/', label: 'Üben', Icon: TabRepeat, end: true, c: 'var(--brand)', t: 'var(--brand-text)' },
   { to: '/faecher', label: 'Fächer', Icon: TabSubjects, c: 'var(--gold)', t: 'var(--gold-text)' },
   { to: '/profile', label: 'Profil', Icon: TabUser, c: 'var(--pink)', t: 'var(--pink-text)' },
 ]
@@ -68,7 +65,7 @@ export function Layout() {
   const dueCount = useDue().due.length
   const nav = NAV
   // Auf KI-Seiten (auch die Fächer-Chats) sitzt das Eingabefeld in der Tab-Leiste
-  const onCoach = location.pathname.startsWith('/coach') || /^\/faecher\/.+/.test(location.pathname)
+  const onCoach = location.pathname.startsWith('/coach') || /^\/faecher\/[^/]+\/ki/.test(location.pathname)
   const hasPages = useCoachComposer((c) => c.pages.length > 0)
 
   useEffect(() => {
@@ -97,7 +94,7 @@ export function Layout() {
                   <span className="relative flex w-full items-center gap-4">
                     <Icon size={26} />
                     {label}
-                    {to === '/practice' && dueCount > 0 && <DueBadge n={dueCount} className="ml-auto" />}
+                    {to === '/' && dueCount > 0 && <DueBadge n={dueCount} className="ml-auto" />}
                   </span>
                 </>
               )}
@@ -134,7 +131,7 @@ export function Layout() {
             color: c,
             textColor: t,
             icon: <Icon size={26} />,
-            badge: to === '/practice' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : undefined,
+            badge: to === '/' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : undefined,
           }))}
           activeIndex={nav.findIndex((n) => (n.end ? location.pathname === n.to : location.pathname.startsWith(n.to) || (n.to === '/profile' && location.pathname.startsWith('/shop'))))}
           onSelect={(i) => {
@@ -176,7 +173,10 @@ function TopBar({ className = '' }: { className?: string }) {
   const stat = 'press flex min-h-11 items-center gap-1.5 rounded-xl px-2 text-[16px] font-extrabold tabular-nums transition-colors hover:bg-snow'
   return (
     <header className={`flex items-center justify-between border-b-2 border-line bg-page px-3 py-1.5 ${className}`}>
-      <CourseChip />
+      <Link to="/" aria-label="Zur Startseite" className="press flex items-center gap-2 rounded-xl px-1.5 py-1">
+        <Mascot size={32} />
+        <span className="text-[19px] font-black tracking-tight text-brand">Studienfuchs</span>
+      </Link>
       <div className="flex items-center gap-0.5">
         <button type="button" onClick={() => setStreakOpen(true)} className={`${stat} ${lit ? 'text-fox-dark' : 'text-muted'}`} aria-label={`${s} Tage Serie${lit ? ', heute gesichert' : ', heute noch nicht gelernt'}`} title="Serie">
           <Flame size={24} className={lit ? '' : 'opacity-50 grayscale'} />

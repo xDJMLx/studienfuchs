@@ -273,7 +273,7 @@ export function BlitzCard() {
       <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/20"><Flame size={30} /></span>
       <span className="min-w-0 flex-1">
         <span className="block text-lg font-extrabold leading-tight">Blitzrunde</span>
-        <span className="block text-sm font-medium opacity-95">{best > 0 ? `60 Sekunden. Dein Rekord: ${best} Punkte` : math ? '60 Sekunden, so viele Aufgaben wie möglich' : '60 Sekunden, so viele Wörter wie möglich'}</span>
+        <span className="block text-sm font-medium opacity-95">{best > 0 ? `60 Sekunden. Dein Rekord: ${best} Punkte` : math ? '60 Sekunden, so viele Aufgaben wie möglich' : '60 Sekunden, so viele Karten wie möglich'}</span>
       </span>
       <Right size={18} className="shrink-0" />
     </Link>

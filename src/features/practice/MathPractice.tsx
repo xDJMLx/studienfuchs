@@ -13,7 +13,7 @@ import { useStore } from '../../store/useStore'
 import { PracticeFlow } from '../lesson/PracticeFlow'
 import { dueLabel, useDue } from '../review/ReviewPage'
 import { WORLDS } from '../path/LearnPage'
-import { BlitzCard } from './PracticePage'
+import { BlitzCard } from './BlitzCard'
 
 /** Üben in Mathe: Wiederholung, Blitzrunde, freies Training, Themenübersicht und Formelsammlung. */
 export function MathPracticePage() {

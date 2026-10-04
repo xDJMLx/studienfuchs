@@ -4,7 +4,7 @@ import { Fr } from '../../components/exercises/common'
 import { ChipTabs } from '../../components/ui/controls'
 import { Back, Repeat, Right } from '../../components/ui/Icons'
 import { CountUp, Item as FadeItem, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
-import { allItems, COURSE_STATS, gradeStats, mathItems } from '../../content'
+import { activeDecks } from '../../lib/decks'
 import { SegmentedBar, ProgressRing } from '../../components/ui/widgets'
 import { isDue, masteryOf } from '../../lib/srs'
 import type { Item } from '../../lib/types'
@@ -13,21 +13,20 @@ import { useStore } from '../../store/useStore'
 /** Alle bekannten Items (Kurs + eigene Sets) nach ID. */
 export function useItemIndex(): Map<string, Item> {
   const sets = useStore((s) => s.sets)
-  const subject = useStore((s) => s.subject ?? 'fr')
+  const addedUnits = useStore((s) => s.addedUnits)
   return useMemo(() => {
-    // Mathe-Themen und Wörter laufen getrennt: Jedes Fach wiederholt nur das eigene
-    if (subject === 'math') return new Map<string, Item>(mathItems)
+    // Alles, was geübt wird: eigene Stapel aller Fächer und die hinzugefügten Kurs-Einheiten
     const m = new Map<string, Item>()
-    for (const i of allItems) m.set(i.id, i)
-    for (const s of sets) for (const i of s.items) m.set(i.id, i)
+    for (const d of activeDecks({ sets, addedUnits: addedUnits ?? [] })) for (const i of d.items) m.set(i.id, i)
     return m
-  }, [sets, subject])
+  }, [sets, addedUnits])
 }
 
 /** Das aktuelle Fach in Zahlen und Worten: wie viele Wörter bzw. Themen es gibt und wie man sie nennt. */
 export function useCourse(): { math: boolean; total: number; noun: string; Noun: string } {
-  const math = useStore((s) => (s.subject ?? 'fr') === 'math')
-  return math ? { math, total: mathItems.size, noun: 'Themen', Noun: 'Themen' } : { math, total: COURSE_STATS.words, noun: 'Wörter', Noun: 'Wörter' }
+  // Alle Karten, die geübt werden (jedes Fach)
+  const total = useItemIndex().size
+  return { math: false, total, noun: 'Karten', Noun: 'Karten' }
 }
 
 export function useLearned() {
@@ -84,13 +83,12 @@ type Filter = 'all' | 'due' | 'weak'
 
 export function ReviewPage() {
   const navigate = useNavigate()
-  const grade = useStore((s) => s.grade)
-  const math = useStore((s) => s.subject ?? 'fr') === 'math'
-  const noun = math ? 'Themen' : 'Wörter'
+  const math = false
+  const noun = 'Karten'
   const { learned, due, byMastery } = useLearned()
   const [filter, setFilter] = useState<Filter>('all')
 
-  const courseTotal = useMemo(() => (math ? mathItems.size : gradeStats(grade).words), [grade, math])
+  const courseTotal = useItemIndex().size
   const [learning, mastered] = byMastery
   const notStarted = Math.max(0, courseTotal - learning - mastered)
 
@@ -106,7 +104,7 @@ export function ReviewPage() {
         <Back size={18} /> Üben
       </Link>
       <h1 className="page-title mb-1">Lernstand</h1>
-      <p className="mb-6 text-muted">{math ? 'Themen' : 'Wörter'} kommen kurz bevor du sie vergessen würdest wieder dran. So bleiben sie dauerhaft hängen.</p>
+      <p className="mb-6 text-muted">Karten kommen kurz bevor du sie vergessen würdest wieder dran. So bleiben sie dauerhaft hängen.</p>
     </FadeItem>
   )
 
@@ -117,7 +115,7 @@ export function ReviewPage() {
         <FadeItem>
           <div className="card p-8 text-center">
             <p className="text-lg font-semibold">Noch nichts zu wiederholen</p>
-            <p className="mx-auto mb-5 mt-1 max-w-sm text-muted">Schließe eine Lektion ab. Danach planen wir automatisch, wann du {math ? 'welches Thema' : 'welches Wort'} wieder üben solltest.</p>
+            <p className="mx-auto mb-5 mt-1 max-w-sm text-muted">Übe ein paar Karten. Danach planen wir automatisch, wann du welche Karte wieder üben solltest.</p>
             <Link to="/" className="btn btn-primary press">Zum Lernpfad</Link>
           </div>
         </FadeItem>
@@ -138,14 +136,14 @@ export function ReviewPage() {
               <span className="text-lg font-bold"><CountUp to={Math.round(solidPct * 100)} suffix="%" /></span>
             </ProgressRing>
             <div className="sm:hidden">
-              <p className="eyebrow">{math ? 'Mathe' : `Klasse ${grade}`}</p>
+              <p className="eyebrow">Alle Fächer</p>
               <p className="font-semibold">fest gelernt</p>
             </div>
           </div>
           <div>
             <p className="eyebrow mb-1">Jetzt dran</p>
             <p className="text-3xl font-bold">
-              <CountUp to={due.length} /> <span className="text-base font-medium text-muted">{math ? (due.length === 1 ? 'Thema' : 'Themen') : due.length === 1 ? 'Wort' : 'Wörter'}</span>
+              <CountUp to={due.length} /> <span className="text-base font-medium text-muted">{due.length === 1 ? 'Karte' : 'Karten'}</span>
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {due.length > 0 ? (
@@ -164,7 +162,7 @@ export function ReviewPage() {
       <FadeItem>
         <section className="card mb-6 p-5">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="font-semibold">{math ? 'Deine Themen in Mathe' : `Dein Wortschatz in Klasse ${grade}`}</h2>
+            <h2 className="font-semibold">Deine Karten</h2>
             <span className="text-sm text-muted">{courseTotal} {noun}</span>
           </div>
           <SegmentedBar

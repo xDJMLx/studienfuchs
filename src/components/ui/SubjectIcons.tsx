@@ -9,6 +9,14 @@ type Draw = (ink: string) => ReactNode
 const stroke = { fill: 'none', stroke: '#fff', strokeWidth: 2.1, strokeLinecap: 'round', strokeLinejoin: 'round' } as const
 
 const DRAW: Record<string, Draw> = {
+  // Eiffelturm
+  franzoesisch: (ink) => (
+    <g>
+      <path d="M12 2.4 13.3 7.4h-2.6Z" fill="#fff" />
+      <path d="M10.4 8.8h3.2l1.2 6 2.9 6.2h-2.7l-.8-2.6H9.8l-.8 2.6H6.3l2.9-6.2Z" fill="#fff" />
+      <path d="M10.1 12h3.8M9.2 16h5.6" stroke={ink} strokeWidth="1.4" />
+    </g>
+  ),
   // Plus, Minus, Mal, Geteilt
   mathe: () => (
     <g {...stroke}>

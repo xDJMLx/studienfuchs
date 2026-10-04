@@ -24,7 +24,7 @@ export function Karteikasten() {
   return (
     <section className="card mt-4 p-5" aria-label="Karteikasten">
       <h2 className="font-semibold">Dein Karteikasten</h2>
-      <p className="mt-0.5 text-sm text-muted">Je weiter rechts, desto länger kannst du {course.math ? 'ein Thema' : 'ein Wort'} in Ruhe lassen.</p>
+      <p className="mt-0.5 text-sm text-muted">Je weiter rechts, desto länger kannst du {course.math ? 'eine Karte' : 'eine Karte'} in Ruhe lassen.</p>
       <div className="mt-4 grid h-32 grid-cols-5 items-end gap-2.5" role="img" aria-label={counts.map((c, i) => `Fach ${i + 1}: ${c} ${course.noun}`).join(', ')}>
         {counts.map((c, i) => (
           <div key={i} className="flex h-full flex-col items-center justify-end gap-1">

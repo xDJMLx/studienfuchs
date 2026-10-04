@@ -21,7 +21,7 @@ const titleFor = (level: number) => TITLES[Math.min(TITLES.length - 1, Math.floo
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
-  const { xp, xpByDay, streak, dailyGoal, lessons, sets, outfit, coins, bestStreak } = useStore(useShallow((s) => ({ xp: s.xp, xpByDay: s.xpByDay, streak: s.streak, dailyGoal: s.dailyGoal, lessons: s.lessons, sets: s.sets, outfit: s.outfit, coins: s.coins, bestStreak: s.bestStreak })))
+  const { xp, xpByDay, streak, dailyGoal, lessons, rounds, sets, outfit, coins, bestStreak } = useStore(useShallow((s) => ({ xp: s.xp, xpByDay: s.xpByDay, streak: s.streak, dailyGoal: s.dailyGoal, lessons: s.lessons, rounds: s.rounds, sets: s.sets, outfit: s.outfit, coins: s.coins, bestStreak: s.bestStreak })))
   const { learned, byMastery } = useLearned()
   const course = useCourse()
   const lvl = levelFromXp(xp)
@@ -59,7 +59,7 @@ export function ProfilePage() {
   const unseen = Math.max(0, course.total - learned.length)
 
   const badges = achievements({
-    lessons: Object.keys(lessons).length,
+    lessons: (rounds ?? 0) + Object.keys(lessons).length,
     streak: streakDays,
     xp,
     learnedWords: learned.length,
@@ -133,8 +133,8 @@ export function ProfilePage() {
             {[
               { k: 'XP gesamt', v: xp.toLocaleString('de-DE'), icon: <Xp size={26} /> },
               { k: 'Längste Serie', v: `${Math.max(bestStreak ?? 0, streakDays)} ${Math.max(bestStreak ?? 0, streakDays) === 1 ? 'Tag' : 'Tage'}`, icon: <Flame size={26} /> },
-              { k: 'Lektionen', v: String(Object.keys(lessons).length), icon: <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-sky text-white"><Check size={15} /></span> },
-              { k: 'Wörter gefestigt', v: String(mastered), icon: <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-good text-white"><Star size={15} /></span> },
+              { k: 'Runden', v: String((rounds ?? 0) + Object.keys(lessons).length), icon: <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-sky text-white"><Check size={15} /></span> },
+              { k: 'Karten gefestigt', v: String(mastered), icon: <span className="flex h-[26px] w-[26px] items-center justify-center rounded-full bg-good text-white"><Star size={15} /></span> },
             ].map(({ k, v, icon }) => (
               <div key={k} className="card flex items-center gap-3 px-3.5 py-3">
                 <span className="shrink-0">{icon}</span>
@@ -209,7 +209,7 @@ export function ProfilePage() {
         <Item>
           <section className="card mt-4 p-5">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-              <h2 className="font-semibold">{course.math ? 'Deine Themen' : 'Dein Wortschatz'}</h2>
+              <h2 className="font-semibold">Deine Karten</h2>
               <span className="flex items-center gap-3 whitespace-nowrap text-sm text-muted">
                 <span><span className="font-semibold text-ink"><CountUp to={learned.length} /></span> von {course.total}</span>
                 <Link to="/review" className="press flex min-h-9 items-center gap-1 rounded-lg px-2 font-semibold text-brand-dark hover:bg-brand-soft">Lernstand <Right size={12} /></Link>

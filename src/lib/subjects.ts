@@ -1,12 +1,14 @@
 /**
- * Fächer mit KI-Hilfe. Nur Französisch ist ein Kurs zum aktiven Lernen; bei allen anderen Fächern
- * hilft die KI, den Stoff aus der Schule zu vertiefen und sich auf Arbeiten vorzubereiten.
+ * Die Fächer der App. Im Unterricht lernst du, hier übst du: Jedes Fach hat Karten-Stapel, Arbeiten mit Termin und KI-Hilfe.
+ * Französisch bringt zusätzlich fertige Stapel aus dem Kurs mit.
  */
 export interface HelpSubject {
   id: string
   name: string
   /** Eine Zeile: Wobei die KI hilft */
   blurb: string
+  /** Sprache der Karten, wenn das Fach Vokabeln hat (Vorlesen, Sonderzeichen, auch rückwärts fragen) */
+  lang?: 'fr' | 'en'
   /** Farbe der Kachel (Fläche, Unterkante) */
   c: string
   s: string
@@ -18,6 +20,16 @@ export interface HelpSubject {
 const PLAN = 'Hilf mir, mich auf meine nächste Arbeit vorzubereiten.'
 
 export const HELP_SUBJECTS: HelpSubject[] = [
+  {
+    id: 'franzoesisch',
+    name: 'Französisch',
+    blurb: 'Vokabeln üben, Grammatik nachschlagen, Buchseiten einlesen',
+    lang: 'fr',
+    c: '#3f6fd8',
+    s: '#2f55b0',
+    suggestions: ['Frag mich Vokabeln ab, bei denen es bei mir hakt.', 'Hilf mir, mich auf meine nächste Klassenarbeit vorzubereiten.', 'Erkläre mir den Unterschied zwischen passé composé und imparfait.', 'Wie lerne ich Vokabeln, damit sie wirklich hängen bleiben?'],
+    rules: [],
+  },
   {
     id: 'mathe',
     name: 'Mathe',
@@ -43,6 +55,7 @@ export const HELP_SUBJECTS: HelpSubject[] = [
     id: 'englisch',
     name: 'Englisch',
     blurb: 'Vokabeln, Grammatik, Texte und Sprechen üben',
+    lang: 'en',
     c: '#1e96fa',
     s: '#1474cc',
     suggestions: ['Frag mich Vokabeln zu meinem aktuellen Thema ab.', 'Erkläre mir ein Grammatikthema mit Beispielen und Übersetzung.', 'Verbessere meinen englischen Text und erkläre die Fehler.', PLAN],
@@ -155,7 +168,7 @@ export interface SubjectPromptInput {
 export function buildSubjectPrompt({ subject, grade, streak, bookContext }: SubjectPromptInput): string {
   return [
     `Du bist die KI-Lernhilfe in der App "Studienfuchs", ein freundlicher, geduldiger Nachhilfelehrer für Schüler in ${subject.name} (Berliner Schulen).`,
-    'Die App hat in diesem Fach keinen eigenen Kurs. Der Schüler lernt den Stoff in der Schule und nutzt dich, um ihn zu vertiefen, Lücken zu schließen und sich auf Arbeiten vorzubereiten. Du ersetzt weder Unterricht noch Lehrer.',
+    'Der Schüler lernt den Stoff im Unterricht und nutzt dich, um ihn zu vertiefen, Lücken zu schließen und sich auf Arbeiten vorzubereiten. Du ersetzt weder Unterricht noch Lehrer.',
     'Regeln:',
     '- Antworte immer auf Deutsch, kurz und klar, höchstens etwa 150 Wörter, einfache Sprache, kurze Listen statt langer Absätze.',
     '- Frag am Anfang kurz nach, wenn du es nicht weißt: Welche Klasse, welches Thema, wann ist die Arbeit? Richte dich nach dem, was der Schüler im Unterricht hatte, und erfinde nichts über Lehrer, Buch oder Lehrplan.',

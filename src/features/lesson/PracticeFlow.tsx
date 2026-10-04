@@ -204,11 +204,16 @@ export function ResultScreen({
   mark,
   lessonId,
   math = false,
+  cards = false,
+  onMore,
   onRetry,
   onDone,
   onNext,
 }: {
   math?: boolean
+  /** Karten-Durchgang (statt Lektion): andere Überschriften und "Noch eine Runde" */
+  cards?: boolean
+  onMore?: () => void
   title: string
   outcome: { result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number; streakUp?: boolean }
   items: Item[]
@@ -241,8 +246,14 @@ export function ResultScreen({
     return () => clearTimeout(id)
   }, [leveledUp])
   const freeHeadline = pct >= 90 ? 'Sehr gut!' : pct >= 70 ? 'Gut gemacht!' : 'Ein guter Anfang'
-  const headline = free && test ? freeHeadline : test ? (passed ? 'Test bestanden!' : 'Noch nicht bestanden') : passed ? (pct >= 90 ? 'Perfekt!' : 'Lektion geschafft!') : 'Fast geschafft'
-  const sub = free && test
+  const headline = cards ? (pct >= 90 ? 'Stark!' : pct >= 60 ? 'Runde geschafft!' : 'Guter Anfang!') : free && test ? freeHeadline : test ? (passed ? 'Test bestanden!' : 'Noch nicht bestanden') : passed ? (pct >= 90 ? 'Perfekt!' : 'Lektion geschafft!') : 'Fast geschafft'
+  const sub = cards
+    ? result.retries > 0
+      ? `${result.retries === 1 ? 'Eine Karte' : result.retries + ' Karten'} musstest du wiederholen. Genau so bleibt es hängen.`
+      : pct === 100
+        ? 'Alles auf Anhieb gewusst.'
+        : 'Die Karten, die nicht saßen, kommen bald wieder.'
+    : free && test
     ? `${pct} % auf Anhieb richtig. ${missed.length ? (math ? 'Die Themen, die noch nicht saßen, siehst du unten.' : 'Die Wörter, die noch nicht saßen, siehst du unten.') : 'Kein einziger Fehler.'}`
     : !passed
     ? `Du brauchst mindestens ${Math.round(mark * 100)} % beim ersten Versuch, bevor es weitergeht. Das hier waren ${pct} %.${test ? '' : math ? ' Mach die Lektion einfach nochmal, du bekommst neue Aufgaben.' : ' Mach die Lektion einfach nochmal, die schwierigen Wörter sitzen dann besser.'}`
@@ -264,14 +275,19 @@ export function ResultScreen({
               Nochmal versuchen
             </button>
           )}
+          {cards && onMore && (
+            <button className="btn btn-primary btn-shine press w-full sm:w-64" onClick={onMore} autoFocus>
+              Noch eine Runde
+            </button>
+          )}
           {next && (
             <button className="btn btn-primary btn-shine press w-full justify-between sm:w-72" onClick={() => onNext(next.id)} autoFocus>
               <span className="truncate">Nächste: {next.title}</span>
               <Right size={18} />
             </button>
           )}
-          <button className={`btn ${passed && !next ? 'btn-primary' : 'btn-ghost'} press w-full sm:w-56`} onClick={onDone} autoFocus={passed && !next}>
-            {passed ? (next ? 'Zum Lernpfad' : 'Weiter') : 'Später'}
+          <button className={`btn ${passed && !next && !(cards && onMore) ? 'btn-primary' : 'btn-ghost'} press w-full sm:w-56`} onClick={onDone} autoFocus={passed && !next && !(cards && onMore)}>
+            {cards ? 'Fertig' : passed ? (next ? 'Zum Lernpfad' : 'Weiter') : 'Später'}
           </button>
         </div>
       }

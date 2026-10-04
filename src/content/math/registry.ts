@@ -4,6 +4,7 @@ import type { Gen, MathSkill } from './core'
 export const SKILLS: Record<string, MathSkill> = {}
 
 export function defineSkill(id: string, title: string, blurb: string, gen: Gen, opts: { blitz?: boolean } = {}): void {
-  if (SKILLS[id]) throw new Error(`Fähigkeit doppelt: ${id}`)
+  // Beim Neuladen im Entwicklungsserver läuft dieselbe Datei nochmal: dann einfach ersetzen
+  if (SKILLS[id] && !import.meta.hot) throw new Error(`Fähigkeit doppelt: ${id}`)
   SKILLS[id] = { id, title, blurb, gen, blitz: opts.blitz }
 }

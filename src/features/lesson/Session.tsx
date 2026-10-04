@@ -7,6 +7,7 @@ import { FillExercise } from '../../components/exercises/FillExercise'
 import { ListenChoiceExercise } from '../../components/exercises/ListenChoiceExercise'
 import { ListenExercise } from '../../components/exercises/ListenExercise'
 import { CalcExercise, MChoiceExercise, MMatchExercise } from '../../components/exercises/MathExercises'
+import { QCardExercise, QChoiceExercise, QTypeExercise, speechLang } from '../../components/exercises/CardExercises'
 import { MathText } from '../../components/math/MathText'
 import { MatchExercise } from '../../components/exercises/MatchExercise'
 import { SpeakExercise } from '../../components/exercises/SpeakExercise'
@@ -74,6 +75,8 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
   const isTeach = ex?.kind === 'teach'
   const isRetry = !!ex && ex.id.includes(':retry')
   const isMatch = ex?.kind === 'match' || ex?.kind === 'mmatch'
+  // Karteikarte: bewertet sich selbst (kein "Prüfen"-Knopf)
+  const isSelf = ex?.kind === 'qcard'
   const isMath = ex?.kind === 'calc' || ex?.kind === 'mchoice' || ex?.kind === 'mmatch'
   const mathHint = ex?.kind === 'calc' || ex?.kind === 'mchoice' || ex?.kind === 'mmatch' ? ex.hint : undefined
   const baseId = ex ? ex.id.replace(/:retry\d+$/, '') : ''
@@ -95,6 +98,8 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
       // Fertigen französischen Satz nach der Antwort vorlesen (Hörverstehen und Aussprache zum Mitsprechen)
       if (ex.kind === 'fill') speak(fillSentence(ex.sentence, ex.answer))
       else if (ex.kind === 'build' || ex.kind === 'spell') speak(ex.kind === 'build' ? ex.answer : ex.speak)
+      // Karten: Ist die Antwort in der Kartensprache, wird sie nach der Antwort vorgelesen
+      else if ((ex.kind === 'qtype' || ex.kind === 'qchoice') && ex.lang && ex.speak && ex.speak !== ex.prompt) speak(ex.speak, speechLang(ex.lang))
       for (const id of ev.mistakeItemIds) wrongCount.current[id] = (wrongCount.current[id] ?? 0) + 1
       if (ev.status === 'almost' && !isMatch) almostCount.current[ex.itemId] = (almostCount.current[ex.itemId] ?? 0) + 1
       if (ev.status === 'wrong') {
@@ -109,7 +114,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             const copy = [...q]
             // Mathe: eine frische Aufgabe zum selben Thema, nicht dieselbe Rechnung nochmal
             const again = ex.again?.()
-            const base: Exercise = again ?? (ex.kind === 'type' ? { ...ex, hint: true } : ex)
+            const base: Exercise = again ?? (ex.kind === 'type' || ex.kind === 'qtype' ? { ...ex, hint: true } : ex)
             copy.splice(Math.min(idx + 1 + RETRY_GAP, copy.length), 0, { ...base, id: `${baseId}:retry${n}` } as Exercise)
             return copy
           })
@@ -130,7 +135,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
   const onChange = useCallback(
     (a: Answer | null) => {
       setAnswer(a)
-      if (a && typeof a === 'object' && !Array.isArray(a) && 'matchMistakes' in a) check(a)
+      if (a && typeof a === 'object' && !Array.isArray(a) && ('matchMistakes' in a || 'selfGrade' in a)) check(a)
     },
     [check],
   )
@@ -171,11 +176,11 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
       if (e.key !== 'Enter' || confirmExit) return
       e.preventDefault()
       if (isTeach || result) next()
-      else if (answer !== null && !isMatch) check(answer)
+      else if (answer !== null && !isMatch && !isSelf) check(answer)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [answer, result, isMatch, isTeach, check, next, confirmExit])
+  }, [answer, result, isMatch, isSelf, isTeach, check, next, confirmExit])
 
   if (!ex) return null
 
@@ -200,6 +205,12 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
       <BuildExercise exercise={ex} {...common} />
     ) : ex.kind === 'match' ? (
       <MatchExercise exercise={ex} {...common} />
+    ) : ex.kind === 'qchoice' ? (
+      <QChoiceExercise exercise={ex} {...common} />
+    ) : ex.kind === 'qtype' ? (
+      <QTypeExercise exercise={ex} {...common} />
+    ) : ex.kind === 'qcard' ? (
+      <QCardExercise exercise={ex} {...common} />
     ) : ex.kind === 'calc' ? (
       <CalcExercise exercise={ex} {...common} />
     ) : ex.kind === 'mchoice' ? (
@@ -272,7 +283,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             transition={{ duration: bad ? 0.36 : 0.26, ease: EASE }}
           >
             {body}
-            {!result && ((ex.kind === 'type' && !ex.hint) || ex.kind === 'listen' || (isMath && mathHint)) && (
+            {!result && (((ex.kind === 'type' || ex.kind === 'qtype') && !ex.hint) || ex.kind === 'listen' || (isMath && mathHint)) && (
               <div className="mt-4 min-h-11">
                 {hintFor === ex.id ? (
                   <motion.p initial={reduce ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, ease: EASE }} className={mathHint ? 'block rounded-xl bg-gold/15 px-4 py-3 ring-1 ring-gold/30' : 'inline-block rounded-xl bg-snow px-4 py-2.5 font-mono text-lg tracking-[0.18em] text-muted'} aria-live="polite">
@@ -304,9 +315,9 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             />
           )}
         </AnimatePresence>
-        <div className={`relative mx-auto flex w-full max-w-2xl gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:py-4 ${!result && !isTeach ? 'flex-row items-center' : 'flex-col'}`}>
+        <div className={`relative mx-auto flex w-full max-w-2xl gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:py-4 ${!result && !isTeach ? 'flex-row items-center' : 'flex-col'} ${isSelf && !result ? 'hidden' : ''}`}>
           {isTeach ? (
-            <p className="hidden text-sm text-muted sm:block">Prägt euch die Wörter kurz ein. Gleich kommt die erste Frage dazu.</p>
+            <p className="hidden text-sm text-muted sm:block">Präg dir die Karten kurz ein. Gleich kommt die erste Frage dazu.</p>
           ) : result ? (
             <motion.div
               initial={reduce ? false : { opacity: 0, y: 14 }}
@@ -336,7 +347,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
               </span>
               <div className="min-w-0">
                 <p className="text-[24px] font-black leading-tight">
-                  {bad ? 'Leider falsch' : result.status === 'almost' ? (ex.kind === 'match' ? 'Geschafft!' : hintFor === ex.id ? 'Mit Tipp geschafft' : 'Fast richtig!') :['Super!', 'Richtig!', 'Stark!', 'Genau!'][idx % 4]}
+                  {bad ? (ex.kind === 'qcard' ? 'Noch nicht gewusst' : 'Leider falsch') : result.status === 'almost' ? (ex.kind === 'match' ? 'Geschafft!' : hintFor === ex.id ? 'Mit Tipp geschafft' : 'Fast richtig!') :['Super!', 'Richtig!', 'Stark!', 'Genau!'][idx % 4]}
                 </p>
                 {bad && result.correctAnswer && (
                   <p className="font-semibold">
@@ -367,7 +378,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
               </div>
             </motion.div>
           ) : (
-            !isMatch && (
+            !isMatch && !isSelf && (
               <button type="button" className="btn btn-ghost shrink-0 !px-4 !text-xs !text-muted sm:w-44 sm:!text-[14px]" onClick={() => check(answer ?? '')}>
                 Weiß ich nicht
               </button>
@@ -383,7 +394,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
               Weiter
             </button>
           ) : (
-            !isMatch && (
+            !isMatch && !isSelf && (
               <button type="button" disabled={answer === null} onClick={() => check(answer)} className="btn btn-primary min-w-0 flex-1 sm:ml-auto sm:w-44 sm:flex-none">
                 Prüfen
               </button>

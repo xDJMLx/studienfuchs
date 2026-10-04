@@ -62,6 +62,25 @@ export interface VocabSet {
   items: Item[]
   /** Buch, zu dem das Kapitel gehört (z. B. "À plus ! 1"); ohne Angabe steht das Set einzeln */
   book?: string
+  /** Fach (Kennung aus subjects.ts). Ältere Sets ohne Angabe gehören zu Französisch. */
+  subject?: string
+  /** Sprache der Karten, wenn es Vokabeln sind: bringt Vorlesen und Akzent-Tasten */
+  lang?: DeckLang
+  /** Auch rückwärts abfragen (Rückseite zeigen, Vorderseite antworten): gut für Vokabeln */
+  both?: boolean
+}
+
+export type DeckLang = 'fr' | 'en'
+
+/** Eine Klassenarbeit oder ein Test: Fach, Termin und die Stapel, die dafür gelernt werden. */
+export interface Arbeit {
+  id: string
+  subject: string
+  title: string
+  /** YYYY-MM-DD */
+  date: string
+  /** Stapel-Kennungen (eigene Sets oder "unit:…" für Kurs-Stapel) */
+  deckIds: string[]
 }
 
 /** `warm`: Aufwärm-Aufgabe zu einem älteren, fälligen Wort. Sie zählt für die Wiederholungsplanung, aber nicht fürs Bestehen der Lektion. */
@@ -72,7 +91,8 @@ export type Exercise = ExerciseKind & {
 }
 
 type ExerciseKind =
-  | { kind: 'teach'; id: string; itemId: string; items: Item[] }
+  | { kind: 'teach'; id: string; itemId: string; items: Item[]; /** Karten-Stapel: Sprache für das Vorlesen ('none' = nichts vorlesen). Ohne Angabe: Französisch-Wortschatz. */ lang?: DeckLang | 'none' }
+  | CardExerciseKind
   | { kind: 'choice'; id: string; itemId: string; prompt: string; promptLang: 'fr' | 'de'; answer: string; options: string[]; speak?: string }
   | { kind: 'type'; id: string; itemId: string; prompt: string; promptLang: 'fr' | 'de'; answer: string; accept?: string[]; speak?: string; hint?: boolean }
   | { kind: 'spell'; id: string; itemId: string; prompt: string; answer: string; letters: string[]; speak: string }
@@ -83,6 +103,12 @@ type ExerciseKind =
   | { kind: 'match'; id: string; itemId: string; pairs: { id: string; left: string; right: string }[] }
   | { kind: 'fill'; id: string; itemId: string; sentence: string; answer: string; options: string[]; translation?: string; why: string }
   | MathExerciseKind
+
+/** Aufgaben zu eigenen Karten (jedes Fach): Frage und Antwort, optional mit Sprache für Vorlesen und Tasten. */
+export type CardExerciseKind =
+  | { kind: 'qchoice'; id: string; itemId: string; title: string; prompt: string; answer: string; options: string[]; lang?: DeckLang; speak?: string }
+  | { kind: 'qtype'; id: string; itemId: string; title: string; prompt: string; answer: string; accept?: string[]; lang?: DeckLang; speak?: string; hint?: boolean }
+  | { kind: 'qcard'; id: string; itemId: string; front: string; back: string; example?: string; exampleDe?: string; lang?: DeckLang; speak?: string }
 
 /** Mathe-Aufgaben. Texte sind in Mathe-Schreibweise: $…$ für Terme, {Zähler|Nenner} für Brüche, ^2 für Hochzahlen. */
 export type MathExerciseKind =

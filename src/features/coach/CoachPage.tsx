@@ -88,7 +88,9 @@ export function CoachPage() {
 }
 
 function Coach({ subjectId }: { subjectId?: string }) {
-  const help = helpSubject(subjectId)
+  // Französisch hat die ausführliche KI-Hilfe mit Buchseiten und Vokabeltests; alle anderen Fächer die allgemeine Lernhilfe
+  const help = subjectId === 'franzoesisch' ? undefined : helpSubject(subjectId)
+  const subject = helpSubject(subjectId)
   const storeKey = help ? `${KEY}-${help.id}` : KEY
   const reduce = useReducedMotion()
   const store = useStore()
@@ -217,10 +219,15 @@ function Coach({ subjectId }: { subjectId?: string }) {
 
   return (
     <div className="mx-auto flex min-h-full max-w-2xl flex-col px-4 py-6 lg:py-8">
+      {subject && (
+        <Link to={`/faecher/${subject.id}`} className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 self-start rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
+          ‹ {subject.name}
+        </Link>
+      )}
       <div className="mb-5 flex items-center gap-4">
         <Mascot size={64} mood={busy ? 'think' : 'cheer'} blink outfit={store.outfit} />
         <div className="min-w-0 flex-1">
-          <h1 className="page-title">{help ? help.name : 'KI'}</h1>
+          <h1 className="page-title">{help ? help.name : subject ? `${subject.name}: KI` : 'KI'}</h1>
           <p className="text-muted">{help ? 'Vertiefen, was ihr in der Schule hattet, und für Arbeiten üben.' : 'Fragen stellen, Buchseiten hochladen, Tests bauen lassen.'}</p>
         </div>
         {!empty && (
@@ -316,13 +323,13 @@ function Coach({ subjectId }: { subjectId?: string }) {
                   {m.list.title} · {m.list.count} Wörter. Gespeichert unter Üben → „Eigene Listen“.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <Link to={'/practice/play?mode=write&scope=set:' + m.list.id} className="btn btn-primary press !px-4 !py-2.5 !text-sm">
+                  <Link to={'/ueben/los?modus=type&deck=' + m.list.id} className="btn btn-primary press !px-4 !py-2.5 !text-sm">
                     Schreibtest
                   </Link>
-                  <Link to={'/practice/play?mode=mix&scope=set:' + m.list.id} className="btn btn-ghost press !px-4 !py-2.5 !text-sm">
+                  <Link to={'/ueben/los?deck=' + m.list.id} className="btn btn-ghost press !px-4 !py-2.5 !text-sm">
                     Gemischtes Quiz
                   </Link>
-                  <Link to={'/sets/' + m.list.id} className="btn btn-ghost press !px-4 !py-2.5 !text-sm">
+                  <Link to={'/stapel/' + m.list.id} className="btn btn-ghost press !px-4 !py-2.5 !text-sm">
                     Liste ansehen
                   </Link>
                 </div>

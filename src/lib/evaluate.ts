@@ -3,7 +3,10 @@ import { close, gcd, parseNumber } from '../content/math/fmt'
 import type { Exercise } from './types'
 
 /** Antwort-Formen: choice/fill = Text, type/listen = Text, build = Wortliste, match = fertig mit Fehlerliste. */
-export type Answer = string | string[] | { matchMistakes: string[] }
+export type Answer = string | string[] | { matchMistakes: string[] } | { selfGrade: SelfGrade }
+
+/** Karteikarte: Der Schüler bewertet sich selbst. */
+export type SelfGrade = 'again' | 'hard' | 'good'
 
 export interface Evaluation extends CheckResult {
   correctAnswer?: string
@@ -18,6 +21,7 @@ export function evaluate(ex: Exercise, answer: Answer): Evaluation {
     case 'choice':
     case 'listenChoice':
     case 'mchoice':
+    case 'qchoice':
     case 'fill': {
       const ok = answer === ex.answer
       return { status: ok ? 'correct' : 'wrong', correctAnswer: ex.answer, mistakeItemIds: ok ? [] : [ex.itemId] }
@@ -54,6 +58,16 @@ export function evaluate(ex: Exercise, answer: Answer): Evaluation {
     }
     case 'calc':
       return evaluateCalc(ex, String(answer))
+    case 'qtype': {
+      const r = checkAnswer(String(answer), ex.answer, ex.accept)
+      return { ...r, correctAnswer: ex.answer, mistakeItemIds: r.status === 'wrong' ? [ex.itemId] : [] }
+    }
+    case 'qcard': {
+      // Selbstbewertung: "Nicht gewusst" zählt als Fehler, "Schwer" als fast richtig
+      const g = (answer as { selfGrade?: SelfGrade }).selfGrade
+      if (g === 'again') return { status: 'wrong', correctAnswer: ex.back, mistakeItemIds: [ex.itemId] }
+      return { status: g === 'hard' ? 'almost' : 'correct', correctAnswer: ex.back, mistakeItemIds: [] }
+    }
   }
 }
 

@@ -3,10 +3,9 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useShallow } from 'zustand/react/shallow'
 import { ChestSheet } from '../../components/ui/ChestSheet'
-import { Check, Chest, Flame, Repeat, Right, Target, Xp } from '../../components/ui/Icons'
+import { Check, Chest, Flame, Repeat, Right, Xp } from '../../components/ui/Icons'
 import { Sheet } from '../../components/ui/Sheet'
 import { ProgressRing } from '../../components/ui/widgets'
-import { catchUpStatus } from '../../lib/catchup'
 import { chestReady, questDef } from '../../lib/rewards'
 import { dayKey } from '../../lib/streak'
 import { goalInfo } from '../../lib/xp'
@@ -17,12 +16,8 @@ import { DailyRewards } from './DailyQuests'
 /** Heute: Tagesziel, Truhe, Tagesaufgaben, fällige Wörter und Aufholplan in einer Karte. */
 export function TodayCard({ onChest }: { onChest?: () => void }) {
   const navigate = useNavigate()
-  const { xpByDay, dailyGoal, streak, classUnit, catchUpTarget, catchUpAll, catchUpExtras, catchUpOngoing, lessons } = useStore(
-    useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, streak: s.streak, classUnit: s.classUnit, catchUpTarget: s.catchUpTarget, catchUpAll: s.catchUpAll, catchUpExtras: s.catchUpExtras, catchUpOngoing: s.catchUpOngoing, lessons: s.lessons })),
-  )
+  const { xpByDay, dailyGoal, streak } = useStore(useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, streak: s.streak })))
   const { due } = useDue()
-  const subject = useStore((s) => s.subject ?? 'fr')
-  const plan = subject === 'fr' && classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll, catchUpExtras, catchUpOngoing) : null
   const today = xpToday(xpByDay)
   const g = goalInfo(dailyGoal, today)
   const days = streakNow(streak)
@@ -47,21 +42,9 @@ export function TodayCard({ onChest }: { onChest?: () => void }) {
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-soft text-sky-dark"><Repeat size={22} /></span>
           <span className="min-w-0 flex-1">
             <span className="block font-extrabold">
-              {due.length} {subject === 'math' ? (due.length === 1 ? 'Thema' : 'Themen') : due.length === 1 ? 'Wort' : 'Wörter'} wiederholen
+              {due.length} {due.length === 1 ? 'Karte' : 'Karten'} wiederholen
             </span>
             <span className="block text-sm text-muted">{due.length >= 20 ? 'Erst das, dann Neues: So bleibt es länger hängen.' : 'Kurz bevor du sie vergessen würdest'}</span>
-          </span>
-          <Right size={16} className="shrink-0 text-muted" />
-        </button>
-      )}
-      {plan && !plan.finished && (
-        <button type="button" className={row} onClick={() => navigate('/catchup')}>
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark"><Target size={22} /></span>
-          <span className="min-w-0 flex-1">
-            <span className="block font-extrabold">Aufholen: {plan.toGoToday > 0 ? `heute noch ${plan.toGoToday} ${plan.toGoToday === 1 ? 'Lektion' : 'Lektionen'}` : 'für heute geschafft'}</span>
-            <span className="block text-sm text-muted">
-              Noch {plan.remaining} Lektionen in {plan.daysLeft} {plan.daysLeft === 1 ? 'Tag' : 'Tagen'}
-            </span>
           </span>
           <Right size={16} className="shrink-0 text-muted" />
         </button>
@@ -74,7 +57,7 @@ export function TodayCard({ onChest }: { onChest?: () => void }) {
  * Die kompakte Heute-Leiste über dem Lernpfad (Handy und schmale Fenster): Tagesziel, Aufgaben und Truhe auf einen Blick.
  * Antippen öffnet alles im Detail. Fällige Wörter stehen als blauer Knopf darunter, weil sie fürs Behalten am wichtigsten sind.
  */
-export function TodayStrip() {
+export function TodayStrip({ hideDue = false }: { hideDue?: boolean }) {
   const reduce = useReducedMotion()
   const navigate = useNavigate()
   const { xpByDay, dailyGoal, daily, ensureDaily } = useStore(useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, daily: s.daily, ensureDaily: s.ensureDaily })))
@@ -126,7 +109,7 @@ export function TodayStrip() {
           <span className={`block text-[14px] font-extrabold leading-tight ${ready ? 'text-gold-dark' : opened ? 'text-muted' : ''}`}>{ready ? 'Truhe öffnen!' : opened ? 'Truhe offen' : 'Truhe'}</span>
         </button>
       </div>
-      {due.length > 0 && (
+      {!hideDue && due.length > 0 && (
         <button
           type="button"
           onClick={() => navigate('/review/play')}
@@ -135,7 +118,7 @@ export function TodayStrip() {
         >
           <Repeat size={22} />
           <span className="min-w-0 flex-1 font-extrabold">
-            {due.length} {subject === 'math' ? (due.length === 1 ? 'Thema' : 'Themen') : due.length === 1 ? 'Wort' : 'Wörter'} wiederholen
+            {due.length} {due.length === 1 ? 'Karte' : 'Karten'} wiederholen
           </span>
           <Right size={16} />
         </button>

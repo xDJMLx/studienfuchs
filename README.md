@@ -1,6 +1,6 @@
 # Studienfuchs
 
-**Französisch lernen für die Schule, Klasse 7 bis 10, dazu KI-Hilfe für alle anderen Fächer. Kostenlos, ohne Konto, direkt im Browser.**
+**Üben für die Schule, in jedem Fach: Karteikarten, Wiederholung nach Plan, Arbeiten vorbereiten und KI-Hilfe. Kostenlos, ohne Konto, direkt im Browser.**
 
 Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kleine Lektionen, die man schafft, Wörter, die wirklich hängen bleiben, und ein Aufholplan für alle, die im Unterricht den Anschluss verloren haben.
 
@@ -16,28 +16,14 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 
 ## Was die App kann
 
-**Französisch als Kurs, alle anderen Fächer mit KI-Hilfe**
-- Französisch ist der Kurs zum aktiven Lernen: Lernpfad, kurze Lektionen, Wiederholung nach Plan.
-- Im Tab „Fächer“ gibt es für Mathe, Deutsch, Englisch, Biologie, Geschichte, Physik, Chemie, Geografie, Politik und alle anderen Fächer keinen Kurs, sondern KI-Hilfe: Was ihr in der Schule hattet, kannst du vertiefen, dich abfragen lassen und vor einer Arbeit üben. Fotos von Aufgaben und Heftseiten lassen sich anhängen. Jedes Fach hat sein eigenes Gespräch.
-- Die KI macht keine Hausaufgaben fertig, sondern gibt Tipps und erste Schritte.
-**Der Kurs (Französisch)**
-- Auf den Berliner Rahmenlehrplan abgestimmt: Klasse 7 bis 10 entsprechen den Niveaus A1, A2, B1 und B1+ (Niveaustufen E bis H). Der Kurs folgt den Themen von *À plus!* und deckt die Themen und Wörter von *Découvertes* ab, den beiden häufigsten Lehrwerken an Berliner Gymnasien.
-- 56 Einheiten mit 393 Lektionen im Grundkurs, dazu 20 freiwillige Einheiten Zusatzwortschatz aus den Lehrbüchern (102 Lektionen). Zusammen sind es über 2.600 Wörter. Der Zusatz bremst den Lernpfad nicht.
-- Zu jedem Wort gibt es einen Beispielsatz mit Übersetzung und eine Aufnahme. Alle 5.356 Sprachdateien sind vorab mit dem Sprachmodell Piper erzeugt, die App klingt also auf jedem Gerät gleich.
-- Neue Wörter kommen nur zu zweit und werden sofort abgefragt. Beim ersten Kennenlernen wird nur erkannt (auswählen, hören, zuordnen), geschrieben wird nichts. Erst beim Wiederholen legt man Wörter aus Buchstaben, und frei tippen kommt zuletzt.
-
-**Lernen, das hängen bleibt**
-- Abrufen statt Wiederlesen: Jede Lektion besteht aus aktiven Aufgaben.
-- Wiederholungen plant **FSRS**, ein modernes Verfahren für wachsende Abstände. Die App zeigt, welche Wörter jetzt dran sind.
-- Fehler kommen am Ende der Runde noch einmal. „Fast richtig" zählt halb.
-- Die nächste Einheit öffnet erst, wenn die vorige gut geschafft ist. Raten bringt nichts.
-- Tagesziel als Minimum: Wer es schafft, bekommt ein Bonusziel, ohne Strafe am nächsten Tag.
-
-**Aufholen**
-- Einheit wählen, die die Klasse gerade im Unterricht macht, wahlweise nach À plus! oder nach Découvertes. Die App schlägt vor, wo eine Berliner Klasse zu dieser Jahreszeit meist steht (Schuljahr, Ferien und Stoffverteilungspläne eingerechnet).
-- Der Plan geht bis zu einem Wunschdatum. Empfohlen wird ein Zeitraum, bei dem es höchstens 30 Minuten am Tag sind, und der Unterricht, der inzwischen weiterläuft, wird eingerechnet.
-- Ein Einstufungstest lässt überspringen, was schon sitzt. Übersprungene Wörter kommen in den nächsten Tagen zur Wiederholung.
-- Auch frühere Klassen lassen sich nachholen, zum Beispiel für Quereinsteiger.
+**Dein Übungsplan für jedes Fach**
+- Im Unterricht lernst du, hier übst du. Drei Tabs: **Üben**, **Fächer**, **Profil**.
+- **Fächer:** Mathe, Deutsch, Englisch, Französisch, Biologie, Geschichte, Physik, Chemie, Geografie, Politik, Informatik, Kunst, Musik und ein freies Fach. Jedes Fach hat seine Stapel, seine Arbeiten und eine eigene KI-Hilfe.
+- **Stapel erstellen:** Beschreibe, was du brauchst („Zellorganellen und ihre Aufgaben“, 20 Karten), und die KI macht die Karten, auch aus Fotos von Heft oder Arbeitsblatt. Oder schreib sie selbst, eine Karte pro Zeile (Frage – Antwort), auch aus einer Tabelle einfügbar. Vor dem Speichern prüfst und änderst du alles.
+- **Üben:** Die Startseite zeigt, was heute dran ist, über alle Fächer: erst alles Fällige (kurz bevor du es vergessen würdest, geplant mit FSRS), dann neue Karten. Neue Karten kommen zu zweit und werden gleich abgefragt, danach erst mit Auswahl, später aus dem Gedächtnis (Tippen). Lange Antworten wie Definitionen werden nicht getippt, sondern als Karteikarte zum Umdrehen mit Selbstbewertung. Falsche Karten kommen nach ein paar anderen wieder.
+- **Arbeiten:** Trag eine Arbeit mit Datum und den Stapeln ein, die dafür gelernt werden. Die App verteilt die neuen Karten so auf die Tage, dass bis zum Vortag alles einmal gesehen wurde, und zeigt, wie viele Karten schon sitzen. Der letzte Tag bleibt zum Wiederholen frei.
+- **Vokabeln:** Stapel mit Sprache (Französisch, Englisch) lesen vor, bieten Sonderzeichen beim Tippen und fragen auch rückwärts.
+- **Französisch** bringt außerdem fertige Stapel aus dem Kurs mit (Klasse 7 bis 10, nach *À plus!* und *Découvertes*, mit Beispielsätzen und Aufnahmen), ein Wörterbuch und Grammatik zum Nachschlagen. Einheiten, die ihr im Unterricht durchnehmt, fügst du zum Üben hinzu.
 
 **Tests und KI**
 - Kurztests (Deutsch links, Französisch rechts schreiben) direkt aus dem Kurs, ohne KI.
@@ -47,7 +33,7 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 
 **Jeden Tag ein Grund wiederzukommen**
 - Drei Tagesaufgaben, die jeden Tag anders sind, und eine Überraschungs-Truhe, sobald das Tagesziel geschafft ist (meist Münzen, manchmal ein Glückstreffer, selten Serien-Schutz oder ein Geschenk für den Fuchs).
-- Die Blitzrunde: 60 Sekunden, so viele Wörter wie möglich, mit Combo-Faktor bis ×4 und eigenem Rekord.
+- Die Blitzrunde: 60 Sekunden, so viele Karten wie möglich, mit Combo-Faktor bis ×4 und eigenem Rekord.
 - Neue Erfolge, eine geschaffte Einheit („Das kannst du jetzt: …“) und gute Reihen werden gefeiert. Die Töne werden mit jeder richtigen Antwort höher.
 - Alles ohne Strafen: Wer einen Tag auslässt, verpasst nur die Extras dieses Tages.
 

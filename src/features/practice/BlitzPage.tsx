@@ -1,7 +1,8 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { allItems, mathItems } from '../../content'
+import { mathItems } from '../../content'
+import { useItemIndex } from '../review/ReviewPage'
 import { BLITZ_SKILLS, makeMathBlitz } from '../../content/math'
 import type { Level } from '../../content/math/core'
 import { MathText } from '../../components/math/MathText'
@@ -26,16 +27,17 @@ export function BlitzPage() {
   const outfit = useStore((s) => s.outfit)
   const finishBlitz = useStore((s) => s.finishBlitz)
   const math = useStore((s) => s.subject ?? 'fr') === 'math'
+  const index = useItemIndex()
 
   const pool = useMemo(() => {
     // Mathe: nur kurze Kopfrechen-Themen, die schon gelernt sind
     if (math) return BLITZ_SKILLS.filter((id) => cards[id]).flatMap((id) => (mathItems.get(id) ? [mathItems.get(id) as Item] : []))
-    const byId = new Map(allItems.map((i) => [i.id, i]))
+    // Alle Fächer: gelernte Karten mit kurzer Antwort (lange Definitionen passen nicht in eine Blitzfrage)
     return Object.keys(cards).flatMap((id) => {
-      const it = byId.get(id)
-      return it ? [it] : []
+      const it = index.get(id)
+      return it && it.back.length <= 40 && it.front.length <= 70 ? [it] : []
     })
-  }, [cards, math])
+  }, [cards, math, index])
 
   const [phase, setPhase] = useState<Phase>('ready')
   const [q, setQ] = useState<BlitzQuestion | null>(null)
@@ -153,7 +155,7 @@ export function BlitzPage() {
   return (
     <div className="flex h-full flex-col bg-surface">
       <header className="mx-auto flex w-full max-w-2xl items-center gap-3 px-4 py-3">
-        <button type="button" onClick={() => navigate('/practice')} aria-label="Schließen" className="press -ml-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-muted transition-colors hover:text-ink">
+        <button type="button" onClick={() => navigate('/')} aria-label="Schließen" className="press -ml-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-muted transition-colors hover:text-ink">
           <Close size={26} />
         </button>
         {phase === 'play' ? (
@@ -173,7 +175,7 @@ export function BlitzPage() {
           <div className="flex flex-1 flex-col items-center justify-center text-center">
             <Mascot mood="cheer" size={150} pose="full" alive listen outfit={outfit} />
             <h1 className="mt-3 text-3xl font-extrabold">Blitzrunde</h1>
-            <p className="mt-1 max-w-xs text-muted">60 Sekunden. {math ? 'Rechne im Kopf und wähle die richtige Antwort, so schnell du kannst. Mit jeder richtigen Reihe wird der Faktor größer und die Aufgaben werden etwas kniffliger.' : 'Such zu jedem Wort die richtige Antwort, so schnell du kannst. Mit jeder richtigen Reihe wird der Faktor größer.'}</p>
+            <p className="mt-1 max-w-xs text-muted">60 Sekunden. {math ? 'Rechne im Kopf und wähle die richtige Antwort, so schnell du kannst. Mit jeder richtigen Reihe wird der Faktor größer und die Aufgaben werden etwas kniffliger.' : 'Such zu jeder Karte die richtige Antwort, so schnell du kannst. Mit jeder richtigen Reihe wird der Faktor größer.'}</p>
             <ul className="mt-4 grid gap-1 text-sm text-muted">
               <li>Richtig: 10 Punkte, ab 4 in Folge ×2, ab 8 ×3, ab 12 ×4</li>
               <li>Falsch: {BLITZ_PENALTY} Sekunden weniger und die Reihe ist weg</li>
@@ -181,7 +183,7 @@ export function BlitzPage() {
             {best > 0 && <p className="mt-4 rounded-xl bg-gold/20 px-4 py-2 font-semibold text-gold-dark">Dein Rekord: {best} Punkte</p>}
             {tooFew ? (
               <>
-                <p className="mt-5 max-w-xs text-sm text-muted">{math ? 'Dafür kennst du noch zu wenige Rechenthemen. Schließe erst ein, zwei Lektionen ab, dann geht es los.' : 'Dafür kennst du noch zu wenige Wörter. Lerne erst ein, zwei Lektionen, dann geht es los.'}</p>
+                <p className="mt-5 max-w-xs text-sm text-muted">{math ? 'Dafür kennst du noch zu wenige Rechenthemen. Schließe erst ein, zwei Lektionen ab, dann geht es los.' : 'Dafür kennst du noch zu wenige Karten. Übe erst ein paar Karten, dann geht es los.'}</p>
                 <button type="button" className="btn btn-primary press mt-4 w-full sm:w-64" onClick={() => navigate('/')}>
                   Zum Lernpfad
                 </button>
@@ -226,8 +228,8 @@ export function BlitzPage() {
                   transition={{ duration: 0.18, ease: EASE }}
                   className="card mb-4 flex min-h-[7.5rem] flex-col items-center justify-center px-4 py-6 text-center"
                 >
-                  <span className="mb-1 text-xs font-bold uppercase tracking-wide text-muted">{math ? 'Rechne' : q.toFrench ? 'Auf Französisch' : 'Was heißt das?'}</span>
-                  {math ? <MathText className={`font-extrabold leading-snug ${q.prompt.length > 40 ? 'text-xl' : 'text-3xl'}`}>{q.prompt}</MathText> : <span lang={q.toFrench ? 'de' : 'fr'} className="text-3xl font-extrabold leading-tight">{q.prompt}</span>}
+                  <span className="mb-1 text-xs font-bold uppercase tracking-wide text-muted">{math ? 'Rechne' : q.toFrench ? 'Und andersherum' : 'Was ist die Antwort?'}</span>
+                  {math ? <MathText className={`font-extrabold leading-snug ${q.prompt.length > 40 ? 'text-xl' : 'text-3xl'}`}>{q.prompt}</MathText> : <span className={`font-extrabold leading-tight ${q.prompt.length > 40 ? 'text-xl' : 'text-3xl'}`}>{q.prompt}</span>}
                 </motion.div>
               <AnimatePresence>
                 {flash && (
@@ -255,7 +257,6 @@ export function BlitzPage() {
                     type="button"
                     onClick={() => answer(o)}
                     disabled={picked !== null}
-                    lang={math ? undefined : q.toFrench ? 'fr' : 'de'}
                     className={`tile press w-full !justify-start !py-4 text-left ${state}`}
                   >
                     <span className="mr-3 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-2 border-line text-sm font-bold text-muted">{i + 1}</span>
@@ -274,7 +275,7 @@ export function BlitzPage() {
               <Mascot mood="cheer" size={140} pose="full" alive listen outfit={outfit} />
             </motion.div>
             <h1 className="mt-3 text-3xl font-extrabold">{reward.record ? 'Neuer Rekord!' : 'Geschafft!'}</h1>
-            <p className="mt-1 text-muted">{math ? (correct === 1 ? 'Eine Aufgabe' : `${correct} Aufgaben`) : correct === 1 ? 'Ein Wort' : `${correct} Wörter`} richtig in 60 Sekunden.</p>
+            <p className="mt-1 text-muted">{math ? (correct === 1 ? 'Eine Aufgabe' : `${correct} Aufgaben`) : correct === 1 ? 'Eine Karte' : `${correct} Karten`} richtig in 60 Sekunden.</p>
             <div className="mt-5 grid w-full max-w-sm grid-cols-3 gap-3">
               <div className="rounded-2xl border border-gold bg-surface px-2 py-3">
                 <div className="text-2xl font-extrabold text-gold-dark"><CountUp to={score} delay={0.2} /></div>
@@ -297,7 +298,7 @@ export function BlitzPage() {
                 <ul className="grid gap-2">
                   {missed.map((m) => (
                     <li key={m.id} className="card flex items-center justify-between gap-3 px-4 py-2">
-                      <span lang={math ? undefined : 'fr'} className="font-medium">{m.front}</span>
+                      <span className="font-medium">{m.front}</span>
                       <span className="text-right text-sm text-muted">{m.back}</span>
                     </li>
                   ))}

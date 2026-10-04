@@ -152,10 +152,9 @@ export function GrammarTopicPage() {
   const { lessonId = '' } = useParams()
   const lessons = useStore((s) => s.lessons)
   const found = findLesson(lessonId)
-  if (!found?.lesson.explanation) return <Navigate to="/practice?tab=grammar" replace />
+  if (!found?.lesson.explanation) return <Navigate to="/faecher/franzoesisch?tab=nachschlagen" replace />
   const { lesson, unit } = found
   const ex = lesson.explanation!
-  const unlocked = isUnlocked(lesson.id, lessons)
   const done = isLessonDone(lesson, lessons[lesson.id])
   const idx = TOPICS.findIndex((t) => t.lesson.id === lesson.id)
   const prev = idx > 0 ? TOPICS[idx - 1] : null
@@ -164,7 +163,7 @@ export function GrammarTopicPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 lg:py-8">
-      <Link to="/practice?tab=grammar" className="mb-2 press -ml-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-medium text-muted hover:text-ink">
+      <Link to="/faecher/franzoesisch?tab=nachschlagen" className="mb-2 press -ml-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-medium text-muted hover:text-ink">
         <Back size={18} /> Grammatik
       </Link>
 
@@ -218,19 +217,6 @@ export function GrammarTopicPage() {
           </Item>
         )}
 
-        <Item>
-          {unlocked ? (
-            <Link to={`/lesson/${lesson.id}`} className="btn btn-primary btn-shine press mb-8 w-full justify-between !py-4 text-base">
-              <span>{done ? 'Nochmal üben' : 'Dazu üben'}</span>
-              <Right size={18} />
-            </Link>
-          ) : (
-            <p className="mb-8 flex items-start gap-3 rounded-2xl bg-snow p-4 text-sm text-muted">
-              <span className="mt-0.5"><Lock size={18} /></span>
-              <span>Die passende Lektion ist noch gesperrt. Schließe zuerst die vorherigen Lektionen ab, dann kannst du hier direkt üben.</span>
-            </p>
-          )}
-        </Item>
 
         {(prev || next) && (
           <Item>

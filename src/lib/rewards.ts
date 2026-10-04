@@ -50,9 +50,9 @@ const MATH_TEXT: Partial<Record<QuestMetric, (n: number) => string>> = {
 }
 
 const TEXT: Record<QuestMetric, (n: number) => string> = {
-  newWords: (n) => `Lerne ${n} neue Wörter`,
-  practiced: (n) => `Übe ${n} Wörter`,
-  reviewed: (n) => `Wiederhole ${n} Wörter, die du schon kennst`,
+  newWords: (n) => `Lerne ${n} neue Karten`,
+  practiced: (n) => `Übe ${n} Karten`,
+  reviewed: (n) => `Wiederhole ${n} Karten, die du schon kennst`,
   lessons: (n) => (n === 1 ? 'Schließe eine Lektion ab' : `Schließe ${n} Lektionen ab`),
   perfect: () => 'Schaffe eine Lektion mit mindestens 90 %',
   blitz: () => 'Spiele eine Blitzrunde',
@@ -100,12 +100,13 @@ function rng(seed: string): () => number {
  */
 export function pickQuests(day: string, ctx: { knownWords: number }): string[] {
   const r = rng('quests:' + day)
-  const metrics: QuestMetric[] = ['newWords', 'practiced', 'lessons', 'perfect', 'blitz']
+  // Lektionen gibt es nicht mehr: Tagesaufgaben drehen sich um Karten und die Blitzrunde
+  const metrics: QuestMetric[] = ['newWords', 'practiced', 'blitz']
   if (ctx.knownWords >= 8) metrics.push('reviewed')
   const order = metrics.map((m) => ({ m, k: r() })).sort((a, b) => a.k - b.k).map((x) => x.m)
-  const easy: QuestMetric[] = ['lessons', 'newWords', 'practiced']
+  const easy: QuestMetric[] = ['newWords', 'practiced']
   const chosen = order.slice(0, 3)
-  if (!chosen.some((m) => easy.includes(m))) chosen[2] = order.find((m) => easy.includes(m)) ?? 'lessons'
+  if (!chosen.some((m) => easy.includes(m))) chosen[2] = order.find((m) => easy.includes(m)) ?? 'practiced'
   return chosen.map((m) => {
     const t = TARGETS[m]
     // Meist das leichte Ziel, manchmal das etwas höhere

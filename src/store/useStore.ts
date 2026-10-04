@@ -9,10 +9,10 @@ import { achievements as computeAchievements, type AchievementInput } from '../l
 import { addProgress, chestReady, emptyDaily, rollChest, UNIT_CHEST_COINS, type ChestReward, type DailyState } from '../lib/rewards'
 import { goalInfo } from '../lib/xp'
 import { useRewardEvents } from './useRewardEvents'
-import { allUnits, findLesson, isLessonDone, isRegular, itemMeta, mathItems, MATH_COURSE, type Subject } from '../content'
+import { allUnits, findLesson, isLessonDone, isRegular, itemMeta, mathItems, MATH_COURSE, units, type Subject } from '../content'
 import { buy, coinsForSession, itemById, toggleEquip, type Outfit } from '../lib/shop'
 import { MAX_FREEZES, currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
-import type { Item, VocabSet } from '../lib/types'
+import type { Arbeit, DeckLang, Item, VocabSet } from '../lib/types'
 
 export interface LessonRecord {
   count: number
@@ -73,6 +73,20 @@ interface Data {
   chestsOpened: number
   /** Einheiten, deren Truhe am Ende des Pfads schon geöffnet wurde */
   unitChests: string[]
+  /** Klassenarbeiten und Tests mit Termin */
+  arbeiten: Arbeit[]
+  /** Wie viele Übungsrunden bisher geschafft wurden (für Erfolge) */
+  rounds: number
+  /** Einheiten des Französisch-Kurses, die zum Üben hinzugefügt wurden (Reihenfolge = Reihenfolge des Lernens) */
+  addedUnits: string[]
+}
+
+/** Angaben zu einem neuen Stapel */
+export interface DeckMeta {
+  book?: string
+  subject?: string
+  lang?: DeckLang
+  both?: boolean
 }
 
 interface Actions {
@@ -88,8 +102,13 @@ interface Actions {
   finishSession: (r: { xp: number; grades: Record<string, Grade>; lessonId?: string; accuracy: number; /** Mathe: Zahl der gelösten Aufgaben */ answered?: number }) => number
   buyItem: (id: string) => boolean
   equipItem: (id: string) => void
-  addSet: (title: string, items: Omit<Item, 'id'>[], book?: string) => string
-  updateSet: (id: string, patch: { title?: string; items?: Item[]; book?: string }) => void
+  addSet: (title: string, items: Omit<Item, 'id'>[], meta?: string | DeckMeta) => string
+  updateSet: (id: string, patch: { title?: string; items?: Item[]; book?: string; subject?: string; lang?: DeckLang | null; both?: boolean }) => void
+  addArbeit: (a: Omit<Arbeit, 'id'>) => string
+  updateArbeit: (id: string, patch: Partial<Omit<Arbeit, 'id'>>) => void
+  removeArbeit: (id: string) => void
+  /** Kurs-Einheit zum Üben hinzufügen oder wieder entfernen */
+  toggleUnit: (unitId: string) => void
   deleteSet: (id: string) => void
   toggleFavorite: (itemId: string) => void
   markLessonsDone: (lessonIds: string[]) => void
@@ -147,16 +166,20 @@ const initial: Data = {
   blitzBest: 0,
   chestsOpened: 0,
   unitChests: [],
+  arbeiten: [],
+  addedUnits: [],
+  rounds: 0,
 }
 
 const DATA_KEYS = Object.keys(initial) as (keyof Data)[]
 
 /** Die Zahlen, aus denen die Erfolge berechnet werden (wie auf der Profilseite). */
-function achievementInput(s: Pick<Data, 'cards' | 'sets' | 'lessons' | 'xp' | 'xpByDay' | 'dailyGoal'>, streakDays: number): AchievementInput {
+function achievementInput(s: Pick<Data, 'cards' | 'sets' | 'lessons' | 'xp' | 'xpByDay' | 'dailyGoal'> & { rounds?: number }, streakDays: number): AchievementInput {
   const setIds = new Set(s.sets.flatMap((x) => x.items.map((i) => i.id)))
   const known = Object.keys(s.cards).filter((id) => itemMeta.has(id) || mathItems.has(id) || setIds.has(id))
   return {
-    lessons: Object.keys(s.lessons).length,
+    // Runden und (früher) abgeschlossene Lektionen zählen zusammen
+    lessons: (s.rounds ?? 0) + Object.keys(s.lessons).length,
     streak: streakDays,
     xp: s.xp,
     learnedWords: known.length,
@@ -258,7 +281,7 @@ export const useStore = create<Data & Actions>()(
           {
             newWords,
             reviewed: ids.length - newWords,
-            practiced: subject === 'math' ? answered ?? ids.length : ids.length,
+            practiced: answered ?? ids.length,
             lessons: lessonId && accuracy >= 0.7 ? 1 : 0,
             perfect: lessonId && accuracy >= 0.9 ? 1 : 0,
           },
@@ -268,7 +291,7 @@ export const useStore = create<Data & Actions>()(
 
         // Was ist neu? Erfolge, abgeschlossene Einheit, Truhe
         const before = computeAchievements(achievementInput(s, currentStreak(s.streak, now))).filter((x) => x.value >= x.goal).map((x) => x.id)
-        const after = computeAchievements(achievementInput({ ...s, cards, lessons, xp: s.xp + xp, xpByDay: { ...s.xpByDay, [today]: todayBefore + xp } }, nextStreak.count))
+        const after = computeAchievements(achievementInput({ ...s, cards, lessons, rounds: (s.rounds ?? 0) + 1, xp: s.xp + xp, xpByDay: { ...s.xpByDay, [today]: todayBefore + xp } }, nextStreak.count))
         const unit = unitOf(lessonId)
         const regular = unit?.lessons.filter(isRegular) ?? []
         const unitNow = !!unit && regular.length > 0 && regular.every((l) => isLessonDone(l, lessons[l.id])) && !regular.every((l) => isLessonDone(l, s.lessons[l.id]))
@@ -290,6 +313,7 @@ export const useStore = create<Data & Actions>()(
         set({
           cards,
           lessons,
+          rounds: (s.rounds ?? 0) + 1,
           daily: upd.daily,
           xp: s.xp + xp,
           xpByDay: { ...s.xpByDay, [today]: todayBefore + xp },
@@ -311,15 +335,35 @@ export const useStore = create<Data & Actions>()(
 
       equipItem: (id) => set((s) => ({ outfit: toggleEquip(s.outfit ?? {}, s.owned ?? [], id) })),
 
-      addSet: (title, items, book) => {
+      addSet: (title, items, metaIn) => {
+        const meta: DeckMeta = typeof metaIn === 'string' ? { book: metaIn } : (metaIn ?? {})
+        const book = meta.book
         const id = `set-${Date.now().toString(36)}`
         const withIds = items.map((it, i) => ({ ...it, id: `${id}:${i}` }))
-        set((s) => ({ sets: [{ id, title, createdAt: new Date().toISOString(), items: withIds, ...(book?.trim() ? { book: book.trim() } : {}) }, ...s.sets] }))
+        set((s) => ({ sets: [{ id, title, createdAt: new Date().toISOString(), items: withIds, ...(book?.trim() ? { book: book.trim() } : {}), ...(meta.subject ? { subject: meta.subject } : {}), ...(meta.lang ? { lang: meta.lang } : {}), ...(meta.both !== undefined ? { both: meta.both } : {}) }, ...s.sets] }))
         return id
       },
 
       updateSet: (id, patch) =>
-        set((s) => ({ sets: s.sets.map((x) => (x.id === id ? { ...x, ...patch } : x)) })),
+        set((s) => ({
+          sets: s.sets.map((x) => {
+            if (x.id !== id) return x
+            const { lang, ...rest } = patch
+            const next = { ...x, ...rest }
+            if (lang === null) delete next.lang
+            else if (lang) next.lang = lang
+            return next
+          }),
+        })),
+
+      addArbeit: (a) => {
+        const id = `arbeit-${Date.now().toString(36)}`
+        set((s) => ({ arbeiten: [...(s.arbeiten ?? []), { ...a, id }] }))
+        return id
+      },
+      updateArbeit: (id, patch) => set((s) => ({ arbeiten: (s.arbeiten ?? []).map((x) => (x.id === id ? { ...x, ...patch } : x)) })),
+      removeArbeit: (id) => set((s) => ({ arbeiten: (s.arbeiten ?? []).filter((x) => x.id !== id) })),
+      toggleUnit: (unitId) => set((s) => ({ addedUnits: (s.addedUnits ?? []).includes(unitId) ? s.addedUnits.filter((u) => u !== unitId) : [...(s.addedUnits ?? []), unitId] })),
 
       deleteSet: (id) =>
         set((s) => {
@@ -327,7 +371,9 @@ export const useStore = create<Data & Actions>()(
           for (const key of Object.keys(cards)) if (key.startsWith(`${id}:`)) delete cards[key]
           const examDates = { ...s.examDates }
           delete examDates[id]
-          return { sets: s.sets.filter((x) => x.id !== id), cards, examDates }
+          // Gelöschte Stapel verschwinden auch aus den Arbeiten
+          const arbeiten = (s.arbeiten ?? []).map((a) => ({ ...a, deckIds: a.deckIds.filter((d) => d !== id) }))
+          return { sets: s.sets.filter((x) => x.id !== id), cards, examDates, arbeiten }
         }),
 
       toggleFavorite: (itemId) =>
@@ -405,6 +451,12 @@ export const useStore = create<Data & Actions>()(
         const merged = { ...current, ...p } as Data & Actions
         // Der Mathe-Kurs ist ausgeblendet: wer ihn gewählt hatte, landet wieder in Französisch (Fortschritt bleibt erhalten)
         if (!MATH_COURSE && merged.subject === 'math') merged.subject = 'fr'
+        // Stand aus der Zeit mit Lernpfad: Einheiten, aus denen schon Wörter gelernt wurden, bleiben im Üben (sonst würden ihre Wiederholungen verschwinden)
+        if (!Array.isArray((p as { addedUnits?: unknown }).addedUnits)) {
+          const learned = new Set(Object.keys(merged.cards ?? {}))
+          merged.addedUnits = units.filter((u) => u.lessons.some((l) => !l.review && !l.test && l.items.some((i) => learned.has(i.id)))).map((u) => u.id)
+        }
+        if (!Array.isArray(merged.arbeiten)) merged.arbeiten = []
         if (p.coins === undefined) {
           // Stand aus der Zeit vor dem Fuchs-Laden: bisher gesammelte XP zählen rückwirkend als Münzen
           merged.coins = Math.floor(((p.xp as number) ?? 0) / 2)
