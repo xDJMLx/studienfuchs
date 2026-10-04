@@ -82,7 +82,7 @@ export function WeekPlanner({ arbeiten, weeks = 2, onAdd, onOpen, pager = true }
                               style={{ background: s?.c ?? '#868a95', boxShadow: `0 2px 0 ${s?.s ?? '#5f636d'}`, opacity: a.done ? 0.55 : 1 }}
                             >
                               <HelpSubjectIcon id={a.subject} ink={s?.c ?? '#868a95'} size={18} />
-                              <span className="w-full text-center text-[9px] font-extrabold leading-none tracking-tight">{shortKind(a)}</span>
+                              <span className="w-full text-center text-[10px] font-extrabold leading-none tracking-tight">{shortKind(a)}</span>
                             </button>
                           )
                         })}

@@ -19,13 +19,13 @@
   --snow: #f4f5f7;
   --line: #e5e6eb;
   --ink: #23252c;
-  --muted: #868a95;
+  --muted: #666a75;
 
   --brand: #ff7a1a;
   --brand-text: #c4530a;
   --brand-soft: #fff1e6;
-  --shade-brand: #a83c03;
-  --brand-strong: #d94f06;
+  --shade-brand: #9c3703;
+  --brand-strong: #cf4a05;
   --on-brand: #ffffff;
 
   --sky: #1e96fa;
@@ -52,7 +52,7 @@
   --shade-bad: #cf2f39;
 
   --gold: #ffbf1f;
-  --gold-text: #a87300;
+  --gold-text: #8f6200;
   --shade-gold: #df9f00;
   --flame: #ff7a1a;
   --flame-text: #d9590a;
@@ -76,8 +76,8 @@
   --brand: #ff8a2a;
   --brand-text: #ffab66;
   --brand-soft: #3a2617;
-  --shade-brand: #a83c03;
-  --brand-strong: #d94f06;
+  --shade-brand: #9c3703;
+  --brand-strong: #cf4a05;
   --on-brand: #ffffff;
 
   --sky: #3aa4ff;

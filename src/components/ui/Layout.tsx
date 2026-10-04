@@ -182,7 +182,7 @@ function TopBar({ className = '' }: { className?: string }) {
     <header className={`flex items-center justify-between border-b-2 border-line bg-page px-3 py-1.5 ${className}`}>
       <Link to="/" aria-label="Zur Startseite" className="press flex items-center gap-2 rounded-xl px-1.5 py-1">
         <Mascot size={32} />
-        <span className="hidden text-[19px] min-[360px]:inline font-black tracking-tight text-brand">Studienfuchs</span>
+        <span className="hidden text-[19px] min-[360px]:inline font-black tracking-tight text-brand-strong">Studienfuchs</span>
       </Link>
       <div className="flex items-center gap-0.5">
         <button type="button" onClick={() => setStreakOpen(true)} className={`${stat} ${lit ? 'text-fox-dark' : 'text-muted'}`} aria-label={`${s} Tage Serie${lit ? ', heute gesichert' : ', heute noch nicht gelernt'}`} title="Serie">
