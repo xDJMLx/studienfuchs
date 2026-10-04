@@ -7,6 +7,16 @@ export interface AchievementInput {
   masteredWords: number
   sets: number
   goalDays: number
+  /** Eigene Stapel */
+  decks?: number
+  /** Eingetragene Arbeiten */
+  arbeiten?: number
+  /** In wie vielen Fächern schon geübt wurde */
+  subjectsPracticed?: number
+  /** Stapel mit drei Sternen (mindestens fünf Karten) */
+  fullStars?: number
+  /** Höchstes Fach-Level */
+  maxLevel?: number
 }
 
 export interface Achievement {
@@ -38,6 +48,11 @@ export function achievements(i: AchievementInput): Achievement[] {
     a('mastered50', 'Sitzt fest', 'Festige 50 Karten im Langzeitgedächtnis.', i.masteredWords, 50),
     a('xp1000', '1000 XP', 'Sammle insgesamt 1000 XP.', i.xp, 1000),
     a('goal5', 'Zielstrebig', 'Erreiche an 5 Tagen dein Tagesziel.', i.goalDays, 5),
-    a('set', 'Eigener Stoff', 'Erstelle ein Set aus deinem Schulbuch.', i.sets, 1),
+    a('set', 'Eigener Stoff', 'Erstelle deinen ersten Stapel.', i.decks ?? i.sets, 1),
+    a('decks5', 'Sammler', 'Erstelle 5 Stapel.', i.decks ?? i.sets, 5),
+    a('arbeit1', 'Gut geplant', 'Trag deine erste Arbeit in den Kalender ein.', i.arbeiten ?? 0, 1),
+    a('subjects3', 'Allrounder', 'Übe in 3 verschiedenen Fächern.', i.subjectsPracticed ?? 0, 3),
+    a('star3', 'Gemeistert', 'Bring einen Stapel auf drei Sterne.', i.fullStars ?? 0, 1),
+    a('level5', 'Profi-Status', 'Erreiche in einem Fach Level 5.', i.maxLevel ?? 1, 5),
   ]
 }

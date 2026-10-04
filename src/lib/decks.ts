@@ -1,5 +1,5 @@
 import { units } from '../content'
-import { isDue, masteryOf, type SrsCard } from './srs'
+import { isDue, isSolid, type SrsCard } from './srs'
 import type { Arbeit, DeckLang, Item, VocabSet } from './types'
 
 /** Kennung des Fachs Französisch (Sets ohne Fachangabe gehören dazu). */
@@ -96,7 +96,7 @@ export const daysUntil = (arbeit: Arbeit, now = new Date()): number => dayDiff(n
 export function readiness(arbeit: Arbeit, decks: Deck[], cards: Record<string, SrsCard>): { total: number; seen: number; solid: number; pct: number } {
   const refs = cardRefs(decks.filter((d) => arbeit.deckIds.includes(d.id)))
   const seen = refs.filter((r) => cards[r.item.id]?.reps).length
-  const solid = refs.filter((r) => masteryOf(cards[r.item.id]) === 2 || (cards[r.item.id]?.reps && cards[r.item.id].stability >= 3)).length
+  const solid = refs.filter((r) => isSolid(cards[r.item.id])).length
   return { total: refs.length, seen, solid, pct: refs.length ? Math.round((solid / refs.length) * 100) : 0 }
 }
 

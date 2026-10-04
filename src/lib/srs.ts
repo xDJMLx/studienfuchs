@@ -38,6 +38,12 @@ export function isDue(card: SrsCard | undefined, now = new Date()): boolean {
   return new Date(card.due).getTime() <= now.getTime()
 }
 
+/** "Sitzt": gefestigt, oder mindestens einmal geübt und schon über mehrere Tage stabil. Grundlage für Sterne, Level und Arbeits-Fortschritt. */
+export function isSolid(card: SrsCard | undefined): boolean {
+  if (!card || !card.reps) return false
+  return masteryOf(card) === 2 || card.stability >= 3
+}
+
 /** neu → lernend → gefestigt; steuert, wie schwer die Übungen werden. */
 export function masteryOf(card: SrsCard | undefined): Mastery {
   if (!card || card.reps === 0) return 0

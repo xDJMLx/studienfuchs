@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
-import { Back, Cards, Pencil, Trash, Trophy } from '../../components/ui/Icons'
+import { Back, Cards, Pencil, Star, Trash, Trophy } from '../../components/ui/Icons'
 import { Item, Stagger } from '../../components/ui/motion'
 import { allCourseDecks, ownDeck, planToday } from '../../lib/decks'
+import { deckStars } from '../../lib/progress'
 import { masteryOf } from '../../lib/srs'
 import { helpSubject } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
@@ -67,7 +68,14 @@ export function DeckPage() {
           <Back size={18} /> {sub?.name ?? 'Fächer'}
         </Link>
         <h1 className="page-title">{deck.title}</h1>
-        <p className="mb-5 mt-1 text-muted">{deck.items.length} Karten{deck.sub ? ` · ${deck.sub}` : ''}</p>
+        <p className="mb-5 mt-1 flex flex-wrap items-center gap-x-2 text-muted">
+          <span>{deck.items.length} Karten{deck.sub ? ` · ${deck.sub}` : ''}</span>
+          <span className="flex text-gold" role="img" aria-label={`${deckStars(deck, cards)} von 3 Sternen`}>
+            {[0, 1, 2].map((i) => (
+              <Star key={i} size={18} className={i < deckStars(deck, cards) ? '' : 'opacity-25'} />
+            ))}
+          </span>
+        </p>
       </Item>
 
       {isCourse && (

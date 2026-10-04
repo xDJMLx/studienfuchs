@@ -55,3 +55,77 @@ describe('Stapel im Speicher', () => {
     expect(st.daily?.stats.newWords).toBe(2)
   })
 })
+
+import { cardRefs, allCourseDecks } from '../lib/decks'
+import { generateRound } from '../lib/roundExercises'
+import { ARBEIT_COINS } from './useStore'
+import { masteryOf } from '../lib/srs'
+
+describe('Fächer, Arbeiten abhaken, Tagesaufgabe Abwechslung', () => {
+  it('Fächer lassen sich an- und abwählen', () => {
+    useStore.getState().toggleSubject('biologie')
+    useStore.getState().toggleSubject('mathe')
+    expect(useStore.getState().mySubjects).toEqual(['biologie', 'mathe'])
+    useStore.getState().toggleSubject('biologie')
+    expect(useStore.getState().mySubjects).toEqual(['mathe'])
+  })
+
+  it('eine Arbeit abhaken gibt einmal Münzen, mit oder ohne Note', () => {
+    const id = useStore.getState().addArbeit({ subject: 'biologie', title: 'Bio', date: '2020-01-01', deckIds: [] })
+    const before = useStore.getState().coins
+    expect(useStore.getState().finishArbeit(id, 4)).toBe(ARBEIT_COINS)
+    expect(useStore.getState().coins).toBe(before + ARBEIT_COINS)
+    expect(useStore.getState().arbeiten[0]).toMatchObject({ done: true, note: 4 })
+    expect(useStore.getState().finishArbeit(id, 1)).toBe(0)
+  })
+
+  it('Meilenstein-Münzen werden gutgeschrieben, nie negativ', () => {
+    useStore.getState().addCoins(25)
+    useStore.getState().addCoins(-10)
+    expect(useStore.getState().coins).toBe(25)
+  })
+
+  it('Üben in mehreren Fächern zählt je neues Fach einmal', () => {
+    const st = useStore.getState()
+    st.toggleSubject('biologie')
+    st.toggleSubject('mathe')
+    st.ensureDaily()
+    useStore.setState((s) => ({ daily: { ...s.daily!, quests: ['variety:2', 'practiced:10', 'blitz:1'] } }))
+    const a = st.addSet('A', [{ front: 'a', back: 'b' }], { subject: 'biologie' })
+    const m = st.addSet('M', [{ front: 'c', back: 'd' }], { subject: 'mathe' })
+    const ia = useStore.getState().sets.find((x) => x.id === a)!.items[0].id
+    const im = useStore.getState().sets.find((x) => x.id === m)!.items[0].id
+    useStore.getState().finishSession({ xp: 5, grades: { [ia]: 'good' }, accuracy: 1, answered: 3, subjects: ['biologie'] })
+    expect(useStore.getState().daily?.stats.variety).toBe(1)
+    useStore.getState().finishSession({ xp: 5, grades: { [ia]: 'good' }, accuracy: 1, answered: 3, subjects: ['biologie'] })
+    expect(useStore.getState().daily?.stats.variety).toBe(1)
+    useStore.getState().finishSession({ xp: 5, grades: { [im]: 'good' }, accuracy: 1, answered: 3, subjects: ['mathe'] })
+    expect(useStore.getState().daily?.stats.variety).toBe(2)
+    expect(useStore.getState().daily?.claimed).toContain('variety:2')
+  })
+})
+
+describe('Runde mit Französisch-Karten nutzt die volle Übungsfolge', () => {
+  it('Kurs-Stapel: Erkennen, Zeigen, Tippen … mit Karten aus dem Stapel', () => {
+    const deck = allCourseDecks()[0]
+    const refs = cardRefs([deck]).slice(0, 8)
+    const ex = generateRound({ refs, pool: cardRefs([deck]), mastery: () => 0, allowListen: false })
+    const kinds = new Set(ex.map((e) => e.kind))
+    expect(kinds.has('teach')).toBe(true)
+    expect(ex.length).toBeGreaterThan(8)
+    // Nichts aus dem Nichts: Jede Aufgabe gehört zu einer Karte der Auswahl
+    const ids = new Set(refs.map((r) => r.item.id))
+    for (const e of ex) if (e.kind !== 'match') expect(ids.has(e.itemId), e.id).toBe(true)
+    expect(masteryOf(undefined)).toBe(0)
+  })
+
+  it('Mischung aus Französisch und Biologie: beide Arten kommen vor, Sprach-Aufgaben nur bei Französisch', () => {
+    const deck = allCourseDecks()[0]
+    const bio = cardRefs([{ id: 'b', title: 'b', subject: 'biologie', both: false, kind: 'own', items: Array.from({ length: 6 }, (_, i) => ({ id: `b${i}`, front: `F${i}`, back: `B${i}` })) }])
+    const fr = cardRefs([deck]).slice(0, 4)
+    const ex = generateRound({ refs: [...fr, ...bio.slice(0, 4)], pool: [...cardRefs([deck]), ...bio], mastery: () => 0 })
+    expect(ex.some((e) => e.kind === 'qchoice')).toBe(true)
+    expect(ex.some((e) => e.kind === 'choice' || e.kind === 'teach')).toBe(true)
+    for (const e of ex) if (e.kind === 'listenChoice' || e.kind === 'listen') expect(String(e.itemId).startsWith('b')).toBe(false)
+  })
+})

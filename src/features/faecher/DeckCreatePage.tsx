@@ -34,7 +34,7 @@ export function DeckCreatePage() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const addSet = useStore((s) => s.addSet)
-  const [subject, setSubject] = useState(() => (helpSubject(params.get('fach') ?? '') ? (params.get('fach') as string) : HELP_SUBJECTS[0].id))
+  const [subject, setSubject] = useState(() => (helpSubject(params.get('fach') ?? '') ? (params.get('fach') as string) : (useStore.getState().mySubjects ?? []).find((id) => helpSubject(id)) ?? HELP_SUBJECTS[0].id))
   const sub = helpSubject(subject)
   const [way, setWay] = useState<Way>('ai')
   const [request, setRequest] = useState('')

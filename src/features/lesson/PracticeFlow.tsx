@@ -205,6 +205,7 @@ export function ResultScreen({
   lessonId,
   math = false,
   cards = false,
+  extra,
   onMore,
   onRetry,
   onDone,
@@ -213,6 +214,8 @@ export function ResultScreen({
   math?: boolean
   /** Karten-Durchgang (statt Lektion): andere Überschriften und "Noch eine Runde" */
   cards?: boolean
+  /** Zusätzlicher Inhalt unter den Zahlen (z. B. "Das hat sich getan") */
+  extra?: React.ReactNode
   onMore?: () => void
   title: string
   outcome: { result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number; streakUp?: boolean }
@@ -320,6 +323,7 @@ export function ResultScreen({
           <Stat tone="good" label="Richtig" delay={0.38}><CountUp to={pct} suffix=" %" delay={0.48} /></Stat>
           <Stat tone="fox" icon={<Flame size={22} />} label="Serie" delay={0.46}><CountUp to={streak} delay={0.56} /></Stat>
         </div>
+        {extra}
         {streakUp && streak > 0 && (
           <motion.div
             initial={reduce ? false : { opacity: 0, scale: 0.85, y: 14 }}

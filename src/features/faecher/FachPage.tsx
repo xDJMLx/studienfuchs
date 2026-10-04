@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'react'
 import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { Segmented } from '../../components/ui/controls'
-import { Back, Check, Plus, Right, Sparkle } from '../../components/ui/Icons'
+import { Back, Check, Plus, Right, Sparkle, Star } from '../../components/ui/Icons'
 import { Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { activeDecks, allCourseDecks, daysUntil, FRENCH, ownDeck, planToday, readiness } from '../../lib/decks'
+import { deckStars, levelOfSolid, subjectStats } from '../../lib/progress'
 import { masteryOf } from '../../lib/srs'
 import { helpSubject } from '../../lib/subjects'
 import type { Arbeit } from '../../lib/types'
@@ -26,6 +27,8 @@ export function FachPage() {
   const arbeiten = useStore((s) => s.arbeiten)
   const cards = useStore((s) => s.cards)
   const toggleUnit = useStore((s) => s.toggleUnit)
+  const mySubjects = useStore((s) => s.mySubjects)
+  const toggleSubject = useStore((s) => s.toggleSubject)
   const [sheet, setSheet] = useState<{ arbeit?: Arbeit } | null>(null)
 
   const isFrench = subjectId === FRENCH
@@ -35,6 +38,9 @@ export function FachPage() {
   const plan = useMemo(() => planToday(allActive.filter((d) => d.subject === subjectId), arbeiten ?? [], cards), [allActive, subjectId, arbeiten, cards])
   const mine = useMemo(() => (arbeiten ?? []).filter((a) => a.subject === subjectId).map((a) => ({ a, days: daysUntil(a), r: readiness(a, allActive, cards) })).sort((x, y) => x.days - y.days), [arbeiten, subjectId, allActive, cards])
   if (!subject) return <Navigate to="/faecher" replace />
+  const stat = subjectStats(allActive, cards)[subjectId]
+  const lv = levelOfSolid(stat?.solid ?? 0)
+  const isMine = (mySubjects ?? []).includes(subjectId)
 
   const course = isFrench ? allCourseDecks() : []
   const grades = [...new Set(course.map((d) => d.sub?.split(' ')[1]))].filter(Boolean) as string[]
@@ -57,6 +63,16 @@ export function FachPage() {
             <h1 className="page-title">{subject.name}</h1>
             <p className="text-sm text-muted">{subject.blurb}</p>
           </div>
+        </div>
+        <div className="mb-5 rounded-2xl border-2 border-line bg-surface px-3.5 py-3">
+          <div className="flex items-center justify-between gap-2">
+            <span className="font-black">Level {lv.level} · {lv.name}</span>
+            <span className="text-sm font-bold text-muted">{stat ? `${stat.solid} von ${stat.total} Karten sitzen` : 'noch keine Karten'}</span>
+          </div>
+          <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-line" role="progressbar" aria-valuenow={Math.round(lv.pct * 100)} aria-valuemin={0} aria-valuemax={100} aria-label="Fortschritt zum nächsten Level">
+            <div className="h-full rounded-full transition-[width] duration-500" style={{ width: `${Math.max(3, Math.round(lv.pct * 100))}%`, background: subject.c }} />
+          </div>
+          <p className="mt-1 text-xs font-bold text-muted">{lv.next ? `Noch ${lv.toNext} ${lv.toNext === 1 ? 'Karte' : 'Karten'} bis ${lv.next}` : 'Höchstes Level erreicht'}</p>
         </div>
       </Item>
 
@@ -117,11 +133,19 @@ export function FachPage() {
                   const due = d.items.filter((i) => cards[i.id] && new Date(cards[i.id].due) <= new Date()).length
                   const fresh = d.items.filter((i) => !cards[i.id]?.reps).length
                   const pct = strength(d.items)
+                  const stars = deckStars(d, cards)
                   return (
                     <ItemLi key={d.id}>
                       <Link to={`/stapel/${d.id}`} className="card press flex items-center gap-3 p-3.5">
                         <div className="min-w-0 flex-1">
-                          <p className="truncate font-extrabold leading-tight">{d.title}</p>
+                          <p className="flex items-center gap-2 font-extrabold leading-tight">
+                            <span className="truncate">{d.title}</span>
+                            <span className="flex shrink-0 text-gold" aria-label={`${stars} von 3 Sternen`}>
+                              {[0, 1, 2].map((i) => (
+                                <Star key={i} size={14} className={i < stars ? '' : 'opacity-25'} />
+                              ))}
+                            </span>
+                          </p>
                           <p className="text-sm text-muted">{d.items.length} Karten{due > 0 ? ` · ${due} fällig` : ''}{fresh > 0 ? ` · ${fresh} neu` : ''}</p>
                           <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-line"><div className="h-full rounded-full bg-good" style={{ width: `${pct}%` }} /></div>
                         </div>
@@ -197,6 +221,27 @@ export function FachPage() {
             )}
           </Item>
 
+          {isFrench && (
+            <Item>
+              <h2 className="mb-2 text-lg font-extrabold">Mehr für Französisch</h2>
+              <div className="mb-5 grid gap-2.5">
+                {[
+                  { to: '/speak?scope=learned', title: 'Sprechtraining', text: 'Wörter nachsprechen, mit Lautschule.' },
+                  { to: '/exam/new', title: 'Test oder Klassenarbeit von der KI', text: 'Kurztest aus deinen Karten oder eine ganze Arbeit.' },
+                  { to: '/books', title: 'Bücher und Buchseiten', text: 'Seiten aus deinem Schulbuch ablegen, die KI kennt sie dann.' },
+                ].map((x) => (
+                  <Link key={x.to} to={x.to} className="card press flex items-center gap-3 p-3.5">
+                    <span className="min-w-0 flex-1">
+                      <span className="block font-extrabold">{x.title}</span>
+                      <span className="block text-sm text-muted">{x.text}</span>
+                    </span>
+                    <Right size={16} className="shrink-0 text-muted" />
+                  </Link>
+                ))}
+              </div>
+            </Item>
+          )}
+
           <Item>
             <Link to={`/faecher/${subjectId}/ki`} className="card lift group flex items-center gap-4 p-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-violet-soft text-violet-dark"><Sparkle size={22} /></span>
@@ -208,6 +253,14 @@ export function FachPage() {
             </Link>
           </Item>
         </>
+      )}
+
+      {isMine && own.length === 0 && !isFrench && (
+        <Item>
+          <button type="button" className="press mt-6 rounded-xl px-2 py-2 text-sm font-semibold text-muted hover:text-bad-dark" onClick={() => toggleSubject(subjectId)}>
+            Fach aus meiner Liste entfernen
+          </button>
+        </Item>
       )}
 
       <ArbeitSheet open={!!sheet} onClose={() => setSheet(null)} subjectId={subjectId} arbeit={sheet?.arbeit} />
@@ -231,13 +284,6 @@ function NachschlagenTab() {
         ]}
       />
       {part === 'woerter' ? <WordsPage embedded /> : <GrammarPage embedded />}
-      <Link to="/exam/new" className="card lift mt-5 flex items-center gap-4 p-4">
-        <span className="min-w-0 flex-1">
-          <span className="block font-extrabold">Test oder Klassenarbeit von der KI</span>
-          <span className="block text-sm text-muted">Kurztest aus deinen Karten oder eine ganze Arbeit mit Hören, Wortschatz, Grammatik und Text.</span>
-        </span>
-        <Right size={16} className="shrink-0 text-muted" />
-      </Link>
     </Item>
   )
 }

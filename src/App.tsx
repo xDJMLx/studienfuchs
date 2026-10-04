@@ -47,6 +47,7 @@ function lazyPage<K extends string>(load: () => Promise<Record<K, ComponentType>
 
 const GrammarTopicPage = lazyPage(() => import('./features/grammar/GrammarPage'), 'GrammarTopicPage')
 const UebenPlay = lazyPage(() => import('./features/ueben/CardFlow'), 'UebenPlay')
+const KalenderPage = lazyPage(() => import('./features/kalender/KalenderPage'), 'KalenderPage')
 const FachPage = lazyPage(() => import('./features/faecher/FachPage'), 'FachPage')
 const DeckPage = lazyPage(() => import('./features/faecher/DeckPage'), 'DeckPage')
 const DeckCreatePage = lazyPage(() => import('./features/faecher/DeckCreatePage'), 'DeckCreatePage')
@@ -89,6 +90,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/placement', 'Einstufungstest'],
   ['/catchup', 'Aufholen'],
   ['/faecher', 'Fächer'],
+  ['/kalender', 'Kalender'],
   ['/stapel', 'Stapel'],
   ['/ueben/los', 'Üben'],
   ['/books', 'Bücher'],
@@ -153,6 +155,7 @@ export default function App() {
             <Route index element={<UebenPage />} />
             <Route path="review" element={<ReviewPage />} />
             <Route path="faecher" element={<FaecherPage />} />
+            <Route path="kalender" element={<KalenderPage />} />
             <Route path="faecher/:subjectId" element={<FachPage />} />
             <Route path="faecher/:subjectId/ki" element={<CoachPage />} />
             <Route path="stapel/neu" element={<DeckCreatePage />} />

@@ -1,84 +1,144 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Sheet } from '../../components/ui/Sheet'
-import { allCourseDecks, FRENCH, ownDeck, type Deck } from '../../lib/decks'
-import { HELP_SUBJECTS } from '../../lib/subjects'
-import type { Arbeit } from '../../lib/types'
+import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
+import { dateKey, KINDS, longDay, quickDates } from '../../lib/calendar'
+import { allCourseDecks, cardRefs, FRENCH, ownDeck, type Deck } from '../../lib/decks'
+import { helpSubject, HELP_SUBJECTS } from '../../lib/subjects'
+import type { Arbeit, ArbeitKind } from '../../lib/types'
 import { useStore } from '../../store/useStore'
 
 const field = 'w-full rounded-xl border-2 border-line bg-snow px-3 py-2.5 font-semibold outline-none transition-colors focus:border-sky'
 
-const today = () => {
-  const d = new Date()
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-}
-
-/** Arbeit eintragen oder ändern: Fach, Titel, Termin und die Stapel, die dafür gelernt werden. */
-export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId }: { open: boolean; onClose: () => void; subjectId?: string; arbeit?: Arbeit; presetDeckId?: string }) {
-  const { sets, addedUnits, addArbeit, updateArbeit, removeArbeit } = useStore()
-  const [subject, setSubject] = useState(subjectId ?? arbeit?.subject ?? HELP_SUBJECTS[0].id)
+/**
+ * Arbeit, Test oder anderen Termin eintragen oder ändern: Art, Fach, Tag, Stapel.
+ * Unten steht gleich, was das für die Tage bis dahin bedeutet.
+ */
+export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, date: presetDate }: { open: boolean; onClose: () => void; subjectId?: string; arbeit?: Arbeit; presetDeckId?: string; date?: string }) {
+  const { sets, addedUnits, mySubjects, cards, addArbeit, updateArbeit, removeArbeit } = useStore()
+  const firstSubject = subjectId ?? arbeit?.subject ?? mySubjects?.[0] ?? HELP_SUBJECTS[0].id
+  const [kind, setKind] = useState<ArbeitKind>(arbeit?.kind ?? 'klassenarbeit')
+  const [subject, setSubject] = useState(firstSubject)
   const [title, setTitle] = useState(arbeit?.title ?? '')
-  const [date, setDate] = useState(arbeit?.date ?? '')
+  const [date, setDate] = useState(arbeit?.date ?? presetDate ?? '')
   const [deckIds, setDeckIds] = useState<string[]>(arbeit?.deckIds ?? (presetDeckId ? [presetDeckId] : []))
 
   // Beim Öffnen frisch starten (oder die gewählte Arbeit laden)
   useEffect(() => {
     if (!open) return
-    setSubject(subjectId ?? arbeit?.subject ?? HELP_SUBJECTS[0].id)
+    setKind(arbeit?.kind ?? 'klassenarbeit')
+    setSubject(subjectId ?? arbeit?.subject ?? mySubjects?.[0] ?? HELP_SUBJECTS[0].id)
     setTitle(arbeit?.title ?? '')
-    setDate(arbeit?.date ?? '')
+    setDate(arbeit?.date ?? presetDate ?? '')
     setDeckIds(arbeit?.deckIds ?? (presetDeckId ? [presetDeckId] : []))
-  }, [open, subjectId, arbeit, presetDeckId])
+    // mySubjects bewusst nicht als Abhängigkeit: Das Blatt soll beim Öffnen starten, nicht bei jeder Änderung
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, subjectId, arbeit, presetDeckId, presetDate])
 
-  // Wählbar: eigene Stapel des Fachs; bei Französisch auch Kurs-Einheiten
+  // Wählbar: eigene Stapel des Fachs; bei Französisch auch hinzugefügte Kurs-Einheiten
   const choices: Deck[] = useMemo(() => {
     const own = sets.map(ownDeck).filter((d) => d.subject === subject)
     const course = subject === FRENCH ? allCourseDecks().filter((d) => (addedUnits ?? []).includes(d.id.slice(5))) : []
     return [...own, ...course]
   }, [sets, addedUnits, subject])
 
-  const subjectName = HELP_SUBJECTS.find((s) => s.id === subject)?.name ?? ''
+  const sub = helpSubject(subject)
+  const today = dateKey(new Date())
   const valid = date !== '' && deckIds.length > 0
   const toggle = (id: string) => setDeckIds((l) => (l.includes(id) ? l.filter((x) => x !== id) : [...l, id]))
+  const subjects = useMemo(() => {
+    // Eigene Fächer zuerst, danach die übrigen
+    const mine = (mySubjects ?? []).filter((id) => helpSubject(id))
+    return [...mine.map((id) => helpSubject(id)!), ...HELP_SUBJECTS.filter((s) => !mine.includes(s.id))]
+  }, [mySubjects])
+
+  // Was bedeutet das für die Tage bis dahin?
+  const plan = useMemo(() => {
+    if (!date || deckIds.length === 0) return null
+    const refs = cardRefs(choices.filter((d) => deckIds.includes(d.id)))
+    const unseen = refs.filter((r) => !cards[r.item.id]?.reps).length
+    const days = Math.round((new Date(date + 'T12:00:00').getTime() - new Date(today + 'T12:00:00').getTime()) / 86_400_000)
+    return { total: refs.length, unseen, days, perDay: days <= 1 ? unseen : Math.ceil(unseen / Math.max(1, days - 1)) }
+  }, [date, deckIds, choices, cards, today])
 
   const save = () => {
-    const data = { subject, title: title.trim() || `${subjectName}-Arbeit`, date, deckIds }
+    const kindName = KINDS.find((k) => k.id === kind)?.label ?? 'Arbeit'
+    const data = { subject, kind, title: title.trim() || `${sub?.name ?? ''}-${kindName}`.replace(/^-/, ''), date, deckIds }
     if (arbeit) updateArbeit(arbeit.id, data)
     else addArbeit(data)
     onClose()
   }
 
   return (
-    <Sheet open={open} onClose={onClose} title={arbeit ? 'Arbeit bearbeiten' : 'Arbeit eintragen'}>
-      <div className="grid gap-4">
-        {!subjectId && !arbeit && (
-          <label className="grid gap-1.5 text-sm font-bold text-muted">
-            Fach
-            <select
-              className={field}
-              value={subject}
-              onChange={(e) => {
-                setSubject(e.target.value)
-                setDeckIds([])
-              }}
-            >
-              {HELP_SUBJECTS.map((s) => (
-                <option key={s.id} value={s.id}>{s.name}</option>
-              ))}
-            </select>
-          </label>
+    <Sheet open={open} onClose={onClose} title={arbeit ? 'Termin bearbeiten' : 'Arbeit eintragen'}>
+      <div className="grid gap-5">
+        <div>
+          <p className="mb-1.5 text-sm font-bold text-muted">Was steht an?</p>
+          <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Art des Termins">
+            {KINDS.map((k) => (
+              <button key={k.id} type="button" role="radio" aria-checked={kind === k.id} onClick={() => setKind(k.id)} className={`chip ${kind === k.id ? 'chip-on' : ''}`}>
+                {k.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {!subjectId && !arbeit?.subject && (
+          <div>
+            <p className="mb-1.5 text-sm font-bold text-muted">In welchem Fach?</p>
+            <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label="Fach">
+              {subjects.map((s) => {
+                const on = subject === s.id
+                return (
+                  <button
+                    key={s.id}
+                    type="button"
+                    role="radio"
+                    aria-checked={on}
+                    onClick={() => {
+                      setSubject(s.id)
+                      setDeckIds([])
+                    }}
+                    className={`press flex flex-col items-center gap-1 rounded-2xl border-2 px-1 py-2 text-center transition-colors ${on ? 'border-sky bg-sky-soft' : 'border-line bg-surface'}`}
+                  >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: s.c }}>
+                      <HelpSubjectIcon id={s.id} ink={s.c} size={22} />
+                    </span>
+                    <span className="max-w-full truncate text-[12px] font-extrabold">{s.name}</span>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
         )}
+
+        <div>
+          <p className="mb-1.5 text-sm font-bold text-muted">Wann?</p>
+          <div className="mb-2 flex flex-wrap gap-2">
+            {quickDates().map((q) => (
+              <button key={q.key} type="button" onClick={() => setDate(q.key)} className={`chip ${date === q.key ? 'chip-on' : ''}`}>
+                {q.label}
+              </button>
+            ))}
+          </div>
+          <input type="date" aria-label="Datum" className={field} value={date} min={today} onChange={(e) => setDate(e.target.value)} />
+          {date && <p className="mt-1.5 text-sm font-extrabold text-brand-dark">{longDay(date)}</p>}
+        </div>
+
         <label className="grid gap-1.5 text-sm font-bold text-muted">
           Name (optional)
-          <input className={field} value={title} onChange={(e) => setTitle(e.target.value)} placeholder={`${subjectName}-Arbeit`} maxLength={60} />
+          <input className={field} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="z. B. Genetik" maxLength={60} />
         </label>
-        <label className="grid gap-1.5 text-sm font-bold text-muted">
-          Wann ist die Arbeit?
-          <input type="date" className={field} value={date} min={today()} onChange={(e) => setDate(e.target.value)} />
-        </label>
+
         <div>
           <p className="mb-1.5 text-sm font-bold text-muted">Welche Stapel gehören dazu?</p>
           {choices.length === 0 ? (
-            <p className="rounded-xl bg-snow p-3 text-sm text-muted">In {subjectName} gibt es noch keine Stapel. Erstelle zuerst einen Stapel, dann kannst du ihn hier auswählen.</p>
+            <p className="rounded-xl bg-snow p-3 text-sm text-muted">
+              In {sub?.name} gibt es noch keine Stapel.{' '}
+              <Link to={`/stapel/neu?fach=${subject}`} onClick={onClose} className="font-extrabold text-sky-dark underline">
+                Stapel erstellen
+              </Link>
+            </p>
           ) : (
             <ul className="grid gap-2">
               {choices.map((d) => {
@@ -98,10 +158,20 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId }: 
             </ul>
           )}
         </div>
-        <p className="rounded-xl bg-snow p-3 text-sm text-muted">Die App verteilt die Karten so auf die Tage, dass du alles rechtzeitig gesehen hast. Der letzte Tag bleibt zum Wiederholen frei.</p>
+
+        {plan && (
+          <p className="rounded-xl bg-good-soft p-3 text-sm font-semibold text-good-dark" role="status">
+            {plan.days <= 0
+              ? `Das ist heute: ${plan.total} Karten, ${plan.unseen} davon noch neu. Heute zählt Wiederholen.`
+              : plan.unseen === 0
+                ? `Alle ${plan.total} Karten hast du schon gesehen. Die App wiederholt sie rechtzeitig vor dem Termin.`
+                : `Noch ${plan.unseen} neue Karten in ${plan.days} ${plan.days === 1 ? 'Tag' : 'Tagen'}: ca. ${plan.perDay} neue pro Tag. Der letzte Tag bleibt zum Wiederholen.`}
+          </p>
+        )}
+
         <div className="flex flex-col gap-2 sm:flex-row-reverse">
           <button type="button" className="btn btn-primary press w-full sm:w-56" disabled={!valid} onClick={save}>
-            Speichern
+            {arbeit ? 'Speichern' : 'Eintragen'}
           </button>
           {arbeit && (
             <button
@@ -116,6 +186,7 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId }: 
             </button>
           )}
         </div>
+        {!valid && <p className="-mt-2 text-center text-xs text-muted">{date === '' ? 'Wähle einen Tag.' : 'Wähle mindestens einen Stapel.'}</p>}
       </div>
     </Sheet>
   )

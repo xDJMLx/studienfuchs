@@ -9,6 +9,7 @@ import { achievements } from '../../lib/achievements'
 import { dayKey } from '../../lib/streak'
 import { levelFromXp } from '../../lib/xp'
 import { streakNow, useStore } from '../../store/useStore'
+import { deckAchievementStats } from '../../lib/progress'
 import { useCourse, useLearned } from '../review/ReviewPage'
 import { Karteikasten, WeeklyReport } from './ProfileExtras'
 import { useShallow } from 'zustand/react/shallow'
@@ -21,7 +22,7 @@ const titleFor = (level: number) => TITLES[Math.min(TITLES.length - 1, Math.floo
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
-  const { xp, xpByDay, streak, dailyGoal, lessons, rounds, sets, outfit, coins, bestStreak } = useStore(useShallow((s) => ({ xp: s.xp, xpByDay: s.xpByDay, streak: s.streak, dailyGoal: s.dailyGoal, lessons: s.lessons, rounds: s.rounds, sets: s.sets, outfit: s.outfit, coins: s.coins, bestStreak: s.bestStreak })))
+  const { xp, xpByDay, streak, dailyGoal, lessons, rounds, sets, outfit, coins, bestStreak, addedUnits, arbeiten, cards } = useStore(useShallow((s) => ({ xp: s.xp, xpByDay: s.xpByDay, streak: s.streak, dailyGoal: s.dailyGoal, lessons: s.lessons, rounds: s.rounds, sets: s.sets, outfit: s.outfit, coins: s.coins, bestStreak: s.bestStreak, addedUnits: s.addedUnits, arbeiten: s.arbeiten, cards: s.cards })))
   const { learned, byMastery } = useLearned()
   const course = useCourse()
   const lvl = levelFromXp(xp)
@@ -66,6 +67,7 @@ export function ProfilePage() {
     masteredWords: mastered,
     sets: sets.length,
     goalDays,
+    ...deckAchievementStats({ sets, addedUnits, arbeiten, cards }),
   })
   const unlocked = badges.filter((b) => b.value >= b.goal).length
 

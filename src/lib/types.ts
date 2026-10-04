@@ -73,14 +73,22 @@ export interface VocabSet {
 export type DeckLang = 'fr' | 'en'
 
 /** Eine Klassenarbeit oder ein Test: Fach, Termin und die Stapel, die dafür gelernt werden. */
+export type ArbeitKind = 'klassenarbeit' | 'test' | 'vokabeltest' | 'klausur' | 'praesentation' | 'sonstiges'
+
 export interface Arbeit {
   id: string
   subject: string
+  /** Art des Termins; ältere Einträge ohne Angabe sind Klassenarbeiten */
+  kind?: ArbeitKind
   title: string
   /** YYYY-MM-DD */
   date: string
   /** Stapel-Kennungen (eigene Sets oder "unit:…" für Kurs-Stapel) */
   deckIds: string[]
+  /** Nach dem Termin: erledigt (Note eingetragen oder übersprungen) */
+  done?: boolean
+  /** Note 1 bis 6, falls eingetragen */
+  note?: number
 }
 
 /** `warm`: Aufwärm-Aufgabe zu einem älteren, fälligen Wort. Sie zählt für die Wiederholungsplanung, aber nicht fürs Bestehen der Lektion. */

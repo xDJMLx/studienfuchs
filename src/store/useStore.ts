@@ -6,6 +6,7 @@ import { booksSnapshot, useBooks } from './useBooks'
 import { examsSnapshot, useExams } from './useExams'
 import { masteryOf, reviewCard, seedKnownCard, type Grade, type SrsCard } from '../lib/srs'
 import { achievements as computeAchievements, type AchievementInput } from '../lib/achievements'
+import { deckAchievementStats } from '../lib/progress'
 import { addProgress, chestReady, emptyDaily, rollChest, UNIT_CHEST_COINS, type ChestReward, type DailyState } from '../lib/rewards'
 import { goalInfo } from '../lib/xp'
 import { useRewardEvents } from './useRewardEvents'
@@ -13,6 +14,9 @@ import { allUnits, findLesson, isLessonDone, isRegular, itemMeta, mathItems, MAT
 import { buy, coinsForSession, itemById, toggleEquip, type Outfit } from '../lib/shop'
 import { MAX_FREEZES, currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
 import type { Arbeit, DeckLang, Item, VocabSet } from '../lib/types'
+
+/** Münzen dafür, eine Arbeit nach dem Termin abzuhaken. */
+export const ARBEIT_COINS = 15
 
 export interface LessonRecord {
   count: number
@@ -77,6 +81,8 @@ interface Data {
   arbeiten: Arbeit[]
   /** Wie viele Übungsrunden bisher geschafft wurden (für Erfolge) */
   rounds: number
+  /** Die Fächer des Schülers (Kennungen aus subjects.ts). Leer = noch nicht gewählt: dann gelten die Fächer mit Stapeln. */
+  mySubjects: string[]
   /** Einheiten des Französisch-Kurses, die zum Üben hinzugefügt wurden (Reihenfolge = Reihenfolge des Lernens) */
   addedUnits: string[]
 }
@@ -99,7 +105,7 @@ interface Actions {
   /** Blitzrunde ist zu Ende: zahlt XP und Münzen aus, merkt sich den Rekord. */
   finishBlitz: (r: { score: number; correct: number }) => { xp: number; coins: number; record: boolean; questCoins: number; questsDone: number; allQuests: boolean }
   /** Gibt zurück, wie viele Münzen es für diese Einheit gab. */
-  finishSession: (r: { xp: number; grades: Record<string, Grade>; lessonId?: string; accuracy: number; /** Mathe: Zahl der gelösten Aufgaben */ answered?: number }) => number
+  finishSession: (r: { xp: number; grades: Record<string, Grade>; lessonId?: string; accuracy: number; /** Zahl der gelösten Aufgaben */ answered?: number; /** Fächer dieser Runde (für die Tagesaufgabe "Übe in mehreren Fächern") */ subjects?: string[] }) => number
   buyItem: (id: string) => boolean
   equipItem: (id: string) => void
   addSet: (title: string, items: Omit<Item, 'id'>[], meta?: string | DeckMeta) => string
@@ -109,6 +115,11 @@ interface Actions {
   removeArbeit: (id: string) => void
   /** Kurs-Einheit zum Üben hinzufügen oder wieder entfernen */
   toggleUnit: (unitId: string) => void
+  toggleSubject: (id: string) => void
+  /** Münzen gutschreiben (Meilensteine: Level, Sterne, Arbeits-Marken) */
+  addCoins: (n: number) => void
+  /** Arbeit nach dem Termin abhaken, optional mit Note. Gibt die Münzen dafür zurück (nur einmal). */
+  finishArbeit: (id: string, note?: number) => number
   deleteSet: (id: string) => void
   toggleFavorite: (itemId: string) => void
   markLessonsDone: (lessonIds: string[]) => void
@@ -169,12 +180,13 @@ const initial: Data = {
   arbeiten: [],
   addedUnits: [],
   rounds: 0,
+  mySubjects: [],
 }
 
 const DATA_KEYS = Object.keys(initial) as (keyof Data)[]
 
 /** Die Zahlen, aus denen die Erfolge berechnet werden (wie auf der Profilseite). */
-function achievementInput(s: Pick<Data, 'cards' | 'sets' | 'lessons' | 'xp' | 'xpByDay' | 'dailyGoal'> & { rounds?: number }, streakDays: number): AchievementInput {
+function achievementInput(s: Pick<Data, 'cards' | 'sets' | 'lessons' | 'xp' | 'xpByDay' | 'dailyGoal'> & { rounds?: number; addedUnits?: string[]; arbeiten?: Arbeit[] }, streakDays: number): AchievementInput {
   const setIds = new Set(s.sets.flatMap((x) => x.items.map((i) => i.id)))
   const known = Object.keys(s.cards).filter((id) => itemMeta.has(id) || mathItems.has(id) || setIds.has(id))
   return {
@@ -186,6 +198,7 @@ function achievementInput(s: Pick<Data, 'cards' | 'sets' | 'lessons' | 'xp' | 'x
     masteredWords: known.filter((id) => masteryOf(s.cards[id]) === 2).length,
     sets: s.sets.length,
     goalDays: Object.values(s.xpByDay).filter((v) => v >= s.dailyGoal).length,
+    ...deckAchievementStats(s),
   }
 }
 
@@ -200,13 +213,13 @@ export const useStore = create<Data & Actions>()(
         const s = get()
         const today = dayKey(new Date())
         if (s.daily?.day === today) return
-        set({ daily: emptyDaily(today, { knownWords: Object.keys(s.cards).length }) })
+        set({ daily: emptyDaily(today, { knownWords: Object.keys(s.cards).length, subjects: (s.mySubjects ?? []).length }) })
       },
 
       openChest: () => {
         const s = get()
         const today = dayKey(new Date())
-        const daily = s.daily?.day === today ? s.daily : emptyDaily(today, { knownWords: Object.keys(s.cards).length })
+        const daily = s.daily?.day === today ? s.daily : emptyDaily(today, { knownWords: Object.keys(s.cards).length, subjects: (s.mySubjects ?? []).length })
         if (!chestReady(goalInfo(s.dailyGoal, s.xpByDay[today] ?? 0).baseReached, daily)) return null
         const reward = rollChest(today, s.chestsOpened ?? 0, { owned: s.owned ?? [], freezes: s.streak.freezes, maxFreezes: MAX_FREEZES })
         set({
@@ -235,7 +248,7 @@ export const useStore = create<Data & Actions>()(
         const today = dayKey(now)
         const xp = Math.min(15, Math.floor(correct / 3))
         const coins = Math.min(20, Math.floor(score / 40))
-        const daily = s.daily?.day === today ? s.daily : emptyDaily(today, { knownWords: Object.keys(s.cards).length })
+        const daily = s.daily?.day === today ? s.daily : emptyDaily(today, { knownWords: Object.keys(s.cards).length, subjects: (s.mySubjects ?? []).length })
         const upd = addProgress(daily, { blitz: 1 })
         const streak = registerActivity(s.streak, now)
         const record = score > (s.blitzBest ?? 0)
@@ -252,7 +265,7 @@ export const useStore = create<Data & Actions>()(
         return { xp, coins, record, questCoins, questsDone: upd.completed.length, allQuests: upd.allDone }
       },
 
-      finishSession: ({ xp, grades, lessonId, accuracy, answered }) => {
+      finishSession: ({ xp, grades, lessonId, accuracy, answered, subjects: roundSubjects }) => {
         const s = get()
         const now = new Date()
         const cards = { ...s.cards }
@@ -274,7 +287,7 @@ export const useStore = create<Data & Actions>()(
         const gain = coinsForSession({ xp, dailyGoal: s.dailyGoal, todayBefore, streakBefore: s.streak.count, streakAfter: nextStreak.count }).total
 
         // Tagesaufgaben zählen und auszahlen
-        const dailyBase = s.daily?.day === today ? s.daily : emptyDaily(today, { knownWords: Object.keys(s.cards).length })
+        const dailyBase = s.daily?.day === today ? s.daily : emptyDaily(today, { knownWords: Object.keys(s.cards).length, subjects: (s.mySubjects ?? []).length })
         const subject = lessonId ? (findLesson(lessonId)?.unit.subject === 'math' ? 'math' : 'fr') : s.subject ?? 'fr'
         const upd = addProgress(
           dailyBase,
@@ -284,6 +297,7 @@ export const useStore = create<Data & Actions>()(
             practiced: answered ?? ids.length,
             lessons: lessonId && accuracy >= 0.7 ? 1 : 0,
             perfect: lessonId && accuracy >= 0.9 ? 1 : 0,
+            variety: (roundSubjects ?? []).filter((x) => !(dailyBase.subjects ?? []).includes(x)).length,
           },
           subject,
         )
@@ -314,7 +328,7 @@ export const useStore = create<Data & Actions>()(
           cards,
           lessons,
           rounds: (s.rounds ?? 0) + 1,
-          daily: upd.daily,
+          daily: { ...upd.daily, subjects: [...new Set([...(dailyBase.subjects ?? []), ...(roundSubjects ?? [])])] },
           xp: s.xp + xp,
           xpByDay: { ...s.xpByDay, [today]: todayBefore + xp },
           streak: nextStreak,
@@ -363,6 +377,20 @@ export const useStore = create<Data & Actions>()(
       },
       updateArbeit: (id, patch) => set((s) => ({ arbeiten: (s.arbeiten ?? []).map((x) => (x.id === id ? { ...x, ...patch } : x)) })),
       removeArbeit: (id) => set((s) => ({ arbeiten: (s.arbeiten ?? []).filter((x) => x.id !== id) })),
+      addCoins: (n) => set((s) => ({ coins: (s.coins ?? 0) + Math.max(0, Math.round(n)) })),
+      toggleSubject: (id) => set((s) => ({ mySubjects: (s.mySubjects ?? []).includes(id) ? s.mySubjects.filter((x) => x !== id) : [...(s.mySubjects ?? []), id] })),
+      finishArbeit: (id, note) => {
+        const s = get()
+        const a = (s.arbeiten ?? []).find((x) => x.id === id)
+        if (!a) return 0
+        // Münzen fürs Eintragen, egal wie die Note ist (keine Belohnung für gute, keine Strafe für schlechte Noten)
+        const coins = a.done ? 0 : ARBEIT_COINS
+        set({
+          arbeiten: s.arbeiten.map((x) => (x.id === id ? { ...x, done: true, ...(note ? { note } : {}) } : x)),
+          coins: (s.coins ?? 0) + coins,
+        })
+        return coins
+      },
       toggleUnit: (unitId) => set((s) => ({ addedUnits: (s.addedUnits ?? []).includes(unitId) ? s.addedUnits.filter((u) => u !== unitId) : [...(s.addedUnits ?? []), unitId] })),
 
       deleteSet: (id) =>

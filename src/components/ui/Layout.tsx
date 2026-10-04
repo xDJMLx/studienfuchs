@@ -30,9 +30,16 @@ interface NavItem {
 // Einstellungen über das Profil). Fuchs anpassen und Shop liegen im Profil.
 const NAV: NavItem[] = [
   { to: '/', label: 'Üben', Icon: TabRepeat, end: true, c: 'var(--brand)', t: 'var(--brand-text)' },
-  { to: '/faecher', label: 'Fächer', Icon: TabSubjects, c: 'var(--gold)', t: 'var(--gold-text)' },
-  { to: '/profile', label: 'Profil', Icon: TabUser, c: 'var(--pink)', t: 'var(--pink-text)' },
+  { to: '/faecher', label: 'Fächer', Icon: TabSubjects, c: 'var(--brand)', t: 'var(--brand-text)' },
+  { to: '/profile', label: 'Profil', Icon: TabUser, c: 'var(--brand)', t: 'var(--brand-text)' },
 ]
+
+/** Zu welchem Tab eine Seite gehört (damit er auch auf Unterseiten wie dem Kalender markiert bleibt). */
+function tabOf(path: string): string {
+  if (path.startsWith('/faecher') || path.startsWith('/stapel') || path.startsWith('/books') || path.startsWith('/exam')) return '/faecher'
+  if (path.startsWith('/profile') || path.startsWith('/shop') || path.startsWith('/settings') || path.startsWith('/about')) return '/profile'
+  return '/'
+}
 
 export function Wordmark({ size = 'md', tone = 'default' }: { size?: 'md' | 'lg'; tone?: 'default' | 'light' }) {
   return (
@@ -88,7 +95,7 @@ export function Layout() {
         </Link>
         <nav className="grid gap-1" aria-label="Hauptnavigation">
           {nav.map(({ to, label, Icon, end, c, t }) => (
-            <NavLink key={to} to={to} end={end} style={{ '--nav-c': c, '--nav-t': t } as React.CSSProperties} className={({ isActive }) => `nav-link press relative ${isActive ? 'nav-link-active' : ''}`}>
+            <NavLink key={to} to={to} end={end} style={{ '--nav-c': c, '--nav-t': t } as React.CSSProperties} className={() => `nav-link press relative ${tabOf(location.pathname) === to ? 'nav-link-active' : ''}`}>
               {() => (
                 <>
                   <span className="relative flex w-full items-center gap-4">
@@ -133,7 +140,7 @@ export function Layout() {
             icon: <Icon size={26} />,
             badge: to === '/' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : undefined,
           }))}
-          activeIndex={nav.findIndex((n) => (n.end ? location.pathname === n.to : location.pathname.startsWith(n.to) || (n.to === '/profile' && location.pathname.startsWith('/shop'))))}
+          activeIndex={nav.findIndex((n) => tabOf(location.pathname) === n.to)}
           onSelect={(i) => {
             const to = nav[i].to
             // Zweiter Tipp auf den aktiven Tab: nach oben scrollen (wie bei iOS-Apps)

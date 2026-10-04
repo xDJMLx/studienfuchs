@@ -6,11 +6,13 @@ import { Mascot, type Mood } from '../../components/mascot/Mascot'
 import { Confetti } from '../../components/ui/Confetti'
 import { Back, Right } from '../../components/ui/Icons'
 import { Wordmark } from '../../components/ui/Layout'
+import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
+import { HELP_SUBJECTS } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
 import { useShallow } from 'zustand/react/shallow'
 
-type Step = 'hero' | 'goal' | 'ready'
-const FLOW: Exclude<Step, 'hero'>[] = ['goal', 'ready']
+type Step = 'hero' | 'subjects' | 'goal' | 'ready'
+const FLOW: Exclude<Step, 'hero'>[] = ['subjects', 'goal', 'ready']
 const ORDER: Step[] = ['hero', ...FLOW]
 
 const GOALS = [
@@ -21,10 +23,11 @@ const GOALS = [
 ]
 
 const SPEECH: Record<Exclude<Step, 'hero'>, string> = {
+  subjects: 'Welche Fächer hast du? Du kannst später jederzeit mehr hinzufügen.',
   goal: 'Wie viel möchtest du täglich üben?',
   ready: 'Super! Dann leg los mit deinem ersten Stapel.',
 }
-const MOOD: Record<Exclude<Step, 'hero'>, Mood> = { goal: 'happy', ready: 'cheer' }
+const MOOD: Record<Exclude<Step, 'hero'>, Mood> = { subjects: 'think', goal: 'happy', ready: 'cheer' }
 
 const HOW = [
   { n: '1', title: 'Stapel erstellen', text: 'Schreib, was du für ein Fach brauchst, oder lass die KI die Karten machen. Auch aus einem Foto von deinem Heft.' },
@@ -42,7 +45,7 @@ const slide = {
 export function Welcome() {
   const navigate = useNavigate()
   const reduce = useReducedMotion()
-  const { dailyGoal, setDailyGoal, setOnboarded, importData } = useStore(useShallow((s) => ({ dailyGoal: s.dailyGoal, setDailyGoal: s.setDailyGoal, setOnboarded: s.setOnboarded, importData: s.importData })))
+  const { dailyGoal, setDailyGoal, setOnboarded, importData, mySubjects, toggleSubject } = useStore(useShallow((s) => ({ dailyGoal: s.dailyGoal, setDailyGoal: s.setDailyGoal, setOnboarded: s.setOnboarded, importData: s.importData, mySubjects: s.mySubjects ?? [], toggleSubject: s.toggleSubject })))
   const hasProgress = useStore((s) => s.xp > 0 || Object.keys(s.lessons).length > 0 || s.sets.length > 0)
   const [step, setStep] = useState<Step>('hero')
   const [dir, setDir] = useState(1)
@@ -174,6 +177,25 @@ export function Welcome() {
 
               <AnimatePresence mode="wait" custom={dir} initial={false}>
                 <motion.div key={step} custom={dir} variants={slide} initial="enter" animate="center" exit="exit">
+                  {step === 'subjects' && (
+                    <ul className="grid grid-cols-2 gap-2.5" role="group" aria-label="Meine Fächer">
+                      {HELP_SUBJECTS.map((s) => {
+                        const on = mySubjects.includes(s.id)
+                        return (
+                          <li key={s.id} className="min-w-0">
+                            <button type="button" aria-pressed={on} onClick={() => toggleSubject(s.id)} className={`press relative flex w-full items-center gap-2.5 rounded-2xl border-2 p-2.5 text-left transition-colors ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface'}`}>
+                              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ background: s.c }}>
+                                <HelpSubjectIcon id={s.id} ink={s.c} size={24} />
+                              </span>
+                              <span className={`min-w-0 flex-1 truncate text-[15px] font-extrabold ${on ? 'text-brand-dark' : ''}`}>{s.name}</span>
+                              {on && <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-[12px] text-on-brand">✓</span>}
+                            </button>
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  )}
+
                   {step === 'goal' && (
                     <ul className="grid gap-3" role="radiogroup" aria-label="Tagesziel">
                       {GOALS.map((g) => {

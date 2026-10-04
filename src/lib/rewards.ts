@@ -6,7 +6,7 @@ import { ITEMS } from './shop'
  * Es gibt nie Strafen. Wer einen Tag verpasst, verpasst nur die Extras dieses Tages.
  */
 
-export type QuestMetric = 'newWords' | 'practiced' | 'reviewed' | 'lessons' | 'perfect' | 'blitz'
+export type QuestMetric = 'newWords' | 'practiced' | 'reviewed' | 'lessons' | 'perfect' | 'blitz' | 'variety'
 
 export interface QuestDef {
   id: string
@@ -19,7 +19,7 @@ export interface QuestDef {
 /** Was an einem Tag gezählt wird. */
 export type DailyStats = Record<QuestMetric, number>
 
-const ZERO: DailyStats = { newWords: 0, practiced: 0, reviewed: 0, lessons: 0, perfect: 0, blitz: 0 }
+const ZERO: DailyStats = { newWords: 0, practiced: 0, reviewed: 0, lessons: 0, perfect: 0, blitz: 0, variety: 0 }
 
 export type ChestReward = { kind: 'coins'; amount: number; lucky: boolean } | { kind: 'freeze' } | { kind: 'item'; id: string }
 
@@ -34,6 +34,8 @@ export interface DailyState {
   bonusClaimed: boolean
   /** Inhalt der heute geöffneten Truhe */
   chest: ChestReward | null
+  /** Fächer, in denen heute schon geübt wurde */
+  subjects?: string[]
 }
 
 export const QUEST_BONUS = 10
@@ -56,6 +58,7 @@ const TEXT: Record<QuestMetric, (n: number) => string> = {
   lessons: (n) => (n === 1 ? 'Schließe eine Lektion ab' : `Schließe ${n} Lektionen ab`),
   perfect: () => 'Schaffe eine Lektion mit mindestens 90 %',
   blitz: () => 'Spiele eine Blitzrunde',
+  variety: (n) => `Übe heute in ${n} verschiedenen Fächern`,
 }
 
 /** Mögliche Ziele je Aufgabe, vom leichten zum etwas schwereren. */
@@ -66,6 +69,7 @@ const TARGETS: Record<QuestMetric, number[]> = {
   lessons: [1, 2],
   perfect: [1],
   blitz: [1],
+  variety: [2, 3],
 }
 
 export function questDef(id: string, subject: QuestSubject = 'fr'): QuestDef | null {
@@ -98,11 +102,13 @@ function rng(seed: string): () => number {
  * Drei verschiedene Aufgaben für diesen Tag. Wiederholen gibt es nur, wenn schon genug Wörter bekannt sind;
  * mindestens eine ist immer leicht erreichbar (Lektion, neue Wörter oder Üben).
  */
-export function pickQuests(day: string, ctx: { knownWords: number }): string[] {
+export function pickQuests(day: string, ctx: { knownWords: number; /** Wie viele Fächer der Schüler hat */ subjects?: number }): string[] {
   const r = rng('quests:' + day)
   // Lektionen gibt es nicht mehr: Tagesaufgaben drehen sich um Karten und die Blitzrunde
   const metrics: QuestMetric[] = ['newWords', 'practiced', 'blitz']
   if (ctx.knownWords >= 8) metrics.push('reviewed')
+  // Abwechslung nur, wenn es mehrere Fächer gibt (Ziel: höchstens so viele, wie es Fächer gibt)
+  if ((ctx.subjects ?? 0) >= 2) metrics.push('variety')
   const order = metrics.map((m) => ({ m, k: r() })).sort((a, b) => a.k - b.k).map((x) => x.m)
   const easy: QuestMetric[] = ['newWords', 'practiced']
   const chosen = order.slice(0, 3)
@@ -110,12 +116,12 @@ export function pickQuests(day: string, ctx: { knownWords: number }): string[] {
   return chosen.map((m) => {
     const t = TARGETS[m]
     // Meist das leichte Ziel, manchmal das etwas höhere
-    const idx = t.length > 1 && r() < 0.35 ? 1 : 0
+    const idx = t.length > 1 && r() < 0.35 && !(m === 'variety' && (ctx.subjects ?? 0) < 3) ? 1 : 0
     return `${m}:${t[idx]}`
   })
 }
 
-export function emptyDaily(day: string, ctx: { knownWords: number }): DailyState {
+export function emptyDaily(day: string, ctx: { knownWords: number; subjects?: number }): DailyState {
   return { day, quests: pickQuests(day, ctx), stats: { ...ZERO }, claimed: [], bonusClaimed: false, chest: null }
 }
 
