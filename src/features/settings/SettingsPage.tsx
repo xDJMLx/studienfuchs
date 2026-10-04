@@ -8,6 +8,7 @@ import { Check, Database, Download, Gear, Palette, Shield, Sparkle, Speaker, Tar
 import { EASE, Item, Stagger, SPRING } from '../../components/ui/motion'
 import { dayKey } from '../../lib/streak'
 import { lastBackupText, markBackup, shareBackup } from '../../lib/backup'
+import { CloudError, cloudLoad, cloudSave, cloudSignIn, cloudStatus, type CloudStatus } from '../../lib/cloudSync'
 import { applyUpdate, BUILD_ID, checkForUpdate } from '../../lib/updates'
 import { useStore } from '../../store/useStore'
 import { SpeechSettings } from '../profile/SpeechSettings'
@@ -108,6 +109,52 @@ export function SettingsPage() {
     markBackup()
     setBackupInfo(lastBackupText())
     setToast({ ok: true, text: 'Sicherung wurde heruntergeladen.' })
+  }
+
+  // Abgleich über das eigene Puter-Konto (nur auf Knopfdruck)
+  const [cloud, setCloud] = useState<CloudStatus | null>(null)
+  const [cloudBusy, setCloudBusy] = useState(false)
+  const [cloudPending, setCloudPending] = useState<{ json: string; modified?: Date } | null>(null)
+  useEffect(() => {
+    let alive = true
+    void cloudStatus().then((st) => alive && setCloud(st))
+    return () => {
+      alive = false
+    }
+  }, [])
+  const cloudRun = async (job: () => Promise<void>) => {
+    setCloudBusy(true)
+    try {
+      await job()
+    } catch (e) {
+      setToast({ ok: false, text: e instanceof CloudError ? e.message : 'Der Abgleich hat nicht geklappt.' })
+    } finally {
+      setCloudBusy(false)
+    }
+  }
+  const cloudLogin = () =>
+    cloudRun(async () => {
+      const st = await cloudSignIn()
+      setCloud(st)
+      setToast({ ok: true, text: st.username ? `Angemeldet als ${st.username}.` : 'Angemeldet.' })
+    })
+  const cloudUp = () =>
+    cloudRun(async () => {
+      await cloudSave(exportData())
+      markBackup()
+      setBackupInfo(lastBackupText())
+      setToast({ ok: true, text: 'In deinem Puter-Konto gesichert.' })
+    })
+  const cloudDown = () => cloudRun(async () => setCloudPending(await cloudLoad()))
+  const cloudApply = () => {
+    if (!cloudPending) return
+    try {
+      importData(cloudPending.json)
+      setToast({ ok: true, text: 'Fortschritt aus deinem Puter-Konto geladen.' })
+    } catch {
+      setToast({ ok: false, text: 'Die Sicherung konnte nicht geladen werden.' })
+    }
+    setCloudPending(null)
   }
 
   const [pasteOpen, setPasteOpen] = useState(false)
@@ -298,6 +345,36 @@ export function SettingsPage() {
                   <button className="btn btn-ghost press !px-4 !py-2 !text-sm" onClick={() => setPasteOpen((o) => !o)} aria-expanded={pasteOpen}>Aus Text laden</button>
                 </div>
               </Row>
+              <Row
+                title="Zwischen Geräten abgleichen"
+                hint={
+                  cloud?.signedIn && !cloud.guest
+                    ? `Mit deinem Puter-Konto${cloud.username ? ` (${cloud.username})` : ''}: Auf dem einen Gerät sichern, auf dem anderen holen. Nur auf Knopfdruck. Auf beiden Geräten dasselbe Konto verwenden.`
+                    : 'Mit einem eigenen Puter-Konto (kostenlos) sichern und auf dem zweiten Gerät holen. Ein KI-Gastkonto reicht nicht, es gilt nur für diesen Browser.'
+                }
+              >
+                <div className="flex flex-wrap gap-2">
+                  {cloud?.signedIn && !cloud.guest ? (
+                    <>
+                      <button className="btn btn-primary press !px-4 !py-2 !text-sm" disabled={cloudBusy} onClick={cloudUp}>In Puter sichern</button>
+                      <button className="btn btn-ghost press !px-4 !py-2 !text-sm" disabled={cloudBusy} onClick={cloudDown}>Von Puter holen</button>
+                    </>
+                  ) : (
+                    <button className="btn btn-ghost press !px-4 !py-2 !text-sm" disabled={cloudBusy} onClick={cloudLogin}>Mit Puter anmelden</button>
+                  )}
+                </div>
+              </Row>
+              {cloudPending && (
+                <div className="grid gap-2 border-t border-line px-5 py-4" role="alertdialog" aria-label="Sicherung aus Puter laden">
+                  <p className="text-sm">
+                    Sicherung aus deinem Puter-Konto{cloudPending.modified ? ` vom ${cloudPending.modified.toLocaleString('de-DE', { dateStyle: 'medium', timeStyle: 'short' })}` : ''} laden? <b>Dein Fortschritt auf diesem Gerät wird dadurch ersetzt.</b>
+                  </p>
+                  <div className="flex gap-2">
+                    <button className="btn btn-ghost press !px-4 !py-2 !text-sm" onClick={() => setCloudPending(null)}>Abbrechen</button>
+                    <button className="btn btn-primary press !px-4 !py-2 !text-sm" onClick={cloudApply}>Ja, ersetzen</button>
+                  </div>
+                </div>
+              )}
               {pasteOpen && (
                 <div className="grid gap-2 border-t border-line px-5 py-4">
                   <label htmlFor="paste" className="text-sm font-medium">Sicherungstext hier einfügen</label>
