@@ -170,7 +170,7 @@ export function UebenPage() {
                     <button type="button" className="btn btn-primary press !min-h-10 !px-4 !text-sm" onClick={() => navigate(`/ueben/los?arbeit=${a.id}`)} disabled={r.total === 0}>
                       Lernen
                     </button>
-                    <button type="button" className="press rounded-xl px-2 py-1 text-xs font-extrabold text-sky-dark hover:bg-sky-soft disabled:opacity-40" onClick={() => navigate(`/ueben/los?arbeit=${a.id}&modus=probe`)} disabled={r.total < 5} aria-label={`Probearbeit zu ${a.title}`}>
+                    <button type="button" className="press inline-flex min-h-11 items-center rounded-xl px-3 text-xs font-extrabold text-sky-dark hover:bg-sky-soft disabled:opacity-40" onClick={() => navigate(`/ueben/los?arbeit=${a.id}&modus=probe`)} disabled={r.total < 5} aria-label={`Probearbeit zu ${a.title}`}>
                       Probearbeit
                     </button>
                   </div>
