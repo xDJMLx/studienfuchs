@@ -2,7 +2,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CountUp, EASE, SPRING } from '../../components/ui/motion'
-import { gradeStats, gradesOf, isRegular, unitsOf, type Subject } from '../../content'
+import { gradeStats, gradesOf, isRegular, SUBJECTS, unitsOf, type Subject } from '../../content'
 import { FrenchFlag, MathBadge } from '../../components/ui/CoursePicker'
 import { Mascot, type Mood } from '../../components/mascot/Mascot'
 import { Confetti } from '../../components/ui/Confetti'
@@ -23,7 +23,11 @@ const GOALS = [
 ]
 
 // Mathe gibt es nur für Klasse 7: Dort entfällt die Klassenwahl
-const flowFor = (subject: Subject): FlowStep[] => (subject === 'math' ? ['subject', 'goal', 'ready'] : ['subject', 'grade', 'goal', 'ready'])
+const flowFor = (subject: Subject): FlowStep[] => {
+  const steps: FlowStep[] = subject === 'math' ? ['goal', 'ready'] : ['grade', 'goal', 'ready']
+  // Die Fachwahl gibt es nur, solange es mehr als einen Kurs gibt
+  return SUBJECTS.length > 1 ? ['subject', ...steps] : steps
+}
 
 const SPEECH: Record<FlowStep, string> = {
   subject: 'Was möchtest du lernen?',
@@ -106,7 +110,7 @@ export function Welcome() {
                 transition={{ ...SPRING.snappy, delay: 0.2 }}
                 className="relative mb-5 max-w-[19rem] rounded-3xl border-2 border-line bg-surface px-5 py-3.5 text-[17px] font-semibold leading-snug"
               >
-                Hallo! Ich bin Fenni. Ich zeige dir, wie Gelerntes hängen bleibt.
+                Hallo! Ich bin Fenni. Ich zeige dir, wie Französisch hängen bleibt.
                 <span aria-hidden className="absolute -bottom-[9px] left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-b-2 border-r-2 border-line bg-surface" />
               </motion.div>
               <motion.div initial={reduce ? false : { opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...SPRING.soft, delay: 0.05 }}>
@@ -125,7 +129,7 @@ export function Welcome() {
                 das hängen bleibt.
               </motion.h1>
               <motion.p initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, delay: 0.3 }} className="mt-2 text-[16px] font-bold text-muted">
-                Französisch Klasse 7 bis 10 und Mathe Klasse 7, kostenlos und ohne Konto
+                Französisch Klasse 7 bis 10 und KI-Hilfe für alle Fächer, kostenlos und ohne Konto
               </motion.p>
             </main>
 

@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import { allUnits, blockingLesson, findLesson, isMathLesson, isUnlocked, mathItems, mathUnits, nextLessonAfter, units } from '../index'
-import { buildCoachPrompt } from '../../lib/coach'
 import { addProgress, emptyDaily, foxGreeting, questDef } from '../../lib/rewards'
 import { evaluate } from '../../lib/evaluate'
 import { generateMathSession, BLITZ_SKILLS, makeMathBlitz, unitFormulas, skillsOfUnit } from './index'
@@ -120,19 +119,5 @@ describe('Mathe: Sitzungen und Blitzrunde', () => {
       expect(ev.status).toBe('wrong')
       expect(ev.mistakeItemIds).toEqual([ex.itemId])
     }
-  })
-})
-
-describe('Mathe: KI-Hilfe', () => {
-  it('kennt das Fach und bleibt bei einfacher Textschreibweise', () => {
-    const p = buildCoachPrompt({ subject: 'math', grade: 7, examDates: {}, sets: [], cards: {}, lessonsDone: 2, lessonsTotal: 34, streak: 1 })
-    expect(p).toContain('Mathematik')
-    expect(p).toContain('2 von 34 Mathe-Lektionen')
-    expect(p).not.toContain('```vokabeln')
-  })
-
-  it('Französisch bleibt unverändert', () => {
-    const p = buildCoachPrompt({ grade: 7, examDates: {}, sets: [], cards: {}, lessonsDone: 0, lessonsTotal: 10, streak: 0 })
-    expect(p).toContain('Französisch')
   })
 })

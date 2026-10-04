@@ -147,7 +147,13 @@ Ziel: Jeder Tag soll sich ein bisschen anders und lohnend anfühlen, ohne Druck.
 - **Zurück zum alten Design:** Das vorige Design liegt im Tag `design-v2` (und Branch `design-v2-backup`). Bis zur Entscheidung baut die Veröffentlichung es zusätzlich unter `/studienfuchs/alt/`. Rückweg: den Design-v3-Commit auf `main` mit `git revert` zurücknehmen und den Schritt „Altes Design unter /alt/ bauen“ in `.github/workflows/deploy.yml` löschen.
 - **Feinschliff (Version 2.0 des neuen Designs):** Truhe am Ende jeder Einheit (`openUnitChest`, 25 Münzen, einmal je Einheit); frisch geschaffte Lektionen poppen auf dem Pfad mit einem Sternen-Feuerwerk auf (`useRewardEvents.pathDone`, `Burst.tsx`); die Flamme oben brennt erst, wenn heute gelernt wurde, und öffnet das Serien-Fenster (Woche, Serien-Schutz); jeder Tab hat seine Farbe (Lernen orange, Üben blau, KI violett, Bücher türkis, Profil pink); ab 5 richtigen Antworten in Folge wird der Fortschrittsbalken „heiß“; kurzes Vibrieren bei Antworten (`buzz`, hängt an der Einstellung „Töne und Vibration“); am Ende der Einführung startet „Erste Lektion starten“ sofort die erste Lektion.
 
-## Mathe (seit Oktober 2026)
+## Fächer-Tab (KI-Hilfe, seit Oktober 2026)
+
+Nur Französisch ist ein Kurs. Alle anderen Fächer laufen über den Tab „Fächer“ (`/faecher`, `FaecherPage.tsx`): Kacheln aus `src/lib/subjects.ts` (`HELP_SUBJECTS`), je Fach ein Gespräch unter `/faecher/:subjectId`. Das ist dieselbe Seite wie der KI-Tab (`CoachPage`, ein eigener Speicherschlüssel je Fach), nur mit dem Prompt `buildSubjectPrompt` (vertiefen, abfragen, Arbeit vorbereiten, keine fertigen Hausaufgaben) und ohne Vokabel-Funktionen. Neues Fach: Eintrag in `HELP_SUBJECTS` mit Hinweisen für die KI.
+
+## Mathe-Kurs (gebaut, aber ausgeblendet)
+
+Der Mathe-Kurs (Klasse 7) ist fertig und getestet, wird aber nicht angezeigt (`MATH_COURSE = false` in `src/content/index.ts`; wer ihn gewählt hatte, landet beim Laden wieder in Französisch). Mit `true` kommt er zurück: Fachwahl beim Start, im Kurs-Menü, eigener Üben-Tab.
 
 Mathe nutzt dieselbe Maschine wie Französisch (Lernpfad, Freischaltung, FSRS, Tagesaufgaben, Belohnungen), aber die Aufgaben kommen nicht aus Dateien, sondern werden erzeugt.
 

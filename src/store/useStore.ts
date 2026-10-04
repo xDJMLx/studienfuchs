@@ -9,7 +9,7 @@ import { achievements as computeAchievements, type AchievementInput } from '../l
 import { addProgress, chestReady, emptyDaily, rollChest, UNIT_CHEST_COINS, type ChestReward, type DailyState } from '../lib/rewards'
 import { goalInfo } from '../lib/xp'
 import { useRewardEvents } from './useRewardEvents'
-import { allUnits, findLesson, isLessonDone, isRegular, itemMeta, mathItems, type Subject } from '../content'
+import { allUnits, findLesson, isLessonDone, isRegular, itemMeta, mathItems, MATH_COURSE, type Subject } from '../content'
 import { buy, coinsForSession, itemById, toggleEquip, type Outfit } from '../lib/shop'
 import { MAX_FREEZES, currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
 import type { Item, VocabSet } from '../lib/types'
@@ -403,6 +403,8 @@ export const useStore = create<Data & Actions>()(
       merge: (persisted, current) => {
         const p = (persisted ?? {}) as Record<string, unknown>
         const merged = { ...current, ...p } as Data & Actions
+        // Der Mathe-Kurs ist ausgeblendet: wer ihn gewählt hatte, landet wieder in Französisch (Fortschritt bleibt erhalten)
+        if (!MATH_COURSE && merged.subject === 'math') merged.subject = 'fr'
         if (p.coins === undefined) {
           // Stand aus der Zeit vor dem Fuchs-Laden: bisher gesammelte XP zählen rückwirkend als Münzen
           merged.coins = Math.floor(((p.xp as number) ?? 0) / 2)

@@ -5,7 +5,7 @@ import { goalInfo, levelFromXp } from '../../lib/xp'
 import { streakNow, useStore, xpToday } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
 import { CourseChip } from './CoursePicker'
-import { Coin, Flame, Gear, Shield, TabBooks, TabHome, TabKi, TabRepeat, TabUser, Xp } from './Icons'
+import { Coin, Flame, Gear, Shield, TabBooks, TabHome, TabKi, TabRepeat, TabSubjects, TabUser, Xp } from './Icons'
 import { Sheet } from './Sheet'
 import { dayKey } from '../../lib/streak'
 import { EASE } from './motion'
@@ -33,6 +33,7 @@ const NAV: NavItem[] = [
   { to: '/', label: 'Lernen', Icon: TabHome, end: true, c: 'var(--brand)', t: 'var(--brand-text)' },
   { to: '/practice', label: 'Üben', Icon: TabRepeat, c: 'var(--sky)', t: 'var(--sky-text)' },
   { to: '/coach', label: 'KI', Icon: TabKi, c: 'var(--violet)', t: 'var(--violet-text)' },
+  { to: '/faecher', label: 'Fächer', Icon: TabSubjects, c: 'var(--gold)', t: 'var(--gold-text)' },
   { to: '/books', label: 'Bücher', Icon: TabBooks, c: 'var(--teal)', t: 'var(--teal-text)' },
   { to: '/profile', label: 'Profil', Icon: TabUser, c: 'var(--pink)', t: 'var(--pink-text)' },
 ]
@@ -66,10 +67,9 @@ export function Layout() {
   const navigate = useNavigate()
   const scroller = useRef<HTMLElement>(null)
   const dueCount = useDue().due.length
-  const subject = useStore((s) => s.subject ?? 'fr')
-  // Bücher (eigene Buchseiten und Vokabeln) gibt es nur beim Sprachfach
-  const nav = subject === 'math' ? NAV.filter((n) => n.to !== '/books') : NAV
-  const onCoach = location.pathname.startsWith('/coach')
+  const nav = NAV
+  // Auf KI-Seiten (auch die Fächer-Chats) sitzt das Eingabefeld in der Tab-Leiste
+  const onCoach = location.pathname.startsWith('/coach') || /^\/faecher\/.+/.test(location.pathname)
   const hasPages = useCoachComposer((c) => c.pages.length > 0)
 
   useEffect(() => {

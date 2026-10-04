@@ -360,6 +360,16 @@ export const TabBooks = ({ size, ...p }: P) => (
   </svg>
 )
 
+/** Fächer-Tab: vier Kacheln (ein Fach je Kachel) */
+export const TabSubjects = ({ size, ...p }: P) => (
+  <svg {...base(size)} {...p}>
+    <rect x="3" y="3" width="8.4" height="8.4" rx="2.4" fill="currentColor" />
+    <rect x="12.6" y="3" width="8.4" height="8.4" rx="2.4" fill="currentColor" opacity=".7" />
+    <rect x="3" y="12.6" width="8.4" height="8.4" rx="2.4" fill="currentColor" opacity=".7" />
+    <rect x="12.6" y="12.6" width="8.4" height="8.4" rx="2.4" fill="currentColor" />
+  </svg>
+)
+
 /** Truhe: kleine Holztruhe mit Goldbeschlag; mit open=true ist der Deckel aufgeklappt und es glänzt. */
 export const Chest = ({ size, open = false, ...p }: P & { open?: boolean }) => (
   <svg {...base(size)} {...p}>

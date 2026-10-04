@@ -1,6 +1,6 @@
 # Studienfuchs
 
-**Französisch (Klasse 7 bis 10) und Mathe (Klasse 7) lernen für die Schule. Kostenlos, ohne Konto, direkt im Browser.**
+**Französisch lernen für die Schule, Klasse 7 bis 10, dazu KI-Hilfe für alle anderen Fächer. Kostenlos, ohne Konto, direkt im Browser.**
 
 Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kleine Lektionen, die man schafft, Wörter, die wirklich hängen bleiben, und ein Aufholplan für alle, die im Unterricht den Anschluss verloren haben.
 
@@ -16,16 +16,10 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 
 ## Was die App kann
 
-**Zwei Fächer**
-- Beim Start wählst du Französisch oder Mathe. Über das Kurs-Menü oben links wechselst du jederzeit, der Fortschritt bleibt in jedem Fach erhalten. Tagesziel, Serie, Münzen und Fuchs gelten für beide.
-
-**Mathe, Klasse 7**
-- 7 Einheiten mit 34 Lektionen und 43 Themen, orientiert am Berliner Rahmenlehrplan: Rationale Zahlen, Brüche und Dezimalzahlen, Prozentrechnung, Terme und Gleichungen, Zuordnungen und Dreisatz, Geometrie, Daten und Zufall.
-- Jede Lektion beginnt mit einer kurzen Erklärung und Beispielen. Die Aufgaben werden bei jedem Start frisch erzeugt (andere Zahlen, andere Texte): Man kann so lange üben, bis es sitzt. Wer falsch rechnet, bekommt eine neue Aufgabe zum selben Thema und den Rechenweg gezeigt.
-- Eigene Zahlentastatur mit Minus, Komma und Bruchstrich; Brüche stehen als echte Brüche. „Fast richtig“ gibt es, wenn ein Bruch noch nicht gekürzt ist.
-- Wiederholung nach Plan (FSRS) pro Thema, Blitzrunde mit Kopfrechnen, freies Training nach Einheit oder Thema, Themen-Übersicht mit Sicherheit je Thema und eine Formelsammlung zum Nachschlagen.
-- Die KI-Hilfe kennt Mathe und erklärt Schritt für Schritt, ohne die Hausaufgabe fertig zu rechnen.
-
+**Französisch als Kurs, alle anderen Fächer mit KI-Hilfe**
+- Französisch ist der Kurs zum aktiven Lernen: Lernpfad, kurze Lektionen, Wiederholung nach Plan.
+- Im Tab „Fächer“ gibt es für Mathe, Deutsch, Englisch, Biologie, Geschichte, Physik, Chemie, Geografie, Politik und alle anderen Fächer keinen Kurs, sondern KI-Hilfe: Was ihr in der Schule hattet, kannst du vertiefen, dich abfragen lassen und vor einer Arbeit üben. Fotos von Aufgaben und Heftseiten lassen sich anhängen. Jedes Fach hat sein eigenes Gespräch.
+- Die KI macht keine Hausaufgaben fertig, sondern gibt Tipps und erste Schritte.
 **Der Kurs (Französisch)**
 - Auf den Berliner Rahmenlehrplan abgestimmt: Klasse 7 bis 10 entsprechen den Niveaus A1, A2, B1 und B1+ (Niveaustufen E bis H). Der Kurs folgt den Themen von *À plus!* und deckt die Themen und Wörter von *Découvertes* ab, den beiden häufigsten Lehrwerken an Berliner Gymnasien.
 - 56 Einheiten mit 393 Lektionen im Grundkurs, dazu 20 freiwillige Einheiten Zusatzwortschatz aus den Lehrbüchern (102 Lektionen). Zusammen sind es über 2.600 Wörter. Der Zusatz bremst den Lernpfad nicht.
@@ -77,7 +71,7 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 Kein Konto, keine Werbung, kein Tracking. Alles liegt im Browser des Geräts. Nur wenn man die KI benutzt, gehen die gesendeten Texte oder Fotos an den KI-Anbieter (Puter), und das nur beim Absenden.
 
 ## Technik
-React 19, TypeScript, Vite, Tailwind CSS 4, Zustand, Framer Motion, `ts-fsrs`, Tesseract.js, Piper TTS, Vitest (über 330 Tests, darunter alle Mathe-Aufgaben-Erzeuger mit vielen Zufallswerten, nachgerechnet). Gehostet über GitHub Pages.
+React 19, TypeScript, Vite, Tailwind CSS 4, Zustand, Framer Motion, `ts-fsrs`, Tesseract.js, Piper TTS, Vitest (über 330 Tests). Gehostet über GitHub Pages.
 
 Mehr zur Lernmethode, zum Aufbau der Inhalte, zum Erzeugen der Aufnahmen und zum Entwickeln steht in der [technischen Doku](docs/ENTWICKLUNG.md). Was vor einer öffentlichen Veröffentlichung zu tun ist, steht in der [Checkliste](docs/VEROEFFENTLICHUNG.md).
 

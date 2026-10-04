@@ -34,6 +34,7 @@ function lazyPage<K extends string>(load: () => Promise<Record<K, ComponentType>
 
 const GrammarTopicPage = lazyPage(() => import('./features/grammar/GrammarPage'), 'GrammarTopicPage')
 const CatchUpPage = lazyPage(() => import('./features/catchup/CatchUpPage'), 'CatchUpPage')
+const FaecherPage = lazyPage(() => import('./features/faecher/FaecherPage'), 'FaecherPage')
 const CoachPage = lazyPage(() => import('./features/coach/CoachPage'), 'CoachPage')
 const ExamCreatePage = lazyPage(() => import('./features/exam/ExamCreatePage'), 'ExamCreatePage')
 const ExamPlayPage = lazyPage(() => import('./features/exam/ExamPlayPage'), 'ExamPlayPage')
@@ -76,6 +77,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/placement', 'Einstufungstest'],
   ['/catchup', 'Aufholen'],
   ['/coach', 'KI'],
+  ['/faecher', 'Fächer'],
   ['/books', 'Bücher'],
   ['/speak', 'Sprechtraining'],
   ['/exam/new', 'Test erstellen'],
@@ -99,7 +101,7 @@ function RouteTitle() {
   const { pathname } = useLocation()
   useEffect(() => {
     const hit = TITLES.find(([p]) => (p.endsWith('/') ? pathname.startsWith(p) : pathname === p || pathname.startsWith(p + '/')))
-    document.title = hit ? `${hit[1]} · Studienfuchs` : 'Studienfuchs – Französisch und Mathe lernen für die Schule'
+    document.title = hit ? `${hit[1]} · Studienfuchs` : 'Studienfuchs – Französisch lernen für die Schule'
   }, [pathname])
   return null
 }
@@ -139,6 +141,8 @@ export default function App() {
             <Route path="review" element={<ReviewPage />} />
             <Route path="catchup" element={<CatchUpPage />} />
             <Route path="coach" element={<CoachPage />} />
+            <Route path="faecher" element={<FaecherPage />} />
+            <Route path="faecher/:subjectId" element={<CoachPage />} />
             <Route path="books" element={<BooksPage />} />
             <Route path="exam/new" element={<ExamCreatePage />} />
             <Route path="books/:bookId" element={<BookPage />} />

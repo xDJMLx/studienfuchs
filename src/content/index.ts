@@ -61,9 +61,15 @@ function load(): Unit[] {
 
 /** Die Fächer der App. 'fr' = Französisch (units), 'math' = Mathematik (mathUnits). */
 export type Subject = 'fr' | 'math'
+/**
+ * Nur Französisch ist ein Kurs zum aktiven Lernen. Der Mathe-Kurs (Klasse 7) ist fertig gebaut und getestet, aber ausgeblendet:
+ * Alle anderen Fächer, auch Mathe, laufen über die KI-Hilfe im Tab "Fächer". Auf true setzen, um den Mathe-Kurs wieder zu zeigen.
+ */
+export const MATH_COURSE = false
+
 export const SUBJECTS: { id: Subject; name: string }[] = [
   { id: 'fr', name: 'Französisch' },
-  { id: 'math', name: 'Mathe' },
+  ...(MATH_COURSE ? [{ id: 'math' as const, name: 'Mathe' }] : []),
 ]
 
 /** Französisch-Einheiten. Mathe liegt getrennt in mathUnits; alles, was beide Fächer betrifft, nutzt allUnits. */
