@@ -17,6 +17,8 @@ const stripEnd = (s: string) => s.replace(/[\s.;,:!]+$/g, '')
 const DEFINITION = /^(.{2,70}?)\s+(ist|sind|bedeutet|heißt|beschreibt|bezeichnet|nennt man|versteht man unter)\s+(.{4,})$/i
 /** "Y nennt man X", "Y wird X genannt" */
 const NAMED = /^(.{4,}?)\s+(?:nennt man|wird (?:als )?(.{2,40}?) (?:bezeichnet|genannt))\s*(.*)$/i
+/** Hinweis-Wörter vor dem Doppelpunkt („Wichtig: …“) sind keine Begriffe zum Abfragen. */
+const LABEL = /^(wichtig|merke|merksatz|achtung|hinweis|tipp|beispiel|info|notiz|übrigens|vorsicht|zusammenfassung|fazit)$/i
 const YEAR = /^((?:1[0-9]|20)\d{2}(?:\s*[–-]\s*(?:1[0-9]|20)?\d{2,4})?)\s*[:–-]?\s+(.{4,})$/
 
 /**
@@ -46,6 +48,10 @@ export function cardsFromNotes(text: string): { cards: NoteCard[]; skipped: numb
       continue
     }
     const pair = parseCards(line)
+    if (pair.cards.length && !pair.incomplete && LABEL.test(pair.cards[0].front.trim())) {
+      skipped++
+      continue
+    }
     if (pair.cards.length && !pair.incomplete) {
       push({ front: pair.cards[0].front, back: pair.cards[0].back, how: 'paar' })
       continue

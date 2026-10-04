@@ -37,6 +37,12 @@ describe('Karten aus Notizen (ohne KI)', () => {
     expect(skipped).toBeGreaterThanOrEqual(2)
   })
 
+  it('Hinweis-Zeilen wie „Wichtig: …“ werden übersprungen, Aufzählungszeichen und Gleichheitszeichen funktionieren', () => {
+    const { cards, skipped } = cardsFromNotes('- Mitose = Zellteilung\n• Chlorophyll: grüner Farbstoff\n2. Wichtig: Nicht vergessen!\nMerke: Immer Einheiten mitschreiben')
+    expect(cards.map((c) => c.front)).toEqual(['Mitose', 'Chlorophyll'])
+    expect(skipped).toBe(2)
+  })
+
   it('leerer Text ergibt nichts', () => {
     expect(cardsFromNotes('   \n\n')).toEqual({ cards: [], skipped: 0 })
   })
