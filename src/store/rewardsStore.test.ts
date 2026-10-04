@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { isRegular, units } from '../content'
+import { findLesson, isRegular, mathUnits, units } from '../content'
 import { dayKey } from '../lib/streak'
 import { useRewardEvents } from './useRewardEvents'
 import { useStore } from './useStore'
@@ -169,5 +169,40 @@ describe('Feier auf dem Lernpfad', () => {
   it('eine nicht bestandene Lektion wird nicht gefeiert', () => {
     finish(1, 0.3)
     expect(useRewardEvents.getState().pathDone).toBeNull()
+  })
+})
+
+describe('Mathe im Speicher', () => {
+  const lesson = findLesson('m7-u1-l1')!.lesson
+
+  it('zählt gelöste Aufgaben als Üben und neue Themen halb so streng', () => {
+    useStore.getState().ensureDaily()
+    useStore.setState((s) => ({ subject: 'math' as const, daily: { ...s.daily!, quests: ['practiced:10', 'newWords:4', 'blitz:1'] } }))
+    const grades = Object.fromEntries(lesson.items.map((i) => [i.id, 'good' as const]))
+    useStore.getState().finishSession({ xp: 12, grades, lessonId: lesson.id, accuracy: 1, answered: 10 })
+    const ev = useRewardEvents.getState().last!
+    // 10 Aufgaben = "Löse 10 Aufgaben"; 2 neue Themen = "Lerne 2 neue Themen" (Ziel 4 zählt in Mathe halb)
+    expect(ev.quests.map((q) => q.id).sort()).toEqual(['newWords:4', 'practiced:10'])
+    const st = useStore.getState()
+    expect(st.lessons[lesson.id].bestAccuracy).toBe(1)
+    expect(Object.keys(st.cards).sort()).toEqual(lesson.items.map((i) => i.id).sort())
+  })
+
+  it('das Fach landet in der Sicherung und kommt wieder zurück', () => {
+    useStore.getState().setSubject('math')
+    const json = useStore.getState().exportData()
+    useStore.getState().resetAll()
+    expect(useStore.getState().subject).toBe('fr')
+    useStore.getState().importData(json)
+    expect(useStore.getState().subject).toBe('math')
+  })
+
+  it('die Truhe am Ende einer Mathe-Einheit lässt sich öffnen, wenn alle Lektionen geschafft sind', () => {
+    const unitDef = mathUnits[0]
+    const regularLessons = unitDef.lessons.filter(isRegular)
+    expect(useStore.getState().openUnitChest(unitDef.id)).toBe(0)
+    useStore.getState().markLessonsDone(regularLessons.map((l) => l.id))
+    expect(useStore.getState().openUnitChest(unitDef.id)).toBeGreaterThan(0)
+    expect(useStore.getState().openUnitChest(unitDef.id)).toBe(0)
   })
 })

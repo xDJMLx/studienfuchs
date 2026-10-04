@@ -14,7 +14,7 @@ export function CalcExercise({ exercise: ex, answer, onChange, result }: Exercis
   const locked = result !== null
   const state = result ? (result.status === 'wrong' ? 'math-field-bad' : 'math-field-ok') : ''
   return (
-    <div>
+    <div className="math-exercise">
       <Instruction>{ex.title}</Instruction>
       <PromptBubble compact={promptSize(ex.prompt)}>
         <MathText>{ex.prompt}</MathText>

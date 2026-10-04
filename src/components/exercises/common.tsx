@@ -54,7 +54,7 @@ export function Instruction({ children }: { children: React.ReactNode }) {
 export function PromptBubble({ children, speak: text, lang, compact = false }: { children: React.ReactNode; speak?: string; lang?: 'fr' | 'de'; compact?: boolean | 'long' }) {
   return (
     // Der Fuchs "sagt" die Aufgabe in einer Sprechblase, wie die Figur bei SideMe
-    <div className="mb-6 flex items-center gap-1">
+    <div className="prompt-bubble mb-6 flex items-center gap-1">
       <Mascot size={78} alive listen className="-ml-2" />
       <div className="relative min-w-0 flex-1 rounded-2xl border-2 border-line bg-surface p-3.5">
         <span aria-hidden className="absolute -left-[7px] top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 border-b-2 border-l-2 border-line bg-surface" />

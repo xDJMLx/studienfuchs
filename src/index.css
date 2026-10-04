@@ -751,3 +751,27 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
 @media (prefers-reduced-motion: reduce) {
   .math-caret { animation: none; }
 }
+
+/* Kleine Bildschirme (z. B. 320 x 568): Tastatur und Feld etwas flacher, damit alles ohne Scrollen passt */
+@media (max-height: 700px) {
+  .math-key {
+    min-height: 2.65rem;
+    font-size: 1.2rem;
+  }
+  .math-field {
+    min-height: 3.7rem;
+    font-size: 1.4rem;
+  }
+}
+@media (max-height: 700px) {
+  .math-exercise > h2 {
+    margin-bottom: 0.5rem;
+    font-size: 21px;
+  }
+  .math-exercise > .prompt-bubble {
+    margin-bottom: 0.6rem;
+  }
+  .math-exercise .math-field {
+    margin-bottom: 0.6rem;
+  }
+}

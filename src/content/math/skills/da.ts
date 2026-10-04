@@ -160,7 +160,7 @@ defineSkill('da.laplace', 'Wahrscheinlichkeit', 'Günstige Fälle geteilt durch 
       { text: 'eine Primzahl (2, 3, 5)', good: [2, 3, 5] },
       { text: 'eine 6', good: [6] },
       { text: 'eine Zahl kleiner als 3', good: [1, 2] },
-      { text: 'ein Teiler von 6 (1, 2, 3, 6)', good: [1, 2, 3, 6] },
+      { text: 'einen Teiler von 6 (1, 2, 3, 6)', good: [1, 2, 3, 6] },
     ]
     const e = r.pick(by(level, events.slice(0, 4), events, events))
     const g = e.good.length
