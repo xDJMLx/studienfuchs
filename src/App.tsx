@@ -13,9 +13,23 @@ import { Welcome } from './features/welcome/Welcome'
  * Seiten werden erst beim Öffnen geladen: der Start bleibt klein und schnell.
  * Gibt es nach einer neuen Version die alte Datei nicht mehr, lädt die App einmal neu, statt leer zu bleiben.
  */
+/** Lädt eine Seiten-Datei mit zwei Wiederholungen (auf dem Handy reißt das Netz oft kurz ab), bevor ein Fehler gemeldet wird. */
+async function loadWithRetry<T>(load: () => Promise<T>): Promise<T> {
+  let last: unknown
+  for (const wait of [0, 700, 2000]) {
+    if (wait) await new Promise((r) => setTimeout(r, wait))
+    try {
+      return await load()
+    } catch (e) {
+      last = e
+    }
+  }
+  throw last
+}
+
 function lazyPage<K extends string>(load: () => Promise<Record<K, ComponentType>>, name: K) {
   return lazy(() =>
-    load()
+    loadWithRetry(load)
       .then((m) => ({ default: m[name] }))
       .catch((e) => {
         try {
@@ -59,6 +73,12 @@ const SetPlay = lazyPage(() => import('./features/sets/SetPlay'), 'SetPlay')
 const CreateSetPage = lazyPage(() => import('./features/upload/CreateSetPage'), 'CreateSetPage')
 const FoxLab = import.meta.env.DEV ? lazyPage(() => import('./features/dev/FoxLab'), 'FoxLab') : null
 const ResultLab = import.meta.env.DEV ? lazyPage(() => import('./features/dev/ResultLab'), 'ResultLab') : null
+
+/** Fehlermeldung verschwindet, sobald man zu einer anderen Seite wechselt (z. B. über die Tab-Leiste). */
+function RouteGuard({ children }: { children: React.ReactNode }) {
+  const { pathname } = useLocation()
+  return <ErrorBoundary resetKey={pathname}>{children}</ErrorBoundary>
+}
 
 /** Üben-Tab: je nach Fach die Seite für Wörter oder für Mathe. */
 function PracticeRoute() {
@@ -131,7 +151,7 @@ export default function App() {
     <HashRouter>
       <RouteTitle />
       <UpdateBanner />
-      <ErrorBoundary>
+      <RouteGuard>
       <Suspense fallback={<PageFallback />}>
       <Routes>
         <Route path="welcome" element={<Welcome />} />
@@ -177,7 +197,7 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       </Suspense>
-      </ErrorBoundary>
+      </RouteGuard>
     </HashRouter>
   )
 }

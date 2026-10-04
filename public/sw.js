@@ -1,7 +1,7 @@
 // Einfacher Service Worker: App-Dateien und Texterkennungsdaten nach dem ersten Abruf offline verfügbar machen.
 // Strategie: erst Netz (aktuelle Version), bei Fehler Cache. Seite, Manifest und version.json werden immer beim Server nachgefragt
 // (GitHub Pages erlaubt sonst 10 Minuten Browser-Cache). Gehashte Dateien unter /assets/ ändern ihren Namen, die dürfen aus dem Cache kommen.
-const CACHE = 'studienfuchs-v2'
+const CACHE = 'studienfuchs-v3'
 
 self.addEventListener('install', () => self.skipWaiting())
 
@@ -23,8 +23,10 @@ self.addEventListener('fetch', (event) => {
         if (res.ok) {
           const copy = res.clone()
           caches.open(CACHE).then((c) => c.put(req, copy))
+          return res
         }
-        return res
+        // Datei fehlt oder der Server schwächelt (z. B. alte Seite offen, neue Version schon veröffentlicht): lieber die gemerkte Datei nehmen
+        return caches.match(req).then((hit) => hit || res)
       })
       .catch(() => caches.match(req).then((hit) => hit || caches.match(self.registration.scope))),
   )
