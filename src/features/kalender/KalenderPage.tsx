@@ -4,13 +4,13 @@ import { Segmented } from '../../components/ui/controls'
 import { Coin, Plus, Right } from '../../components/ui/Icons'
 import { Item, Stagger } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
-import { byDay, dateKey, kindLabel, longDay, monthGrid, monthName, needsFollowUp, parseKey, shortDay } from '../../lib/calendar'
+import { byDay, dateKey, kindLabel, longDay, monthGrid, monthName, needsFollowUp, parseKey, shortDay, timeRange } from '../../lib/calendar'
 import { activeDecks, daysUntil, readiness } from '../../lib/decks'
 import { helpSubject } from '../../lib/subjects'
 import type { Arbeit } from '../../lib/types'
 import { ARBEIT_COINS, useStore } from '../../store/useStore'
 import { ArbeitSheet } from '../faecher/ArbeitSheet'
-import { WeekPlanner } from './WeekPlanner'
+import { TimeTable } from './TimeTable'
 
 const when = (days: number) => (days === 0 ? 'Heute' : days === 1 ? 'Morgen' : days > 1 ? `in ${days} Tagen` : days === -1 ? 'gestern' : `vor ${-days} Tagen`)
 
@@ -54,9 +54,9 @@ const VIEW_KEY = 'studienfuchs-kalender-ansicht'
 type View = 'monat' | 'woche'
 const readView = (): View => {
   try {
-    return localStorage.getItem(VIEW_KEY) === 'woche' ? 'woche' : 'monat'
+    return localStorage.getItem(VIEW_KEY) === 'monat' ? 'monat' : 'woche'
   } catch {
-    return 'monat'
+    return 'woche'
   }
 }
 
@@ -82,7 +82,7 @@ export function KalenderPage() {
   const [view, setViewState] = useState<View>(readView)
   const [selected, setSelected] = useState(today)
   const [cursor, setCursor] = useState(() => ({ y: new Date().getFullYear(), m: new Date().getMonth() }))
-  const [sheet, setSheet] = useState<{ arbeit?: Arbeit; date?: string } | null>(null)
+  const [sheet, setSheet] = useState<{ arbeit?: Arbeit; date?: string; time?: string } | null>(null)
   // Von anderen Seiten ("Steht eine Arbeit an?") mit ?neu=1 gleich das Eintragen öffnen
   const wantsNew = params.get('neu')
   useEffect(() => {
@@ -130,6 +130,7 @@ export function KalenderPage() {
               <span className="block truncate font-extrabold leading-tight">{a.title}</span>
               <span className="block text-xs font-bold text-muted">
                 {kindLabel(a.kind)}
+                {timeRange(a) ? ` · ${timeRange(a)}` : ''}
                 {opts.showDay ? ` · ${shortDay(a.date)} · ${when(d)}` : ''}
               </span>
               {d >= 0 && r.total > 0 && (
@@ -177,8 +178,8 @@ export function KalenderPage() {
           value={view}
           onChange={setView}
           options={[
-            { value: 'monat', label: 'Monat' },
             { value: 'woche', label: 'Woche' },
+            { value: 'monat', label: 'Monat' },
           ]}
         />
       </Item>
@@ -263,8 +264,8 @@ export function KalenderPage() {
         </Item>
       ) : (
         <Item>
-          <div className="card mb-5 p-3">
-            <WeekPlanner arbeiten={arbeiten} weeks={1} onAdd={(date) => setSheet({ date })} onOpen={(a) => setSheet({ arbeit: a })} />
+          <div className="mb-5">
+            <TimeTable arbeiten={arbeiten} onAdd={(date, time) => setSheet({ date, time })} onOpen={(a) => setSheet({ arbeit: a })} />
           </div>
         </Item>
       )}
@@ -301,7 +302,7 @@ export function KalenderPage() {
         </Item>
       )}
 
-      <ArbeitSheet open={!!sheet} onClose={closeSheet} arbeit={sheet?.arbeit} date={sheet?.date} />
+      <ArbeitSheet open={!!sheet} onClose={closeSheet} arbeit={sheet?.arbeit} date={sheet?.date} time={sheet?.time} />
     </Stagger>
   )
 }

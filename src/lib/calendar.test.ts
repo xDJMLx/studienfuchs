@@ -73,3 +73,23 @@ describe('Wochenplan', () => {
     expect(d[6].key).toBe('2026-11-08')
   })
 })
+
+describe('Uhrzeiten', () => {
+  const base = { id: 'a', subject: 'biologie', title: 'T', date: '2026-10-07', deckIds: [] as string[] }
+  it('Minuten und Uhrzeit hin und zurück', async () => {
+    const { toMinutes, fromMinutes } = await import('./calendar')
+    expect(toMinutes('08:30')).toBe(510)
+    expect(toMinutes('8:05')).toBe(485)
+    expect(toMinutes('25:00')).toBeNull()
+    expect(toMinutes('')).toBeNull()
+    expect(toMinutes(undefined)).toBeNull()
+    expect(fromMinutes(510)).toBe('08:30')
+  })
+  it('Dauer richtet sich nach der Art, wenn nichts gesetzt ist', async () => {
+    const { slotOf, timeRange } = await import('./calendar')
+    expect(slotOf(base)).toBeNull()
+    expect(timeRange({ ...base, time: '09:00', kind: 'klassenarbeit' })).toBe('09:00–10:30')
+    expect(timeRange({ ...base, time: '09:00', kind: 'vokabeltest' })).toBe('09:00–09:20')
+    expect(timeRange({ ...base, time: '09:00', kind: 'test', duration: 60 })).toBe('09:00–10:00')
+  })
+})

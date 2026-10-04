@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Sheet } from '../../components/ui/Sheet'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
-import { dateKey, KINDS, longDay, quickDates } from '../../lib/calendar'
+import { dateKey, defaultMinutes, KINDS, longDay, quickDates, toMinutes } from '../../lib/calendar'
 import { allCourseDecks, cardRefs, FRENCH, ownDeck, type Deck } from '../../lib/decks'
 import { helpSubject, HELP_SUBJECTS } from '../../lib/subjects'
 import type { Arbeit, ArbeitKind } from '../../lib/types'
@@ -14,13 +14,15 @@ const field = 'w-full rounded-xl border-2 border-line bg-snow px-3 py-2.5 font-s
  * Arbeit, Test oder anderen Termin eintragen oder ändern: Fach, Art, Tag, Karteikarten.
  * Unten steht gleich, was das für die Tage bis dahin bedeutet.
  */
-export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, date: presetDate }: { open: boolean; onClose: () => void; subjectId?: string; arbeit?: Arbeit; presetDeckId?: string; date?: string }) {
+export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, date: presetDate, time: presetTime }: { open: boolean; onClose: () => void; subjectId?: string; arbeit?: Arbeit; presetDeckId?: string; date?: string; time?: string }) {
   const { sets, addedUnits, mySubjects, cards, addArbeit, updateArbeit, removeArbeit } = useStore()
   const firstSubject = subjectId ?? arbeit?.subject ?? mySubjects?.[0] ?? HELP_SUBJECTS[0].id
   const [kind, setKind] = useState<ArbeitKind>(arbeit?.kind ?? 'klassenarbeit')
   const [subject, setSubject] = useState(firstSubject)
   const [title, setTitle] = useState(arbeit?.title ?? '')
   const [date, setDate] = useState(arbeit?.date ?? presetDate ?? '')
+  const [time, setTime] = useState(arbeit?.time ?? presetTime ?? '')
+  const [duration, setDuration] = useState<number | null>(arbeit?.duration ?? null)
   // Gibt es im Fach genau einen Satz Karteikarten, ist er gleich dabei
   const onlyDeck = (subj: string): string[] => {
     const own = sets.map(ownDeck).filter((d) => d.subject === subj)
@@ -35,10 +37,12 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
     setSubject(subjectId ?? arbeit?.subject ?? mySubjects?.[0] ?? HELP_SUBJECTS[0].id)
     setTitle(arbeit?.title ?? '')
     setDate(arbeit?.date ?? presetDate ?? '')
+    setTime(arbeit?.time ?? presetTime ?? '')
+    setDuration(arbeit?.duration ?? null)
     setDeckIds(arbeit?.deckIds ?? (presetDeckId ? [presetDeckId] : onlyDeck(subjectId ?? mySubjects?.[0] ?? HELP_SUBJECTS[0].id)))
     // mySubjects bewusst nicht als Abhängigkeit: Das Blatt soll beim Öffnen starten, nicht bei jeder Änderung
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, subjectId, arbeit, presetDeckId, presetDate])
+  }, [open, subjectId, arbeit, presetDeckId, presetDate, presetTime])
 
   // Wählbar: eigene Stapel des Fachs; bei Französisch auch hinzugefügte Kurs-Einheiten
   const choices: Deck[] = useMemo(() => {
@@ -72,7 +76,15 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
 
   const save = () => {
     const kindName = KINDS.find((k) => k.id === kind)?.label ?? 'Arbeit'
-    const data = { subject, kind, title: title.trim() || `${sub?.name ?? ''}-${kindName}`.replace(/^-/, ''), date, deckIds }
+    const hasTime = toMinutes(time) !== null
+    const data = {
+      subject,
+      kind,
+      title: title.trim() || `${sub?.name ?? ''}-${kindName}`.replace(/^-/, ''),
+      date,
+      deckIds,
+      ...(hasTime ? { time, duration: duration ?? defaultMinutes(kind) } : { time: undefined, duration: undefined }),
+    }
     if (arbeit) updateArbeit(arbeit.id, data)
     else addArbeit(data)
     onClose()
@@ -132,6 +144,25 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
           </div>
           <input type="date" aria-label="Datum" className={field} value={date} min={today} onChange={(e) => setDate(e.target.value)} />
           {date && <p className="mt-1.5 text-sm font-extrabold text-brand-dark">{longDay(date)}</p>}
+        </div>
+
+        <div>
+          <p className="mb-1.5 text-sm font-bold text-muted">Uhrzeit (optional)</p>
+          <div className="flex flex-wrap items-center gap-2">
+            <button type="button" role="radio" aria-checked={toMinutes(time) === null} onClick={() => setTime('')} className={`chip ${toMinutes(time) === null ? 'chip-on' : ''}`}>
+              Ganztägig
+            </button>
+            <input type="time" aria-label="Uhrzeit" step={300} className={`${field} !w-32`} value={time} onChange={(e) => setTime(e.target.value)} />
+            {toMinutes(time) !== null &&
+              [20, 45, 90].map((m) => {
+                const on = (duration ?? defaultMinutes(kind)) === m
+                return (
+                  <button key={m} type="button" role="radio" aria-checked={on} onClick={() => setDuration(m)} className={`chip ${on ? 'chip-on' : ''}`}>
+                    {m} Min.
+                  </button>
+                )
+              })}
+          </div>
         </div>
 
         <label className="grid gap-1.5 text-sm font-bold text-muted">

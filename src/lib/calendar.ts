@@ -103,3 +103,31 @@ export const weekDays = (monday: Date): { key: string; day: number; weekday: str
     const date = addDays(monday, i)
     return { key: dateKey(date), day: date.getDate(), weekday, date }
   })
+
+// ---------- Uhrzeiten (für den Stundenplan-Kalender) ----------
+
+/** Wie lange eine Art von Termin üblicherweise dauert, in Minuten. */
+export const KIND_MINUTES: Record<ArbeitKind, number> = { klassenarbeit: 90, test: 45, vokabeltest: 20, klausur: 90, praesentation: 45, sonstiges: 45 }
+export const defaultMinutes = (k: ArbeitKind | undefined): number => KIND_MINUTES[k ?? 'klassenarbeit']
+
+/** "08:30" → 510 (Minuten seit Mitternacht); ungültig → null. */
+export function toMinutes(t: string | undefined): number | null {
+  const m = /^([01]?\d|2[0-3]):([0-5]\d)$/.exec(t ?? '')
+  return m ? Number(m[1]) * 60 + Number(m[2]) : null
+}
+
+/** 510 → "08:30" */
+export const fromMinutes = (n: number): string => `${String(Math.floor(n / 60) % 24).padStart(2, '0')}:${String(n % 60).padStart(2, '0')}`
+
+/** Beginn und Ende eines Termins mit Uhrzeit in Minuten, sonst null (ganztägig). */
+export function slotOf(a: Arbeit): { start: number; end: number } | null {
+  const start = toMinutes(a.time)
+  if (start === null) return null
+  return { start, end: Math.min(24 * 60, start + (a.duration && a.duration > 0 ? a.duration : defaultMinutes(a.kind))) }
+}
+
+/** "08:00–09:30" bzw. null für ganztägige Termine. */
+export function timeRange(a: Arbeit): string | null {
+  const s = slotOf(a)
+  return s ? `${fromMinutes(s.start)}–${fromMinutes(s.end)}` : null
+}

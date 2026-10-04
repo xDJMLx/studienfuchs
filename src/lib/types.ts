@@ -83,7 +83,11 @@ export interface Arbeit {
   title: string
   /** YYYY-MM-DD */
   date: string
-  /** Stapel-Kennungen (eigene Sets oder "unit:…" für Kurs-Stapel) */
+  /** Beginn (HH:MM); ohne Angabe ist der Termin ganztägig */
+  time?: string
+  /** Dauer in Minuten (mit Uhrzeit) */
+  duration?: number
+  /** Karteikarten-Kennungen (eigene Sets oder "unit:…" für Kurs-Stapel) */
   deckIds: string[]
   /** Nach dem Termin: erledigt (Note eingetragen oder übersprungen) */
   done?: boolean

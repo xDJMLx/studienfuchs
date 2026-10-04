@@ -7,7 +7,7 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 **[Jetzt ausprobieren: xdjmlx.github.io/studienfuchs](https://xdjmlx.github.io/studienfuchs/)**
 
 <p align="center">
-  <img src="docs/screenshots/home.jpg" width="19%" alt="Startseite mit Fuchs, aktueller Lektion und Tagesziel">
+  <img src="docs/screenshots/home.jpg" width="19%" alt="Startseite mit Fuchs und Karteikarten für heute">
   <img src="docs/screenshots/lesson.jpg" width="19%" alt="Aufgabe in einer Lektion, der Fuchs stellt die Frage">
   <img src="docs/screenshots/path.jpg" width="19%" alt="Lernpfad mit Sechseck-Knoten und Kapitel-Banner">
   <img src="docs/screenshots/catchup.jpg" width="19%" alt="Aufholplan bis zu einem Wunschdatum">
@@ -22,7 +22,7 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 - **Karteikarten erstellen:** Beschreibe, was du brauchst („Zellorganellen und ihre Aufgaben“, 20 Karten), und die KI macht die Karten, auch aus Fotos von Heft oder Arbeitsblatt. Ganz ohne KI geht „Aus Notizen“: Du fügst Heft-Text ein oder fotografierst ihn (die Texterkennung läuft auf dem Gerät), und die App macht aus Merksätzen („Die Zelle ist …“), Jahreszahlen und „Frage – Antwort“-Zeilen Kartenvorschläge. Oder schreib sie selbst, eine Karte pro Zeile (Frage – Antwort), auch aus einer Tabelle einfügbar. Vor dem Speichern prüfst und änderst du alles. Jeden Stapel kannst du per Link teilen (der Inhalt steckt im Link, kein Konto nötig): So kommen deine Karten aufs Handy oder zu Freunden.
 - **Üben:** Die Startseite zeigt, was heute dran ist, über alle Fächer: erst alles Fällige (kurz bevor du es vergessen würdest, geplant mit FSRS), dann neue Karten. Neue Karten kommen zu zweit und werden gleich abgefragt, danach erst mit Auswahl, später aus dem Gedächtnis (Tippen). Lange Antworten wie Definitionen werden nicht getippt, sondern als Karteikarte zum Umdrehen mit Selbstbewertung. Falsche Karten kommen nach ein paar anderen wieder.
 - **Frei üben:** Erst ein Fach wählen (immer genau eins), dann ganzes Fach oder ein Stapel, dann die Art: Gemischt, Karteikarten, Tippen; bei Französisch auch Schreiben, Hören und Sprechen.
-- **Kalender:** Arbeiten, Tests, Vokabeltests, Klausuren und Referate im Monat oder in der Woche (die Ansicht wird gemerkt). Farbige Punkte zeigen die Termine, ein Tipp auf einen Tag zeigt, was da ansteht, das runde Plus oben trägt etwas ein: Fach, Art, Tag, Karteikarten, fertig. Ein Termin geht auch ohne Karteikarten. Nach dem Termin fragt die App nach der Note (und gibt Münzen fürs Eintragen).
+- **Kalender:** Wie ein Stundenplan (WebUntis): Die Woche als Spalten mit Uhrzeit links, Arbeiten, Tests, Vokabeltests, Klausuren und Referate als farbige Blöcke zur passenden Zeit (ganztägige Termine in der Zeile darunter). Ein Tipp auf eine freie Stelle trägt dort mit der angetippten Uhrzeit ein, ein Tipp auf einen Block öffnet ihn, Wischen wechselt die Woche. Alternativ die Monatsansicht mit farbigen Punkten und den Terminen des gewählten Tages. Eintragen: Fach, Art, Tag, Uhrzeit, Karteikarten, fertig. Nach dem Termin fragt die App nach der Note (und gibt Münzen fürs Eintragen).
 - **Level, Sterne, Meilensteine:** Jedes Fach hat ein Level (je mehr Karten sitzen, desto höher), jeder Stapel bis zu drei Sterne. Nach jeder Runde zeigt „Das hat sich getan“, was neu gelernt wurde und jetzt sitzt, und feiert Level, Sterne und Marken einer Arbeit (25, 50, 75, 100 %) mit Münzen.
 - **Probearbeit:** Zu jeder eingetragenen Arbeit gibt es eine Probearbeit: 15 Karten aus dem ganzen Stoff, nichts wird vorher gezeigt, Fehler kommen nicht wieder, am Ende steht eine ungefähre Note.
 - **Fertige Karteikarten:** Für Mathe, Deutsch, Englisch, Biologie, Physik, Chemie, Geografie, Geschichte, Politik, Informatik, Musik und Kunst gibt es 16 Sätze von Karteikarten mit Grundwissen zum Hinzufügen (Formeln, Hauptstädte, Zelle, Stilmittel …), die man danach bearbeiten kann. In Mathe gibt es außerdem ein Rechentraining mit 43 Themen, deren Aufgaben sich selbst erzeugen.
@@ -37,7 +37,7 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 - Sprechtraining mit Spracherkennung und eine kleine Lautschule.
 
 **Jeden Tag ein Grund wiederzukommen**
-- Drei Tagesaufgaben, die jeden Tag anders sind, und eine Überraschungs-Truhe, sobald das Tagesziel geschafft ist (meist Münzen, manchmal ein Glückstreffer, selten ein Geschenk für den Fuchs).
+- **Lernzeit statt Tagesziel:** Ohne Arbeit gibt es kein Tagesziel, du übst, wann du willst. Steht eine Arbeit mit Karteikarten an, zeigt die Startseite die Minuten von heute (Standard 10, in den Einstellungen 5 bis 20). Es gibt keine Serie, keine Tagesaufgaben und keine Truhe.
 - Die Blitzrunde: 60 Sekunden, so viele Karten wie möglich, mit Combo-Faktor bis ×4 und eigenem Rekord.
 - Neue Erfolge, eine geschaffte Einheit („Das kannst du jetzt: …“) und gute Reihen werden gefeiert. Die Töne werden mit jeder richtigen Antwort höher.
 - Alles ohne Strafen: Wer einen Tag auslässt, verpasst nur die Extras dieses Tages.

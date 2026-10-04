@@ -23,6 +23,7 @@ beforeAll(() => {
 })
 
 beforeEach(() => {
+  localStorage.removeItem('studienfuchs-kalender-ansicht')
   useStore.getState().resetAll()
   window.location.hash = '#/'
 })
@@ -92,6 +93,7 @@ describe('Die App als Ganzes', () => {
     const id = useStore.getState().addSet('Zelle', Array.from({ length: 12 }, (_, i) => ({ front: `F${i}`, back: `B${i}` })), { subject: 'biologie' })
     window.location.hash = '#/kalender'
     render(<App />)
+    await click(/^Monat$/, 'radio')
     await waitFor(() => expect(text()).toMatch(/Nichts geplant/))
     const target = dateKey(addDays(new Date(), 3))
     const day = new Date(target + 'T12:00:00')
@@ -130,14 +132,37 @@ describe('Die App als Ganzes', () => {
     expect(useStore.getState().arbeiten[0]).toMatchObject({ subject: 'geschichte', kind: 'klassenarbeit', deckIds: [] })
   })
 
-  it('Der Kalender merkt sich die Ansicht (Monat oder Woche)', async () => {
+  it('Der Kalender zeigt standardmäßig den Stundenplan und merkt sich die Ansicht', async () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/kalender'
     render(<App />)
-    await click(/^Woche$/, 'radio')
-    await waitFor(() => expect(screen.getByRole('region', { name: 'Wochenplan' })).toBeTruthy())
-    expect(localStorage.getItem('studienfuchs-kalender-ansicht')).toBe('woche')
+    await waitFor(() => expect(screen.getByRole('region', { name: 'Stundenplan' })).toBeTruthy())
+    await click(/^Monat$/, 'radio')
+    await waitFor(() => expect(screen.getByRole('region', { name: /20\d\d$/ })).toBeTruthy())
+    expect(localStorage.getItem('studienfuchs-kalender-ansicht')).toBe('monat')
     localStorage.removeItem('studienfuchs-kalender-ansicht')
+  })
+
+  it('Stundenplan: Termine mit Uhrzeit stehen als Block, ein Tipp auf eine freie Stelle trägt mit Uhrzeit ein', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
+    // Ein Wochentag in dieser (oder am Wochenende: der kommenden) Woche
+    const monday = new Date()
+    monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7) + ([0, 6].includes(new Date().getDay()) ? 7 : 0))
+    const wed = dateKey(addDays(monday, 2))
+    useStore.getState().addArbeit({ subject: 'biologie', kind: 'test', title: 'Bio-Test', date: wed, time: '09:00', duration: 45, deckIds: [] })
+    window.location.hash = '#/kalender'
+    render(<App />)
+    const block = await screen.findByRole('button', { name: /Bio-Test, Test, 09:00 Uhr/ })
+    expect(block).toBeTruthy()
+    // Freie Stelle antippen (mit Maus/Finger, also mit Uhrzeit)
+    const day = addDays(monday, 3)
+    fireEvent.click(screen.getByRole('button', { name: new RegExp(`^Am Do, ${day.getDate()}\. eintragen`) }), { detail: 1, clientY: 0 })
+    await waitFor(() => expect(text()).toMatch(/Uhrzeit \(optional\)/))
+    expect((screen.getByLabelText('Uhrzeit') as HTMLInputElement).value).toBe('08:00')
+    await click(/^Test$/, 'radio')
+    fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
+    await waitFor(() => expect(useStore.getState().arbeiten).toHaveLength(2))
+    expect(useStore.getState().arbeiten.find((a) => a.date === dateKey(day))).toMatchObject({ time: '08:00', duration: 45, subject: 'biologie' })
   })
 
   it('Frei üben: es wird immer genau ein Fach gewählt, leere Fächer zeigen den Weg zum Stapel', async () => {
