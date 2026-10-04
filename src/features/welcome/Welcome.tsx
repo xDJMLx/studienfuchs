@@ -15,24 +15,25 @@ type Step = 'hero' | 'subjects' | 'goal' | 'ready'
 const FLOW: Exclude<Step, 'hero'>[] = ['subjects', 'goal', 'ready']
 const ORDER: Step[] = ['hero', ...FLOW]
 
+/** Lernzeit pro Tag, solange eine Arbeit ansteht (ohne Arbeit gibt es kein Tagesziel). */
 const GOALS = [
-  { xp: 10, label: 'Locker', time: '5 Min. am Tag', bars: 1 },
-  { xp: 20, label: 'Normal', time: '10 Min. am Tag', bars: 2 },
-  { xp: 30, label: 'Ernsthaft', time: '15 Min. am Tag', bars: 3 },
-  { xp: 50, label: 'Intensiv', time: '20+ Min. am Tag', bars: 4 },
+  { min: 5, label: 'Locker', time: 'für kleine Arbeiten', bars: 1 },
+  { min: 10, label: 'Normal', time: 'genau richtig für die meisten', bars: 2 },
+  { min: 15, label: 'Ernsthaft', time: 'für wichtige Arbeiten', bars: 3 },
+  { min: 20, label: 'Intensiv', time: 'wenn es knapp wird', bars: 4 },
 ]
 
 const SPEECH: Record<Exclude<Step, 'hero'>, string> = {
   subjects: 'Welche Fächer hast du? Du kannst später jederzeit mehr hinzufügen.',
-  goal: 'Wie viel möchtest du täglich üben?',
+  goal: 'Steht eine Arbeit an: Wie viele Minuten am Tag willst du üben?',
   ready: 'Super! Dann leg los mit deinen ersten Karteikarten.',
 }
 const MOOD: Record<Exclude<Step, 'hero'>, Mood> = { subjects: 'think', goal: 'happy', ready: 'cheer' }
 
 const HOW = [
   { n: '1', title: 'Karteikarten erstellen', text: 'Schreib, was du für ein Fach brauchst, oder lass die KI die Karten machen. Auch aus einem Foto von deinem Heft.' },
-  { n: '2', title: 'Jeden Tag kurz üben', text: 'Die App sagt dir, was heute dran ist: genau dann, kurz bevor du es vergessen würdest.' },
-  { n: '3', title: 'Arbeiten eintragen', text: 'Mit Datum verteilt die App die Karten auf die Tage, damit du rechtzeitig alles kannst.' },
+  { n: '2', title: 'Kurz üben', text: 'Die App sagt dir, was heute dran ist: genau dann, kurz bevor du es vergessen würdest.' },
+  { n: '3', title: 'Arbeiten eintragen', text: 'Mit Datum verteilt die App die Karten auf die Tage. Solange eine Arbeit ansteht, übst du jeden Tag ein paar Minuten, sonst nur, wann du willst.' },
 ]
 
 const slide = {
@@ -45,7 +46,7 @@ const slide = {
 export function Welcome() {
   const navigate = useNavigate()
   const reduce = useReducedMotion()
-  const { dailyGoal, setDailyGoal, setOnboarded, importData, mySubjects, toggleSubject } = useStore(useShallow((s) => ({ dailyGoal: s.dailyGoal, setDailyGoal: s.setDailyGoal, setOnboarded: s.setOnboarded, importData: s.importData, mySubjects: s.mySubjects ?? [], toggleSubject: s.toggleSubject })))
+  const { dailyMinutes, setDailyMinutes, setOnboarded, importData, mySubjects, toggleSubject } = useStore(useShallow((s) => ({ dailyMinutes: s.dailyMinutes, setDailyMinutes: s.setDailyMinutes, setOnboarded: s.setOnboarded, importData: s.importData, mySubjects: s.mySubjects ?? [], toggleSubject: s.toggleSubject })))
   const hasProgress = useStore((s) => s.xp > 0 || Object.keys(s.lessons).length > 0 || s.sets.length > 0)
   const [step, setStep] = useState<Step>('hero')
   const [dir, setDir] = useState(1)
@@ -197,12 +198,12 @@ export function Welcome() {
                   )}
 
                   {step === 'goal' && (
-                    <ul className="grid gap-3" role="radiogroup" aria-label="Tagesziel">
+                    <ul className="grid gap-3" role="radiogroup" aria-label="Minuten pro Tag">
                       {GOALS.map((g) => {
-                        const on = dailyGoal === g.xp
+                        const on = dailyMinutes === g.min
                         return (
-                          <li key={g.xp} className="min-w-0">
-                            <button type="button" role="radio" aria-checked={on} onClick={() => setDailyGoal(g.xp)} className={`press relative flex w-full items-center gap-4 rounded-2xl border-2 p-3.5 text-left transition-colors ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface'}`}>
+                          <li key={g.min} className="min-w-0">
+                            <button type="button" role="radio" aria-checked={on} onClick={() => setDailyMinutes(g.min)} className={`press relative flex w-full items-center gap-4 rounded-2xl border-2 p-3.5 text-left transition-colors ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface'}`}>
                               <span className="flex h-12 w-12 shrink-0 items-end justify-center gap-1 rounded-2xl bg-snow pb-2.5" aria-hidden>
                                 {[0, 1, 2, 3].map((b) => (
                                   <span key={b} className={`w-2 rounded-sm transition-colors duration-200 ${b < g.bars ? 'bg-brand' : 'bg-line'}`} style={{ height: 8 + b * 6 }} />
@@ -212,7 +213,7 @@ export function Welcome() {
                                 <span className={`block text-lg font-semibold ${on ? 'text-brand-dark' : ''}`}>{g.label}</span>
                                 <span className="block text-sm text-muted">{g.time}</span>
                               </span>
-                              <span className="shrink-0 text-sm font-semibold text-muted">{g.xp} XP</span>
+                              <span className="shrink-0 text-sm font-semibold text-muted">{g.min} Min.</span>
                             </button>
                           </li>
                         )

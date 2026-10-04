@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import { allUnits, blockingLesson, findLesson, isMathLesson, isUnlocked, mathItems, mathUnits, nextLessonAfter, units } from '../index'
-import { addProgress, emptyDaily, foxGreeting, questDef } from '../../lib/rewards'
 import { evaluate } from '../../lib/evaluate'
 import { generateMathSession, BLITZ_SKILLS, makeMathBlitz, unitFormulas, skillsOfUnit } from './index'
 import { makeRng } from './rng'
@@ -57,29 +56,6 @@ describe('Mathe im Lernpfad', () => {
       for (const id of skillsOfUnit(u.id)) expect(mathItems.has(id), id).toBe(true)
       expect(unitFormulas(u.id).length, u.title).toBeGreaterThan(0)
     }
-  })
-})
-
-describe('Mathe: Tagesaufgaben', () => {
-  it('neue und wiederholte Themen zählen halb so viel wie Wörter', () => {
-    expect(questDef('newWords:8', 'math')?.target).toBe(4)
-    expect(questDef('reviewed:6', 'math')?.target).toBe(3)
-    expect(questDef('newWords:8')?.target).toBe(8)
-    expect(questDef('practiced:10', 'math')?.text).toBe('Löse 10 Aufgaben')
-  })
-
-  it('Fortschritt in Mathe bezahlt die Aufgabe beim halben Ziel', () => {
-    const d = { ...emptyDaily('2026-05-04', { knownWords: 0 }), quests: ['newWords:8', 'lessons:1', 'blitz:1'] }
-    const fr = addProgress(d, { newWords: 4 }, 'fr')
-    expect(fr.completed.map((q) => q.id)).not.toContain('newWords:8')
-    const math = addProgress(d, { newWords: 4 }, 'math')
-    expect(math.completed.map((q) => q.id)).toContain('newWords:8')
-  })
-
-  it('der Fuchs begrüßt in Mathe auf Deutsch', () => {
-    const g = { doneLessons: 3, streakDays: 0, daysAway: 0, chestReady: false, questsLeft: 3, goalLeft: 40, hour: 12 }
-    expect(foxGreeting(g)).toBe('Salut ! Weiter geht’s.')
-    expect(foxGreeting({ ...g, subject: 'math' })).toBe('Hi! Weiter geht’s.')
   })
 })
 

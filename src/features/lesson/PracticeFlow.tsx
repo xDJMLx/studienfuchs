@@ -8,8 +8,7 @@ import { MathText } from '../../components/math/MathText'
 import { SpeakButton } from '../../components/exercises/common'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Confetti } from '../../components/ui/Confetti'
-import { Bulb, Cards, Check, Chest, Close, Coin, Flame, Right, Sparkle, Star, Target, Trophy, Xp } from '../../components/ui/Icons'
-import { ChestSheet } from '../../components/ui/ChestSheet'
+import { Bulb, Cards, Close, Coin, Flame, Right, Sparkle, Star, Trophy, Xp } from '../../components/ui/Icons'
 import { CountUp, EASE, Item as FadeItem, ItemLi, SPRING, Stagger, StaggerList } from '../../components/ui/motion'
 import { mascotBus } from '../../lib/mascotBus'
 import { generateLesson, generateTest, generateWarmup } from '../../lib/generateExercises'
@@ -18,10 +17,12 @@ import { playDone } from '../../lib/sound'
 import { hasFrenchVoice, loadAudioIndex, prefetchRecordings } from '../../lib/speech'
 import { masteryOf } from '../../lib/srs'
 import type { Explanation, FillTask, Item } from '../../lib/types'
-import { goalInfo, levelFromXp, lessonXp } from '../../lib/xp'
+import { levelFromXp, lessonXp } from '../../lib/xp'
 import { comboBonus } from '../../lib/rewards'
 import { useRewardEvents } from '../../store/useRewardEvents'
-import { useStore, xpToday } from '../../store/useStore'
+import { StudyTimeNote } from '../../components/ui/StudyTime'
+import { minutesSince } from '../../lib/studyTime'
+import { useStore } from '../../store/useStore'
 import { Session, type SessionResult } from './Session'
 
 interface Props {
@@ -87,7 +88,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
       ? generateTest({ items, pool, allowListen, focus, count: maxExercises, mastery })
       : [...warm, ...generateLesson({ items, pool, mastery, fills, maxExercises, allowListen, allowSpeak: recognitionAvailable && useStore.getState().speakingOn, focus })]
     const st = useStore.getState()
-    return { exercises, xpBefore: st.xp, todayBefore: xpToday(st.xpByDay), goal: st.dailyGoal }
+    return { exercises, xpBefore: st.xp }
   })
 
   // Aufnahmen der Wörter dieser Übung schon im Hintergrund holen
@@ -97,9 +98,10 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
 
   // Erklärung nur beim ersten Versuch zeigen
   const [stage, setStage] = useState<Stage>(!isTest && explanation && attempt === 0 ? 'explain' : 'practice')
-  const [outcome, setOutcome] = useState<{ result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number } | null>(null)
+  const [outcome, setOutcome] = useState<{ result: SessionResult; xp: number; coins: number; leveledUp: boolean; comboXp: number } | null>(null)
   const gradedIds = useMemo(() => new Set([...items, ...(warmup ?? [])].map((i) => i.id)), [items, warmup])
   const finished = useRef(false)
+  const startedAt = useRef(Date.now())
 
   const onComplete = useCallback(
     (result: SessionResult) => {
@@ -107,16 +109,13 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
       finished.current = true
       const comboXp = comboBonus(result.bestCombo)
       const xp = lessonXp(result.firstTry, result.total) + comboXp
-      const coins = finishSession({ xp, grades: result.grades, lessonId, accuracy: result.accuracy, ...(math ? { answered: result.total } : {}) })
+      const coins = finishSession({ xp, grades: result.grades, lessonId, accuracy: result.accuracy, minutes: minutesSince(startedAt.current), ...(math ? { answered: result.total } : {}) })
       const xpBefore = setup.xpBefore
-      // Neue Stufe erreicht? (Mindestziel oder ein Bonusziel)
-      const bonusTier = goalInfo(setup.goal, setup.todayBefore + xp).tier
-      const goalReached = bonusTier > goalInfo(setup.goal, setup.todayBefore).tier
-      setOutcome({ result, xp, coins, leveledUp: levelFromXp(xpBefore + xp).level > levelFromXp(xpBefore).level, goalReached, bonusTier, comboXp })
+      setOutcome({ result, xp, coins, leveledUp: levelFromXp(xpBefore + xp).level > levelFromXp(xpBefore).level, comboXp })
       playDone()
       setStage('done')
     },
-    [finishSession, lessonId, math, setup.xpBefore, setup.todayBefore, setup.goal],
+    [finishSession, lessonId, math, setup.xpBefore],
   )
 
   if (stage === 'explain' && explanation) {
@@ -214,7 +213,7 @@ export function ResultScreen({
   extra?: React.ReactNode
   onMore?: () => void
   title: string
-  outcome: { result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number }
+  outcome: { result: SessionResult; xp: number; coins: number; leveledUp: boolean; comboXp: number }
   items: Item[]
   test: boolean
   free: boolean
@@ -225,11 +224,10 @@ export function ResultScreen({
   onNext: (lessonId: string) => void
 }) {
   const reduce = useReducedMotion()
-  const { result, xp, coins, leveledUp, goalReached, bonusTier, comboXp } = outcome
+  const { result, xp, coins, leveledUp, comboXp } = outcome
   // Was in dieser Einheit Neues passiert ist (Tagesaufgaben, Erfolge, Einheit, Truhe); wird beim Verlassen gelöscht
   const [events] = useState(() => useRewardEvents.getState().last)
   useEffect(() => () => useRewardEvents.setState({ last: null }), [])
-  const [chestOpen, setChestOpen] = useState(false)
   const outfit = useStore.getState().outfit
   const pct = Math.round(result.accuracy * 100)
   const missed = items.filter((i) => result.mistakeItemIds.includes(i.id))
@@ -329,16 +327,7 @@ export function ResultScreen({
             <Coin size={20} /> +{coins} {coins === 1 ? 'Münze' : 'Münzen'}
           </motion.p>
         )}
-        {goalReached && (
-          <motion.p
-            initial={reduce ? false : { opacity: 0, scale: 0.7, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ ...SPRING.bouncy, delay: 0.68 }}
-            className="mt-4 flex items-center gap-2 rounded-xl bg-good-soft px-4 py-2 font-semibold text-good-dark"
-          >
-            <Target size={18} /> {bonusTier <= 1 ? 'Tagesziel geschafft!' : `Bonusziel ${bonusTier - 1} geschafft!`}
-          </motion.p>
-        )}
+        <StudyTimeNote />
         {leveledUp && (
           <motion.p
             initial={reduce ? false : { opacity: 0, scale: 0.7, y: 10 }}
@@ -358,34 +347,6 @@ export function ResultScreen({
           >
             <Flame size={18} /> {result.bestCombo} richtige in Folge{comboXp > 0 ? `, +${comboXp} XP Combo-Bonus` : ''}
           </motion.p>
-        )}
-        {events && events.quests.length > 0 && (
-          <motion.div
-            initial={reduce ? false : { opacity: 0, scale: 0.8, y: 12 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ ...SPRING.bouncy, delay: 0.92 }}
-            className="mt-3 w-full max-w-sm rounded-2xl border border-good bg-good-soft px-4 py-3 text-left"
-          >
-            <span className="mb-1.5 block text-xs font-extrabold uppercase tracking-wide text-good-dark">
-              {events.quests.length === 1 ? 'Tagesaufgabe geschafft' : 'Tagesaufgaben geschafft'}
-            </span>
-            <ul className="grid gap-1.5">
-              {events.quests.map((q) => (
-                <li key={q.id} className="flex items-center gap-2 font-semibold text-good-dark">
-                  <Check size={16} className="shrink-0" />
-                  <span className="min-w-0 flex-1 leading-snug">{q.text}</span>
-                  <span className="flex shrink-0 items-center gap-1"><Coin size={14} /> +{q.coins}</span>
-                </li>
-              ))}
-              {events.allQuests && (
-                <li className="mt-1 flex items-center gap-2 border-t border-good/30 pt-2 font-extrabold text-gold-dark">
-                  <Star size={16} className="shrink-0" />
-                  <span className="min-w-0 flex-1">Alle drei geschafft: Bonus!</span>
-                  <span className="flex shrink-0 items-center gap-1"><Coin size={14} /> +{events.bonus}</span>
-                </li>
-              )}
-            </ul>
-          </motion.div>
         )}
         {events?.achievements.map((a, i) => (
           <motion.div
@@ -415,23 +376,6 @@ export function ResultScreen({
             <span className="mt-1 block text-sm opacity-95"><b>Das kannst du jetzt:</b> {events.unit.description}</span>
           </motion.div>
         )}
-        {events?.chestUnlocked && (
-          <motion.button
-            type="button"
-            onClick={() => setChestOpen(true)}
-            initial={reduce ? false : { opacity: 0, scale: 0.7, y: 10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ ...SPRING.bouncy, delay: 1.0 }}
-            className="press mt-4 flex w-full max-w-sm items-center gap-3 rounded-2xl border-2 border-gold bg-gold/15 px-4 py-3 text-left"
-          >
-            <Chest size={40} />
-            <span className="min-w-0 flex-1">
-              <span className="block font-extrabold">Deine Truhe wartet!</span>
-              <span className="block text-sm text-muted">Tagesziel geschafft. Tippe zum Öffnen.</span>
-            </span>
-            <Right size={16} className="text-muted" />
-          </motion.button>
-        )}
       </div>
       {missed.length > 0 && (
         <div className="mx-auto mt-8 max-w-sm">
@@ -446,7 +390,6 @@ export function ResultScreen({
           </ul>
         </div>
       )}
-      <ChestSheet open={chestOpen} onClose={() => setChestOpen(false)} />
     </Screen>
   )
 }

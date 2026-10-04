@@ -286,12 +286,11 @@ export function BlitzPage() {
                 <div className="text-[11px] font-medium text-muted">XP</div>
               </div>
               <div className="rounded-2xl border border-line bg-surface px-2 py-3">
-                <div className="flex items-center justify-center gap-1 text-2xl font-extrabold"><Coin size={20} /> +{reward.coins + reward.questCoins}</div>
+                <div className="flex items-center justify-center gap-1 text-2xl font-extrabold"><Coin size={20} /> +{reward.coins}</div>
                 <div className="text-[11px] font-medium text-muted">Münzen</div>
               </div>
             </div>
             {!reward.record && best > 0 && <p className="mt-3 text-sm text-muted">Rekord: {best} Punkte. Noch {Math.max(1, best - score + 1)} bis zum neuen.</p>}
-            {reward.questsDone > 0 && <p className="mt-3 rounded-xl bg-good-soft px-4 py-2 font-semibold text-good-dark">Tagesaufgabe geschafft{reward.allQuests ? ', alle drei sogar!' : '!'}</p>}
             {missed.length > 0 && (
               <div className="mt-6 w-full max-w-sm text-left">
                 <h2 className="mb-2 font-semibold">Hier hat es gehakt</h2>

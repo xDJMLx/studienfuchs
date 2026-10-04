@@ -13,7 +13,7 @@ import { BackupBanner } from '../../components/ui/BackupBanner'
 import { InstallBanner } from '../../components/ui/InstallApp'
 import { backupDue } from '../../lib/backup'
 import { ArbeitFollowUp } from '../kalender/KalenderPage'
-import { TodayStrip } from '../path/TodayCard'
+import { StudyTimeCard } from '../../components/ui/StudyTime'
 import { BlitzCard } from '../practice/BlitzCard'
 import { dueLabel } from '../review/ReviewPage'
 
@@ -56,9 +56,6 @@ export function UebenPage() {
 
   return (
     <Stagger className="mx-auto max-w-2xl px-4 py-5 lg:py-8" stagger={0.06}>
-      <div className="xl:hidden">
-        <TodayStrip hideDue />
-      </div>
 
       {followUps.map((a) => (
         <Item key={a.id}>
@@ -124,6 +121,10 @@ export function UebenPage() {
             </div>
           </section>
         )}
+      </Item>
+
+      <Item>
+        <StudyTimeCard />
       </Item>
 
       <Item>

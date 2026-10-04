@@ -10,8 +10,9 @@ import { generateRound, type RoundMode } from '../../lib/roundExercises'
 import { playDone } from '../../lib/sound'
 import { hasFrenchVoice, loadAudioIndex, prefetchRecordings } from '../../lib/speech'
 import { masteryOf } from '../../lib/srs'
-import { goalInfo, levelFromXp, lessonXp } from '../../lib/xp'
-import { useStore, xpToday } from '../../store/useStore'
+import { minutesSince } from '../../lib/studyTime'
+import { levelFromXp, lessonXp } from '../../lib/xp'
+import { useStore } from '../../store/useStore'
 import { ResultScreen } from '../lesson/PracticeFlow'
 import { Session, type SessionResult } from '../lesson/Session'
 import { ProgressSummary } from './ProgressSummary'
@@ -21,10 +22,7 @@ interface Outcome {
   xp: number
   coins: number
   leveledUp: boolean
-  goalReached: boolean
-  bonusTier: number
   comboXp: number
-  streakUp: boolean
   diff: ProgressDiff
   /** Münzen für Meilensteine (Level, Sterne, Marken einer Arbeit) */
   bonus: number
@@ -48,10 +46,11 @@ function CardRound({ title, refs, pool, mode, exitTo, onMore }: { title: string;
       allowListen: hasFrenchVoice(),
       allowSpeak: recognitionAvailable && st.speakingOn,
     })
-    return { exercises, decks, before: snapshot(decks, st.arbeiten ?? [], st.cards), xpBefore: st.xp, todayBefore: xpToday(st.xpByDay), goal: st.dailyGoal }
+    return { exercises, decks, before: snapshot(decks, st.arbeiten ?? [], st.cards), xpBefore: st.xp }
   })
   const [outcome, setOutcome] = useState<Outcome | null>(null)
   const finished = useRef(false)
+  const startedAt = useRef(Date.now())
   const gradedIds = useMemo(() => new Set(refs.map((r) => r.item.id)), [refs])
   const items = useMemo(() => refs.map((r) => r.item), [refs])
   const subjects = useMemo(() => [...new Set(refs.map((r) => r.deck.subject))], [refs])
@@ -67,12 +66,8 @@ function CardRound({ title, refs, pool, mode, exitTo, onMore }: { title: string;
       finished.current = true
       const comboXp = comboBonus(result.bestCombo)
       const xp = lessonXp(result.firstTry, result.total) + comboXp
-      const lastDayBefore = useStore.getState().streak.lastDay
-      const coins = finishSession({ xp, grades: result.grades, accuracy: result.accuracy, answered: result.total, subjects })
+      const coins = finishSession({ xp, grades: result.grades, accuracy: result.accuracy, answered: result.total, subjects, minutes: minutesSince(startedAt.current) })
       const st = useStore.getState()
-      const streakUp = st.streak.lastDay !== lastDayBefore
-      const bonusTier = goalInfo(setup.goal, setup.todayBefore + xp).tier
-      const goalReached = bonusTier > goalInfo(setup.goal, setup.todayBefore).tier
       const after = snapshot(setup.decks, st.arbeiten ?? [], st.cards)
       const diff = diffProgress(setup.before, after)
       const bonus = bonusCoins(diff)
@@ -82,10 +77,7 @@ function CardRound({ title, refs, pool, mode, exitTo, onMore }: { title: string;
         xp,
         coins,
         leveledUp: levelFromXp(setup.xpBefore + xp).level > levelFromXp(setup.xpBefore).level,
-        goalReached,
-        bonusTier,
         comboXp,
-        streakUp,
         diff,
         bonus,
         decks: setup.decks,

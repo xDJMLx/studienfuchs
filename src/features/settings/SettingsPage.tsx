@@ -18,11 +18,12 @@ import { SpeechSettings } from '../profile/SpeechSettings'
 import { AiSettings } from './AiSettings'
 import { useShallow } from 'zustand/react/shallow'
 
+/** Lernzeit pro Tag, solange eine Arbeit ansteht (ohne Arbeit gibt es kein Tagesziel). */
 const GOALS = [
-  { xp: 10, label: 'Locker', time: '5 Min. am Tag', bars: 1 },
-  { xp: 20, label: 'Normal', time: '10 Min. am Tag', bars: 2 },
-  { xp: 30, label: 'Ernsthaft', time: '15 Min. am Tag', bars: 3 },
-  { xp: 50, label: 'Intensiv', time: '20+ Min. am Tag', bars: 4 },
+  { min: 5, label: 'Locker', time: 'für kleine Arbeiten', bars: 1 },
+  { min: 10, label: 'Normal', time: 'genau richtig für die meisten', bars: 2 },
+  { min: 15, label: 'Ernsthaft', time: 'für wichtige Arbeiten', bars: 3 },
+  { min: 20, label: 'Intensiv', time: 'wenn es knapp wird', bars: 4 },
 ]
 
 const THEMES = [
@@ -74,7 +75,7 @@ export function SettingsPage() {
   const mySubjects = useStore((s) => s.mySubjects)
   const toggleSubject = useStore((s) => s.toggleSubject)
   const addedUnits = useStore((s) => s.addedUnits)
-  const { theme, setTheme, dailyGoal, setDailyGoal, soundOn, setSoundOn, exportData, importData, resetAll, cards, sets } = useStore(useShallow((s) => ({ theme: s.theme, setTheme: s.setTheme, dailyGoal: s.dailyGoal, setDailyGoal: s.setDailyGoal, soundOn: s.soundOn, setSoundOn: s.setSoundOn, exportData: s.exportData, importData: s.importData, resetAll: s.resetAll, cards: s.cards, sets: s.sets })))
+  const { theme, setTheme, dailyMinutes, setDailyMinutes, soundOn, setSoundOn, exportData, importData, resetAll, cards, sets } = useStore(useShallow((s) => ({ theme: s.theme, setTheme: s.setTheme, dailyMinutes: s.dailyMinutes, setDailyMinutes: s.setDailyMinutes, soundOn: s.soundOn, setSoundOn: s.setSoundOn, exportData: s.exportData, importData: s.importData, resetAll: s.resetAll, cards: s.cards, sets: s.sets })))
   const fileRef = useRef<HTMLInputElement>(null)
   const install = useInstallFlow()
   const [toast, setToast] = useState<{ ok: boolean; text: string } | null>(null)
@@ -298,20 +299,20 @@ export function SettingsPage() {
           </Item>
 
           <Item>
-            <Section id="s-learn" icon={<Target size={22} />} title="Lernen" description="Dein Tagesziel">
+            <Section id="s-learn" icon={<Target size={22} />} title="Lernen" description="Lernzeit für Arbeiten">
               <div className="px-5 py-4">
-                <p className="font-medium">Mindestziel pro Tag</p>
-                <p className="mb-3 text-sm text-muted">Das ist dein Minimum. Erreichst du es, setzt die App heute ein Bonusziel (je +10 XP, z. B. 20 → 30 → 40). Morgen gilt wieder dein Mindestziel.</p>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4" role="radiogroup" aria-label="Tagesziel in XP">
+                <p className="font-medium">Minuten pro Tag, wenn eine Arbeit ansteht</p>
+                <p className="mb-3 text-sm text-muted">Solange du eine Arbeit mit Karteikarten eingetragen hast, zeigt dir die Startseite jeden Tag, wie viele Minuten noch fehlen. Ohne Arbeit gibt es kein Tagesziel: Dann übst du, wann du willst.</p>
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4" role="radiogroup" aria-label="Minuten pro Tag">
                   {GOALS.map((g) => {
-                    const on = dailyGoal === g.xp
+                    const on = dailyMinutes === g.min
                     return (
                       <motion.button
-                        key={g.xp}
+                        key={g.min}
                         type="button"
                         role="radio"
                         aria-checked={on}
-                        onClick={() => setDailyGoal(g.xp)}
+                        onClick={() => setDailyMinutes(g.min)}
                         whileTap={{ scale: 0.96 }}
                         className={`relative rounded-xl border-2 px-3 py-3 text-left transition-colors duration-300 ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface hover:bg-snow'}`}
                       >
@@ -321,7 +322,7 @@ export function SettingsPage() {
                           ))}
                         </span>
                         <span className={`block font-semibold ${on ? 'text-brand-dark' : ''}`}>{g.label}</span>
-                        <span className="block text-xs text-muted">{g.xp} XP</span>
+                        <span className="block text-xs font-bold text-muted">{g.min} Min.</span>
                         <span className="block text-xs text-muted">{g.time}</span>
                       </motion.button>
                     )

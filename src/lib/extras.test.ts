@@ -25,20 +25,12 @@ describe('Karteikasten', () => {
 
 describe('Fuchs-Laden', () => {
   it('gibt eine Münze je 2 XP', () => {
-    expect(coinsForSession({ xp: 17, dailyGoal: 100, todayBefore: 0, streakBefore: 0, streakAfter: 1 }).total).toBe(8)
+    expect(coinsForSession({ xp: 17 }).total).toBe(8)
   })
 
-  it('gibt Prämien für das Tagesziel und jedes Bonusziel', () => {
-    // Mindestziel (20) erreicht: +10
-    expect(coinsForSession({ xp: 20, dailyGoal: 20, todayBefore: 0, streakBefore: 1, streakAfter: 1 }).goal).toBe(10)
-    // schon über dem Mindestziel, nächstes Bonusziel (30) erreicht: +5
-    expect(coinsForSession({ xp: 12, dailyGoal: 20, todayBefore: 22, streakBefore: 1, streakAfter: 1 }).goal).toBe(5)
-    // nichts Neues erreicht
-    expect(coinsForSession({ xp: 3, dailyGoal: 20, todayBefore: 2, streakBefore: 1, streakAfter: 1 }).goal).toBe(0)
-  })
-
-  it('gibt keine Prämie für Tage am Stück (geübt wird für Arbeiten, nicht für eine Strähne)', () => {
-    expect(coinsForSession({ xp: 2, dailyGoal: 20, todayBefore: 0, streakBefore: 6, streakAfter: 7 }).streak).toBe(0)
+  it('gibt keine Prämie für Tagesziele oder Tage am Stück (geübt wird für Arbeiten)', () => {
+    expect(Object.keys(coinsForSession({ xp: 20 })).sort()).toEqual(['base', 'total'])
+    expect(coinsForSession({ xp: 20 }).total).toBe(10)
   })
 
   it('Kauf klappt nur mit genug Münzen und nur einmal', () => {
@@ -67,18 +59,21 @@ describe('Wochenbericht', () => {
     d.setDate(now.getDate() - offset)
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
   }
-  const base = { dailyGoal: 20, streak: 4, bestStreak: 6, level: 3, learnedWords: 120, masteredWords: 40, dueNow: 12, now }
+  const base = { level: 3, learnedWords: 120, masteredWords: 40, dueNow: 12, now }
 
   it('fasst die letzten sieben Tage zusammen', () => {
     const r = buildWeeklyReport({
       ...base,
       xpByDay: { [key(0)]: 25, [key(1)]: 10, [key(2)]: 30, [key(9)]: 99 },
+      minutesByDay: { [key(0)]: 12, [key(1)]: 8.4, [key(9)]: 50 },
       lessons: { l1: { lastDone: key(0) }, l2: { lastDone: key(3) }, l3: { lastDone: key(20) } },
       nextExam: { title: 'Unité 3', days: 2 },
     })
     expect(r.activeDays).toBe(3)
     expect(r.weekXp).toBe(65)
-    expect(r.goalDays).toBe(2)
+    expect(r.minutes).toBe(20)
+    expect(r.text).toContain('20 Minuten geübt')
+    expect(r.text).not.toMatch(/Serie/)
     expect(r.lessonsWeek).toBe(2)
     expect(r.text).toContain('01.10.–07.10.')
     expect(r.text).toContain('Aktiv an 3 von 7 Tagen')
@@ -86,7 +81,7 @@ describe('Wochenbericht', () => {
   })
 
   it('kommt ohne Aktivität und ohne Klassenarbeit aus und nennt keinen Namen', () => {
-    const r = buildWeeklyReport({ ...base, xpByDay: {}, lessons: {}, streak: 0, bestStreak: 0, dueNow: 1 })
+    const r = buildWeeklyReport({ ...base, xpByDay: {}, lessons: {}, dueNow: 1 })
     expect(r.text).toContain('Aktiv an 0 von 7 Tagen')
     expect(r.text).toContain('1 Wort')
     expect(r.text).not.toContain('Klassenarbeit')

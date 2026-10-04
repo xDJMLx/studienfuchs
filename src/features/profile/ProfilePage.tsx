@@ -21,7 +21,7 @@ const titleFor = (level: number) => TITLES[Math.min(TITLES.length - 1, Math.floo
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
-  const { xp, xpByDay, dailyGoal, lessons, rounds, sets, outfit, coins, addedUnits, arbeiten, cards } = useStore(useShallow((s) => ({ xp: s.xp, xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, lessons: s.lessons, rounds: s.rounds, sets: s.sets, outfit: s.outfit, coins: s.coins, addedUnits: s.addedUnits, arbeiten: s.arbeiten, cards: s.cards })))
+  const { xp, minutesByDay, dailyMinutes, lessons, rounds, sets, outfit, coins, addedUnits, arbeiten, cards } = useStore(useShallow((s) => ({ xp: s.xp, minutesByDay: s.minutesByDay, dailyMinutes: s.dailyMinutes, lessons: s.lessons, rounds: s.rounds, sets: s.sets, outfit: s.outfit, coins: s.coins, addedUnits: s.addedUnits, arbeiten: s.arbeiten, cards: s.cards })))
   const { learned, byMastery } = useLearned()
   const course = useCourse()
   const lvl = levelFromXp(xp)
@@ -31,9 +31,9 @@ export function ProfilePage() {
     d.setDate(d.getDate() - (6 - i))
     return { key: dayKey(d), label: WEEKDAYS[d.getDay()] }
   })
-  const maxXp = Math.max(dailyGoal, ...days.map((d) => xpByDay[d.key] ?? 0))
-  const weekXp = days.reduce((n, d) => n + (xpByDay[d.key] ?? 0), 0)
-  const goalDays = Object.values(xpByDay).filter((v) => v >= dailyGoal).length
+  const minOf = (key: string) => Math.round(minutesByDay?.[key] ?? 0)
+  const maxMin = Math.max(dailyMinutes, ...days.map((d) => minOf(d.key)))
+  const weekMin = days.reduce((n, d) => n + minOf(d.key), 0)
 
   const learning = byMastery[0]
   const mastered = byMastery[1]
@@ -45,7 +45,6 @@ export function ProfilePage() {
     learnedWords: learned.length,
     masteredWords: mastered,
     sets: sets.length,
-    goalDays,
     ...deckAchievementStats({ sets, addedUnits, arbeiten, cards }),
   })
   const unlocked = badges.filter((b) => b.value >= b.goal).length
@@ -111,21 +110,21 @@ export function ProfilePage() {
         <Item>
           <section className="card mt-4 p-5">
             <div className="mb-4 flex items-baseline justify-between">
-              <h2 className="font-semibold">Diese Woche</h2>
-              <span className="text-sm text-muted"><span className="font-semibold text-ink">{weekXp}</span> XP</span>
+              <h2 className="font-semibold">Geübt in dieser Woche</h2>
+              <span className="text-sm text-muted"><span className="font-semibold text-ink">{weekMin}</span> Minuten</span>
             </div>
-            <div className="flex h-36 items-end gap-2.5" role="img" aria-label="XP der letzten 7 Tage">
+            <div className="flex h-36 items-end gap-2.5" role="img" aria-label="Geübte Minuten der letzten 7 Tage">
               {days.map((d, i) => {
-                const v = xpByDay[d.key] ?? 0
-                const hit = v >= dailyGoal
+                const v = minOf(d.key)
+                const hit = v >= dailyMinutes
                 return (
-                  <div key={d.key} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5" title={`${v} XP`}>
+                  <div key={d.key} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5" title={`${v} Minuten`}>
                     <span className={`text-[11px] font-semibold ${v ? 'text-ink' : 'text-transparent'}`}>{v || 0}</span>
                     <div className="flex w-full flex-1 items-end">
                       <motion.div
                         className={`w-full rounded-lg ${hit ? 'bg-good' : 'bg-brand'}`}
                         initial={reduce ? false : { height: 0 }}
-                        animate={{ height: `${Math.max((v / maxXp) * 100, v ? 5 : 2)}%` }}
+                        animate={{ height: `${Math.max((v / maxMin) * 100, v ? 5 : 2)}%` }}
                         transition={{ duration: 0.5, ease: EASE, delay: 0.1 + i * 0.04 }}
                         style={{ opacity: v ? 1 : 0.25 }}
                       />
@@ -135,7 +134,7 @@ export function ProfilePage() {
                 )
               })}
             </div>
-            <p className="mt-3 text-xs text-muted">Grün: Tagesziel von {dailyGoal} XP erreicht.</p>
+            <p className="mt-3 text-xs text-muted">Grün: so viele Minuten, wie du dir für eine Arbeit vorgenommen hast ({dailyMinutes}).</p>
 
           </section>
         </Item>

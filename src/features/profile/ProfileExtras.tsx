@@ -7,7 +7,7 @@ import { BOX_NAMES, boxCounts } from '../../lib/boxes'
 import { daysTo } from '../../lib/coach'
 import { buildWeeklyReport } from '../../lib/report'
 import { levelFromXp } from '../../lib/xp'
-import { streakNow, useStore } from '../../store/useStore'
+import { useStore } from '../../store/useStore'
 import { useCourse, useDue, useLearned } from '../review/ReviewPage'
 import { useShallow } from 'zustand/react/shallow'
 
@@ -55,7 +55,7 @@ export function Karteikasten() {
 
 /** Wochenbericht zum Teilen (z. B. mit den Eltern): Text über die letzten sieben Tage, ohne Namen. */
 export function WeeklyReport() {
-  const { xpByDay, dailyGoal, lessons, streak, bestStreak, xp, sets, examDates } = useStore(useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, lessons: s.lessons, streak: s.streak, bestStreak: s.bestStreak, xp: s.xp, sets: s.sets, examDates: s.examDates })))
+  const { xpByDay, minutesByDay, lessons, xp, sets, examDates } = useStore(useShallow((s) => ({ xpByDay: s.xpByDay, minutesByDay: s.minutesByDay, lessons: s.lessons, xp: s.xp, sets: s.sets, examDates: s.examDates })))
   const { learned, byMastery } = useLearned()
   const { due } = useDue()
   const [open, setOpen] = useState(false)
@@ -68,17 +68,15 @@ export function WeeklyReport() {
       .sort((a, b) => a.days - b.days)[0]
     return buildWeeklyReport({
       xpByDay,
-      dailyGoal,
+      minutesByDay,
       lessons,
-      streak: streakNow(streak),
-      bestStreak: bestStreak ?? 0,
       level: levelFromXp(xp).level,
       learnedWords: learned.length,
       masteredWords: byMastery[1],
       dueNow: due.length,
       nextExam: next ? { title: next.set!.title, days: next.days } : null,
     })
-  }, [xpByDay, dailyGoal, lessons, streak, bestStreak, xp, sets, examDates, learned.length, byMastery, due.length])
+  }, [xpByDay, minutesByDay, lessons, xp, sets, examDates, learned.length, byMastery, due.length])
 
   const share = async () => {
     try {

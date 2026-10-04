@@ -1,8 +1,8 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation, useNavigate, useOutlet } from 'react-router-dom'
-import { goalInfo, levelFromXp } from '../../lib/xp'
-import { useStore, xpToday } from '../../store/useStore'
+import { levelFromXp } from '../../lib/xp'
+import { useStore } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
 import { Coin, Gear, TabCalendar, TabRepeat, TabUser, Xp } from './Icons'
 import { EASE } from './motion'
@@ -11,7 +11,7 @@ import { CoachComposer } from './CoachComposer'
 import { TabBar } from './TabBar'
 import { useDue } from '../../features/review/ReviewPage'
 import { ProgressBar } from './widgets'
-import { TodayCard } from '../../features/path/TodayCard'
+import { StudyTimeCard } from './StudyTime'
 import { useShallow } from 'zustand/react/shallow'
 
 interface NavItem {
@@ -169,8 +169,8 @@ function DueBadge({ n, className = '' }: { n: number; className?: string }) {
 
 /** Kopfzeile auf dem Handy: links der Fuchs, rechts XP von heute und Münzen als kräftige Zahlen. */
 function TopBar({ className = '' }: { className?: string }) {
-  const { xpByDay, dailyGoal, coins } = useStore(useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, coins: s.coins })))
-  const today = xpToday(xpByDay)
+  const { xp, coins } = useStore(useShallow((s) => ({ xp: s.xp, coins: s.coins })))
+  const lvl = levelFromXp(xp)
   const stat = 'press flex min-h-11 items-center gap-1.5 rounded-xl px-2 text-[16px] font-extrabold tabular-nums transition-colors hover:bg-snow'
   return (
     <header className={`flex items-center justify-between border-b-2 border-line bg-page px-3 py-1.5 ${className}`}>
@@ -179,10 +179,10 @@ function TopBar({ className = '' }: { className?: string }) {
         <span className="hidden text-[19px] min-[360px]:inline font-black tracking-tight text-brand-strong">Studienfuchs</span>
       </Link>
       <div className="flex items-center gap-0.5">
-        <Link to="/profile" className={`${stat} text-gold-dark`} aria-label={`Heute ${today} von ${goalInfo(dailyGoal, today).goal} XP`} title="XP heute">
+        <Link to="/profile" className={`${stat} text-gold-dark`} aria-label={`Level ${lvl.level}, ${xp} XP`} title="Dein Level">
           <Xp size={24} />
-          <motion.span key={today} initial={{ scale: 1.5, y: -2 }} animate={{ scale: 1, y: 0 }} transition={{ type: 'spring', stiffness: 500, damping: 14 }}>
-            {today}
+          <motion.span key={lvl.level} initial={{ scale: 1.5, y: -2 }} animate={{ scale: 1, y: 0 }} transition={{ type: 'spring', stiffness: 500, damping: 14 }}>
+            Lv {lvl.level}
           </motion.span>
         </Link>
         <Link to="/shop" className={`${stat} text-gold-dark`} aria-label={`${coins} Münzen, zum Fuchs-Laden`} title="Münzen">
@@ -201,7 +201,7 @@ export function RightRail() {
   const lvl = levelFromXp(xp)
   return (
     <div className="grid gap-4">
-      <TodayCard />
+      <StudyTimeCard />
       <Link to="/profile" className="card lift block p-5">
         <div className="mb-2 flex items-baseline justify-between">
           <p className="text-[18px] font-extrabold">Level {lvl.level}</p>

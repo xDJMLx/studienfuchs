@@ -5,7 +5,6 @@ export interface AchievementInput {
   learnedWords: number
   masteredWords: number
   sets: number
-  goalDays: number
   /** Eigene Stapel */
   decks?: number
   /** Eingetragene Arbeiten */
@@ -43,7 +42,6 @@ export function achievements(i: AchievementInput): Achievement[] {
     a('words100', '100 Karten', 'Lerne 100 verschiedene Karten.', i.learnedWords, 100),
     a('mastered50', 'Sitzt fest', 'Festige 50 Karten im Langzeitgedächtnis.', i.masteredWords, 50),
     a('xp1000', '1000 XP', 'Sammle insgesamt 1000 XP.', i.xp, 1000),
-    a('goal5', 'Zielstrebig', 'Erreiche an 5 Tagen dein Tagesziel.', i.goalDays, 5),
     a('set', 'Eigener Stoff', 'Erstelle deine ersten Karteikarten.', i.decks ?? i.sets, 1),
     a('decks5', 'Sammler', 'Erstelle 5 Sammlungen von Karteikarten.', i.decks ?? i.sets, 5),
     a('arbeit1', 'Gut geplant', 'Trag deine erste Arbeit in den Kalender ein.', i.arbeiten ?? 0, 1),

@@ -45,14 +45,10 @@ describe('Stapel im Speicher', () => {
   it('eine Runde zählt: Runden, geübte Karten und Fortschritt der Karten', () => {
     const id = useStore.getState().addSet('Zelle', [{ front: 'a', back: 'b' }, { front: 'c', back: 'd' }], { subject: 'biologie' })
     const items = useStore.getState().sets.find((s) => s.id === id)!.items
-    useStore.getState().ensureDaily()
-    useStore.setState((s) => ({ daily: { ...s.daily!, quests: ['practiced:10', 'newWords:4', 'blitz:1'] } }))
     useStore.getState().finishSession({ xp: 10, grades: { [items[0].id]: 'good', [items[1].id]: 'again' }, accuracy: 0.5, answered: 10 })
     const st = useStore.getState()
     expect(st.rounds).toBe(1)
     expect(Object.keys(st.cards).sort()).toEqual(items.map((i) => i.id).sort())
-    expect(st.daily?.stats.practiced).toBe(10)
-    expect(st.daily?.stats.newWords).toBe(2)
   })
 })
 
@@ -61,7 +57,7 @@ import { generateRound } from '../lib/roundExercises'
 import { ARBEIT_COINS } from './useStore'
 import { masteryOf } from '../lib/srs'
 
-describe('Fächer, Arbeiten abhaken, Tagesaufgabe Abwechslung', () => {
+describe('Fächer und Arbeiten abhaken', () => {
   it('Fächer lassen sich an- und abwählen', () => {
     useStore.getState().toggleSubject('biologie')
     useStore.getState().toggleSubject('mathe')
@@ -83,25 +79,6 @@ describe('Fächer, Arbeiten abhaken, Tagesaufgabe Abwechslung', () => {
     useStore.getState().addCoins(25)
     useStore.getState().addCoins(-10)
     expect(useStore.getState().coins).toBe(25)
-  })
-
-  it('Üben in mehreren Fächern zählt je neues Fach einmal', () => {
-    const st = useStore.getState()
-    st.toggleSubject('biologie')
-    st.toggleSubject('mathe')
-    st.ensureDaily()
-    useStore.setState((s) => ({ daily: { ...s.daily!, quests: ['variety:2', 'practiced:10', 'blitz:1'] } }))
-    const a = st.addSet('A', [{ front: 'a', back: 'b' }], { subject: 'biologie' })
-    const m = st.addSet('M', [{ front: 'c', back: 'd' }], { subject: 'mathe' })
-    const ia = useStore.getState().sets.find((x) => x.id === a)!.items[0].id
-    const im = useStore.getState().sets.find((x) => x.id === m)!.items[0].id
-    useStore.getState().finishSession({ xp: 5, grades: { [ia]: 'good' }, accuracy: 1, answered: 3, subjects: ['biologie'] })
-    expect(useStore.getState().daily?.stats.variety).toBe(1)
-    useStore.getState().finishSession({ xp: 5, grades: { [ia]: 'good' }, accuracy: 1, answered: 3, subjects: ['biologie'] })
-    expect(useStore.getState().daily?.stats.variety).toBe(1)
-    useStore.getState().finishSession({ xp: 5, grades: { [im]: 'good' }, accuracy: 1, answered: 3, subjects: ['mathe'] })
-    expect(useStore.getState().daily?.stats.variety).toBe(2)
-    expect(useStore.getState().daily?.claimed).toContain('variety:2')
   })
 })
 

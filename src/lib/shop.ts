@@ -1,4 +1,3 @@
-import { goalInfo } from './xp'
 
 /**
  * Fuchs-Laden: Münzen gibt es nur durchs Lernen, Zubehör gibt es nur für Münzen.
@@ -40,19 +39,10 @@ export type Outfit = Partial<Record<Slot, string>>
 
 export const itemById = (id: string): ShopItem | undefined => ITEMS.find((i) => i.id === id)
 
-/** Münzen für eine Übungseinheit: 1 Münze je 2 XP, dazu Prämien für Tagesziel, Bonusziele und Serien. */
-export function coinsForSession(p: { xp: number; dailyGoal: number; todayBefore: number; streakBefore: number; streakAfter: number }): { total: number; base: number; goal: number; streak: number } {
+/** Münzen für eine Übungseinheit: 1 Münze je 2 XP. Es gibt keine Prämien für Tagesziele oder Serien. */
+export function coinsForSession(p: { xp: number }): { total: number; base: number } {
   const base = Math.floor(p.xp / 2)
-  const before = goalInfo(p.dailyGoal, p.todayBefore).tier
-  const after = goalInfo(p.dailyGoal, p.todayBefore + p.xp).tier
-  let goal = 0
-  if (after > before) {
-    // Mindestziel: 10, jedes Bonusziel danach 5
-    for (let t = before + 1; t <= after; t++) goal += t === 1 ? 10 : 5
-  }
-  // Keine Serien-Prämie: Geübt wird für Arbeiten, nicht für eine Strähne
-  const streak = 0
-  return { total: base + goal + streak, base, goal, streak }
+  return { total: base, base }
 }
 
 /** Kauf: gibt den neuen Stand zurück oder null, wenn es nicht geht. */
