@@ -86,7 +86,7 @@ export function AboutPage() {
               <p>Unter <Link to="/settings" className="font-semibold text-brand-dark underline">Einstellungen → Daten</Link> kannst du alles sichern oder mit „Zurücksetzen“ vollständig von deinem Gerät löschen.</p>
             </Accordion>
             <Accordion title="Buchseiten und Texterkennung" icon={<Camera size={20} />}>
-              <p>Hochgeladene Buchseiten werden mit der Offline-Texterkennung <b className="text-ink">auf deinem Gerät</b> gelesen. Die Bilder werden nicht gespeichert und nirgends hingeschickt. Im Tab Bücher bleibt nur der erkannte Text, und nur auf diesem Gerät. Die Bücher gehören dir und sind nicht Teil der App: Sie werden nicht geteilt und nicht ausgeliefert.</p>
+              <p>Hochgeladene Buchseiten werden mit der Offline-Texterkennung <b className="text-ink">auf deinem Gerät</b> gelesen. Die Bilder werden nicht gespeichert und nirgends hingeschickt. In deinen Büchern bleibt nur der erkannte Text, und nur auf diesem Gerät. Die Bücher gehören dir und sind nicht Teil der App: Sie werden nicht geteilt und nicht ausgeliefert.</p>
               <p>Schriftarten und Texterkennung werden von dieser Seite selbst ausgeliefert, nicht von Drittanbietern.</p>
             </Accordion>
             <Accordion title="KI-Funktion (optional)" icon={<Sparkle size={20} />}>

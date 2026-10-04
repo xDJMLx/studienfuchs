@@ -252,7 +252,7 @@ function Coach({ subjectId }: { subjectId?: string }) {
             ) : (
               <>
                 Die KI kennt deinen Lernstand (Klasse, Fortschritt, eingetragene Klassenarbeiten und Wörter, bei denen es hakt), aber nicht deinen Namen.{' '}
-                Mit dem <b className="text-ink">+</b> unten links kannst du Fotos von Buchseiten hochladen und der KI sagen, was sie daraus machen soll. Noch besser: Lege dein Buch im Tab{' '}
+                Mit dem <b className="text-ink">+</b> unten links kannst du Fotos von Buchseiten hochladen und der KI sagen, was sie daraus machen soll. Noch besser: Lege dein Buch unter{' '}
                 <Link to="/books" className="font-semibold text-brand-dark underline">
                   Bücher
                 </Link>{' '}
