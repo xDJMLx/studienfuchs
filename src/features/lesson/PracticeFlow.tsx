@@ -315,7 +315,7 @@ export function ResultScreen({
             ))}
           </div>
         )}
-        <motion.h1 initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.34, ease: EASE, delay: 0.15 }} className={`mt-3 text-[32px] font-black leading-tight ${passed ? 'text-brand' : 'text-ink'}`}>{headline}</motion.h1>
+        <motion.h1 initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.34, ease: EASE, delay: 0.15 }} className={`mt-3 text-[32px] font-black leading-tight ${passed ? 'text-brand-strong' : 'text-ink'}`}>{headline}</motion.h1>
         <motion.p initial={reduce ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.34, ease: EASE, delay: 0.22 }} className="mt-1 max-w-sm text-sm text-muted">{sub}</motion.p>
         <p className="mt-1 text-sm font-medium text-muted">{title}</p>
         <div className="mt-6 grid w-full max-w-sm grid-cols-3 gap-3">
@@ -474,15 +474,16 @@ export function ResultScreen({
   )
 }
 
+/** Farbe des Kopfes, dunkle Schrift darauf (weiß wäre auf Gold und Grün kaum lesbar), und lesbare Zahlenfarbe */
 const TONES = {
-  gold: 'var(--gold)',
-  good: 'var(--good)',
-  fox: 'var(--flame)',
+  gold: { bg: 'var(--gold)', head: '#3d2c00', num: 'var(--gold-text)' },
+  good: { bg: 'var(--good)', head: '#0b3d1c', num: 'var(--good-text)' },
+  fox: { bg: 'var(--flame)', head: '#3a1800', num: 'var(--brand-text)' },
 } as const
 
 function Stat({ tone, label, icon, children, delay = 0 }: { tone: keyof typeof TONES; label: string; icon?: React.ReactNode; children: React.ReactNode; delay?: number }) {
   const reduce = useReducedMotion()
-  const color = TONES[tone]
+  const t = TONES[tone]
   // Wertkarte mit farbigem Kopf: oben die Bezeichnung, darunter groß die Zahl
   return (
     <motion.div
@@ -490,10 +491,10 @@ function Stat({ tone, label, icon, children, delay = 0 }: { tone: keyof typeof T
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ ...SPRING.soft, delay }}
       className="overflow-hidden rounded-2xl border-2 text-center"
-      style={{ borderColor: color, background: color }}
+      style={{ borderColor: t.bg, background: t.bg }}
     >
-      <div className="truncate px-1.5 py-1 text-[11px] font-extrabold uppercase leading-tight tracking-[0.06em] text-white">{label}</div>
-      <div className="flex items-center justify-center gap-1 rounded-[13px] bg-surface py-3 text-[24px] font-extrabold" style={{ color }}>
+      <div className="truncate px-1.5 py-1 text-[11px] font-extrabold uppercase leading-tight tracking-[0.06em]" style={{ color: t.head }}>{label}</div>
+      <div className="flex items-center justify-center gap-1 rounded-[13px] bg-surface py-3 text-[24px] font-extrabold" style={{ color: t.num }}>
         {icon}
         {children}
       </div>
