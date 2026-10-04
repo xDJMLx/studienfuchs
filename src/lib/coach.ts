@@ -1,8 +1,10 @@
-import { allItems, COURSE_STATS } from '../content'
+import { allItems, COURSE_STATS, mathItems, mathUnits } from '../content'
 import type { VocabSet } from './types'
 import type { SrsCard } from './srs'
 
 export interface CoachInput {
+  /** Fach der KI-Hilfe; ohne Angabe Französisch */
+  subject?: 'fr' | 'math'
   grade: number
   /** Setid → Datum (YYYY-MM-DD) der Klassenarbeit */
   examDates: Record<string, string>
@@ -43,8 +45,41 @@ export function weakWords(cards: Record<string, SrsCard>, sets: VocabSet[], limi
     .map((s) => byId.get(s.id)!)
 }
 
+/** Mathe: Themen, bei denen es hakt (oft falsch oder noch wacklig). */
+export function weakTopics(cards: Record<string, SrsCard>, limit = 8): string[] {
+  return Object.entries(cards)
+    .filter(([id, c]) => mathItems.has(id) && c.reps > 0 && c.lapses * 3 + (c.stability < 3 ? 2 : 0) > 0)
+    .sort((a, b) => b[1].lapses * 3 + (b[1].stability < 3 ? 2 : 0) - (a[1].lapses * 3 + (a[1].stability < 3 ? 2 : 0)))
+    .slice(0, limit)
+    .map(([id]) => (mathItems.get(id) as { front: string }).front)
+}
+
+function buildMathPrompt(input: CoachInput): string {
+  const weak = weakTopics(input.cards)
+  return [
+    'Du bist die KI-Lernhilfe in der App "Studienfuchs", ein freundlicher, geduldiger Nachhilfelehrer für Schüler in Mathematik (Klasse 7, Berlin).',
+    'Regeln:',
+    '- Antworte immer auf Deutsch, kurz und klar, höchstens etwa 150 Wörter, einfache Sprache.',
+    '- Erkläre Schritt für Schritt mit einem kleinen Zahlenbeispiel, bevor du eine Regel nennst. Zeige jeden Rechenschritt in einer eigenen Zeile.',
+    '- Schreibe Mathe in einfacher Textschreibweise: 3/4 für Brüche, x^2 für Hochzahlen, · für Mal und : für Geteilt. Kein LaTeX, keine Dollarzeichen.',
+    '- Mach keine Hausaufgaben komplett fertig: Gib einen Tipp oder den ersten Schritt, lass den Schüler weiterrechnen und prüfe sein Ergebnis. Wenn er festhängt, zeige die Lösung Schritt für Schritt.',
+    '- Wenn der Schüler abgefragt werden will: stelle genau EINE Aufgabe, warte auf die Antwort, korrigiere freundlich und erkläre den Fehler (zeige, wo genau der Rechenfehler liegt), dann die nächste Aufgabe.',
+    '- Hilf bei der Planung für Klassenarbeiten: teile den Stoff auf die Tage bis zum Termin auf, mit kleinen Etappen (10–20 Minuten).',
+    '- Erfinde nichts über das Schulbuch oder die Arbeit des Lehrers. Wenn du etwas nicht weißt, sag es und frag nach.',
+    '- Der Schüler kann Fotos von Aufgaben anhängen. Lies sie genau, sag kurz was du erkannt hast und rechne dann gemeinsam mit ihm.',
+    '',
+    `Stand des Schülers: Klasse ${input.grade}, ${input.lessonsDone} von ${input.lessonsTotal} Mathe-Lektionen geschafft, Serie ${input.streak} Tage.`,
+    `Themen in der App (Klasse 7): ${mathUnits.map((u) => u.title).join(', ')}.`,
+    weak.length ? `Themen, bei denen es beim Schüler hakt:\n${weak.map((w) => `- ${w}`).join('\n')}` : '',
+    input.bookContext ? `${input.bookContext}\nNutze die Seiten oben als Quelle, aber sag ehrlich, wenn etwas dort nicht steht.` : '',
+  ]
+    .filter(Boolean)
+    .join('\n')
+}
+
 /** Rolle und Wissen der KI-Lernhilfe. Es wird nur das gesendet, was für gute Antworten nötig ist (kein Name, keine Daten außerhalb der App). */
 export function buildCoachPrompt(input: CoachInput): string {
+  if (input.subject === 'math') return buildMathPrompt(input)
   const now = input.now ?? new Date()
   const exams = Object.entries(input.examDates)
     .map(([id, date]) => ({ set: input.sets.find((s) => s.id === id), date, days: daysTo(date, now) }))

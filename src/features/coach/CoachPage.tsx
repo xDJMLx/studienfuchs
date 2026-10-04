@@ -1,7 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { COURSE_STATS, isLessonDone, isRegular, units } from '../../content'
+import { COURSE_STATS, isLessonDone, isRegular, mathUnits, units } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Right, Sparkle, Trash } from '../../components/ui/Icons'
 import { EASE } from '../../components/ui/motion'
@@ -37,6 +37,13 @@ const load = (): UiMessage[] => {
 
 /** Vorschlag, der nur das Eingabefeld füllt: Erst Seiten per Plus anhängen, dann senden. */
 const PAGES_PROMPT = 'Ich habe Seiten aus meinem Buch angehängt. Mach mir einen Vokabeltest von Seite … bis Seite … (nur die Vokabeln). Achte auf genaue Schreibweise und Akzente.'
+
+const MATH_SUGGESTIONS = [
+  'Frag mich Aufgaben zu Themen ab, bei denen es bei mir hakt.',
+  'Hilf mir, mich auf meine nächste Mathe-Arbeit vorzubereiten.',
+  'Erkläre mir, wie man Brüche addiert, mit einem Beispiel.',
+  'Wie rechne ich Prozent aus, ohne durcheinanderzukommen?',
+]
 
 const SUGGESTIONS = [
   'Frag mich Vokabeln ab, bei denen es bei mir hakt.',
@@ -118,9 +125,10 @@ export function CoachPage() {
     end.current?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'end' })
   }, [messages, busy, reduce])
 
+  const math = (store.subject ?? 'fr') === 'math'
   const lessonsDone = useMemo(
-    () => units.flatMap((u) => u.lessons).filter((l) => isRegular(l) && isLessonDone(l, store.lessons[l.id])).length,
-    [store.lessons],
+    () => (math ? mathUnits : units).flatMap((u) => u.lessons).filter((l) => isRegular(l) && isLessonDone(l, store.lessons[l.id])).length,
+    [store.lessons, math],
   )
 
   useEffect(() => {
@@ -143,12 +151,13 @@ export function CoachPage() {
       // Direkt aus dem Klick: legt beim ersten Mal das kostenlose Gastkonto an
       if (!useFree) await ensureAiReady()
       const system = buildCoachPrompt({
-        grade: store.grade,
+        subject: math ? 'math' : 'fr',
+        grade: math ? 7 : store.grade,
         examDates: store.examDates,
         sets: store.sets,
         cards: store.cards,
         lessonsDone,
-        lessonsTotal: COURSE_STATS.lessons,
+        lessonsTotal: math ? mathUnits.flatMap((u) => u.lessons).filter(isRegular).length : COURSE_STATS.lessons,
         streak: streakNow(store.streak),
         classPosition: store.classUnit ? unitLabel(store.classUnit) : undefined,
         bookContext: buildBookContext(useBooks.getState().books, useBooks.getState().exams, content),
@@ -210,7 +219,7 @@ export function CoachPage() {
         <Mascot size={64} mood={busy ? 'think' : 'cheer'} blink outfit={store.outfit} />
         <div className="min-w-0 flex-1">
           <h1 className="page-title">KI</h1>
-          <p className="text-muted">Fragen stellen, Buchseiten hochladen, Tests bauen lassen.</p>
+          <p className="text-muted">{math ? 'Fragen stellen, Aufgaben erklären lassen, Fotos hochladen.' : 'Fragen stellen, Buchseiten hochladen, Tests bauen lassen.'}</p>
         </div>
         {!empty && (
           <button
@@ -234,15 +243,23 @@ export function CoachPage() {
         <motion.div initial={reduce ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4, ease: EASE }}>
           <AiNotice className="mb-4" />
           <p className="mb-3 text-sm text-muted">
-            Die KI kennt deinen Lernstand (Klasse, Fortschritt, eingetragene Klassenarbeiten und Wörter, bei denen es hakt), aber nicht deinen Namen.{' '}
-            Mit dem <b className="text-ink">+</b> unten links kannst du Fotos von Buchseiten hochladen und der KI sagen, was sie daraus machen soll. Noch besser: Lege dein Buch im Tab{' '}
-            <Link to="/books" className="font-semibold text-brand-dark underline">
-              Bücher
-            </Link>{' '}
-            an, dann kennt die KI es immer.
+            {math ? (
+              <>
+                Die KI kennt deinen Lernstand (Klasse, Fortschritt und Themen, bei denen es hakt), aber nicht deinen Namen. Mit dem <b className="text-ink">+</b> unten links kannst du ein Foto einer Aufgabe hochladen und dir den Rechenweg erklären lassen.
+              </>
+            ) : (
+              <>
+                Die KI kennt deinen Lernstand (Klasse, Fortschritt, eingetragene Klassenarbeiten und Wörter, bei denen es hakt), aber nicht deinen Namen.{' '}
+                Mit dem <b className="text-ink">+</b> unten links kannst du Fotos von Buchseiten hochladen und der KI sagen, was sie daraus machen soll. Noch besser: Lege dein Buch im Tab{' '}
+                <Link to="/books" className="font-semibold text-brand-dark underline">
+                  Bücher
+                </Link>{' '}
+                an, dann kennt die KI es immer.
+              </>
+            )}
           </p>
           <div className="grid gap-2">
-            <button
+            {!math && <button
               type="button"
               onClick={() => {
                 setInput(PAGES_PROMPT)
@@ -255,8 +272,8 @@ export function CoachPage() {
               </span>
               <span className="flex-1 font-bold text-violet-dark">Vokabeltest aus meinen Buchseiten</span>
               <Right size={16} className="shrink-0 text-muted transition-transform group-hover:translate-x-0.5" />
-            </button>
-            {SUGGESTIONS.map((s) => (
+            </button>}
+            {(math ? MATH_SUGGESTIONS : SUGGESTIONS).map((s) => (
               <button key={s} type="button" onClick={() => send(s)} className="press group flex items-center gap-3 rounded-2xl border-2 border-line bg-surface px-4 py-3 text-left shadow-[0_3px_0_var(--shade-line)] transition-colors hover:bg-snow">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-soft text-violet-dark">
                   <Sparkle size={18} />

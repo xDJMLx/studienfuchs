@@ -6,6 +6,8 @@ import { ChoiceExercise } from '../../components/exercises/ChoiceExercise'
 import { FillExercise } from '../../components/exercises/FillExercise'
 import { ListenChoiceExercise } from '../../components/exercises/ListenChoiceExercise'
 import { ListenExercise } from '../../components/exercises/ListenExercise'
+import { CalcExercise, MChoiceExercise, MMatchExercise } from '../../components/exercises/MathExercises'
+import { MathText } from '../../components/math/MathText'
 import { MatchExercise } from '../../components/exercises/MatchExercise'
 import { SpeakExercise } from '../../components/exercises/SpeakExercise'
 import { SpellExercise } from '../../components/exercises/SpellExercise'
@@ -71,7 +73,9 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
   const ex = queue[idx]
   const isTeach = ex?.kind === 'teach'
   const isRetry = !!ex && ex.id.includes(':retry')
-  const isMatch = ex?.kind === 'match'
+  const isMatch = ex?.kind === 'match' || ex?.kind === 'mmatch'
+  const isMath = ex?.kind === 'calc' || ex?.kind === 'mchoice' || ex?.kind === 'mmatch'
+  const mathHint = ex?.kind === 'calc' || ex?.kind === 'mchoice' || ex?.kind === 'mmatch' ? ex.hint : undefined
   const baseId = ex ? ex.id.replace(/:retry\d+$/, '') : ''
 
   // Vier richtige Antworten in Folge: der Fuchs freut sich mit
@@ -92,7 +96,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
       if (ex.kind === 'fill') speak(fillSentence(ex.sentence, ex.answer))
       else if (ex.kind === 'build' || ex.kind === 'spell') speak(ex.kind === 'build' ? ex.answer : ex.speak)
       for (const id of ev.mistakeItemIds) wrongCount.current[id] = (wrongCount.current[id] ?? 0) + 1
-      if (ev.status === 'almost' && ex.kind !== 'match') almostCount.current[ex.itemId] = (almostCount.current[ex.itemId] ?? 0) + 1
+      if (ev.status === 'almost' && !isMatch) almostCount.current[ex.itemId] = (almostCount.current[ex.itemId] ?? 0) + 1
       if (ev.status === 'wrong') {
         playWrong()
         buzz([25, 40, 25])
@@ -103,7 +107,10 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           retries.current += 1
           setQueue((q) => {
             const copy = [...q]
-            copy.splice(Math.min(idx + 1 + RETRY_GAP, copy.length), 0, { ...ex, id: `${baseId}:retry${n}`, ...(ex.kind === 'type' ? { hint: true } : {}) })
+            // Mathe: eine frische Aufgabe zum selben Thema, nicht dieselbe Rechnung nochmal
+            const again = ex.again?.()
+            const base: Exercise = again ?? (ex.kind === 'type' ? { ...ex, hint: true } : ex)
+            copy.splice(Math.min(idx + 1 + RETRY_GAP, copy.length), 0, { ...base, id: `${baseId}:retry${n}` } as Exercise)
             return copy
           })
         }
@@ -116,7 +123,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
         } else if (!isRetry && !ex.warm && ev.status === 'almost') almostFirst.current += 1
       }
     },
-    [ex, result, isRetry, noRetry, baseId, idx, hintFor, combo],
+    [ex, result, isRetry, noRetry, baseId, idx, hintFor, combo, isMatch],
   )
 
   // Zuordnen prüft sich selbst: sobald alle Paare gefunden sind, kommt das Ergebnis.
@@ -193,6 +200,12 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
       <BuildExercise exercise={ex} {...common} />
     ) : ex.kind === 'match' ? (
       <MatchExercise exercise={ex} {...common} />
+    ) : ex.kind === 'calc' ? (
+      <CalcExercise exercise={ex} {...common} />
+    ) : ex.kind === 'mchoice' ? (
+      <MChoiceExercise exercise={ex} {...common} />
+    ) : ex.kind === 'mmatch' ? (
+      <MMatchExercise exercise={ex} {...common} />
     ) : (
       <FillExercise exercise={ex} {...common} />
     )
@@ -259,12 +272,12 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             transition={{ duration: bad ? 0.36 : 0.26, ease: EASE }}
           >
             {body}
-            {!result && ((ex.kind === 'type' && !ex.hint) || ex.kind === 'listen') && (
+            {!result && ((ex.kind === 'type' && !ex.hint) || ex.kind === 'listen' || (isMath && mathHint)) && (
               <div className="mt-4 min-h-11">
                 {hintFor === ex.id ? (
-                  <motion.p initial={reduce ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, ease: EASE }} className="inline-block rounded-xl bg-snow px-4 py-2.5 font-mono text-lg tracking-[0.18em] text-muted" aria-live="polite">
+                  <motion.p initial={reduce ? false : { opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, ease: EASE }} className={mathHint ? 'block rounded-xl bg-gold/15 px-4 py-3 ring-1 ring-gold/30' : 'inline-block rounded-xl bg-snow px-4 py-2.5 font-mono text-lg tracking-[0.18em] text-muted'} aria-live="polite">
                     <span className="sr-only">Tipp: </span>
-                    {makeHint(ex.answer)}
+                    {mathHint ? <MathText className="font-sans text-[16px] font-semibold leading-snug tracking-normal text-ink">{mathHint}</MathText> : makeHint((ex as { answer: string }).answer)}
                   </motion.p>
                 ) : (
                   <button type="button" onClick={() => setHintFor(ex.id)} className="press inline-flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-brand-dark transition-colors hover:bg-brand-soft">
@@ -328,11 +341,28 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
                 {bad && result.correctAnswer && (
                   <p className="font-semibold">
                     <span className="font-semibold">Richtige Lösung: </span>
-                    {result.correctAnswer}
+                    {isMath ? <MathText>{ex.kind === 'calc' ? [ex.lead, result.correctAnswer, ex.unit].filter(Boolean).join(' ') : result.correctAnswer}</MathText> : result.correctAnswer}
+                  </p>
+                )}
+                {bad && ex.kind === 'calc' && result.feedback && <p className="text-sm font-semibold">{result.feedback}</p>}
+                {bad && (ex.kind === 'calc' || ex.kind === 'mchoice') && ex.solution && (
+                  <p className="mt-1 text-sm leading-snug">
+                    <b>So geht's: </b>
+                    <MathText>{ex.solution}</MathText>
                   </p>
                 )}
                 {bad && !noRetry && <p className="text-sm">Die Aufgabe kommt gleich nochmal.</p>}
                 {!bad && result.feedback && <p className="font-semibold">{result.feedback}</p>}
+                {!bad && result.status === 'almost' && ex.kind === 'calc' && ex.solution && (
+                  <p className="mt-1 text-sm leading-snug">
+                    <MathText>{ex.solution}</MathText>
+                  </p>
+                )}
+                {!bad && result.status === 'almost' && ex.kind === 'calc' && ex.solution && (
+                  <p className="mt-1 text-sm leading-snug">
+                    <MathText>{ex.solution}</MathText>
+                  </p>
+                )}
                 {ex.kind === 'fill' && <p className="mt-1 text-sm font-semibold">{ex.why}</p>}
               </div>
             </motion.div>

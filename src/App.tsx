@@ -43,6 +43,8 @@ const BookPage = lazyPage(() => import('./features/books/BookPage'), 'BookPage')
 const BooksPage = lazyPage(() => import('./features/books/BooksPage'), 'BooksPage')
 const FlashcardsPage = lazyPage(() => import('./features/practice/FlashcardsPage'), 'FlashcardsPage')
 const PracticePage = lazyPage(() => import('./features/practice/PracticePage'), 'PracticePage')
+const MathPracticePage = lazyPage(() => import('./features/practice/MathPractice'), 'MathPracticePage')
+const MathTrainPage = lazyPage(() => import('./features/practice/MathPractice'), 'MathTrainPage')
 const PracticePlay = lazyPage(() => import('./features/practice/PracticePlay'), 'PracticePlay')
 const BlitzPage = lazyPage(() => import('./features/practice/BlitzPage'), 'BlitzPage')
 const AboutPage = lazyPage(() => import('./features/profile/AboutPage'), 'AboutPage')
@@ -56,6 +58,12 @@ const SetPlay = lazyPage(() => import('./features/sets/SetPlay'), 'SetPlay')
 const CreateSetPage = lazyPage(() => import('./features/upload/CreateSetPage'), 'CreateSetPage')
 const FoxLab = import.meta.env.DEV ? lazyPage(() => import('./features/dev/FoxLab'), 'FoxLab') : null
 const ResultLab = import.meta.env.DEV ? lazyPage(() => import('./features/dev/ResultLab'), 'ResultLab') : null
+
+/** Üben-Tab: je nach Fach die Seite für Wörter oder für Mathe. */
+function PracticeRoute() {
+  const math = useStore((s) => (s.subject ?? 'fr') === 'math')
+  return math ? <MathPracticePage /> : <PracticePage />
+}
 
 function PageFallback() {
   return <div role="status" aria-label="Lädt" className="flex h-full min-h-[40vh] items-center justify-center"><span className="h-8 w-8 animate-spin rounded-full border-4 border-line border-t-brand" /></div>
@@ -74,6 +82,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/exam/', 'Test'],
   ['/shop', 'Fuchs & Shop'],
   ['/practice/cards', 'Karteikarten'],
+  ['/math/train', 'Training'],
   ['/blitz', 'Blitzrunde'],
   ['/practice', 'Üben'],
   ['/review/play', 'Wiederholung'],
@@ -90,7 +99,7 @@ function RouteTitle() {
   const { pathname } = useLocation()
   useEffect(() => {
     const hit = TITLES.find(([p]) => (p.endsWith('/') ? pathname.startsWith(p) : pathname === p || pathname.startsWith(p + '/')))
-    document.title = hit ? `${hit[1]} · Studienfuchs` : 'Studienfuchs – Französisch lernen für die Schule'
+    document.title = hit ? `${hit[1]} · Studienfuchs` : 'Studienfuchs – Französisch und Mathe lernen für die Schule'
   }, [pathname])
   return null
 }
@@ -135,7 +144,7 @@ export default function App() {
             <Route path="books/:bookId" element={<BookPage />} />
             <Route path="plan" element={<Navigate to="/books" replace />} />
             <Route path="shop" element={<ShopPage />} />
-            <Route path="practice" element={<PracticePage />} />
+            <Route path="practice" element={<PracticeRoute />} />
             <Route path="words" element={<Navigate to="/practice?tab=words" replace />} />
             <Route path="grammar" element={<Navigate to="/practice?tab=grammar" replace />} />
             <Route path="grammar/:lessonId" element={<GrammarTopicPage />} />
@@ -153,6 +162,7 @@ export default function App() {
           <Route path="exam/:examId" element={<ExamPlayPage />} />
           <Route path="speak" element={<SpeakTrainingPage />} />
           <Route path="practice/play" element={<PracticePlay />} />
+          <Route path="math/train" element={<MathTrainPage />} />
           {ResultLab && <Route path="result-lab" element={<ResultLab />} />}
           <Route path="blitz" element={<BlitzPage />} />
           <Route path="practice/cards" element={<FlashcardsPage />} />

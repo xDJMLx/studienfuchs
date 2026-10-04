@@ -1,4 +1,5 @@
 import { checkAnswer, type CheckResult } from './answerCheck'
+import { close, gcd, parseNumber } from '../content/math/fmt'
 import type { Exercise } from './types'
 
 /** Antwort-Formen: choice/fill = Text, type/listen = Text, build = Wortliste, match = fertig mit Fehlerliste. */
@@ -16,6 +17,7 @@ export function evaluate(ex: Exercise, answer: Answer): Evaluation {
       return { status: 'correct', mistakeItemIds: [] }
     case 'choice':
     case 'listenChoice':
+    case 'mchoice':
     case 'fill': {
       const ok = answer === ex.answer
       return { status: ok ? 'correct' : 'wrong', correctAnswer: ex.answer, mistakeItemIds: ok ? [] : [ex.itemId] }
@@ -45,5 +47,30 @@ export function evaluate(ex: Exercise, answer: Answer): Evaluation {
       const mistakes = (answer as { matchMistakes: string[] }).matchMistakes
       return { status: mistakes.length ? 'almost' : 'correct', mistakeItemIds: mistakes }
     }
+    case 'mmatch': {
+      // Mathe-Zuordnung: Fehler zählen für das Thema, nicht für die einzelnen Paare
+      const mistakes = (answer as { matchMistakes: string[] }).matchMistakes
+      return { status: mistakes.length ? 'almost' : 'correct', mistakeItemIds: mistakes.length ? [ex.itemId] : [] }
+    }
+    case 'calc':
+      return evaluateCalc(ex, String(answer))
   }
+}
+
+/** Zahleneingabe prüfen: gleicher Wert zählt; bei Brüchen "fast richtig", wenn nicht gekürzt oder als Dezimalzahl statt Bruch. */
+function evaluateCalc(ex: Extract<Exercise, { kind: 'calc' }>, input: string): Evaluation {
+  const wrong = (feedback?: string): Evaluation => ({ status: 'wrong', feedback, correctAnswer: ex.answer, mistakeItemIds: [ex.itemId] })
+  const p = parseNumber(input)
+  if (!p) return wrong(input.trim() ? 'Das ist keine Zahl.' : undefined)
+  const values = [ex.value, ...(ex.accept ?? [])]
+  if (!values.some((v) => close(v, p.value))) return wrong()
+  if (ex.reduce && !Number.isInteger(ex.value)) {
+    if (p.kind === 'frac') {
+      const g = gcd(p.num as number, p.den as number)
+      if (g !== 1 || (p.den as number) < 0) return { status: 'almost', feedback: 'Richtig, aber kürze den Bruch noch ganz.', correctAnswer: ex.answer, mistakeItemIds: [] }
+    } else {
+      return { status: 'almost', feedback: 'Richtig. Schreibe die Lösung als Bruch.', correctAnswer: ex.answer, mistakeItemIds: [] }
+    }
+  }
+  return { status: 'correct', correctAnswer: ex.answer, mistakeItemIds: [] }
 }

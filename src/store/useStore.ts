@@ -9,7 +9,7 @@ import { achievements as computeAchievements, type AchievementInput } from '../l
 import { addProgress, chestReady, emptyDaily, rollChest, UNIT_CHEST_COINS, type ChestReward, type DailyState } from '../lib/rewards'
 import { goalInfo } from '../lib/xp'
 import { useRewardEvents } from './useRewardEvents'
-import { findLesson, isLessonDone, isRegular, itemMeta, units } from '../content'
+import { allUnits, findLesson, isLessonDone, isRegular, itemMeta, mathItems, type Subject } from '../content'
 import { buy, coinsForSession, itemById, toggleEquip, type Outfit } from '../lib/shop'
 import { MAX_FREEZES, currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
 import type { Item, VocabSet } from '../lib/types'
@@ -31,6 +31,8 @@ interface Data {
   examDates: Record<string, string> // setId → YYYY-MM-DD
   soundOn: boolean
   grade: number
+  /** Aktuelles Fach: Französisch oder Mathe */
+  subject: Subject
   speechOn: boolean
   /** Name der gewählten Stimme; leer = automatisch die beste französische Stimme. */
   voiceName: string
@@ -83,7 +85,7 @@ interface Actions {
   /** Blitzrunde ist zu Ende: zahlt XP und Münzen aus, merkt sich den Rekord. */
   finishBlitz: (r: { score: number; correct: number }) => { xp: number; coins: number; record: boolean; questCoins: number; questsDone: number; allQuests: boolean }
   /** Gibt zurück, wie viele Münzen es für diese Einheit gab. */
-  finishSession: (r: { xp: number; grades: Record<string, Grade>; lessonId?: string; accuracy: number }) => number
+  finishSession: (r: { xp: number; grades: Record<string, Grade>; lessonId?: string; accuracy: number; /** Mathe: Zahl der gelösten Aufgaben */ answered?: number }) => number
   buyItem: (id: string) => boolean
   equipItem: (id: string) => void
   addSet: (title: string, items: Omit<Item, 'id'>[], book?: string) => string
@@ -95,6 +97,7 @@ interface Actions {
   setDailyGoal: (n: number) => void
   setSoundOn: (on: boolean) => void
   setGrade: (g: number) => void
+  setSubject: (s: Subject) => void
   setTheme: (t: Data['theme']) => void
   setOnboarded: (v: boolean) => void
   setClassUnit: (unitId: string | null) => void
@@ -121,6 +124,7 @@ const initial: Data = {
   examDates: {},
   soundOn: true,
   grade: 7,
+  subject: 'fr',
   speechOn: true,
   voiceName: '',
   speechRate: 0.9,
@@ -150,7 +154,7 @@ const DATA_KEYS = Object.keys(initial) as (keyof Data)[]
 /** Die Zahlen, aus denen die Erfolge berechnet werden (wie auf der Profilseite). */
 function achievementInput(s: Pick<Data, 'cards' | 'sets' | 'lessons' | 'xp' | 'xpByDay' | 'dailyGoal'>, streakDays: number): AchievementInput {
   const setIds = new Set(s.sets.flatMap((x) => x.items.map((i) => i.id)))
-  const known = Object.keys(s.cards).filter((id) => itemMeta.has(id) || setIds.has(id))
+  const known = Object.keys(s.cards).filter((id) => itemMeta.has(id) || mathItems.has(id) || setIds.has(id))
   return {
     lessons: Object.keys(s.lessons).length,
     streak: streakDays,
@@ -195,7 +199,7 @@ export const useStore = create<Data & Actions>()(
       openUnitChest: (unitId) => {
         const s = get()
         if ((s.unitChests ?? []).includes(unitId)) return 0
-        const unit = units.find((u) => u.id === unitId)
+        const unit = allUnits.find((u) => u.id === unitId)
         const regular = unit?.lessons.filter(isRegular) ?? []
         if (!regular.length || !regular.every((l) => isLessonDone(l, s.lessons[l.id]))) return 0
         set({ unitChests: [...(s.unitChests ?? []), unitId], coins: (s.coins ?? 0) + UNIT_CHEST_COINS })
@@ -225,7 +229,7 @@ export const useStore = create<Data & Actions>()(
         return { xp, coins, record, questCoins, questsDone: upd.completed.length, allQuests: upd.allDone }
       },
 
-      finishSession: ({ xp, grades, lessonId, accuracy }) => {
+      finishSession: ({ xp, grades, lessonId, accuracy, answered }) => {
         const s = get()
         const now = new Date()
         const cards = { ...s.cards }
@@ -248,13 +252,18 @@ export const useStore = create<Data & Actions>()(
 
         // Tagesaufgaben zählen und auszahlen
         const dailyBase = s.daily?.day === today ? s.daily : emptyDaily(today, { knownWords: Object.keys(s.cards).length })
-        const upd = addProgress(dailyBase, {
-          newWords,
-          reviewed: ids.length - newWords,
-          practiced: ids.length,
-          lessons: lessonId && accuracy >= 0.7 ? 1 : 0,
-          perfect: lessonId && accuracy >= 0.9 ? 1 : 0,
-        })
+        const subject = lessonId ? (findLesson(lessonId)?.unit.subject === 'math' ? 'math' : 'fr') : s.subject ?? 'fr'
+        const upd = addProgress(
+          dailyBase,
+          {
+            newWords,
+            reviewed: ids.length - newWords,
+            practiced: subject === 'math' ? answered ?? ids.length : ids.length,
+            lessons: lessonId && accuracy >= 0.7 ? 1 : 0,
+            perfect: lessonId && accuracy >= 0.9 ? 1 : 0,
+          },
+          subject,
+        )
         const questCoins = upd.coins + upd.bonus
 
         // Was ist neu? Erfolge, abgeschlossene Einheit, Truhe
@@ -351,6 +360,7 @@ export const useStore = create<Data & Actions>()(
       setDailyGoal: (n) => set({ dailyGoal: n }),
       setSoundOn: (on) => set({ soundOn: on }),
       setGrade: (g) => set({ grade: g }),
+      setSubject: (subject) => set({ subject }),
       setSpeech: (patch) => set(patch),
       setTheme: (t) => set({ theme: t }),
       setOnboarded: (v) => set({ onboarded: v }),

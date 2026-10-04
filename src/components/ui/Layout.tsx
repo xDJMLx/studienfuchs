@@ -66,6 +66,9 @@ export function Layout() {
   const navigate = useNavigate()
   const scroller = useRef<HTMLElement>(null)
   const dueCount = useDue().due.length
+  const subject = useStore((s) => s.subject ?? 'fr')
+  // Bücher (eigene Buchseiten und Vokabeln) gibt es nur beim Sprachfach
+  const nav = subject === 'math' ? NAV.filter((n) => n.to !== '/books') : NAV
   const onCoach = location.pathname.startsWith('/coach')
   const hasPages = useCoachComposer((c) => c.pages.length > 0)
 
@@ -88,7 +91,7 @@ export function Layout() {
           <Wordmark />
         </Link>
         <nav className="grid gap-1" aria-label="Hauptnavigation">
-          {NAV.map(({ to, label, Icon, end, c, t }) => (
+          {nav.map(({ to, label, Icon, end, c, t }) => (
             <NavLink key={to} to={to} end={end} style={{ '--nav-c': c, '--nav-t': t } as React.CSSProperties} className={({ isActive }) => `nav-link press relative ${isActive ? 'nav-link-active' : ''}`}>
               {() => (
                 <>
@@ -126,7 +129,7 @@ export function Layout() {
         {/* Tab-Leiste (Mobil): schwebende Glas-Kapsel mit ziehbarer Linse */}
         <TabBar
           extra={onCoach ? <CoachComposer /> : undefined}
-          tabs={NAV.map(({ to, label, Icon, c, t }) => ({
+          tabs={nav.map(({ to, label, Icon, c, t }) => ({
             key: to,
             label,
             color: c,
@@ -134,9 +137,9 @@ export function Layout() {
             icon: <Icon size={26} />,
             badge: to === '/practice' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : undefined,
           }))}
-          activeIndex={NAV.findIndex((n) => (n.end ? location.pathname === n.to : location.pathname.startsWith(n.to) || (n.to === '/profile' && location.pathname.startsWith('/shop'))))}
+          activeIndex={nav.findIndex((n) => (n.end ? location.pathname === n.to : location.pathname.startsWith(n.to) || (n.to === '/profile' && location.pathname.startsWith('/shop'))))}
           onSelect={(i) => {
-            const to = NAV[i].to
+            const to = nav[i].to
             // Zweiter Tipp auf den aktiven Tab: nach oben scrollen (wie bei iOS-Apps)
             if (location.pathname === to) scroller.current?.scrollTo({ top: 0, behavior: 'smooth' })
             else navigate(to)
@@ -156,7 +159,7 @@ function DueBadge({ n, className = '' }: { n: number; className?: string }) {
       animate={{ scale: 1 }}
       transition={{ type: 'spring', stiffness: 520, damping: 14 }}
       className={`flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-brand-strong px-1 text-[11px] font-bold leading-none text-on-brand ${className}`}
-      aria-label={`${n} Wörter fällig`}
+      aria-label={`${n} fällig`}
     >
       {n > 99 ? '99+' : n}
     </motion.span>

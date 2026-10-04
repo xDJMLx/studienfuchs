@@ -40,6 +40,15 @@ export const QUEST_BONUS = 10
 /** Münzen in der Truhe am Ende jeder Einheit (einmal pro Einheit, sobald alle Lektionen geschafft sind). */
 export const UNIT_CHEST_COINS = 25
 
+export type QuestSubject = 'fr' | 'math'
+
+/** In Mathe zählen neue und wiederholte Themen (nicht Wörter): Das Ziel ist halb so groß, geübt wird in Aufgaben. */
+const MATH_TEXT: Partial<Record<QuestMetric, (n: number) => string>> = {
+  newWords: (n) => (n === 1 ? 'Lerne ein neues Thema' : `Lerne ${n} neue Themen`),
+  practiced: (n) => `Löse ${n} Aufgaben`,
+  reviewed: (n) => `Wiederhole ${n} Themen, die du schon kannst`,
+}
+
 const TEXT: Record<QuestMetric, (n: number) => string> = {
   newWords: (n) => `Lerne ${n} neue Wörter`,
   practiced: (n) => `Übe ${n} Wörter`,
@@ -59,14 +68,16 @@ const TARGETS: Record<QuestMetric, number[]> = {
   blitz: [1],
 }
 
-export function questDef(id: string): QuestDef | null {
+export function questDef(id: string, subject: QuestSubject = 'fr'): QuestDef | null {
   const [metric, t] = id.split(':')
   const target = Number(t)
   if (!(metric in TARGETS) || !Number.isFinite(target)) return null
   const m = metric as QuestMetric
   const idx = TARGETS[m].indexOf(target)
   if (idx < 0) return null
-  return { id, metric: m, target, coins: m === 'perfect' ? 8 : 5 + idx * 3, text: TEXT[m](target) }
+  const shown = subject === 'math' && (m === 'newWords' || m === 'reviewed') ? Math.ceil(target / 2) : target
+  const text = subject === 'math' && MATH_TEXT[m] ? (MATH_TEXT[m] as (n: number) => string)(shown) : TEXT[m](shown)
+  return { id, metric: m, target: shown, coins: m === 'perfect' ? 8 : 5 + idx * 3, text }
 }
 
 /** Kleiner, stabiler Zufall aus einem Text (gleiche Eingabe, gleiche Folge). */
@@ -121,14 +132,14 @@ export interface QuestUpdate {
 }
 
 /** Zählt dazu und bezahlt Aufgaben, die dadurch fertig werden. */
-export function addProgress(d: DailyState, add: Partial<DailyStats>): QuestUpdate {
+export function addProgress(d: DailyState, add: Partial<DailyStats>, subject: QuestSubject = 'fr'): QuestUpdate {
   const stats = { ...d.stats }
   for (const k of Object.keys(add) as QuestMetric[]) stats[k] = (stats[k] ?? 0) + (add[k] ?? 0)
   let next: DailyState = { ...d, stats }
   const completed: QuestDef[] = []
   for (const id of d.quests) {
     if (next.claimed.includes(id)) continue
-    const q = questDef(id)
+    const q = questDef(id, subject)
     if (q && stats[q.metric] >= q.target) {
       completed.push(q)
       next = { ...next, claimed: [...next.claimed, id] }
@@ -172,10 +183,16 @@ export interface GreetingInput {
   questsLeft: number
   goalLeft: number
   hour: number
+  subject?: QuestSubject
 }
 
 /** Ein Satz vom Fuchs, der zur Lage passt (kein Druck, nur Freude oder ein Hinweis auf etwas Schönes). */
 export function foxGreeting(g: GreetingInput): string {
+  const text = frenchGreeting(g)
+  return g.subject === 'math' ? text.replace('Bonjour ! ', 'Hallo! ').replace('Bonsoir ! ', 'Guten Abend! ').replace('Salut ! ', 'Hi! ') : text
+}
+
+function frenchGreeting(g: GreetingInput): string {
   if (g.doneLessons === 0) return 'Bonjour ! Fangen wir an.'
   if (g.chestReady) return 'Deine Truhe wartet auf dich!'
   if (g.daysAway >= 3) return 'Schön, dass du wieder da bist!'

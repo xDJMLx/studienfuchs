@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { COURSE_STATS } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
 import { IconChip } from '../../components/ui/controls'
 import { Check, Coin, Flame, Gear, Right, Shield, Star, Trophy, Xp } from '../../components/ui/Icons'
@@ -10,7 +9,7 @@ import { achievements } from '../../lib/achievements'
 import { dayKey } from '../../lib/streak'
 import { levelFromXp } from '../../lib/xp'
 import { streakNow, useStore } from '../../store/useStore'
-import { useLearned } from '../review/ReviewPage'
+import { useCourse, useLearned } from '../review/ReviewPage'
 import { Karteikasten, WeeklyReport } from './ProfileExtras'
 import { useShallow } from 'zustand/react/shallow'
 
@@ -19,13 +18,12 @@ const HEAT_DAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
 const TITLES = ['Fuchsjunges', 'Neugieriger Fuchs', 'Wortsammler', 'Vokabelprofi', 'Sprachfuchs', 'Grammatikmeister', 'Studienfuchs-Legende']
 const titleFor = (level: number) => TITLES[Math.min(TITLES.length - 1, Math.floor((level - 1) / 2))]
 
-/** Alle Wörter des Kurses (einmal gezählt), Grundlage für den Wortschatz-Balken. */
-const COURSE_WORDS = COURSE_STATS.words
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
   const { xp, xpByDay, streak, dailyGoal, lessons, sets, outfit, coins, bestStreak } = useStore(useShallow((s) => ({ xp: s.xp, xpByDay: s.xpByDay, streak: s.streak, dailyGoal: s.dailyGoal, lessons: s.lessons, sets: s.sets, outfit: s.outfit, coins: s.coins, bestStreak: s.bestStreak })))
   const { learned, byMastery } = useLearned()
+  const course = useCourse()
   const lvl = levelFromXp(xp)
   const streakDays = streakNow(streak)
 
@@ -58,7 +56,7 @@ export function ProfilePage() {
 
   const learning = byMastery[0]
   const mastered = byMastery[1]
-  const unseen = Math.max(0, COURSE_WORDS - learned.length)
+  const unseen = Math.max(0, course.total - learned.length)
 
   const badges = achievements({
     lessons: Object.keys(lessons).length,
@@ -211,9 +209,9 @@ export function ProfilePage() {
         <Item>
           <section className="card mt-4 p-5">
             <div className="mb-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-              <h2 className="font-semibold">Dein Wortschatz</h2>
+              <h2 className="font-semibold">{course.math ? 'Deine Themen' : 'Dein Wortschatz'}</h2>
               <span className="flex items-center gap-3 whitespace-nowrap text-sm text-muted">
-                <span><span className="font-semibold text-ink"><CountUp to={learned.length} /></span> von {COURSE_WORDS}</span>
+                <span><span className="font-semibold text-ink"><CountUp to={learned.length} /></span> von {course.total}</span>
                 <Link to="/review" className="press flex min-h-9 items-center gap-1 rounded-lg px-2 font-semibold text-brand-dark hover:bg-brand-soft">Lernstand <Right size={12} /></Link>
               </span>
             </div>

@@ -1,6 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useMemo, useState } from 'react'
-import { COURSE_STATS } from '../../content'
 import { Right } from '../../components/ui/Icons'
 import { EASE } from '../../components/ui/motion'
 import { Sheet } from '../../components/ui/Sheet'
@@ -9,7 +8,7 @@ import { daysTo } from '../../lib/coach'
 import { buildWeeklyReport } from '../../lib/report'
 import { levelFromXp } from '../../lib/xp'
 import { streakNow, useStore } from '../../store/useStore'
-import { useDue, useLearned } from '../review/ReviewPage'
+import { useCourse, useDue, useLearned } from '../review/ReviewPage'
 import { useShallow } from 'zustand/react/shallow'
 
 /** Karteikasten: wie fest die geübten Wörter sitzen, verteilt auf fünf Fächer (wie bei Phase 6, nur ohne Abo). */
@@ -17,15 +16,16 @@ export function Karteikasten() {
   const reduce = useReducedMotion()
   const cards = useStore((s) => s.cards)
   const { learned } = useLearned()
+  const course = useCourse()
   const counts = useMemo(() => boxCounts(cards), [cards])
   const max = Math.max(1, ...counts)
-  const unseen = Math.max(0, COURSE_STATS.words - learned.length)
+  const unseen = Math.max(0, course.total - learned.length)
   const shades = ['bg-bad', 'bg-gold', 'bg-brand', 'bg-good', 'bg-good']
   return (
     <section className="card mt-4 p-5" aria-label="Karteikasten">
       <h2 className="font-semibold">Dein Karteikasten</h2>
-      <p className="mt-0.5 text-sm text-muted">Je weiter rechts, desto länger kannst du ein Wort in Ruhe lassen.</p>
-      <div className="mt-4 grid h-32 grid-cols-5 items-end gap-2.5" role="img" aria-label={counts.map((c, i) => `Fach ${i + 1}: ${c} Wörter`).join(', ')}>
+      <p className="mt-0.5 text-sm text-muted">Je weiter rechts, desto länger kannst du {course.math ? 'ein Thema' : 'ein Wort'} in Ruhe lassen.</p>
+      <div className="mt-4 grid h-32 grid-cols-5 items-end gap-2.5" role="img" aria-label={counts.map((c, i) => `Fach ${i + 1}: ${c} ${course.noun}`).join(', ')}>
         {counts.map((c, i) => (
           <div key={i} className="flex h-full flex-col items-center justify-end gap-1">
             <span className="text-sm font-bold tabular-nums">{c}</span>
@@ -47,7 +47,7 @@ export function Karteikasten() {
         ))}
       </div>
       <p className="mt-3 rounded-xl bg-snow px-3 py-2 text-sm text-muted">
-        Noch nicht gesehen: <b className="text-ink">{unseen}</b> von {COURSE_STATS.words} Wörtern.
+        Noch nicht gesehen: <b className="text-ink">{unseen}</b> von {course.total} {course.noun}.
       </p>
     </section>
   )

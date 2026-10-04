@@ -1,5 +1,6 @@
 import type { UnitFile } from './schema'
 import type { Item, Lesson, Unit } from '../lib/types'
+import { mathUnits, SKILLS } from './math'
 
 const slug = (s: string) =>
   s
@@ -58,7 +59,21 @@ function load(): Unit[] {
   return units
 }
 
+/** Die Fächer der App. 'fr' = Französisch (units), 'math' = Mathematik (mathUnits). */
+export type Subject = 'fr' | 'math'
+export const SUBJECTS: { id: Subject; name: string }[] = [
+  { id: 'fr', name: 'Französisch' },
+  { id: 'math', name: 'Mathe' },
+]
+
+/** Französisch-Einheiten. Mathe liegt getrennt in mathUnits; alles, was beide Fächer betrifft, nutzt allUnits. */
 export const units: Unit[] = load()
+export { mathUnits }
+export const allUnits: Unit[] = [...units, ...mathUnits]
+export const unitsOf = (subject: Subject): Unit[] => (subject === 'math' ? mathUnits : units)
+export const gradesOf = (subject: Subject): number[] => [...new Set(unitsOf(subject).map((u) => u.grade))].sort((a, b) => a - b)
+export const isMathUnit = (u: Unit): boolean => u.subject === 'math'
+export const isMathLesson = (lessonId: string): boolean => /^m\d+-/.test(lessonId)
 export const grades: number[] = [...new Set(units.map((u) => u.grade))].sort((a, b) => a - b)
 export const allLessons: Lesson[] = units.flatMap((u) => u.lessons)
 export const allItems: Item[] = allLessons.filter((l) => !l.review && !l.test).flatMap((l) => l.items)
@@ -85,7 +100,7 @@ export const itemMeta: Map<string, { lesson: Lesson; unit: Unit }> = new Map(
 )
 
 export function findLesson(id: string): { lesson: Lesson; unit: Unit } | undefined {
-  for (const unit of units) {
+  for (const unit of allUnits) {
     const lesson = unit.lessons.find((l) => l.id === id)
     if (lesson) return { lesson, unit }
   }
@@ -121,7 +136,7 @@ export function isLessonDone(lesson: Lesson, record: LessonRecordLike | undefine
  */
 /** Die Einheit davor, die den Lernpfad tatsächlich sperrt (Zusatzeinheiten zählen nicht). */
 export function previousCoreUnit(unit: Unit): Unit | undefined {
-  const sameGrade = units.filter((u) => u.grade === unit.grade)
+  const sameGrade = allUnits.filter((u) => u.grade === unit.grade && u.subject === unit.subject)
   const i = sameGrade.findIndex((u) => u.id === unit.id)
   return sameGrade.slice(0, Math.max(0, i)).filter((u) => !u.extra).pop()
 }
@@ -148,7 +163,7 @@ export function isUnlocked(lessonId: string, records: Record<string, LessonRecor
 export function nextLessonAfter(lessonId: string, records: Record<string, LessonRecordLike | undefined>): Lesson | undefined {
   const found = findLesson(lessonId)
   if (!found) return undefined
-  const seq = units.filter((u) => u.grade === found.unit.grade).flatMap((u) => u.lessons)
+  const seq = allUnits.filter((u) => u.grade === found.unit.grade && u.subject === found.unit.subject).flatMap((u) => u.lessons)
   const i = seq.findIndex((l) => l.id === lessonId)
   return seq.slice(i + 1).find((l) => isUnlocked(l.id, records) && !isLessonDone(l, records[l.id]))
 }
@@ -167,3 +182,6 @@ export function blockingLesson(lessonId: string, records: Record<string, LessonR
   const prev = previousCoreUnit(unit)
   return prev?.lessons.filter((l) => !l.review && !l.test).find((l) => !done(l))
 }
+
+/** Alle Mathe-Themen als Items (Titel + Beschreibung), nach Kennung. */
+export const mathItems: Map<string, Item> = new Map(Object.values(SKILLS).map((k) => [k.id, { id: k.id, front: k.title, back: k.blurb }]))

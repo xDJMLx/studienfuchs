@@ -21,7 +21,8 @@ export function TodayCard({ onChest }: { onChest?: () => void }) {
     useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, streak: s.streak, classUnit: s.classUnit, catchUpTarget: s.catchUpTarget, catchUpAll: s.catchUpAll, catchUpExtras: s.catchUpExtras, catchUpOngoing: s.catchUpOngoing, lessons: s.lessons })),
   )
   const { due } = useDue()
-  const plan = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll, catchUpExtras, catchUpOngoing) : null
+  const subject = useStore((s) => s.subject ?? 'fr')
+  const plan = subject === 'fr' && classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll, catchUpExtras, catchUpOngoing) : null
   const today = xpToday(xpByDay)
   const g = goalInfo(dailyGoal, today)
   const days = streakNow(streak)
@@ -46,7 +47,7 @@ export function TodayCard({ onChest }: { onChest?: () => void }) {
           <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-soft text-sky-dark"><Repeat size={22} /></span>
           <span className="min-w-0 flex-1">
             <span className="block font-extrabold">
-              {due.length} {due.length === 1 ? 'Wort' : 'Wörter'} wiederholen
+              {due.length} {subject === 'math' ? (due.length === 1 ? 'Thema' : 'Themen') : due.length === 1 ? 'Wort' : 'Wörter'} wiederholen
             </span>
             <span className="block text-sm text-muted">{due.length >= 20 ? 'Erst das, dann Neues: So bleibt es länger hängen.' : 'Kurz bevor du sie vergessen würdest'}</span>
           </span>
@@ -78,6 +79,7 @@ export function TodayStrip() {
   const navigate = useNavigate()
   const { xpByDay, dailyGoal, daily, ensureDaily } = useStore(useShallow((s) => ({ xpByDay: s.xpByDay, dailyGoal: s.dailyGoal, daily: s.daily, ensureDaily: s.ensureDaily })))
   const { due } = useDue()
+  const subject = useStore((s) => s.subject ?? 'fr')
   const [sheet, setSheet] = useState(false)
   const [chest, setChest] = useState(false)
 
@@ -88,7 +90,7 @@ export function TodayStrip() {
   const today = xpToday(xpByDay)
   const g = goalInfo(dailyGoal, today)
   const d = daily?.day === dayKey() ? daily : null
-  const quests = d ? d.quests.map(questDef).filter(Boolean) : []
+  const quests = d ? d.quests.map((id) => questDef(id, subject)).filter(Boolean) : []
   const questsDone = d ? d.claimed.length : 0
   const ready = chestReady(g.baseReached, d)
   const opened = !!d?.chest
@@ -133,7 +135,7 @@ export function TodayStrip() {
         >
           <Repeat size={22} />
           <span className="min-w-0 flex-1 font-extrabold">
-            {due.length} {due.length === 1 ? 'Wort' : 'Wörter'} wiederholen
+            {due.length} {subject === 'math' ? (due.length === 1 ? 'Thema' : 'Themen') : due.length === 1 ? 'Wort' : 'Wörter'} wiederholen
           </span>
           <Right size={16} />
         </button>

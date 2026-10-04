@@ -51,7 +51,7 @@ export function Instruction({ children }: { children: React.ReactNode }) {
 }
 
 /** Aufgabe als ruhige Karte: optional mit Vorlesen-Knopf, der Text ist das Wichtigste. */
-export function PromptBubble({ children, speak: text, lang }: { children: React.ReactNode; speak?: string; lang?: 'fr' | 'de' }) {
+export function PromptBubble({ children, speak: text, lang, compact = false }: { children: React.ReactNode; speak?: string; lang?: 'fr' | 'de'; compact?: boolean | 'long' }) {
   return (
     // Der Fuchs "sagt" die Aufgabe in einer Sprechblase, wie die Figur bei SideMe
     <div className="mb-6 flex items-center gap-1">
@@ -60,7 +60,7 @@ export function PromptBubble({ children, speak: text, lang }: { children: React.
         <span aria-hidden className="absolute -left-[7px] top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 border-b-2 border-l-2 border-line bg-surface" />
         <div className="flex items-center gap-3.5">
           {text && <SpeakButton text={text} />}
-          <span lang={lang} className="min-w-0 text-[24px] font-extrabold leading-snug">{children}</span>
+          <span lang={lang} className={`min-w-0 font-extrabold leading-snug ${compact === 'long' ? 'text-[19px] leading-[1.55]' : compact ? 'text-[27px] leading-[1.4]' : 'text-[24px]'}`}>{children}</span>
         </div>
       </div>
     </div>

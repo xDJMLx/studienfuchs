@@ -13,8 +13,11 @@ export interface Item {
 export interface Explanation {
   title: string
   paragraphs: string[]
+  /** Beispiele: bei Mathe steht in fr die Rechnung (Mathe-Schreibweise), in de die Erklärung dazu */
   examples?: { fr: string; de: string }[]
   tip?: string
+  /** Mathe: Beispiele ohne Vorlesen-Knopf und in Mathe-Schreibweise */
+  math?: boolean
 }
 
 /** Lückensatz mit Begründung – für Grammatik, die sich nicht aus Vokabeln erzeugen lässt. */
@@ -62,7 +65,11 @@ export interface VocabSet {
 }
 
 /** `warm`: Aufwärm-Aufgabe zu einem älteren, fälligen Wort. Sie zählt für die Wiederholungsplanung, aber nicht fürs Bestehen der Lektion. */
-export type Exercise = ExerciseKind & { warm?: boolean }
+export type Exercise = ExerciseKind & {
+  warm?: boolean
+  /** Mathe: erzeugt eine frische, gleichartige Aufgabe (statt bei einem Fehler genau dieselbe zu wiederholen) */
+  again?: () => Exercise
+}
 
 type ExerciseKind =
   | { kind: 'teach'; id: string; itemId: string; items: Item[] }
@@ -75,5 +82,33 @@ type ExerciseKind =
   | { kind: 'build'; id: string; itemId: string; prompt: string; answer: string; words: string[] }
   | { kind: 'match'; id: string; itemId: string; pairs: { id: string; left: string; right: string }[] }
   | { kind: 'fill'; id: string; itemId: string; sentence: string; answer: string; options: string[]; translation?: string; why: string }
+  | MathExerciseKind
+
+/** Mathe-Aufgaben. Texte sind in Mathe-Schreibweise: $…$ für Terme, {Zähler|Nenner} für Brüche, ^2 für Hochzahlen. */
+export type MathExerciseKind =
+  | {
+      kind: 'calc'
+      id: string
+      itemId: string
+      title: string
+      prompt: string
+      /** steht vor dem Eingabefeld, z. B. "x =" */
+      lead?: string
+      /** steht hinter dem Eingabefeld, z. B. "cm²" */
+      unit?: string
+      /** Lösung zur Anzeige (Mathe-Schreibweise) */
+      answer: string
+      value: number
+      /** Die Lösung ist ein Bruch, der gekürzt sein soll (sonst "fast richtig") */
+      reduce?: boolean
+      /** Zahlentastatur mit Bruchstrich */
+      frac?: boolean
+      accept?: number[]
+      hint?: string
+      /** Rechenweg, wird bei einem Fehler gezeigt */
+      solution?: string
+    }
+  | { kind: 'mchoice'; id: string; itemId: string; title: string; prompt: string; answer: string; options: string[]; hint?: string; solution?: string }
+  | { kind: 'mmatch'; id: string; itemId: string; title: string; pairs: { id: string; left: string; right: string }[]; hint?: string }
 
 export type Mastery = 0 | 1 | 2 // neu, lernend, gefestigt

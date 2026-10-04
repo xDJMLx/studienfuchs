@@ -2,6 +2,9 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LESSON_PASS, nextLessonAfter, TEST_PASS } from '../../content'
+import { generateMathSession } from '../../content/math'
+import type { Level } from '../../content/math/core'
+import { MathText } from '../../components/math/MathText'
 import { SpeakButton } from '../../components/exercises/common'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Confetti } from '../../components/ui/Confetti'
@@ -39,25 +42,28 @@ interface Props {
   focus?: 'mix' | 'write' | 'listen'
   /** Ältere, fällige Wörter, die vor dem neuen Stoff kurz abgefragt werden (zählt nicht fürs Bestehen). */
   warmup?: Item[]
+  /** Mathe: Die Items sind Themen, die Aufgaben werden frisch erzeugt (kein Wortschatz, keine Audio-Dateien). */
+  math?: boolean
 }
 
 type Stage = 'explain' | 'practice' | 'done'
 
 /** Wartet kurz auf die Liste der Sprachaufnahmen, damit Hörübungen von Anfang an eingeplant werden können. */
 export function PracticeFlow(props: Props) {
-  const [ready, setReady] = useState(false)
+  const [ready, setReady] = useState(!!props.math)
   const [attempt, setAttempt] = useState(0)
   useEffect(() => {
+    if (props.math) return
     let alive = true
     void loadAudioIndex().then(() => alive && setReady(true))
     return () => {
       alive = false
     }
-  }, [])
+  }, [props.math])
   return ready ? <PracticeFlowInner key={attempt} {...props} onRetry={() => setAttempt((a) => a + 1)} attempt={attempt} /> : null
 }
 
-function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, exitTo, maxExercises, mode = 'learn', noPassMark = false, focus = 'mix', warmup, onRetry, attempt }: Props & { onRetry: () => void; attempt: number }) {
+function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, exitTo, maxExercises, mode = 'learn', noPassMark = false, focus = 'mix', warmup, math = false, onRetry, attempt }: Props & { onRetry: () => void; attempt: number }) {
   const isTest = mode === 'test'
   const navigate = useNavigate()
   const finishSession = useStore((s) => s.finishSession)
@@ -66,9 +72,19 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
   const [setup] = useState(() => {
     const cards = useStore.getState().cards
     const mastery = (id: string) => masteryOf(cards[id])
-    const allowListen = hasFrenchVoice()
-    const warm = !isTest && warmup?.length ? generateWarmup(warmup, pool, Math.random, mastery) : []
-    const exercises = isTest
+    const allowListen = !math && hasFrenchVoice()
+    const warm = !math && !isTest && warmup?.length ? generateWarmup(warmup, pool, Math.random, mastery) : []
+    const exercises = math
+      ? generateMathSession({
+          skillIds: items.map((i) => i.id),
+          count: maxExercises ?? (isTest ? 12 : noPassMark ? 10 : 10),
+          // Im Test und beim freien Üben gleich anspruchsvoller; in der Lektion von leicht nach schwer
+          from: (isTest ? 2 : 1) as Level,
+          to: 3,
+          warm: isTest ? [] : (warmup ?? []).map((i) => i.id),
+          startLevelOf: (id) => (mastery(id) >= 1 ? 2 : 1),
+        })
+      : isTest
       ? generateTest({ items, pool, allowListen, focus, count: maxExercises, mastery })
       : [...warm, ...generateLesson({ items, pool, mastery, fills, maxExercises, allowListen, allowSpeak: recognitionAvailable && useStore.getState().speakingOn, focus })]
     const st = useStore.getState()
@@ -77,8 +93,8 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
 
   // Aufnahmen der Wörter dieser Übung schon im Hintergrund holen
   useEffect(() => {
-    prefetchRecordings(items.map((i) => i.front))
-  }, [items])
+    if (!math) prefetchRecordings(items.map((i) => i.front))
+  }, [items, math])
 
   // Erklärung nur beim ersten Versuch zeigen
   const [stage, setStage] = useState<Stage>(!isTest && explanation && attempt === 0 ? 'explain' : 'practice')
@@ -93,7 +109,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
       const comboXp = comboBonus(result.bestCombo)
       const xp = lessonXp(result.firstTry, result.total) + comboXp
       const lastDayBefore = useStore.getState().streak.lastDay
-      const coins = finishSession({ xp, grades: result.grades, lessonId, accuracy: result.accuracy })
+      const coins = finishSession({ xp, grades: result.grades, lessonId, accuracy: result.accuracy, ...(math ? { answered: result.total } : {}) })
       // Erstes Lernen heute: die Serie ist gerade um einen Tag gewachsen
       const streakUp = useStore.getState().streak.lastDay !== lastDayBefore
       const xpBefore = setup.xpBefore
@@ -104,7 +120,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
       playDone()
       setStage('done')
     },
-    [finishSession, lessonId, setup.xpBefore, setup.todayBefore, setup.goal],
+    [finishSession, lessonId, math, setup.xpBefore, setup.todayBefore, setup.goal],
   )
 
   if (stage === 'explain' && explanation) {
@@ -120,7 +136,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
           <FadeItem>
             <div className="grid gap-3">
               {explanation.paragraphs.map((p, i) => (
-                <p key={p} className={i === 0 ? 'text-xl leading-9' : 'text-[17px] leading-8 text-ink/90'}>{p}</p>
+                <p key={p} className={i === 0 ? 'text-xl leading-9' : 'text-[17px] leading-8 text-ink/90'}>{explanation.math ? <MathText>{p}</MathText> : p}</p>
               ))}
             </div>
           </FadeItem>
@@ -129,10 +145,10 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
               <StaggerList className="mt-5 grid gap-2.5" stagger={0.06} delay={0.1}>
                 {explanation.examples.map((e) => (
                   <ItemLi key={e.fr} className="card flex items-center gap-4 border-l-4 !border-l-brand p-3.5 pr-4">
-                    <SpeakButton text={e.fr} />
+                    {explanation.math ? null : <SpeakButton text={e.fr} />}
                     <div className="min-w-0">
-                      <div className="text-lg font-semibold leading-snug text-brand-dark">{e.fr}</div>
-                      <div className="text-muted">{e.de}</div>
+                      <div className="text-lg font-semibold leading-snug text-brand-dark">{explanation.math ? <MathText className="text-[20px]">{e.fr}</MathText> : e.fr}</div>
+                      <div className="text-muted">{explanation.math ? <MathText>{e.de}</MathText> : e.de}</div>
                     </div>
                   </ItemLi>
                 ))}
@@ -145,7 +161,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
                 <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gold/30 text-gold-dark"><Bulb size={22} /></span>
                 <div>
                   <p className="text-xs font-semibold text-gold-dark">Merke</p>
-                  <p className="leading-relaxed">{explanation.tip}</p>
+                  <p className="leading-relaxed">{explanation.math ? <MathText>{explanation.tip}</MathText> : explanation.tip}</p>
                 </div>
               </div>
             </FadeItem>
@@ -157,7 +173,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
 
   if (stage === 'done' && outcome) {
     const mark = noPassMark ? 0 : isTest ? TEST_PASS : LESSON_PASS
-    return <ResultScreen title={title} outcome={outcome} items={items} test={isTest} free={noPassMark} mark={mark} lessonId={lessonId} onRetry={onRetry} onDone={() => navigate(exitTo)} onNext={(id) => navigate(`/lesson/${id}`, { replace: true })} />
+    return <ResultScreen math={math} title={title} outcome={outcome} items={items} test={isTest} free={noPassMark} mark={mark} lessonId={lessonId} onRetry={onRetry} onDone={() => navigate(exitTo)} onNext={(id) => navigate(`/lesson/${id}`, { replace: true })} />
   }
 
   return <Session exercises={setup.exercises} gradedItemIds={gradedIds} onExit={() => navigate(exitTo)} onComplete={onComplete} noRetry={isTest} />
@@ -187,10 +203,12 @@ export function ResultScreen({
   free,
   mark,
   lessonId,
+  math = false,
   onRetry,
   onDone,
   onNext,
 }: {
+  math?: boolean
   title: string
   outcome: { result: SessionResult; xp: number; coins: number; leveledUp: boolean; goalReached: boolean; bonusTier: number; comboXp: number; streakUp?: boolean }
   items: Item[]
@@ -225,9 +243,9 @@ export function ResultScreen({
   const freeHeadline = pct >= 90 ? 'Sehr gut!' : pct >= 70 ? 'Gut gemacht!' : 'Ein guter Anfang'
   const headline = free && test ? freeHeadline : test ? (passed ? 'Test bestanden!' : 'Noch nicht bestanden') : passed ? (pct >= 90 ? 'Perfekt!' : 'Lektion geschafft!') : 'Fast geschafft'
   const sub = free && test
-    ? `${pct} % auf Anhieb richtig. ${missed.length ? 'Die Wörter, die noch nicht saßen, siehst du unten.' : 'Kein einziger Fehler.'}`
+    ? `${pct} % auf Anhieb richtig. ${missed.length ? (math ? 'Die Themen, die noch nicht saßen, siehst du unten.' : 'Die Wörter, die noch nicht saßen, siehst du unten.') : 'Kein einziger Fehler.'}`
     : !passed
-    ? `Du brauchst mindestens ${Math.round(mark * 100)} % beim ersten Versuch, bevor es weitergeht. Das hier waren ${pct} %.${test ? '' : ' Mach die Lektion einfach nochmal, die schwierigen Wörter sitzen dann besser.'}`
+    ? `Du brauchst mindestens ${Math.round(mark * 100)} % beim ersten Versuch, bevor es weitergeht. Das hier waren ${pct} %.${test ? '' : math ? ' Mach die Lektion einfach nochmal, du bekommst neue Aufgaben.' : ' Mach die Lektion einfach nochmal, die schwierigen Wörter sitzen dann besser.'}`
     : test
       ? 'Stark, diese Einheit sitzt.'
       : result.retries > 0

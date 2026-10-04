@@ -1,7 +1,8 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { blockingLesson, grades, isLessonDone, isRegular, isUnlocked, passMark, units } from '../../content'
+import { blockingLesson, gradesOf, isLessonDone, isRegular, isUnlocked, passMark, unitsOf } from '../../content'
+import { MathText } from '../../components/math/MathText'
 import { SpeakButton } from '../../components/exercises/common'
 import { Check, Chest, Chevron, Coin, Lock, Repeat, Star, Trophy } from '../../components/ui/Icons'
 import { Burst } from '../../components/ui/Burst'
@@ -64,8 +65,10 @@ export function LearnPage() {
   const lessons = useStore((s) => s.lessons)
   const classUnit = useStore((s) => s.classUnit)
   const storedGrade = useStore((s) => s.grade)
+  const subject = useStore((s) => s.subject ?? 'fr')
+  const grades = gradesOf(subject)
   const grade = grades.includes(storedGrade) ? storedGrade : grades[0]
-  const shown = useMemo(() => units.filter((u) => u.grade === grade), [grade])
+  const shown = useMemo(() => unitsOf(subject).filter((u) => u.grade === grade), [grade, subject])
   // Zusatzeinheiten (Berliner Lehrwerke) sind freiwillig und zählen nicht zum Kursfortschritt
   const all = shown.filter((u) => !u.extra).flatMap((u) => u.lessons)
   const regular = all.filter(isRegular)
@@ -90,6 +93,7 @@ export function LearnPage() {
       questsLeft: d ? d.quests.length - d.claimed.length : 3,
       goalLeft: gi.baseReached ? 0 : gi.goal - (st.xpByDay[today] ?? 0),
       hour: new Date().getHours(),
+      subject,
     })
   })()
 
@@ -136,7 +140,7 @@ export function LearnPage() {
         <TodayStrip />
       </div>
 
-      {doneCount === 0 && (
+      {doneCount === 0 && subject === 'fr' && (
         <div className="card mb-4 flex flex-wrap items-center gap-x-3 gap-y-2 p-4">
           <p className="min-w-[10rem] flex-1 text-[15px] font-bold">Schon Französisch gehabt?</p>
           <Link to="/placement" className="btn btn-ghost !min-h-10 !px-3 !py-2 !text-xs">Einstufungstest</Link>
@@ -247,6 +251,7 @@ export function LearnPage() {
                             color={world}
                             offset={offset}
                             reduce={!!reduce}
+                            math={subject === 'math'}
                             onWords={() => {
                               setPop(null)
                               setLessonSheet({ lesson, unit })
@@ -333,7 +338,7 @@ export function LearnPage() {
 }
 
 /** Kärtchen unter dem angetippten Knoten: Titel, worum es geht, und der große Start-Knopf. */
-function LessonPopover({ lesson, unit, state, color, offset, reduce, onWords }: { lesson: Lesson; unit: Unit; state: NodeState; color: { c: string; s: string }; offset: number; reduce: boolean; onWords: () => void }) {
+function LessonPopover({ lesson, unit, state, color, offset, reduce, onWords, math }: { lesson: Lesson; unit: Unit; state: NodeState; color: { c: string; s: string }; offset: number; reduce: boolean; onWords: () => void; math: boolean }) {
   const navigate = useNavigate()
   const records = useStore((s) => s.lessons)
   const rec = records[lesson.id]
@@ -342,10 +347,12 @@ function LessonPopover({ lesson, unit, state, color, offset, reduce, onWords }: 
   const regular = unit.lessons.filter(isRegular)
   const pos = regular.findIndex((l) => l.id === lesson.id)
   const sub = lesson.test
-    ? '15 Fragen ohne Hilfe, bestanden ab 70 %'
+    ? `${math ? 12 : 15} ${math ? 'Aufgaben' : 'Fragen'} ohne Hilfe, bestanden ab 70 %`
     : lesson.review
-      ? 'Die Wörter der Einheit, gemischt'
-      : `Lektion ${pos + 1} von ${regular.length} · ${lesson.items.length} Wörter`
+      ? math ? 'Die Themen der Einheit, gemischt' : 'Die Wörter der Einheit, gemischt'
+      : math
+        ? `Lektion ${pos + 1} von ${regular.length} · ${lesson.items.length} ${lesson.items.length === 1 ? 'Thema' : 'Themen'}`
+        : `Lektion ${pos + 1} von ${regular.length} · ${lesson.items.length} Wörter`
   const bg = locked ? 'var(--snow)' : color.c
   const box = useRef<HTMLDivElement>(null)
   // Ganz sichtbar machen: nicht hinter der Tab-Leiste verstecken
@@ -389,7 +396,7 @@ function LessonPopover({ lesson, unit, state, color, offset, reduce, onWords }: 
         )}
         {!lesson.review && !lesson.test && (
           <button type="button" onClick={onWords} className={`mt-1 w-full rounded-xl py-2 text-sm font-extrabold underline-offset-4 hover:underline ${locked ? 'text-sky-dark' : 'text-white/95'}`}>
-            Wörter ansehen
+            {math ? 'Erklärung ansehen' : 'Wörter ansehen'}
           </button>
         )}
       </motion.div>
@@ -398,6 +405,7 @@ function LessonPopover({ lesson, unit, state, color, offset, reduce, onWords }: 
 }
 
 function LessonSheet({ data, onClose }: { data: { lesson: Lesson; unit: Unit } | null; onClose: () => void }) {
+  const math = data?.unit.subject === 'math'
   const navigate = useNavigate()
   const records = useStore((s) => s.lessons)
   const lesson = data?.lesson
@@ -411,14 +419,26 @@ function LessonSheet({ data, onClose }: { data: { lesson: Lesson; unit: Unit } |
           <p className="eyebrow mb-1">{unit.title}</p>
           <h2 className="mb-1 text-2xl font-extrabold">{lesson.title}</h2>
           <p className="mb-4 text-sm text-muted">
-            {lesson.items.length} neue Wörter{lesson.explanation ? ' · mit kurzer Erklärung' : ''} · ca. {Math.max(3, Math.round(lesson.items.length * 1.2))} Minuten
+            {math ? `${lesson.items.length} ${lesson.items.length === 1 ? 'Thema' : 'Themen'} · ca. 6 Minuten` : `${lesson.items.length} neue Wörter${lesson.explanation ? ' · mit kurzer Erklärung' : ''} · ca. ${Math.max(3, Math.round(lesson.items.length * 1.2))} Minuten`}
           </p>
+          {math && lesson.explanation && (
+            <div className="mb-4 rounded-2xl bg-snow p-4">
+              <p className="mb-1 font-extrabold">{lesson.explanation.title}</p>
+              {lesson.explanation.paragraphs.map((p) => (
+                <p key={p} className="mb-1.5 text-[15px] leading-relaxed"><MathText>{p}</MathText></p>
+              ))}
+              {lesson.explanation.examples?.map((e) => (
+                <p key={e.fr} className="mt-2 text-[15px]"><MathText className="text-[17px] text-brand-dark">{e.fr}</MathText><br /><span className="text-muted"><MathText>{e.de}</MathText></span></p>
+              ))}
+              {lesson.explanation.tip && <p className="mt-3 rounded-xl bg-gold/15 p-3 text-sm"><b>Merke: </b><MathText>{lesson.explanation.tip}</MathText></p>}
+            </div>
+          )}
           <ul className="mb-5 grid gap-1.5">
             {lesson.items.map((it) => (
               <li key={it.id} className="flex items-center gap-3 rounded-2xl bg-snow px-3 py-2">
-                <SpeakButton text={it.front} />
+                {math ? null : <SpeakButton text={it.front} />}
                 <span className="min-w-0 flex-1">
-                  <span lang="fr" className="block truncate font-extrabold">{it.front}</span>
+                  <span lang={math ? undefined : 'fr'} className="block truncate font-extrabold">{it.front}</span>
                   <span className="block truncate text-sm text-muted">{it.back}</span>
                 </span>
               </li>

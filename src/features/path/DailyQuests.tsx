@@ -13,6 +13,7 @@ export function DailyRewards({ onChest }: { onChest?: () => void } = {}) {
   const daily = useStore((s) => s.daily)
   const goalReached = useStore((s) => goalInfo(s.dailyGoal, s.xpByDay[dayKey()] ?? 0).baseReached)
   const ensureDaily = useStore((s) => s.ensureDaily)
+  const subject = useStore((s) => s.subject ?? 'fr')
   const [sheet, setSheet] = useState(false)
 
   // Neuer Tag, neue Aufgaben
@@ -22,7 +23,7 @@ export function DailyRewards({ onChest }: { onChest?: () => void } = {}) {
 
   const today = daily && daily.day === dayKey() ? daily : null
   if (!today) return null
-  const quests = today.quests.map(questDef).filter((q): q is QuestDef => !!q)
+  const quests = today.quests.map((id) => questDef(id, subject)).filter((q): q is QuestDef => !!q)
   const doneCount = quests.filter((q) => today.claimed.includes(q.id)).length
   const ready = chestReady(goalReached, today)
   const opened = today.chest !== null

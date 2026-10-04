@@ -654,3 +654,100 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
 @media (prefers-reduced-motion: reduce) {
   .fox-pop, .fox-fall, .fox-tear, .fox-zzz, .fox-heart, .fox-float-in, .fox-bubble, .fox-bubble-side { animation: none; }
 }
+
+/* ---------- Mathe: Brüche und Rechnungen ---------- */
+.math-expr {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+.math-frac {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0 0.18em;
+  font-size: 0.86em;
+  line-height: 1.12;
+  text-align: center;
+}
+.math-frac > span:first-child {
+  padding: 0 0.22em 0.06em;
+  border-bottom: 0.09em solid currentColor;
+}
+.math-frac > span:last-child {
+  padding: 0.06em 0.22em 0;
+}
+
+/* Zahlentastatur und Antwortfeld der Rechenaufgaben */
+.math-key {
+  display: flex;
+  min-height: 3.1rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: 1.35rem;
+  font-weight: 800;
+  box-shadow: 0 3px 0 var(--shade-line);
+  margin-bottom: 3px;
+  user-select: none;
+  touch-action: manipulation;
+  transition: background-color 0.12s;
+}
+.math-key-util {
+  background: var(--snow);
+  color: var(--sky-text);
+}
+.math-key:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 var(--shade-line);
+}
+.math-key:disabled {
+  opacity: 0.55;
+}
+@media (hover: hover) and (pointer: fine) {
+  .math-key:hover:not(:disabled) {
+    background: var(--snow);
+  }
+}
+.math-field {
+  display: flex;
+  min-height: 4rem;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 1rem;
+  border: 2px solid var(--sky);
+  background: var(--surface);
+  padding: 0.5rem 1rem;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--ink);
+}
+.math-field-ok {
+  border-color: var(--good);
+  background: var(--good-soft);
+  color: var(--good-text);
+}
+.math-field-bad {
+  border-color: var(--bad);
+  background: var(--bad-soft);
+  color: var(--bad-text);
+}
+.math-caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.7rem;
+  margin-left: 1px;
+  vertical-align: middle;
+  background: var(--sky);
+  animation: math-blink 1s steps(1) infinite;
+}
+@keyframes math-blink {
+  50% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .math-caret { animation: none; }
+}

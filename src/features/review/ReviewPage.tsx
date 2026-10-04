@@ -4,7 +4,7 @@ import { Fr } from '../../components/exercises/common'
 import { ChipTabs } from '../../components/ui/controls'
 import { Back, Repeat, Right } from '../../components/ui/Icons'
 import { CountUp, Item as FadeItem, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
-import { allItems, gradeStats } from '../../content'
+import { allItems, COURSE_STATS, gradeStats, mathItems } from '../../content'
 import { SegmentedBar, ProgressRing } from '../../components/ui/widgets'
 import { isDue, masteryOf } from '../../lib/srs'
 import type { Item } from '../../lib/types'
@@ -13,12 +13,21 @@ import { useStore } from '../../store/useStore'
 /** Alle bekannten Items (Kurs + eigene Sets) nach ID. */
 export function useItemIndex(): Map<string, Item> {
   const sets = useStore((s) => s.sets)
+  const subject = useStore((s) => s.subject ?? 'fr')
   return useMemo(() => {
+    // Mathe-Themen und Wörter laufen getrennt: Jedes Fach wiederholt nur das eigene
+    if (subject === 'math') return new Map<string, Item>(mathItems)
     const m = new Map<string, Item>()
     for (const i of allItems) m.set(i.id, i)
     for (const s of sets) for (const i of s.items) m.set(i.id, i)
     return m
-  }, [sets])
+  }, [sets, subject])
+}
+
+/** Das aktuelle Fach in Zahlen und Worten: wie viele Wörter bzw. Themen es gibt und wie man sie nennt. */
+export function useCourse(): { math: boolean; total: number; noun: string; Noun: string } {
+  const math = useStore((s) => (s.subject ?? 'fr') === 'math')
+  return math ? { math, total: mathItems.size, noun: 'Themen', Noun: 'Themen' } : { math, total: COURSE_STATS.words, noun: 'Wörter', Noun: 'Wörter' }
 }
 
 export function useLearned() {
@@ -76,10 +85,12 @@ type Filter = 'all' | 'due' | 'weak'
 export function ReviewPage() {
   const navigate = useNavigate()
   const grade = useStore((s) => s.grade)
+  const math = useStore((s) => s.subject ?? 'fr') === 'math'
+  const noun = math ? 'Themen' : 'Wörter'
   const { learned, due, byMastery } = useLearned()
   const [filter, setFilter] = useState<Filter>('all')
 
-  const courseTotal = useMemo(() => gradeStats(grade).words, [grade])
+  const courseTotal = useMemo(() => (math ? mathItems.size : gradeStats(grade).words), [grade, math])
   const [learning, mastered] = byMastery
   const notStarted = Math.max(0, courseTotal - learning - mastered)
 
@@ -95,7 +106,7 @@ export function ReviewPage() {
         <Back size={18} /> Üben
       </Link>
       <h1 className="page-title mb-1">Lernstand</h1>
-      <p className="mb-6 text-muted">Wörter kommen kurz bevor du sie vergessen würdest wieder dran. So bleiben sie dauerhaft hängen.</p>
+      <p className="mb-6 text-muted">{math ? 'Themen' : 'Wörter'} kommen kurz bevor du sie vergessen würdest wieder dran. So bleiben sie dauerhaft hängen.</p>
     </FadeItem>
   )
 
@@ -106,7 +117,7 @@ export function ReviewPage() {
         <FadeItem>
           <div className="card p-8 text-center">
             <p className="text-lg font-semibold">Noch nichts zu wiederholen</p>
-            <p className="mx-auto mb-5 mt-1 max-w-sm text-muted">Schließe eine Lektion ab. Danach planen wir automatisch, wann du welches Wort wieder üben solltest.</p>
+            <p className="mx-auto mb-5 mt-1 max-w-sm text-muted">Schließe eine Lektion ab. Danach planen wir automatisch, wann du {math ? 'welches Thema' : 'welches Wort'} wieder üben solltest.</p>
             <Link to="/" className="btn btn-primary press">Zum Lernpfad</Link>
           </div>
         </FadeItem>
@@ -127,14 +138,14 @@ export function ReviewPage() {
               <span className="text-lg font-bold"><CountUp to={Math.round(solidPct * 100)} suffix="%" /></span>
             </ProgressRing>
             <div className="sm:hidden">
-              <p className="eyebrow">Klasse {grade}</p>
+              <p className="eyebrow">{math ? 'Mathe' : `Klasse ${grade}`}</p>
               <p className="font-semibold">fest gelernt</p>
             </div>
           </div>
           <div>
             <p className="eyebrow mb-1">Jetzt dran</p>
             <p className="text-3xl font-bold">
-              <CountUp to={due.length} /> <span className="text-base font-medium text-muted">{due.length === 1 ? 'Wort' : 'Wörter'}</span>
+              <CountUp to={due.length} /> <span className="text-base font-medium text-muted">{math ? (due.length === 1 ? 'Thema' : 'Themen') : due.length === 1 ? 'Wort' : 'Wörter'}</span>
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {due.length > 0 ? (
@@ -153,8 +164,8 @@ export function ReviewPage() {
       <FadeItem>
         <section className="card mb-6 p-5">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="font-semibold">Dein Wortschatz in Klasse {grade}</h2>
-            <span className="text-sm text-muted">{courseTotal} Wörter</span>
+            <h2 className="font-semibold">{math ? 'Deine Themen in Mathe' : `Dein Wortschatz in Klasse ${grade}`}</h2>
+            <span className="text-sm text-muted">{courseTotal} {noun}</span>
           </div>
           <SegmentedBar
             parts={[
@@ -173,7 +184,7 @@ export function ReviewPage() {
 
       <FadeItem>
         <section>
-          <h2 className="mb-3 font-semibold">Deine Wörter</h2>
+          <h2 className="mb-3 font-semibold">Deine {noun}</h2>
           <ChipTabs
             label="Filter"
             className="mb-3"
@@ -186,12 +197,12 @@ export function ReviewPage() {
             ]}
           />
           <StaggerList key={filter} className="card divide-y divide-line overflow-hidden" stagger={0.03}>
-            {list.length === 0 && <li className="px-4 py-6 text-center text-sm text-muted">Keine Wörter in dieser Ansicht.</li>}
+            {list.length === 0 && <li className="px-4 py-6 text-center text-sm text-muted">Keine {noun} in dieser Ansicht.</li>}
             {list.map(({ item, card }) => (
               <ItemLi key={item.id} className="flex items-center gap-4 px-4 py-3">
                 <Strength stability={card.stability} />
                 <div className="min-w-0 flex-1">
-                  <Fr className="block truncate font-medium">{item.front}</Fr>
+                  {math ? <span className="block truncate font-medium">{item.front}</span> : <Fr className="block truncate font-medium">{item.front}</Fr>}
                   <p className="truncate text-sm text-muted">{item.back}</p>
                 </div>
                 <span className={`shrink-0 text-xs font-medium ${isDue(card) ? 'text-brand-dark' : 'text-muted'}`}>{dueLabel(new Date(card.due))}</span>

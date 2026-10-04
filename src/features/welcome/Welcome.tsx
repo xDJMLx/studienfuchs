@@ -2,7 +2,8 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CountUp, EASE, SPRING } from '../../components/ui/motion'
-import { gradeStats, grades, units } from '../../content'
+import { gradeStats, gradesOf, isRegular, unitsOf, type Subject } from '../../content'
+import { FrenchFlag, MathBadge } from '../../components/ui/CoursePicker'
 import { Mascot, type Mood } from '../../components/mascot/Mascot'
 import { Confetti } from '../../components/ui/Confetti'
 import { Back, Right } from '../../components/ui/Icons'
@@ -10,8 +11,8 @@ import { Wordmark } from '../../components/ui/Layout'
 import { useStore } from '../../store/useStore'
 import { useShallow } from 'zustand/react/shallow'
 
-type Step = 'hero' | 'grade' | 'goal' | 'ready'
-const ORDER: Step[] = ['hero', 'grade', 'goal', 'ready']
+type Step = 'hero' | 'subject' | 'grade' | 'goal' | 'ready'
+const ORDER: Step[] = ['hero', 'subject', 'grade', 'goal', 'ready']
 type FlowStep = Exclude<Step, 'hero'>
 
 const GOALS = [
@@ -21,15 +22,16 @@ const GOALS = [
   { xp: 50, label: 'Intensiv', time: '20+ Min. am Tag', bars: 4 },
 ]
 
-// Aktuell gibt es nur Französisch, darum keine Fächerauswahl
-const FLOW: FlowStep[] = ['grade', 'goal', 'ready']
+// Mathe gibt es nur für Klasse 7: Dort entfällt die Klassenwahl
+const flowFor = (subject: Subject): FlowStep[] => (subject === 'math' ? ['subject', 'goal', 'ready'] : ['subject', 'grade', 'goal', 'ready'])
 
 const SPEECH: Record<FlowStep, string> = {
+  subject: 'Was möchtest du lernen?',
   grade: 'In welche Klasse gehst du?',
   goal: 'Wie viel möchtest du täglich lernen?',
   ready: 'Super! Dein Lernpfad ist fertig. Los geht’s!',
 }
-const MOOD: Record<FlowStep, Mood> = { grade: 'think', goal: 'happy', ready: 'cheer' }
+const MOOD: Record<FlowStep, Mood> = { subject: 'happy', grade: 'think', goal: 'happy', ready: 'cheer' }
 
 const slide = {
   enter: (d: number) => ({ opacity: 0, x: d * 24 }),
@@ -41,7 +43,11 @@ const slide = {
 export function Welcome() {
   const navigate = useNavigate()
   const reduce = useReducedMotion()
-  const { grade, dailyGoal, setGrade, setDailyGoal, setOnboarded, importData } = useStore(useShallow((s) => ({ grade: s.grade, dailyGoal: s.dailyGoal, setGrade: s.setGrade, setDailyGoal: s.setDailyGoal, setOnboarded: s.setOnboarded, importData: s.importData })))
+  const { grade, subject, dailyGoal, setGrade, setSubject, setDailyGoal, setOnboarded, importData } = useStore(useShallow((s) => ({ grade: s.grade, subject: s.subject ?? 'fr', dailyGoal: s.dailyGoal, setGrade: s.setGrade, setSubject: s.setSubject, setDailyGoal: s.setDailyGoal, setOnboarded: s.setOnboarded, importData: s.importData })))
+  const FLOW = flowFor(subject)
+  const grades = gradesOf(subject)
+  const math = subject === 'math'
+  const units = unitsOf(subject)
   const hasProgress = useStore((s) => s.xp > 0 || Object.keys(s.lessons).length > 0)
   const [step, setStep] = useState<Step>('hero')
   const [dir, setDir] = useState(1)
@@ -70,7 +76,10 @@ export function Welcome() {
   }
 
   // Erste Lektion der gewählten Klasse (für den Sofort-Start am Ende)
-  const firstLesson = units.find((u) => u.grade === grade && !u.extra)?.lessons[0]
+  const firstLesson = units.find((u) => u.grade === (math ? grades[0] : grade) && !u.extra)?.lessons[0]
+  const courseStats = math
+    ? { lessons: units.flatMap((u) => u.lessons).filter(isRegular).length, topics: new Set(units.flatMap((u) => u.lessons.filter(isRegular).flatMap((l) => l.items.map((i) => i.id)))).size }
+    : { lessons: gradeStats(grade).lessons, topics: gradeStats(grade).words }
   const idx = FLOW.indexOf(step as FlowStep)
   const next = () => go(idx >= FLOW.length - 1 ? step : FLOW[idx + 1])
   const back = () => go(idx <= 0 ? 'hero' : FLOW[idx - 1])
@@ -97,7 +106,7 @@ export function Welcome() {
                 transition={{ ...SPRING.snappy, delay: 0.2 }}
                 className="relative mb-5 max-w-[19rem] rounded-3xl border-2 border-line bg-surface px-5 py-3.5 text-[17px] font-semibold leading-snug"
               >
-                Hallo! Ich bin Fenni. Ich zeige dir, wie Französisch hängen bleibt.
+                Hallo! Ich bin Fenni. Ich zeige dir, wie Gelerntes hängen bleibt.
                 <span aria-hidden className="absolute -bottom-[9px] left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-b-2 border-r-2 border-line bg-surface" />
               </motion.div>
               <motion.div initial={reduce ? false : { opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} transition={{ ...SPRING.soft, delay: 0.05 }}>
@@ -116,7 +125,7 @@ export function Welcome() {
                 das hängen bleibt.
               </motion.h1>
               <motion.p initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.36, delay: 0.3 }} className="mt-2 text-[16px] font-bold text-muted">
-                Französisch Klasse 7 bis 10, kostenlos und ohne Konto
+                Französisch Klasse 7 bis 10 und Mathe Klasse 7, kostenlos und ohne Konto
               </motion.p>
             </main>
 
@@ -176,6 +185,31 @@ export function Welcome() {
 
               <AnimatePresence mode="wait" custom={dir} initial={false}>
                 <motion.div key={step} custom={dir} variants={slide} initial="enter" animate="center" exit="exit">
+                  {step === 'subject' && (
+                    <ul className="grid gap-3" role="radiogroup" aria-label="Fach">
+                      {([
+                        { id: 'fr' as const, name: 'Französisch', text: 'Klasse 7 bis 10 · Wörter, Sätze, Hören', icon: <FrenchFlag size={44} /> },
+                        { id: 'math' as const, name: 'Mathe', text: 'Klasse 7 · Rechnen, Gleichungen, Prozente', icon: <MathBadge size={44} /> },
+                      ]).map((s) => {
+                        const on = subject === s.id
+                        return (
+                          <li key={s.id} className="min-w-0">
+                            <button type="button" role="radio" aria-checked={on} onClick={() => { setSubject(s.id); if (s.id === 'math') setGrade(7) }} className={`press relative flex w-full items-center gap-4 rounded-2xl border-2 p-3.5 text-left transition-colors ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface'}`}>
+                              {s.icon}
+                              <span className="min-w-0 flex-1">
+                                <span className={`block text-lg font-semibold ${on ? 'text-brand-dark' : ''}`}>{s.name}</span>
+                                <span className="block text-sm text-muted">{s.text}</span>
+                              </span>
+                            </button>
+                          </li>
+                        )
+                      })}
+                      <li className="min-w-0">
+                        <p className="rounded-2xl bg-snow p-3.5 text-sm leading-relaxed text-muted">Du kannst später jederzeit zwischen den Fächern wechseln. Dein Fortschritt bleibt in jedem Fach erhalten.</p>
+                      </li>
+                    </ul>
+                  )}
+
                   {step === 'grade' && (
                     <ul className="grid grid-cols-1 gap-3" role="radiogroup" aria-label="Klasse">
                       {grades.map((g) => {
@@ -232,26 +266,31 @@ export function Welcome() {
                       <Confetti count={36} />
                       <div className="card overflow-hidden">
                         <div className="p-5 text-center">
-                          <p className="mb-1 text-xl font-bold">Französisch · Klasse {grade}</p>
+                          <p className="mb-1 text-xl font-bold">{math ? 'Mathe' : 'Französisch'} · Klasse {math ? grades[0] : grade}</p>
                           <p className="text-muted">Mindestens {dailyGoal} XP pro Tag · {GOALS.find((g) => g.xp === dailyGoal)?.time}</p>
                         </div>
                         <div className="grid grid-cols-2 divide-x divide-line border-t border-line text-center">
                           <div className="px-3 py-4">
-                            <div className="text-2xl font-bold text-brand-dark"><CountUp to={gradeStats(grade).lessons} /></div>
+                            <div className="text-2xl font-bold text-brand-dark"><CountUp to={courseStats.lessons} /></div>
                             <div className="text-xs font-medium text-muted">Lektionen im Lernpfad</div>
                           </div>
                           <div className="px-3 py-4">
-                            <div className="text-2xl font-bold text-brand-dark"><CountUp to={gradeStats(grade).words} /></div>
-                            <div className="text-xs font-medium text-muted">neue Wörter</div>
+                            <div className="text-2xl font-bold text-brand-dark"><CountUp to={courseStats.topics} /></div>
+                            <div className="text-xs font-medium text-muted">{math ? 'Themen zum Üben' : 'neue Wörter'}</div>
                           </div>
                         </div>
                       </div>
-                      <button type="button" className="btn btn-ghost press mt-4 w-full" onClick={() => finish('/catchup')}>
-                        Meine Klasse ist schon weiter: Aufholen
-                      </button>
-                      <p className="mt-3 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">
-                        Tipp: Ist der Unterricht schon weiter? Dafür gibt es „Aufholen". In der „KI“ kannst du Fotos deiner Buchseiten hochladen und dir einen Vokabeltest daraus machen lassen.
-                      </p>
+                      {!math && (
+                        <>
+                          <button type="button" className="btn btn-ghost press mt-4 w-full" onClick={() => finish('/catchup')}>
+                            Meine Klasse ist schon weiter: Aufholen
+                          </button>
+                          <p className="mt-3 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">
+                            Tipp: Ist der Unterricht schon weiter? Dafür gibt es „Aufholen". In der „KI“ kannst du Fotos deiner Buchseiten hochladen und dir einen Vokabeltest daraus machen lassen.
+                          </p>
+                        </>
+                      )}
+                      {math && <p className="mt-4 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">Jede Lektion beginnt mit einer kurzen Erklärung. Die Aufgaben sind immer neu: Du kannst so lange üben, bis es sitzt.</p>}
                     </div>
                   )}
                 </motion.div>
