@@ -6,6 +6,8 @@ import { Row, Section, Switch } from '../../components/ui/controls'
 import { InstallHelp, useInstallFlow } from '../../components/ui/InstallApp'
 import { Cards, Check, Database, Download, Gear, Palette, Shield, Sparkle, Speaker, Target, Upload } from '../../components/ui/Icons'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
+import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
+import { EXAMPLE_PERIODS } from '../../lib/school'
 import { activeDecks } from '../../lib/decks'
 import { HELP_SUBJECTS } from '../../lib/subjects'
 import { EASE, Item, Stagger, SPRING } from '../../components/ui/motion'
@@ -34,6 +36,7 @@ const THEMES = [
 
 const SECTIONS = [
   { id: 's-subjects', label: 'Fächer', Icon: Cards },
+  { id: 's-hours', label: 'Schulzeiten', Icon: Target },
   { id: 's-look', label: 'Darstellung', Icon: Palette },
   { id: 's-learn', label: 'Lernen', Icon: Target },
   { id: 's-voice', label: 'Sprache', Icon: Speaker },
@@ -75,6 +78,10 @@ export function SettingsPage() {
   const mySubjects = useStore((s) => s.mySubjects)
   const toggleSubject = useStore((s) => s.toggleSubject)
   const addedUnits = useStore((s) => s.addedUnits)
+  const schoolPeriods = useStore((s) => s.schoolPeriods) ?? []
+  const setSchoolPeriods = useStore((s) => s.setSchoolPeriods)
+  // Beim Tippen bleiben unvollständige Zeilen stehen; gespeichert wird die geprüfte Fassung
+  const [periodsDraft, setPeriodsDraft] = useState(() => (schoolPeriods.length ? schoolPeriods : EXAMPLE_PERIODS.slice(0, 0)))
   const { theme, setTheme, dailyMinutes, setDailyMinutes, soundOn, setSoundOn, exportData, importData, resetAll, cards, sets } = useStore(useShallow((s) => ({ theme: s.theme, setTheme: s.setTheme, dailyMinutes: s.dailyMinutes, setDailyMinutes: s.setDailyMinutes, soundOn: s.soundOn, setSoundOn: s.setSoundOn, exportData: s.exportData, importData: s.importData, resetAll: s.resetAll, cards: s.cards, sets: s.sets })))
   const fileRef = useRef<HTMLInputElement>(null)
   const install = useInstallFlow()
@@ -263,6 +270,21 @@ export function SettingsPage() {
                     )
                   })}
                 </ul>
+              </div>
+            </Section>
+          </Item>
+
+          <Item>
+            <Section id="s-hours" icon={<Target size={22} />} title="Schulzeiten" description="Stunden und Pausen für den Kalender">
+              <div className="px-5 py-4">
+                <p className="mb-3 text-sm text-muted">Trag ein, wann deine Stunden anfangen und enden. Die Lücken dazwischen sind die Pausen. Der Kalender zeigt dann „3. Stunde“ statt einer Uhrzeit.</p>
+                <PeriodsEditor
+                  value={periodsDraft}
+                  onChange={(l) => {
+                    setPeriodsDraft(l)
+                    setSchoolPeriods(l)
+                  }}
+                />
               </div>
             </Section>
           </Item>

@@ -1,7 +1,8 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
-import { addDays, dateKey, fromMinutes, isoWeek, KINDS, slotOf, startOfWeek, weekRange } from '../../lib/calendar'
+import { addDays, dateKey, fromMinutes, isoWeek, KINDS, slotOf, startOfWeek, toMinutes, weekRange } from '../../lib/calendar'
+import { breaksOf, periodAt, periodsOf, type Period } from '../../lib/school'
 import { helpSubject } from '../../lib/subjects'
 import type { Arbeit } from '../../lib/types'
 
@@ -66,7 +67,7 @@ function place(list: Arbeit[]): Placed[] {
  * zur passenden Zeit. Ganztägige Termine stehen in der Zeile unter dem Tag. Ein Tipp auf eine freie Stelle trägt dort
  * etwas ein (mit der angetippten Uhrzeit), ein Tipp auf einen Block öffnet ihn. Wischen oder Pfeile wechseln die Woche.
  */
-export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onAdd: (date: string, time?: string) => void; onOpen: (a: Arbeit) => void }) {
+export function TimeTable({ arbeiten, periods = [], onAdd, onOpen }: { arbeiten: Arbeit[]; /** Schulstunden; leer = normale Uhrzeiten */ periods?: Period[]; onAdd: (date: string, time?: string, duration?: number) => void; onOpen: (a: Arbeit) => void }) {
   // Am Wochenende zeigt der Plan gleich die kommende Woche (wie WebUntis)
   const home = [0, 6].includes(new Date().getDay()) ? 1 : 0
   const [offset, setOffset] = useState(home)
@@ -104,10 +105,16 @@ export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onA
 
   const placed = useMemo(() => Object.fromEntries(days.map((d) => [d.key, place(byKey[d.key] ?? [])])), [days, byKey])
   const timed = Object.values(placed).flat()
-  const axisStart = Math.min(8 * 60, ...timed.map((p) => Math.floor(p.start / 60) * 60))
-  const axisEnd = Math.max(15 * 60, ...timed.map((p) => Math.ceil(p.end / 60) * 60))
-  const hours = Array.from({ length: (axisEnd - axisStart) / 60 }, (_, i) => axisStart + i * 60)
+  // Mit Schulstunden reicht der Plan von der ersten bis zur letzten Stunde (und weiter, wenn ein Termin außerhalb liegt)
+  const grid = periods.map((p) => ({ s: toMinutes(p.start)!, e: toMinutes(p.end)! }))
+  const baseStart = grid.length ? grid[0].s : 8 * 60
+  const baseEnd = grid.length ? grid[grid.length - 1].e : 15 * 60
+  const axisStart = Math.min(baseStart, ...timed.map((p) => Math.floor(p.start / (grid.length ? 5 : 60)) * (grid.length ? 5 : 60)))
+  const axisEnd = Math.max(baseEnd, ...timed.map((p) => Math.ceil(p.end / (grid.length ? 5 : 60)) * (grid.length ? 5 : 60)))
+  const hours = grid.length ? [] : Array.from({ length: Math.ceil((axisEnd - axisStart) / 60) }, (_, i) => axisStart + i * 60)
+  const gaps = grid.length ? breaksOf(periods) : []
   const height = ((axisEnd - axisStart) / 60) * HOUR
+  const y = (min: number) => ((min - axisStart) / 60) * HOUR
   const nowMin = now.getHours() * 60 + now.getMinutes()
   const isThisWeek = days.some((d) => d.key === today)
   const cols = `2.6rem repeat(${days.length}, minmax(0, 1fr))`
@@ -176,7 +183,7 @@ export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onA
               <div key={d.key} className={`relative flex min-h-[2.6rem] flex-col gap-0.5 border-l border-line p-0.5 ${d.key === today ? 'bg-brand-soft/50' : ''}`}>
                 <button type="button" onClick={() => onAdd(d.key)} aria-label={`Am ${d.weekday}, ${d.day}. ganztägig eintragen`} className="absolute inset-0" />
                 {list.map((a) => (
-                  <Block key={a.id} a={a} onOpen={onOpen} compact />
+                  <Block key={a.id} a={a} periods={periods} onOpen={onOpen} compact />
                 ))}
               </div>
             )
@@ -191,6 +198,17 @@ export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onA
                 {fromMinutes(h)}
               </span>
             ))}
+            {grid.map((g, i) => (
+              <span key={i} className="absolute inset-x-0 flex flex-col items-center justify-center leading-none" style={{ top: y(g.s), height: y(g.e) - y(g.s) }}>
+                <span className="text-[15px] font-black text-ink">{i + 1}</span>
+                <span className="mt-0.5 text-[9px] font-bold tabular-nums text-muted">{fromMinutes(g.s)}</span>
+              </span>
+            ))}
+            {gaps.map((b) => (
+              <span key={b.after} className="absolute inset-x-0 flex items-center justify-center text-[8px] font-bold uppercase tracking-wide text-muted/70" style={{ top: y(b.start), height: y(b.end) - y(b.start) }}>
+                {y(b.end) - y(b.start) >= 16 ? 'Pause' : ''}
+              </span>
+            ))}
           </div>
           {days.map((d) => {
             const isToday = d.key === today
@@ -199,15 +217,25 @@ export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onA
                 {hours.map((h) => (
                   <span key={h} className="pointer-events-none absolute inset-x-0 border-t border-line/70" style={{ top: ((h - axisStart) / 60) * HOUR }} />
                 ))}
+                {gaps.map((b) => (
+                  <span key={b.after} className="pointer-events-none absolute inset-x-0 bg-snow/80" style={{ top: y(b.start), height: y(b.end) - y(b.start) }} />
+                ))}
+                {grid.map((g, i) => (
+                  <span key={i} className="pointer-events-none absolute inset-x-0 border-t border-line/70" style={{ top: y(g.s) }} />
+                ))}
                 <button
                   type="button"
                   aria-label={`Am ${d.weekday}, ${d.day}. eintragen`}
                   className="absolute inset-0"
                   onClick={(e) => {
-                    // Mit Maus oder Finger: Uhrzeit der angetippten Stelle (auf 15 Minuten gerundet); per Tastatur ohne Uhrzeit
+                    // Mit Maus oder Finger: Stunde bzw. Uhrzeit der angetippten Stelle (auf 15 Minuten gerundet); per Tastatur ohne Uhrzeit
                     if (e.detail === 0) return onAdd(d.key)
                     const rect = e.currentTarget.getBoundingClientRect()
                     const raw = axisStart + ((e.clientY - rect.top) / HOUR) * 60
+                    if (grid.length) {
+                      const g = grid[Math.max(0, periodAt(periods, raw))]
+                      return onAdd(d.key, fromMinutes(g.s), g.e - g.s)
+                    }
                     const snapped = Math.max(axisStart, Math.min(axisEnd - 15, Math.round(raw / 15) * 15))
                     onAdd(d.key, fromMinutes(snapped))
                   }}
@@ -218,7 +246,7 @@ export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onA
                     className="block-in absolute px-px"
                     style={{ animationDelay: `${bi * 60 + days.findIndex((x) => x.key === d.key) * 40}ms`, top: ((p.start - axisStart) / 60) * HOUR + 1, height: Math.max(30, ((p.end - p.start) / 60) * HOUR - 2), left: `${(p.lane / p.lanes) * 100}%`, width: `${100 / p.lanes}%` }}
                   >
-                    <Block a={p.a} onOpen={onOpen} tall={((p.end - p.start) / 60) * HOUR >= 70} />
+                    <Block a={p.a} periods={periods} onOpen={onOpen} tall={((p.end - p.start) / 60) * HOUR >= 70} />
                   </div>
                 ))}
                 {isToday && isThisWeek && nowMin >= axisStart && nowMin <= axisEnd && (
@@ -237,18 +265,20 @@ export function TimeTable({ arbeiten, onAdd, onOpen }: { arbeiten: Arbeit[]; onA
   )
 }
 
-function Block({ a, onOpen, compact = false, tall = true }: { a: Arbeit; onOpen: (a: Arbeit) => void; compact?: boolean; tall?: boolean }) {
+function Block({ a, periods, onOpen, compact = false, tall = true }: { a: Arbeit; periods: Period[]; onOpen: (a: Arbeit) => void; compact?: boolean; tall?: boolean }) {
   const s = helpSubject(a.subject)
   const slot = slotOf(a)
+  const pr = periodsOf(periods, a)
+  const when = pr ? (pr.from === pr.to ? `${pr.from + 1}. Std.` : `${pr.from + 1}.–${pr.to + 1}.`) : slot ? fromMinutes(slot.start) : ''
   return (
     <button
       type="button"
       onClick={() => onOpen(a)}
-      aria-label={`${a.title}, ${kindShort(a)}${slot ? `, ${fromMinutes(slot.start)} Uhr` : ''}`}
+      aria-label={`${a.title}, ${kindShort(a)}${pr ? `, ${pr.from === pr.to ? `${pr.from + 1}. Stunde` : `${pr.from + 1}. bis ${pr.to + 1}. Stunde`}` : slot ? `, ${fromMinutes(slot.start)} Uhr` : ''}`}
       className={`press relative z-[1] flex w-full flex-col items-center justify-start overflow-hidden rounded-lg px-0.5 text-center text-white ${compact ? 'gap-0 py-1' : 'h-full gap-0.5 py-1'}`}
       style={{ background: s?.c ?? '#868a95', boxShadow: `0 2px 0 ${s?.s ?? '#5f636d'}`, opacity: a.done ? 0.55 : 1 }}
     >
-      {slot && !compact && <span className="text-[9px] font-bold leading-none opacity-90">{fromMinutes(slot.start)}</span>}
+      {slot && !compact && <span className="text-[9px] font-bold leading-none opacity-90">{when}</span>}
       {(tall || compact) && <HelpSubjectIcon id={a.subject} ink={s?.c ?? '#868a95'} size={compact ? 14 : 16} />}
       <span className="w-full truncate text-[10px] font-extrabold leading-tight">{SHORT[a.subject] ?? s?.name}</span>
       {(tall || compact) && <span className="w-full truncate text-[9px] font-bold leading-none opacity-95">{kindShort(a)}</span>}

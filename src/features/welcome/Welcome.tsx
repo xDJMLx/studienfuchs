@@ -3,6 +3,8 @@ import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { EASE, SPRING } from '../../components/ui/motion'
 import { Mascot, type Mood } from '../../components/mascot/Mascot'
+import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
+import { EXAMPLE_PERIODS } from '../../lib/school'
 import { Confetti } from '../../components/ui/Confetti'
 import { Back, Right } from '../../components/ui/Icons'
 import { Wordmark } from '../../components/ui/Layout'
@@ -11,8 +13,8 @@ import { HELP_SUBJECTS } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
 import { useShallow } from 'zustand/react/shallow'
 
-type Step = 'hero' | 'subjects' | 'goal' | 'ready'
-const FLOW: Exclude<Step, 'hero'>[] = ['subjects', 'goal', 'ready']
+type Step = 'hero' | 'subjects' | 'goal' | 'hours' | 'ready'
+const FLOW: Exclude<Step, 'hero'>[] = ['subjects', 'goal', 'hours', 'ready']
 const ORDER: Step[] = ['hero', ...FLOW]
 
 /** Lernzeit pro Tag, solange eine Arbeit ansteht (ohne Arbeit gibt es kein Tagesziel). */
@@ -26,9 +28,10 @@ const GOALS = [
 const SPEECH: Record<Exclude<Step, 'hero'>, string> = {
   subjects: 'Welche Fächer hast du? Du kannst später jederzeit mehr hinzufügen.',
   goal: 'Steht eine Arbeit an: Wie viele Minuten am Tag willst du üben?',
+  hours: 'Wann sind deine Schulstunden? Dann zeigt dir der Kalender „3. Stunde“ statt einer Uhrzeit.',
   ready: 'Super! Dann leg los mit deinen ersten Karteikarten.',
 }
-const MOOD: Record<Exclude<Step, 'hero'>, Mood> = { subjects: 'think', goal: 'happy', ready: 'cheer' }
+const MOOD: Record<Exclude<Step, 'hero'>, Mood> = { subjects: 'think', goal: 'happy', hours: 'think', ready: 'cheer' }
 
 const HOW = [
   { n: '1', title: 'Karteikarten erstellen', text: 'Schreib, was du für ein Fach brauchst, oder lass die KI die Karten machen. Auch aus einem Foto von deinem Heft.' },
@@ -46,11 +49,13 @@ const slide = {
 export function Welcome() {
   const navigate = useNavigate()
   const reduce = useReducedMotion()
-  const { dailyMinutes, setDailyMinutes, setOnboarded, importData, mySubjects, toggleSubject } = useStore(useShallow((s) => ({ dailyMinutes: s.dailyMinutes, setDailyMinutes: s.setDailyMinutes, setOnboarded: s.setOnboarded, importData: s.importData, mySubjects: s.mySubjects ?? [], toggleSubject: s.toggleSubject })))
+  const { schoolPeriods, setSchoolPeriods, dailyMinutes, setDailyMinutes, setOnboarded, importData, mySubjects, toggleSubject } = useStore(useShallow((s) => ({ schoolPeriods: s.schoolPeriods ?? [], setSchoolPeriods: s.setSchoolPeriods, dailyMinutes: s.dailyMinutes, setDailyMinutes: s.setDailyMinutes, setOnboarded: s.setOnboarded, importData: s.importData, mySubjects: s.mySubjects ?? [], toggleSubject: s.toggleSubject })))
   const hasProgress = useStore((s) => s.xp > 0 || Object.keys(s.lessons).length > 0 || s.sets.length > 0)
   const [step, setStep] = useState<Step>('hero')
   const [dir, setDir] = useState(1)
   const [importMsg, setImportMsg] = useState<string | null>(null)
+  // Beim Tippen bleiben die Zeilen, wie sie sind (auch unvollständig); gespeichert wird die geprüfte Fassung
+  const [localPeriods, setLocalPeriods] = useState(() => (schoolPeriods.length ? schoolPeriods : EXAMPLE_PERIODS))
   const fileRef = useRef<HTMLInputElement>(null)
 
   const go = (to: Step) => {
@@ -219,6 +224,12 @@ export function Welcome() {
                         )
                       })}
                     </ul>
+                  )}
+
+                  {step === 'hours' && (
+                    <div className="card p-4">
+                      <PeriodsEditor value={localPeriods} onChange={(l) => { setLocalPeriods(l); setSchoolPeriods(l) }} />
+                    </div>
                   )}
 
                   {step === 'ready' && (

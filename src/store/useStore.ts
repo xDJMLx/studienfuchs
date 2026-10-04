@@ -8,6 +8,8 @@ import { masteryOf, reviewCard, seedKnownCard, type Grade, type SrsCard } from '
 import { achievements as computeAchievements, type AchievementInput } from '../lib/achievements'
 import { deckAchievementStats } from '../lib/progress'
 import { UNIT_CHEST_COINS } from '../lib/rewards'
+import type { Period } from '../lib/school'
+import { cleanPeriods } from '../lib/school'
 import { DEFAULT_DAILY_MINUTES } from '../lib/studyTime'
 import { useRewardEvents } from './useRewardEvents'
 import { allUnits, findLesson, isLessonDone, isRegular, itemMeta, mathItems, MATH_COURSE, units, type Subject } from '../content'
@@ -27,6 +29,8 @@ export interface LessonRecord {
 interface Data {
   xp: number
   xpByDay: Record<string, number>
+  /** Schulstunden mit Beginn und Ende (leer = keine eingetragen, der Kalender zeigt dann Uhrzeiten) */
+  schoolPeriods: Period[]
   /** Minuten pro Tag, die man übt, solange eine Arbeit ansteht */
   dailyMinutes: number
   /** Geübte Minuten je Tag (nur Zeit in Übungsrunden) */
@@ -120,6 +124,8 @@ interface Actions {
   markLessonsDone: (lessonIds: string[]) => void
   setExamDate: (setId: string, date: string | null) => void
   setDailyMinutes: (n: number) => void
+  /** Schulstunden speichern (wird geordnet und geprüft) */
+  setSchoolPeriods: (list: Period[]) => void
   setSoundOn: (on: boolean) => void
   setGrade: (g: number) => void
   setSubject: (s: Subject) => void
@@ -141,6 +147,7 @@ interface Actions {
 const initial: Data = {
   xp: 0,
   xpByDay: {},
+  schoolPeriods: [],
   dailyMinutes: DEFAULT_DAILY_MINUTES,
   minutesByDay: {},
   streak: initialStreak,
@@ -374,6 +381,7 @@ export const useStore = create<Data & Actions>()(
         }),
 
       setDailyMinutes: (n) => set({ dailyMinutes: Math.max(5, Math.min(60, Math.round(n))) }),
+      setSchoolPeriods: (list) => set({ schoolPeriods: cleanPeriods(list) }),
       setSoundOn: (on) => set({ soundOn: on }),
       setGrade: (g) => set({ grade: g }),
       setSubject: (subject) => set({ subject }),

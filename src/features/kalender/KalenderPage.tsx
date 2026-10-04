@@ -4,7 +4,8 @@ import { Segmented } from '../../components/ui/controls'
 import { Coin, Plus, Right } from '../../components/ui/Icons'
 import { Item, Stagger } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
-import { byDay, dateKey, kindLabel, longDay, monthGrid, monthName, needsFollowUp, parseKey, shortDay, timeRange } from '../../lib/calendar'
+import { byDay, dateKey, kindLabel, longDay, monthGrid, monthName, needsFollowUp, parseKey, shortDay } from '../../lib/calendar'
+import { whenText } from '../../lib/school'
 import { activeDecks, daysUntil, readiness } from '../../lib/decks'
 import { helpSubject } from '../../lib/subjects'
 import type { Arbeit } from '../../lib/types'
@@ -78,11 +79,12 @@ export function KalenderPage() {
   const sets = useStore((s) => s.sets)
   const addedUnits = useStore((s) => s.addedUnits)
   const cards = useStore((s) => s.cards)
+  const periods = useStore((s) => s.schoolPeriods) ?? []
   const today = dateKey(new Date())
   const [view, setViewState] = useState<View>(readView)
   const [selected, setSelected] = useState(today)
   const [cursor, setCursor] = useState(() => ({ y: new Date().getFullYear(), m: new Date().getMonth() }))
-  const [sheet, setSheet] = useState<{ arbeit?: Arbeit; date?: string; time?: string } | null>(null)
+  const [sheet, setSheet] = useState<{ arbeit?: Arbeit; date?: string; time?: string; duration?: number } | null>(null)
   // Von anderen Seiten ("Steht eine Arbeit an?") mit ?neu=1 gleich das Eintragen öffnen
   const wantsNew = params.get('neu')
   useEffect(() => {
@@ -130,7 +132,7 @@ export function KalenderPage() {
               <span className="block truncate font-extrabold leading-tight">{a.title}</span>
               <span className="block text-xs font-bold text-muted">
                 {kindLabel(a.kind)}
-                {timeRange(a) ? ` · ${timeRange(a)}` : ''}
+                {whenText(periods, a) ? ` · ${whenText(periods, a)}` : ''}
                 {opts.showDay ? ` · ${shortDay(a.date)} · ${when(d)}` : ''}
               </span>
               {d >= 0 && r.total > 0 && (
@@ -265,7 +267,7 @@ export function KalenderPage() {
       ) : (
         <Item>
           <div className="mb-5">
-            <TimeTable arbeiten={arbeiten} onAdd={(date, time) => setSheet({ date, time })} onOpen={(a) => setSheet({ arbeit: a })} />
+            <TimeTable arbeiten={arbeiten} periods={periods} onAdd={(date, time, duration) => setSheet({ date, time, duration })} onOpen={(a) => setSheet({ arbeit: a })} />
           </div>
         </Item>
       )}
@@ -302,7 +304,7 @@ export function KalenderPage() {
         </Item>
       )}
 
-      <ArbeitSheet open={!!sheet} onClose={closeSheet} arbeit={sheet?.arbeit} date={sheet?.date} time={sheet?.time} />
+      <ArbeitSheet open={!!sheet} onClose={closeSheet} arbeit={sheet?.arbeit} date={sheet?.date} time={sheet?.time} duration={sheet?.duration} />
     </Stagger>
   )
 }

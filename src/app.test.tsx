@@ -56,6 +56,14 @@ describe('Die App als Ganzes', () => {
     await click(/Ernsthaft/, 'radio')
     expect(useStore.getState().dailyMinutes).toBe(15)
     await click(/Weiter/)
+    // Schulstunden: Beispielzeiten sind vorgefüllt, eine Stunde lässt sich ändern
+    await waitFor(() => expect(text()).toMatch(/Wann sind deine Schulstunden/))
+    const first = (await screen.findAllByLabelText(/Stunde 1 bis/))[0]
+    fireEvent.change(first, { target: { value: '08:40' } })
+    fireEvent.blur(first)
+    expect(useStore.getState().schoolPeriods[0]).toEqual({ start: '08:00', end: '08:40' })
+    expect(useStore.getState().schoolPeriods).toHaveLength(7)
+    await click(/Weiter/)
     await waitFor(() => expect(text()).toMatch(/Karteikarten erstellen|Erst umschauen/))
     await click(/Erst umschauen/)
     await waitFor(() => expect(text()).toMatch(/Was willst du üben/))
@@ -370,5 +378,48 @@ describe('Lernzeit statt Tagesziel', () => {
     await waitFor(() => expect(text()).toMatch(/4 Min\. von 10, noch 6 Min\./))
     useStore.getState().finishSession({ xp: 5, grades: {}, accuracy: 1, minutes: 7 })
     await waitFor(() => expect(text()).toMatch(/Heute geschafft/))
+  })
+})
+
+describe('Schulstunden im Kalender', () => {
+  it('Mit Stundenraster zeigt der Plan Stunden, ein Tipp trägt die Stunde ein, und man wählt von bis', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
+    useStore.getState().setSchoolPeriods([
+      { start: '08:00', end: '08:45' },
+      { start: '08:55', end: '09:40' },
+      { start: '10:00', end: '10:45' },
+      { start: '10:55', end: '11:40' },
+    ])
+    const monday = new Date()
+    monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7) + ([0, 6].includes(new Date().getDay()) ? 7 : 0))
+    useStore.getState().addArbeit({ subject: 'biologie', kind: 'test', title: 'Bio-Test', date: dateKey(addDays(monday, 1)), time: '10:00', duration: 45, deckIds: [] })
+    window.location.hash = '#/kalender'
+    render(<App />)
+    // Block mit Stundenangabe statt Uhrzeit
+    expect(await screen.findByRole('button', { name: /Bio-Test, Test, 3\. Stunde/ })).toBeTruthy()
+    expect(text()).toMatch(/Pause/)
+    // Freie Stelle: die Stunde ist vorgewählt
+    const fri = addDays(monday, 4)
+    fireEvent.click(screen.getByRole('button', { name: new RegExp(`^Am Fr, ${fri.getDate()}\\. eintragen`) }), { detail: 1, clientY: 0 })
+    await waitFor(() => expect(text()).toMatch(/Welche Stunde/))
+    expect(screen.getByRole('radio', { name: /1\. Stunde, 08:00 bis 08:45/ }).getAttribute('aria-checked')).toBe('true')
+    // Bis zur 2. Stunde verlängern
+    fireEvent.click(screen.getByRole('radio', { name: 'bis 2. Stunde' }))
+    expect(text()).toMatch(/1\. bis 2\. Stunde, 08:00 bis 09:40 Uhr/)
+    await click(/^Klassenarbeit$/, 'radio')
+    fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
+    await waitFor(() => expect(useStore.getState().arbeiten).toHaveLength(2))
+    expect(useStore.getState().arbeiten.find((a) => a.date === dateKey(fri))).toMatchObject({ time: '08:00', duration: 100 })
+  })
+
+  it('In den Einstellungen lassen sich die Schulzeiten pflegen', async () => {
+    useStore.setState({ onboarded: true })
+    window.location.hash = '#/settings'
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Stunden und Pausen/))
+    fireEvent.click(await screen.findByRole('button', { name: /Beispiel einfüllen/ }))
+    expect(useStore.getState().schoolPeriods).toHaveLength(7)
+    fireEvent.click(screen.getByRole('button', { name: 'Stunde 7 entfernen' }))
+    expect(useStore.getState().schoolPeriods).toHaveLength(6)
   })
 })
