@@ -3,8 +3,14 @@ import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-li
 import { MotionGlobalConfig } from 'framer-motion'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
+import { generateCards } from './lib/aiCards'
 import { dateKey, addDays } from './lib/calendar'
 import { useStore } from './store/useStore'
+
+vi.mock('./lib/aiCards', async () => {
+  const real = await vi.importActual<typeof import('./lib/aiCards')>('./lib/aiCards')
+  return { ...real, generateCards: vi.fn() }
+})
 
 vi.hoisted(() => {
   globalThis.fetch = (async () => new Response('{}', { status: 404 })) as typeof fetch
@@ -194,5 +200,36 @@ describe('Rechentraining in Mathe', () => {
     fireEvent.click(unknown)
     await waitFor(() => expect(text()).toMatch(/So geht's/))
     expect(text()).toMatch(/Richtige Lösung/)
+  })
+})
+
+describe('Stapel mit der KI erstellen', () => {
+  it('Beschreibung eingeben, Karten prüfen, speichern', async () => {
+    vi.mocked(generateCards).mockResolvedValue({ title: 'Genetik', items: [{ front: 'DNA', back: 'Erbinformation' }, { front: 'Gen', back: 'Abschnitt der DNA' }, { front: 'Allel', back: 'Variante eines Gens' }] })
+    useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
+    window.location.hash = '#/stapel/neu?fach=biologie'
+    render(<App />)
+    const area = await screen.findByLabelText(/Was brauchst du/)
+    fireEvent.change(area, { target: { value: 'Genetik, Grundbegriffe' } })
+    await click(/Karten erstellen/)
+    await waitFor(() => expect(text()).toMatch(/3 Karten erstellt/))
+    expect(vi.mocked(generateCards)).toHaveBeenCalledWith(expect.objectContaining({ subjectId: 'biologie', request: 'Genetik, Grundbegriffe', count: 20 }))
+    // Name wurde von der KI vorgeschlagen
+    expect((screen.getByLabelText(/Name des Stapels/) as HTMLInputElement).value).toBe('Genetik')
+    await click(/Stapel speichern \(3\)/)
+    await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
+    expect(useStore.getState().sets[0]).toMatchObject({ title: 'Genetik', subject: 'biologie' })
+  })
+
+  it('Wenn die KI nicht antwortet: Meldung mit Ausweg zu Selbstschreiben', async () => {
+    vi.mocked(generateCards).mockRejectedValue(new Error('Der KI-Dienst konnte nicht geladen werden. Bist du online?'))
+    useStore.setState({ onboarded: true })
+    window.location.hash = '#/stapel/neu?fach=biologie'
+    render(<App />)
+    fireEvent.change(await screen.findByLabelText(/Was brauchst du/), { target: { value: 'x' } })
+    await click(/Karten erstellen/)
+    await waitFor(() => expect(text()).toMatch(/Bist du online/))
+    await click(/selbst schreiben/)
+    await waitFor(() => expect(text()).toMatch(/Eine Karte pro Zeile/))
   })
 })
