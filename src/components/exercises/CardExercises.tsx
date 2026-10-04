@@ -124,28 +124,62 @@ export function QCardExercise({ exercise: ex, onChange, result }: ExerciseProps<
 
   const reveal = shown || done
   const grades = [
-    { g: 'again' as const, label: 'Nicht gewusst', cls: 'btn-bad' },
+    { g: 'again' as const, label: 'Nochmal', cls: 'btn-bad' },
     { g: 'hard' as const, label: 'Schwer', cls: 'btn-ghost' },
     { g: 'good' as const, label: 'Gewusst', cls: 'btn-good' },
   ]
+  const face = 'col-start-1 row-start-1 flex min-h-[44vh] flex-col items-center justify-center rounded-3xl border-2 px-6 py-8 text-center [backface-visibility:hidden]'
+  const front = (
+    <>
+      <span className="mb-3 rounded-full bg-snow px-3 py-1 text-xs font-extrabold tracking-wide text-muted">Frage</span>
+      <p className="whitespace-pre-wrap text-[26px] font-extrabold leading-snug">{ex.front}</p>
+      {!reveal && <p className="mt-6 text-sm font-semibold text-muted">Tippe auf die Karte, um sie umzudrehen</p>}
+    </>
+  )
+  const back = (
+    <>
+      <p className="mb-4 line-clamp-2 whitespace-pre-wrap text-sm font-semibold text-muted">{ex.front}</p>
+      <span className="mb-3 rounded-full bg-surface px-3 py-1 text-xs font-extrabold tracking-wide text-brand-dark">Antwort</span>
+      <p className="whitespace-pre-wrap text-[24px] font-extrabold leading-snug text-brand-dark">{ex.back}</p>
+      {ex.example && (
+        <p className="mt-5 w-full rounded-2xl bg-surface px-4 py-3 text-left text-[15px]">
+          <span className="block font-medium">{ex.example}</span>
+          {ex.exampleDe && <span className="block text-sm text-muted">{ex.exampleDe}</span>}
+        </p>
+      )}
+    </>
+  )
   return (
     <div>
-      <Instruction>Weißt du es?</Instruction>
-      <div className="card mb-4 p-5" style={{ boxShadow: '0 4px 0 var(--shade-line)' }}>
-        <div className="flex items-start gap-3">
-          <ReadAloud text={ex.speak ?? ex.front} lang={ex.lang} />
-          <p className="min-w-0 flex-1 whitespace-pre-wrap text-[23px] font-extrabold leading-snug">{ex.front}</p>
-        </div>
-        {reveal && (
-          <motion.div initial={reduce ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22 }} className="mt-4 border-t-2 border-dashed border-line pt-4">
-            <p className="whitespace-pre-wrap text-[20px] font-bold leading-snug text-brand-dark">{ex.back}</p>
-            {ex.example && (
-              <p className="mt-3 rounded-xl bg-snow px-4 py-3 text-[15px]">
-                <span className="block font-medium">{ex.example}</span>
-                {ex.exampleDe && <span className="block text-sm text-muted">{ex.exampleDe}</span>}
-              </p>
-            )}
-          </motion.div>
+      <div className="relative mb-4 [perspective:1400px]">
+        {!reveal && (
+          <div className="absolute left-3 top-3 z-10">
+            <ReadAloud text={ex.speak ?? ex.front} lang={ex.lang} />
+          </div>
+        )}
+        {reduce ? (
+          <button type="button" aria-label={reveal ? `Antwort: ${ex.back}` : `Frage: ${ex.front}. Antippen zeigt die Antwort`} onClick={() => setShown(true)} className="grid w-full" disabled={reveal}>
+            <span className={`${face} ${reveal ? 'border-brand bg-brand-soft' : 'border-line bg-surface'}`}>{reveal ? back : front}</span>
+          </button>
+        ) : (
+          <motion.button
+            type="button"
+            aria-label={reveal ? `Antwort: ${ex.back}` : `Frage: ${ex.front}. Antippen zeigt die Antwort`}
+            onClick={() => setShown(true)}
+            disabled={reveal}
+            className="grid w-full"
+            style={{ transformStyle: 'preserve-3d' }}
+            initial={false}
+            animate={{ rotateY: reveal ? 180 : 0 }}
+            transition={{ type: 'spring', stiffness: 220, damping: 22 }}
+          >
+            <span className={`${face} border-line bg-surface`} style={{ boxShadow: '0 5px 0 var(--shade-line)' }} aria-hidden={reveal}>
+              {front}
+            </span>
+            <span className={`${face} border-brand bg-brand-soft`} style={{ transform: 'rotateY(180deg)', boxShadow: '0 5px 0 var(--shade-brand)' }} aria-hidden={!reveal}>
+              {reveal && back}
+            </span>
+          </motion.button>
         )}
       </div>
       {!reveal ? (
