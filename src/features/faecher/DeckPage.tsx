@@ -4,6 +4,7 @@ import { Back, Cards, Pencil, Star, Trash, Trophy } from '../../components/ui/Ic
 import { Item, Stagger } from '../../components/ui/motion'
 import { allCourseDecks, ownDeck, planToday } from '../../lib/decks'
 import { deckStars } from '../../lib/progress'
+import { deckLink, encodeDeck, MAX_LINK } from '../../lib/shareDeck'
 import { masteryOf } from '../../lib/srs'
 import { helpSubject } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
@@ -23,6 +24,7 @@ export function DeckPage() {
   const [editing, setEditing] = useState<Row[] | null>(null)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [arbeitSheet, setArbeitSheet] = useState(false)
+  const [shareMsg, setShareMsg] = useState<string | null>(null)
 
   const set = sets.find((s) => s.id === deckId)
   const deck = useMemo(() => (set ? ownDeck(set) : allCourseDecks().find((d) => d.id === deckId)), [set, deckId])
@@ -52,6 +54,31 @@ export function DeckPage() {
       })
     updateSet(set.id, { items })
     setEditing(null)
+  }
+
+  /** Link zum Stapel: Der Inhalt steckt im Link, ein Konto braucht es nicht. */
+  const share = async () => {
+    if (!set) return
+    setShareMsg(null)
+    const link = deckLink(await encodeDeck({ title: set.title, subject: set.subject, lang: set.lang, both: set.both, items: set.items }))
+    if (link.length > MAX_LINK) {
+      setShareMsg('Der Stapel ist für einen Link zu groß. Teile ihn in zwei kleinere Stapel auf oder nutze die Sicherung unter Profil.')
+      return
+    }
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: set.title, text: `Mein Stapel „${set.title}“ in Studienfuchs`, url: link })
+        return
+      }
+    } catch (e) {
+      if (e instanceof DOMException && e.name === 'AbortError') return
+    }
+    try {
+      await navigator.clipboard.writeText(link)
+      setShareMsg('Link kopiert. Schick ihn per Nachricht an dich selbst oder Freunde: Beim Öffnen können sie den Stapel speichern.')
+    } catch {
+      setShareMsg(link)
+    }
   }
 
   const todayCount = plan ? Math.min(15, plan.due.length + plan.fresh.length) : 0
@@ -157,6 +184,10 @@ export function DeckPage() {
 
       {set && !editing && (
         <Item>
+          <div className="mb-4">
+            <button type="button" className="btn btn-ghost press" onClick={share} disabled={set.items.length === 0}>Stapel teilen</button>
+            {shareMsg && <p role="status" className="mt-2 break-all text-sm text-muted">{shareMsg}</p>}
+          </div>
           <label className="mb-4 flex items-start gap-3 rounded-xl bg-snow p-3 text-sm">
             <input type="checkbox" className="mt-1 h-5 w-5 accent-[var(--sky)]" checked={deck.both} onChange={(e) => updateSet(set.id, { both: e.target.checked })} />
             <span>

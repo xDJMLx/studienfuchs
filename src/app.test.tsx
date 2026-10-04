@@ -250,3 +250,36 @@ describe('Karten aus Notizen, ohne KI', () => {
     expect(useStore.getState().sets[0]).toMatchObject({ title: 'Revolution', subject: 'geschichte' })
   })
 })
+
+describe('Stapel teilen', () => {
+  it('Link öffnen zeigt den Stapel, Speichern legt eine eigene Kopie an; kaputter Link zeigt Hinweis', async () => {
+    const { encodeDeck } = await import('./lib/shareDeck')
+    useStore.setState({ onboarded: true })
+    const code = await encodeDeck({ title: 'Zellen', subject: 'biologie', items: [{ front: 'Was ist ein Ribosom?', back: 'Baut Eiweiße' }, { front: 'Mitochondrium', back: 'Kraftwerk' }] })
+    window.location.hash = `#/stapel/teilen?d=${code}`
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Geteilter Stapel/))
+    expect(text()).toMatch(/2 Karten/)
+    await click(/Stapel speichern/)
+    await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
+    expect(useStore.getState().sets[0]).toMatchObject({ title: 'Zellen', subject: 'biologie' })
+    expect(useStore.getState().sets[0].items).toHaveLength(2)
+
+    go('#/stapel/teilen?d=z.kaputt')
+    await waitFor(() => expect(text()).toMatch(/Link nicht lesbar/))
+  })
+
+  it('Auf der Stapel-Seite gibt es „Stapel teilen“ und der Link wird kopiert', async () => {
+    useStore.setState({ onboarded: true })
+    const id = useStore.getState().addSet('Zellen', [{ front: 'a', back: 'b' }], { subject: 'biologie' })
+    const writeText = vi.fn().mockResolvedValue(undefined)
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText }, configurable: true })
+    Object.defineProperty(navigator, 'share', { value: undefined, configurable: true })
+    window.location.hash = `#/stapel/${id}`
+    render(<App />)
+    await click(/Stapel teilen/)
+    await waitFor(() => expect(writeText).toHaveBeenCalled())
+    expect(writeText.mock.calls[0][0]).toMatch(/#\/stapel\/teilen\?d=[zp]\./)
+    await waitFor(() => expect(text()).toMatch(/Link kopiert/))
+  })
+})

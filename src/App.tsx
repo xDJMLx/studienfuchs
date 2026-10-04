@@ -47,6 +47,7 @@ function lazyPage<K extends string>(load: () => Promise<Record<K, ComponentType>
 
 const GrammarTopicPage = lazyPage(() => import('./features/grammar/GrammarPage'), 'GrammarTopicPage')
 const UebenPlay = lazyPage(() => import('./features/ueben/CardFlow'), 'UebenPlay')
+const DeckImportPage = lazyPage(() => import('./features/faecher/DeckImportPage'), 'DeckImportPage')
 const KalenderPage = lazyPage(() => import('./features/kalender/KalenderPage'), 'KalenderPage')
 const MathTrainingPage = lazyPage(() => import('./features/practice/MathPractice'), 'MathTrainingPage')
 const MathTrainPage = lazyPage(() => import('./features/practice/MathPractice'), 'MathTrainPage')
@@ -164,6 +165,7 @@ export default function App() {
             <Route path="faecher/:subjectId" element={<FachPage />} />
             <Route path="faecher/:subjectId/ki" element={<CoachPage />} />
             <Route path="stapel/neu" element={<DeckCreatePage />} />
+            <Route path="stapel/teilen" element={<DeckImportPage />} />
             <Route path="stapel/:deckId" element={<DeckPage />} />
             <Route path="books" element={<BooksPage />} />
             <Route path="books/:bookId" element={<BookPage />} />
