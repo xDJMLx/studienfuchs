@@ -1,10 +1,10 @@
 import { generateCardSession } from './cardSession'
 import type { CardRef } from './decks'
-import { generateLesson, shuffle } from './generateExercises'
+import { generateLesson, generateTest, shuffle } from './generateExercises'
 import type { Exercise, Mastery } from './types'
 
 /** Aufgabenart eines Durchgangs. `write` und `listen` gibt es nur bei Französisch (Karten mit Aufnahmen). */
-export type RoundMode = 'mix' | 'flip' | 'type' | 'write' | 'listen'
+export type RoundMode = 'mix' | 'flip' | 'type' | 'write' | 'listen' | 'probe'
 
 export interface RoundOptions {
   refs: CardRef[]
@@ -33,6 +33,14 @@ export function generateRound(opts: RoundOptions): Exercise[] {
 
   // Karteikarten zum Umdrehen: für alle gleich
   if (mode === 'flip') return generateCardSession({ refs: opts.refs, pool: opts.pool, mastery: opts.mastery, flipOnly: true, rng })
+
+  // Probearbeit: nichts wird gezeigt oder erklärt, jede Karte wird einmal abgefragt (Tippen oder Karteikarte, bei Französisch auch Hören)
+  if (mode === 'probe') {
+    const probe: Exercise[][] = []
+    if (rest.length) probe.push(generateCardSession({ refs: rest, pool: opts.pool, mastery: () => 2, rng }))
+    if (french.length) probe.push(generateTest({ items: french.map((r) => r.item), pool: opts.pool.filter((r) => r.deck.lang === 'fr').map((r) => r.item), count: french.length, allowListen: !!opts.allowListen, mastery: () => 2, rng }))
+    return shuffle(probe.flat(), rng)
+  }
 
   const blocks: Exercise[][] = []
   if (rest.length) blocks.push(generateCardSession({ refs: rest, pool: opts.pool, mastery: opts.mastery, typeOnly: mode === 'type' || mode === 'write', rng }))

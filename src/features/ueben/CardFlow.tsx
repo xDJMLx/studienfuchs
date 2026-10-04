@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Navigate, useNavigate, useSearchParams } from 'react-router-dom'
+import { approxGrade } from '../../lib/exam'
+import { shuffle } from '../../lib/generateExercises'
 import { activeDecks, allCourseDecks, cardRefs, ownDeck, pickRound, planToday, SESSION_SIZE, type CardRef, type Deck } from '../../lib/decks'
 import { bonusCoins, diffProgress, snapshot, type ProgressDiff } from '../../lib/progress'
 import { recognitionAvailable } from '../../lib/recognition'
@@ -32,6 +34,7 @@ interface Outcome {
 
 /** Ein Durchgang Karten: Aufgaben, Ergebnis, Belohnung, und was sich beim Lernstand getan hat. */
 function CardRound({ title, refs, pool, mode, exitTo, onMore }: { title: string; refs: CardRef[]; pool: CardRef[]; mode: RoundMode; exitTo: string; onMore?: () => void }) {
+  const probe = mode === 'probe'
   const navigate = useNavigate()
   const finishSession = useStore((s) => s.finishSession)
   const [setup] = useState(() => {
@@ -104,7 +107,12 @@ function CardRound({ title, refs, pool, mode, exitTo, onMore }: { title: string;
         test={false}
         free
         mark={0}
-        extra={<ProgressSummary diff={outcome.diff} bonus={outcome.bonus} decks={outcome.decks} arbeiten={arbeiten} solidBySubject={outcome.solidBySubject} subjects={subjects} />}
+        extra={
+          <>
+            {probe && <ProbeNote percent={Math.round(outcome.result.accuracy * 100)} />}
+            <ProgressSummary diff={outcome.diff} bonus={outcome.bonus} decks={outcome.decks} arbeiten={arbeiten} solidBySubject={outcome.solidBySubject} subjects={subjects} />
+          </>
+        }
         onMore={onMore}
         onRetry={() => onMore?.()}
         onDone={() => navigate(exitTo)}
@@ -112,7 +120,20 @@ function CardRound({ title, refs, pool, mode, exitTo, onMore }: { title: string;
       />
     )
   }
-  return <Session exercises={setup.exercises} gradedItemIds={gradedIds} onExit={() => navigate(exitTo)} onComplete={onComplete} />
+  // Probearbeit: Fehler kommen nicht wieder (wie in der echten Arbeit)
+  return <Session exercises={setup.exercises} gradedItemIds={gradedIds} onExit={() => navigate(exitTo)} onComplete={onComplete} noRetry={probe} />
+}
+
+/** Ungefähre Note nach einer Probearbeit (nur zur Orientierung, jede Lehrkraft setzt die Grenzen selbst). */
+function ProbeNote({ percent }: { percent: number }) {
+  const g = approxGrade(percent)
+  return (
+    <section className="mt-5 w-full max-w-sm rounded-2xl border-2 border-sky bg-sky-soft px-4 py-3 text-center" aria-label="Ungefähre Note">
+      <p className="text-xs font-extrabold uppercase tracking-wide text-sky-dark">Probearbeit</p>
+      <p className="text-[28px] font-black leading-tight">Ungefähr eine {g.note}</p>
+      <p className="text-sm font-bold text-muted">{g.label}, {percent} % richtig. Nur zur Orientierung: Jede Lehrkraft setzt die Grenzen selbst.</p>
+    </section>
+  )
 }
 
 /** Alle Karten, die zu einer Auswahl gehören (auch Kurs-Stapel, die noch nicht hinzugefügt wurden). */
@@ -129,6 +150,8 @@ function selectRefs(params: URLSearchParams): { title: string; refs: CardRef[]; 
     const a = (st.arbeiten ?? []).find((x) => x.id === arbeitId)
     if (!a) return { title: 'Üben', refs: [], pool }
     const refs = cardRefs(everything.filter((d) => a.deckIds.includes(d.id)))
+    // Probearbeit: 15 zufällige Karten aus dem ganzen Stoff, nichts wird gezeigt
+    if (params.get('modus') === 'probe') return { title: `Probearbeit: ${a.title}`, refs: shuffle(refs).slice(0, 15), pool: [...pool, ...refs] }
     // Vor einer Arbeit lieber mehr Neues pro Runde
     return { title: a.title, refs: pickRound(refs, st.cards, { freshMax: 8 }), pool: [...pool, ...refs] }
   }

@@ -211,3 +211,50 @@ describe('Französisch-Stapel: die volle Übungsfolge läuft ohne Absturz', () =
     expect(text()).not.toMatch(/schiefgelaufen/)
   })
 })
+
+describe('Probearbeit', () => {
+  it('15 Karten ohne Zeigen und ohne Wiederholung, am Ende eine ungefähre Note', async () => {
+    const id = seed(Array.from({ length: 20 }, (_, i) => ({ front: `Frage ${i}`, back: `Antwort ${i}` })))
+    const arbeit = useStore.getState().addArbeit({ subject: 'biologie', title: 'Bio-Test', date: '2099-01-01', deckIds: [id] })
+    renderPlay(`/ueben/los?arbeit=${arbeit}&modus=probe`)
+    await waitFor(() => expect(document.querySelector('.exercise-in')).toBeTruthy(), { timeout: 3000 })
+    // Keine Einführungs-Karten
+    expect(text()).not.toMatch(/Neue Karte|Zwei neue/)
+    let answered = 0
+    for (let step = 0; step < 120 && !/Ungefähr eine/.test(text()); step++) {
+      await new Promise((r) => setTimeout(r, 0))
+      const find = (re: RegExp) => [...document.querySelectorAll('button')].find((b) => re.test((b.textContent ?? '').trim()) && !(b as HTMLButtonElement).disabled)
+      const next = find(/^Weiter$/)
+      if (next) {
+        click(next)
+        continue
+      }
+      const reveal = find(/^Antwort zeigen$/)
+      if (reveal) {
+        click(reveal)
+        await waitFor(() => expect(find(/Gewusst$/)).toBeTruthy())
+        click(find(/^3 Gewusst$/) ?? find(/Gewusst$/)!)
+        answered++
+        continue
+      }
+      const input = document.querySelector('textarea')
+      if (input) {
+        fireEvent.change(input, { target: { value: 'weiß ich nicht' } })
+        const check = find(/^Prüfen$/)
+        if (check) click(check)
+        answered++
+        continue
+      }
+      const options = [...document.querySelectorAll('[role="radio"]')]
+      if (options.length) {
+        click(options[0])
+        const check = find(/^Prüfen$/)
+        if (check) click(check)
+        answered++
+      }
+    }
+    expect(text()).toMatch(/Ungefähr eine [1-6]/)
+    // Genau 15 Karten, jede einmal (kein "Nochmal" nach Fehlern)
+    expect(answered).toBe(15)
+  })
+})

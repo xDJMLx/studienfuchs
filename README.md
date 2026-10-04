@@ -24,6 +24,8 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 - **Frei üben:** Erst ein Fach wählen (immer genau eins), dann ganzes Fach oder ein Stapel, dann die Art: Gemischt, Karteikarten, Tippen; bei Französisch auch Schreiben, Hören und Sprechen.
 - **Wochenplan:** Wie in einer Stundenplan-App siehst du auf der Startseite deine Woche (Mo bis So, diese und nächste) mit farbigen Kacheln für Arbeiten, Tests, Vokabeltests, Klausuren und Referate. Tipp auf einen Tag trägt dort etwas ein (Art, Fach, Tag, Stapel), „Alle Wochen“ zeigt fünf Wochen. Nach dem Termin fragt die App „Wie lief’s?“ und du trägst die Note ein.
 - **Level, Sterne, Meilensteine:** Jedes Fach hat ein Level (je mehr Karten sitzen, desto höher), jeder Stapel bis zu drei Sterne. Nach jeder Runde zeigt „Das hat sich getan“, was neu gelernt wurde und jetzt sitzt, und feiert Level, Sterne und Marken einer Arbeit (25, 50, 75, 100 %) mit Münzen.
+- **Probearbeit:** Zu jeder eingetragenen Arbeit gibt es eine Probearbeit: 15 Karten aus dem ganzen Stoff, nichts wird vorher gezeigt, Fehler kommen nicht wieder, am Ende steht eine ungefähre Note.
+- **Fertige Stapel:** Für Mathe, Deutsch, Englisch, Biologie, Physik, Chemie, Geografie, Geschichte, Politik, Informatik, Musik und Kunst gibt es 16 Stapel mit Grundwissen zum Hinzufügen (Formeln, Hauptstädte, Zelle, Stilmittel …), die man danach bearbeiten kann. In Mathe gibt es außerdem ein Rechentraining mit 43 Themen, deren Aufgaben sich selbst erzeugen.
 - **Arbeiten:** Trag eine Arbeit mit Datum und den Stapeln ein, die dafür gelernt werden. Die App verteilt die neuen Karten so auf die Tage, dass bis zum Vortag alles einmal gesehen wurde, und zeigt, wie viele Karten schon sitzen. Der letzte Tag bleibt zum Wiederholen frei.
 - **Vokabeln:** Stapel mit Sprache (Französisch, Englisch) lesen vor, bieten Sonderzeichen beim Tippen und fragen auch rückwärts.
 - **Französisch** bringt außerdem fertige Stapel aus dem Kurs mit (Klasse 7 bis 10, nach *À plus!* und *Découvertes*, mit Beispielsätzen und Aufnahmen), ein Wörterbuch und Grammatik zum Nachschlagen. Einheiten, die ihr im Unterricht durchnehmt, fügst du zum Üben hinzu.
@@ -60,7 +62,7 @@ Eine Lern-App im Stil moderner Sprach-Apps, aber gebaut für den Schulstoff: kle
 Kein Konto, keine Werbung, kein Tracking. Alles liegt im Browser des Geräts. Nur wenn man die KI benutzt, gehen die gesendeten Texte oder Fotos an den KI-Anbieter (Puter), und das nur beim Absenden.
 
 ## Technik
-React 19, TypeScript, Vite, Tailwind CSS 4, Zustand, Framer Motion, `ts-fsrs`, Tesseract.js, Piper TTS, Vitest (über 330 Tests). Gehostet über GitHub Pages.
+React 19, TypeScript, Vite, Tailwind CSS 4, Zustand, Framer Motion, `ts-fsrs`, Tesseract.js, Piper TTS, Vitest und Testing Library (über 400 Tests, darunter ganze Übungsrunden und Bedienabläufe). Gehostet über GitHub Pages.
 
 Mehr zur Lernmethode, zum Aufbau der Inhalte, zum Erzeugen der Aufnahmen und zum Entwickeln steht in der [technischen Doku](docs/ENTWICKLUNG.md). Was vor einer öffentlichen Veröffentlichung zu tun ist, steht in der [Checkliste](docs/VEROEFFENTLICHUNG.md).
 
