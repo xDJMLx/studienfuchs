@@ -423,3 +423,63 @@ describe('Schulstunden im Kalender', () => {
     expect(useStore.getState().schoolPeriods).toHaveLength(6)
   })
 })
+
+describe('WebUntis verbinden', () => {
+  const ICS = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    ...['5', '6', '7'].flatMap((d) => [
+      ...[['0800', '0845'], ['0855', '0940'], ['1000', '1045']].flatMap(([a, b], i) => ['BEGIN:VEVENT', `UID:l${d}${i}`, `DTSTART:202610${d.padStart(2, '0')}T${a}00`, `DTEND:202610${d.padStart(2, '0')}T${b}00`, `SUMMARY:${['Bio', 'Mathe', 'E'][i]}`, 'END:VEVENT']),
+    ]),
+    'BEGIN:VEVENT',
+    'UID:exam1',
+    `DTSTART:${dateKey(addDays(new Date(), 5)).replace(/-/g, '')}T085500`,
+    `DTEND:${dateKey(addDays(new Date(), 5)).replace(/-/g, '')}T094000`,
+    'SUMMARY:Mathe Klassenarbeit',
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].join('\r\n')
+
+  it('Datei laden: Stundenraster, Unterricht und Klassenarbeit werden übernommen; Trennen räumt die Arbeit weg', async () => {
+    useStore.setState({ onboarded: true })
+    window.location.hash = '#/settings'
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Mit WebUntis verbinden/))
+    const input = await screen.findByLabelText('iCal-Datei')
+    const file = new File([ICS], 'stundenplan.ics', { type: 'text/calendar' })
+    Object.defineProperty(file, 'text', { value: async () => ICS })
+    fireEvent.change(input, { target: { files: [file] } })
+    await waitFor(() => expect(useStore.getState().untis?.lessons.length).toBe(9), { timeout: 4000 })
+    const st = useStore.getState()
+    expect(st.schoolPeriods).toEqual([
+      { start: '08:00', end: '08:45' },
+      { start: '08:55', end: '09:40' },
+      { start: '10:00', end: '10:45' },
+    ])
+    expect(st.arbeiten.map((a) => [a.id, a.subject, a.kind])).toEqual([['untis:exam1', 'mathe', 'klassenarbeit']])
+    await waitFor(() => expect(text()).toMatch(/Aus Datei geladen: 9 Stunden, 1 Arbeit/))
+    // Trennen
+    fireEvent.click(await screen.findByRole('button', { name: 'Trennen' }))
+    await waitFor(() => expect(useStore.getState().untis).toBeNull())
+    expect(useStore.getState().arbeiten).toHaveLength(0)
+  })
+
+  it('Mit Link verbinden ruft ab; ohne Relais gibt es eine verständliche Meldung statt eines Absturzes', async () => {
+    useStore.setState({ onboarded: true })
+    const real = globalThis.fetch
+    globalThis.fetch = (async () => {
+      throw new TypeError('Failed to fetch')
+    }) as typeof fetch
+    try {
+      window.location.hash = '#/settings'
+      render(<App />)
+      fireEvent.change(await screen.findByLabelText('iCal-Link'), { target: { value: 'webcal://test.webuntis.com/WebUntis/Ical.do?school=x&key=1' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Mit WebUntis verbinden' }))
+      await waitFor(() => expect(useStore.getState().untis?.url).toBe('https://test.webuntis.com/WebUntis/Ical.do?school=x&key=1'))
+      await waitFor(() => expect(useStore.getState().untis?.lastError).toMatch(/Relais/), { timeout: 4000 })
+      await waitFor(() => expect(text()).toMatch(/Relais/))
+    } finally {
+      globalThis.fetch = real
+    }
+  })
+})

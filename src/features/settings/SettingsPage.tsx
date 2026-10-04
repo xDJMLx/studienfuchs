@@ -7,6 +7,7 @@ import { InstallHelp, useInstallFlow } from '../../components/ui/InstallApp'
 import { Cards, Check, Database, Download, Gear, Palette, Shield, Sparkle, Speaker, Target, Upload } from '../../components/ui/Icons'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
+import { UntisSettings } from './UntisSettings'
 import { EXAMPLE_PERIODS } from '../../lib/school'
 import { activeDecks } from '../../lib/decks'
 import { HELP_SUBJECTS } from '../../lib/subjects'
@@ -37,6 +38,7 @@ const THEMES = [
 const SECTIONS = [
   { id: 's-subjects', label: 'Fächer', Icon: Cards },
   { id: 's-hours', label: 'Schulzeiten', Icon: Target },
+  { id: 's-untis', label: 'WebUntis', Icon: Download },
   { id: 's-look', label: 'Darstellung', Icon: Palette },
   { id: 's-learn', label: 'Lernen', Icon: Target },
   { id: 's-voice', label: 'Sprache', Icon: Speaker },
@@ -286,6 +288,12 @@ export function SettingsPage() {
                   }}
                 />
               </div>
+            </Section>
+          </Item>
+
+          <Item>
+            <Section id="s-untis" icon={<Download size={22} />} title="WebUntis" description="Stundenplan und Arbeiten automatisch übernehmen">
+              <UntisSettings onToast={(ok, text) => setToast({ ok, text })} />
             </Section>
           </Item>
 

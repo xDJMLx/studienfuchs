@@ -52,6 +52,7 @@ export function ArbeitFollowUp({ arbeit }: { arbeit: Arbeit }) {
 }
 
 const VIEW_KEY = 'studienfuchs-kalender-ansicht'
+const LESSONS_KEY = 'studienfuchs-kalender-unterricht'
 type View = 'monat' | 'woche'
 const readView = (): View => {
   try {
@@ -80,6 +81,24 @@ export function KalenderPage() {
   const addedUnits = useStore((s) => s.addedUnits)
   const cards = useStore((s) => s.cards)
   const periods = useStore((s) => s.schoolPeriods) ?? []
+  const untis = useStore((s) => s.untis)
+  const [showLessons, setShowLessons] = useState(() => {
+    try {
+      return localStorage.getItem(LESSONS_KEY) !== 'aus'
+    } catch {
+      return true
+    }
+  })
+  const toggleLessons = () => {
+    setShowLessons((v) => {
+      try {
+        localStorage.setItem(LESSONS_KEY, v ? 'aus' : 'an')
+      } catch {
+        /* Speicher nicht verfügbar */
+      }
+      return !v
+    })
+  }
   const today = dateKey(new Date())
   const [view, setViewState] = useState<View>(readView)
   const [selected, setSelected] = useState(today)
@@ -267,7 +286,14 @@ export function KalenderPage() {
       ) : (
         <Item>
           <div className="mb-5">
-            <TimeTable arbeiten={arbeiten} periods={periods} onAdd={(date, time, duration) => setSheet({ date, time, duration })} onOpen={(a) => setSheet({ arbeit: a })} />
+            {untis && untis.lessons.length > 0 && (
+              <div className="mb-2 flex items-center gap-2 px-1">
+                <button type="button" role="switch" aria-checked={showLessons} onClick={toggleLessons} className={`chip ${showLessons ? 'chip-on' : ''}`}>
+                  Unterricht aus WebUntis
+                </button>
+              </div>
+            )}
+            <TimeTable arbeiten={arbeiten} periods={periods} lessons={showLessons ? untis?.lessons : []} onAdd={(date, time, duration) => setSheet({ date, time, duration })} onOpen={(a) => setSheet({ arbeit: a })} />
           </div>
         </Item>
       )}

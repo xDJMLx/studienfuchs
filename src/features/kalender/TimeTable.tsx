@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { addDays, dateKey, fromMinutes, isoWeek, KINDS, slotOf, startOfWeek, toMinutes, weekRange } from '../../lib/calendar'
 import { breaksOf, periodAt, periodsOf, type Period } from '../../lib/school'
+import type { UntisLesson } from '../../lib/untis'
 import { helpSubject } from '../../lib/subjects'
 import type { Arbeit } from '../../lib/types'
 
@@ -67,7 +68,7 @@ function place(list: Arbeit[]): Placed[] {
  * zur passenden Zeit. Ganztägige Termine stehen in der Zeile unter dem Tag. Ein Tipp auf eine freie Stelle trägt dort
  * etwas ein (mit der angetippten Uhrzeit), ein Tipp auf einen Block öffnet ihn. Wischen oder Pfeile wechseln die Woche.
  */
-export function TimeTable({ arbeiten, periods = [], onAdd, onOpen }: { arbeiten: Arbeit[]; /** Schulstunden; leer = normale Uhrzeiten */ periods?: Period[]; onAdd: (date: string, time?: string, duration?: number) => void; onOpen: (a: Arbeit) => void }) {
+export function TimeTable({ arbeiten, periods = [], lessons = [], onAdd, onOpen }: { arbeiten: Arbeit[]; /** Schulstunden; leer = normale Uhrzeiten */ periods?: Period[]; /** Unterricht aus WebUntis (leise im Hintergrund) */ lessons?: UntisLesson[]; onAdd: (date: string, time?: string, duration?: number) => void; onOpen: (a: Arbeit) => void }) {
   // Am Wochenende zeigt der Plan gleich die kommende Woche (wie WebUntis)
   const home = [0, 6].includes(new Date().getDay()) ? 1 : 0
   const [offset, setOffset] = useState(home)
@@ -103,8 +104,16 @@ export function TimeTable({ arbeiten, periods = [], onAdd, onOpen }: { arbeiten:
   const days = hasWeekend ? all : all.slice(0, 5)
   const today = dateKey(now)
 
+  const lessonsBy = useMemo(() => {
+    const m: Record<string, UntisLesson[]> = {}
+    for (const l of lessons) (m[l.date] ??= []).push(l)
+    return m
+  }, [lessons])
   const placed = useMemo(() => Object.fromEntries(days.map((d) => [d.key, place(byKey[d.key] ?? [])])), [days, byKey])
-  const timed = Object.values(placed).flat()
+  const timed = [
+    ...Object.values(placed).flat(),
+    ...days.flatMap((d) => (lessonsBy[d.key] ?? []).map((l) => ({ start: toMinutes(l.start)!, end: toMinutes(l.end)! }))),
+  ]
   // Mit Schulstunden reicht der Plan von der ersten bis zur letzten Stunde (und weiter, wenn ein Termin außerhalb liegt)
   const grid = periods.map((p) => ({ s: toMinutes(p.start)!, e: toMinutes(p.end)! }))
   const baseStart = grid.length ? grid[0].s : 8 * 60
@@ -240,6 +249,9 @@ export function TimeTable({ arbeiten, periods = [], onAdd, onOpen }: { arbeiten:
                     onAdd(d.key, fromMinutes(snapped))
                   }}
                 />
+                {(lessonsBy[d.key] ?? []).map((l) => (
+                  <LessonBlock key={l.id} l={l} top={y(toMinutes(l.start)!)} height={y(toMinutes(l.end)!) - y(toMinutes(l.start)!)} />
+                ))}
                 {placed[d.key].map((p, bi) => (
                   <div
                     key={p.a.id}
@@ -283,5 +295,21 @@ function Block({ a, periods, onOpen, compact = false, tall = true }: { a: Arbeit
       <span className="w-full truncate text-[10px] font-extrabold leading-tight">{SHORT[a.subject] ?? s?.name}</span>
       {(tall || compact) && <span className="w-full truncate text-[9px] font-bold leading-none opacity-95">{kindShort(a)}</span>}
     </button>
+  )
+}
+
+/** Normaler Unterricht aus WebUntis: ruhig im Hintergrund, damit die Arbeiten darüber auffallen. */
+function LessonBlock({ l, top, height }: { l: UntisLesson; top: number; height: number }) {
+  const sub = helpSubject(l.subject ?? '')
+  const c = sub?.c ?? '#868a95'
+  return (
+    <div
+      className="pointer-events-none absolute inset-x-px overflow-hidden rounded-md px-1 py-0.5 leading-tight"
+      style={{ top: top + 1, height: Math.max(18, height - 2), background: `color-mix(in srgb, ${c} 15%, var(--surface))`, borderLeft: `3px solid ${c}`, opacity: l.cancelled ? 0.5 : 1 }}
+      title={`${l.name}${l.room ? `, Raum ${l.room}` : ''}${l.cancelled ? ' (entfällt)' : ''}`}
+    >
+      <span className={`block truncate text-[10px] font-extrabold ${l.cancelled ? 'line-through' : ''}`}>{SHORT[l.subject ?? ''] ?? l.name}</span>
+      {height >= 34 && l.room && <span className="block truncate text-[9px] font-semibold text-muted">{l.room}</span>}
+    </div>
   )
 }

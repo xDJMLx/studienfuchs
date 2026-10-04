@@ -11,6 +11,7 @@ import { TabBar } from './TabBar'
 import { useDue } from '../../features/review/ReviewPage'
 import { ProgressBar } from './widgets'
 import { StudyTimeCard } from './StudyTime'
+import { autoSyncUntis } from '../../lib/untisSync'
 import { useShallow } from 'zustand/react/shallow'
 
 interface NavItem {
@@ -93,6 +94,14 @@ export function Layout() {
   useEffect(() => {
     scroller.current?.scrollTo({ top: 0 })
   }, [location.pathname])
+
+  // WebUntis: beim Öffnen und wenn man in die App zurückkehrt, leise abgleichen, falls es fällig ist
+  useEffect(() => {
+    autoSyncUntis()
+    const onVisible = () => document.visibilityState === 'visible' && autoSyncUntis()
+    document.addEventListener('visibilitychange', onVisible)
+    return () => document.removeEventListener('visibilitychange', onVisible)
+  }, [])
 
   return (
     <div className="flex h-full bg-page" style={onCoach ? ({ '--tabbar-h': `calc(${hasPages ? '13rem' : '9rem'} + env(safe-area-inset-bottom, 0px))` } as React.CSSProperties) : undefined}>

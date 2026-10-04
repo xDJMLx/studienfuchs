@@ -32,3 +32,20 @@ node relay/relay-dev.mjs   # startet das Relais auf Port 8787
 echo VITE_FREE_AI_URL=http://localhost:8787 > .env.local
 npm run dev
 ```
+
+---
+
+# Relais für WebUntis (Stundenplan-Abgleich)
+
+WebUntis erlaubt den Abruf des Kalender-Links (iCal) meist nicht direkt aus dem Browser. Wenn der Abgleich in den Einstellungen
+mit der Meldung „WebUntis erlaubt den Abruf direkt aus dem Browser nicht“ scheitert, hilft `untis-relay.js`. Es ist ein winziger
+Cloudflare Worker, der die iCal-Datei von seinem Server aus holt. Er speichert nichts, erlaubt nur Adressen von WebUntis/Untis
+über https und nur Anfragen von dieser Seite.
+
+Einrichtung wie beim KI-Relais (Schritte 1 bis 4 oben), nur mit dem Inhalt von `relay/untis-relay.js` und dem Namen z. B. `studienfuchs-untis`.
+Die Adresse des Workers trägst du dann in der App ein: **Einstellungen → WebUntis → „Funktioniert der Abruf nicht?“ → Adresse des Relais**.
+Ohne Relais bleibt der Weg über die `.ics`-Datei (in WebUntis exportieren, in der App laden).
+
+Hinweis: Der iCal-Link enthält einen geheimen Schlüssel für deinen Stundenplan. Er geht beim Abgleich durch dein Relais.
+Das Relais speichert ihn nicht, aber richte es nur in deinem eigenen Cloudflare-Konto ein und teile die Adresse nicht öffentlich.
+
