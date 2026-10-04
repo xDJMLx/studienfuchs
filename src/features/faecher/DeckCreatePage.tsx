@@ -1,9 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { Segmented } from '../../components/ui/controls'
 import { Back, Camera, Close } from '../../components/ui/Icons'
 import { blobToJpegBase64, preloadAi } from '../../lib/ai'
 import { generateCards } from '../../lib/aiCards'
+import { cardsFromNotes } from '../../lib/notesToCards'
 import { parseCards } from '../../lib/parseCards'
 import { HELP_SUBJECTS, helpSubject } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
@@ -13,7 +13,7 @@ import { CardTable } from './CardTable'
 import { TemplateList } from './TemplateList'
 import { templatesFor } from '../../content/templates'
 
-type Way = 'ai' | 'write' | 'vorlage'
+type Way = 'ai' | 'notizen' | 'write' | 'vorlage'
 
 const COUNTS = [10, 20, 30]
 const field = 'w-full rounded-xl border-2 border-line bg-snow px-3 py-2.5 font-semibold outline-none transition-colors focus:border-sky'
@@ -44,6 +44,8 @@ export function DeckCreatePage() {
   const [files, setFiles] = useState<File[]>([])
   const [previews, setPreviews] = useState<string[]>([])
   const [text, setText] = useState('')
+  const [notes, setNotes] = useState('')
+  const [reading, setReading] = useState<string | null>(null)
   const [rows, setRows] = useState<Row[] | null>(null)
   const [title, setTitle] = useState('')
   const [both, setBoth] = useState(!!sub?.lang)
@@ -89,6 +91,32 @@ export function DeckCreatePage() {
     )
   }
 
+  /** Text aus Fotos lesen: Die Texterkennung läuft auf dem Gerät, die Bilder verlassen es nicht. */
+  const readPhotos = async () => {
+    setError(null)
+    setReading('Text wird erkannt …')
+    try {
+      const { ocrImages } = await import('../upload/ocr')
+      const found = await ocrImages(files, (p) => setReading(`Text wird erkannt (Seite ${p.fileIndex + 1} von ${p.fileCount})`))
+      setNotes((n) => (n.trim() ? n.trim() + '\n' : '') + found.trim())
+      setFiles([])
+    } catch (e) {
+      setError(e instanceof Error ? 'Die Texterkennung hat nicht geklappt: ' + e.message : 'Die Texterkennung hat nicht geklappt.')
+    } finally {
+      setReading(null)
+    }
+  }
+
+  const fromNotes = () => {
+    const { cards, skipped } = cardsFromNotes(notes)
+    setRows(cards.map((c) => newRow(c.front, c.back)))
+    setNotice(
+      cards.length
+        ? `${cards.length} Karten vorgeschlagen${skipped ? `, ${skipped} Zeile(n) habe ich übersprungen` : ''}. Das sind Vorschläge aus deinem Text: Lies sie durch und ändere, was nicht passt.`
+        : 'Aus diesem Text konnte ich keine Karten machen. Schreibe Merksätze („Die Zelle ist …“), Jahreszahlen („1789 Beginn …“) oder Paare („Frage – Antwort“).',
+    )
+  }
+
   const valid = useMemo(() => (rows ?? []).filter((r) => r.front.trim() && r.back.trim()), [rows])
 
   const save = () => {
@@ -120,19 +148,61 @@ export function DeckCreatePage() {
             </select>
           </label>
 
-          <Segmented
-            label="Wie erstellen?"
-            className="w-full [&>button]:flex-1 [&>button]:py-2"
-            value={way}
-            onChange={setWay}
-            options={[
-              { value: 'ai' as Way, label: 'Von der KI' },
-              { value: 'write' as Way, label: 'Selbst schreiben' },
-              ...(templatesFor(subject).length ? [{ value: 'vorlage' as Way, label: 'Fertige' }] : []),
-            ]}
-          />
+          <div>
+            <p className="mb-1.5 text-sm font-bold text-muted">Wie willst du die Karten erstellen?</p>
+            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Wie erstellen?">
+              {(
+                [
+                  { id: 'ai' as Way, label: 'Von der KI' },
+                  { id: 'notizen' as Way, label: 'Aus Notizen' },
+                  { id: 'write' as Way, label: 'Selbst schreiben' },
+                  ...(templatesFor(subject).length ? [{ id: 'vorlage' as Way, label: 'Fertige' }] : []),
+                ] as { id: Way; label: string }[]
+              ).map((w) => (
+                <button key={w.id} type="button" role="radio" aria-checked={way === w.id} onClick={() => setWay(w.id)} className={`chip ${way === w.id ? 'chip-on' : ''}`}>
+                  {w.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
-          {way === 'vorlage' ? (
+          {way === 'notizen' ? (
+            <>
+              <label className="grid gap-1.5 text-sm font-bold text-muted">
+                Deine Notizen oder dein Heft-Text
+                <textarea className={`${field} min-h-48 resize-y font-medium`} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={'Die Zelle ist die kleinste lebende Einheit.\n1789 Beginn der Französischen Revolution\nMitochondrien – Kraftwerke der Zelle'} />
+              </label>
+              <p className="-mt-2 text-sm text-muted">Ohne KI, nur auf deinem Gerät: Merksätze werden zu Fragen („Was ist …?“), Jahreszahlen zu „Was geschah …?“, Paare („Frage – Antwort“) bleiben Paare.</p>
+              <div>
+                <p className="mb-1.5 text-sm font-bold text-muted">Oder ein Foto: Der Text wird auf dem Gerät gelesen</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  {previews.map((u, i) => (
+                    <span key={u} className="relative">
+                      <img src={u} alt={`Foto ${i + 1}`} className="h-20 w-16 rounded-lg border-2 border-line object-cover" />
+                      <button type="button" aria-label={`Foto ${i + 1} entfernen`} onClick={() => setFiles((f) => f.filter((_, k) => k !== i))} className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-ink text-surface">
+                        <Close size={12} />
+                      </button>
+                    </span>
+                  ))}
+                  {files.length < 8 && (
+                    <button type="button" onClick={() => fileRef.current?.click()} className="press flex h-20 w-16 flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-line text-xs font-bold text-muted hover:bg-snow">
+                      <Camera size={22} />
+                      Foto
+                    </button>
+                  )}
+                  {files.length > 0 && (
+                    <button type="button" className="btn btn-ghost press !min-h-10 !px-4 !text-sm" disabled={reading !== null} onClick={readPhotos}>
+                      {reading ?? 'Text aus Fotos lesen'}
+                    </button>
+                  )}
+                </div>
+                <input ref={fileRef} type="file" accept="image/*" multiple className="sr-only" onChange={(e) => setFiles((f) => [...f, ...Array.from(e.target.files ?? [])].slice(0, 8))} />
+              </div>
+              <button type="button" className="btn btn-primary press w-full sm:w-72" disabled={!notes.trim()} onClick={fromNotes}>
+                Karten vorschlagen
+              </button>
+            </>
+          ) : way === 'vorlage' ? (
             <>
               <p className="text-sm text-muted">Grundwissen, das in fast jedem Unterricht vorkommt. Du kannst die Karten danach bearbeiten und eigene ergänzen. Dein Lehrer setzt vielleicht andere Schwerpunkte: Gleiche es mit deinem Unterricht ab.</p>
               <TemplateList subject={subject} onAdded={(id) => navigate(`/stapel/${id}`, { replace: true })} />
@@ -208,7 +278,9 @@ export function DeckCreatePage() {
         <div className="mt-4 rounded-xl bg-bad-soft p-3 text-sm text-bad-dark" role="alert">
           <p className="font-semibold">{error}</p>
           <p className="mt-1">
-            Du kannst die Karten auch{' '}
+            Ohne KI geht es auch: aus{' '}
+            <button type="button" className="font-extrabold underline" onClick={() => { setError(null); setWay('notizen') }}>deinen Notizen</button>
+            , oder du kannst die Karten{' '}
             <button type="button" className="font-extrabold underline" onClick={() => { setError(null); setWay('write') }}>selbst schreiben</button>
             {templatesFor(subject).length > 0 && (
               <>

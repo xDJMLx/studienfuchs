@@ -1,9 +1,8 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { grades } from '../../content'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Row, Section, Segmented, Switch } from '../../components/ui/controls'
+import { Row, Section, Switch } from '../../components/ui/controls'
 import { InstallHelp, useInstallFlow } from '../../components/ui/InstallApp'
 import { Check, Database, Download, Gear, Palette, Shield, Sparkle, Speaker, Target, Upload } from '../../components/ui/Icons'
 import { EASE, Item, Stagger, SPRING } from '../../components/ui/motion'
@@ -67,7 +66,7 @@ export function SettingsPage() {
   const reduce = useReducedMotion()
   const navigate = useNavigate()
   const setOnboarded = useStore((s) => s.setOnboarded)
-  const { theme, setTheme, dailyGoal, setDailyGoal, soundOn, setSoundOn, grade, setGrade, exportData, importData, resetAll, lessons, cards, sets } = useStore(useShallow((s) => ({ theme: s.theme, setTheme: s.setTheme, dailyGoal: s.dailyGoal, setDailyGoal: s.setDailyGoal, soundOn: s.soundOn, setSoundOn: s.setSoundOn, grade: s.grade, setGrade: s.setGrade, exportData: s.exportData, importData: s.importData, resetAll: s.resetAll, lessons: s.lessons, cards: s.cards, sets: s.sets })))
+  const { theme, setTheme, dailyGoal, setDailyGoal, soundOn, setSoundOn, exportData, importData, resetAll, cards, sets } = useStore(useShallow((s) => ({ theme: s.theme, setTheme: s.setTheme, dailyGoal: s.dailyGoal, setDailyGoal: s.setDailyGoal, soundOn: s.soundOn, setSoundOn: s.setSoundOn, exportData: s.exportData, importData: s.importData, resetAll: s.resetAll, cards: s.cards, sets: s.sets })))
   const fileRef = useRef<HTMLInputElement>(null)
   const install = useInstallFlow()
   const [toast, setToast] = useState<{ ok: boolean; text: string } | null>(null)
@@ -212,7 +211,7 @@ export function SettingsPage() {
           </Item>
 
           <Item>
-            <Section id="s-learn" icon={<Target size={22} />} title="Lernen" description="Ziel und Klassenstufe">
+            <Section id="s-learn" icon={<Target size={22} />} title="Lernen" description="Dein Tagesziel">
               <div className="px-5 py-4">
                 <p className="font-medium">Mindestziel pro Tag</p>
                 <p className="mb-3 text-sm text-muted">Das ist dein Minimum. Erreichst du es, setzt die App heute ein Bonusziel (je +10 XP, z. B. 20 → 30 → 40). Morgen gilt wieder dein Mindestziel.</p>
@@ -242,9 +241,6 @@ export function SettingsPage() {
                   })}
                 </div>
               </div>
-              <Row title="Klassenstufe" hint="Bestimmt deinen Lernpfad. Fortschritt in anderen Klassen bleibt erhalten.">
-                <Segmented value={grade} onChange={setGrade} label="Klassenstufe" options={grades.map((g) => ({ value: g, label: `Kl. ${g}` }))} />
-              </Row>
             </Section>
           </Item>
 
@@ -287,7 +283,7 @@ export function SettingsPage() {
 
           <Item>
             <Section id="s-data" icon={<Database size={22} />} title="Daten" description="Alles liegt nur auf diesem Gerät">
-              <Row title="Gespeichert auf diesem Gerät" hint={`${Object.keys(lessons).length} Lektionen · ${Object.keys(cards).length} gelernte Wörter · ${sets.length} ${sets.length === 1 ? 'Set' : 'Sets'}`} />
+              <Row title="Gespeichert auf diesem Gerät" hint={`${Object.keys(cards).length} geübte Karten · ${sets.length} ${sets.length === 1 ? 'Stapel' : 'Stapel'}`} />
               <Row title="Fortschritt sichern" hint="Exportiere eine Sicherung oder lade eine ein, z. B. für ein neues Gerät.">
                 <div className="flex gap-2">
                   <button className="btn btn-ghost press !px-4 !py-2 !text-sm" onClick={doExport}><Download size={16} /> Exportieren</button>

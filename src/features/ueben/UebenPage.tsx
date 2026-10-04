@@ -10,6 +10,9 @@ import { isDue } from '../../lib/srs'
 import { helpSubject } from '../../lib/subjects'
 import type { Arbeit } from '../../lib/types'
 import { useStore } from '../../store/useStore'
+import { BackupBanner } from '../../components/ui/BackupBanner'
+import { InstallBanner } from '../../components/ui/InstallApp'
+import { backupDue } from '../../lib/backup'
 import { ArbeitSheet } from '../faecher/ArbeitSheet'
 import { ArbeitFollowUp } from '../kalender/KalenderPage'
 import { WeekPlanner } from '../kalender/WeekPlanner'
@@ -66,6 +69,9 @@ export function UebenPage() {
           <ArbeitFollowUp arbeit={a} />
         </Item>
       ))}
+
+      {/* Höchstens ein Hinweis gleichzeitig: Sichern geht vor Installieren */}
+      {backupDue(decks.length > 0 || Object.keys(cards).length > 0) ? <BackupBanner /> : <InstallBanner />}
 
       <Item>
         {decks.length === 0 ? (

@@ -233,3 +233,20 @@ describe('Stapel mit der KI erstellen', () => {
     await waitFor(() => expect(text()).toMatch(/Eine Karte pro Zeile/))
   })
 })
+
+describe('Karten aus Notizen, ohne KI', () => {
+  it('Text einfügen, Vorschläge prüfen, speichern', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['geschichte'] })
+    window.location.hash = '#/stapel/neu?fach=geschichte'
+    render(<App />)
+    await click(/Aus Notizen/, 'radio')
+    fireEvent.change(await screen.findByLabelText(/Deine Notizen/), { target: { value: '1789 Beginn der Französischen Revolution\nDie Reformation ist eine Erneuerungsbewegung der Kirche.\nBastille – Gefängnis in Paris' } })
+    await click(/Karten vorschlagen/)
+    await waitFor(() => expect(text()).toMatch(/3 Karten vorgeschlagen/))
+    expect((screen.getAllByLabelText('Vorderseite') as HTMLTextAreaElement[]).map((t) => t.value)).toEqual(['Was geschah 1789?', 'Was ist die Reformation?', 'Bastille'])
+    fireEvent.change(screen.getByLabelText(/Name des Stapels/), { target: { value: 'Revolution' } })
+    await click(/Stapel speichern \(3\)/)
+    await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
+    expect(useStore.getState().sets[0]).toMatchObject({ title: 'Revolution', subject: 'geschichte' })
+  })
+})
