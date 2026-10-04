@@ -106,7 +106,7 @@ export function UebenPage() {
                 })}
               </ul>
             )}
-            <button type="button" className="btn press mt-4 w-full bg-white text-brand-dark sm:w-64" style={{ '--edge': 'rgba(0,0,0,0.18)' } as React.CSSProperties} onClick={() => navigate('/ueben/los')} autoFocus>
+            <button type="button" className="btn press mt-4 w-full bg-white text-[#a83c03] sm:w-64" style={{ '--edge': 'rgba(0,0,0,0.18)' } as React.CSSProperties} onClick={() => navigate('/ueben/los')} autoFocus>
               Los geht’s ({roundSize})
             </button>
             {total > SESSION_SIZE && <p className="mt-2 text-xs font-bold opacity-90">In Runden zu {SESSION_SIZE}: Danach kannst du direkt weitermachen.</p>}
