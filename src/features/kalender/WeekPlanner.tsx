@@ -1,8 +1,16 @@
 import { useMemo, useState } from 'react'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
-import { addDays, byDay, dateKey, isoWeek, KINDS, startOfWeek, weekDays, weekRange } from '../../lib/calendar'
+import { addDays, byDay, dateKey, isoWeek, KINDS, startOfWeek, weekRange } from '../../lib/calendar'
 import { helpSubject } from '../../lib/subjects'
 import type { Arbeit } from '../../lib/types'
+
+const WEEKDAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
+/** Sieben aufeinanderfolgende Tage ab `start` (bei einem Montag die Woche, sonst die nächsten sieben Tage). */
+const sevenDays = (start: Date) =>
+  Array.from({ length: 7 }, (_, i) => {
+    const date = addDays(start, i)
+    return { key: dateKey(date), day: date.getDate(), weekday: WEEKDAYS[(date.getDay() + 6) % 7], date }
+  })
 
 const shortKind = (a: Arbeit): string => KINDS.find((k) => k.id === (a.kind ?? 'klassenarbeit'))?.short ?? 'Termin'
 
@@ -10,12 +18,15 @@ const shortKind = (a: Arbeit): string => KINDS.find((k) => k.id === (a.kind ?? '
  * Wochenplan wie in einer Stundenplan-App: je Woche eine Zeile mit sieben Spalten (Mo bis So).
  * Termine stehen als farbige Kacheln im Tag (Fach-Symbol und Art), ein Tipp auf einen leeren Tag trägt dort etwas ein.
  */
-export function WeekPlanner({ arbeiten, weeks = 2, onAdd, onOpen, pager = true }: { arbeiten: Arbeit[]; weeks?: number; onAdd: (dateKey: string) => void; onOpen: (a: Arbeit) => void; pager?: boolean }) {
+export function WeekPlanner({ arbeiten, weeks = 2, onAdd, onOpen, pager = true, rolling = false }: { arbeiten: Arbeit[]; weeks?: number; onAdd: (dateKey: string) => void; onOpen: (a: Arbeit) => void; pager?: boolean; rolling?: boolean }) {
   const today = dateKey(new Date())
   const [offset, setOffset] = useState(0)
-  const first = useMemo(() => addDays(startOfWeek(new Date()), offset * 7), [offset])
+  // `rolling`: beginnt heute statt am Montag, damit die Übersicht immer die nächsten Tage zeigt (auch sonntags)
+  const first = useMemo(() => addDays(rolling ? new Date() : startOfWeek(new Date()), offset * 7), [offset, rolling])
   const days = useMemo(() => byDay(arbeiten), [arbeiten])
   const rows = Array.from({ length: weeks }, (_, i) => addDays(first, i * 7))
+  // Wochenplan-Seite: die Wochentage stehen einmal oben (wie im Stundenplan), nicht über jeder Woche
+  const once = pager && !rolling
 
   return (
     <section aria-label="Wochenplan">
@@ -37,25 +48,34 @@ export function WeekPlanner({ arbeiten, weeks = 2, onAdd, onOpen, pager = true }
         </div>
       )}
 
+      {once && (
+        <div className="sticky top-0 z-20 -mx-1 mb-2 grid grid-cols-7 gap-1.5 bg-page/95 px-1 py-1.5 backdrop-blur" aria-hidden>
+          {WEEKDAYS.map((w) => (
+            <span key={w} className="text-center text-[10px] font-extrabold uppercase tracking-wide text-muted">
+              {w}
+            </span>
+          ))}
+        </div>
+      )}
       <div className="grid gap-4">
         {rows.map((monday) => {
-          const isThis = dateKey(startOfWeek(new Date())) === dateKey(monday)
+          const isThis = rolling ? offset === 0 && dateKey(monday) === today : dateKey(startOfWeek(new Date())) === dateKey(monday)
           return (
             <div key={dateKey(monday)}>
               <p className="mb-1.5 flex items-baseline gap-2 px-0.5 text-[12px] font-extrabold text-muted">
-                <span className={isThis ? 'text-brand-dark' : ''}>{isThis ? 'Diese Woche' : `KW ${isoWeek(monday)}`}</span>
+                <span className={isThis ? 'text-brand-dark' : ''}>{isThis ? (rolling ? 'Nächste 7 Tage' : 'Diese Woche') : rolling ? 'Danach' : `KW ${isoWeek(monday)}`}</span>
                 <span className="font-bold opacity-80">{weekRange(monday)}</span>
               </p>
               <div className="grid grid-cols-7 gap-1.5" role="row">
-                {weekDays(monday).map((d, i) => {
+                {sevenDays(monday).map((d) => {
                   const list = days[d.key] ?? []
                   const isToday = d.key === today
                   const past = d.key < today
-                  const weekend = i >= 5
+                  const weekend = d.weekday === 'Sa' || d.weekday === 'So'
                   return (
                     <div key={d.key} role="gridcell" className="min-w-0">
                       <div className={`mb-1 flex flex-col items-center leading-none ${isToday ? 'text-brand-dark' : 'text-muted'}`}>
-                        <span className="text-[10px] font-extrabold uppercase tracking-wide">{d.weekday}</span>
+                        {!once && <span className="text-[10px] font-extrabold uppercase tracking-wide">{d.weekday}</span>}
                         <span className={`mt-0.5 flex h-6 min-w-6 items-center justify-center rounded-full px-1 text-[13px] font-black ${isToday ? 'bg-brand-strong text-on-brand' : ''}`}>{d.day}</span>
                       </div>
                       <div

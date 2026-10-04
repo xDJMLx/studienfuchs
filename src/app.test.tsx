@@ -91,7 +91,7 @@ describe('Die App als Ganzes', () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
     const id = useStore.getState().addSet('Zelle', Array.from({ length: 12 }, (_, i) => ({ front: `F${i}`, back: `B${i}` })), { subject: 'biologie' })
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Meine Woche/))
+    await waitFor(() => expect(text()).toMatch(/Arbeiten & Tests/))
     const target = dateKey(addDays(new Date(), 3))
     const day = new Date(target + 'T12:00:00')
     const grid = screen.getAllByRole('gridcell').find((c) => c.querySelector(`button[aria-label^="Am ${day.getDate()}."]`))

@@ -447,13 +447,27 @@ h1, h2, h3 {
 .safe-bottom { padding-bottom: max(env(safe-area-inset-bottom), 0px); }
 
 /* ---------- Handy: Glas-Leiste und Bedienung ---------- */
-:root { --tabbar-h: calc(5.25rem + env(safe-area-inset-bottom, 0px)); }
+:root { --tabbar-h: calc(5rem + env(safe-area-inset-bottom, 0px)); }
 
 /* Schwebende Leiste: klare, deckende Kapsel mit Rahmen und weichem Schatten (keine Unschärfe: sauberer und schneller) */
 .glass {
   background: var(--surface);
   border: 2px solid var(--line);
   box-shadow: 0 10px 30px -12px rgba(20, 22, 30, 0.28);
+}
+/* Tab-Leiste: durchscheinendes Glas mit feiner Kante, ohne dicken Rahmen */
+.tabbar {
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.6);
+  backdrop-filter: blur(22px) saturate(1.6);
+  border: 0.5px solid color-mix(in srgb, var(--ink) 12%, transparent);
+  box-shadow: 0 10px 30px -10px rgba(20, 22, 30, 0.22), 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+}
+.dark .tabbar {
+  box-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.65), 0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .tabbar { background: var(--surface); }
 }
 .dark .glass {
   box-shadow: 0 12px 34px -10px rgba(0, 0, 0, 0.7);

@@ -132,18 +132,18 @@ export function UebenPage() {
 
       <Item>
         <div className="mb-2 flex items-center justify-between gap-2">
-          <h2 className="text-lg font-extrabold">Meine Woche</h2>
+          <h2 className="text-lg font-extrabold">Arbeiten &amp; Tests</h2>
           <span className="flex items-center gap-1">
-            <Link to="/kalender" className="press flex min-h-9 items-center rounded-xl px-2.5 text-sm font-extrabold text-sky-dark hover:bg-sky-soft">
-              Alle Wochen
+            <Link to="/kalender" className="press flex min-h-9 items-center gap-0.5 rounded-xl px-2.5 text-sm font-bold text-sky-dark hover:bg-sky-soft">
+              Wochenplan <Right size={13} />
             </Link>
-            <button type="button" className="press flex min-h-9 items-center gap-1 rounded-xl px-2.5 text-sm font-extrabold text-sky-dark hover:bg-sky-soft" onClick={() => setSheet({ date: today })}>
-              <Plus size={16} /> Eintragen
+            <button type="button" aria-label="Arbeit eintragen" className="press flex h-9 w-9 items-center justify-center rounded-full bg-sky-soft text-sky-dark" onClick={() => setSheet({ date: today })}>
+              <Plus size={18} />
             </button>
           </span>
         </div>
         <div className="card mb-3 p-3">
-          <WeekPlanner arbeiten={arbeiten ?? []} weeks={2} pager={false} onAdd={(date) => setSheet({ date })} onOpen={(a) => setSheet({ arbeit: a })} />
+          <WeekPlanner arbeiten={arbeiten ?? []} weeks={1} rolling pager={false} onAdd={(date) => setSheet({ date })} onOpen={(a) => setSheet({ arbeit: a })} />
         </div>
         {upcoming.length === 0 ? (
           <p className="mb-5 px-1 text-sm text-muted">Steht eine Arbeit an? Tippe auf den Tag und trag sie ein: Die App verteilt die Karten auf die Tage und zeigt, wie gut alles sitzt.</p>

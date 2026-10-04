@@ -58,8 +58,8 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
   return (
     <nav
       aria-label="Hauptnavigation"
-      className="glass fixed inset-x-3 z-40 flex flex-col rounded-[34px] p-1.5 lg:hidden"
-      style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.6rem)', '--tab-c': tabs[Math.max(0, focusIndex)]?.color ?? 'var(--brand)' } as React.CSSProperties}
+      className="tabbar fixed inset-x-4 z-40 mx-auto flex max-w-md flex-col rounded-[2rem] p-1 lg:hidden"
+      style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.5rem)', '--tab-c': tabs[Math.max(0, focusIndex)]?.color ?? 'var(--brand)' } as React.CSSProperties}
     >
       {/* Das Eingabefeld gleitet beim Öffnen hoch und blendet ein (nur Transform und Deckkraft, das ist flüssig).
           Beim Verlassen blendet es aus und die Leiste klappt kurz zusammen. */}
@@ -115,25 +115,18 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
         {/* Die Linse */}
         <motion.span
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 rounded-[28px]"
+          className="pointer-events-none absolute inset-y-0 rounded-full"
           style={{ left: 0, x: lensX, width: `calc(100% / ${n})`, opacity: lensShown ? 1 : 0 }}
-          animate={{ scale: pressed && !reduce ? 1.22 : 1, y: pressed && !reduce ? -4 : 0 }}
+          animate={{ scale: pressed && !reduce ? 1.1 : 1, y: pressed && !reduce ? -2 : 0 }}
           transition={{ type: 'spring', stiffness: 420, damping: 24 }}
         >
+          {/* Wie bei iOS: eine ruhige, leicht getönte Kapsel ohne Rand. Die Farbe steckt nur in Symbol und Schrift. */}
           <span
-            className="absolute inset-0 rounded-[28px] transition-[background,box-shadow,border-color] duration-200"
-            style={
-              pressed
-                ? {
-                    background: 'color-mix(in srgb, var(--tab-c) 15%, var(--surface))',
-                    border: '2px solid var(--tab-c)',
-                    boxShadow: '0 12px 26px -12px rgba(0,0,0,0.45)',
-                  }
-                : {
-                    background: 'color-mix(in srgb, var(--tab-c) 13%, var(--surface))',
-                    border: '2px solid color-mix(in srgb, var(--tab-c) 55%, transparent)',
-                  }
-            }
+            className="absolute inset-0 rounded-full transition-[background,box-shadow] duration-200"
+            style={{
+              background: pressed ? 'color-mix(in srgb, var(--tab-c) 16%, transparent)' : 'color-mix(in srgb, var(--tab-c) 11%, transparent)',
+              boxShadow: pressed ? '0 6px 16px -8px rgba(0,0,0,0.35)' : 'none',
+            }}
           />
         </motion.span>
 
@@ -147,7 +140,7 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
 
 function Tab({ tab, index, pos, press, current, isActive, onKey }: { tab: TabDef; index: number; pos: MotionValue<number>; press: MotionValue<number>; current: boolean; isActive: boolean; onKey: () => void }) {
   // Unter der Linse wächst das Symbol, wenn der Finger drauf ist
-  const scale = useTransform([pos, press], ([v, p]: number[]) => 1 + 0.2 * p * Math.max(0, 1 - Math.abs(index - v)))
+  const scale = useTransform([pos, press], ([v, p]: number[]) => 1 + 0.12 * p * Math.max(0, 1 - Math.abs(index - v)))
   return (
     <button
       type="button"
@@ -157,7 +150,7 @@ function Tab({ tab, index, pos, press, current, isActive, onKey }: { tab: TabDef
       onClick={(e) => {
         if (e.detail === 0) onKey()
       }}
-      className={`relative z-10 flex min-h-[3.6rem] flex-1 flex-col items-center justify-center gap-0.5 rounded-[28px] text-[11px] font-extrabold outline-offset-[-2px] transition-colors duration-200 ${current ? '' : 'text-muted'}`}
+      className={`relative z-10 flex min-h-[3.25rem] flex-1 flex-col items-center justify-center gap-px rounded-full text-[10px] font-semibold tracking-wide outline-offset-[-2px] transition-colors duration-200 ${current ? '' : 'text-muted'}`}
       style={current ? { color: tab.textColor ?? 'var(--brand-text)' } : undefined}
     >
       <motion.span className="relative block" style={{ scale }}>

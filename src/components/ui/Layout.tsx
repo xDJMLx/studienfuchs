@@ -137,7 +137,7 @@ export function Layout() {
             label,
             color: c,
             textColor: t,
-            icon: <Icon size={26} />,
+            icon: <Icon size={24} />,
             badge: to === '/' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : undefined,
           }))}
           activeIndex={nav.findIndex((n) => tabOf(location.pathname) === n.to)}

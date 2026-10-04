@@ -64,7 +64,7 @@ export function FaecherPage() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[17px] font-extrabold leading-tight">{s.name}</span>
-                    <span className="mt-0.5 block text-[13px] leading-snug text-muted">{st?.total ? `${st.total} Karten · ${st.solid} sitzen` : s.blurb}</span>
+                    <span className="mt-0.5 block text-[13px] leading-snug text-muted">{st?.total ? `${st.total} Karten · ${st.solid} sitzen` : 'Noch keine Karten'}</span>
                   </span>
                   <span>
                     <span className="mb-1 flex items-center justify-between text-[11px] font-extrabold text-muted">
