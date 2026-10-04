@@ -122,11 +122,17 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
         >
           <span
             className="absolute inset-0 rounded-[28px] transition-[background,box-shadow,border-color] duration-200"
-            // Eine ruhige Farbe für alle Tabs: nur die Fläche unter dem aktiven Tab, kein Farbwechsel beim Wischen
             style={
               pressed
-                ? { background: 'var(--brand-soft)', border: '2px solid var(--brand)', boxShadow: '0 12px 26px -12px rgba(0,0,0,0.4)' }
-                : { background: 'var(--brand-soft)', border: '2px solid transparent' }
+                ? {
+                    background: 'color-mix(in srgb, var(--tab-c) 15%, var(--surface))',
+                    border: '2px solid var(--tab-c)',
+                    boxShadow: '0 12px 26px -12px rgba(0,0,0,0.45)',
+                  }
+                : {
+                    background: 'color-mix(in srgb, var(--tab-c) 13%, var(--surface))',
+                    border: '2px solid color-mix(in srgb, var(--tab-c) 55%, transparent)',
+                  }
             }
           />
         </motion.span>

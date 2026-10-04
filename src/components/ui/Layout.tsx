@@ -30,8 +30,8 @@ interface NavItem {
 // Einstellungen über das Profil). Fuchs anpassen und Shop liegen im Profil.
 const NAV: NavItem[] = [
   { to: '/', label: 'Üben', Icon: TabRepeat, end: true, c: 'var(--brand)', t: 'var(--brand-text)' },
-  { to: '/faecher', label: 'Fächer', Icon: TabSubjects, c: 'var(--brand)', t: 'var(--brand-text)' },
-  { to: '/profile', label: 'Profil', Icon: TabUser, c: 'var(--brand)', t: 'var(--brand-text)' },
+  { to: '/faecher', label: 'Fächer', Icon: TabSubjects, c: 'var(--sky)', t: 'var(--sky-text)' },
+  { to: '/profile', label: 'Profil', Icon: TabUser, c: 'var(--violet)', t: 'var(--violet-text)' },
 ]
 
 /** Zu welchem Tab eine Seite gehört (damit er auch auf Unterseiten wie dem Kalender markiert bleibt). */

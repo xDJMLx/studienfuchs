@@ -8,9 +8,11 @@ import { dateKey, kindLabel, needsFollowUp } from '../../lib/calendar'
 import { activeDecks, cardRefs, daysUntil, planToday, readiness, SESSION_SIZE } from '../../lib/decks'
 import { isDue } from '../../lib/srs'
 import { helpSubject } from '../../lib/subjects'
+import type { Arbeit } from '../../lib/types'
 import { useStore } from '../../store/useStore'
 import { ArbeitSheet } from '../faecher/ArbeitSheet'
 import { ArbeitFollowUp } from '../kalender/KalenderPage'
+import { WeekPlanner } from '../kalender/WeekPlanner'
 import { TodayStrip } from '../path/TodayCard'
 import { BlitzCard } from '../practice/BlitzCard'
 import { dueLabel } from '../review/ReviewPage'
@@ -24,7 +26,7 @@ export function UebenPage() {
   const addedUnits = useStore((s) => s.addedUnits)
   const arbeiten = useStore((s) => s.arbeiten)
   const cards = useStore((s) => s.cards)
-  const [sheet, setSheet] = useState(false)
+  const [sheet, setSheet] = useState<{ arbeit?: Arbeit; date?: string } | null>(null)
 
   const decks = useMemo(() => activeDecks({ sets, addedUnits: addedUnits ?? [] }), [sets, addedUnits])
   const plan = useMemo(() => planToday(decks, arbeiten ?? [], cards), [decks, arbeiten, cards])
@@ -124,24 +126,21 @@ export function UebenPage() {
 
       <Item>
         <div className="mb-2 flex items-center justify-between gap-2">
-          <h2 className="text-lg font-extrabold">Arbeiten</h2>
+          <h2 className="text-lg font-extrabold">Meine Woche</h2>
           <span className="flex items-center gap-1">
             <Link to="/kalender" className="press flex min-h-9 items-center rounded-xl px-2.5 text-sm font-extrabold text-sky-dark hover:bg-sky-soft">
-              Kalender
+              Alle Wochen
             </Link>
-            <button type="button" className="press flex min-h-9 items-center gap-1 rounded-xl px-2.5 text-sm font-extrabold text-sky-dark hover:bg-sky-soft" onClick={() => setSheet(true)}>
+            <button type="button" className="press flex min-h-9 items-center gap-1 rounded-xl px-2.5 text-sm font-extrabold text-sky-dark hover:bg-sky-soft" onClick={() => setSheet({ date: today })}>
               <Plus size={16} /> Eintragen
             </button>
           </span>
         </div>
+        <div className="card mb-3 p-3">
+          <WeekPlanner arbeiten={arbeiten ?? []} weeks={2} pager={false} onAdd={(date) => setSheet({ date })} onOpen={(a) => setSheet({ arbeit: a })} />
+        </div>
         {upcoming.length === 0 ? (
-          <button type="button" onClick={() => setSheet(true)} className="card press mb-5 flex w-full items-center gap-3 border-dashed p-4 text-left">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-soft text-sky-dark"><Plus size={22} /></span>
-            <span className="min-w-0 flex-1">
-              <span className="block font-extrabold">Steht eine Arbeit an?</span>
-              <span className="block text-sm text-muted">Trag sie mit Datum ein: Die App verteilt die Karten auf die Tage und zeigt, wie gut alles sitzt.</span>
-            </span>
-          </button>
+          <p className="mb-5 px-1 text-sm text-muted">Steht eine Arbeit an? Tippe auf den Tag und trag sie ein: Die App verteilt die Karten auf die Tage und zeigt, wie gut alles sitzt.</p>
         ) : (
           <ul className="mb-5 grid gap-3">
             {upcoming.slice(0, 3).map(({ a, days, r }) => {
@@ -192,7 +191,7 @@ export function UebenPage() {
         </div>
       </Item>
 
-      <ArbeitSheet open={sheet} onClose={() => setSheet(false)} />
+      <ArbeitSheet open={!!sheet} onClose={() => setSheet(null)} arbeit={sheet?.arbeit} date={sheet?.date} />
     </Stagger>
   )
 }
@@ -201,14 +200,14 @@ type Mode = 'mix' | 'flip' | 'type' | 'write' | 'listen' | 'speak'
 
 const MODES: { id: Mode; label: string; text: string; lang?: boolean }[] = [
   { id: 'mix', label: 'Gemischt', text: 'Alles im Wechsel' },
-  { id: 'flip', label: 'Karteikarten', text: 'Umdrehen, selbst bewerten' },
+  { id: 'flip', label: 'Karteikarten', text: 'Umdrehen und bewerten' },
   { id: 'type', label: 'Tippen', text: 'Aus dem Gedächtnis' },
-  { id: 'write', label: 'Schreiben', text: 'Buchstaben und Sätze', lang: true },
-  { id: 'listen', label: 'Hören', text: 'Verstehen und aufschreiben', lang: true },
+  { id: 'write', label: 'Schreiben', text: 'Buchstaben, Sätze', lang: true },
+  { id: 'listen', label: 'Hören', text: 'Verstehen', lang: true },
   { id: 'speak', label: 'Sprechen', text: 'Nachsprechen', lang: true },
 ]
 
-/** Frei üben: erst das Fach, dann (wenn man will) ein Stapel, dann die Art. Es wird immer genau ein Fach geübt. */
+/** Frei üben: ein Fach antippen, optional einen Stapel und die Art wählen, los. Es wird immer genau ein Fach geübt. */
 function FreePractice() {
   const navigate = useNavigate()
   const sets = useStore((s) => s.sets)
@@ -236,8 +235,7 @@ function FreePractice() {
   const subjectDecks = decks.filter((d) => d.subject === subject)
   const chosen = subjectDecks.find((d) => d.id === deck)
   const count = cardRefs(chosen ? [chosen] : subjectDecks).length
-  const languageSubject = sub?.lang === 'fr'
-  const modes = MODES.filter((m) => !m.lang || languageSubject)
+  const modes = MODES.filter((m) => !m.lang || sub?.lang === 'fr')
 
   const go = () => {
     if (mode === 'speak') {
@@ -255,78 +253,98 @@ function FreePractice() {
   if (subjects.length === 0) return null
   return (
     <Item>
-      <h2 className="mb-1 text-lg font-extrabold">Frei üben</h2>
-      <p className="mb-3 text-sm text-muted">Wähle ein Fach, dann geht es los.</p>
+      <section className="card mb-6 overflow-hidden" aria-label="Frei üben">
+        <div className="px-4 pb-1 pt-4">
+          <h2 className="text-lg font-extrabold leading-tight">Frei üben</h2>
+          <p className="text-sm text-muted">Tipp ein Fach an, dann geht es los.</p>
+        </div>
 
-      <div className="-mx-4 mb-3 flex gap-2 overflow-x-auto px-4 pb-1" role="radiogroup" aria-label="Fach">
-        {subjects.map((s) => {
-          const h = helpSubject(s.id)!
-          const on = s.id === subject
-          return (
-            <button
-              key={s.id}
-              type="button"
-              role="radio"
-              aria-checked={on}
-              onClick={() => {
-                setSubject(s.id)
-                setDeck('')
-                setMode('mix')
-              }}
-              className={`press relative flex shrink-0 items-center gap-2 rounded-2xl border-2 py-1.5 pl-1.5 pr-3.5 transition-colors ${on ? 'border-sky bg-sky-soft' : 'border-line bg-surface'}`}
-            >
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl" style={{ background: h.c }}>
-                <HelpSubjectIcon id={s.id} ink={h.c} size={22} />
-              </span>
-              <span className="text-left">
-                <span className="block text-[14px] font-extrabold leading-tight">{h.name}</span>
-                <span className="block text-[11px] font-bold text-muted">{s.cards > 0 ? `${s.cards} Karten${s.due ? ` · ${s.due} fällig` : ''}` : 'noch leer'}</span>
-              </span>
-            </button>
-          )
-        })}
-        <Link to="/faecher" className="press flex shrink-0 items-center gap-1 rounded-2xl border-2 border-dashed border-line px-3.5 text-sm font-extrabold text-muted hover:bg-snow">
-          <Plus size={16} /> Fach
-        </Link>
-      </div>
-
-      {count === 0 ? (
-        <div className="card mb-6 flex items-center gap-4 p-4">
-          <span className="min-w-0 flex-1">
-            <span className="block font-extrabold">In {sub?.name} gibt es noch keine Karten.</span>
-            <span className="block text-sm text-muted">{subject === 'franzoesisch' ? 'Füge einen fertigen Stapel aus dem Kurs hinzu oder erstelle einen eigenen.' : 'Erstelle den ersten Stapel, dann kannst du hier üben.'}</span>
-          </span>
-          <Link to={subject === 'franzoesisch' ? '/faecher/franzoesisch' : `/stapel/neu?fach=${subject}`} className="btn btn-primary press !min-h-10 !px-4 !text-sm">
-            {subject === 'franzoesisch' ? 'Stapel wählen' : 'Stapel erstellen'}
+        {/* Fächer als Kacheln */}
+        <div className="flex gap-2.5 overflow-x-auto px-4 py-3" role="radiogroup" aria-label="Fach">
+          {subjects.map((s) => {
+            const h = helpSubject(s.id)!
+            const on = s.id === subject
+            return (
+              <button
+                key={s.id}
+                type="button"
+                role="radio"
+                aria-checked={on}
+                onClick={() => {
+                  setSubject(s.id)
+                  setDeck('')
+                  setMode('mix')
+                }}
+                className="press flex w-[4.6rem] shrink-0 flex-col items-center gap-1.5 text-center"
+              >
+                <span
+                  className="relative flex h-[3.6rem] w-[3.6rem] items-center justify-center rounded-[1.1rem] transition-transform"
+                  style={{ background: h.c, boxShadow: on ? `0 0 0 3px var(--surface), 0 0 0 5.5px ${h.c}, 0 4px 0 5.5px ${h.s}` : `0 4px 0 ${h.s}`, transform: on ? 'translateY(-1px)' : undefined, opacity: on || s.cards > 0 ? 1 : 0.55 }}
+                >
+                  <HelpSubjectIcon id={s.id} ink={h.c} size={32} />
+                  {s.due > 0 && <span className="absolute -right-1.5 -top-1.5 rounded-full bg-brand-strong px-1.5 text-[11px] font-black leading-[1.15rem] text-on-brand ring-2 ring-[var(--surface)]">{s.due}</span>}
+                </span>
+                <span className={`w-full truncate text-[12px] font-extrabold leading-tight ${on ? '' : 'text-muted'}`}>{h.name}</span>
+              </button>
+            )
+          })}
+          <Link to="/faecher" className="press flex w-[4.6rem] shrink-0 flex-col items-center gap-1.5 text-center" aria-label="Fach hinzufügen">
+            <span className="flex h-[3.6rem] w-[3.6rem] items-center justify-center rounded-[1.1rem] border-2 border-dashed border-line text-muted">
+              <Plus size={22} />
+            </span>
+            <span className="text-[12px] font-extrabold leading-tight text-muted">Fach</span>
           </Link>
         </div>
-      ) : (
-        <>
-          {subjectDecks.length > 1 && (
-            <div className="mb-3 flex flex-wrap gap-2" role="radiogroup" aria-label="Stapel">
-              <button type="button" role="radio" aria-checked={deck === ''} onClick={() => setDeck('')} className={`chip ${deck === '' ? 'chip-on' : ''}`}>
-                Ganzes Fach
-              </button>
-              {subjectDecks.slice(0, 12).map((d) => (
-                <button key={d.id} type="button" role="radio" aria-checked={deck === d.id} onClick={() => setDeck(d.id)} className={`chip ${deck === d.id ? 'chip-on' : ''}`}>
-                  {d.title}
-                </button>
-              ))}
-            </div>
-          )}
-          <div className="mb-3 grid grid-cols-3 gap-2" role="radiogroup" aria-label="Aufgabenart">
-            {modes.map((m) => (
-              <button key={m.id} type="button" role="radio" aria-checked={mode === m.id} onClick={() => setMode(m.id)} className={`tile !block !px-2.5 !py-2.5 text-center ${mode === m.id ? 'tile-selected' : ''}`}>
-                <span className="block text-[14px] font-extrabold">{m.label}</span>
-                <span className="mt-0.5 block text-[11px] font-medium leading-tight opacity-75">{m.text}</span>
-              </button>
-            ))}
+
+        {count === 0 ? (
+          <div className="border-t-2 border-line bg-snow px-4 py-4">
+            <p className="font-extrabold">In {sub?.name} gibt es noch keine Karten.</p>
+            <p className="mb-3 text-sm text-muted">{subject === 'franzoesisch' ? 'Füge einen fertigen Stapel aus dem Kurs hinzu oder erstelle einen eigenen.' : 'Erstelle den ersten Stapel, dann kannst du hier üben.'}</p>
+            <Link to={subject === 'franzoesisch' ? '/faecher/franzoesisch' : `/stapel/neu?fach=${subject}`} className="btn btn-primary press !min-h-10 !px-4 !text-sm">
+              {subject === 'franzoesisch' ? 'Stapel wählen' : 'Stapel erstellen'}
+            </Link>
           </div>
-          <button type="button" className="btn btn-primary press mb-6 w-full sm:w-72" onClick={go}>
-            {mode === 'speak' ? 'Sprechen üben' : `${sub?.name} üben (${count} Karten)`}
-          </button>
-        </>
-      )}
+        ) : (
+          <div className="border-t-2 border-line bg-snow/60 px-4 pb-4 pt-3.5">
+            {subjectDecks.length > 1 && (
+              <label className="mb-3 block">
+                <span className="mb-1 block text-xs font-extrabold uppercase tracking-wide text-muted">Stapel</span>
+                <select value={deck} onChange={(e) => setDeck(e.target.value)} className="w-full rounded-xl border-2 border-line bg-surface px-3 py-2.5 text-[15px] font-bold outline-none focus:border-sky">
+                  <option value="">Ganzes Fach ({cardRefs(subjectDecks).length} Karten)</option>
+                  {subjectDecks.map((d) => (
+                    <option key={d.id} value={d.id}>
+                      {d.title} ({d.items.length})
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+
+            <p className="mb-1 text-xs font-extrabold uppercase tracking-wide text-muted">Wie üben?</p>
+            <div className={`mb-4 grid gap-1.5 rounded-2xl bg-line/60 p-1 ${modes.length > 3 ? 'grid-cols-3' : 'grid-cols-3'}`} role="radiogroup" aria-label="Aufgabenart">
+              {modes.map((m) => {
+                const on = mode === m.id
+                return (
+                  <button key={m.id} type="button" role="radio" aria-checked={on} onClick={() => setMode(m.id)} className={`rounded-xl px-1.5 py-2 text-center transition-colors ${on ? 'bg-surface shadow-sm' : 'hover:bg-surface/60'}`}>
+                    <span className={`block text-[13px] font-extrabold leading-tight ${on ? 'text-ink' : 'text-muted'}`}>{m.label}</span>
+                    <span className="mt-0.5 block text-[10.5px] font-medium leading-tight text-muted">{m.text}</span>
+                  </button>
+                )
+              })}
+            </div>
+
+            <button
+              type="button"
+              onClick={go}
+              className="press flex w-full items-center justify-between rounded-2xl px-5 py-3.5 text-left text-white"
+              style={{ background: sub?.c, boxShadow: `0 5px 0 ${sub?.s}` }}
+            >
+              <span className="text-[17px] font-black">{mode === 'speak' ? 'Sprechen üben' : `${sub?.name} üben`}</span>
+              <span className="rounded-full bg-white/25 px-2.5 py-0.5 text-sm font-extrabold">{count} Karten</span>
+            </button>
+          </div>
+        )}
+      </section>
     </Item>
   )
 }

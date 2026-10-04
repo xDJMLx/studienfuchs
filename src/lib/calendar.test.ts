@@ -48,3 +48,28 @@ describe('Kalender', () => {
     expect(q.map((x) => x.key)).toEqual(['2026-11-06', '2026-11-12', '2026-11-19'])
   })
 })
+
+import { isoWeek, startOfWeek, weekDays, weekRange } from './calendar'
+
+describe('Wochenplan', () => {
+  it('Woche beginnt am Montag, auch wenn der Tag ein Sonntag ist', () => {
+    expect(dateKey(startOfWeek(new Date(2026, 10, 4)))).toBe('2026-11-02')
+    expect(dateKey(startOfWeek(new Date(2026, 10, 1)))).toBe('2026-10-26')
+    expect(dateKey(startOfWeek(new Date(2026, 10, 2)))).toBe('2026-11-02')
+  })
+
+  it('Kalenderwochen nach ISO', () => {
+    expect(isoWeek(new Date(2026, 0, 1))).toBe(1)
+    expect(isoWeek(new Date(2026, 10, 4))).toBe(45)
+    expect(isoWeek(new Date(2026, 11, 31))).toBe(53)
+    expect(isoWeek(new Date(2027, 0, 3))).toBe(53)
+  })
+
+  it('Wochenbereich und Tage', () => {
+    expect(weekRange(new Date(2026, 10, 2))).toBe('2.–8. Nov.')
+    expect(weekRange(new Date(2026, 10, 30))).toBe('30. Nov.–6. Dez.')
+    const d = weekDays(new Date(2026, 10, 2))
+    expect(d.map((x) => x.weekday).join('')).toBe('MoDiMiDoFrSaSo')
+    expect(d[6].key).toBe('2026-11-08')
+  })
+})

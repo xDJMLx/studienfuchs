@@ -75,3 +75,31 @@ export function quickDates(now = new Date()): { label: string; key: string }[] {
     { label: 'In zwei Wochen', key: dateKey(addDays(now, 14)) },
   ]
 }
+
+/** Montag der Woche, in der `d` liegt. */
+export function startOfWeek(d: Date): Date {
+  return addDays(new Date(d.getFullYear(), d.getMonth(), d.getDate()), -((d.getDay() + 6) % 7))
+}
+
+/** Kalenderwoche nach ISO 8601 (Woche mit dem ersten Donnerstag des Jahres ist KW 1). */
+export function isoWeek(d: Date): number {
+  const t = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()))
+  const day = t.getUTCDay() || 7
+  t.setUTCDate(t.getUTCDate() + 4 - day)
+  const yearStart = Date.UTC(t.getUTCFullYear(), 0, 1)
+  return Math.ceil(((t.getTime() - yearStart) / 86_400_000 + 1) / 7)
+}
+
+/** "3.–9. Nov." bzw. "30. Nov.–6. Dez." */
+export function weekRange(monday: Date): string {
+  const sunday = addDays(monday, 6)
+  const m = (d: Date) => MONTHS[d.getMonth()].slice(0, 3)
+  return monday.getMonth() === sunday.getMonth() ? `${monday.getDate()}.–${sunday.getDate()}. ${m(sunday)}.` : `${monday.getDate()}. ${m(monday)}.–${sunday.getDate()}. ${m(sunday)}.`
+}
+
+/** Die sieben Tage einer Woche (Montag bis Sonntag). */
+export const weekDays = (monday: Date): { key: string; day: number; weekday: string; date: Date }[] =>
+  ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'].map((weekday, i) => {
+    const date = addDays(monday, i)
+    return { key: dateKey(date), day: date.getDate(), weekday, date }
+  })

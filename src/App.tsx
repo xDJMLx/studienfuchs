@@ -90,7 +90,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/placement', 'Einstufungstest'],
   ['/catchup', 'Aufholen'],
   ['/faecher', 'Fächer'],
-  ['/kalender', 'Kalender'],
+  ['/kalender', 'Wochenplan'],
   ['/stapel', 'Stapel'],
   ['/ueben/los', 'Üben'],
   ['/books', 'Bücher'],

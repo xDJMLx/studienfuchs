@@ -107,7 +107,7 @@ export function FaecherPage() {
       <Item>
         <Link to="/kalender" className="card press mt-6 flex items-center gap-3 p-3.5">
           <span className="min-w-0 flex-1">
-            <span className="block font-extrabold">Kalender</span>
+            <span className="block font-extrabold">Wochenplan</span>
             <span className="block text-sm text-muted">Arbeiten und Tests aller Fächer auf einen Blick.</span>
           </span>
           <Right size={16} className="text-muted" />
