@@ -13,6 +13,8 @@ import { useStore } from '../../store/useStore'
 import { GrammarPage } from '../grammar/GrammarPage'
 import { WordsPage } from '../words/WordsPage'
 import { ArbeitSheet } from './ArbeitSheet'
+import { TemplateList } from './TemplateList'
+import { templatesFor } from '../../content/templates'
 
 const when = (days: number) => (days < 0 ? 'vorbei' : days === 0 ? 'Heute' : days === 1 ? 'Morgen' : `in ${days} Tagen`)
 
@@ -158,6 +160,16 @@ export function FachPage() {
             )}
           </Item>
 
+          {!isFrench && templatesFor(subjectId).length > 0 && (
+            <Item>
+              <h2 className="mb-1 text-lg font-extrabold">Fertige Stapel</h2>
+              <p className="mb-3 text-sm text-muted">Grundwissen zum Hinzufügen. Du kannst die Karten danach bearbeiten.</p>
+              <div className="mb-5">
+                <TemplateList subject={subjectId} />
+              </div>
+            </Item>
+          )}
+
           {isFrench && (
             <Item>
               <h2 className="mb-1 text-lg font-extrabold">Fertige Stapel aus dem Kurs</h2>
@@ -220,6 +232,19 @@ export function FachPage() {
               </ul>
             )}
           </Item>
+
+          {subjectId === 'mathe' && (
+            <Item>
+              <h2 className="mb-2 text-lg font-extrabold">Rechentraining</h2>
+              <Link to="/faecher/mathe/training" className="card press mb-5 flex items-center gap-3 p-3.5">
+                <span className="min-w-0 flex-1">
+                  <span className="block font-extrabold">43 Themen, immer neue Aufgaben</span>
+                  <span className="block text-sm text-muted">Brüche, Prozent, Gleichungen, Geometrie und mehr: mit Rechenweg bei Fehlern und Formelsammlung.</span>
+                </span>
+                <Right size={16} className="shrink-0 text-muted" />
+              </Link>
+            </Item>
+          )}
 
           {isFrench && (
             <Item>

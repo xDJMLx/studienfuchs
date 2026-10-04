@@ -48,6 +48,8 @@ function lazyPage<K extends string>(load: () => Promise<Record<K, ComponentType>
 const GrammarTopicPage = lazyPage(() => import('./features/grammar/GrammarPage'), 'GrammarTopicPage')
 const UebenPlay = lazyPage(() => import('./features/ueben/CardFlow'), 'UebenPlay')
 const KalenderPage = lazyPage(() => import('./features/kalender/KalenderPage'), 'KalenderPage')
+const MathTrainingPage = lazyPage(() => import('./features/practice/MathPractice'), 'MathTrainingPage')
+const MathTrainPage = lazyPage(() => import('./features/practice/MathPractice'), 'MathTrainPage')
 const FachPage = lazyPage(() => import('./features/faecher/FachPage'), 'FachPage')
 const DeckPage = lazyPage(() => import('./features/faecher/DeckPage'), 'DeckPage')
 const DeckCreatePage = lazyPage(() => import('./features/faecher/DeckCreatePage'), 'DeckCreatePage')
@@ -73,6 +75,12 @@ function RouteGuard({ children }: { children: React.ReactNode }) {
   return <ErrorBoundary resetKey={pathname}>{children}</ErrorBoundary>
 }
 
+/** Alte Adresse der KI (mit Frage in der Adresse) führt zur KI-Hilfe für Französisch. */
+function CoachRedirect() {
+  const { search } = useLocation()
+  return <Navigate to={`/faecher/franzoesisch/ki${search}`} replace />
+}
+
 /** Alte Adresse eines Stapels (früher "Set") führt zum neuen Stapel. */
 function DeckRedirect() {
   const { setId = '' } = useParams()
@@ -86,22 +94,18 @@ function PageFallback() {
 /** Seitentitel pro Seite: wichtig für Tabs, Verlauf und Screenreader (die Adresse ändert sich nur nach dem #). */
 const TITLES: [prefix: string, title: string][] = [
   ['/welcome', 'Willkommen'],
-  ['/lesson/', 'Lektion'],
-  ['/placement', 'Einstufungstest'],
-  ['/catchup', 'Aufholen'],
   ['/faecher', 'Fächer'],
   ['/kalender', 'Wochenplan'],
   ['/stapel', 'Stapel'],
   ['/ueben/los', 'Üben'],
+  ['/math/train', 'Rechentraining'],
   ['/books', 'Bücher'],
   ['/speak', 'Sprechtraining'],
   ['/exam/new', 'Test erstellen'],
   ['/exam/', 'Test'],
   ['/shop', 'Fuchs & Shop'],
-  ['/practice/cards', 'Karteikarten'],
   ['/math/train', 'Training'],
   ['/blitz', 'Blitzrunde'],
-  ['/practice', 'Üben'],
   ['/review/play', 'Wiederholung'],
   ['/review', 'Lernstand'],
   ['/words', 'Wörter'],
@@ -156,6 +160,7 @@ export default function App() {
             <Route path="review" element={<ReviewPage />} />
             <Route path="faecher" element={<FaecherPage />} />
             <Route path="kalender" element={<KalenderPage />} />
+            <Route path="faecher/mathe/training" element={<MathTrainingPage />} />
             <Route path="faecher/:subjectId" element={<FachPage />} />
             <Route path="faecher/:subjectId/ki" element={<CoachPage />} />
             <Route path="stapel/neu" element={<DeckCreatePage />} />
@@ -170,7 +175,7 @@ export default function App() {
             <Route path="about" element={<AboutPage />} />
             {/* Alte Adressen */}
             <Route path="practice" element={<Navigate to="/" replace />} />
-            <Route path="coach" element={<Navigate to="/faecher/franzoesisch/ki" replace />} />
+            <Route path="coach" element={<CoachRedirect />} />
             <Route path="plan" element={<Navigate to="/books" replace />} />
             <Route path="words" element={<Navigate to="/faecher/franzoesisch?tab=nachschlagen" replace />} />
             <Route path="grammar" element={<Navigate to="/faecher/franzoesisch?tab=nachschlagen" replace />} />
@@ -183,6 +188,7 @@ export default function App() {
           </Route>
           {/* Übungs-Durchgänge ohne Navigation, damit nichts ablenkt */}
           <Route path="ueben/los" element={<UebenPlay />} />
+          <Route path="math/train" element={<MathTrainPage />} />
           <Route path="review/play" element={<UebenPlay />} />
           <Route path="exam/:examId" element={<ExamPlayPage />} />
           <Route path="speak" element={<SpeakTrainingPage />} />

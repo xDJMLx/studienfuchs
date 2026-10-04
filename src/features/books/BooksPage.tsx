@@ -1,11 +1,9 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Close, Plus, Right, Sparkle, Target } from '../../components/ui/Icons'
+import { Close, Plus, Right, Sparkle } from '../../components/ui/Icons'
 import { Item, Stagger } from '../../components/ui/motion'
 import { Sheet } from '../../components/ui/Sheet'
-import { ProgressBar } from '../../components/ui/widgets'
-import { catchUpStatus, unitLabel } from '../../lib/catchup'
 import { daysTo } from '../../lib/coach'
 import { chapterOf } from '../../lib/books'
 import { dayKey } from '../../lib/streak'
@@ -23,9 +21,8 @@ const longDate = (d: string) => new Date(d).toLocaleDateString('de-DE', { weekda
  */
 export function BooksPage() {
   const navigate = useNavigate()
-  const { classUnit, catchUpTarget, catchUpAll, catchUpExtras, catchUpOngoing, lessons, sets, examDates, setExamDate, grade } = useStore(useShallow((s) => ({ classUnit: s.classUnit, catchUpTarget: s.catchUpTarget, catchUpAll: s.catchUpAll, catchUpExtras: s.catchUpExtras, catchUpOngoing: s.catchUpOngoing, lessons: s.lessons, sets: s.sets, examDates: s.examDates, setExamDate: s.setExamDate, grade: s.grade })))
+  const { sets, examDates, setExamDate, grade } = useStore(useShallow((s) => ({ sets: s.sets, examDates: s.examDates, setExamDate: s.setExamDate, grade: s.grade })))
   const { books, exams, addBook, addExam, deleteExam } = useBooks()
-  const status = classUnit && catchUpTarget ? catchUpStatus(classUnit, catchUpTarget, lessons, new Date(), catchUpAll, catchUpExtras, catchUpOngoing) : null
 
   const [newOpen, setNewOpen] = useState(false)
   const [title, setTitle] = useState('')
@@ -84,37 +81,6 @@ export function BooksPage() {
         <p className="mb-6 mt-1 text-muted">Deine eigenen Schulbücher. Die KI weiß dann, wo ihr gerade seid und was im Buch steht.</p>
       </Item>
 
-      {/* Stand der Klasse im Kurs (Aufholen) */}
-      <Item>
-        <Link to="/catchup" className="card lift flex items-center gap-4 p-4">
-          <span className="flex h-12 w-12 shrink-0 items-center justify-center text-brand-dark">
-            <Target size={24} />
-          </span>
-          <span className="min-w-0 flex-1">
-            {classUnit ? (
-              <>
-                <span className="block truncate font-semibold">{unitLabel(classUnit)}</span>
-                {status && !status.finished ? (
-                  <>
-                    <span className="block text-sm text-muted">
-                      Noch {status.remaining} Lektionen bis {new Date(catchUpTarget!).toLocaleDateString('de-DE', { day: 'numeric', month: 'long' })}, heute {status.toGoToday}.
-                    </span>
-                    <ProgressBar pct={status.total ? (status.total - status.remaining) / status.total : 1} className="mt-2" />
-                  </>
-                ) : (
-                  <span className="block text-sm text-muted">{status?.finished ? 'Du bist auf dem Stand deiner Klasse.' : 'Aufholplan anlegen oder Stand ändern.'}</span>
-                )}
-              </>
-            ) : (
-              <>
-                <span className="block font-semibold">Wo ist deine Klasse im Kurs?</span>
-                <span className="block text-sm text-muted">Sag es der App, und sie macht dir einen Tagesplan zum Aufholen.</span>
-              </>
-            )}
-          </span>
-          <Right size={16} className="shrink-0 text-muted" />
-        </Link>
-      </Item>
 
       {/* Bücherregal */}
       <Item className="mt-8">

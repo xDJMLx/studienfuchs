@@ -10,8 +10,10 @@ import { useStore } from '../../store/useStore'
 import { AiNotice } from '../settings/AiNotice'
 import { newRow, type Row } from '../upload/VocabTable'
 import { CardTable } from './CardTable'
+import { TemplateList } from './TemplateList'
+import { templatesFor } from '../../content/templates'
 
-type Way = 'ai' | 'write'
+type Way = 'ai' | 'write' | 'vorlage'
 
 const COUNTS = [10, 20, 30]
 const field = 'w-full rounded-xl border-2 border-line bg-snow px-3 py-2.5 font-semibold outline-none transition-colors focus:border-sky'
@@ -126,10 +128,16 @@ export function DeckCreatePage() {
             options={[
               { value: 'ai' as Way, label: 'Von der KI' },
               { value: 'write' as Way, label: 'Selbst schreiben' },
+              ...(templatesFor(subject).length ? [{ value: 'vorlage' as Way, label: 'Fertige' }] : []),
             ]}
           />
 
-          {way === 'ai' ? (
+          {way === 'vorlage' ? (
+            <>
+              <p className="text-sm text-muted">Grundwissen, das in fast jedem Unterricht vorkommt. Du kannst die Karten danach bearbeiten und eigene ergänzen. Dein Lehrer setzt vielleicht andere Schwerpunkte: Gleiche es mit deinem Unterricht ab.</p>
+              <TemplateList subject={subject} onAdded={(id) => navigate(`/stapel/${id}`, { replace: true })} />
+            </>
+          ) : way === 'ai' ? (
             <>
               <label className="grid gap-1.5 text-sm font-bold text-muted">
                 Was brauchst du?
@@ -197,9 +205,20 @@ export function DeckCreatePage() {
       )}
 
       {error && (
-        <p className="mt-4 rounded-xl bg-bad-soft p-3 text-sm font-semibold text-bad-dark" role="alert">
-          {error}
-        </p>
+        <div className="mt-4 rounded-xl bg-bad-soft p-3 text-sm text-bad-dark" role="alert">
+          <p className="font-semibold">{error}</p>
+          <p className="mt-1">
+            Du kannst die Karten auch{' '}
+            <button type="button" className="font-extrabold underline" onClick={() => { setError(null); setWay('write') }}>selbst schreiben</button>
+            {templatesFor(subject).length > 0 && (
+              <>
+                {' '}oder{' '}
+                <button type="button" className="font-extrabold underline" onClick={() => { setError(null); setWay('vorlage') }}>einen fertigen Stapel nehmen</button>
+              </>
+            )}
+            .
+          </p>
+        </div>
       )}
 
       {rows && (

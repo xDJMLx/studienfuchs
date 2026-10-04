@@ -151,3 +151,48 @@ describe('Alte Adressen führen weiter', () => {
 })
 
 void btn
+
+describe('Fertige Stapel', () => {
+  it('Aus der Fach-Seite hinzufügen, danach üben ohne eigene Arbeit', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
+    window.location.hash = '#/faecher/biologie'
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Fertige Stapel/))
+    await click(/Die Zelle hinzufügen/)
+    const set = useStore.getState().sets[0]
+    expect(set).toMatchObject({ title: 'Die Zelle', subject: 'biologie' })
+    expect(set.items.length).toBeGreaterThanOrEqual(10)
+    await waitFor(() => expect(text()).toMatch(/Dabei/))
+    // Schon vorhanden: nicht doppelt hinzufügbar
+    expect((await screen.findByRole('button', { name: /Die Zelle: schon hinzugefügt/ })).hasAttribute('disabled')).toBe(true)
+    go('#/')
+    await waitFor(() => expect(text()).toMatch(/Heute dran/))
+  })
+
+  it('Beim Erstellen: Wenn die KI nicht geht, gibt es fertige Stapel und Selbstschreiben als Ausweg', async () => {
+    useStore.setState({ onboarded: true })
+    window.location.hash = '#/stapel/neu?fach=physik'
+    render(<App />)
+    await click(/Fertige/, 'radio')
+    await waitFor(() => expect(text()).toMatch(/Größen, Einheiten und Formeln/))
+  })
+})
+
+describe('Rechentraining in Mathe', () => {
+  it('Themenliste, Training starten, falsche Antwort zeigt den Rechenweg', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['mathe'] })
+    window.location.hash = '#/faecher/mathe'
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Rechentraining/))
+    go('#/faecher/mathe/training')
+    await waitFor(() => expect(text()).toMatch(/43 Themen|Negative Zahlen|Addieren/i))
+    expect(text()).toMatch(/Brüche/)
+    go('#/math/train?skill=zu.dreisatz')
+    await waitFor(() => expect(document.querySelector('.exercise-in')).toBeTruthy(), { timeout: 4000 })
+    // Erst Antwort falsch: der Rechenweg erscheint
+    const unknown = await screen.findByRole('button', { name: /Weiß ich nicht|Weiss ich nicht/i })
+    fireEvent.click(unknown)
+    await waitFor(() => expect(text()).toMatch(/So geht's/))
+    expect(text()).toMatch(/Richtige Lösung/)
+  })
+})
