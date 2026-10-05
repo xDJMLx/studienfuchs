@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { mascotBus } from '../../lib/mascotBus'
+import { OrderExercise } from '../../components/exercises/OrderExercise'
 import { BuildExercise } from '../../components/exercises/BuildExercise'
 import { ChoiceExercise } from '../../components/exercises/ChoiceExercise'
 import { FillExercise } from '../../components/exercises/FillExercise'
@@ -209,6 +210,8 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
       <QChoiceExercise exercise={ex} {...common} />
     ) : ex.kind === 'qtype' ? (
       <QTypeExercise exercise={ex} {...common} />
+    ) : ex.kind === 'order' ? (
+      <OrderExercise exercise={ex} {...common} />
     ) : ex.kind === 'qcard' ? (
       <QCardExercise exercise={ex} {...common} />
     ) : ex.kind === 'calc' ? (

@@ -1,5 +1,6 @@
 import type { CardRef } from './decks'
 import { shuffle } from './generateExercises'
+import { taskToExercise } from './tasks'
 import type { Exercise, Item, Mastery } from './types'
 
 export interface CardSessionOptions {
@@ -33,7 +34,7 @@ function wrongAnswers(ref: CardRef, side: 'front' | 'back', pool: CardRef[], n: 
   for (const tier of tiers) {
     for (const p of shuffle(tier, rng)) {
       const v = p.item[side]
-      if (p.item.id === ref.item.id || seen.has(norm(v)) || v.length > 60) continue
+      if (p.item.id === ref.item.id || p.item.task || seen.has(norm(v)) || v.length > 60) continue
       seen.add(norm(v))
       out.push(v)
       if (out.length >= n) return out
@@ -59,11 +60,15 @@ export function generateCardSession(opts: CardSessionOptions): Exercise[] {
   const refs = opts.refs.filter((r) => (seen.has(r.item.id) ? false : (seen.add(r.item.id), true))).slice(0, opts.count ?? Infinity)
 
   const known = shuffle(refs.filter((r) => opts.mastery(r.item.id) > 0), rng)
-  const fresh = refs.filter((r) => opts.mastery(r.item.id) === 0)
+  // Neue Aufgaben werden nicht erst gezeigt: Sie sind selbst schon die Übung (bei einem Fehler steht die Lösung dabei)
+  const freshTasks = refs.filter((r) => opts.mastery(r.item.id) === 0 && r.item.task)
+  const fresh = refs.filter((r) => opts.mastery(r.item.id) === 0 && !r.item.task)
   const out: Exercise[] = []
 
   const forms = (ref: CardRef, m: Mastery, firstContact: boolean): Exercise => {
     const { item, deck } = ref
+    // Aufgaben (Quiz, Lückentext, Rechnen …) haben ihre eigene Form; im Karteikarten-Modus werden sie zu Frage und Antwort
+    if (item.task) return taskToExercise(item, item.task, { rng, flip: opts.flipOnly, lang: deck.lang })
     const reverse = deck.both && !firstContact && rng() < 0.5
     const q = reverse ? item.back : item.front
     const a = reverse ? item.front : item.back
@@ -101,6 +106,8 @@ export function generateCardSession(opts: CardSessionOptions): Exercise[] {
   }
 
   for (const ref of known) out.push(forms(ref, opts.mastery(ref.item.id), false))
+
+  for (const ref of freshTasks) out.push(forms(ref, 0, false))
 
   // Neue Karten zu zweit zeigen und gleich abfragen
   for (let i = 0; i < fresh.length; i += 2) {

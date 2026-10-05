@@ -1,3 +1,4 @@
+import type { Task } from '../../lib/tasks'
 import { useRef, useState } from 'react'
 import { Check, Plus, Swap, Trash } from '../../components/ui/Icons'
 import { restoreAccents } from '../../lib/accents'
@@ -9,6 +10,8 @@ export interface Row {
   example?: string
   exampleDe?: string
   note?: string
+  /** Aufgabe statt Karte (nur ansehen und löschen, nicht umschreiben) */
+  task?: Task
 }
 
 let counter = 0

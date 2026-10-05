@@ -1,10 +1,14 @@
 // Gemeinsames Datenmodell: Kurs-Inhalte und eigene Sets nutzen dieselben Items.
 // front = Lernsprache (z.B. Französisch), back = Muttersprache (Deutsch).
 
+import type { Task } from './tasks'
+
 export interface Item {
   id: string
   front: string
   back: string
+  /** Aufgabe statt Karteikarte (Quiz, Lückentext, Zuordnen, Reihenfolge, Kurzantwort, Rechnen): front und back zeigen Frage und Lösung */
+  task?: Task
   example?: string
   exampleDe?: string
   note?: string
@@ -121,6 +125,8 @@ export type CardExerciseKind =
   | { kind: 'qchoice'; id: string; itemId: string; title: string; prompt: string; answer: string; options: string[]; lang?: DeckLang; speak?: string }
   | { kind: 'qtype'; id: string; itemId: string; title: string; prompt: string; answer: string; accept?: string[]; lang?: DeckLang; speak?: string; hint?: boolean }
   | { kind: 'qcard'; id: string; itemId: string; front: string; back: string; example?: string; exampleDe?: string; lang?: DeckLang; speak?: string }
+  /** Schritte in die richtige Reihenfolge bringen: `shuffled` ist die Anzeige-Reihenfolge, `steps` die Lösung */
+  | { kind: 'order'; id: string; itemId: string; prompt: string; steps: string[]; shuffled: string[]; why?: string }
 
 /** Mathe-Aufgaben. Texte sind in Mathe-Schreibweise: $…$ für Terme, {Zähler|Nenner} für Brüche, ^2 für Hochzahlen. */
 export type MathExerciseKind =

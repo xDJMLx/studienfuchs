@@ -35,7 +35,7 @@ export function DeckPage() {
 
   const sub = helpSubject(deck.subject)
   const fr = deck.lang === 'fr'
-  const startEdit = () => setEditing(deck.items.map((i) => newRow(i.front, i.back, { example: i.example, exampleDe: i.exampleDe, note: i.note })))
+  const startEdit = () => setEditing(deck.items.map((i) => newRow(i.front, i.back, { example: i.example, exampleDe: i.exampleDe, note: i.note, task: i.task })))
   const saveEdit = () => {
     if (!set) return
     const prev = new Map(set.items.map((i, idx) => [`${i.front}|${i.back}`, idx]))
@@ -50,6 +50,7 @@ export function DeckPage() {
           back: r.back.trim(),
           ...(r.example?.trim() && r.exampleDe?.trim() ? { example: r.example.trim(), exampleDe: r.exampleDe.trim() } : {}),
           ...(r.note?.trim() ? { note: r.note.trim() } : {}),
+          ...(r.task ? { task: r.task } : {}),
         }
       })
     updateSet(set.id, { items })

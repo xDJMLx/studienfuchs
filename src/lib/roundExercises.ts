@@ -28,8 +28,9 @@ export const FRENCH_ROUND = 10
 export function generateRound(opts: RoundOptions): Exercise[] {
   const rng = opts.rng ?? Math.random
   const mode = opts.mode ?? 'mix'
-  const french = opts.refs.filter((r) => r.deck.lang === 'fr')
-  const rest = opts.refs.filter((r) => r.deck.lang !== 'fr')
+  // Aufgaben (Quiz, Lückentext, Rechnen …) laufen auch in französischen Sätzen über die allgemeinen Aufgaben
+  const french = opts.refs.filter((r) => r.deck.lang === 'fr' && !r.item.task)
+  const rest = opts.refs.filter((r) => r.deck.lang !== 'fr' || r.item.task)
 
   // Karteikarten zum Umdrehen: für alle gleich
   if (mode === 'flip') return generateCardSession({ refs: opts.refs, pool: opts.pool, mastery: opts.mastery, flipOnly: true, rng })

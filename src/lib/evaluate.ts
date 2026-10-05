@@ -62,6 +62,14 @@ export function evaluate(ex: Exercise, answer: Answer): Evaluation {
       const r = checkAnswer(String(answer), ex.answer, ex.accept)
       return { ...r, correctAnswer: ex.answer, mistakeItemIds: r.status === 'wrong' ? [ex.itemId] : [] }
     }
+    case 'order': {
+      // Genau die Reihenfolge der Lösung
+      const got = Array.isArray(answer) ? (answer as string[]) : []
+      const wrongAt = ex.steps.filter((s, i) => got[i] !== s).length
+      const solution = ex.steps.map((s, i) => `${i + 1}. ${s}`).join('\n')
+      if (wrongAt === 0) return { status: 'correct', correctAnswer: solution, mistakeItemIds: [] }
+      return { status: 'wrong', correctAnswer: solution, mistakeItemIds: [ex.itemId] }
+    }
     case 'qcard': {
       // Selbstbewertung: "Nicht gewusst" zählt als Fehler, "Schwer" als fast richtig
       const g = (answer as { selfGrade?: SelfGrade }).selfGrade

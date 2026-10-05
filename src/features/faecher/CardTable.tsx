@@ -1,5 +1,6 @@
 import { Plus, Swap, Trash } from '../../components/ui/Icons'
 import { restoreAccents } from '../../lib/accents'
+import { TASK_LABEL } from '../../lib/tasks'
 import type { DeckLang } from '../../lib/types'
 import { newRow, type Row } from '../upload/VocabTable'
 
@@ -21,11 +22,17 @@ export function CardTable({ rows, onChange, lang, labels = ['Vorderseite', 'Rüc
         {rows.map((r, i) => (
           <li key={r.key} className="card p-3">
             <div className="mb-2 flex items-center justify-between">
-              <span className="text-xs font-extrabold text-muted">Karte {i + 1}</span>
+              <span className="text-xs font-extrabold text-muted">{r.task ? `${TASK_LABEL[r.task.t]} ${i + 1}` : `Karte ${i + 1}`}</span>
               <button type="button" aria-label={`Karte ${i + 1} löschen`} onClick={() => onChange(rows.filter((x) => x.key !== r.key))} className="flex h-8 w-8 items-center justify-center rounded-lg text-muted transition-colors hover:bg-snow hover:text-bad">
                 <Trash size={18} />
               </button>
             </div>
+            {r.task ? (
+              <div className="grid gap-1 text-[15px]">
+                <p className="whitespace-pre-wrap font-semibold">{r.front}</p>
+                <p className="whitespace-pre-wrap text-sm text-muted">{r.back}</p>
+              </div>
+            ) : (
             <div className="grid gap-2 sm:grid-cols-2">
               <label className="grid gap-1 text-xs font-bold text-muted">
                 {labels[0]}
@@ -44,6 +51,7 @@ export function CardTable({ rows, onChange, lang, labels = ['Vorderseite', 'Rüc
                 <textarea rows={2} className={cell} value={r.back} onChange={(e) => update(r.key, { back: e.target.value })} />
               </label>
             </div>
+            )}
           </li>
         ))}
       </ul>
@@ -51,7 +59,7 @@ export function CardTable({ rows, onChange, lang, labels = ['Vorderseite', 'Rüc
         <button type="button" className="btn btn-ghost press !px-3 !py-2 !text-sm" onClick={() => onChange([...rows, newRow()])}>
           <Plus size={16} /> Karte
         </button>
-        <button type="button" className="btn btn-ghost press !px-3 !py-2 !text-sm" onClick={() => onChange(rows.map((r) => ({ ...r, front: r.back, back: r.front })))}>
+        <button type="button" className="btn btn-ghost press !px-3 !py-2 !text-sm" onClick={() => onChange(rows.map((r) => (r.task ? r : { ...r, front: r.back, back: r.front })))}>
           <Swap size={16} /> Seiten tauschen
         </button>
       </div>
