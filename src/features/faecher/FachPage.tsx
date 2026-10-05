@@ -9,6 +9,7 @@ import { deckStars, levelOfSolid, subjectStats } from '../../lib/progress'
 import { masteryOf } from '../../lib/srs'
 import { helpSubject } from '../../lib/subjects'
 import type { Arbeit } from '../../lib/types'
+import { taskCount, testKindLabel } from '../../lib/tests'
 import { useStore } from '../../store/useStore'
 import { GrammarPage } from '../grammar/GrammarPage'
 import { WordsPage } from '../words/WordsPage'
@@ -28,6 +29,9 @@ export function FachPage() {
   const addedUnits = useStore((s) => s.addedUnits)
   const arbeiten = useStore((s) => s.arbeiten)
   const cards = useStore((s) => s.cards)
+  const tests = useStore((s) => s.tests) ?? []
+  const testResults = useStore((s) => s.testResults) ?? []
+  const subjectTests = tests.filter((t) => t.subject === subjectId)
   const toggleUnit = useStore((s) => s.toggleUnit)
   const mySubjects = useStore((s) => s.mySubjects)
   const toggleSubject = useStore((s) => s.toggleSubject)
@@ -233,6 +237,44 @@ export function FachPage() {
             )}
           </Item>
 
+          <Item>
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <h2 className="text-lg font-extrabold">Tests &amp; Arbeiten</h2>
+              <Link to={`/test/neu?fach=${subjectId}`} className="press flex min-h-9 items-center gap-1 rounded-xl px-2.5 text-sm font-extrabold text-sky-dark hover:bg-sky-soft">
+                <Plus size={16} /> Neu
+              </Link>
+            </div>
+            {subjectTests.length === 0 ? (
+              <Link to={`/test/neu?fach=${subjectId}`} className="card press mb-5 flex items-center gap-3 p-3.5">
+                <span className="min-w-0 flex-1">
+                  <span className="block font-extrabold">Test, Klassenarbeit oder Vokabeltest</span>
+                  <span className="block text-sm text-muted">Die KI erstellt ihn aus deinem Thema oder deinen Karteikarten, mit Punkten und ungefährer Note.</span>
+                </span>
+                <Right size={16} className="shrink-0 text-muted" />
+              </Link>
+            ) : (
+              <ul className="mb-5 grid gap-2.5">
+                {subjectTests.slice(0, 6).map((t) => {
+                  const rs = testResults.filter((r) => r.testId === t.id)
+                  const best = rs.length ? Math.max(...rs.map((r) => r.percent)) : null
+                  return (
+                    <li key={t.id}>
+                      <Link to={`/test/${t.id}`} className="card press flex items-center gap-3 p-3.5">
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate font-extrabold">{t.title}</span>
+                          <span className="block text-sm text-muted">
+                            {testKindLabel(t.kind)} · {taskCount(t)} Aufgaben · {t.minutes} Min.{best !== null ? ` · beste ${best} %` : ''}
+                          </span>
+                        </span>
+                        <Right size={16} className="shrink-0 text-muted" />
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            )}
+          </Item>
+
           {subjectId === 'mathe' && (
             <Item>
               <h2 className="mb-2 text-lg font-extrabold">Rechentraining</h2>
@@ -252,7 +294,7 @@ export function FachPage() {
               <div className="mb-5 grid gap-2.5">
                 {[
                   { to: '/speak?scope=learned', title: 'Sprechtraining', text: 'Wörter nachsprechen, mit Lautschule.' },
-                  { to: '/exam/new', title: 'Test oder Klassenarbeit von der KI', text: 'Kurztest aus deinen Karten oder eine ganze Arbeit.' },
+                  { to: '/exam/new', title: 'Klassenarbeit mit Hörverstehen', text: 'Vorgelesene Texte, Wortschatz und Schreiben, von der KI erstellt.' },
                   { to: '/books', title: 'Bücher und Buchseiten', text: 'Seiten aus deinem Schulbuch ablegen, die KI kennt sie dann.' },
                 ].map((x) => (
                   <Link key={x.to} to={x.to} className="card press flex items-center gap-3 p-3.5">

@@ -56,6 +56,8 @@ const DeckPage = lazyPage(() => import('./features/faecher/DeckPage'), 'DeckPage
 const DeckCreatePage = lazyPage(() => import('./features/faecher/DeckCreatePage'), 'DeckCreatePage')
 const CoachPage = lazyPage(() => import('./features/coach/CoachPage'), 'CoachPage')
 const ExamCreatePage = lazyPage(() => import('./features/exam/ExamCreatePage'), 'ExamCreatePage')
+const TestCreatePage = lazyPage(() => import('./features/test/TestCreatePage'), 'TestCreatePage')
+const TestPlayPage = lazyPage(() => import('./features/test/TestPlayPage'), 'TestPlayPage')
 const ExamPlayPage = lazyPage(() => import('./features/exam/ExamPlayPage'), 'ExamPlayPage')
 const SpeakTrainingPage = lazyPage(() => import('./features/speak/SpeakTrainingPage'), 'SpeakTrainingPage')
 const BookPage = lazyPage(() => import('./features/books/BookPage'), 'BookPage')
@@ -102,6 +104,8 @@ const TITLES: [prefix: string, title: string][] = [
   ['/books', 'Bücher'],
   ['/speak', 'Sprechtraining'],
   ['/exam/new', 'Test erstellen'],
+  ['/test/neu', 'Test erstellen'],
+  ['/test/', 'Test'],
   ['/exam/', 'Test'],
   ['/shop', 'Fuchs & Shop'],
   ['/math/train', 'Training'],
@@ -169,6 +173,7 @@ export default function App() {
             <Route path="books" element={<BooksPage />} />
             <Route path="books/:bookId" element={<BookPage />} />
             <Route path="exam/new" element={<ExamCreatePage />} />
+            <Route path="test/neu" element={<TestCreatePage />} />
             <Route path="shop" element={<ShopPage />} />
             <Route path="grammar/:lessonId" element={<GrammarTopicPage />} />
             <Route path="profile" element={<ProfilePage />} />
@@ -192,6 +197,7 @@ export default function App() {
           <Route path="math/train" element={<MathTrainPage />} />
           <Route path="review/play" element={<UebenPlay />} />
           <Route path="exam/:examId" element={<ExamPlayPage />} />
+          <Route path="test/:testId" element={<TestPlayPage />} />
           <Route path="speak" element={<SpeakTrainingPage />} />
           {ResultLab && <Route path="result-lab" element={<ResultLab />} />}
           <Route path="blitz" element={<BlitzPage />} />

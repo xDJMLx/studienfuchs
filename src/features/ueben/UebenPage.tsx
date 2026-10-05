@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Plus, Repeat, Right } from '../../components/ui/Icons'
+import { Plus, Repeat, Right, Trophy } from '../../components/ui/Icons'
 import { Item, Stagger } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { dateKey, kindLabel, needsFollowUp } from '../../lib/calendar'
@@ -201,7 +201,15 @@ export function UebenPage() {
           </Link>
           <Link to="/stapel/neu" className="card press flex items-center gap-3 p-3.5">
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand-dark"><Plus size={22} /></span>
-            <span className="min-w-0 font-extrabold leading-tight">Neue Karteikarten</span>
+            <span className="min-w-0 font-extrabold leading-tight">Neu erstellen</span>
+            <Right size={14} className="ml-auto text-muted" />
+          </Link>
+          <Link to="/test/neu" className="card press col-span-2 flex items-center gap-3 p-3.5">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-soft text-violet-dark"><Trophy size={22} /></span>
+            <span className="min-w-0 flex-1 leading-tight">
+              <span className="block font-extrabold">Test oder Klassenarbeit</span>
+              <span className="block text-xs text-muted">Von der KI, mit Punkten und ungefährer Note</span>
+            </span>
             <Right size={14} className="ml-auto text-muted" />
           </Link>
         </div>

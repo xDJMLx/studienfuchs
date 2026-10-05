@@ -1,20 +1,9 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { mascotBus } from '../../lib/mascotBus'
-import { OrderExercise } from '../../components/exercises/OrderExercise'
-import { BuildExercise } from '../../components/exercises/BuildExercise'
-import { ChoiceExercise } from '../../components/exercises/ChoiceExercise'
-import { FillExercise } from '../../components/exercises/FillExercise'
-import { ListenChoiceExercise } from '../../components/exercises/ListenChoiceExercise'
-import { ListenExercise } from '../../components/exercises/ListenExercise'
-import { CalcExercise, MChoiceExercise, MMatchExercise } from '../../components/exercises/MathExercises'
-import { QCardExercise, QChoiceExercise, QTypeExercise, speechLang } from '../../components/exercises/CardExercises'
+import { speechLang } from '../../components/exercises/CardExercises'
+import { ExerciseBody } from '../../components/exercises/ExerciseBody'
 import { MathText } from '../../components/math/MathText'
-import { MatchExercise } from '../../components/exercises/MatchExercise'
-import { SpeakExercise } from '../../components/exercises/SpeakExercise'
-import { SpellExercise } from '../../components/exercises/SpellExercise'
-import { TeachExercise } from '../../components/exercises/TeachExercise'
-import { TypeExercise } from '../../components/exercises/TypeExercise'
 import { Bulb, Check, Close, Flame } from '../../components/ui/Icons'
 import { EASE, SPRING } from '../../components/ui/motion'
 import { evaluate, type Answer, type Evaluation } from '../../lib/evaluate'
@@ -187,42 +176,7 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
 
   const progress = queue.length ? (idx + (result || isTeach ? 0 : 0)) / queue.length : 0
   const common = { answer, onChange, result }
-  const body =
-    ex.kind === 'teach' ? (
-      <TeachExercise exercise={ex} />
-    ) : ex.kind === 'choice' ? (
-      <ChoiceExercise exercise={ex} {...common} />
-    ) : ex.kind === 'type' ? (
-      <TypeExercise exercise={ex} {...common} />
-    ) : ex.kind === 'listen' ? (
-      <ListenExercise exercise={ex} {...common} />
-    ) : ex.kind === 'listenChoice' ? (
-      <ListenChoiceExercise exercise={ex} {...common} />
-    ) : ex.kind === 'spell' ? (
-      <SpellExercise exercise={ex} {...common} />
-    ) : ex.kind === 'speak' ? (
-      <SpeakExercise exercise={ex} {...common} />
-    ) : ex.kind === 'build' ? (
-      <BuildExercise exercise={ex} {...common} />
-    ) : ex.kind === 'match' ? (
-      <MatchExercise exercise={ex} {...common} />
-    ) : ex.kind === 'qchoice' ? (
-      <QChoiceExercise exercise={ex} {...common} />
-    ) : ex.kind === 'qtype' ? (
-      <QTypeExercise exercise={ex} {...common} />
-    ) : ex.kind === 'order' ? (
-      <OrderExercise exercise={ex} {...common} />
-    ) : ex.kind === 'qcard' ? (
-      <QCardExercise exercise={ex} {...common} />
-    ) : ex.kind === 'calc' ? (
-      <CalcExercise exercise={ex} {...common} />
-    ) : ex.kind === 'mchoice' ? (
-      <MChoiceExercise exercise={ex} {...common} />
-    ) : ex.kind === 'mmatch' ? (
-      <MMatchExercise exercise={ex} {...common} />
-    ) : (
-      <FillExercise exercise={ex} {...common} />
-    )
+  const body = <ExerciseBody exercise={ex} {...common} />
 
   const bad = result?.status === 'wrong'
 

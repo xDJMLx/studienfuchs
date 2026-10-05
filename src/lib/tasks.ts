@@ -16,6 +16,8 @@ export type Task =
   | { t: 'order'; q: string; steps: string[]; why?: string }
   | { t: 'match'; q: string; pairs: { l: string; r: string }[] }
   | { t: 'short'; q: string; sample: string; keys?: string[] }
+  /** Antwort tippen (z. B. Vokabeln im Test): `accept` = weitere richtige Schreibweisen */
+  | { t: 'type'; q: string; answer: string; accept?: string[]; lang?: DeckLang }
   | { t: 'calc'; q: string; expr: string; unit?: string; digits?: number; as?: 'dec' | 'frac'; why?: string; hint?: string }
   | { t: 'solve'; q: string; equation: string; digits?: number; why?: string; hint?: string }
 
@@ -28,6 +30,7 @@ export const TASK_LABEL: Record<TaskKind, string> = {
   order: 'Reihenfolge',
   match: 'Zuordnen',
   short: 'Kurzantwort',
+  type: 'Tippen',
   calc: 'Rechnen',
   solve: 'Gleichung',
 }
@@ -96,6 +99,8 @@ export function taskAnswerText(task: Task): string {
       return task.pairs.map((p) => `${p.l} – ${p.r}`).join('; ')
     case 'short':
       return task.sample
+    case 'type':
+      return task.answer
     case 'calc':
     case 'solve': {
       const c = computeTask(task)
@@ -174,6 +179,13 @@ export function normalizeTask(raw: unknown): Task | null {
     return { t: 'short', q, sample, ...(keys.length ? { keys } : {}) }
   }
 
+  if (t === 'type' || t === 'typed' || t === 'tippen') {
+    const answer = clean(r.answer)
+    if (!q || !answer) return null
+    const accept = list(r.accept).map(clean).filter(Boolean)
+    return { t: 'type', q, answer, ...(accept.length ? { accept } : {}) }
+  }
+
   if (t === 'calc' || t === 'rechnen') {
     const expr = clean(r.expr ?? r.term ?? r.expression)
     if (!q || !expr) return null
@@ -236,6 +248,8 @@ export function taskToExercise(item: Item, task: Task, opts: TaskExerciseOptions
       return { kind: 'order', id: `${itemId}:order`, itemId, prompt: task.q, steps: task.steps, shuffled: shuffleNotSame(task.steps, rng), ...(task.why ? { why: task.why } : {}) }
     case 'match':
       return { kind: 'mmatch', id: `${itemId}:match`, itemId, title: task.q, pairs: task.pairs.map((p, i) => ({ id: `${itemId}:p${i}`, left: p.l, right: p.r })) }
+    case 'type':
+      return { kind: 'qtype', id: `${itemId}:type`, itemId, title: 'Schreibe die Antwort', prompt: task.q, answer: task.answer, ...(task.accept?.length ? { accept: task.accept } : {}), ...(task.lang ? { lang: task.lang } : {}) }
     case 'short':
       return { kind: 'qcard', id: `${itemId}:short`, itemId, front: task.q, back: task.sample + (task.keys?.length ? `\n\nDas gehört dazu: ${task.keys.join(', ')}` : '') }
     case 'calc':

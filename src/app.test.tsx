@@ -5,6 +5,8 @@ import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vite
 import App from './App'
 import { generateCards } from './lib/aiCards'
 import { generateTasks } from './lib/aiTasks'
+import { generateTest } from './lib/aiTests'
+import { normalizeTest } from './lib/tests'
 import { normalizeTasks } from './lib/tasks'
 import { dateKey, addDays } from './lib/calendar'
 import { useStore } from './store/useStore'
@@ -12,6 +14,11 @@ import { useStore } from './store/useStore'
 vi.mock('./lib/aiCards', async () => {
   const real = await vi.importActual<typeof import('./lib/aiCards')>('./lib/aiCards')
   return { ...real, generateCards: vi.fn() }
+})
+
+vi.mock('./lib/aiTests', async () => {
+  const real = await vi.importActual<typeof import('./lib/aiTests')>('./lib/aiTests')
+  return { ...real, generateTest: vi.fn() }
 })
 
 vi.mock('./lib/aiTasks', async () => {
@@ -517,5 +524,130 @@ describe('WebUntis verbinden', () => {
     } finally {
       globalThis.fetch = real
     }
+  })
+})
+
+describe('Tests, Klassenarbeiten und Vokabeltests', () => {
+  const stage = (hash: string) => {
+    window.location.hash = hash
+    return render(<App />)
+  }
+
+  it('Vokabeltest ohne KI: aus den Vokabel-Karteikarten, tippen, Auswertung mit Punkten und Note, Falsche üben', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['englisch'] })
+    useStore.getState().addSet(
+      'Unit 4',
+      [
+        { front: 'apple', back: 'Apfel' },
+        { front: 'house', back: 'Haus' },
+        { front: 'dog', back: 'Hund' },
+        { front: 'cat', back: 'Katze' },
+      ],
+      { subject: 'englisch', lang: 'en', both: true },
+    )
+    stage('#/test/neu?fach=englisch&art=vokabeltest')
+    await waitFor(() => expect(text()).toMatch(/Welche Vokabeln/))
+    // Alle Sprach-Karteikarten sind schon gewählt
+    expect((await screen.findByRole('checkbox', { name: /Unit 4/ })).getAttribute('aria-checked')).toBe('true')
+    await click(/Deutsch → Fremdsprache/, 'radio')
+    await click(/^Vokabeltest erstellen$/)
+    await waitFor(() => expect(useStore.getState().tests).toHaveLength(1))
+    const t = useStore.getState().tests[0]
+    expect(t).toMatchObject({ kind: 'vokabeltest', subject: 'englisch' })
+    expect(t.sections[0].tasks).toHaveLength(4)
+    // Startbildschirm, dann starten
+    await screen.findByRole('button', { name: 'Starten' })
+    expect(text()).toMatch(/4\s*Aufgaben/)
+    await click(/^Starten$/)
+    const answers: Record<string, string> = { Apfel: 'apple', Haus: 'house', Hund: 'dog', Katze: 'kitten' }
+    for (let i = 0; i < 4; i++) {
+      await waitFor(() => expect(document.querySelector('textarea')).toBeTruthy())
+      const q = Object.keys(answers).find((k) => (document.querySelector('.exercise-in, main')?.textContent ?? '').includes(k))!
+      fireEvent.change(document.querySelector('textarea')!, { target: { value: answers[q] } })
+      fireEvent.click(screen.getByRole('button', { name: i === 3 ? 'Abgeben' : 'Weiter' }))
+    }
+    // Auswertung: 3 von 4 richtig, "Katze" falsch
+    await waitFor(() => expect(text()).toMatch(/3 \/ 4/))
+    expect(text()).toMatch(/75 %, ungefähr eine 3 \(befriedigend\)/)
+    expect(text()).toMatch(/Richtig: cat/)
+    // Das Ergebnis wird gespeichert
+    fireEvent.click(screen.getByRole('button', { name: 'Fertig' }))
+    await waitFor(() => expect(useStore.getState().testResults).toHaveLength(1))
+    expect(useStore.getState().testResults[0]).toMatchObject({ points: 3, max: 4, percent: 75, note: 3 })
+  })
+
+  it('Klassenarbeit von der KI: Rechenaufgaben rechnet die App, Kurzantwort bewertet man selbst, Falsche werden zum Übungs-Set', async () => {
+    const res = normalizeTest(
+      {
+        title: 'Brüche und Geschwindigkeit',
+        minutes: 30,
+        sections: [
+          {
+            title: 'Teil A: Wissen',
+            tasks: [
+              { t: 'mc', q: 'Welche Formel gilt?', options: ['v = s / t', 'v = s * t', 'v = t / s'], answer: 0, points: 1 },
+              { t: 'tf', q: 'Ein Bruch darf null als Nenner haben.', answer: false, points: 1 },
+            ],
+          },
+          {
+            title: 'Teil B: Anwenden',
+            tasks: [
+              { t: 'calc', q: 'Ein Auto fährt 150 km in 2 Stunden. Wie schnell ist es?', expr: '150/2', unit: 'km/h', points: 2, answer: '300' },
+              { t: 'short', q: 'Was ist Geschwindigkeit?', sample: 'Der Weg pro Zeit', keys: ['Weg', 'Zeit'], points: 3 },
+            ],
+          },
+        ],
+      },
+      { id: 'ki-1', subject: 'physik', kind: 'arbeit', source: 'Thema: Geschwindigkeit' },
+    )!
+    vi.mocked(generateTest).mockResolvedValue(res)
+    useStore.setState({ onboarded: true, mySubjects: ['physik'] })
+    stage('#/test/neu?fach=physik')
+    fireEvent.change(await screen.findByLabelText(/Thema oder Kapitel/), { target: { value: 'Geschwindigkeit' } })
+    await click(/^Klassenarbeit/, 'radio')
+    await click(/Klassenarbeit von der KI erstellen/)
+    await waitFor(() => expect(vi.mocked(generateTest)).toHaveBeenCalledWith(expect.objectContaining({ subjectId: 'physik', kind: 'arbeit', length: 'normal', topic: 'Geschwindigkeit' })))
+    await waitFor(() => expect(useStore.getState().tests).toHaveLength(1))
+    await waitFor(() => expect(text()).toMatch(/Brüche und Geschwindigkeit/))
+    expect(text()).toMatch(/7\s*Punkte/)
+    await click(/^Starten$/)
+    // Aufgabe 1: Quiz (richtig), Aufgabe 2: falsch beantwortet
+    fireEvent.click(await screen.findByRole('radio', { name: /v = s \/ t/ }))
+    fireEvent.click(screen.getByRole('button', { name: 'Weiter' }))
+    fireEvent.click(await screen.findByRole('radio', { name: /Richtig/ }))
+    fireEvent.click(screen.getByRole('button', { name: 'Weiter' }))
+    // Aufgabe 3: Rechnen, die App erwartet 75 (nicht die 300 der KI)
+    await waitFor(() => expect(text()).toMatch(/Rechne aus/))
+    for (const d of '75') fireEvent.click(screen.getByRole('button', { name: d }))
+    fireEvent.click(screen.getByRole('button', { name: 'Weiter' }))
+    // Aufgabe 4: Kurzantwort
+    fireEvent.change(await screen.findByLabelText('Deine Antwort'), { target: { value: 'Der Weg, den man pro Zeit zurücklegt' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Abgeben' }))
+    await waitFor(() => expect(text()).toMatch(/Ergebnis|ungefähr eine/))
+    // Quiz 1 + Rechnen 2 + Kurzantwort (Stichwörter Weg und Zeit sind drin: voll) 3 = 6 von 7, "Richtig" statt "Falsch" kostet 1
+    expect(text()).toMatch(/6 \/ 7/)
+    expect(text()).toMatch(/86 %, ungefähr eine 2/)
+    // Selbstbewertung ändern: nur teilweise
+    fireEvent.click(screen.getByRole('radio', { name: 'Teilweise' }))
+    await waitFor(() => expect(text()).toMatch(/4,5 \/ 7/))
+    // Die falsche Aufgabe wird zu einem Übungs-Set
+    fireEvent.click(screen.getByRole('button', { name: /falschen Aufgaben üben|falsche Aufgabe üben/ }))
+    await waitFor(() => expect(useStore.getState().sets.some((x) => x.title.startsWith('Falsche aus'))).toBe(true))
+    const wrongSet = useStore.getState().sets.find((x) => x.title.startsWith('Falsche aus'))!
+    expect(wrongSet.subject).toBe('physik')
+    expect(wrongSet.items.every((i) => !!i.task)).toBe(true)
+    expect(useStore.getState().testResults).toHaveLength(1)
+  })
+
+  it('Die Fach-Seite listet die Tests; ohne Tests lädt sie zum Erstellen ein', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
+    stage('#/faecher/biologie')
+    await waitFor(() => expect(text()).toMatch(/Tests & Arbeiten/))
+    expect(text()).toMatch(/Test, Klassenarbeit oder Vokabeltest/)
+    const res = normalizeTest({ tasks: [{ t: 'tf', q: 'A', answer: true }, { t: 'tf', q: 'B', answer: true }, { t: 'tf', q: 'C', answer: false }] }, { id: 'k1', subject: 'biologie', kind: 'test', source: 'x' })!
+    res.test.title = 'Zelle-Test'
+    useStore.getState().addTest(res.test)
+    await waitFor(() => expect(text()).toMatch(/Zelle-Test/))
+    expect(text()).toMatch(/Test · 3 Aufgaben · 20 Min\./)
   })
 })

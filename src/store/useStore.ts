@@ -10,6 +10,7 @@ import { deckAchievementStats } from '../lib/progress'
 import { UNIT_CHEST_COINS } from '../lib/rewards'
 import { mergeExams, type UntisImport, type UntisState } from '../lib/untis'
 import type { Period } from '../lib/school'
+import type { TestData, TestResult } from '../lib/tests'
 import { cleanPeriods } from '../lib/school'
 import { DEFAULT_DAILY_MINUTES } from '../lib/studyTime'
 import { useRewardEvents } from './useRewardEvents'
@@ -30,6 +31,9 @@ export interface LessonRecord {
 interface Data {
   xp: number
   xpByDay: Record<string, number>
+  /** Erstellte Tests, Klassenarbeiten und Vokabeltests (jedes Fach) und ihre Ergebnisse */
+  tests: TestData[]
+  testResults: TestResult[]
   /** Verbindung zu WebUntis (iCal-Link), Unterricht und Stand des letzten Abgleichs; null = nicht verbunden */
   untis: UntisState | null
   /** Schulstunden mit Beginn und Ende (leer = keine eingetragen, der Kalender zeigt dann Uhrzeiten) */
@@ -129,6 +133,9 @@ interface Actions {
   setDailyMinutes: (n: number) => void
   /** Schulstunden speichern (wird geordnet und geprüft) */
   setSchoolPeriods: (list: Period[]) => void
+  addTest: (t: TestData) => void
+  deleteTest: (id: string) => void
+  addTestResult: (r: TestResult) => void
   /** Mit WebUntis verbinden (Link und optional Relais merken; der erste Abgleich folgt separat) */
   connectUntis: (url: string, relay?: string) => void
   /** Ergebnis eines Abgleichs übernehmen: Unterricht, Klassenarbeiten und (wenn nicht von Hand eingetragen) das Stundenraster */
@@ -159,6 +166,8 @@ const initial: Data = {
   xp: 0,
   xpByDay: {},
   untis: null,
+  tests: [],
+  testResults: [],
   schoolPeriods: [],
   dailyMinutes: DEFAULT_DAILY_MINUTES,
   minutesByDay: {},
@@ -394,6 +403,10 @@ export const useStore = create<Data & Actions>()(
 
       setDailyMinutes: (n) => set({ dailyMinutes: Math.max(5, Math.min(60, Math.round(n))) }),
       setSchoolPeriods: (list) => set((s) => ({ schoolPeriods: cleanPeriods(list), untis: s.untis ? { ...s.untis, periodsAuto: false } : s.untis })),
+
+      addTest: (t) => set((s) => ({ tests: [t, ...(s.tests ?? []).filter((x) => x.id !== t.id)].slice(0, 60) })),
+      deleteTest: (id) => set((s) => ({ tests: (s.tests ?? []).filter((x) => x.id !== id), testResults: (s.testResults ?? []).filter((r) => r.testId !== id) })),
+      addTestResult: (r) => set((s) => ({ testResults: [r, ...(s.testResults ?? [])].slice(0, 200) })),
 
       connectUntis: (url, relay) =>
         set((s) => ({ untis: { url, ...(relay ? { relay } : s.untis?.relay ? { relay: s.untis.relay } : {}), lessons: s.untis?.url === url ? s.untis.lessons : [], exams: s.untis?.exams ?? 0, periodsAuto: s.untis?.periodsAuto } })),

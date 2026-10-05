@@ -240,6 +240,11 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
             {arbeit ? 'Speichern' : 'Eintragen'}
           </button>
           {arbeit && (
+            <Link to={`/test/neu?arbeit=${arbeit.id}`} onClick={onClose} className="btn btn-ghost press w-full sm:w-auto">
+              Probearbeit erstellen
+            </Link>
+          )}
+          {arbeit && (
             <button
               type="button"
               className="btn btn-ghost press w-full !text-bad-dark sm:w-44"
