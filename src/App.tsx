@@ -56,6 +56,8 @@ const DeckPage = lazyPage(() => import('./features/faecher/DeckPage'), 'DeckPage
 const DeckCreatePage = lazyPage(() => import('./features/faecher/DeckCreatePage'), 'DeckCreatePage')
 const CoachPage = lazyPage(() => import('./features/coach/CoachPage'), 'CoachPage')
 const ExamCreatePage = lazyPage(() => import('./features/exam/ExamCreatePage'), 'ExamCreatePage')
+const FormulaListPage = lazyPage(() => import('./features/formeln/FormulaTrainPages'), 'FormulaListPage')
+const FormulaRunPage = lazyPage(() => import('./features/formeln/FormulaTrainPages'), 'FormulaRunPage')
 const TestCreatePage = lazyPage(() => import('./features/test/TestCreatePage'), 'TestCreatePage')
 const TestPlayPage = lazyPage(() => import('./features/test/TestPlayPage'), 'TestPlayPage')
 const ExamPlayPage = lazyPage(() => import('./features/exam/ExamPlayPage'), 'ExamPlayPage')
@@ -105,6 +107,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/speak', 'Sprechtraining'],
   ['/exam/new', 'Test erstellen'],
   ['/test/neu', 'Test erstellen'],
+  ['/training/', 'Rechentraining'],
   ['/test/', 'Test'],
   ['/exam/', 'Test'],
   ['/shop', 'Fuchs & Shop'],
@@ -165,6 +168,7 @@ export default function App() {
             <Route path="faecher" element={<Navigate to="/" replace />} />
             <Route path="kalender" element={<KalenderPage />} />
             <Route path="faecher/mathe/training" element={<MathTrainingPage />} />
+            <Route path="faecher/:subjectId/rechnen" element={<FormulaListPage />} />
             <Route path="faecher/:subjectId" element={<FachPage />} />
             <Route path="faecher/:subjectId/ki" element={<CoachPage />} />
             <Route path="stapel/neu" element={<DeckCreatePage />} />
@@ -196,6 +200,7 @@ export default function App() {
           <Route path="ueben/los" element={<UebenPlay />} />
           <Route path="math/train" element={<MathTrainPage />} />
           <Route path="review/play" element={<UebenPlay />} />
+          <Route path="training/:skillId" element={<FormulaRunPage />} />
           <Route path="exam/:examId" element={<ExamPlayPage />} />
           <Route path="test/:testId" element={<TestPlayPage />} />
           <Route path="speak" element={<SpeakTrainingPage />} />

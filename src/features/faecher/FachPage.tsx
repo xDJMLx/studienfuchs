@@ -9,6 +9,7 @@ import { deckStars, levelOfSolid, subjectStats } from '../../lib/progress'
 import { masteryOf } from '../../lib/srs'
 import { helpSubject } from '../../lib/subjects'
 import type { Arbeit } from '../../lib/types'
+import { skillsOf } from '../../content/formulas'
 import { taskCount, testKindLabel } from '../../lib/tests'
 import { useStore } from '../../store/useStore'
 import { GrammarPage } from '../grammar/GrammarPage'
@@ -275,9 +276,29 @@ export function FachPage() {
             )}
           </Item>
 
+          {skillsOf(subjectId).length > 0 && subjectId !== 'mathe' && (
+            <Item>
+              <h2 className="mb-2 text-lg font-extrabold">Rechentraining</h2>
+              <Link to={`/faecher/${subjectId}/rechnen`} className="card press mb-5 flex items-center gap-3 p-3.5">
+                <span className="min-w-0 flex-1">
+                  <span className="block font-extrabold">{skillsOf(subjectId).length} Themen mit Formeln, immer neue Aufgaben</span>
+                  <span className="block text-sm text-muted">Ohne KI: Die App rechnet selbst und zeigt bei Fehlern den Rechenweg.</span>
+                </span>
+                <Right size={16} className="shrink-0 text-muted" />
+              </Link>
+            </Item>
+          )}
+
           {subjectId === 'mathe' && (
             <Item>
               <h2 className="mb-2 text-lg font-extrabold">Rechentraining</h2>
+              <Link to="/faecher/mathe/rechnen" className="card press mb-3 flex items-center gap-3 p-3.5">
+                <span className="min-w-0 flex-1">
+                  <span className="block font-extrabold">Prozent und Dreisatz</span>
+                  <span className="block text-sm text-muted">Alltagsrechnen mit immer neuen Aufgaben.</span>
+                </span>
+                <Right size={16} className="shrink-0 text-muted" />
+              </Link>
               <Link to="/faecher/mathe/training" className="card press mb-5 flex items-center gap-3 p-3.5">
                 <span className="min-w-0 flex-1">
                   <span className="block font-extrabold">43 Themen, immer neue Aufgaben</span>

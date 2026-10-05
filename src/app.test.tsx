@@ -651,3 +651,21 @@ describe('Tests, Klassenarbeiten und Vokabeltests', () => {
     expect(text()).toMatch(/Test · 3 Aufgaben · 20 Min\./)
   })
 })
+
+describe('Formel-Training ohne KI', () => {
+  it('Physik hat Themen mit Formeln; ein Durchgang startet mit einer Rechenaufgabe oder Wissensfrage', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['physik', 'mathe'] })
+    window.location.hash = '#/faecher/physik'
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Rechentraining/))
+    expect(text()).toMatch(/8 Themen mit Formeln/)
+    go('#/faecher/physik/rechnen')
+    await waitFor(() => expect(text()).toMatch(/Ohmsches Gesetz/))
+    expect(text()).toMatch(/U = R · I/)
+    fireEvent.click(await screen.findByRole('link', { name: /Geschwindigkeit/ }))
+    await waitFor(() => expect(text()).toMatch(/Rechne aus|Wähle die richtige Antwort/), { timeout: 4000 })
+    // Mathe: Alltagsrechnen mit Prozent und Dreisatz
+    go('#/faecher/mathe')
+    await waitFor(() => expect(text()).toMatch(/Prozent und Dreisatz/))
+  })
+})
