@@ -258,3 +258,89 @@ describe('Probearbeit', () => {
     expect(answered).toBe(15)
   })
 })
+
+describe('Aufgaben statt nur Karteikarten: eine Runde mit allen Arten', () => {
+  it('Quiz, Richtig/Falsch, Lückentext, Reihenfolge, Rechnen und Zuordnen laufen durch und zählen', async () => {
+    const { itemFromTask, normalizeTask } = await import('../../lib/tasks')
+    const raws = [
+      { t: 'mc', q: 'Welches Organell macht Energie?', options: ['Zellkern', 'Mitochondrium', 'Vakuole', 'Ribosom'], answer: 1, why: 'Kraftwerk der Zelle' },
+      { t: 'tf', q: 'Wale sind Fische.', answer: false, why: 'Wale sind Säugetiere' },
+      { t: 'cloze', text: 'Die ___ ist die kleinste Einheit des Lebens.', answers: ['Zelle'] },
+      { t: 'order', q: 'Bringe die Schritte der Fotosynthese in Reihenfolge', steps: ['Licht trifft das Blatt', 'Chlorophyll fängt es ein', 'Zucker entsteht'] },
+      { t: 'calc', q: 'Rechne 12 * 3', expr: '12*3' },
+      { t: 'match', q: 'Ordne zu', pairs: [['H2O', 'Wasser'], ['NaCl', 'Salz'], ['CO2', 'Kohlenstoffdioxid']] },
+    ]
+    const tasks = raws.map((r) => normalizeTask(r)!)
+    useStore.getState().resetAll()
+    const id = useStore.getState().addSet('Gemischt', tasks.map((t, i) => itemFromTask(t, `x${i}`)).map(({ id: _id, ...rest }) => rest), { subject: 'biologie' })
+    void id
+    useStore.setState({ onboarded: true })
+    renderPlay(`/ueben/los?deck=${useStore.getState().sets[0].id}&modus=mix`)
+    await waitFor(() => expect(text()).toMatch(/Welches Organell|Wale|kleinste Einheit|Fotosynthese|Rechne|Ordne zu/), { timeout: 3000 })
+
+    const seen = new Set<string>()
+    const label = (b: Element) => (b.textContent ?? '').trim().replace(/\s+/g, ' ')
+    const find = (re: RegExp) => [...document.querySelectorAll('button')].find((b) => re.test(label(b)) && !(b as HTMLButtonElement).disabled)
+    for (let step = 0; step < 80 && !/Noch eine Runde/.test(text()); step++) {
+      await new Promise((r) => setTimeout(r, 0))
+      const next = find(/^Weiter$/)
+      if (next) {
+        click(next)
+        continue
+      }
+      const body = document.querySelector('.exercise-in')?.textContent ?? ''
+      // Reihenfolge: Schritte in richtiger Reihenfolge antippen
+      if (document.querySelector('[aria-label="Schritte"]')) {
+        seen.add('order')
+        for (const s of ['Licht trifft das Blatt', 'Chlorophyll fängt es ein', 'Zucker entsteht']) click(find(new RegExp(`^${s}$`))!)
+        click(find(/^Prüfen$/)!)
+        continue
+      }
+      // Zuordnen
+      if (/Ordne zu/.test(body) && !document.querySelector('[role="radiogroup"]')) {
+        seen.add('match')
+        const pairs: [string, string][] = [['H2O', 'Wasser'], ['NaCl', 'Salz'], ['CO2', 'Kohlenstoffdioxid']]
+        for (const [l, r] of pairs) {
+          click(find(new RegExp(`^${l}$`))!)
+          click(find(new RegExp(`^${r}$`))!)
+        }
+        continue
+      }
+      // Rechnen: Zahlentastatur
+      if (/Rechne aus/.test(body)) {
+        seen.add('calc')
+        for (const d of '36') click(document.querySelector(`[aria-label="Zahlentastatur"] button[aria-label="${d}"]`) ?? find(new RegExp(`^${d}$`))!)
+        click(find(/^Prüfen$/)!)
+        continue
+      }
+      // Lückentext
+      const area = document.querySelector('textarea')
+      if (area) {
+        seen.add('cloze')
+        fireEvent.change(area, { target: { value: 'Zelle' } })
+        click(find(/^Prüfen$/)!)
+        continue
+      }
+      // Quiz und Richtig/Falsch
+      const options = [...document.querySelectorAll('[role="radio"]')]
+      if (options.length >= 2) {
+        const want = /Wale/.test(body) ? 'Falsch' : 'Mitochondrium'
+        seen.add(/Wale/.test(body) ? 'tf' : 'mc')
+        click(options.find((o) => label(o).includes(want)) ?? options[0])
+        click(find(/^Prüfen$/)!)
+        continue
+      }
+      // Fallback: Karteikarte o. ä.
+      const reveal = find(/^Antwort zeigen$/)
+      if (reveal) click(reveal)
+      const good = find(/Gewusst$/)
+      if (good) click(good)
+    }
+    expect(text()).toMatch(/Noch eine Runde/)
+    expect([...seen].sort()).toEqual(['calc', 'cloze', 'match', 'mc', 'order', 'tf'])
+    const st = useStore.getState()
+    // Alle sechs Aufgaben wurden geübt und waren richtig: sitzen im Plan
+    expect(Object.keys(st.cards)).toHaveLength(6)
+    expect(st.rounds).toBe(1)
+  })
+})

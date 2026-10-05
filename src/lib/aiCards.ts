@@ -37,26 +37,32 @@ export interface CardRequest {
   images?: string[]
 }
 
+/**
+ * Eine Anfrage an die KI (kostenlose Stufe zuerst, sonst Puter) und der Antworttext zurück.
+ * Muss direkt aus einem Klick aufgerufen werden (Anmeldefenster des KI-Dienstes).
+ */
+export async function callAi(system: string, content: string, images: string[] = [], maxTokens = 6000): Promise<string> {
+  const messages = [{ role: 'user' as const, content }]
+  const useFree = await shouldUseFree(images.length > 0)
+  if (!useFree) await ensureAiReady()
+  if (useFree) {
+    try {
+      return await chatFree(system, messages, fetch, Math.min(maxTokens, 4000))
+    } catch (e) {
+      if (e instanceof AiError && e.kind === 'network') throw e
+      await ensureAiReady()
+      return chatCoach(system, messages, images, maxTokens)
+    }
+  }
+  return chatCoach(system, messages, images, maxTokens)
+}
+
 /** Karten von der KI erzeugen lassen. Muss direkt aus einem Klick aufgerufen werden (Anmeldefenster des KI-Dienstes). */
 export async function generateCards({ subjectId, request, count, images = [] }: CardRequest): Promise<AiVocab> {
   const system = buildCardsPrompt(subjectId, count)
   const content = request.trim() || (images.length ? 'Mach Karteikarten aus diesen Seiten.' : '')
   if (!content) throw new AiError('Schreib kurz, wozu du Karten brauchst, oder hänge ein Foto an.', 'format')
-  const messages = [{ role: 'user' as const, content }]
-  const useFree = await shouldUseFree(images.length > 0)
-  if (!useFree) await ensureAiReady()
-  let text: string
-  if (useFree) {
-    try {
-      text = await chatFree(system, messages, fetch, 4000)
-    } catch (e) {
-      if (e instanceof AiError && e.kind === 'network') throw e
-      await ensureAiReady()
-      text = await chatCoach(system, messages, images, 6000)
-    }
-  } else {
-    text = await chatCoach(system, messages, images, 6000)
-  }
+  const text = await callAi(system, content, images)
   const vocab = normalizeAiVocab(extractJson<unknown>(text))
   const lang = helpSubject(subjectId)?.lang
   return {

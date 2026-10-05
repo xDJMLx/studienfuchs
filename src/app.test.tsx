@@ -4,12 +4,19 @@ import { MotionGlobalConfig } from 'framer-motion'
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
 import App from './App'
 import { generateCards } from './lib/aiCards'
+import { generateTasks } from './lib/aiTasks'
+import { normalizeTasks } from './lib/tasks'
 import { dateKey, addDays } from './lib/calendar'
 import { useStore } from './store/useStore'
 
 vi.mock('./lib/aiCards', async () => {
   const real = await vi.importActual<typeof import('./lib/aiCards')>('./lib/aiCards')
   return { ...real, generateCards: vi.fn() }
+})
+
+vi.mock('./lib/aiTasks', async () => {
+  const real = await vi.importActual<typeof import('./lib/aiTasks')>('./lib/aiTasks')
+  return { ...real, generateTasks: vi.fn() }
 })
 
 vi.hoisted(() => {
@@ -290,6 +297,7 @@ describe('Karteikarten mit der KI erstellen', () => {
     render(<App />)
     const area = await screen.findByLabelText(/Was brauchst du/)
     fireEvent.change(area, { target: { value: 'Genetik, Grundbegriffe' } })
+    await click(/^Karteikarten/, 'radio')
     await click(/Karten erstellen/)
     await waitFor(() => expect(text()).toMatch(/3 Karten erstellt/))
     expect(vi.mocked(generateCards)).toHaveBeenCalledWith(expect.objectContaining({ subjectId: 'biologie', request: 'Genetik, Grundbegriffe', count: 20 }))
@@ -300,12 +308,41 @@ describe('Karteikarten mit der KI erstellen', () => {
     expect(useStore.getState().sets[0]).toMatchObject({ title: 'Genetik', subject: 'biologie' })
   })
 
+  it('Rechenaufgaben: die KI schreibt nur die Rechnung, die App rechnet, und die Aufgaben laufen beim Üben', async () => {
+    // Die KI "verrechnet" sich in ihrer eigenen Lösung: sie zählt nicht
+    const { tasks } = normalizeTasks([
+      { t: 'calc', q: 'Ein Auto fährt 150 km in 2 Stunden. Wie schnell ist es im Durchschnitt?', expr: '150/2', unit: 'km/h', answer: '70' },
+      { t: 'solve', q: 'Löse nach x', equation: '3x - 4 = 11' },
+      { t: 'mc', q: 'Welche Formel gilt für die Geschwindigkeit?', options: ['v = s / t', 'v = s * t', 'v = t / s'], answer: 0 },
+    ])
+    vi.mocked(generateTasks).mockResolvedValue({ title: 'Geschwindigkeit', tasks, dropped: 1 })
+    useStore.setState({ onboarded: true, mySubjects: ['physik'] })
+    window.location.hash = '#/stapel/neu?fach=physik'
+    render(<App />)
+    // Physik schlägt Rechenaufgaben vor
+    expect((await screen.findByRole('radio', { name: /Rechenaufgaben/ })).getAttribute('aria-checked')).toBe('true')
+    fireEvent.change(await screen.findByLabelText(/Was brauchst du/), { target: { value: 'Geschwindigkeit, Klasse 7' } })
+    await click(/Aufgaben erstellen/)
+    await waitFor(() => expect(text()).toMatch(/3 Aufgaben erstellt, bei 2 Rechenaufgaben hat die App das Ergebnis selbst ausgerechnet \(1 unbrauchbare/))
+    expect(vi.mocked(generateTasks)).toHaveBeenCalledWith(expect.objectContaining({ subjectId: 'physik', plan: 'rechnen', count: 20 }))
+    // In der Liste: Frage und von der App berechnete Lösung
+    expect(text()).toMatch(/75 km\/h|75/)
+    await click(/Speichern \(3\)/)
+    await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
+    const set = useStore.getState().sets[0]
+    expect(set).toMatchObject({ title: 'Geschwindigkeit', subject: 'physik' })
+    expect(set.items.map((i) => i.task?.t)).toEqual(['calc', 'solve', 'mc'])
+    expect(set.items[0].back).toBe('75 km/h')
+    expect(set.items[1].back).toBe('x = 5')
+  })
+
   it('Wenn die KI nicht antwortet: Meldung mit Ausweg zu Selbstschreiben', async () => {
     vi.mocked(generateCards).mockRejectedValue(new Error('Der KI-Dienst konnte nicht geladen werden. Bist du online?'))
     useStore.setState({ onboarded: true })
     window.location.hash = '#/stapel/neu?fach=biologie'
     render(<App />)
     fireEvent.change(await screen.findByLabelText(/Was brauchst du/), { target: { value: 'x' } })
+    await click(/^Karteikarten/, 'radio')
     await click(/Karten erstellen/)
     await waitFor(() => expect(text()).toMatch(/Bist du online/))
     await click(/selbst schreiben/)

@@ -3,6 +3,8 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Back, Camera, Close } from '../../components/ui/Icons'
 import { blobToJpegBase64, preloadAi } from '../../lib/ai'
 import { generateCards } from '../../lib/aiCards'
+import { defaultPlan, generateTasks, PLAN_LABEL, type TaskPlan } from '../../lib/aiTasks'
+import { itemFromTask } from '../../lib/tasks'
 import { cardsFromNotes } from '../../lib/notesToCards'
 import { parseCards } from '../../lib/parseCards'
 import { HELP_SUBJECTS, helpSubject } from '../../lib/subjects'
@@ -41,6 +43,8 @@ export function DeckCreatePage() {
   const [way, setWay] = useState<Way>('ai')
   const [request, setRequest] = useState('')
   const [count, setCount] = useState(20)
+  // Was die KI machen soll: Karteikarten, Quiz & Aufgaben oder Rechenaufgaben (die App rechnet nach)
+  const [plan, setPlan] = useState<TaskPlan>(() => defaultPlan(subject))
   const [files, setFiles] = useState<File[]>([])
   const [previews, setPreviews] = useState<string[]>([])
   const [text, setText] = useState('')
@@ -56,6 +60,7 @@ export function DeckCreatePage() {
 
   useEffect(() => preloadAi(), [])
   useEffect(() => setBoth(!!helpSubject(subject)?.lang), [subject])
+  useEffect(() => setPlan(defaultPlan(subject)), [subject])
   useEffect(() => {
     const urls = files.map((f) => URL.createObjectURL(f))
     setPreviews(urls)
@@ -68,10 +73,25 @@ export function DeckCreatePage() {
     setBusy(true)
     try {
       const images = await Promise.all(files.map((f) => blobToJpegBase64(f)))
-      const vocab = await generateCards({ subjectId: subject, request, count, images })
-      if (!title) setTitle(vocab.title)
-      setRows(vocab.items.map((i) => newRow(i.front, i.back, { example: i.example, exampleDe: i.exampleDe, note: i.note })))
-      setNotice(vocab.items.length ? `${vocab.items.length} Karten erstellt. Lies sie kurz durch: Die KI kann sich irren.` : 'Die KI hat keine Karten gefunden. Beschreibe genauer, was du brauchst.')
+      if (plan === 'karten') {
+        const vocab = await generateCards({ subjectId: subject, request, count, images })
+        if (!title) setTitle(vocab.title)
+        setRows(vocab.items.map((i) => newRow(i.front, i.back, { example: i.example, exampleDe: i.exampleDe, note: i.note })))
+        setNotice(vocab.items.length ? `${vocab.items.length} Karten erstellt. Lies sie kurz durch: Die KI kann sich irren.` : 'Die KI hat keine Karten gefunden. Beschreibe genauer, was du brauchst.')
+      } else {
+        const res = await generateTasks({ subjectId: subject, plan, request, count, images })
+        if (!title) setTitle(res.title)
+        setRows(res.tasks.map((t, i) => {
+          const it = itemFromTask(t, `x${i}`)
+          return newRow(it.front, it.back, { task: t })
+        }))
+        const calcs = res.tasks.filter((t) => t.t === 'calc' || t.t === 'solve').length
+        setNotice(
+          res.tasks.length
+            ? `${res.tasks.length} Aufgaben erstellt${calcs ? `, bei ${calcs} Rechenaufgaben hat die App das Ergebnis selbst ausgerechnet` : ''}${res.dropped ? ` (${res.dropped} unbrauchbare habe ich aussortiert)` : ''}. Schau sie kurz an: Die KI kann sich bei Fragen zum Wissen irren.`
+            : 'Die KI hat keine brauchbaren Aufgaben geliefert. Beschreibe genauer, was du brauchst, oder versuch es nochmal.',
+        )
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Das hat nicht geklappt.')
     } finally {
@@ -125,8 +145,9 @@ export function DeckCreatePage() {
       back: r.back.trim(),
       ...(r.example?.trim() && r.exampleDe?.trim() ? { example: r.example.trim(), exampleDe: r.exampleDe.trim() } : {}),
       ...(r.note?.trim() ? { note: r.note.trim() } : {}),
+      ...(r.task ? { task: r.task } : {}),
     }))
-    const id = addSet(title.trim() || 'Neue Karteikarten', items, { subject, lang: sub?.lang, both })
+    const id = addSet(title.trim() || (items.some((i) => i.task) ? 'Neue Aufgaben' : 'Neue Karteikarten'), items, { subject, lang: sub?.lang, both })
     navigate(`/stapel/${id}`, { replace: true })
   }
 
@@ -135,7 +156,7 @@ export function DeckCreatePage() {
       <Link to={`/faecher/${subject}`} className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
         <Back size={18} /> {sub?.name ?? 'Fächer'}
       </Link>
-      <h1 className="page-title mb-4">Neue Karteikarten</h1>
+      <h1 className="page-title mb-4">Neue Karteikarten &amp; Aufgaben</h1>
 
       {!rows && (
         <div className="grid gap-4">
@@ -149,7 +170,7 @@ export function DeckCreatePage() {
           </label>
 
           <div>
-            <p className="mb-1.5 text-sm font-bold text-muted">Wie willst du die Karten erstellen?</p>
+            <p className="mb-1.5 text-sm font-bold text-muted">Wie willst du es erstellen?</p>
             <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Wie erstellen?">
               {(
                 [
@@ -209,6 +230,19 @@ export function DeckCreatePage() {
             </>
           ) : way === 'ai' ? (
             <>
+              <div>
+                <p className="mb-1.5 text-sm font-bold text-muted">Was soll die KI machen?</p>
+                <div className="grid gap-2" role="radiogroup" aria-label="Art">
+                  {(Object.keys(PLAN_LABEL) as TaskPlan[]).map((p) => (
+                    <button key={p} type="button" role="radio" aria-checked={plan === p} onClick={() => setPlan(p)} className={`tile w-full !py-2.5 ${plan === p ? 'tile-selected' : ''}`}>
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-[16px]">{PLAN_LABEL[p].label}</span>
+                        <span className="block text-xs font-medium opacity-70">{PLAN_LABEL[p].text}</span>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
               <label className="grid gap-1.5 text-sm font-bold text-muted">
                 Was brauchst du?
                 <textarea
@@ -220,8 +254,8 @@ export function DeckCreatePage() {
                 />
               </label>
               <div>
-                <p className="mb-1.5 text-sm font-bold text-muted">Wie viele Karten?</p>
-                <div className="flex gap-2" role="radiogroup" aria-label="Anzahl der Karten">
+                <p className="mb-1.5 text-sm font-bold text-muted">{plan === 'karten' ? 'Wie viele Karten?' : 'Wie viele Aufgaben?'}</p>
+                <div className="flex gap-2" role="radiogroup" aria-label="Anzahl">
                   {COUNTS.map((n) => (
                     <button key={n} role="radio" aria-checked={count === n} onClick={() => setCount(n)} className={`chip ${count === n ? 'chip-on' : ''}`}>
                       {n}
@@ -250,7 +284,7 @@ export function DeckCreatePage() {
                 <input ref={fileRef} type="file" accept="image/*" multiple className="sr-only" onChange={(e) => setFiles((f) => [...f, ...Array.from(e.target.files ?? [])].slice(0, 8))} />
               </div>
               <button type="button" className="btn btn-primary btn-shine press w-full sm:w-72" disabled={busy || (!request.trim() && !files.length)} onClick={run}>
-                {busy ? 'Die KI schreibt die Karten …' : 'Karten erstellen'}
+                {busy ? 'Die KI schreibt …' : plan === 'karten' ? 'Karten erstellen' : 'Aufgaben erstellen'}
               </button>
               <AiNotice />
             </>
@@ -301,6 +335,7 @@ export function DeckCreatePage() {
             <input className={field} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="z. B. Zelle" maxLength={60} />
           </label>
           <CardTable rows={rows} onChange={setRows} lang={sub?.lang} />
+          {!valid.every((r) => r.task) && (
           <label className="flex items-start gap-3 rounded-xl bg-snow p-3 text-sm">
             <input type="checkbox" className="mt-1 h-5 w-5 accent-[var(--sky)]" checked={both} onChange={(e) => setBoth(e.target.checked)} />
             <span>
@@ -308,9 +343,10 @@ export function DeckCreatePage() {
               <span className="block text-muted">Dann kommt manchmal die Rückseite als Frage, zum Beispiel erst Begriff → Definition, später Definition → Begriff. Gut für Vokabeln und Begriffe.</span>
             </span>
           </label>
+          )}
           <div className="flex flex-col gap-2 sm:flex-row-reverse">
             <button type="button" className="btn btn-primary press w-full sm:w-64" disabled={valid.length === 0} onClick={save}>
-              Karteikarten speichern ({valid.length})
+              {valid.some((r) => r.task) ? `Speichern (${valid.length})` : `Karteikarten speichern (${valid.length})`}
             </button>
             <button type="button" className="btn btn-ghost press w-full sm:w-auto" onClick={() => { setRows(null); setNotice(null) }}>
               Zurück
