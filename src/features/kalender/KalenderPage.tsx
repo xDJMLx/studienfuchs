@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { Segmented } from '../../components/ui/controls'
+import { Segmented, Switch } from '../../components/ui/controls'
 import { Coin, Plus, Right } from '../../components/ui/Icons'
 import { Item, Stagger } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
@@ -142,31 +142,31 @@ export function KalenderPage() {
     const d = daysUntil(a)
     return (
       <li key={a.id}>
-        <div className="card flex items-center gap-3 p-3" style={{ borderLeft: `5px solid ${s?.c ?? 'var(--line)'}` }}>
+        <div className="panel flex items-center gap-3 p-3">
           <button type="button" onClick={() => setSheet({ arbeit: a })} className="press flex min-w-0 flex-1 items-center gap-3 text-left" aria-label={`${a.title} bearbeiten`}>
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl" style={{ background: s?.c, boxShadow: `0 3px 0 ${s?.s}` }}>
-              <HelpSubjectIcon id={a.subject} ink={s?.c ?? '#888'} size={24} />
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ background: s?.c }}>
+              <HelpSubjectIcon id={a.subject} ink={s?.c ?? '#888'} size={22} />
             </span>
             <span className="min-w-0 flex-1">
-              <span className="block truncate font-extrabold leading-tight">{a.title}</span>
-              <span className="block text-xs font-bold text-muted">
+              <span className="block truncate text-[16px] font-semibold leading-tight">{a.title}</span>
+              <span className="block text-[13px] text-muted">
                 {kindLabel(a.kind)}
                 {whenText(periods, a) ? ` · ${whenText(periods, a)}` : ''}
                 {opts.showDay ? ` · ${shortDay(a.date)} · ${when(d)}` : ''}
               </span>
               {d >= 0 && r.total > 0 && (
                 <span className="mt-1.5 flex items-center gap-2">
-                  <span className="block h-1.5 flex-1 overflow-hidden rounded-full bg-line">
+                  <span className="block h-1 flex-1 overflow-hidden rounded-full bg-ink/10">
                     <span className="block h-full rounded-full bg-good" style={{ width: `${Math.max(r.pct, r.seen ? 4 : 0)}%` }} />
                   </span>
-                  <span className="text-xs font-black tabular-nums text-good-dark">{r.pct} %</span>
+                  <span className="text-[12px] font-semibold tabular-nums text-muted">{r.pct} %</span>
                 </span>
               )}
               {d >= 0 && r.total === 0 && <span className="block text-xs text-muted">Noch keine Karteikarten dabei</span>}
             </span>
           </button>
           {d >= 0 && r.total > 0 && (
-            <button type="button" className="btn btn-primary press !min-h-10 !px-4 !text-sm" onClick={() => navigate(`/ueben/los?arbeit=${a.id}`)}>
+            <button type="button" className="pill-soft press" onClick={() => navigate(`/ueben/los?arbeit=${a.id}`)}>
               Lernen
             </button>
           )}
@@ -182,15 +182,14 @@ export function KalenderPage() {
     <Stagger className="mx-auto max-w-2xl px-4 py-5 lg:py-8" stagger={0.06}>
       <Item>
         <div className="mb-4 flex items-center justify-between gap-3">
-          <h1 className="page-title">Kalender</h1>
+          <h1 className="text-[32px] font-bold leading-tight tracking-tight">Kalender</h1>
           <button
             type="button"
             aria-label="Arbeit eintragen"
-            className="press flex h-12 w-12 items-center justify-center rounded-full bg-sky text-white"
-            style={{ boxShadow: '0 4px 0 var(--shade-sky)' }}
+            className="press flex h-10 w-10 items-center justify-center rounded-full bg-sky text-white"
             onClick={() => setSheet({ date: view === 'monat' ? selected : today })}
           >
-            <Plus size={24} />
+            <Plus size={22} />
           </button>
         </div>
         <Segmented<View>
@@ -213,14 +212,14 @@ export function KalenderPage() {
 
       {view === 'monat' ? (
         <Item>
-          <section className="card mb-5 p-3.5" aria-label={`${monthName(cursor.m)} ${cursor.y}`}>
+          <section className="panel mb-5 p-3.5" aria-label={`${monthName(cursor.m)} ${cursor.y}`}>
             <div className="mb-2 flex items-center justify-between">
-              <h2 className="px-1 text-[20px] font-black leading-tight">
+              <h2 className="px-1 text-[22px] font-bold leading-tight tracking-tight">
                 {monthName(cursor.m)} <span className="font-bold text-muted">{cursor.y}</span>
               </h2>
               <span className="flex items-center gap-1">
                 {!thisMonth && (
-                  <button type="button" onClick={goToday} className="press mr-1 rounded-full bg-sky-soft px-3 py-1.5 text-xs font-extrabold text-sky-dark">
+                  <button type="button" onClick={goToday} className="press mr-1 px-1 text-[15px] font-semibold text-sky-dark">
                     Heute
                   </button>
                 )}
@@ -250,7 +249,7 @@ export function KalenderPage() {
                       onClick={() => setSelected(c.key)}
                       aria-pressed={on}
                       aria-label={`${longDay(c.key)}${list.length ? `, ${list.length} ${list.length === 1 ? 'Termin' : 'Termine'}` : ''}`}
-                      className={`press flex h-[3.1rem] w-full max-w-[3.4rem] flex-col items-center justify-start gap-1 rounded-2xl pt-1.5 transition-colors ${on ? 'bg-sky-soft ring-2 ring-sky' : ''} ${c.inMonth ? '' : 'opacity-35'} ${c.key < today && !on ? 'opacity-70' : ''}`}
+                      className={`press flex h-[3.1rem] w-full max-w-[3.4rem] flex-col items-center justify-start gap-1 rounded-2xl pt-1.5 transition-colors ${on ? 'bg-sky-soft' : ''} ${c.inMonth ? '' : 'opacity-35'} ${c.key < today && !on ? 'opacity-70' : ''}`}
                     >
                       <span className={`flex h-7 w-7 items-center justify-center rounded-full text-[15px] font-extrabold leading-none ${isToday ? 'bg-brand-strong text-on-brand' : ''}`}>{c.day}</span>
                       <span className="flex h-1.5 items-center gap-0.5" aria-hidden>
@@ -266,7 +265,7 @@ export function KalenderPage() {
           </section>
 
           <div className="mb-2 flex items-baseline justify-between gap-2 px-1">
-            <h2 className="text-lg font-extrabold">{selected === today ? 'Heute' : longDay(selected)}</h2>
+            <h2 className="text-[19px] font-bold tracking-tight">{selected === today ? 'Heute' : longDay(selected)}</h2>
             <span className="text-sm font-bold text-muted">{selected === today ? longDay(selected) : when(daysBetweenKeys(today, selected))}</span>
           </div>
           {dayEvents.length > 0 ? (
@@ -286,21 +285,25 @@ export function KalenderPage() {
       ) : (
         <Item>
           <div className="mb-5">
-            {untis && untis.lessons.length > 0 && (
-              <div className="mb-2 flex items-center gap-2 px-1">
-                <button type="button" role="switch" aria-checked={showLessons} onClick={toggleLessons} className={`chip ${showLessons ? 'chip-on' : ''}`}>
-                  Unterricht aus WebUntis
-                </button>
-              </div>
-            )}
-            <TimeTable arbeiten={arbeiten} periods={periods} lessons={showLessons ? untis?.lessons : []} onAdd={(date, time, duration) => setSheet({ date, time, duration })} onOpen={(a) => setSheet({ arbeit: a })} />
+            <TimeTable
+              arbeiten={arbeiten}
+              periods={periods}
+              lessons={showLessons ? untis?.lessons : []}
+              toolbar={
+                untis && untis.lessons.length > 0 ? (
+                  <div className="mb-3 flex items-center justify-between rounded-xl bg-snow px-3 py-2">
+                    <span className="text-[14px] font-medium">Unterricht aus WebUntis</span>
+                    <Switch checked={showLessons} onChange={toggleLessons} label="Unterricht aus WebUntis anzeigen" />
+                  </div>
+                ) : null
+              } onAdd={(date, time, duration) => setSheet({ date, time, duration })} onOpen={(a) => setSheet({ arbeit: a })} />
           </div>
         </Item>
       )}
 
       {next.length > 0 && (
         <Item>
-          <h2 className="mb-2 px-1 text-lg font-extrabold">Als Nächstes</h2>
+          <h2 className="mb-2 px-1 text-[19px] font-bold tracking-tight">Als Nächstes</h2>
           <ul className="mb-5 grid gap-2.5">{next.map((a) => row(a, { showDay: true }))}</ul>
         </Item>
       )}
@@ -313,8 +316,8 @@ export function KalenderPage() {
 
       {past.length > 0 && (
         <Item>
-          <h2 className="mb-2 px-1 text-lg font-extrabold">Schon geschrieben</h2>
-          <ul className="card mb-5 divide-y divide-line overflow-hidden">
+          <h2 className="mb-2 px-1 text-[19px] font-bold tracking-tight">Schon geschrieben</h2>
+          <ul className="panel mb-5 divide-y divide-line overflow-hidden">
             {past.map((a) => (
               <li key={a.id} className="flex items-center gap-3 px-4 py-2.5">
                 <span className="min-w-0 flex-1">

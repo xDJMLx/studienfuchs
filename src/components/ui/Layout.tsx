@@ -68,7 +68,7 @@ function AnimatedOutlet() {
     last.current = pathname
   }, [pathname])
   // Fixierte Elemente der Seite bleiben nach der Bewegung unberührt: Transform und Filter werden danach entfernt
-  const initial = reduce ? false : dir !== 0 ? { opacity: 0, x: dir * 36, filter: 'blur(7px)' } : { opacity: 0, y: 10, scale: 0.985, filter: 'blur(4px)' }
+  const initial = reduce ? false : dir !== 0 ? { opacity: 0, x: dir * 28, filter: 'blur(1.5px)' } : { opacity: 0, y: 8, scale: 0.99 }
   return (
     <motion.div
       key={pathname}

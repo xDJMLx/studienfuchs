@@ -9,7 +9,6 @@
  * - spin:   kleine runde Knöpfe: drehen kurz und federn
  * - soft:   alles andere zum Antippen
  *
- * Die kurze Unschärfe in der schnellsten Phase ist die Bewegungsunschärfe: nur dort, wo sich das Element wirklich schnell bewegt.
  */
 export type Feel = 'pop' | 'wobble' | 'nudge' | 'spin' | 'soft'
 
@@ -40,39 +39,39 @@ const FRAMES: Record<Feel, { frames: (j: number) => Keyframe[]; ms: number }> = 
   pop: {
     ms: 460,
     frames: () => [
-      { transform: 'scale(0.95)', filter: 'blur(0px)', offset: 0 },
-      { transform: 'scale(1.09, 0.95)', filter: 'blur(0.8px)', offset: 0.28 },
-      { transform: 'scale(0.97, 1.05)', filter: 'blur(0.5px)', offset: 0.52 },
-      { transform: 'scale(1.015, 0.99)', filter: 'blur(0px)', offset: 0.76 },
-      { transform: 'scale(1)', filter: 'blur(0px)', offset: 1 },
+      { transform: 'scale(0.95)', offset: 0 },
+      { transform: 'scale(1.09, 0.95)', offset: 0.28 },
+      { transform: 'scale(0.97, 1.05)', offset: 0.52 },
+      { transform: 'scale(1.015, 0.99)', offset: 0.76 },
+      { transform: 'scale(1)', offset: 1 },
     ],
   },
   wobble: {
     ms: 520,
     frames: (j) => [
-      { transform: 'scale(0.94) rotate(0deg)', filter: 'blur(0px)', offset: 0 },
-      { transform: `scale(1.07) rotate(${j * 3.2}deg)`, filter: 'blur(0.6px)', offset: 0.25 },
-      { transform: `scale(0.99) rotate(${j * -2}deg)`, filter: 'blur(0px)', offset: 0.5 },
-      { transform: `scale(1.01) rotate(${j * 0.8}deg)`, filter: 'blur(0px)', offset: 0.75 },
-      { transform: 'scale(1) rotate(0deg)', filter: 'blur(0px)', offset: 1 },
+      { transform: 'scale(0.94) rotate(0deg)', offset: 0 },
+      { transform: `scale(1.07) rotate(${j * 3.2}deg)`, offset: 0.25 },
+      { transform: `scale(0.99) rotate(${j * -2}deg)`, offset: 0.5 },
+      { transform: `scale(1.01) rotate(${j * 0.8}deg)`, offset: 0.75 },
+      { transform: 'scale(1) rotate(0deg)', offset: 1 },
     ],
   },
   nudge: {
     ms: 420,
     frames: (j) => [
-      { transform: 'translateY(2px) scale(0.985)', filter: 'blur(0px)', offset: 0 },
-      { transform: `translateY(-4px) skewX(${j * 0.7}deg)`, filter: 'blur(0.5px)', offset: 0.3 },
-      { transform: `translateY(1.5px) skewX(${j * -0.3}deg)`, filter: 'blur(0px)', offset: 0.6 },
-      { transform: 'translateY(0)', filter: 'blur(0px)', offset: 1 },
+      { transform: 'translateY(2px) scale(0.985)', offset: 0 },
+      { transform: `translateY(-4px) skewX(${j * 0.7}deg)`, offset: 0.3 },
+      { transform: `translateY(1.5px) skewX(${j * -0.3}deg)`, offset: 0.6 },
+      { transform: 'translateY(0)', offset: 1 },
     ],
   },
   spin: {
     ms: 500,
     frames: (j) => [
-      { transform: 'scale(0.88) rotate(0deg)', filter: 'blur(0px)', offset: 0 },
-      { transform: `scale(1.16) rotate(${j * 16}deg)`, filter: 'blur(0.7px)', offset: 0.38 },
-      { transform: `scale(0.97) rotate(${j * -6}deg)`, filter: 'blur(0px)', offset: 0.68 },
-      { transform: 'scale(1) rotate(0deg)', filter: 'blur(0px)', offset: 1 },
+      { transform: 'scale(0.88) rotate(0deg)', offset: 0 },
+      { transform: `scale(1.16) rotate(${j * 16}deg)`, offset: 0.38 },
+      { transform: `scale(0.97) rotate(${j * -6}deg)`, offset: 0.68 },
+      { transform: 'scale(1) rotate(0deg)', offset: 1 },
     ],
   },
   soft: {

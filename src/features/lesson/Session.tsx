@@ -277,9 +277,9 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           <motion.div
             key={ex.id + idx}
             className="exercise-in"
-            initial={reduce ? false : { opacity: 0, x: 34, filter: 'blur(6px)' }}
+            initial={reduce ? false : { opacity: 0, x: 30, filter: 'blur(1.5px)' }}
             animate={{ opacity: 1, x: bad && !reduce ? [0, -8, 8, -5, 5, 0] : 0, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
-            exit={reduce ? undefined : { opacity: 0, x: -26, filter: 'blur(5px)', transition: { duration: 0.12, ease: 'easeIn' } }}
+            exit={reduce ? undefined : { opacity: 0, x: -22, transition: { duration: 0.12, ease: 'easeIn' } }}
             transition={bad ? { duration: 0.36, ease: EASE } : { type: 'spring', stiffness: 430, damping: 30 }}
           >
             {body}
@@ -320,8 +320,8 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
             <p className="hidden text-sm text-muted sm:block">Präg dir die Karten kurz ein. Gleich kommt die erste Frage dazu.</p>
           ) : result ? (
             <motion.div
-              initial={reduce ? false : { opacity: 0, y: 22, scale: 0.94, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none' } }}
+              initial={reduce ? false : { opacity: 0, y: 18, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ type: 'spring', stiffness: 420, damping: 20 }}
               className={`flex min-w-0 items-start gap-3 ${bad ? 'text-bad-dark' : 'text-good-dark'}`}
               role="status"

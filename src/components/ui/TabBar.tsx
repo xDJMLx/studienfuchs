@@ -24,11 +24,10 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
   const raw = useMotionValue(Math.max(activeIndex, 0))
   const pos = useSpring(raw, reduce ? { duration: 0.01 } : { stiffness: 560, damping: 40, mass: 0.8 })
   const press = useSpring(0, { stiffness: 500, damping: 30 })
-  // Gummi-Effekt: Je schneller die Linse sich bewegt, desto mehr streckt sie sich und verwischt leicht (Bewegungsunschärfe)
+  // Gummi-Effekt: Je schneller die Linse sich bewegt, desto mehr streckt sie sich (ganz leicht)
   const speed = useVelocity(pos)
-  const stretchX = useTransform(speed, (v) => 1 + Math.min(0.3, Math.abs(v) * 0.05))
-  const stretchY = useTransform(speed, (v) => 1 - Math.min(0.12, Math.abs(v) * 0.017))
-  const smear = useTransform(speed, (v) => (reduce ? 'none' : `blur(${Math.min(2.2, Math.abs(v) * 0.32).toFixed(2)}px)`))
+  const stretchX = useTransform(speed, (v) => 1 + Math.min(0.16, Math.abs(v) * 0.028))
+  const stretchY = useTransform(speed, (v) => 1 - Math.min(0.07, Math.abs(v) * 0.01))
   const [pressed, setPressed] = useState(false)
   const [focusIndex, setFocusIndex] = useState(activeIndex)
   const dragging = useRef(false)
@@ -131,7 +130,6 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
             style={{
               scaleX: reduce ? 1 : stretchX,
               scaleY: reduce ? 1 : stretchY,
-              filter: smear,
               background: pressed ? 'color-mix(in srgb, var(--tab-c) 16%, transparent)' : 'color-mix(in srgb, var(--tab-c) 11%, transparent)',
               boxShadow: pressed ? '0 6px 16px -8px rgba(0,0,0,0.35)' : 'none',
             }}

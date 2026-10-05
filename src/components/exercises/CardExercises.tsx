@@ -125,7 +125,7 @@ export function QCardExercise({ exercise: ex, onChange, result }: ExerciseProps<
   const reveal = shown || done
   const flip = useMotionValue(0)
   const lift = useTransform(flip, (a) => 1 + 0.06 * Math.sin((a * Math.PI) / 180))
-  const smear = useTransform(flip, (a) => `blur(${(2.6 * Math.abs(Math.sin((a * Math.PI) / 180))).toFixed(2)}px)`)
+  const smear = useTransform(flip, (a) => `blur(${(0.8 * Math.abs(Math.sin((a * Math.PI) / 180))).toFixed(2)}px)`)
   useEffect(() => {
     if (reduce) return flip.set(reveal ? 180 : 0)
     const c = animate(flip, reveal ? 180 : 0, { type: 'spring', stiffness: 200, damping: 15, mass: 0.9 })

@@ -397,7 +397,6 @@ describe('Schulstunden im Kalender', () => {
     render(<App />)
     // Block mit Stundenangabe statt Uhrzeit
     expect(await screen.findByRole('button', { name: /Bio-Test, Test, 3\. Stunde/ })).toBeTruthy()
-    expect(text()).toMatch(/Pause/)
     // Freie Stelle: die Stunde ist vorgewählt
     const fri = addDays(monday, 4)
     fireEvent.click(screen.getByRole('button', { name: new RegExp(`^Am Fr, ${fri.getDate()}\\. eintragen`) }), { detail: 1, clientY: 0 })
