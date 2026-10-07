@@ -600,7 +600,7 @@ describe('Tests, Klassenarbeiten und Vokabeltests', () => {
       },
       { id: 'ki-1', subject: 'physik', kind: 'arbeit', source: 'Thema: Geschwindigkeit' },
     )!
-    vi.mocked(generateTest).mockResolvedValue(res)
+    vi.mocked(generateTest).mockResolvedValue({ ...res, retried: false })
     useStore.setState({ onboarded: true, mySubjects: ['physik'] })
     stage('#/test/neu?fach=physik')
     fireEvent.change(await screen.findByLabelText(/Thema oder Kapitel/), { target: { value: 'Geschwindigkeit' } })

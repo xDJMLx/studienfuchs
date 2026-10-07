@@ -6,7 +6,7 @@ import { Sheet } from '../../components/ui/Sheet'
 import { approxGrade } from '../../lib/exam'
 import type { Answer, SelfGrade } from '../../lib/evaluate'
 import { helpSubject } from '../../lib/subjects'
-import { itemFromTask, taskAnswerText, taskQuestion } from '../../lib/tasks'
+import { itemFromTask, taskAnswerText, taskQuestion, TASK_LABEL } from '../../lib/tasks'
 import { gradeOf, scoreAnswer, suggestSelfGrade, taskCount, testExercise, testKindLabel, totalPoints, type TestData, type TestTask } from '../../lib/tests'
 import type { Exercise } from '../../lib/types'
 import { useStore } from '../../store/useStore'
@@ -38,12 +38,15 @@ function Runner({ test }: { test: TestData }) {
   const navigate = useNavigate()
   const addTestResult = useStore((s) => s.addTestResult)
   const addSet = useStore((s) => s.addSet)
+  const updateTest = useStore((s) => s.updateTest)
+  const deleteTest = useStore((s) => s.deleteTest)
+  const [showTasks, setShowTasks] = useState(false)
   const allResults = useStore((s) => s.testResults)
   const results = useMemo(() => (allResults ?? []).filter((r) => r.testId === test.id), [allResults, test.id])
   const sub = helpSubject(test.subject)
   const [round, setRound] = useState(0)
   const [phase, setPhase] = useState<'start' | 'run' | 'review'>('start')
-  const flat = useMemo(() => test.sections.flatMap((s) => s.tasks.map((t) => ({ t, section: s.title }))), [test])
+  const flat = useMemo(() => test.sections.flatMap((s) => s.tasks.map((t) => ({ t, section: s.title, intro: s.intro }))), [test])
   // Pro Durchgang neue Übungen (neu gemischte Antworten)
   const exercises = useMemo<Exercise[]>(() => flat.map(({ t }) => testExercise(t)), [flat, round]) // eslint-disable-line react-hooks/exhaustive-deps
   const [idx, setIdx] = useState(0)
@@ -151,8 +154,49 @@ function Runner({ test }: { test: TestData }) {
           {flat.some(({ t }) => t.task.t === 'short') && <li>Kurzantworten bewertest du dir danach selbst mit der Musterlösung.</li>}
         </ul>
         {best !== null && <p className="mt-3 text-sm font-bold text-muted">Bisher beste Leistung: {best} % ({approxGrade(best).label}).</p>}
+        <button type="button" className="press mt-3 min-h-11 w-fit rounded-xl px-1 text-sm font-extrabold text-sky-dark" aria-expanded={showTasks} onClick={() => setShowTasks((v) => !v)}>
+          {showTasks ? 'Aufgaben ausblenden' : 'Aufgaben ansehen und aussortieren'}
+        </button>
+        {showTasks && (
+          <div className="mb-1 rounded-2xl border border-ink/10">
+            <p className="px-4 pt-3 text-xs text-muted">Die KI kann sich irren. Wirf Aufgaben raus, die falsch oder unklar sind (mindestens 3 bleiben). Beim Üben siehst du die Lösungen erst am Ende.</p>
+            <ul className="divide-y divide-ink/10">
+              {test.sections.flatMap((sec) => sec.tasks).map((t) => (
+                <li key={t.id} className="flex items-start gap-3 px-4 py-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[15px] font-semibold leading-snug">{taskQuestion(t.task)}</p>
+                    <p className="text-xs text-muted">
+                      {TASK_LABEL[t.task.t]} · {pts(t.points)} {t.points === 1 ? 'Punkt' : 'Punkte'}
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label={`Aufgabe entfernen: ${taskQuestion(t.task).slice(0, 40)}`}
+                    disabled={taskCount(test) <= 3}
+                    onClick={() =>
+                      updateTest(test.id, (x) => ({ ...x, sections: x.sections.map((sec) => ({ ...sec, tasks: sec.tasks.filter((y) => y.id !== t.id) })).filter((sec) => sec.tasks.length > 0) }))
+                    }
+                    className="press flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-muted hover:bg-snow disabled:opacity-30"
+                  >
+                    ×
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
         <button type="button" className="btn btn-primary btn-shine press mt-6 w-full" onClick={start} autoFocus>
           Starten
+        </button>
+        <button
+          type="button"
+          className="press mx-auto mt-2 min-h-11 rounded-xl px-3 text-sm font-semibold text-muted hover:text-bad-dark"
+          onClick={() => {
+            deleteTest(test.id)
+            navigate(`/faecher/${test.subject}`, { replace: true })
+          }}
+        >
+          Test löschen
         </button>
       </div>
     )
@@ -185,6 +229,7 @@ function Runner({ test }: { test: TestData }) {
           <p className="mb-2 text-sm font-bold text-muted">
             {cur.section} · Aufgabe {idx + 1} von {flat.length} · {pts(cur.t.points)} {cur.t.points === 1 ? 'Punkt' : 'Punkte'}
           </p>
+          {cur.intro && <Intro text={cur.intro} />}
           {open ? <OpenAnswer task={cur.t} value={typeof answer === 'string' ? answer : ''} onChange={(v) => set(v || null)} /> : <ExerciseBody exercise={ex} answer={answer} onChange={set} result={null} />}
         </main>
         <footer className="safe-bottom border-t border-line">
@@ -225,6 +270,8 @@ function Runner({ test }: { test: TestData }) {
         </p>
         <p className="mt-1 text-xs text-muted">Nur zur Orientierung: Jede Lehrkraft setzt die Grenzen selbst. Zeit: {mmss(seconds)} von {test.minutes} Minuten.</p>
       </section>
+
+      <Breakdown scored={scored} />
 
       <ul className="grid gap-3">
         {scored.map(({ t, section, got, answer }, i) => {
@@ -317,5 +364,47 @@ function OpenAnswer({ task, value, onChange }: { task: TestTask; value: string; 
         maxLength={1200}
       />
     </div>
+  )
+}
+
+/** Lesetext, Quelle oder Fall zu den Aufgaben eines Teils. */
+function Intro({ text }: { text: string }) {
+  return (
+    <section className="mb-4 max-h-[38vh] overflow-y-auto rounded-2xl bg-snow p-4" aria-label="Text zu den Aufgaben">
+      <p className="whitespace-pre-wrap text-[15px] leading-relaxed">{text}</p>
+    </section>
+  )
+}
+
+const AFB_LABEL = { 1: 'Wissen', 2: 'Anwenden', 3: 'Begründen' } as const
+
+/** Wo man gut war und wo nicht: Punkte je Anforderungsbereich (nur wenn die KI sie angegeben hat). */
+function Breakdown({ scored }: { scored: { t: TestTask; got: number }[] }) {
+  const groups = ([1, 2, 3] as const)
+    .map((a) => {
+      const xs = scored.filter((x) => x.t.afb === a)
+      return { a, got: xs.reduce((n, x) => n + x.got, 0), max: xs.reduce((n, x) => n + x.t.points, 0) }
+    })
+    .filter((g) => g.max > 0)
+  if (groups.length < 2) return null
+  return (
+    <section className="mb-5 grid gap-2" aria-label="Wo du stehst">
+      {groups.map((g) => {
+        const pct = Math.round((g.got / g.max) * 100)
+        return (
+          <div key={g.a}>
+            <div className="mb-1 flex justify-between text-sm font-semibold">
+              <span>{AFB_LABEL[g.a]}</span>
+              <span className="tabular-nums text-muted">
+                {pts(g.got)} von {pts(g.max)}
+              </span>
+            </div>
+            <div className="h-2 overflow-hidden rounded-full bg-ink/10">
+              <div className={`h-full rounded-full ${pct >= 70 ? 'bg-good' : pct >= 40 ? 'bg-gold' : 'bg-bad'}`} style={{ width: `${Math.max(pct, 3)}%` }} />
+            </div>
+          </div>
+        )
+      })}
+    </section>
   )
 }

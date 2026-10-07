@@ -134,6 +134,8 @@ interface Actions {
   /** Schulstunden speichern (wird geordnet und geprüft) */
   setSchoolPeriods: (list: Period[]) => void
   addTest: (t: TestData) => void
+  /** Einen Test ändern (z. B. eine Aufgabe entfernen) */
+  updateTest: (id: string, fn: (t: TestData) => TestData) => void
   deleteTest: (id: string) => void
   addTestResult: (r: TestResult) => void
   /** Mit WebUntis verbinden (Link und optional Relais merken; der erste Abgleich folgt separat) */
@@ -406,6 +408,7 @@ export const useStore = create<Data & Actions>()(
 
       addTest: (t) => set((s) => ({ tests: [t, ...(s.tests ?? []).filter((x) => x.id !== t.id)].slice(0, 60) })),
       deleteTest: (id) => set((s) => ({ tests: (s.tests ?? []).filter((x) => x.id !== id), testResults: (s.testResults ?? []).filter((r) => r.testId !== id) })),
+      updateTest: (id, fn) => set((s) => ({ tests: (s.tests ?? []).map((t) => (t.id === id ? fn(t) : t)) })),
       addTestResult: (r) => set((s) => ({ testResults: [r, ...(s.testResults ?? [])].slice(0, 200) })),
 
       connectUntis: (url, relay) =>

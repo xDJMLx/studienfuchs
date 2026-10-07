@@ -3,7 +3,7 @@ import { evaluate } from './evaluate'
 import { approxGrade } from './exam'
 import type { CardRef } from './decks'
 import { shuffle } from './generateExercises'
-import { itemFromTask, normalizeTask, taskToExercise, type Task, type TaskKind } from './tasks'
+import { itemFromTask, normalizeTask, taskQuestion, taskToExercise, type Task, type TaskKind } from './tasks'
 import type { Exercise } from './types'
 
 /** Tests, Klassenarbeiten und Vokabeltests für jedes Fach: Aufgaben mit Punkten, ohne Hilfe, am Ende eine ungefähre Note. */
@@ -21,9 +21,13 @@ export interface TestTask {
   id: string
   task: Task
   points: number
+  /** Anforderungsbereich: 1 Wissen, 2 Anwenden, 3 Begründen und Übertragen (nur bei Tests von der KI) */
+  afb?: 1 | 2 | 3
 }
 export interface TestSection {
   title: string
+  /** Text, auf den sich die Aufgaben des Teils beziehen (Lesetext, Quelle, Fall) */
+  intro?: string
   tasks: TestTask[]
 }
 export interface TestData {
@@ -53,6 +57,10 @@ export interface TestResult {
 export const DEFAULT_POINTS: Record<TaskKind, number> = { mc: 1, tf: 1, cloze: 1, type: 1, order: 2, match: 2, calc: 2, solve: 2, short: 3 }
 
 const clean = (v: unknown): string => (typeof v === 'string' ? v.replace(/\s+/g, ' ').trim() : '')
+/** Wie `clean`, aber mit Absätzen (für Lesetexte). */
+const cleanText = (v: unknown): string => (typeof v === 'string' ? v.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim() : '')
+/** Wörter, die auf eine Abbildung oder einen Text zeigen, den es ohne "intro" nicht gibt. */
+const NEEDS_SOURCE = /(abgebildet|abbildung|zeichnung|skizze|\bdiagramm|siehe (text|bild)|im (obigen|folgenden|oben stehenden|abgedruckten) text|im text\b|der text\b|dem text\b|textstelle)/i
 const list = (v: unknown): unknown[] => (Array.isArray(v) ? v : [])
 
 export const totalPoints = (t: TestData): number => t.sections.reduce((n, s) => n + s.tasks.reduce((m, x) => m + x.points, 0), 0)
@@ -74,21 +82,24 @@ export function normalizeTest(raw: unknown, meta: { id: string; subject: string;
   let n = 0
   const sections: TestSection[] = []
   for (const s of sectionsIn) {
-    const sec = s as { title?: unknown; tasks?: unknown; aufgaben?: unknown }
+    const sec = s as { title?: unknown; intro?: unknown; text?: unknown; tasks?: unknown; aufgaben?: unknown }
+    const intro = cleanText(sec?.intro ?? sec?.text).slice(0, 2500)
     const tasks: TestTask[] = []
     for (const x of list(sec?.tasks ?? sec?.aufgaben)) {
       const task = normalizeTask(x)
       const key = task ? ((task.t === 'cloze' ? task.text : task.q) || '').toLowerCase() : ''
-      if (!task || seen.has(key)) {
+      // Aufgaben, die sich auf einen Text oder ein Bild beziehen, das nicht da ist, kann niemand lösen
+      if (!task || seen.has(key) || (!intro && NEEDS_SOURCE.test(taskQuestion(task)))) {
         dropped++
         continue
       }
       seen.add(key)
       const given = Number((x as { points?: unknown }).points)
       const points = Number.isFinite(given) && given > 0 ? Math.min(8, Math.max(1, Math.round(given * 2) / 2)) : DEFAULT_POINTS[task.t]
-      tasks.push({ id: `${meta.id}:${++n}`, task, points })
+      const afbRaw = Number((x as { afb?: unknown }).afb)
+      tasks.push({ id: `${meta.id}:${++n}`, task, points, ...(afbRaw === 1 || afbRaw === 2 || afbRaw === 3 ? { afb: afbRaw as 1 | 2 | 3 } : {}) })
     }
-    if (tasks.length) sections.push({ title: clean(sec?.title) || `Teil ${sections.length + 1}`, tasks })
+    if (tasks.length) sections.push({ title: clean(sec?.title) || `Teil ${sections.length + 1}`, ...(intro ? { intro } : {}), tasks })
   }
   const count = sections.reduce((a, s) => a + s.tasks.length, 0)
   if (count < 3) return null

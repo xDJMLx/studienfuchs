@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Back, Camera, Close } from '../../components/ui/Icons'
 import { blobToJpegBase64, preloadAi } from '../../lib/ai'
-import { generateTest, LENGTHS, materialFrom, type TestLength } from '../../lib/aiTests'
+import { DIFFICULTIES, generateTest, LENGTHS, materialFrom, type Difficulty, type TestLength } from '../../lib/aiTests'
 import { activeDecks, cardRefs } from '../../lib/decks'
 import { HELP_SUBJECTS, helpSubject } from '../../lib/subjects'
 import { buildOfflineTest, TEST_KINDS, type TestKind } from '../../lib/tests'
@@ -40,6 +40,8 @@ export function TestCreatePage() {
   const [topic, setTopic] = useState(fromArbeit?.title ?? '')
   const [picked, setPicked] = useState<string[]>(fromArbeit?.deckIds ?? [])
   const [length, setLength] = useState<TestLength>('normal')
+  const [difficulty, setDifficulty] = useState<Difficulty>('mittel')
+  const [grade, setGrade] = useState(() => useStore.getState().grade ?? 7)
   const [count, setCount] = useState(20)
   const [direction, setDirection] = useState<(typeof DIRECTIONS)[number]['id']>('toForeign')
   const [files, setFiles] = useState<File[]>([])
@@ -103,6 +105,8 @@ export function TestCreatePage() {
     try {
       const images = await Promise.all(files.map((f) => blobToJpegBase64(f)))
       const { test } = await generateTest({
+        grade,
+        difficulty,
         subjectId: subject,
         kind: kind as Exclude<TestKind, 'vokabeltest'>,
         length,
@@ -225,6 +229,26 @@ export function TestCreatePage() {
                 ))}
               </div>
             </div>
+            <div>
+              <p className="mb-1.5 text-sm font-bold text-muted">Schwierigkeit</p>
+              <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Schwierigkeit">
+                {DIFFICULTIES.map((d) => (
+                  <button key={d.id} type="button" role="radio" aria-checked={difficulty === d.id} onClick={() => setDifficulty(d.id)} className={`chip ${difficulty === d.id ? 'chip-on' : ''}`}>
+                    {d.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <label className="grid gap-1.5 text-sm font-bold text-muted">
+              Klassenstufe
+              <select className={field} value={grade} onChange={(e) => setGrade(Number(e.target.value))}>
+                {[5, 6, 7, 8, 9, 10, 11, 12, 13].map((g) => (
+                  <option key={g} value={g}>
+                    Klasse {g}
+                  </option>
+                ))}
+              </select>
+            </label>
             <div>
               <p className="mb-1.5 text-sm font-bold text-muted">Fotos von Heft, Buch oder Arbeitsblatt (optional)</p>
               <div className="flex flex-wrap gap-2">

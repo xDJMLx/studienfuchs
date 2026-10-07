@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import { buildTestPrompt, materialFrom, sizeOf } from './aiTests'
 import type { CardRef, Deck } from './decks'
 import { buildOfflineTest, gradeOf, normalizeTest, scoreAnswer, suggestSelfGrade, taskCount, testExercise, totalPoints } from './tests'
@@ -166,5 +166,66 @@ describe('Anweisung an die KI für Tests', () => {
     expect(sizeOf('arbeit', 'lang').tasks).toBeGreaterThan(sizeOf('arbeit', 'normal').tasks)
     expect(sizeOf('test', 'kurz').tasks).toBeGreaterThanOrEqual(6)
     expect(materialFrom(Array.from({ length: 200 }, (_, i) => ({ front: `f${i}`, back: 'b' })), 5).split('\n')).toHaveLength(5)
+  })
+})
+
+describe('Bessere KI-Arbeiten', () => {
+  const meta2 = { id: 'q', subject: 'deutsch', kind: 'arbeit' as const, source: 'x' }
+  it('Texte stehen im Teil, Aufgaben mit Bezug auf einen fehlenden Text oder ein Bild fliegen raus, Anforderungsbereiche werden gelesen', () => {
+    const res = normalizeTest(
+      {
+        sections: [
+          { title: 'Teil A', intro: 'Lena geht jeden Tag mit ihrem Hund Max in den Park.\n\n\n\nDort trifft sie Paul.', tasks: [{ t: 'mc', q: 'Wie heißt der Hund im Text?', options: ['Max', 'Paul', 'Lena'], answer: 0, afb: 1 }, { t: 'tf', q: 'Paul ist Lenas Bruder.', answer: false, afb: 2 }] },
+          { title: 'Teil B', tasks: [{ t: 'mc', q: 'Was zeigt die Abbildung?', options: ['a', 'b', 'c'], answer: 1 }, { t: 'tf', q: 'Ein Satz hat immer ein Verb.', answer: true, afb: 7 }, { t: 'tf', q: 'Nomen schreibt man groß.', answer: true, afb: 1 }] },
+        ],
+      },
+      meta2,
+    )!
+    expect(res.dropped).toBe(1)
+    expect(res.test.sections[0].intro).toBe('Lena geht jeden Tag mit ihrem Hund Max in den Park.\n\nDort trifft sie Paul.')
+    expect(res.test.sections[0].tasks.map((t) => t.afb)).toEqual([1, 2])
+    expect(res.test.sections[1].intro).toBeUndefined()
+    // Unbekannter Anforderungsbereich wird ignoriert
+    expect(res.test.sections[1].tasks[0].afb).toBeUndefined()
+  })
+
+  it('Anweisung enthält Klassenstufe, Schwierigkeit und den Aufbau des Fachs', async () => {
+    const { buildTestPrompt } = await import('./aiTests')
+    const p = buildTestPrompt({ subjectId: 'englisch', kind: 'arbeit', length: 'normal', grade: 8, difficulty: 'schwer' })
+    expect(p).toContain('Klassenstufe 8')
+    expect(p).toContain('Reading')
+    expect(p).toContain('Anspruchsvoll')
+    expect(p).toContain('"intro"')
+    expect(buildTestPrompt({ subjectId: 'geschichte', kind: 'arbeit', length: 'normal' })).toContain('Quellentext')
+    expect(buildTestPrompt({ subjectId: 'mathe', kind: 'test', length: 'normal', grade: 99 })).not.toContain('Klassenstufe 99')
+  })
+
+  it('Ist die erste KI-Antwort zu dünn, fragt die App einmal nach und nimmt die bessere; ist sie gut, bleibt es bei einem Aufruf', async () => {
+    const { generateTest, goodEnough: goodEnough0 } = await import('./aiTests')
+    const mk = (n: number) =>
+      JSON.stringify({
+        sections: [{ title: 'A', tasks: Array.from({ length: n }, (_, i) => (i % 3 === 0 ? { t: 'tf', q: `Aussage ${i}`, answer: true } : i % 3 === 1 ? { t: 'mc', q: `Frage ${i}`, options: ['a', 'b', 'c'], answer: 1 } : { t: 'cloze', text: `Satz ${i} mit ___`, answers: ['x'] })) }],
+      })
+    const req = { subjectId: 'biologie', kind: 'test' as const, length: 'normal' as const, topic: 'Zelle', source: 's', id: 'g1' }
+    const thin = vi.fn().mockResolvedValueOnce(mk(3)).mockResolvedValueOnce(mk(9))
+    const out = await generateTest(req, thin)
+    expect(thin).toHaveBeenCalledTimes(2)
+    expect(out.retried).toBe(true)
+    expect(taskCount(out.test)).toBe(9)
+    // Zweiter Aufruf nennt das Problem
+    expect(thin.mock.calls[1][1]).toContain('nur 3 von 9')
+
+    const good = vi.fn().mockResolvedValue(mk(9))
+    const out2 = await generateTest(req, good)
+    expect(good).toHaveBeenCalledTimes(1)
+    expect(out2.retried).toBe(false)
+    expect(goodEnough0(out2.test, 9)).toBe(true)
+
+    // Kaputtes JSON beim ersten Mal, brauchbar beim zweiten
+    const broken = vi.fn().mockResolvedValueOnce('Hier ist deine Arbeit: leider kein JSON').mockResolvedValueOnce(mk(8))
+    expect((await generateTest(req, broken)).test.sections[0].tasks).toHaveLength(8)
+    // Zweimal Unsinn → verständlicher Fehler
+    const bad = vi.fn().mockResolvedValue('nichts')
+    await expect(generateTest(req, bad)).rejects.toThrow(/keinen brauchbaren Test/)
   })
 })
