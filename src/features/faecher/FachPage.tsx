@@ -172,18 +172,25 @@ export function FachPage() {
 
           {!isFrench && templatesFor(subjectId).length > 0 && (
             <Item>
-              <h2 className="mb-1 text-lg font-extrabold">Fertige Karteikarten</h2>
-              <p className="mb-3 text-sm text-muted">Grundwissen zum Hinzufügen. Du kannst die Karten danach bearbeiten.</p>
-              <div className="mb-5">
-                <TemplateList subject={subjectId} />
-              </div>
+              <details className="group mb-5 rounded-2xl border border-ink/10">
+                <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between gap-2 px-4 font-bold">
+                  <span>
+                    Fertige Karteikarten
+                    <span className="block text-sm font-normal text-muted">{templatesFor(subjectId).length} Sätze Grundwissen zum Hinzufügen</span>
+                  </span>
+                  <span className="text-muted transition-transform group-open:rotate-180" aria-hidden>⌄</span>
+                </summary>
+                <div className="px-3 pb-3">
+                  <TemplateList subject={subjectId} />
+                </div>
+              </details>
             </Item>
           )}
 
           {isFrench && (
             <Item>
               <h2 className="mb-1 text-lg font-extrabold">Fertige Karteikarten aus dem Kurs</h2>
-              <p className="mb-3 text-sm text-muted">Wortschatz nach Themen für Klasse 7 bis 10, mit Beispielsätzen und Aufnahmen. Füge hinzu, was ihr im Unterricht durchnehmt: Die Karten kommen dann Tag für Tag nach Plan dran.</p>
+              <p className="mb-3 text-sm text-muted">Wortschatz nach Themen, mit Beispielsätzen und Aufnahmen. Füge hinzu, was ihr im Unterricht durchnehmt.</p>
               {grades.map((g) => (
                 <div key={g} className="mb-4">
                   <p className="eyebrow mb-1.5">Klasse {g}</p>

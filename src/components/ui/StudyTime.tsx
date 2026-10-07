@@ -29,24 +29,17 @@ export function StudyTimeCard() {
   if (!st) return null
   const left = Math.max(0, Math.round((st.target - st.minutes) * 10) / 10)
   return (
-    <section className="card mb-5 flex items-center gap-4 p-4" aria-label="Lernzeit heute">
-      <ProgressRing pct={st.pct} size={64} stroke={7} color={st.reached ? 'var(--good)' : 'var(--sky)'} track="var(--line)">
-        {st.reached ? <Check size={26} className="text-good" /> : <span className="text-[15px] font-black tabular-nums">{Math.floor(st.minutes)}</span>}
+    <Link to={`/ueben/los?arbeit=${st.arbeit.id}`} className="panel press mb-5 flex items-center gap-3 p-3" aria-label="Lernzeit heute">
+      <ProgressRing pct={st.pct} size={44} stroke={5} color={st.reached ? 'var(--good)' : 'var(--sky)'} track="var(--line)">
+        {st.reached ? <Check size={20} className="text-good" /> : <span className="text-[13px] font-black tabular-nums">{Math.floor(st.minutes)}</span>}
       </ProgressRing>
-      <div className="min-w-0 flex-1">
-        <p className="text-[17px] font-extrabold leading-tight">{st.reached ? 'Heute geschafft' : `${st.target} Minuten für ${st.arbeit.title}`}</p>
-        <p className="mt-0.5 text-sm text-muted">
-          {st.reached
-            ? `${minutesText(st.minutes)} geübt. Die Arbeit ist ${dayWord(st.days)}: Mehr geht immer.`
-            : `${minutesText(st.minutes)} von ${st.target}${st.minutes > 0 ? `, noch ${minutesText(left)}` : ''}. Die Arbeit ist ${dayWord(st.days)}.`}
-        </p>
-        {!st.reached && (
-          <Link to={`/ueben/los?arbeit=${st.arbeit.id}`} className="btn btn-primary press mt-2 !min-h-10 !px-4 !text-sm">
-            Jetzt lernen
-          </Link>
-        )}
-      </div>
-    </section>
+      <span className="min-w-0 flex-1">
+        <span className="block text-[15px] font-bold leading-tight">{st.reached ? 'Heute geschafft' : `${st.target} Minuten für ${st.arbeit.title}`}</span>
+        <span className="block text-[13px] text-muted">
+          {st.reached ? `${minutesText(st.minutes)} geübt · Arbeit ${dayWord(st.days)}` : `${minutesText(st.minutes)} von ${st.target}${st.minutes > 0 ? `, noch ${minutesText(left)}` : ''} · Arbeit ${dayWord(st.days)}`}
+        </span>
+      </span>
+    </Link>
   )
 }
 
