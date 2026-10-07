@@ -11,6 +11,7 @@ import { isDue } from '../../lib/srs'
 import { helpSubject } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
 import { BackupBanner } from '../../components/ui/BackupBanner'
+import { GettingStarted } from './GettingStarted'
 import { InstallBanner } from '../../components/ui/InstallApp'
 import { backupDue } from '../../lib/backup'
 import { ArbeitFollowUp } from '../kalender/KalenderPage'
@@ -66,6 +67,10 @@ export function UebenPage() {
 
       {/* Höchstens ein Hinweis gleichzeitig: Sichern geht vor Installieren */}
       {backupDue(decks.length > 0 || Object.keys(cards).length > 0) ? <BackupBanner /> : <InstallBanner />}
+
+      <Item>
+        <GettingStarted />
+      </Item>
 
       <Item>
         {decks.length === 0 ? (

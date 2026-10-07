@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { EASE, SPRING } from '../../components/ui/motion'
 import { Mascot, type Mood } from '../../components/mascot/Mascot'
+import { Tour } from './Tour'
 import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
 import { EXAMPLE_PERIODS } from '../../lib/school'
 import { Confetti } from '../../components/ui/Confetti'
@@ -13,9 +14,10 @@ import { HELP_SUBJECTS } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
 import { useShallow } from 'zustand/react/shallow'
 
-type Step = 'hero' | 'subjects' | 'goal' | 'hours' | 'ready'
-const FLOW: Exclude<Step, 'hero'>[] = ['subjects', 'goal', 'hours', 'ready']
-const ORDER: Step[] = ['hero', ...FLOW]
+type Step = 'hero' | 'tour' | 'subjects' | 'goal' | 'hours' | 'ready'
+type FlowStep = Exclude<Step, 'hero' | 'tour'>
+const FLOW: FlowStep[] = ['subjects', 'goal', 'hours', 'ready']
+const ORDER: Step[] = ['hero', 'tour', ...FLOW]
 
 /** Lernzeit pro Tag, solange eine Arbeit ansteht (ohne Arbeit gibt es kein Tagesziel). */
 const GOALS = [
@@ -25,13 +27,13 @@ const GOALS = [
   { min: 20, label: 'Intensiv', time: 'wenn es knapp wird', bars: 4 },
 ]
 
-const SPEECH: Record<Exclude<Step, 'hero'>, string> = {
+const SPEECH: Record<FlowStep, string> = {
   subjects: 'Welche Fächer hast du? Du kannst später jederzeit mehr hinzufügen.',
-  goal: 'Steht eine Arbeit an: Wie viele Minuten am Tag willst du üben?',
+  goal: 'In welcher Klasse bist du, und wie viel Zeit hast du pro Tag, wenn eine Arbeit ansteht?',
   hours: 'Wann sind deine Schulstunden? Dann zeigt dir der Kalender „3. Stunde“ statt einer Uhrzeit.',
   ready: 'Super! Dann leg los mit deinen ersten Karteikarten.',
 }
-const MOOD: Record<Exclude<Step, 'hero'>, Mood> = { subjects: 'think', goal: 'happy', hours: 'think', ready: 'cheer' }
+const MOOD: Record<FlowStep, Mood> = { subjects: 'think', goal: 'happy', hours: 'think', ready: 'cheer' }
 
 const HOW = [
   { n: '1', title: 'Karteikarten erstellen', text: 'Schreib, was du für ein Fach brauchst, oder lass die KI die Karten machen. Auch aus einem Foto von deinem Heft.' },
@@ -49,7 +51,7 @@ const slide = {
 export function Welcome() {
   const navigate = useNavigate()
   const reduce = useReducedMotion()
-  const { schoolPeriods, setSchoolPeriods, dailyMinutes, setDailyMinutes, setOnboarded, importData, mySubjects, toggleSubject } = useStore(useShallow((s) => ({ schoolPeriods: s.schoolPeriods ?? [], setSchoolPeriods: s.setSchoolPeriods, dailyMinutes: s.dailyMinutes, setDailyMinutes: s.setDailyMinutes, setOnboarded: s.setOnboarded, importData: s.importData, mySubjects: s.mySubjects ?? [], toggleSubject: s.toggleSubject })))
+  const { grade, setGrade, schoolPeriods, setSchoolPeriods, dailyMinutes, setDailyMinutes, setOnboarded, importData, mySubjects, toggleSubject } = useStore(useShallow((s) => ({ grade: s.grade, setGrade: s.setGrade, schoolPeriods: s.schoolPeriods ?? [], setSchoolPeriods: s.setSchoolPeriods, dailyMinutes: s.dailyMinutes, setDailyMinutes: s.setDailyMinutes, setOnboarded: s.setOnboarded, importData: s.importData, mySubjects: s.mySubjects ?? [], toggleSubject: s.toggleSubject })))
   const hasProgress = useStore((s) => s.xp > 0 || Object.keys(s.lessons).length > 0 || s.sets.length > 0)
   const [step, setStep] = useState<Step>('hero')
   const [dir, setDir] = useState(1)
@@ -79,9 +81,9 @@ export function Welcome() {
     }
   }
 
-  const idx = FLOW.indexOf(step as Exclude<Step, 'hero'>)
+  const idx = FLOW.indexOf(step as FlowStep)
   const next = () => go(idx >= FLOW.length - 1 ? step : FLOW[idx + 1])
-  const back = () => go(idx <= 0 ? 'hero' : FLOW[idx - 1])
+  const back = () => go(idx <= 0 ? 'tour' : FLOW[idx - 1])
 
   return (
     <div className="flex h-full flex-col overflow-hidden bg-bg">
@@ -129,7 +131,7 @@ export function Welcome() {
 
             <footer className="mx-auto w-full max-w-md px-6 pt-3" style={{ paddingBottom: 'max(1.25rem, env(safe-area-inset-bottom))' }}>
               <motion.div initial={reduce ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.36, ease: EASE, delay: 0.36 }} className="grid gap-3">
-                <button className="btn btn-primary press w-full !py-4 text-base" onClick={() => go(FLOW[0])} autoFocus>
+                <button className="btn btn-primary press w-full !py-4 text-base" onClick={() => go('tour')} autoFocus>
                   Jetzt starten
                 </button>
                 <button className="btn btn-ghost press w-full !py-3.5" onClick={() => fileRef.current?.click()}>
@@ -143,6 +145,10 @@ export function Welcome() {
                 )}
               </motion.div>
             </footer>
+          </motion.div>
+        ) : step === 'tour' ? (
+          <motion.div key="tour" className="flex min-h-0 flex-1 flex-col" initial={reduce ? false : { opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, transition: { duration: 0.1 } }} transition={{ type: 'spring', stiffness: 460, damping: 36 }}>
+            <Tour onBack={() => go('hero')} onDone={() => go(FLOW[0])} />
           </motion.div>
         ) : (
           <motion.div key="flow" className="flex min-h-0 flex-1 flex-col" initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.12 } }} transition={{ duration: 0.25 }}>
@@ -163,7 +169,7 @@ export function Welcome() {
             <main className="mx-auto min-h-0 w-full max-w-3xl flex-1 overflow-y-auto px-5 pb-4">
               <div className="mb-5 flex items-center gap-4">
                 <motion.div key={step} initial={reduce ? false : { scale: 0.85 }} animate={{ scale: 1 }} transition={SPRING.bouncy} className="shrink-0">
-                  <Mascot mood={MOOD[step as Exclude<Step, 'hero'>]} size={92} blink />
+                  <Mascot mood={MOOD[step as FlowStep]} size={92} blink />
                 </motion.div>
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
@@ -175,7 +181,7 @@ export function Welcome() {
                     style={{ transformOrigin: 'left center' }}
                     className="relative rounded-3xl border-2 border-line bg-surface px-5 py-3.5 text-[17px] font-semibold leading-snug"
                   >
-                    {SPEECH[step as Exclude<Step, 'hero'>]}
+                    {SPEECH[step as FlowStep]}
                     <span aria-hidden className="absolute -left-[9px] top-1/2 h-4 w-4 -translate-y-1/2 rotate-45 border-b-2 border-l-2 border-line bg-surface" />
                   </motion.div>
                 </AnimatePresence>
@@ -203,6 +209,18 @@ export function Welcome() {
                   )}
 
                   {step === 'goal' && (
+                    <>
+                    <div className="mb-4">
+                      <p className="mb-2 text-sm font-bold text-muted">Klasse</p>
+                      <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Klasse">
+                        {[5, 6, 7, 8, 9, 10, 11, 12, 13].map((g) => (
+                          <button key={g} type="button" role="radio" aria-checked={grade === g} onClick={() => setGrade(g)} className={`chip !min-w-11 justify-center ${grade === g ? 'chip-on' : ''}`}>
+                            {g}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <p className="mb-2 text-sm font-bold text-muted">Minuten pro Tag, wenn eine Arbeit ansteht</p>
                     <ul className="grid gap-3" role="radiogroup" aria-label="Minuten pro Tag">
                       {GOALS.map((g) => {
                         const on = dailyMinutes === g.min
@@ -224,6 +242,7 @@ export function Welcome() {
                         )
                       })}
                     </ul>
+                    </>
                   )}
 
                   {step === 'hours' && (

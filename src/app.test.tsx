@@ -61,12 +61,23 @@ describe('Die App als Ganzes', () => {
     render(<App />)
     await waitFor(() => expect(text()).toMatch(/Dein Übungsplan/))
     await click(/Jetzt starten/)
+    // Einführung: vier Seiten, die zeigen, was man machen kann
+    await waitFor(() => expect(text()).toMatch(/Karteikarten in Sekunden/))
+    await click(/^Weiter$/)
+    await waitFor(() => expect(text()).toMatch(/Üben, wann es sich lohnt/))
+    await click(/^Weiter$/)
+    await waitFor(() => expect(text()).toMatch(/Dein Plan mit Arbeiten/))
+    await click(/^Weiter$/)
+    await waitFor(() => expect(text()).toMatch(/Probearbeit mit Note/))
+    await click(/^Einrichten$/)
     await waitFor(() => expect(text()).toMatch(/Welche Fächer hast du/))
     await click(/Biologie/)
     await click(/Mathe/)
     expect(useStore.getState().mySubjects).toEqual(['biologie', 'mathe'])
     await click(/Weiter/)
-    await waitFor(() => expect(text()).toMatch(/Wie viele Minuten am Tag/))
+    await waitFor(() => expect(text()).toMatch(/In welcher Klasse bist du/))
+    await click(/^9$/, 'radio')
+    expect(useStore.getState().grade).toBe(9)
     await click(/Ernsthaft/, 'radio')
     expect(useStore.getState().dailyMinutes).toBe(15)
     await click(/Weiter/)
@@ -669,5 +680,45 @@ describe('Formel-Training ohne KI', () => {
     // Mathe: Alltagsrechnen mit Prozent und Dreisatz
     go('#/faecher/mathe?tab=mehr')
     await waitFor(() => expect(text()).toMatch(/Prozent und Dreisatz/))
+  })
+})
+
+describe('Einführung überspringen', () => {
+  it('Wer die Einführung überspringt, landet direkt bei der Einrichtung', async () => {
+    render(<App />)
+    await click(/Jetzt starten/)
+    await click(/Überspringen/)
+    await waitFor(() => expect(text()).toMatch(/Welche Fächer hast du/))
+  })
+})
+
+describe('Übersicht: Einstieg, Einstellungen als Liste', () => {
+  it('„So kommst du in Fahrt“ hakt ab, was geschafft ist, und lässt sich ausblenden', async () => {
+    localStorage.removeItem('studienfuchs-start-aus')
+    useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/So kommst du in Fahrt/))
+    expect(text()).toMatch(/0 von 3/)
+    useStore.getState().addSet('Zelle', [{ front: 'a', back: 'b' }], { subject: 'biologie' })
+    await waitFor(() => expect(text()).toMatch(/1 von 3/))
+    fireEvent.click(screen.getByRole('button', { name: 'Ausblenden' }))
+    await waitFor(() => expect(text()).not.toMatch(/So kommst du in Fahrt/))
+    expect(localStorage.getItem('studienfuchs-start-aus')).toBe('1')
+    localStorage.removeItem('studienfuchs-start-aus')
+  })
+
+  it('Einstellungen zeigen erst eine Liste, jeder Bereich liegt auf einer eigenen Seite', async () => {
+    useStore.setState({ onboarded: true })
+    window.location.hash = '#/settings'
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Meine Fächer/))
+    expect(text()).toMatch(/WebUntis/)
+    // Noch kein Inhalt der Bereiche
+    expect(text()).not.toMatch(/Sicherung teilen/)
+    fireEvent.click(await screen.findByRole('link', { name: /Daten und Sicherung/ }))
+    await waitFor(() => expect(text()).toMatch(/Sicherung teilen/))
+    expect(text()).not.toMatch(/Mach die App zu deiner/)
+    fireEvent.click(screen.getAllByRole('link', { name: /Einstellungen/ })[0])
+    await waitFor(() => expect(text()).toMatch(/Schulzeiten/))
   })
 })
