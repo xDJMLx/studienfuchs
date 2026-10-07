@@ -32,6 +32,15 @@ vi.hoisted(() => {
 
 beforeAll(() => {
   MotionGlobalConfig.skipAnimations = true
+  // happy-dom lässt das Versprechen einer abgebrochenen Animation scheitern, ohne dass jemand darauf wartet: Das meldete Vitest als Fehler (Exit-Code 1, der Deploy brach ab)
+  const anim = (window as unknown as { Animation?: { prototype: { cancel: () => void; finished?: Promise<unknown> } } }).Animation?.prototype
+  if (anim) {
+    const cancel = anim.cancel
+    anim.cancel = function (this: { finished?: Promise<unknown> }) {
+      this.finished?.catch(() => undefined)
+      return cancel.call(this)
+    }
+  }
   window.HTMLElement.prototype.scrollIntoView = () => undefined
   window.HTMLElement.prototype.scrollTo = (() => undefined) as typeof window.HTMLElement.prototype.scrollTo
 })
