@@ -184,6 +184,7 @@ export default function App() {
             <Route path="grammar/:lessonId" element={<GrammarTopicPage />} />
             <Route path="profile" element={<ProfilePage />} />
             <Route path="settings" element={<SettingsPage />} />
+            <Route path="settings/:section" element={<SettingsPage />} />
             <Route path="about" element={<AboutPage />} />
             {/* Alte Adressen */}
             <Route path="practice" element={<Navigate to="/" replace />} />

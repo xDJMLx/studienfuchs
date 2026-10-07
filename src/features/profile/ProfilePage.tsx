@@ -1,17 +1,17 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { IconChip } from '../../components/ui/controls'
 import { Check, Coin, Gear, Right, Shield, Star, Trophy, Xp } from '../../components/ui/Icons'
 import { CountUp, EASE, Item, Stagger } from '../../components/ui/motion'
-import { ProgressRing, SegmentedBar } from '../../components/ui/widgets'
+import { ProgressRing } from '../../components/ui/widgets'
 import { achievements } from '../../lib/achievements'
 import { dayKey } from '../../lib/streak'
 import { levelFromXp } from '../../lib/xp'
 import { useStore } from '../../store/useStore'
 import { deckAchievementStats } from '../../lib/progress'
-import { useCourse, useLearned } from '../review/ReviewPage'
-import { Karteikasten, WeeklyReport } from './ProfileExtras'
+import { useLearned } from '../review/ReviewPage'
 import { useShallow } from 'zustand/react/shallow'
 
 const WEEKDAYS = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
@@ -21,9 +21,8 @@ const titleFor = (level: number) => TITLES[Math.min(TITLES.length - 1, Math.floo
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
+  const [allBadges, setAllBadges] = useState(false)
   const { xp, minutesByDay, dailyMinutes, lessons, rounds, sets, outfit, coins, addedUnits, arbeiten, cards } = useStore(useShallow((s) => ({ xp: s.xp, minutesByDay: s.minutesByDay, dailyMinutes: s.dailyMinutes, lessons: s.lessons, rounds: s.rounds, sets: s.sets, outfit: s.outfit, coins: s.coins, addedUnits: s.addedUnits, arbeiten: s.arbeiten, cards: s.cards })))
-  const { learned, byMastery } = useLearned()
-  const course = useCourse()
   const lvl = levelFromXp(xp)
 
   const days = Array.from({ length: 7 }, (_, i) => {
@@ -34,10 +33,8 @@ export function ProfilePage() {
   const minOf = (key: string) => Math.round(minutesByDay?.[key] ?? 0)
   const maxMin = Math.max(dailyMinutes, ...days.map((d) => minOf(d.key)))
   const weekMin = days.reduce((n, d) => n + minOf(d.key), 0)
-
-  const learning = byMastery[0]
+  const { learned, byMastery } = useLearned()
   const mastered = byMastery[1]
-  const unseen = Math.max(0, course.total - learned.length)
 
   const badges = achievements({
     lessons: (rounds ?? 0) + Object.keys(lessons).length,
@@ -139,38 +136,6 @@ export function ProfilePage() {
           </section>
         </Item>
 
-        {/* Wortschatz */}
-        <Item>
-          <section className="card mt-4 p-5">
-            <div className="mb-4 flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
-              <h2 className="font-semibold">Deine Karten</h2>
-              <span className="flex items-center gap-3 whitespace-nowrap text-sm text-muted">
-                <span><span className="font-semibold text-ink"><CountUp to={learned.length} /></span> von {course.total}</span>
-                <Link to="/review" className="press flex min-h-9 items-center gap-1 rounded-lg px-2 font-semibold text-brand-dark hover:bg-brand-soft">Lernstand <Right size={12} /></Link>
-              </span>
-            </div>
-            <SegmentedBar
-              height="h-4"
-              parts={[
-                { value: mastered, color: 'bg-good', label: 'Gefestigt' },
-                { value: learning, color: 'bg-brand', label: 'Lernend' },
-                { value: unseen, color: 'bg-line', label: 'Noch nicht gesehen' },
-              ]}
-            />
-            <ul className="mt-4 grid grid-cols-3 gap-3 text-sm">
-              <Legend dot="bg-good" label="Gefestigt" value={mastered} />
-              <Legend dot="bg-brand" label="Lernend" value={learning} />
-              <Legend dot="bg-line" label="Noch offen" value={unseen} />
-            </ul>
-          </section>
-        </Item>
-
-        {/* Karteikasten, Wochenbericht */}
-        <Item>
-          <Karteikasten />
-          <WeeklyReport />
-        </Item>
-
         {/* Erfolge */}
         <Item>
           <section className="mt-6">
@@ -179,7 +144,7 @@ export function ProfilePage() {
               <span className="text-sm text-muted"><span className="font-semibold text-ink">{unlocked}</span> von {badges.length}</span>
             </div>
             <ul className="grid grid-cols-3 gap-2.5">
-              {badges.map((b) => {
+              {(allBadges ? badges : [...badges].sort((x, y) => y.value / y.goal - x.value / x.goal).slice(0, 6)).map((b) => {
                 const done = b.value >= b.goal
                 return (
                   <li key={b.id} className="card flex flex-col items-center px-2 pb-3 pt-3.5 text-center" title={b.description}>
@@ -198,11 +163,21 @@ export function ProfilePage() {
                 )
               })}
             </ul>
+            {badges.length > 6 && (
+              <button type="button" className="press mx-auto mt-3 flex min-h-11 items-center rounded-xl px-3 text-sm font-extrabold text-sky-dark" onClick={() => setAllBadges((v) => !v)} aria-expanded={allBadges}>
+                {allBadges ? 'Weniger zeigen' : `Alle ${badges.length} Erfolge zeigen`}
+              </button>
+            )}
           </section>
         </Item>
 
         <Item>
           <div className="mt-6 grid gap-3 sm:grid-cols-2">
+            <Link to="/review" className="card lift flex items-center gap-3 p-4">
+              <IconChip tone="muted"><Star size={20} /></IconChip>
+              <span className="min-w-0 flex-1 font-semibold">Lernstand und Wochenbericht</span>
+              <Right size={16} className="text-muted" />
+            </Link>
             <Link to="/settings" className="card lift flex items-center gap-3 p-4">
               <IconChip tone="muted"><Gear size={20} /></IconChip>
               <span className="min-w-0 flex-1 font-semibold">Einstellungen</span>
@@ -217,14 +192,5 @@ export function ProfilePage() {
         </Item>
       </Stagger>
     </div>
-  )
-}
-
-function Legend({ dot, label, value }: { dot: string; label: string; value: number }) {
-  return (
-    <li>
-      <div className="flex items-center gap-1.5 text-muted"><span className={`h-2.5 w-2.5 rounded-full ${dot}`} />{label}</div>
-      <div className="text-xl font-bold"><CountUp to={value} /></div>
-    </li>
   )
 }

@@ -176,7 +176,7 @@ export function AiGateSheet() {
               disabled={phase === 'working'}
               onClick={() => {
                 cancel()
-                navigate('/settings')
+                navigate('/settings/ki')
               }}
             >
               Lieber einen eigenen Schlüssel nutzen

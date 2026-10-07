@@ -52,7 +52,7 @@ describe('Einstellungen: Abgleich über das Puter-Konto', () => {
   it('anmelden, sichern, auf „anderem Gerät“ (zurückgesetzt) holen und erst nach Rückfrage ersetzen', async () => {
     useStore.setState({ onboarded: true })
     useStore.getState().addSet('Zellen', [{ front: 'Ribosom', back: 'baut Eiweiße' }], { subject: 'biologie' })
-    window.location.hash = '#/settings'
+    window.location.hash = '#/settings/daten'
     render(<App />)
 
     fireEvent.click(await screen.findByRole('button', { name: /Mit Puter anmelden/ }, { timeout: 4000 }))
@@ -79,7 +79,7 @@ describe('Einstellungen: Abgleich über das Puter-Konto', () => {
     cloud.state.signed = true
     cloud.state.files.set('studienfuchs-sicherung.json', JSON.stringify({ app: 'studienfuchs', version: 1, data: { sets: [] } }))
     useStore.getState().addSet('Bleibt', [{ front: 'a', back: 'b' }], { subject: 'biologie' })
-    window.location.hash = '#/settings'
+    window.location.hash = '#/settings/daten'
     render(<App />)
     fireEvent.click(await screen.findByRole('button', { name: /Von Puter holen/ }, { timeout: 4000 }))
     fireEvent.click(await screen.findByRole('button', { name: 'Abbrechen' }))

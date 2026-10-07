@@ -1,10 +1,10 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Row, Section, Switch } from '../../components/ui/controls'
 import { InstallHelp, useInstallFlow } from '../../components/ui/InstallApp'
-import { Cards, Check, Database, Download, Gear, Palette, Shield, Sparkle, Speaker, Target, Upload } from '../../components/ui/Icons'
+import { Back, Cards, Check, Database, Download, Gear, Right, Palette, Shield, Sparkle, Speaker, Target, Upload } from '../../components/ui/Icons'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
 import { UntisSettings } from './UntisSettings'
@@ -35,17 +35,6 @@ const THEMES = [
   { id: 'system', label: 'Automatisch' },
 ] as const
 
-const SECTIONS = [
-  { id: 's-subjects', label: 'Fächer', Icon: Cards },
-  { id: 's-hours', label: 'Schulzeiten', Icon: Target },
-  { id: 's-untis', label: 'WebUntis', Icon: Download },
-  { id: 's-look', label: 'Darstellung', Icon: Palette },
-  { id: 's-learn', label: 'Lernen', Icon: Target },
-  { id: 's-voice', label: 'Sprache', Icon: Speaker },
-  { id: 's-ai', label: 'KI', Icon: Sparkle },
-  { id: 's-app', label: 'App', Icon: Download },
-  { id: 's-data', label: 'Daten', Icon: Database },
-]
 
 /** Kleine Vorschau, wie die App im jeweiligen Farbschema aussieht (feste Farben, unabhängig vom aktuellen Schema). */
 function ThemePreview({ kind }: { kind: 'light' | 'dark' | 'system' }) {
@@ -73,6 +62,63 @@ function ThemePreview({ kind }: { kind: 'light' | 'dark' | 'system' }) {
   return pane(kind === 'dark')
 }
 
+/** Die Bereiche der Einstellungen, in Gruppen wie in einer Liste. */
+const GROUPS: { title: string; rows: { slug: string; id: string; label: string; text: string; Icon: (p: { size?: number }) => React.ReactNode }[] }[] = [
+  {
+    title: 'Schule',
+    rows: [
+      { slug: 'faecher', id: 's-subjects', label: 'Meine Fächer', text: 'Welche Fächer du hast', Icon: Cards },
+      { slug: 'schulzeiten', id: 's-hours', label: 'Schulzeiten', text: 'Stunden und Pausen', Icon: Target },
+      { slug: 'untis', id: 's-untis', label: 'WebUntis', text: 'Stundenplan übernehmen', Icon: Download },
+    ],
+  },
+  {
+    title: 'Lernen',
+    rows: [
+      { slug: 'lernen', id: 's-learn', label: 'Lernzeit', text: 'Minuten pro Tag bei einer Arbeit', Icon: Target },
+      { slug: 'ki', id: 's-ai', label: 'KI', text: 'Anmeldung und eigener Schlüssel', Icon: Sparkle },
+      { slug: 'sprache', id: 's-voice', label: 'Vorlesen', text: 'Stimme und Aussprache', Icon: Speaker },
+    ],
+  },
+  {
+    title: 'App',
+    rows: [
+      { slug: 'darstellung', id: 's-look', label: 'Darstellung', text: 'Hell, Dunkel und Töne', Icon: Palette },
+      { slug: 'app', id: 's-app', label: 'Installieren und Updates', text: 'Auf den Startbildschirm', Icon: Download },
+      { slug: 'daten', id: 's-data', label: 'Daten und Sicherung', text: 'Sichern, laden, zwischen Geräten abgleichen', Icon: Database },
+    ],
+  },
+]
+const SLUGS = GROUPS.flatMap((g) => g.rows.map((r) => r.slug))
+
+function SettingsList() {
+  return (
+    <div className="mb-8 grid gap-6">
+      {GROUPS.map((g) => (
+        <section key={g.title} aria-label={g.title}>
+          <h2 className="mb-2 px-1 text-sm font-bold text-muted">{g.title}</h2>
+          <ul className="overflow-hidden rounded-2xl border border-ink/10 bg-surface">
+            {g.rows.map((r, i) => (
+              <li key={r.slug} className={i > 0 ? 'border-t border-ink/10' : ''}>
+                <Link to={`/settings/${r.slug}`} className="press flex min-h-14 items-center gap-3.5 px-4 py-2.5 hover:bg-snow">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
+                    <r.Icon size={20} />
+                  </span>
+                  <span className="min-w-0 flex-1">
+                    <span className="block font-semibold leading-tight">{r.label}</span>
+                    <span className="block text-sm text-muted">{r.text}</span>
+                  </span>
+                  <Right size={14} className="shrink-0 text-muted" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  )
+}
+
 export function SettingsPage() {
   const reduce = useReducedMotion()
   const navigate = useNavigate()
@@ -89,7 +135,8 @@ export function SettingsPage() {
   const install = useInstallFlow()
   const [toast, setToast] = useState<{ ok: boolean; text: string } | null>(null)
   const [confirmReset, setConfirmReset] = useState(false)
-  const [active, setActive] = useState(SECTIONS[0].id)
+  const { section } = useParams()
+  const current = section && SLUGS.includes(section) ? section : undefined
 
   // Meldung nach ein paar Sekunden wieder ausblenden
   useEffect(() => {
@@ -97,24 +144,6 @@ export function SettingsPage() {
     const t = window.setTimeout(() => setToast(null), 3800)
     return () => window.clearTimeout(t)
   }, [toast])
-
-  // Welcher Abschnitt ist gerade sichtbar? (für die Seitennavigation)
-  useEffect(() => {
-    const els = SECTIONS.map((s) => document.getElementById(s.id)).filter((e): e is HTMLElement => !!e)
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) if (e.isIntersecting) setActive(e.target.id)
-      },
-      { rootMargin: '-15% 0px -70% 0px' },
-    )
-    els.forEach((e) => io.observe(e))
-    return () => io.disconnect()
-  }, [])
-
-  const go = (id: string) => {
-    setActive(id)
-    document.getElementById(id)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
-  }
 
   const doExport = () => {
     const blob = new Blob([exportData()], { type: 'application/json' })
@@ -214,36 +243,24 @@ export function SettingsPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-6 pt-6 lg:pt-8">
-      <div className="mb-7 flex items-center gap-4">
-        <motion.div initial={reduce ? false : { rotate: -30, scale: 0.6, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} transition={SPRING.bouncy} className="flex h-14 w-14 items-center justify-center text-brand-dark">
-          <motion.span initial={reduce ? false : { rotate: -90 }} animate={{ rotate: 0 }} transition={{ duration: 0.7, ease: EASE, delay: 0.1 }} className="flex">
-            <Gear size={30} />
-          </motion.span>
-        </motion.div>
-        <div>
+      {current ? (
+        <Link to="/settings" className="press -ml-2 mb-3 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
+          <Back size={18} /> Einstellungen
+        </Link>
+      ) : (
+        <div className="mb-6 flex items-center gap-4">
+          <motion.div initial={reduce ? false : { rotate: -30, scale: 0.6, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} transition={SPRING.bouncy} className="flex h-12 w-12 items-center justify-center text-brand-dark">
+            <Gear size={28} />
+          </motion.div>
           <h1 className="page-title">Einstellungen</h1>
-          <p className="text-muted">Mach die App zu deiner.</p>
         </div>
-      </div>
-
-      {/* Schnellsprung: bleibt beim Scrollen oben kleben */}
-      <nav aria-label="Abschnitte" className="sticky top-0 z-10 -mx-4 mb-6 bg-page px-4 py-2 shadow-[0_10px_12px_-10px_var(--page)]">
-        <ul className="flex gap-2 overflow-x-auto [scrollbar-width:none]">
-          {SECTIONS.map(({ id, label, Icon }) => (
-            <li key={id} className="shrink-0">
-              <button type="button" onClick={() => go(id)} className={`press relative flex min-h-11 items-center gap-2 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${active === id ? 'border-transparent text-brand-dark' : 'border-line text-muted hover:bg-snow hover:text-ink'}`}>
-                {active === id && <motion.span layoutId="settings-nav" className="absolute inset-0 rounded-full bg-brand-soft ring-1 ring-brand/40" transition={SPRING.snappy} />}
-                <span className="relative"><Icon size={16} /></span>
-                <span className="relative">{label}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      )}
 
       <div>
+        {!current && <SettingsList />}
         <Stagger className="grid gap-8" stagger={0.09}>
- <Item>
+{current === 'faecher' && (
+          <Item>
             <Section id="s-subjects" icon={<Cards size={22} />} title="Meine Fächer" description="Die Fächer, die du in der Schule hast">
               <div className="px-5 py-4">
                 <p className="mb-3 text-sm text-muted">Tipp ein Fach an, um es hinzuzufügen oder wegzunehmen. Fächer, in denen schon Karteikarten liegen, bleiben, bis du die Karteikarten löschst.</p>
@@ -275,7 +292,9 @@ export function SettingsPage() {
               </div>
             </Section>
           </Item>
+          )}
 
+         {current === 'schulzeiten' && (
           <Item>
             <Section id="s-hours" icon={<Target size={22} />} title="Schulzeiten" description="Stunden und Pausen für den Kalender">
               <div className="px-5 py-4">
@@ -290,13 +309,17 @@ export function SettingsPage() {
               </div>
             </Section>
           </Item>
+          )}
 
+         {current === 'untis' && (
           <Item>
             <Section id="s-untis" icon={<Download size={22} />} title="WebUntis" description="Stundenplan und Arbeiten automatisch übernehmen">
               <UntisSettings onToast={(ok, text) => setToast({ ok, text })} />
             </Section>
           </Item>
+          )}
 
+         {current === 'darstellung' && (
           <Item>
             <Section id="s-look" icon={<Palette size={22} />} title="Darstellung" description="Farben und Töne">
               <div className="px-5 py-4">
@@ -327,7 +350,9 @@ export function SettingsPage() {
               </Row>
             </Section>
           </Item>
+          )}
 
+         {current === 'lernen' && (
           <Item>
             <Section id="s-learn" icon={<Target size={22} />} title="Lernen" description="Lernzeit für Arbeiten">
               <div className="px-5 py-4">
@@ -361,19 +386,25 @@ export function SettingsPage() {
               </div>
             </Section>
           </Item>
+          )}
 
+         {current === 'sprache' && (
           <Item>
             <Section id="s-voice" icon={<Speaker size={22} />} title="Sprache" description="Vorlesen und Aussprache">
               <SpeechSettings />
             </Section>
           </Item>
+          )}
 
+         {current === 'ki' && (
           <Item>
             <Section id="s-ai" icon={<Sparkle size={22} />} title="KI" description="Lernkarten aus deinen Buchseiten">
               <AiSettings />
             </Section>
           </Item>
+          )}
 
+         {current === 'app' && (
           <Item>
             <Section id="s-app" icon={<Download size={22} />} title="App" description="Auf dem Startbildschirm">
               <Row title="Als App installieren" hint={install.state === 'installed' ? 'Studienfuchs läuft schon als App auf diesem Gerät.' : 'Öffnet sich wie eine normale App, ohne Adressleiste und mit eigenem Symbol.'}>
@@ -395,10 +426,12 @@ export function SettingsPage() {
                   Nach Updates suchen
                 </button>
               </Row>
+              <InstallHelp open={install.help} onClose={install.closeHelp} />
             </Section>
-            <InstallHelp open={install.help} onClose={install.closeHelp} />
           </Item>
+          )}
 
+         {current === 'daten' && (
           <Item>
             <Section id="s-data" icon={<Database size={22} />} title="Daten" description="Alles liegt nur auf diesem Gerät">
               <Row title="Gespeichert auf diesem Gerät" hint={`${Object.keys(cards).length} geübte Karten · ${sets.length} ${sets.length === 1 ? 'Sammlung' : 'Sammlungen'}`} />
@@ -478,7 +511,10 @@ export function SettingsPage() {
               </Row>
             </Section>
           </Item>
+          )}
 
+          {!current && (
+            <>
           <Item>
             <Link to="/about" className="card lift flex items-center gap-4 p-4">
               <span className="flex h-11 w-11 shrink-0 items-center justify-center text-muted"><Shield size={22} /></span>
@@ -506,6 +542,8 @@ export function SettingsPage() {
               </span>
             </button>
           </Item>
+            </>
+          )}
         </Stagger>
       </div>
 

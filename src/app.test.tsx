@@ -207,7 +207,7 @@ describe('Die App als Ganzes', () => {
 
   it('Fächer ändert man in den Einstellungen, die Fach-Seite zeigt Level und Karteikarten', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
-    window.location.hash = '#/settings'
+    window.location.hash = '#/settings/faecher'
     render(<App />)
     await waitFor(() => expect(text()).toMatch(/Meine Fächer/))
     const geschichte = await screen.findByRole('switch', { name: 'Geschichte' })
@@ -459,7 +459,7 @@ describe('Schulstunden im Kalender', () => {
 
   it('In den Einstellungen lassen sich die Schulzeiten pflegen', async () => {
     useStore.setState({ onboarded: true })
-    window.location.hash = '#/settings'
+    window.location.hash = '#/settings/schulzeiten'
     render(<App />)
     await waitFor(() => expect(text()).toMatch(/Stunden und Pausen/))
     fireEvent.click(await screen.findByRole('button', { name: /Beispiel einfüllen/ }))
@@ -487,7 +487,7 @@ describe('WebUntis verbinden', () => {
 
   it('Datei laden: Stundenraster, Unterricht und Klassenarbeit werden übernommen; Trennen räumt die Arbeit weg', async () => {
     useStore.setState({ onboarded: true })
-    window.location.hash = '#/settings'
+    window.location.hash = '#/settings/untis'
     render(<App />)
     await waitFor(() => expect(text()).toMatch(/Mit WebUntis verbinden/))
     const input = await screen.findByLabelText('iCal-Datei')
@@ -516,7 +516,7 @@ describe('WebUntis verbinden', () => {
       throw new TypeError('Failed to fetch')
     }) as typeof fetch
     try {
-      window.location.hash = '#/settings'
+      window.location.hash = '#/settings/untis'
       render(<App />)
       fireEvent.change(await screen.findByLabelText('iCal-Link'), { target: { value: 'webcal://test.webuntis.com/WebUntis/Ical.do?school=x&key=1' } })
       fireEvent.click(screen.getByRole('button', { name: 'Mit WebUntis verbinden' }))

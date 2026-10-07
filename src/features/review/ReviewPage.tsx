@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Fr } from '../../components/exercises/common'
 import { ChipTabs } from '../../components/ui/controls'
+import { Karteikasten, WeeklyReport } from '../profile/ProfileExtras'
 import { Back, Repeat, Right } from '../../components/ui/Icons'
 import { CountUp, Item as FadeItem, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { activeDecks } from '../../lib/decks'
@@ -116,7 +117,7 @@ export function ReviewPage() {
           <div className="card p-8 text-center">
             <p className="text-lg font-semibold">Noch nichts zu wiederholen</p>
             <p className="mx-auto mb-5 mt-1 max-w-sm text-muted">Übe ein paar Karten. Danach planen wir automatisch, wann du welche Karte wieder üben solltest.</p>
-            <Link to="/" className="btn btn-primary press">Zum Lernpfad</Link>
+            <Link to="/" className="btn btn-primary press">Zur Startseite</Link>
           </div>
         </FadeItem>
       </Stagger>
@@ -178,6 +179,11 @@ export function ReviewPage() {
             <li className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-line" />Offen <b className="text-ink">{notStarted}</b></li>
           </ul>
         </section>
+      </FadeItem>
+
+      <FadeItem>
+        <Karteikasten />
+        <WeeklyReport />
       </FadeItem>
 
       <FadeItem>

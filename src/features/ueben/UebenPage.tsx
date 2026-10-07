@@ -322,7 +322,7 @@ function FreePractice({ open, onClose }: { open: boolean; onClose: () => void })
               </button>
             )
           })}
-          <Link to="/settings" className="press flex w-[4.6rem] shrink-0 flex-col items-center gap-1.5 text-center" aria-label="Fach hinzufügen">
+          <Link to="/settings/faecher" className="press flex w-[4.6rem] shrink-0 flex-col items-center gap-1.5 text-center" aria-label="Fach hinzufügen">
             <span className="flex h-[3.6rem] w-[3.6rem] items-center justify-center rounded-[1.1rem] border-2 border-dashed border-line text-muted">
               <Plus size={22} />
             </span>
