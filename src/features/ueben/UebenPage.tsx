@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Plus, Repeat, Right, Trophy } from '../../components/ui/Icons'
+import { Flame, Plus, Repeat, Right, Trophy } from '../../components/ui/Icons'
+import { Sheet } from '../../components/ui/Sheet'
 import { Item, Stagger } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { dateKey, kindLabel, needsFollowUp } from '../../lib/calendar'
@@ -14,7 +15,6 @@ import { InstallBanner } from '../../components/ui/InstallApp'
 import { backupDue } from '../../lib/backup'
 import { ArbeitFollowUp } from '../kalender/KalenderPage'
 import { StudyTimeCard } from '../../components/ui/StudyTime'
-import { BlitzCard } from '../practice/BlitzCard'
 import { dueLabel } from '../review/ReviewPage'
 
 const when = (days: number) => (days === 0 ? 'Heute' : days === 1 ? 'Morgen' : `in ${days} Tagen`)
@@ -22,6 +22,7 @@ const when = (days: number) => (days === 0 ? 'Heute' : days === 1 ? 'Morgen' : `
 /** Üben: Hier startet jeder Tag. Alle fälligen Karten aus allen Fächern, dazu neue, und die Arbeiten, die anstehen. */
 export function UebenPage() {
   const navigate = useNavigate()
+  const [free, setFree] = useState(false)
   const sets = useStore((s) => s.sets)
   const addedUnits = useStore((s) => s.addedUnits)
   const arbeiten = useStore((s) => s.arbeiten)
@@ -146,7 +147,7 @@ export function UebenPage() {
           </Link>
         ) : (
           <ul className="mb-5 grid gap-3">
-            {upcoming.slice(0, 3).map(({ a, days, r }) => {
+            {upcoming.slice(0, 2).map(({ a, days, r }) => {
               const s = helpSubject(a.subject)
               return (
                 <li key={a.id} className="card flex items-center gap-3 p-3.5">
@@ -163,22 +164,15 @@ export function UebenPage() {
                     </div>
                     <p className="mt-0.5 text-xs text-muted">{r.solid} von {r.total} Karten sitzen</p>
                   </div>
-                  <div className="flex shrink-0 flex-col gap-1.5">
-                    {r.total === 0 ? (
-                      <Link to={`/stapel/neu?fach=${a.subject}`} className="btn btn-ghost press !min-h-10 !px-3 !text-xs">
-                        Karteikarten machen
-                      </Link>
-                    ) : (
-                      <>
-                        <button type="button" className="btn btn-primary press !min-h-10 !px-4 !text-sm" onClick={() => navigate(`/ueben/los?arbeit=${a.id}`)}>
-                          Lernen
-                        </button>
-                        <button type="button" className="press inline-flex min-h-11 items-center rounded-xl px-3 text-xs font-extrabold text-sky-dark hover:bg-sky-soft disabled:opacity-40" onClick={() => navigate(`/ueben/los?arbeit=${a.id}&modus=probe`)} disabled={r.total < 5} aria-label={`Probearbeit zu ${a.title}`}>
-                          Probearbeit
-                        </button>
-                      </>
-                    )}
-                  </div>
+                  {r.total === 0 ? (
+                    <Link to={`/stapel/neu?fach=${a.subject}`} className="btn btn-ghost press !min-h-10 shrink-0 !px-3 !text-xs">
+                      Karteikarten machen
+                    </Link>
+                  ) : (
+                    <button type="button" className="btn btn-primary press !min-h-10 shrink-0 !px-4 !text-sm" onClick={() => navigate(`/ueben/los?arbeit=${a.id}`)}>
+                      Lernen
+                    </button>
+                  )}
                 </li>
               )
             })}
@@ -186,35 +180,53 @@ export function UebenPage() {
         )}
       </Item>
 
-      {decks.length > 0 && <FreePractice />}
-
       <Item>
-        <BlitzCard />
-      </Item>
-
-      <Item>
-        <div className="grid grid-cols-2 gap-3">
-          <Link to="/review" className="card press flex items-center gap-3 p-3.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-soft text-sky-dark"><Repeat size={22} /></span>
-            <span className="min-w-0 font-extrabold leading-tight">Lernstand</span>
-            <Right size={14} className="ml-auto text-muted" />
-          </Link>
-          <Link to="/stapel/neu" className="card press flex items-center gap-3 p-3.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand-dark"><Plus size={22} /></span>
-            <span className="min-w-0 font-extrabold leading-tight">Neu erstellen</span>
-            <Right size={14} className="ml-auto text-muted" />
-          </Link>
-          <Link to="/test/neu" className="card press col-span-2 flex items-center gap-3 p-3.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-soft text-violet-dark"><Trophy size={22} /></span>
-            <span className="min-w-0 flex-1 leading-tight">
-              <span className="block font-extrabold">Test oder Klassenarbeit</span>
-              <span className="block text-xs text-muted">Von der KI, mit Punkten und ungefährer Note</span>
+        <h2 className="mb-2 text-lg font-extrabold">Mehr üben</h2>
+        <div className="mb-4 grid grid-cols-2 gap-3">
+          {decks.length > 0 && (
+            <button type="button" onClick={() => setFree(true)} className="card press flex flex-col items-start gap-2 p-3.5 text-left">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
+                <Repeat size={22} />
+              </span>
+              <span className="leading-tight">
+                <span className="block font-extrabold">Frei üben</span>
+                <span className="block text-xs text-muted">Fach und Art wählen</span>
+              </span>
+            </button>
+          )}
+          {decks.length > 0 && (
+            <Link to="/blitz" className="card press flex flex-col items-start gap-2 p-3.5">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-soft text-violet-dark">
+                <Flame size={22} />
+              </span>
+              <span className="leading-tight">
+                <span className="block font-extrabold">Blitzrunde</span>
+                <span className="block text-xs text-muted">60 Sekunden</span>
+              </span>
+            </Link>
+          )}
+          <Link to="/test/neu" className="card press flex flex-col items-start gap-2 p-3.5">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-soft text-sky-dark">
+              <Trophy size={22} />
             </span>
-            <Right size={14} className="ml-auto text-muted" />
+            <span className="leading-tight">
+              <span className="block font-extrabold">Test machen</span>
+              <span className="block text-xs text-muted">Arbeit mit Note</span>
+            </span>
+          </Link>
+          <Link to="/stapel/neu" className="card press flex flex-col items-start gap-2 p-3.5">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-good-soft text-good-dark">
+              <Plus size={22} />
+            </span>
+            <span className="leading-tight">
+              <span className="block font-extrabold">Neu erstellen</span>
+              <span className="block text-xs text-muted">Karten und Aufgaben</span>
+            </span>
           </Link>
         </div>
       </Item>
 
+      <FreePractice open={free} onClose={() => setFree(false)} />
     </Stagger>
   )
 }
@@ -231,7 +243,7 @@ const MODES: { id: Mode; label: string; text: string; lang?: boolean }[] = [
 ]
 
 /** Frei üben: ein Fach antippen, optional einen Stapel und die Art wählen, los. Es wird immer genau ein Fach geübt. */
-function FreePractice() {
+function FreePractice({ open, onClose }: { open: boolean; onClose: () => void }) {
   const navigate = useNavigate()
   const sets = useStore((s) => s.sets)
   const addedUnits = useStore((s) => s.addedUnits)
@@ -263,6 +275,7 @@ function FreePractice() {
   const go = () => {
     if (mode === 'speak') {
       const scope = chosen ? (chosen.kind === 'course' ? `unit:${chosen.id.slice(5)}` : `set:${chosen.id}`) : 'learned'
+      onClose()
       navigate(`/speak?scope=${encodeURIComponent(scope)}`)
       return
     }
@@ -270,17 +283,15 @@ function FreePractice() {
     if (chosen) q.set('deck', chosen.id)
     else q.set('fach', subject)
     q.set('modus', mode)
+    onClose()
     navigate(`/ueben/los?${q.toString()}`)
   }
 
   if (subjects.length === 0) return null
   return (
-    <Item>
-      <section className="card mb-6 overflow-hidden" aria-label="Frei üben">
-        <div className="px-4 pb-1 pt-4">
-          <h2 className="text-lg font-extrabold leading-tight">Frei üben</h2>
-          <p className="text-sm text-muted">Tipp ein Fach an, dann geht es los.</p>
-        </div>
+    <Sheet open={open} onClose={onClose} title="Frei üben">
+      <section className="-mx-5 overflow-hidden" aria-label="Frei üben">
+        <p className="px-5 text-sm text-muted">Tipp ein Fach an, dann geht es los.</p>
 
         {/* Fächer als Kacheln */}
         <div className="flex gap-2.5 overflow-x-auto px-4 py-3" role="radiogroup" aria-label="Fach">
@@ -374,6 +385,6 @@ function FreePractice() {
           </Link>
         )}
       </section>
-    </Item>
+    </Sheet>
   )
 }

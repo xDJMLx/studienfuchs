@@ -39,7 +39,9 @@ export function FachPage() {
   const [sheet, setSheet] = useState<{ arbeit?: Arbeit } | null>(null)
 
   const isFrench = subjectId === FRENCH
-  const tab = params.get('tab') === 'nachschlagen' && isFrench ? 'nachschlagen' : 'stapel'
+  const rawTab = params.get('tab')
+  const tab: 'karten' | 'tests' | 'mehr' | 'nachschlagen' = rawTab === 'nachschlagen' && isFrench ? 'nachschlagen' : rawTab === 'tests' || rawTab === 'mehr' ? rawTab : 'karten'
+  const setTab = (v: string) => setParams(v === 'karten' ? {} : { tab: v }, { replace: true })
   const own = useMemo(() => sets.map(ownDeck).filter((d) => d.subject === subjectId), [sets, subjectId])
   const allActive = useMemo(() => activeDecks({ sets, addedUnits: addedUnits ?? [] }), [sets, addedUnits])
   const plan = useMemo(() => planToday(allActive.filter((d) => d.subject === subjectId), arbeiten ?? [], cards), [allActive, subjectId, arbeiten, cards])
@@ -83,16 +85,17 @@ export function FachPage() {
         </div>
       </Item>
 
-      {isFrench && (
+      {tab !== 'nachschlagen' && (
         <Item>
           <Segmented
             label="Bereich"
             className="mb-5 w-full [&>button]:flex-1 [&>button]:py-2"
             value={tab}
-            onChange={(v) => setParams(v === 'stapel' ? {} : { tab: v }, { replace: true })}
+            onChange={setTab}
             options={[
-              { value: 'stapel', label: 'Karteikarten' },
-              { value: 'nachschlagen', label: 'Nachschlagen' },
+              { value: 'karten', label: 'Karteikarten' },
+              { value: 'tests', label: 'Tests' },
+              { value: 'mehr', label: 'Mehr' },
             ]}
           />
         </Item>
@@ -102,6 +105,8 @@ export function FachPage() {
         <NachschlagenTab />
       ) : (
         <>
+          {tab === 'karten' && (
+            <>
           {plan.due.length + plan.fresh.length > 0 && (
             <Item>
               <button type="button" className="press mb-5 flex w-full items-center gap-3 rounded-2xl bg-sky px-4 py-3 text-left text-white" style={{ boxShadow: '0 4px 0 var(--shade-sky)' }} onClick={() => navigate(`/ueben/los?fach=${subjectId}`)}>
@@ -211,9 +216,14 @@ export function FachPage() {
             </Item>
           )}
 
+            </>
+          )}
+
+          {tab === 'tests' && (
+            <>
           <Item>
             <div className="mb-2 flex items-center justify-between">
-              <h2 className="text-lg font-extrabold">Arbeiten</h2>
+              <h2 className="text-lg font-extrabold">Anstehende Arbeiten</h2>
               <button type="button" className="press flex min-h-9 items-center gap-1 rounded-xl px-2.5 text-sm font-extrabold text-sky-dark hover:bg-sky-soft" onClick={() => setSheet({})}>
                 <Plus size={16} /> Arbeit eintragen
               </button>
@@ -240,7 +250,7 @@ export function FachPage() {
 
           <Item>
             <div className="mb-2 flex items-center justify-between gap-2">
-              <h2 className="text-lg font-extrabold">Tests &amp; Arbeiten</h2>
+              <h2 className="text-lg font-extrabold">Tests zum Üben</h2>
               <Link to={`/test/neu?fach=${subjectId}`} className="press flex min-h-9 items-center gap-1 rounded-xl px-2.5 text-sm font-extrabold text-sky-dark hover:bg-sky-soft">
                 <Plus size={16} /> Neu
               </Link>
@@ -276,6 +286,11 @@ export function FachPage() {
             )}
           </Item>
 
+            </>
+          )}
+
+          {tab === 'mehr' && (
+            <>
           {skillsOf(subjectId).length > 0 && subjectId !== 'mathe' && (
             <Item>
               <h2 className="mb-2 text-lg font-extrabold">Rechentraining</h2>
@@ -314,6 +329,7 @@ export function FachPage() {
               <h2 className="mb-2 text-lg font-extrabold">Mehr für Französisch</h2>
               <div className="mb-5 grid gap-2.5">
                 {[
+                  { to: '/faecher/franzoesisch?tab=nachschlagen', title: 'Wörter und Grammatik nachschlagen', text: 'Wörterbuch und Grammatik zum Nachlesen.' },
                   { to: '/speak?scope=learned', title: 'Sprechtraining', text: 'Wörter nachsprechen, mit Lautschule.' },
                   { to: '/exam/new', title: 'Klassenarbeit mit Hörverstehen', text: 'Vorgelesene Texte, Wortschatz und Schreiben, von der KI erstellt.' },
                   { to: '/books', title: 'Bücher und Buchseiten', text: 'Seiten aus deinem Schulbuch ablegen, die KI kennt sie dann.' },
@@ -340,15 +356,16 @@ export function FachPage() {
               <Right size={16} className="shrink-0 text-muted" />
             </Link>
           </Item>
+        {isMine && own.length === 0 && !isFrench && (
+          <Item>
+            <button type="button" className="press mt-6 rounded-xl px-2 py-2 text-sm font-semibold text-muted hover:text-bad-dark" onClick={() => toggleSubject(subjectId)}>
+              Fach aus meiner Liste entfernen
+            </button>
+          </Item>
+        )}
+            </>
+          )}
         </>
-      )}
-
-      {isMine && own.length === 0 && !isFrench && (
-        <Item>
-          <button type="button" className="press mt-6 rounded-xl px-2 py-2 text-sm font-semibold text-muted hover:text-bad-dark" onClick={() => toggleSubject(subjectId)}>
-            Fach aus meiner Liste entfernen
-          </button>
-        </Item>
       )}
 
       <ArbeitSheet open={!!sheet} onClose={() => setSheet(null)} subjectId={subjectId} arbeit={sheet?.arbeit} />
@@ -361,6 +378,9 @@ function NachschlagenTab() {
   const [part, setPart] = useState<'woerter' | 'grammatik'>('woerter')
   return (
     <Item>
+      <Link to="/faecher/franzoesisch?tab=mehr" replace className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
+        <Back size={18} /> Mehr
+      </Link>
       <Segmented
         label="Nachschlagen"
         className="mb-4 w-full [&>button]:flex-1 [&>button]:py-2"

@@ -170,22 +170,50 @@ export function DeckCreatePage() {
           </label>
 
           <div>
-            <p className="mb-1.5 text-sm font-bold text-muted">Wie willst du es erstellen?</p>
-            <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Wie erstellen?">
-              {(
-                [
-                  { id: 'ai' as Way, label: 'Von der KI' },
-                  { id: 'notizen' as Way, label: 'Aus Notizen' },
-                  { id: 'write' as Way, label: 'Selbst schreiben' },
-                  ...(templatesFor(subject).length ? [{ id: 'vorlage' as Way, label: 'Fertige' }] : []),
-                ] as { id: Way; label: string }[]
-              ).map((w) => (
-                <button key={w.id} type="button" role="radio" aria-checked={way === w.id} onClick={() => setWay(w.id)} className={`chip ${way === w.id ? 'chip-on' : ''}`}>
-                  {w.label}
+            <p className="mb-1.5 text-sm font-bold text-muted">Was willst du erstellen?</p>
+            <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Art">
+              {(Object.keys(PLAN_LABEL) as TaskPlan[]).map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  role="radio"
+                  aria-checked={plan === p}
+                  onClick={() => {
+                    setPlan(p)
+                    if (p !== 'karten') setWay('ai')
+                  }}
+                  className={`tile flex-col items-start !gap-0.5 !py-3 ${plan === p ? 'tile-selected' : ''}`}
+                >
+                  <span className="text-[16px]">{PLAN_LABEL[p].label}</span>
+                  <span className="text-xs font-medium opacity-70">{PLAN_LABEL[p].short}</span>
                 </button>
               ))}
+              <Link to={`/test/neu?fach=${subject}`} className="tile flex-col items-start !gap-0.5 !py-3 no-underline">
+                <span className="text-[16px]">Test oder Arbeit</span>
+                <span className="text-xs font-medium opacity-70">Mit Punkten und Note</span>
+              </Link>
             </div>
           </div>
+
+          {plan === 'karten' && (
+            <div>
+              <p className="mb-1.5 text-sm font-bold text-muted">Wie?</p>
+              <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Wie erstellen?">
+                {(
+                  [
+                    { id: 'ai' as Way, label: 'Von der KI' },
+                    { id: 'notizen' as Way, label: 'Aus Notizen' },
+                    { id: 'write' as Way, label: 'Selbst schreiben' },
+                    ...(templatesFor(subject).length ? [{ id: 'vorlage' as Way, label: 'Fertige' }] : []),
+                  ] as { id: Way; label: string }[]
+                ).map((w) => (
+                  <button key={w.id} type="button" role="radio" aria-checked={way === w.id} onClick={() => setWay(w.id)} className={`chip ${way === w.id ? 'chip-on' : ''}`}>
+                    {w.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
 
           {way === 'notizen' ? (
             <>
@@ -230,19 +258,6 @@ export function DeckCreatePage() {
             </>
           ) : way === 'ai' ? (
             <>
-              <div>
-                <p className="mb-1.5 text-sm font-bold text-muted">Was soll die KI machen?</p>
-                <div className="grid gap-2" role="radiogroup" aria-label="Art">
-                  {(Object.keys(PLAN_LABEL) as TaskPlan[]).map((p) => (
-                    <button key={p} type="button" role="radio" aria-checked={plan === p} onClick={() => setPlan(p)} className={`tile w-full !py-2.5 ${plan === p ? 'tile-selected' : ''}`}>
-                      <span className="min-w-0 flex-1">
-                        <span className="block text-[16px]">{PLAN_LABEL[p].label}</span>
-                        <span className="block text-xs font-medium opacity-70">{PLAN_LABEL[p].text}</span>
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </div>
               <label className="grid gap-1.5 text-sm font-bold text-muted">
                 Was brauchst du?
                 <textarea

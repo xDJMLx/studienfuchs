@@ -6,17 +6,16 @@ import { normalizeTasks, type Task } from './tasks'
 /** Was die KI erstellen soll. */
 export type TaskPlan = 'karten' | 'aufgaben' | 'rechnen'
 
-export const PLAN_LABEL: Record<TaskPlan, { label: string; text: string }> = {
-  karten: { label: 'Karteikarten', text: 'Frage vorn, Antwort hinten: für Begriffe, Vokabeln, Daten.' },
-  aufgaben: { label: 'Quiz & Aufgaben', text: 'Auswahlfragen, Lückentext, Zuordnen, Reihenfolge, Richtig/Falsch, Kurzantworten.' },
-  rechnen: { label: 'Rechenaufgaben', text: 'Die KI schreibt die Aufgaben, die App rechnet die Lösung selbst aus.' },
+export const PLAN_LABEL: Record<TaskPlan, { label: string; short: string; text: string }> = {
+  karten: { label: 'Karteikarten', short: 'Frage und Antwort', text: 'Frage vorn, Antwort hinten: für Begriffe, Vokabeln, Daten.' },
+  aufgaben: { label: 'Quiz & Aufgaben', short: 'Auswahl, Lücken, Zuordnen', text: 'Auswahlfragen, Lückentext, Zuordnen, Reihenfolge, Richtig/Falsch, Kurzantworten.' },
+  rechnen: { label: 'Rechenaufgaben', short: 'Die App rechnet nach', text: 'Die KI schreibt die Aufgaben, die App rechnet die Lösung selbst aus.' },
 }
 
 /** Welche Art zu einem Fach am besten passt (zum Vorauswählen). */
 export function defaultPlan(subjectId: string): TaskPlan {
   if (['mathe', 'physik', 'chemie'].includes(subjectId)) return 'rechnen'
-  if (['franzoesisch', 'englisch'].includes(subjectId)) return 'karten'
-  return 'aufgaben'
+  return 'karten'
 }
 
 const FORMAT = [

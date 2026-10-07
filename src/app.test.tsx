@@ -191,7 +191,8 @@ describe('Die App als Ganzes', () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie', 'mathe'] })
     useStore.getState().addSet('Zelle', Array.from({ length: 6 }, (_, i) => ({ front: `F${i}`, back: `B${i}` })), { subject: 'biologie' })
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Frei üben/))
+    await click(/^Frei üben/)
+    await waitFor(() => expect(screen.getByRole('radiogroup', { name: 'Fach' })).toBeTruthy())
     const group = screen.getByRole('radiogroup', { name: 'Fach' })
     const radios = within(group).getAllByRole('radio')
     expect(radios.map((r) => r.textContent)).toEqual([expect.stringContaining('Biologie'), expect.stringContaining('Mathe')])
@@ -272,6 +273,7 @@ describe('Fertige Karteikarten', () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/stapel/neu?fach=physik'
     render(<App />)
+    await click(/^Karteikarten/, 'radio')
     await click(/Fertige/, 'radio')
     await waitFor(() => expect(text()).toMatch(/Größen, Einheiten und Formeln/))
   })
@@ -280,7 +282,7 @@ describe('Fertige Karteikarten', () => {
 describe('Rechentraining in Mathe', () => {
   it('Themenliste, Training starten, falsche Antwort zeigt den Rechenweg', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['mathe'] })
-    window.location.hash = '#/faecher/mathe'
+    window.location.hash = '#/faecher/mathe?tab=mehr'
     render(<App />)
     await waitFor(() => expect(text()).toMatch(/Rechentraining/))
     go('#/faecher/mathe/training')
@@ -641,8 +643,8 @@ describe('Tests, Klassenarbeiten und Vokabeltests', () => {
 
   it('Die Fach-Seite listet die Tests; ohne Tests lädt sie zum Erstellen ein', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
-    stage('#/faecher/biologie')
-    await waitFor(() => expect(text()).toMatch(/Tests & Arbeiten/))
+    stage('#/faecher/biologie?tab=tests')
+    await waitFor(() => expect(text()).toMatch(/Tests zum Üben/))
     expect(text()).toMatch(/Test, Klassenarbeit oder Vokabeltest/)
     const res = normalizeTest({ tasks: [{ t: 'tf', q: 'A', answer: true }, { t: 'tf', q: 'B', answer: true }, { t: 'tf', q: 'C', answer: false }] }, { id: 'k1', subject: 'biologie', kind: 'test', source: 'x' })!
     res.test.title = 'Zelle-Test'
@@ -655,7 +657,7 @@ describe('Tests, Klassenarbeiten und Vokabeltests', () => {
 describe('Formel-Training ohne KI', () => {
   it('Physik hat Themen mit Formeln; ein Durchgang startet mit einer Rechenaufgabe oder Wissensfrage', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['physik', 'mathe'] })
-    window.location.hash = '#/faecher/physik'
+    window.location.hash = '#/faecher/physik?tab=mehr'
     render(<App />)
     await waitFor(() => expect(text()).toMatch(/Rechentraining/))
     expect(text()).toMatch(/8 Themen mit Formeln/)
@@ -665,7 +667,7 @@ describe('Formel-Training ohne KI', () => {
     fireEvent.click(await screen.findByRole('link', { name: /Geschwindigkeit/ }))
     await waitFor(() => expect(text()).toMatch(/Rechne aus|Wähle die richtige Antwort/), { timeout: 4000 })
     // Mathe: Alltagsrechnen mit Prozent und Dreisatz
-    go('#/faecher/mathe')
+    go('#/faecher/mathe?tab=mehr')
     await waitFor(() => expect(text()).toMatch(/Prozent und Dreisatz/))
   })
 })
