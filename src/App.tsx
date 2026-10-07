@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, type ComponentType } from 'react'
 import { HashRouter, Navigate, Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import { ErrorBoundary } from './components/ui/ErrorBoundary'
 import { Layout } from './components/ui/Layout'
+import { AiGateSheet } from './components/ui/AiGateSheet'
 import { UpdateBanner } from './components/ui/UpdateBanner'
 import { useApplyTheme } from './lib/theme'
 import { useStore } from './store/useStore'
@@ -157,6 +158,7 @@ export default function App() {
     <HashRouter>
       <RouteTitle />
       <UpdateBanner />
+      <AiGateSheet />
       <RouteGuard>
       <Suspense fallback={<PageFallback />}>
       <Routes>

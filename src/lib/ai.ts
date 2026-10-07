@@ -96,21 +96,42 @@ async function loadPuter(): Promise<PuterLike> {
 }
 
 /**
- * Muss direkt aus einem Klick heraus aufgerufen werden (sonst blockiert der Browser das Anmeldefenster).
- * Legt beim ersten Mal das kostenlose Puter-Gastkonto an; danach passiert nichts mehr.
+ * Die eigentliche Anmeldung beim KI-Dienst (öffnet das Fenster von Puter und legt ein kostenloses Gastkonto an).
+ * Muss direkt aus einem Klick heraus aufgerufen werden, sonst blockiert der Browser das Fenster.
  */
-export async function ensureAiReady(): Promise<void> {
-  if (getAiConfig().provider !== 'puter') return
+export async function signInPuter(): Promise<void> {
   const puter = await loadPuter()
   if (puter.auth.isSignedIn()) return
   try {
     await puter.auth.signIn({ attempt_temp_user_creation: true })
   } catch (e) {
     const code = (e as { error?: string })?.error
-    if (code === 'popup_blocked') throw new AiError('Dein Browser hat das Anmeldefenster blockiert. Erlaube Pop-ups für diese Seite und klicke nochmal.', 'auth')
-    if (code === 'auth_window_closed') throw new AiError('Das Anmeldefenster wurde geschlossen. Klicke nochmal und lass es offen, es dauert nur einen Moment.', 'auth')
-    throw new AiError('Die Anmeldung beim KI-Dienst hat nicht geklappt. Versuch es nochmal.', 'auth')
+    if (code === 'popup_blocked') throw new AiError('Dein Browser hat das Fenster von Puter blockiert. Erlaube Pop-ups für diese Seite und tippe nochmal.', 'auth')
+    if (code === 'auth_window_closed') throw new AiError('Das Fenster von Puter wurde geschlossen, bevor es fertig war. Tippe nochmal und lass es offen, es dauert nur einen Moment.', 'auth')
+    if (e instanceof AiError) throw e
+    throw new AiError('Die Anmeldung hat nicht geklappt. Prüfe deine Verbindung und versuch es nochmal.', 'auth')
   }
+  if (!puter.auth.isSignedIn()) throw new AiError('Die Anmeldung wurde nicht abgeschlossen. Versuch es nochmal.', 'auth')
+}
+
+/** Die Seite hinter dem schönen Anmelde-Fenster: wird beim Start von der App eingehängt (siehe AiGateSheet). */
+type Gate = () => Promise<void>
+let gate: Gate | null = null
+export const setAiGate = (g: Gate | null): void => {
+  gate = g
+}
+
+/**
+ * Stellt sicher, dass die KI benutzbar ist. Fehlt noch die Anmeldung, erklärt die App erst in einem Fenster, was passiert,
+ * und der Klick dort öffnet das Fenster von Puter (so bleibt es ein echter Klick und wird nicht blockiert).
+ * Bricht man ab oder scheitert es, gibt es einen AiError.
+ */
+export async function ensureAiReady(): Promise<void> {
+  if (getAiConfig().provider !== 'puter') return
+  const puter = await loadPuter()
+  if (puter.auth.isSignedIn()) return
+  if (gate) return gate()
+  await signInPuter()
 }
 
 /** Lädt den KI-Dienst schon im Voraus, damit das Anmeldefenster beim Klick nicht vom Browser blockiert wird. Sendet nichts. */

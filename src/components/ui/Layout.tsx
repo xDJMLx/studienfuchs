@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
 import { Link, NavLink, useLocation, useNavigate, useOutlet } from 'react-router-dom'
 import { levelFromXp } from '../../lib/xp'
@@ -51,33 +51,40 @@ export function Wordmark({ size = 'md', tone = 'default' }: { size?: 'md' | 'lg'
   )
 }
 
+/** Wie tief eine Adresse liegt (für die Richtung: tiefer = vorwärts, höher = zurück). */
+const depth = (path: string): number => path.split('/').filter(Boolean).length
+
 /**
- * Seitenübergang: die neue Seite steigt sanft ein. Bewusst ohne Ausblenden der alten Seite,
- * damit nie eine leere Zwischenphase entsteht und jeder Klick sofort wirkt.
+ * Seitenwechsel: Die alte Seite gleitet kurz heraus, die neue von der anderen Seite herein, beides in unter 0,25 Sekunden.
+ * Zwischen den Tabs geht es in Richtung des Tabs (Kalender liegt rechts von Üben), in eine Unterseite hinein nach links, zurück nach rechts.
+ * Keine Unschärfe und kein Überblenden: nur eine kleine Bewegung mit Federung.
  */
 function AnimatedOutlet() {
   const outlet = useOutlet()
   const { pathname } = useLocation()
   const reduce = useReducedMotion()
-  // Richtung: Wechsel zwischen Tabs schiebt die Seite von der Seite herein (nach rechts → von rechts), alles andere hebt sich sanft.
   const last = useRef(pathname)
-  const from = tabIndex(last.current)
-  const to = tabIndex(pathname)
-  const dir = pathname === last.current ? 0 : from !== to ? Math.sign(to - from) : 0
-  useEffect(() => {
+  const dirRef = useRef(0)
+  if (last.current !== pathname) {
+    const from = tabIndex(last.current)
+    const to = tabIndex(pathname)
+    dirRef.current = from !== to ? Math.sign(to - from) : Math.sign(depth(pathname) - depth(last.current))
     last.current = pathname
-  }, [pathname])
-  // Fixierte Elemente der Seite bleiben nach der Bewegung unberührt: Transform und Filter werden danach entfernt
-  const initial = reduce ? false : dir !== 0 ? { opacity: 0, x: dir * 28, filter: 'blur(1.5px)' } : { opacity: 0, y: 8, scale: 0.99 }
+  }
+  const dir = dirRef.current
+  const dist = 34
   return (
-    <motion.div
-      key={pathname}
-      initial={initial}
-      animate={{ opacity: 1, x: 0, y: 0, scale: 1, filter: 'blur(0px)', transitionEnd: { filter: 'none', transform: 'none' } }}
-      transition={dir !== 0 ? { type: 'spring', stiffness: 380, damping: 30 } : { type: 'spring', stiffness: 460, damping: 32 }}
-    >
-      {outlet}
-    </motion.div>
+    <AnimatePresence mode="popLayout" initial={false}>
+      <motion.div
+        key={pathname}
+        initial={reduce || dir === 0 ? false : { opacity: 0, x: dir * dist }}
+        animate={{ opacity: 1, x: 0, transitionEnd: { transform: 'none' } }}
+        exit={reduce || dir === 0 ? undefined : { opacity: 0, x: -dir * dist * 0.5, transition: { duration: 0.11, ease: [0.4, 0, 1, 1] } }}
+        transition={{ type: 'spring', stiffness: 520, damping: 38, mass: 0.8 }}
+      >
+        {outlet}
+      </motion.div>
+    </AnimatePresence>
   )
 }
 
@@ -142,7 +149,7 @@ export function Layout() {
         <TopBar className="lg:hidden" />
         <main ref={scroller} tabIndex={-1} className="flex-1 overflow-y-auto overflow-x-hidden pb-[calc(var(--tabbar-h)+1rem)] outline-none lg:pb-10">
           <div className="mx-auto flex max-w-[1040px] justify-center gap-8 px-0 lg:px-8">
-            <div className="min-w-0 flex-1">
+            <div className="relative min-w-0 flex-1">
               <AnimatedOutlet />
             </div>
             <aside className="hidden w-[320px] shrink-0 pt-6 xl:block">
