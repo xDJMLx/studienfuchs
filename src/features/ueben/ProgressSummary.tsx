@@ -36,7 +36,7 @@ export function ProgressSummary({ diff, bonus = 0, decks, arbeiten, solidBySubje
 
   return (
     <section className="mt-5 w-full max-w-sm text-left" aria-label="Das hat sich getan">
-      <h2 className="mb-2 text-center text-sm font-extrabold uppercase tracking-[0.1em] text-muted">Das hat sich getan</h2>
+      <h2 className="mb-2 text-center text-sm font-extrabold text-muted">Das hat sich getan</h2>
       <div className="grid gap-2.5">
         {(diff.learned > 0 || diff.solidGain > 0) && (
           <motion.div {...pop(n++)} className="grid grid-cols-2 gap-2.5">
@@ -61,11 +61,11 @@ export function ProgressSummary({ diff, bonus = 0, decks, arbeiten, solidBySubje
           const s = helpSubject(l.subject)
           return (
             <motion.div key={l.subject} {...pop(n++)} className="flex items-center gap-3 rounded-2xl border-2 px-3.5 py-3" style={{ borderColor: s?.c, background: `color-mix(in srgb, ${s?.c ?? '#888'} 12%, var(--surface))` }}>
-              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl" style={{ background: s?.c, boxShadow: `0 3px 0 ${s?.s}` }}>
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl" style={{ background: s?.c }}>
                 <HelpSubjectIcon id={l.subject} ink={s?.c ?? '#888'} size={28} />
               </span>
               <span className="min-w-0">
-                <span className="block text-xs font-extrabold uppercase tracking-wide text-muted">Level aufgestiegen</span>
+                <span className="block text-xs font-extrabold text-muted">Level aufgestiegen</span>
                 <span className="block text-[17px] font-black leading-tight">{s?.name}: Level {l.to} · {l.name}</span>
               </span>
             </motion.div>
@@ -80,7 +80,7 @@ export function ProgressSummary({ diff, bonus = 0, decks, arbeiten, solidBySubje
               ))}
             </span>
             <span className="min-w-0">
-              <span className="block text-xs font-extrabold uppercase tracking-wide text-gold-dark">{st.stars === 3 ? 'Karteikarten gemeistert' : 'Neuer Stern'}</span>
+              <span className="block text-xs font-extrabold text-gold-dark">{st.stars === 3 ? 'Karteikarten gemeistert' : 'Neuer Stern'}</span>
               <span className="block truncate font-extrabold">{deckTitle(st.deckId)}</span>
             </span>
           </motion.div>

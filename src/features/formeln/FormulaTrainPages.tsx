@@ -67,7 +67,7 @@ function Run({ skillId, onAgain }: { skillId: string; onAgain: () => void }) {
     const pct = Math.round(result.r.accuracy * 100)
     return (
       <div className="mx-auto flex h-full max-w-md flex-col items-center justify-center px-6 text-center">
-        <p className="text-sm font-extrabold uppercase tracking-wide text-muted">{skill.title}</p>
+        <p className="text-sm font-extrabold text-muted">{skill.title}</p>
         <h1 className="mt-1 text-[32px] font-black">{pct >= 90 ? 'Stark!' : pct >= 60 ? 'Gut gemacht!' : 'Weiter üben'}</h1>
         <p className="mt-2 text-muted">
           {result.r.firstTry} von {result.r.total} gleich richtig · +{result.xp} XP{result.coins > 0 ? ` · +${result.coins} Münzen` : ''}

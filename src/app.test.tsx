@@ -101,7 +101,7 @@ describe('Die App als Ganzes', () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
     window.location.hash = '#/stapel/neu?fach=biologie'
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Neue Karteikarten/))
+    await waitFor(() => expect(text()).toMatch(/Neu erstellen/))
     await click(/Selbst schreiben/, 'radio')
     const area = await screen.findByLabelText(/Eine Karte pro Zeile/)
     fireEvent.change(area, { target: { value: 'Zellkern – steuert die Zelle\nRibosom – baut Eiweiße\nVakuole – Speicher\nZellwand – Halt\nMitochondrium – Kraftwerk' } })
@@ -118,7 +118,8 @@ describe('Die App als Ganzes', () => {
     // Startseite: heute dran
     go('#/')
     await waitFor(() => expect(text()).toMatch(/Heute dran/))
-    expect(text()).toMatch(/5 neue Karten/)
+    expect(text()).toMatch(/5\s*Karten/)
+    expect(text()).toMatch(/5 neu/)
   })
 
   it('Im Kalender eintragen: Tag wählen, Fach und Art wählen, speichern, Punkt im Kalender und Termin darunter', async () => {
@@ -216,7 +217,7 @@ describe('Die App als Ganzes', () => {
     expect(within(group).queryByText(/^Alles$/)).toBeNull()
   })
 
-  it('Fächer ändert man in den Einstellungen, die Fach-Seite zeigt Level und Karteikarten', async () => {
+  it('Fächer ändert man in den Einstellungen, die Fach-Seite zeigt den Stand und die Karteikarten', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
     window.location.hash = '#/settings/faecher'
     render(<App />)
@@ -229,14 +230,14 @@ describe('Die App als Ganzes', () => {
     expect(useStore.getState().mySubjects).not.toContain('geschichte')
     go('#/faecher/biologie')
     await waitFor(() => expect(text()).toMatch(/Erstelle deine ersten Karteikarten/))
-    expect(text()).toMatch(/Noch 5 Karten bis Entdecker/)
+    expect(text()).toMatch(/Zusammenfassen, erklären, abfragen/)
   })
 
   it('Es gibt keine Serie mehr: weder in der Kopfzeile noch im Profil', async () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/profile'
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Statistik/))
+    await waitFor(() => expect(text()).toMatch(/Diese Woche/))
     expect(text()).not.toMatch(/Serie|Flamme/)
     expect(screen.queryByRole('button', { name: /Tage Serie/ })).toBeNull()
   })
@@ -693,20 +694,6 @@ describe('Einführung überspringen', () => {
 })
 
 describe('Übersicht: Einstieg, Einstellungen als Liste', () => {
-  it('„So kommst du in Fahrt“ hakt ab, was geschafft ist, und lässt sich ausblenden', async () => {
-    localStorage.removeItem('studienfuchs-start-aus')
-    useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
-    render(<App />)
-    await waitFor(() => expect(text()).toMatch(/So kommst du in Fahrt/))
-    expect(text()).toMatch(/0 von 3/)
-    useStore.getState().addSet('Zelle', [{ front: 'a', back: 'b' }], { subject: 'biologie' })
-    await waitFor(() => expect(text()).toMatch(/1 von 3/))
-    fireEvent.click(screen.getByRole('button', { name: 'Ausblenden' }))
-    await waitFor(() => expect(text()).not.toMatch(/So kommst du in Fahrt/))
-    expect(localStorage.getItem('studienfuchs-start-aus')).toBe('1')
-    localStorage.removeItem('studienfuchs-start-aus')
-  })
-
   it('Einstellungen zeigen erst eine Liste, jeder Bereich liegt auf einer eigenen Seite', async () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/settings'

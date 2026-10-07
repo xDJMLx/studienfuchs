@@ -274,7 +274,7 @@ function Coach({ subjectId }: { subjectId?: string }) {
                 setInput(PAGES_PROMPT)
                 window.setTimeout(() => box.current?.focus(), 50)
               }}
-              className="press group flex items-center gap-3 rounded-2xl border-2 border-violet bg-violet-soft px-4 py-3 text-left shadow-[0_3px_0_var(--shade-violet)]"
+              className="press group flex items-center gap-3 rounded-2xl border-2 border-violet bg-violet-soft px-4 py-3 text-left"
             >
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet text-white">
                 <Sparkle size={18} />
@@ -283,7 +283,7 @@ function Coach({ subjectId }: { subjectId?: string }) {
               <Right size={16} className="shrink-0 text-muted transition-transform group-hover:translate-x-0.5" />
             </button>}
             {(help ? help.suggestions : SUGGESTIONS).map((s) => (
-              <button key={s} type="button" onClick={() => send(s)} className="press group flex items-center gap-3 rounded-2xl border-2 border-line bg-surface px-4 py-3 text-left shadow-[0_3px_0_var(--shade-line)] transition-colors hover:bg-snow">
+              <button key={s} type="button" onClick={() => send(s)} className="press group flex items-center gap-3 rounded-2xl border-2 border-line bg-surface px-4 py-3 text-left transition-colors hover:bg-snow">
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-soft text-violet-dark">
                   <Sparkle size={18} />
                 </span>

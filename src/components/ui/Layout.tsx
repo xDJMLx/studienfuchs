@@ -4,7 +4,7 @@ import { Link, NavLink, useLocation, useNavigate, useOutlet } from 'react-router
 import { levelFromXp } from '../../lib/xp'
 import { useStore } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
-import { Coin, Gear, TabCalendar, TabRepeat, TabUser, Xp } from './Icons'
+import { Gear, TabCalendar, TabRepeat, TabUser } from './Icons'
 import { useCoachComposer } from '../../lib/coachComposer'
 import { CoachComposer } from './CoachComposer'
 import { TabBar } from './TabBar'
@@ -12,7 +12,6 @@ import { useDue } from '../../features/review/ReviewPage'
 import { ProgressBar } from './widgets'
 import { StudyTimeCard } from './StudyTime'
 import { autoSyncUntis } from '../../lib/untisSync'
-import { useShallow } from 'zustand/react/shallow'
 
 interface NavItem {
   to: string
@@ -54,11 +53,20 @@ export function Wordmark({ size = 'md', tone = 'default' }: { size?: 'md' | 'lg'
 /** Wie tief eine Adresse liegt (für die Richtung: tiefer = vorwärts, höher = zurück). */
 const depth = (path: string): number => path.split('/').filter(Boolean).length
 
+/** Kurve: zügig los, gleichmäßig ausgleiten (die iOS-Kurve ist am Anfang so steil, dass die Bewegung wie ein Ruck wirkt). */
+const PAGE_EASE = [0.25, 0.8, 0.25, 1] as const
+
 /**
- * Seitenwechsel: Die alte Seite gleitet kurz heraus, die neue von der anderen Seite herein, beides in unter 0,25 Sekunden.
- * Zwischen den Tabs geht es in Richtung des Tabs (Kalender liegt rechts von Üben), in eine Unterseite hinein nach links, zurück nach rechts.
- * Keine Unschärfe und kein Überblenden: nur eine kleine Bewegung mit Federung.
+ * Seitenwechsel wie ein Blätterstapel: Die alte Seite schiebt sich seitlich hinaus, die neue von der anderen Seite herein, in einem Zug und ohne Überblenden.
+ * Richtung: zwischen den Tabs zum Tab hin (Kalender liegt rechts von Üben), in eine Unterseite hinein nach links, zurück nach rechts.
+ * Die Richtung gehört zur Navigation, nicht zur einzelnen Seite: Sie wird über `custom` auch an die ausfahrende Seite gegeben.
  */
+const pageVariants = {
+  enter: (d: number) => ({ x: `${d * 100}%` }),
+  center: { x: '0%', transition: { duration: 0.32, ease: PAGE_EASE } },
+  exit: (d: number) => ({ x: `${-d * 100}%`, transition: { duration: 0.32, ease: PAGE_EASE } }),
+}
+
 function AnimatedOutlet() {
   const outlet = useOutlet()
   const { pathname } = useLocation()
@@ -71,17 +79,10 @@ function AnimatedOutlet() {
     dirRef.current = from !== to ? Math.sign(to - from) : Math.sign(depth(pathname) - depth(last.current))
     last.current = pathname
   }
-  const dir = dirRef.current
-  const dist = 34
+  const dir = reduce ? 0 : dirRef.current
   return (
-    <AnimatePresence mode="popLayout" initial={false}>
-      <motion.div
-        key={pathname}
-        initial={reduce || dir === 0 ? false : { opacity: 0, x: dir * dist }}
-        animate={{ opacity: 1, x: 0, transitionEnd: { transform: 'none' } }}
-        exit={reduce || dir === 0 ? undefined : { opacity: 0, x: -dir * dist * 0.5, transition: { duration: 0.11, ease: [0.4, 0, 1, 1] } }}
-        transition={{ type: 'spring', stiffness: 520, damping: 38, mass: 0.8 }}
-      >
+    <AnimatePresence mode="popLayout" initial={false} custom={dir}>
+      <motion.div key={pathname} custom={dir} variants={pageVariants} initial={dir === 0 ? false : 'enter'} animate="center" exit={dir === 0 ? undefined : 'exit'}>
         {outlet}
       </motion.div>
     </AnimatePresence>
@@ -146,7 +147,6 @@ export function Layout() {
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <TopBar className="lg:hidden" />
         <main ref={scroller} tabIndex={-1} className="flex-1 overflow-y-auto overflow-x-hidden pb-[calc(var(--tabbar-h)+1rem)] outline-none lg:pb-10">
           <div className="mx-auto flex max-w-[1040px] justify-center gap-8 px-0 lg:px-8">
             <div className="relative min-w-0 flex-1">
@@ -197,35 +197,6 @@ function DueBadge({ n, className = '' }: { n: number; className?: string }) {
     >
       {n > 99 ? '99+' : n}
     </motion.span>
-  )
-}
-
-/** Kopfzeile auf dem Handy: links der Fuchs, rechts XP von heute und Münzen als kräftige Zahlen. */
-function TopBar({ className = '' }: { className?: string }) {
-  const { xp, coins } = useStore(useShallow((s) => ({ xp: s.xp, coins: s.coins })))
-  const lvl = levelFromXp(xp)
-  const stat = 'press flex min-h-11 items-center gap-1.5 rounded-xl px-2 text-[16px] font-extrabold tabular-nums transition-colors hover:bg-snow'
-  return (
-    <header className={`flex items-center justify-between border-b-2 border-line bg-page px-3 py-1.5 ${className}`}>
-      <Link to="/" aria-label="Zur Startseite" className="press flex items-center gap-2 rounded-xl px-1.5 py-1">
-        <Mascot size={32} />
-        <span className="hidden text-[19px] min-[360px]:inline font-black tracking-tight text-brand-strong">Studienfuchs</span>
-      </Link>
-      <div className="flex items-center gap-0.5">
-        <Link to="/profile" className={`${stat} text-gold-dark`} aria-label={`Level ${lvl.level}, ${xp} XP`} title="Dein Level">
-          <Xp size={24} />
-          <motion.span key={lvl.level} initial={{ scale: 1.5, y: -2 }} animate={{ scale: 1, y: 0 }} transition={{ type: 'spring', stiffness: 500, damping: 14 }}>
-            Lv {lvl.level}
-          </motion.span>
-        </Link>
-        <Link to="/shop" className={`${stat} text-gold-dark`} aria-label={`${coins} Münzen, zum Fuchs-Laden`} title="Münzen">
-          <Coin size={24} />
-          <motion.span key={coins} initial={{ scale: 1.5, y: -2 }} animate={{ scale: 1, y: 0 }} transition={{ type: 'spring', stiffness: 500, damping: 14 }}>
-            {coins}
-          </motion.span>
-        </Link>
-      </div>
-    </header>
   )
 }
 

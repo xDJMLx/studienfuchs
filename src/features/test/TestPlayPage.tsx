@@ -133,7 +133,7 @@ function Runner({ test }: { test: TestData }) {
         <Link to={`/faecher/${test.subject}`} className="press -ml-2 mb-4 inline-flex min-h-11 w-fit items-center rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
           ← {sub?.name ?? 'Zurück'}
         </Link>
-        <p className="text-sm font-extrabold uppercase tracking-wide text-muted">{testKindLabel(test.kind)}</p>
+        <p className="text-sm font-extrabold text-muted">{testKindLabel(test.kind)}</p>
         <h1 className="mt-1 text-[30px] font-black leading-tight">{test.title}</h1>
         <p className="mt-2 text-muted">{test.source}</p>
         <dl className="mt-5 grid grid-cols-3 gap-3 text-center">
@@ -261,7 +261,7 @@ function Runner({ test }: { test: TestData }) {
   return (
     <div className="mx-auto h-full max-w-2xl overflow-y-auto px-4 py-6">
       <section className="card mb-5 p-5 text-center" aria-label="Ergebnis">
-        <p className="text-sm font-extrabold uppercase tracking-wide text-muted">{test.title}</p>
+        <p className="text-sm font-extrabold text-muted">{test.title}</p>
         <p className="mt-1 text-[44px] font-black leading-none tabular-nums">
           {pts(points)} <span className="text-[24px] text-muted">/ {pts(max)}</span>
         </p>

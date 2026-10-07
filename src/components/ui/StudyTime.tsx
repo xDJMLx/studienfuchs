@@ -8,7 +8,7 @@ import { ProgressRing } from './widgets'
 
 const dayWord = (n: number) => (n === 0 ? 'heute' : n === 1 ? 'morgen' : `in ${n} Tagen`)
 
-function useStudyToday() {
+export function useStudyToday() {
   const arbeiten = useStore((s) => s.arbeiten)
   const sets = useStore((s) => s.sets)
   const addedUnits = useStore((s) => s.addedUnits)

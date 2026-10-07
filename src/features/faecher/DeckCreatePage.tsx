@@ -156,7 +156,7 @@ export function DeckCreatePage() {
       <Link to={`/faecher/${subject}`} className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
         <Back size={18} /> {sub?.name ?? 'Fächer'}
       </Link>
-      <h1 className="page-title mb-4">Neue Karteikarten &amp; Aufgaben</h1>
+      <h1 className="large-title mb-5">Neu erstellen</h1>
 
       {!rows && (
         <div className="grid gap-4">
@@ -268,6 +268,18 @@ export function DeckCreatePage() {
                   maxLength={1500}
                 />
               </label>
+              <details className="group rounded-2xl border border-line bg-surface px-4 py-3">
+                <summary className="flex cursor-pointer list-none items-center justify-between text-[15px] font-extrabold">
+                  <span>
+                    Weitere Optionen
+                    <span className="ml-2 text-[13px] font-semibold text-muted">
+                      {count} {plan === 'karten' ? 'Karten' : 'Aufgaben'}
+                      {files.length > 0 ? `, ${files.length} ${files.length === 1 ? 'Foto' : 'Fotos'}` : ''}
+                    </span>
+                  </span>
+                  <span className="text-muted transition-transform group-open:rotate-90" aria-hidden>›</span>
+                </summary>
+                <div className="mt-3 grid gap-4">
               <div>
                 <p className="mb-1.5 text-sm font-bold text-muted">{plan === 'karten' ? 'Wie viele Karten?' : 'Wie viele Aufgaben?'}</p>
                 <div className="flex gap-2" role="radiogroup" aria-label="Anzahl">
@@ -298,6 +310,8 @@ export function DeckCreatePage() {
                 </div>
                 <input ref={fileRef} type="file" accept="image/*" multiple className="sr-only" onChange={(e) => setFiles((f) => [...f, ...Array.from(e.target.files ?? [])].slice(0, 8))} />
               </div>
+                </div>
+              </details>
               <button type="button" className="btn btn-primary btn-shine press w-full sm:w-72" disabled={busy || (!request.trim() && !files.length)} onClick={run}>
                 {busy ? 'Die KI schreibt …' : plan === 'karten' ? 'Karten erstellen' : 'Aufgaben erstellen'}
               </button>

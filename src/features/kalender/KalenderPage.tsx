@@ -233,7 +233,7 @@ export function KalenderPage() {
             </div>
             <div className="grid grid-cols-7 text-center" role="grid" aria-label="Tage">
               {WEEKDAY_HEAD.map((w) => (
-                <span key={w} className="pb-1 text-[11px] font-extrabold uppercase tracking-wide text-muted" role="columnheader">
+                <span key={w} className="pb-1 text-[11px] font-extrabold text-muted" role="columnheader">
                   {w}
                 </span>
               ))}

@@ -5,7 +5,7 @@ import { Back, Check, Plus, Right, Sparkle, Star } from '../../components/ui/Ico
 import { Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { activeDecks, allCourseDecks, daysUntil, FRENCH, ownDeck, planToday, readiness } from '../../lib/decks'
-import { deckStars, levelOfSolid, subjectStats } from '../../lib/progress'
+import { deckStars, subjectStats } from '../../lib/progress'
 import { masteryOf } from '../../lib/srs'
 import { helpSubject } from '../../lib/subjects'
 import type { Arbeit } from '../../lib/types'
@@ -48,7 +48,6 @@ export function FachPage() {
   const mine = useMemo(() => (arbeiten ?? []).filter((a) => a.subject === subjectId).map((a) => ({ a, days: daysUntil(a), r: readiness(a, allActive, cards) })).sort((x, y) => x.days - y.days), [arbeiten, subjectId, allActive, cards])
   if (!subject) return <Navigate to="/" replace />
   const stat = subjectStats(allActive, cards)[subjectId]
-  const lv = levelOfSolid(stat?.solid ?? 0)
   const isMine = (mySubjects ?? []).includes(subjectId)
 
   const course = isFrench ? allCourseDecks() : []
@@ -64,24 +63,14 @@ export function FachPage() {
         <Link to="/" className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
           <Back size={18} /> Üben
         </Link>
-        <div className="mb-4 flex items-center gap-3.5">
-          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl" style={{ background: subject.c, boxShadow: `0 4px 0 ${subject.s}` }} aria-hidden>
+        <div className="mb-5 flex items-center gap-3.5">
+          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl" style={{ background: subject.c }} aria-hidden>
             <HelpSubjectIcon id={subject.id} ink={subject.c} size={34} />
           </span>
           <div className="min-w-0 flex-1">
             <h1 className="page-title">{subject.name}</h1>
-            <p className="text-sm text-muted">{subject.blurb}</p>
+            <p className="text-sm text-muted">{stat && stat.total > 0 ? `${stat.solid} von ${stat.total} Karten sitzen` : subject.blurb}</p>
           </div>
-        </div>
-        <div className="mb-5 rounded-2xl border-2 border-line bg-surface px-3.5 py-3">
-          <div className="flex items-center justify-between gap-2">
-            <span className="font-black">Level {lv.level} · {lv.name}</span>
-            <span className="text-sm font-bold text-muted">{stat ? `${stat.solid} von ${stat.total} Karten sitzen` : 'noch keine Karten'}</span>
-          </div>
-          <div className="mt-2 h-2.5 overflow-hidden rounded-full bg-line" role="progressbar" aria-valuenow={Math.round(lv.pct * 100)} aria-valuemin={0} aria-valuemax={100} aria-label="Fortschritt zum nächsten Level">
-            <div className="h-full rounded-full transition-[width] duration-500" style={{ width: `${Math.max(3, Math.round(lv.pct * 100))}%`, background: subject.c }} />
-          </div>
-          <p className="mt-1 text-xs font-bold text-muted">{lv.next ? `Noch ${lv.toNext} ${lv.toNext === 1 ? 'Karte' : 'Karten'} bis ${lv.next}` : 'Höchstes Level erreicht'}</p>
         </div>
       </Item>
 
@@ -109,7 +98,7 @@ export function FachPage() {
             <>
           {plan.due.length + plan.fresh.length > 0 && (
             <Item>
-              <button type="button" className="press mb-5 flex w-full items-center gap-3 rounded-2xl bg-sky px-4 py-3 text-left text-white" style={{ boxShadow: '0 4px 0 var(--shade-sky)' }} onClick={() => navigate(`/ueben/los?fach=${subjectId}`)}>
+              <button type="button" className="press mb-5 flex w-full items-center gap-3 rounded-[14px] bg-brand-strong px-4 py-3 text-left text-on-brand" onClick={() => navigate(`/ueben/los?fach=${subjectId}`)}>
                 <span className="min-w-0 flex-1 font-extrabold">
                   {subject.name} üben
                   <span className="block text-sm font-bold opacity-90">

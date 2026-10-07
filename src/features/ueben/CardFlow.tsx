@@ -121,7 +121,7 @@ function ProbeNote({ percent }: { percent: number }) {
   const g = approxGrade(percent)
   return (
     <section className="mt-5 w-full max-w-sm rounded-2xl border-2 border-sky bg-sky-soft px-4 py-3 text-center" aria-label="Ungefähre Note">
-      <p className="text-xs font-extrabold uppercase tracking-wide text-sky-dark">Probearbeit</p>
+      <p className="text-xs font-extrabold text-sky-dark">Probearbeit</p>
       <p className="text-[28px] font-black leading-tight">Ungefähr eine {g.note}</p>
       <p className="text-sm font-bold text-muted">{g.label}, {percent} % richtig. Nur zur Orientierung: Jede Lehrkraft setzt die Grenzen selbst.</p>
     </section>

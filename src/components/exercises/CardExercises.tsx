@@ -179,10 +179,10 @@ export function QCardExercise({ exercise: ex, onChange, result }: ExerciseProps<
             // In der Mitte der Drehung (quer zum Blick) ist die Karte am schnellsten: dort verwischt sie leicht
             style={{ transformStyle: 'preserve-3d', rotateY: flip, scale: lift, filter: smear }}
           >
-            <span className={`${face} border-line bg-surface`} style={{ boxShadow: '0 5px 0 var(--shade-line)' }} aria-hidden={reveal}>
+            <span className={`${face} border-line bg-surface`} aria-hidden={reveal}>
               {front}
             </span>
-            <span className={`${face} border-brand bg-brand-soft`} style={{ transform: 'rotateY(180deg)', boxShadow: '0 5px 0 var(--shade-brand)' }} aria-hidden={!reveal}>
+            <span className={`${face} border-brand bg-brand-soft`} style={{ transform: 'rotateY(180deg)' }} aria-hidden={!reveal}>
               {reveal && back}
             </span>
           </motion.button>

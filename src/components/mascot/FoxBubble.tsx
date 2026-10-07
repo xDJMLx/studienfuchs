@@ -45,7 +45,7 @@ export function FoxBubble({ anchor, text }: { anchor: HTMLElement | null; text: 
     <span
       ref={box}
       aria-hidden
-      className="fox-bubble pointer-events-none fixed z-[70] w-max max-w-[min(15rem,calc(100vw-16px))] rounded-2xl border-2 border-line bg-surface px-3 py-1.5 text-center text-[13px] font-extrabold leading-snug text-ink shadow-[0_3px_0_var(--shade-line)]"
+      className="fox-bubble pointer-events-none fixed z-[70] w-max max-w-[min(15rem,calc(100vw-16px))] rounded-2xl border-2 border-line bg-surface px-3 py-1.5 text-center text-[13px] font-extrabold leading-snug text-ink"
       style={{ left: pos?.left ?? -9999, top: pos?.top ?? -9999, visibility: pos ? 'visible' : 'hidden', transformOrigin: pos ? `${pos.tail}px ${pos.below ? '0%' : '100%'}` : undefined }}
     >
       {text}

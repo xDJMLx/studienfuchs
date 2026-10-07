@@ -154,6 +154,24 @@ export default function App() {
     }, 4000)
     return () => clearTimeout(id)
   }, [])
+  // Die Seiten, die man als Nächstes öffnet, im Leerlauf schon laden: Dann beginnt der Seitenwechsel ohne Wartezeit
+  useEffect(() => {
+    if (import.meta.env.MODE === 'test') return
+    const run = () => {
+      void import('./features/kalender/KalenderPage')
+      void import('./features/profile/ProfilePage')
+      void import('./features/faecher/FachPage')
+      void import('./features/faecher/DeckCreatePage')
+      void import('./features/ueben/CardFlow')
+      void import('./features/settings/SettingsPage')
+    }
+    const idle = (window as { requestIdleCallback?: (cb: () => void, o?: { timeout: number }) => number }).requestIdleCallback
+    const id = idle ? idle.call(window, run, { timeout: 3000 }) : window.setTimeout(run, 1500)
+    return () => {
+      if (idle) window.cancelIdleCallback?.(id)
+      else clearTimeout(id)
+    }
+  }, [])
   return (
     <HashRouter>
       <RouteTitle />

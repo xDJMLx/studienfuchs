@@ -358,7 +358,7 @@ export function ResultScreen({
           >
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gold/25 text-gold-dark"><Trophy size={24} /></span>
             <span className="min-w-0">
-              <span className="block text-xs font-bold uppercase tracking-wide text-gold-dark">Neuer Erfolg</span>
+              <span className="block text-xs font-bold text-gold-dark">Neuer Erfolg</span>
               <span className="block font-bold">{a.title}</span>
               <span className="block text-sm text-muted">{a.description}</span>
             </span>
@@ -371,7 +371,7 @@ export function ResultScreen({
             transition={{ ...SPRING.bouncy, delay: 1.45 }}
             className="mt-3 w-full max-w-sm rounded-2xl bg-brand-strong px-4 py-3.5 text-left text-on-brand"
           >
-            <span className="block text-xs font-extrabold uppercase tracking-[0.12em] opacity-80">Einheit geschafft</span>
+            <span className="block text-xs font-extrabold opacity-80">Einheit geschafft</span>
             <span className="block text-xl font-extrabold leading-tight">{events.unit.title}</span>
             <span className="mt-1 block text-sm opacity-95"><b>Das kannst du jetzt:</b> {events.unit.description}</span>
           </motion.div>
@@ -413,7 +413,7 @@ function Stat({ tone, label, icon, children, delay = 0 }: { tone: keyof typeof T
       className="overflow-hidden rounded-2xl border-2 text-center"
       style={{ borderColor: t.bg, background: t.bg }}
     >
-      <div className="truncate px-1.5 py-1 text-[11px] font-extrabold uppercase leading-tight tracking-[0.06em]" style={{ color: t.head }}>{label}</div>
+      <div className="truncate px-1.5 py-1 text-[11px] font-extrabold leading-tight" style={{ color: t.head }}>{label}</div>
       <div className="flex items-center justify-center gap-1 rounded-[13px] bg-surface py-3 text-[24px] font-extrabold" style={{ color: t.num }}>
         {icon}
         {children}

@@ -93,7 +93,7 @@ export function Welcome() {
             <header className={`mx-auto flex w-full max-w-md items-center px-6 pt-4 ${hasProgress ? 'justify-between' : 'justify-center'}`}>
               <Wordmark />
               {hasProgress && (
-                <button type="button" onClick={() => finish()} className="press flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-extrabold uppercase tracking-wide text-sky-dark">
+                <button type="button" onClick={() => finish()} className="press flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-extrabold text-sky-dark">
                   Zur App <Right size={14} />
                 </button>
               )}
@@ -279,7 +279,7 @@ export function Welcome() {
                     <button className="btn btn-primary btn-shine press w-full !py-4 text-base sm:w-72" onClick={() => finish('/stapel/neu')} autoFocus>
                       Erste Karteikarten erstellen
                     </button>
-                    <button type="button" className="press min-h-11 rounded-xl px-3 text-sm font-extrabold uppercase tracking-wide text-sky-dark sm:mr-auto" onClick={() => finish()}>
+                    <button type="button" className="press min-h-11 rounded-xl px-3 text-sm font-extrabold text-sky-dark sm:mr-auto" onClick={() => finish()}>
                       Erst umschauen
                     </button>
                   </>

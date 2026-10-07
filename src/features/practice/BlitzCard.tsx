@@ -7,7 +7,7 @@ export function BlitzCard() {
   const best = useStore((s) => s.blitzBest ?? 0)
   const math = useStore((s) => (s.subject ?? 'fr') === 'math')
   return (
-    <Link to="/blitz" className="press relative mb-6 flex items-center gap-4 overflow-hidden rounded-[20px] bg-violet p-4 text-white shadow-[0_5px_0_var(--shade-violet)]">
+    <Link to="/blitz" className="press relative mb-6 flex items-center gap-4 overflow-hidden rounded-[20px] bg-violet p-4 text-white">
       <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white/20"><Flame size={30} /></span>
       <span className="min-w-0 flex-1">
         <span className="block text-lg font-extrabold leading-tight">Blitzrunde</span>

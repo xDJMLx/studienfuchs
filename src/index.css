@@ -13,11 +13,11 @@
 
 :root {
   color-scheme: light;
-  --page: #ffffff;
-  --bg: #ffffff;
+  --page: #f3f4f7;
+  --bg: #f3f4f7;
   --surface: #ffffff;
-  --snow: #f4f5f7;
-  --line: #e5e6eb;
+  --snow: #eceef3;
+  --line: #e3e5ea;
   --ink: #23252c;
   --muted: #666a75;
 
@@ -188,22 +188,16 @@ h1, h2, h3 {
 }
 
 @layer components {
-  /* Knöpfe: dick, rund, mit kräftiger Unterkante, die beim Drücken einsinkt */
+  /* Knöpfe: flach und ruhig, rund, drücken sich beim Antippen leicht ein */
   .btn {
-    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-5 py-3 text-[15px] font-extrabold uppercase tracking-[0.06em]
-      transition-[transform,box-shadow,filter,background-color] duration-100 select-none disabled:cursor-not-allowed;
-    --edge: var(--shade-line);
-    box-shadow: 0 4px 0 var(--edge);
-    margin-bottom: 4px;
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-[14px] px-5 py-3 text-[16px] font-extrabold
+      transition-[transform,filter,background-color,opacity] duration-150 select-none disabled:cursor-not-allowed;
   }
   .btn:active:not(:disabled) {
-    transform: translateY(4px);
-    box-shadow: 0 0 0 var(--edge);
+    transform: scale(0.97);
   }
   .btn-primary {
     @apply bg-brand-strong text-on-brand;
-    --edge: var(--shade-brand);
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
   }
   @media (hover: hover) and (pointer: fine) {
     .btn-primary:hover:not(:disabled),
@@ -216,28 +210,19 @@ h1, h2, h3 {
   }
   .btn-sky {
     @apply bg-sky text-white;
-    --edge: var(--shade-sky);
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
   }
   .btn-violet {
     @apply bg-violet text-white;
-    --edge: var(--shade-violet);
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
   }
   .btn-good {
     @apply bg-good text-white;
-    --edge: var(--shade-good);
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
   }
   .btn-bad {
     @apply bg-bad text-white;
-    --edge: var(--shade-bad);
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.14);
   }
-  /* Zweitknopf: weiß mit Rahmen, Schrift in Blau (wie ein Link, nur greifbarer) */
+  /* Zweitknopf: hell mit feiner Kante, Schrift in Blau */
   .btn-ghost {
-    @apply border-2 border-line bg-surface text-sky-dark;
-    --edge: var(--shade-line);
+    @apply border border-line bg-surface text-sky-dark;
   }
   @media (hover: hover) and (pointer: fine) {
     .btn-ghost:hover:not(:disabled) {
@@ -246,15 +231,12 @@ h1, h2, h3 {
   }
   .btn:disabled {
     @apply bg-snow text-muted;
-    --edge: var(--shade-line);
-    text-shadow: none;
   }
 
-  /* Antwort-Kacheln: weiß mit Rahmen und dicker Unterkante; gewählt in Blau, richtig grün, falsch rot */
+  /* Antwort-Kacheln: hell mit feiner Kante; gewählt in Blau, richtig grün, falsch rot */
   .tile {
-    @apply flex items-center gap-3 rounded-2xl border-2 border-line bg-surface px-4 py-3 text-left text-[17px] font-bold text-ink transition-colors select-none;
-    box-shadow: 0 4px 0 var(--shade-line);
-    margin-bottom: 4px;
+    @apply flex items-center gap-3 rounded-2xl border-[1.5px] border-line bg-surface px-4 py-3 text-left text-[17px] font-bold text-ink select-none;
+    transition: transform 0.12s var(--ease-out), background-color 0.15s, border-color 0.15s;
   }
   @media (hover: hover) and (pointer: fine) {
     .tile:hover:not(:disabled) {
@@ -262,12 +244,10 @@ h1, h2, h3 {
     }
   }
   .tile:active:not(:disabled) {
-    transform: translateY(4px);
-    box-shadow: 0 0 0 var(--shade-line);
+    transform: scale(0.985);
   }
   .tile-selected {
     @apply border-sky bg-sky-soft text-sky-dark;
-    box-shadow: 0 4px 0 var(--shade-sky);
   }
   @media (hover: hover) and (pointer: fine) {
     .tile-selected:hover:not(:disabled) {
@@ -276,46 +256,56 @@ h1, h2, h3 {
   }
   .tile-correct {
     @apply border-good bg-good-soft text-good-dark;
-    box-shadow: 0 4px 0 var(--shade-good);
   }
   .tile-wrong {
     @apply border-bad bg-bad-soft text-bad-dark;
-    box-shadow: 0 4px 0 var(--shade-bad);
   }
 
   /* Farbige Etiketten */
   .tag {
-    @apply inline-flex items-center gap-1.5 rounded-xl px-3 py-1 text-sm font-extrabold text-white;
+    @apply inline-flex items-center gap-1.5 rounded-lg px-2.5 py-0.5 text-sm font-extrabold text-white;
     background: var(--tag, var(--brand));
-    box-shadow: 0 3px 0 var(--tag-edge, var(--shade-brand));
-    margin-bottom: 3px;
   }
 
-  /* Auswahl-Chips: rund, mit Rahmen und Unterkante; gewählt in Blau */
+  /* Auswahl-Chips: rund, feine Kante; gewählt in Blau */
   .chip {
-    @apply inline-flex min-h-11 items-center gap-2 rounded-full border-2 border-line bg-surface px-4 py-2 text-sm font-extrabold text-ink transition-colors select-none;
-    box-shadow: 0 3px 0 var(--shade-line);
-    margin-bottom: 3px;
+    @apply inline-flex min-h-11 items-center gap-2 rounded-full border border-line bg-surface px-4 py-2 text-sm font-extrabold text-ink select-none;
+    transition: transform 0.12s var(--ease-out), background-color 0.15s, border-color 0.15s;
   }
   .chip:active {
-    transform: translateY(3px);
-    box-shadow: 0 0 0 var(--shade-line);
+    transform: scale(0.96);
   }
   .chip-on {
     @apply border-sky bg-sky-soft text-sky-dark;
-    box-shadow: 0 3px 0 var(--shade-sky);
-  }
-  .chip-on:active {
-    box-shadow: 0 0 0 var(--shade-sky);
   }
 
   .card {
-    @apply rounded-[18px] border-2 border-line bg-surface;
+    @apply rounded-[18px] border border-line bg-surface;
+  }
+
+  /* Liste wie in iOS: eine Fläche, Zeilen mit feiner Trennlinie, ganze Zeile antippbar */
+  .list {
+    @apply overflow-hidden rounded-[18px] bg-surface;
+    border: 1px solid var(--line);
+  }
+  .list > * + * {
+    border-top: 1px solid var(--line);
+  }
+  .row {
+    @apply flex min-h-14 w-full items-center gap-3 px-4 py-2.5 text-left;
+    transition: background-color 0.12s;
+  }
+  .row:active {
+    background: var(--snow);
+  }
+  /* Große Seitenüberschrift (wie bei iOS) */
+  .large-title {
+    @apply text-[34px] font-black leading-[1.05] tracking-tight text-ink;
   }
 
   /* Seitenleiste (Computer): große, fette Einträge, aktiv mit blauem Rahmen */
   .nav-link {
-    @apply flex items-center gap-4 rounded-2xl border-2 border-transparent px-4 py-2.5 text-[15px] font-extrabold uppercase tracking-[0.05em] text-muted hover:bg-snow;
+    @apply flex items-center gap-4 rounded-2xl border-2 border-transparent px-4 py-2.5 text-[16px] font-extrabold text-muted hover:bg-snow;
   }
   .nav-link-active {
     border-color: var(--nav-c, var(--sky));
@@ -324,10 +314,10 @@ h1, h2, h3 {
   }
 
   .eyebrow {
-    @apply text-[13px] font-extrabold uppercase tracking-[0.08em] text-muted;
+    @apply text-[13px] font-extrabold text-muted;
   }
   .page-title {
-    @apply text-[30px] font-extrabold leading-tight tracking-tight text-ink;
+    @apply text-[34px] font-black leading-[1.08] tracking-tight text-ink;
   }
   .segmented {
     @apply inline-flex rounded-2xl bg-snow p-1;

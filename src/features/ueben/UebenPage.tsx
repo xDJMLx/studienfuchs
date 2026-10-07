@@ -1,9 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Flame, Plus, Repeat, Right, Trophy } from '../../components/ui/Icons'
 import { Sheet } from '../../components/ui/Sheet'
-import { Item, Stagger } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { dateKey, kindLabel, needsFollowUp } from '../../lib/calendar'
 import { activeDecks, cardRefs, daysUntil, planToday, readiness, SESSION_SIZE } from '../../lib/decks'
@@ -11,16 +10,41 @@ import { isDue } from '../../lib/srs'
 import { helpSubject } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
 import { BackupBanner } from '../../components/ui/BackupBanner'
-import { GettingStarted } from './GettingStarted'
 import { InstallBanner } from '../../components/ui/InstallApp'
 import { backupDue } from '../../lib/backup'
 import { ArbeitFollowUp } from '../kalender/KalenderPage'
-import { StudyTimeCard } from '../../components/ui/StudyTime'
+import { useStudyToday } from '../../components/ui/StudyTime'
 import { dueLabel } from '../review/ReviewPage'
 
-const when = (days: number) => (days === 0 ? 'Heute' : days === 1 ? 'Morgen' : `in ${days} Tagen`)
+const when = (days: number) => (days === 0 ? 'heute' : days === 1 ? 'morgen' : `in ${days} Tagen`)
 
-/** Üben: Hier startet jeder Tag. Alle fälligen Karten aus allen Fächern, dazu neue, und die Arbeiten, die anstehen. */
+/** Eine Zeile in einer Liste: tippbare Fläche mit farbigem Symbol, Titel, Untertitel und Pfeil. */
+function Row({ to, onClick, tint, icon, title, sub, right }: { to?: string; onClick?: () => void; tint: string; icon: ReactNode; title: ReactNode; sub?: ReactNode; right?: ReactNode }) {
+  const inner = (
+    <>
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px]" style={{ background: tint }}>
+        {icon}
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-[16px] font-extrabold leading-tight">{title}</span>
+        {sub && <span className="block truncate text-[13px] font-semibold text-muted">{sub}</span>}
+      </span>
+      {right}
+      <Right size={13} className="shrink-0 text-muted" />
+    </>
+  )
+  return to ? (
+    <Link to={to} className="row">
+      {inner}
+    </Link>
+  ) : (
+    <button type="button" onClick={onClick} className="row">
+      {inner}
+    </button>
+  )
+}
+
+/** Üben: Hier startet jeder Tag. Oben eine Sache (die Runde für heute), darunter die nächsten Arbeiten, ganz unten alles weitere. */
 export function UebenPage() {
   const navigate = useNavigate()
   const [free, setFree] = useState(false)
@@ -28,6 +52,7 @@ export function UebenPage() {
   const addedUnits = useStore((s) => s.addedUnits)
   const arbeiten = useStore((s) => s.arbeiten)
   const cards = useStore((s) => s.cards)
+  const st = useStudyToday()
 
   const decks = useMemo(() => activeDecks({ sets, addedUnits: addedUnits ?? [] }), [sets, addedUnits])
   const plan = useMemo(() => planToday(decks, arbeiten ?? [], cards), [decks, arbeiten, cards])
@@ -45,194 +70,121 @@ export function UebenPage() {
 
   const total = plan.due.length + plan.fresh.length
   const roundSize = Math.min(SESSION_SIZE, total)
-  // Wie sich die Runde auf die Fächer verteilt
-  const bySubject = useMemo(() => {
-    const m = new Map<string, number>()
-    for (const r of [...plan.due, ...plan.fresh].slice(0, Math.max(roundSize, 1))) m.set(r.deck.subject, (m.get(r.deck.subject) ?? 0) + 1)
-    return [...m.entries()]
+  // Welche Fächer in der Runde dran sind (für die Zeile unter der Zahl)
+  const subjectNames = useMemo(() => {
+    const ids = [...new Set([...plan.due, ...plan.fresh].slice(0, Math.max(roundSize, 1)).map((r) => r.deck.subject))]
+    return ids.map((id) => helpSubject(id)?.name ?? id)
   }, [plan, roundSize])
   const nextDue = useMemo(() => {
     const future = refs.map((r) => cards[r.item.id]).filter((c) => c && !isDue(c)).map((c) => new Date(c.due).getTime())
     return future.length ? new Date(Math.min(...future)) : null
   }, [refs, cards])
+  const dateText = new Date().toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' })
 
   return (
-    <Stagger className="mx-auto max-w-2xl px-4 py-5 lg:py-8" stagger={0.06}>
-
+    <div className="mx-auto max-w-2xl px-4 pb-6 pt-3 lg:pt-8">
       {followUps.map((a) => (
-        <Item key={a.id}>
-          <ArbeitFollowUp arbeit={a} />
-        </Item>
+        <ArbeitFollowUp key={a.id} arbeit={a} />
       ))}
 
       {/* Höchstens ein Hinweis gleichzeitig: Sichern geht vor Installieren */}
       {backupDue(decks.length > 0 || Object.keys(cards).length > 0) ? <BackupBanner /> : <InstallBanner />}
 
-      <Item>
-        <GettingStarted />
-      </Item>
+      <header className="mb-4 px-1">
+        <p className="text-[15px] font-bold text-muted">{dateText}</p>
+        <h1 className="large-title">Heute</h1>
+      </header>
 
-      <Item>
+      {/* Die eine Hauptsache */}
+      <section className="card mb-6 p-5" aria-label="Heute">
         {decks.length === 0 ? (
-          <section className="card mb-5 flex flex-col items-center p-6 text-center">
-            <Mascot size={96} mood="happy" alive />
-            <h1 className="mt-2 text-[24px] font-black leading-tight">Was willst du üben?</h1>
-            <p className="mt-1 max-w-sm text-muted">Erstelle Karteikarten zu einem Fach, zum Beispiel für die nächste Arbeit. Du schreibst, was du brauchst, und die Karten sind in Sekunden da.</p>
-            <Link to="/stapel/neu" className="btn btn-primary btn-shine press mt-4 w-full sm:w-64">
+          <div className="flex flex-col items-center text-center">
+            <Mascot size={88} mood="happy" alive />
+            <h2 className="mt-2 text-[22px] font-black leading-tight">Was willst du üben?</h2>
+            <p className="mt-1 max-w-sm text-[15px] text-muted">Schreib der KI, was ihr gerade durchnehmt: Die Karteikarten sind in Sekunden da.</p>
+            <Link to="/stapel/neu" className="btn btn-primary press mt-4 w-full">
               Karteikarten erstellen
             </Link>
-          </section>
+          </div>
         ) : total > 0 ? (
-          <section className="mb-5 rounded-[22px] bg-brand-strong p-5 text-on-brand" style={{ boxShadow: '0 5px 0 var(--shade-brand)' }} aria-label="Heute">
-            <h1 className="text-[26px] font-black leading-tight">Heute dran</h1>
-            <p className="mt-1 text-[15px] font-bold opacity-95">
-              {plan.due.length > 0 && <>{plan.due.length} {plan.due.length === 1 ? 'Karte ist' : 'Karten sind'} fällig</>}
-              {plan.due.length > 0 && plan.fresh.length > 0 && ', '}
-              {plan.fresh.length > 0 && <>{plan.fresh.length} {plan.fresh.length === 1 ? 'neue Karte' : 'neue Karten'}</>}
+          <>
+            <p className="text-[15px] font-bold text-muted">Heute dran</p>
+            <p className="mt-0.5 flex items-baseline gap-2">
+              <span className="text-[52px] font-black leading-none tabular-nums">{total}</span>
+              <span className="text-[18px] font-extrabold">{total === 1 ? 'Karte' : 'Karten'}</span>
             </p>
-            {bySubject.length > 0 && (
-              <ul className="mt-3 flex flex-wrap gap-2" aria-label="Fächer in dieser Runde">
-                {bySubject.map(([id, n]) => {
-                  const s = helpSubject(id)
-                  return (
-                    <li key={id} className="flex items-center gap-1.5 rounded-full bg-white/20 py-1 pl-1 pr-3 text-[13px] font-extrabold">
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full" style={{ background: s?.c ?? '#868a95' }}>
-                        <HelpSubjectIcon id={id} ink={s?.c ?? '#868a95'} size={15} />
-                      </span>
-                      {s?.name ?? id} {n}
-                    </li>
-                  )
-                })}
-              </ul>
-            )}
-            <button type="button" className="btn press mt-4 w-full bg-white text-[#9c3703] sm:w-64" style={{ '--edge': 'rgba(0,0,0,0.18)' } as React.CSSProperties} onClick={() => navigate('/ueben/los')} autoFocus>
+            <p className="mt-1 text-[15px] text-muted">
+              {[plan.fresh.length > 0 && `${plan.fresh.length} neu`, plan.due.length > 0 && `${plan.due.length} zum Wiederholen`].filter(Boolean).join(' · ')}
+              {subjectNames.length > 0 && <span className="block truncate">{subjectNames.join(', ')}</span>}
+            </p>
+            <button type="button" className="btn btn-primary btn-shine press mt-4 w-full" onClick={() => navigate('/ueben/los')} autoFocus>
               Los geht’s ({roundSize})
             </button>
-            {total > SESSION_SIZE && <p className="mt-2 text-xs font-bold opacity-90">In Runden zu {SESSION_SIZE}: Danach kannst du direkt weitermachen.</p>}
-          </section>
+            {total > SESSION_SIZE && <p className="mt-2 text-center text-xs text-muted">Runden zu {SESSION_SIZE} Karten, danach geht es direkt weiter.</p>}
+          </>
         ) : (
-          <section className="card mb-5 flex items-center gap-4 p-5">
-            <Mascot size={78} mood="cheer" alive />
+          <div className="flex items-center gap-4">
+            <Mascot size={72} mood="cheer" alive />
             <div className="min-w-0 flex-1">
-              <h1 className="text-[22px] font-black leading-tight">Für heute alles geschafft</h1>
-              <p className="mt-0.5 text-sm text-muted">{nextDue ? `Die nächste Karte ist ${dueLabel(nextDue)} dran. ` : ''}Du kannst trotzdem noch üben oder neue Karten erstellen.</p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <button type="button" className="btn btn-ghost press !min-h-10 !px-4 !text-sm" onClick={() => navigate('/ueben/los')}>
-                  Trotzdem üben
-                </button>
-                <Link to="/stapel/neu" className="btn btn-ghost press !min-h-10 !px-4 !text-sm">
-                  Neue Karteikarten
-                </Link>
-              </div>
+              <h2 className="text-[20px] font-black leading-tight">Für heute alles geschafft</h2>
+              <p className="mt-0.5 text-[14px] text-muted">{nextDue ? `Die nächste Karte ist ${dueLabel(nextDue)} dran.` : 'Neue Karteikarten sind schnell gemacht.'}</p>
+              <button type="button" className="btn btn-ghost press mt-3 !min-h-10 !px-4 !text-[15px]" onClick={() => navigate('/ueben/los')}>
+                Trotzdem üben
+              </button>
             </div>
-          </section>
+          </div>
         )}
-      </Item>
+      </section>
 
-      <Item>
-        <StudyTimeCard />
-      </Item>
-
-      <Item>
-        <div className="mb-2 flex items-center justify-between gap-2">
-          <h2 className="text-lg font-extrabold">Als Nächstes</h2>
-          <Link to="/kalender" className="press flex min-h-9 items-center gap-0.5 rounded-xl px-2.5 text-sm font-bold text-sky-dark hover:bg-sky-soft">
-            Kalender <Right size={13} />
-          </Link>
-        </div>
-        {upcoming.length === 0 ? (
-          <Link to="/kalender?neu=1" className="press mb-5 flex items-center gap-3 rounded-2xl border-2 border-dashed border-line px-4 py-4 text-muted hover:bg-snow">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sky-soft text-sky-dark">
-              <Plus size={20} />
-            </span>
-            <span>
-              <span className="block font-extrabold text-ink">Steht eine Arbeit an?</span>
-              <span className="block text-sm">Trag sie im Kalender ein: Die App verteilt die Karteikarten auf die Tage bis dahin.</span>
-            </span>
-          </Link>
-        ) : (
-          <ul className="mb-5 grid gap-3">
-            {upcoming.slice(0, 2).map(({ a, days, r }) => {
-              const s = helpSubject(a.subject)
-              return (
-                <li key={a.id} className="card flex items-center gap-3 p-3.5">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl" style={{ background: s?.c, boxShadow: `0 3px 0 ${s?.s}` }}>
-                    <HelpSubjectIcon id={a.subject} ink={s?.c ?? '#888'} size={24} />
-                  </span>
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate font-extrabold leading-tight">{a.title}</p>
-                    <p className={`text-sm font-bold ${days <= 2 ? 'text-bad-dark' : 'text-muted'}`}>
-                      {kindLabel(a.kind)} · {when(days)}
-                    </p>
-                    <div className="mt-1.5 h-2 overflow-hidden rounded-full bg-line" role="progressbar" aria-valuenow={r.pct} aria-valuemin={0} aria-valuemax={100} aria-label={`${r.pct} Prozent sitzen`}>
-                      <div className="h-full rounded-full bg-good transition-[width] duration-500" style={{ width: `${Math.max(r.pct, r.seen ? 4 : 0)}%` }} />
-                    </div>
-                    <p className="mt-0.5 text-xs text-muted">{r.solid} von {r.total} Karten sitzen</p>
-                  </div>
-                  {r.total === 0 ? (
-                    <Link to={`/stapel/neu?fach=${a.subject}`} className="btn btn-ghost press !min-h-10 shrink-0 !px-3 !text-xs">
-                      Karteikarten machen
-                    </Link>
-                  ) : (
-                    <button type="button" className="btn btn-primary press !min-h-10 shrink-0 !px-4 !text-sm" onClick={() => navigate(`/ueben/los?arbeit=${a.id}`)}>
-                      Lernen
-                    </button>
-                  )}
-                </li>
-              )
-            })}
-          </ul>
-        )}
-      </Item>
-
-      <Item>
-        <h2 className="mb-2 text-lg font-extrabold">Mehr üben</h2>
-        <div className="mb-4 grid grid-cols-2 gap-3">
-          {decks.length > 0 && (
-            <button type="button" onClick={() => setFree(true)} className="card press flex flex-col items-start gap-2 p-3.5 text-left">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
-                <Repeat size={22} />
-              </span>
-              <span className="leading-tight">
-                <span className="block font-extrabold">Frei üben</span>
-                <span className="block text-xs text-muted">Fach und Art wählen</span>
-              </span>
-            </button>
-          )}
-          {decks.length > 0 && (
-            <Link to="/blitz" className="card press flex flex-col items-start gap-2 p-3.5">
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-soft text-violet-dark">
-                <Flame size={22} />
-              </span>
-              <span className="leading-tight">
-                <span className="block font-extrabold">Blitzrunde</span>
-                <span className="block text-xs text-muted">60 Sekunden</span>
-              </span>
+      {/* Arbeiten, die anstehen */}
+      <section className="mb-6" aria-label="Als Nächstes">
+        <div className="mb-1.5 flex items-center justify-between px-1">
+          <h2 className="text-[20px] font-black">Als Nächstes</h2>
+          {upcoming.length > 0 && (
+            <Link to="/kalender" className="press -mr-1 flex min-h-9 items-center gap-0.5 rounded-xl px-2 text-[15px] font-bold text-sky-dark">
+              Kalender <Right size={12} />
             </Link>
           )}
-          <Link to="/test/neu" className="card press flex flex-col items-start gap-2 p-3.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-soft text-sky-dark">
-              <Trophy size={22} />
-            </span>
-            <span className="leading-tight">
-              <span className="block font-extrabold">Test machen</span>
-              <span className="block text-xs text-muted">Arbeit mit Note</span>
-            </span>
-          </Link>
-          <Link to="/stapel/neu" className="card press flex flex-col items-start gap-2 p-3.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-good-soft text-good-dark">
-              <Plus size={22} />
-            </span>
-            <span className="leading-tight">
-              <span className="block font-extrabold">Neu erstellen</span>
-              <span className="block text-xs text-muted">Karten und Aufgaben</span>
-            </span>
-          </Link>
         </div>
-      </Item>
+        <div className="list">
+          {upcoming.slice(0, 2).map(({ a, days, r }) => {
+            const s = helpSubject(a.subject)
+            const timeLeft = st && st.arbeit.id === a.id ? (st.reached ? 'Lernzeit geschafft' : `heute ${Math.floor(st.minutes)} von ${st.target} Min`) : null
+            return (
+              <Row
+                key={a.id}
+                to={r.total === 0 ? `/stapel/neu?fach=${a.subject}` : `/ueben/los?arbeit=${a.id}`}
+                tint={s?.c ?? '#868a95'}
+                icon={<HelpSubjectIcon id={a.subject} ink={s?.c ?? '#888'} size={24} />}
+                title={a.title}
+                sub={
+                  <>
+                    <span className={days <= 2 ? 'font-extrabold text-bad-dark' : ''}>
+                      {kindLabel(a.kind)} {when(days)}
+                    </span>
+                    {r.total === 0 ? ' · noch keine Karteikarten' : timeLeft ? ` · ${timeLeft}` : ` · ${r.solid} von ${r.total} sitzen`}
+                  </>
+                }
+              />
+            )
+          })}
+          <Row to="/kalender?neu=1" tint="var(--sky-soft)" icon={<Plus size={20} className="text-sky-dark" />} title={upcoming.length === 0 ? 'Arbeit eintragen' : 'Weitere Arbeit eintragen'} sub={upcoming.length === 0 ? 'Die App verteilt die Karteikarten auf die Tage bis dahin.' : undefined} />
+        </div>
+      </section>
+
+      {/* Alles Weitere, jeweils eine Zeile */}
+      <section aria-label="Mehr">
+        <h2 className="mb-1.5 px-1 text-[20px] font-black">Mehr</h2>
+        <div className="list">
+          {decks.length > 0 && <Row onClick={() => setFree(true)} tint="var(--brand-soft)" icon={<Repeat size={20} className="text-brand-dark" />} title="Frei üben" sub="Fach und Art selbst wählen" />}
+          {decks.length > 0 && <Row to="/blitz" tint="var(--violet-soft)" icon={<Flame size={20} className="text-violet-dark" />} title="Blitzrunde" sub="60 Sekunden, so viele wie möglich" />}
+          <Row to="/test/neu" tint="var(--sky-soft)" icon={<Trophy size={20} className="text-sky-dark" />} title="Probearbeit" sub="Test mit Punkten und Note" />
+          <Row to="/stapel/neu" tint="var(--good-soft)" icon={<Plus size={20} className="text-good-dark" />} title="Neu erstellen" sub="Karteikarten, Quiz, Rechenaufgaben" />
+        </div>
+      </section>
 
       <FreePractice open={free} onClose={() => setFree(false)} />
-    </Stagger>
+    </div>
   )
 }
 
@@ -318,7 +270,7 @@ function FreePractice({ open, onClose }: { open: boolean; onClose: () => void })
               >
                 <span
                   className="relative flex h-[3.6rem] w-[3.6rem] items-center justify-center rounded-[1.1rem] transition-transform"
-                  style={{ background: h.c, boxShadow: on ? `0 0 0 3px var(--surface), 0 0 0 5.5px ${h.c}, 0 4px 0 5.5px ${h.s}` : `0 4px 0 ${h.s}`, transform: on ? 'translateY(-1px)' : undefined, opacity: on || s.cards > 0 ? 1 : 0.55 }}
+                  style={{ background: h.c, boxShadow: on ? `0 0 0 3px var(--surface), 0 0 0 5px ${h.c}` : undefined, opacity: on || s.cards > 0 ? 1 : 0.55 }}
                 >
                   <HelpSubjectIcon id={s.id} ink={h.c} size={32} />
                   {s.due > 0 && <span className="absolute -right-1.5 -top-1.5 rounded-full bg-brand-strong px-1.5 text-[11px] font-black leading-[1.15rem] text-on-brand ring-2 ring-[var(--surface)]">{s.due}</span>}
@@ -347,7 +299,7 @@ function FreePractice({ open, onClose }: { open: boolean; onClose: () => void })
           <div className="border-t-2 border-line bg-snow/60 px-4 pb-4 pt-3.5">
             {subjectDecks.length > 1 && (
               <label className="mb-3 block">
-                <span className="mb-1 block text-xs font-extrabold uppercase tracking-wide text-muted">Karteikarten</span>
+                <span className="mb-1 block text-xs font-extrabold text-muted">Karteikarten</span>
                 <select value={deck} onChange={(e) => setDeck(e.target.value)} className="w-full rounded-xl border-2 border-line bg-surface px-3 py-2.5 text-[15px] font-bold outline-none focus:border-sky">
                   <option value="">Ganzes Fach ({cardRefs(subjectDecks).length} Karten)</option>
                   {subjectDecks.map((d) => (
@@ -359,7 +311,7 @@ function FreePractice({ open, onClose }: { open: boolean; onClose: () => void })
               </label>
             )}
 
-            <p className="mb-1 text-xs font-extrabold uppercase tracking-wide text-muted">Wie üben?</p>
+            <p className="mb-1 text-xs font-extrabold text-muted">Wie üben?</p>
             <div className={`mb-4 grid gap-1.5 rounded-2xl bg-line/60 p-1 ${modes.length > 3 ? 'grid-cols-3' : 'grid-cols-3'}`} role="radiogroup" aria-label="Aufgabenart">
               {modes.map((m) => {
                 const on = mode === m.id
@@ -375,8 +327,8 @@ function FreePractice({ open, onClose }: { open: boolean; onClose: () => void })
             <button
               type="button"
               onClick={go}
-              className="press flex w-full items-center justify-between rounded-2xl px-5 py-3.5 text-left text-white"
-              style={{ background: sub?.c, boxShadow: `0 5px 0 ${sub?.s}` }}
+              className="press flex w-full items-center justify-between rounded-[14px] px-5 py-3.5 text-left text-white"
+              style={{ background: sub?.c }}
             >
               <span className="text-[17px] font-black">{mode === 'speak' ? 'Sprechen üben' : `${sub?.name} üben`}</span>
               <span className="rounded-full bg-white/25 px-2.5 py-0.5 text-sm font-extrabold">{count} Karten</span>

@@ -228,7 +228,7 @@ export function BlitzPage() {
                   transition={{ duration: 0.18, ease: EASE }}
                   className="card mb-4 flex min-h-[7.5rem] flex-col items-center justify-center px-4 py-6 text-center"
                 >
-                  <span className="mb-1 text-xs font-bold uppercase tracking-wide text-muted">{math ? 'Rechne' : q.toFrench ? 'Und andersherum' : 'Was ist die Antwort?'}</span>
+                  <span className="mb-1 text-xs font-bold text-muted">{math ? 'Rechne' : q.toFrench ? 'Und andersherum' : 'Was ist die Antwort?'}</span>
                   {math ? <MathText className={`font-extrabold leading-snug ${q.prompt.length > 40 ? 'text-xl' : 'text-3xl'}`}>{q.prompt}</MathText> : <span className={`font-extrabold leading-tight ${q.prompt.length > 40 ? 'text-xl' : 'text-3xl'}`}>{q.prompt}</span>}
                 </motion.div>
               <AnimatePresence>

@@ -1,4 +1,4 @@
-import { animate, motion, useMotionValue, useReducedMotion, useTransform, type Variants } from 'framer-motion'
+import { animate, motion, useMotionValue, useReducedMotion, useTransform } from 'framer-motion'
 import { useEffect, type ReactNode } from 'react'
 
 /** Gemeinsame Bewegungssprache: schnell anlaufen, weich ausklingen (ease-out-quint). */
@@ -13,76 +13,37 @@ export const SPRING = {
   bouncy: { type: 'spring', stiffness: 420, damping: 16 },
 } as const
 
-const container = (stagger: number, delay: number): Variants => ({
-  hidden: {},
-  show: { transition: { staggerChildren: stagger, delayChildren: delay } },
-})
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 10 },
-  show: { opacity: 1, y: 0, transition: { duration: DUR.slow - 0.04, ease: EASE } },
-}
-
-/** Eintrittsstaffel nie länger als nötig: Abstand höchstens 45 ms, Verzögerung höchstens 120 ms. */
-const capStagger = (s: number) => Math.min(s, 0.045)
-const capDelay = (d: number) => Math.min(d, 0.12)
-
+/**
+ * Früher blendeten Seiten ihre Inhalte nacheinander ein. Das war zusätzlich zum Seitenwechsel zu viel Bewegung und wirkte wie ein Überblenden:
+ * Die Seite kommt jetzt als Ganzes herein (siehe Layout), ihre Inhalte stehen sofort da. Die Bausteine bleiben, damit alte Aufrufe weiter passen.
+ */
 interface StaggerProps {
   children: ReactNode
   className?: string
-  /** Abstand zwischen den Kindern in Sekunden */
+  /** Wird nicht mehr gebraucht, bleibt für alte Aufrufe */
   stagger?: number
   delay?: number
 }
 
-/** Kinder (Item / ItemLi) erscheinen nacheinander. Bei "Bewegung reduzieren" sofort. */
-export function Stagger({ children, className, stagger = 0.07, delay = 0 }: StaggerProps) {
-  const reduce = useReducedMotion()
-  return (
-    <motion.div className={className} variants={container(capStagger(stagger), capDelay(delay))} initial={reduce ? false : 'hidden'} animate="show">
-      {children}
-    </motion.div>
-  )
+export function Stagger({ children, className }: StaggerProps) {
+  return <div className={className}>{children}</div>
 }
 
-export function StaggerList({ children, className, stagger = 0.05, delay = 0 }: StaggerProps) {
-  const reduce = useReducedMotion()
-  return (
-    <motion.ul className={className} variants={container(capStagger(stagger), capDelay(delay))} initial={reduce ? false : 'hidden'} animate="show">
-      {children}
-    </motion.ul>
-  )
+export function StaggerList({ children, className }: StaggerProps) {
+  return <ul className={className}>{children}</ul>
 }
 
 export function Item({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <motion.div className={className} variants={item}>
-      {children}
-    </motion.div>
-  )
+  return <div className={className}>{children}</div>
 }
 
 export function ItemLi({ children, className }: { children: ReactNode; className?: string }) {
-  return (
-    <motion.li className={className} variants={item}>
-      {children}
-    </motion.li>
-  )
+  return <li className={className}>{children}</li>
 }
 
-/** Blendet beim Laden der Seite weich ein. Bewusst nicht erst beim Hineinscrollen: Bei schnellem Wischen blieben sonst Bereiche leer. */
-export function Reveal({ children, className, delay = 0, y = 10 }: { children: ReactNode; className?: string; delay?: number; y?: number }) {
-  const reduce = useReducedMotion()
-  return (
-    <motion.div
-      className={className}
-      initial={reduce ? false : { opacity: 0, y }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: DUR.slow - 0.04, ease: EASE, delay: capDelay(delay) }}
-    >
-      {children}
-    </motion.div>
-  )
+/** Bleibt als Hülle ohne Einblenden (siehe oben). */
+export function Reveal({ children, className }: { children: ReactNode; className?: string; delay?: number; y?: number }) {
+  return <div className={className}>{children}</div>
 }
 
 /** Zahl, die hochzählt. */
