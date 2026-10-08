@@ -75,7 +75,7 @@ describe('Die App als Ganzes', () => {
     await click(/^Weiter$/)
     await waitFor(() => expect(text()).toMatch(/Üben, wann es sich lohnt/))
     await click(/^Weiter$/)
-    await waitFor(() => expect(text()).toMatch(/Dein Plan mit Arbeiten/))
+    await waitFor(() => expect(text()).toMatch(/Arbeiten und Hausaufgaben/))
     await click(/^Weiter$/)
     await waitFor(() => expect(text()).toMatch(/Probearbeit mit Note/))
     await click(/^Einrichten$/)
@@ -95,20 +95,12 @@ describe('Die App als Ganzes', () => {
     await click(/Ernsthaft/, 'radio')
     expect(useStore.getState().dailyMinutes).toBe(15)
     await click(/Weiter/)
-    // Schulstunden: Beispielzeiten sind vorgefüllt, eine Stunde lässt sich ändern
-    await waitFor(() => expect(text()).toMatch(/Wann sind deine Schulstunden/))
-    const first = (await screen.findAllByLabelText(/Stunde 1 bis/))[0]
-    fireEvent.change(first, { target: { value: '08:40' } })
-    fireEvent.blur(first)
-    expect(useStore.getState().schoolPeriods[0]).toEqual({ start: '08:00', end: '08:40' })
-    expect(useStore.getState().schoolPeriods).toHaveLength(7)
-    await click(/Weiter/)
     await waitFor(() => expect(text()).toMatch(/Karteikarten erstellen|Erst umschauen/))
     await click(/Erst umschauen/)
     await waitFor(() => expect(text()).toMatch(/Was willst du üben/))
-    // Drei Tabs, keine Reste des alten Lernpfads
+    // Vier Tabs, keine Reste des alten Lernpfads
     const nav = screen.getAllByRole('navigation', { name: 'Hauptnavigation' }).at(-1)!
-    expect(within(nav).getAllByRole('button').map((b) => b.getAttribute('aria-label'))).toEqual(['Üben', 'Kalender', 'Profil'])
+    expect(within(nav).getAllByRole('button').map((b) => b.getAttribute('aria-label'))).toEqual(['Üben', 'Kalender', 'Hausaufgaben', 'Profil'])
   })
 
   it('Karteikarten von Hand erstellen, danach steht er auf der Startseite zum Üben bereit', async () => {
@@ -141,7 +133,6 @@ describe('Die App als Ganzes', () => {
     const id = useStore.getState().addSet('Zelle', Array.from({ length: 12 }, (_, i) => ({ front: `F${i}`, back: `B${i}` })), { subject: 'biologie' })
     window.location.hash = '#/kalender'
     render(<App />)
-    await click(/^Monat$/, 'radio')
     await waitFor(() => expect(text()).toMatch(/Nichts geplant/))
     const target = dateKey(addDays(new Date(), 3))
     const day = new Date(target + 'T12:00:00')
@@ -150,7 +141,8 @@ describe('Die App als Ganzes', () => {
     if (!find()) fireEvent.click(screen.getByRole('button', { name: 'Nächster Monat' }))
     fireEvent.click(find()!)
     // Das runde Plus trägt für den gewählten Tag ein
-    fireEvent.click(screen.getByRole('button', { name: 'Arbeit eintragen' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Eintragen' }))
+    fireEvent.click(await screen.findByRole('button', { name: /Arbeit oder Test/ }))
     await waitFor(() => expect(text()).toMatch(/In welchem Fach/))
     await click(/^Test$/, 'radio')
     // Ein Satz Karteikarten im Fach ist gleich dabei
@@ -178,39 +170,6 @@ describe('Die App als Ganzes', () => {
     fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
     await waitFor(() => expect(useStore.getState().arbeiten).toHaveLength(1))
     expect(useStore.getState().arbeiten[0]).toMatchObject({ subject: 'geschichte', kind: 'klassenarbeit', deckIds: [] })
-  })
-
-  it('Der Kalender zeigt standardmäßig den Stundenplan und merkt sich die Ansicht', async () => {
-    useStore.setState({ onboarded: true })
-    window.location.hash = '#/kalender'
-    render(<App />)
-    await waitFor(() => expect(screen.getByRole('region', { name: 'Stundenplan' })).toBeTruthy())
-    await click(/^Monat$/, 'radio')
-    await waitFor(() => expect(screen.getByRole('region', { name: /20\d\d$/ })).toBeTruthy())
-    expect(localStorage.getItem('studienfuchs-kalender-ansicht')).toBe('monat')
-    localStorage.removeItem('studienfuchs-kalender-ansicht')
-  })
-
-  it('Stundenplan: Termine mit Uhrzeit stehen als Block, ein Tipp auf eine freie Stelle trägt mit Uhrzeit ein', async () => {
-    useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
-    // Ein Wochentag in dieser (oder am Wochenende: der kommenden) Woche
-    const monday = new Date()
-    monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7) + ([0, 6].includes(new Date().getDay()) ? 7 : 0))
-    const wed = dateKey(addDays(monday, 2))
-    useStore.getState().addArbeit({ subject: 'biologie', kind: 'test', title: 'Bio-Test', date: wed, time: '09:00', duration: 45, deckIds: [] })
-    window.location.hash = '#/kalender'
-    render(<App />)
-    const block = await screen.findByRole('button', { name: /Bio-Test, Test, 09:00 Uhr/ })
-    expect(block).toBeTruthy()
-    // Freie Stelle antippen (mit Maus/Finger, also mit Uhrzeit)
-    const day = addDays(monday, 3)
-    fireEvent.click(screen.getByRole('button', { name: new RegExp(`^Am Do, ${day.getDate()}\. eintragen`) }), { detail: 1, clientY: 0 })
-    await waitFor(() => expect(text()).toMatch(/Uhrzeit \(optional\)/))
-    expect((screen.getByLabelText('Uhrzeit') as HTMLInputElement).value).toBe('08:00')
-    await click(/^Test$/, 'radio')
-    fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
-    await waitFor(() => expect(useStore.getState().arbeiten).toHaveLength(2))
-    expect(useStore.getState().arbeiten.find((a) => a.date === dateKey(day))).toMatchObject({ time: '08:00', duration: 45, subject: 'biologie' })
   })
 
   it('Frei üben: es wird immer genau ein Fach gewählt, leere Fächer zeigen den Weg zum Stapel', async () => {
@@ -453,36 +412,7 @@ describe('Lernzeit statt Tagesziel', () => {
   })
 })
 
-describe('Schulstunden im Kalender', () => {
-  it('Mit Stundenraster zeigt der Plan Stunden, ein Tipp trägt die Stunde ein, und man wählt von bis', async () => {
-    useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
-    useStore.getState().setSchoolPeriods([
-      { start: '08:00', end: '08:45' },
-      { start: '08:55', end: '09:40' },
-      { start: '10:00', end: '10:45' },
-      { start: '10:55', end: '11:40' },
-    ])
-    const monday = new Date()
-    monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7) + ([0, 6].includes(new Date().getDay()) ? 7 : 0))
-    useStore.getState().addArbeit({ subject: 'biologie', kind: 'test', title: 'Bio-Test', date: dateKey(addDays(monday, 1)), time: '10:00', duration: 45, deckIds: [] })
-    window.location.hash = '#/kalender'
-    render(<App />)
-    // Block mit Stundenangabe statt Uhrzeit
-    expect(await screen.findByRole('button', { name: /Bio-Test, Test, 3\. Stunde/ })).toBeTruthy()
-    // Freie Stelle: die Stunde ist vorgewählt
-    const fri = addDays(monday, 4)
-    fireEvent.click(screen.getByRole('button', { name: new RegExp(`^Am Fr, ${fri.getDate()}\\. eintragen`) }), { detail: 1, clientY: 0 })
-    await waitFor(() => expect(text()).toMatch(/Welche Stunde/))
-    expect(screen.getByRole('radio', { name: /1\. Stunde, 08:00 bis 08:45/ }).getAttribute('aria-checked')).toBe('true')
-    // Bis zur 2. Stunde verlängern
-    fireEvent.click(screen.getByRole('radio', { name: 'bis 2. Stunde' }))
-    expect(text()).toMatch(/1\. bis 2\. Stunde, 08:00 bis 09:40 Uhr/)
-    await click(/^Klassenarbeit$/, 'radio')
-    fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
-    await waitFor(() => expect(useStore.getState().arbeiten).toHaveLength(2))
-    expect(useStore.getState().arbeiten.find((a) => a.date === dateKey(fri))).toMatchObject({ time: '08:00', duration: 100 })
-  })
-
+describe('Schulstunden', () => {
   it('In den Einstellungen lassen sich die Schulzeiten pflegen', async () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/settings/schulzeiten'
@@ -492,67 +422,6 @@ describe('Schulstunden im Kalender', () => {
     expect(useStore.getState().schoolPeriods).toHaveLength(7)
     fireEvent.click(screen.getByRole('button', { name: 'Stunde 7 entfernen' }))
     expect(useStore.getState().schoolPeriods).toHaveLength(6)
-  })
-})
-
-describe('WebUntis verbinden', () => {
-  const ICS = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    ...['5', '6', '7'].flatMap((d) => [
-      ...[['0800', '0845'], ['0855', '0940'], ['1000', '1045']].flatMap(([a, b], i) => ['BEGIN:VEVENT', `UID:l${d}${i}`, `DTSTART:202610${d.padStart(2, '0')}T${a}00`, `DTEND:202610${d.padStart(2, '0')}T${b}00`, `SUMMARY:${['Bio', 'Mathe', 'E'][i]}`, 'END:VEVENT']),
-    ]),
-    'BEGIN:VEVENT',
-    'UID:exam1',
-    `DTSTART:${dateKey(addDays(new Date(), 5)).replace(/-/g, '')}T085500`,
-    `DTEND:${dateKey(addDays(new Date(), 5)).replace(/-/g, '')}T094000`,
-    'SUMMARY:Mathe Klassenarbeit',
-    'END:VEVENT',
-    'END:VCALENDAR',
-  ].join('\r\n')
-
-  it('Datei laden: Stundenraster, Unterricht und Klassenarbeit werden übernommen; Trennen räumt die Arbeit weg', async () => {
-    useStore.setState({ onboarded: true })
-    window.location.hash = '#/settings/untis'
-    render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Link in WebUntis kopieren/))
-    const input = await screen.findByLabelText('iCal-Datei')
-    const file = new File([ICS], 'stundenplan.ics', { type: 'text/calendar' })
-    Object.defineProperty(file, 'text', { value: async () => ICS })
-    fireEvent.change(input, { target: { files: [file] } })
-    await waitFor(() => expect(useStore.getState().untis?.lessons.length).toBe(9), { timeout: 4000 })
-    const st = useStore.getState()
-    expect(st.schoolPeriods).toEqual([
-      { start: '08:00', end: '08:45' },
-      { start: '08:55', end: '09:40' },
-      { start: '10:00', end: '10:45' },
-    ])
-    expect(st.arbeiten.map((a) => [a.id, a.subject, a.kind])).toEqual([['untis:exam1', 'mathe', 'klassenarbeit']])
-    await waitFor(() => expect(text()).toMatch(/Stundenplan geladen: 9 Stunden, 1 Arbeit/))
-    // Trennen
-    fireEvent.click(await screen.findByRole('button', { name: 'Trennen' }))
-    await waitFor(() => expect(useStore.getState().untis).toBeNull())
-    expect(useStore.getState().arbeiten).toHaveLength(0)
-  })
-
-  it('Mit Link verbinden ruft ab; ohne Zugriff gibt es eine verständliche Meldung statt eines Absturzes', async () => {
-    useStore.setState({ onboarded: true })
-    const real = globalThis.fetch
-    globalThis.fetch = (async () => {
-      throw new TypeError('Failed to fetch')
-    }) as typeof fetch
-    try {
-      window.location.hash = '#/settings/untis'
-      render(<App />)
-      fireEvent.click(await screen.findByRole('button', { name: 'Link selbst eintippen' }))
-      fireEvent.change(await screen.findByLabelText('Link hier einfügen'), { target: { value: 'webcal://test.webuntis.com/WebUntis/Ical.do?school=x&key=1' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Verbinden' }))
-      await waitFor(() => expect(useStore.getState().untis?.url).toBe('https://test.webuntis.com/WebUntis/Ical.do?school=x&key=1'))
-      await waitFor(() => expect(useStore.getState().untis?.lastError).toMatch(/\.ics-Datei/), { timeout: 4000 })
-      await waitFor(() => expect(text()).toMatch(/\.ics-Datei/))
-    } finally {
-      globalThis.fetch = real
-    }
   })
 })
 
@@ -714,7 +583,7 @@ describe('Übersicht: Einstieg, Einstellungen als Liste', () => {
     window.location.hash = '#/settings'
     render(<App />)
     await waitFor(() => expect(text()).toMatch(/Meine Fächer/))
-    expect(text()).toMatch(/WebUntis/)
+    expect(text()).toMatch(/Dein Lerntier/)
     // Noch kein Inhalt der Bereiche
     expect(text()).not.toMatch(/Sicherung teilen/)
     fireEvent.click(await screen.findByRole('link', { name: /Daten und Sicherung/ }))
@@ -726,7 +595,7 @@ describe('Übersicht: Einstieg, Einstellungen als Liste', () => {
 })
 
 
-describe('Neu: Lerntier, Rückmeldung, WebUntis per Zwischenablage', () => {
+describe('Neu: Lerntier, Rückmeldung, Hausaufgaben', () => {
   it('Das Lerntier wechselt man in den Einstellungen, die Figur ändert sich überall', async () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/settings/tier'
@@ -756,49 +625,79 @@ describe('Neu: Lerntier, Rückmeldung, WebUntis per Zwischenablage', () => {
       Reflect.deleteProperty(navigator, 'share')
     }
   })
+})
 
-  it('WebUntis: Screenshot wird gelesen, zur Prüfung gezeigt und erst nach „Übernehmen“ gespeichert', async () => {
-    useStore.setState({ onboarded: true })
-    const aiCards = await import('./lib/aiCards')
-    const spy = vi.spyOn(aiCards, 'callAi').mockResolvedValue(JSON.stringify({ lessons: [
-      { day: 0, start: '08:00', end: '08:45', cell: ['MÜL', 'BI_4', 'A12'] }, { day: 0, start: '08:55', end: '09:40', cell: ['KRA', 'MA', '204', '7a'] },
-      { day: 1, start: '08:00', end: '08:45', cell: ['E', 'SCH'] }, { day: 1, start: '08:55', end: '09:40', cell: ['DE', 'LEH'] },
-    ] }))
-    const ai = await import('./lib/ai')
-    const blob = vi.spyOn(ai, 'blobToJpegBase64').mockResolvedValue('jpegdata')
-    try {
-      window.location.hash = '#/settings/untis'
-      render(<App />)
-      const input = await screen.findByLabelText('Foto vom Stundenplan')
-      fireEvent.change(input, { target: { files: [new File(['x'], 'plan.jpg', { type: 'image/jpeg' }), new File(['y'], 'plan2.jpg', { type: 'image/jpeg' })] } })
-      await waitFor(() => expect(text()).toMatch(/Das hat die KI gelesen/), { timeout: 4000 })
-      // zwei Bilder = zwei Anfragen, gespeichert ist noch nichts
-      expect(spy).toHaveBeenCalledTimes(2)
-      expect(useStore.getState().untis).toBeNull()
-      await click(/^Übernehmen$/)
-      await waitFor(() => expect(useStore.getState().untis?.lessons.length).toBe(40), { timeout: 4000 })
-      expect(useStore.getState().untis?.lessons[0].subject).toBe('biologie')
-      expect(useStore.getState().schoolPeriods).toEqual([{ start: '08:00', end: '08:45' }, { start: '08:55', end: '09:40' }])
-      await waitFor(() => expect(text()).toMatch(/4 Stunden pro Woche übernommen/))
-    } finally {
-      spy.mockRestore()
-      blob.mockRestore()
-    }
+
+describe('Hausaufgaben', () => {
+  const addVia = async (text: string) => {
+    fireEvent.change(await screen.findByLabelText('Was ist zu tun?'), { target: { value: text } })
+  }
+
+  it('Der Tab Hausaufgaben: eintragen, abhaken, wieder öffnen, löschen', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['mathe'] })
+    window.location.hash = '#/hausaufgaben'
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Keine Hausaufgaben eingetragen/))
+    fireEvent.click(screen.getByRole('button', { name: 'Neue Hausaufgabe' }))
+    await addVia('Buch Seite 52, Aufgabe 3')
+    await click(/^Heute$/)
+    fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
+    await waitFor(() => expect(useStore.getState().hausaufgaben).toHaveLength(1))
+    expect(useStore.getState().hausaufgaben[0]).toMatchObject({ subject: 'mathe', text: 'Buch Seite 52, Aufgabe 3', due: dateKey(new Date()) })
+    await waitFor(() => expect(text()).toMatch(/Buch Seite 52/))
+    // Am Tab steht, wie viele heute fällig sind
+    const nav = screen.getAllByRole('navigation', { name: 'Hauptnavigation' }).at(-1)!
+    expect(within(nav).getByRole('button', { name: /Hausaufgaben/ }).textContent).toMatch(/1/)
+    // Abhaken
+    fireEvent.click(screen.getByRole('checkbox', { name: /Buch Seite 52.*erledigt/ }))
+    expect(useStore.getState().hausaufgaben[0].done).toBe(true)
+    await waitFor(() => expect(text()).toMatch(/Alle Hausaufgaben erledigt/))
+    // Wieder öffnen
+    fireEvent.click(screen.getAllByRole('checkbox', { name: /wieder offen/ })[0])
+    expect(useStore.getState().hausaufgaben[0].done).toBe(false)
+    // Löschen über die Bearbeitung
+    fireEvent.click(await screen.findByRole('button', { name: /Buch Seite 52.*bearbeiten/ }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Löschen' }))
+    expect(useStore.getState().hausaufgaben).toHaveLength(0)
   })
 
-  it('WebUntis: Link aus der Zwischenablage wird mit einem Tipp verbunden', async () => {
-    useStore.setState({ onboarded: true })
-    const real = globalThis.fetch
-    globalThis.fetch = (async () => new Response('BEGIN:VCALENDAR END:VCALENDAR', { status: 200 })) as typeof fetch
-    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { readText: async () => 'webcal://x.webuntis.com/WebUntis/Ical.do?school=s&token=abc' } })
-    try {
-      window.location.hash = '#/settings/untis'
-      render(<App />)
-      await click(/Link einfügen und verbinden/)
-      await waitFor(() => expect(useStore.getState().untis?.url).toBe('https://x.webuntis.com/WebUntis/Ical.do?school=s&token=abc'))
-    } finally {
-      globalThis.fetch = real
-      Reflect.deleteProperty(navigator, 'clipboard')
-    }
+  it('Sortiert nach Fälligkeit: überfällig, heute, morgen', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['mathe', 'deutsch'] })
+    const st = useStore.getState()
+    st.addHausaufgabe({ subject: 'deutsch', text: 'Später lesen', due: dateKey(addDays(new Date(), 5)) })
+    st.addHausaufgabe({ subject: 'mathe', text: 'Von gestern', due: dateKey(addDays(new Date(), -1)) })
+    st.addHausaufgabe({ subject: 'mathe', text: 'Für morgen', due: dateKey(addDays(new Date(), 1)) })
+    window.location.hash = '#/hausaufgaben'
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Von gestern/))
+    const t = text()
+    expect(t.indexOf('Überfällig')).toBeLessThan(t.indexOf('Für morgen'))
+    expect(t.indexOf('Für morgen')).toBeLessThan(t.indexOf('Später lesen'))
+    expect(t).toMatch(/seit gestern/)
+  })
+
+  it('Im Kalender: Hausaufgabe eintragen über das Plus, sie steht am Tag, Üben führt mit „Hausaufgabe eintragen“ hin', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['deutsch'] })
+    window.location.hash = '#/kalender'
+    render(<App />)
+    fireEvent.click(await screen.findByRole('button', { name: 'Eintragen' }))
+    fireEvent.click(await screen.findByRole('button', { name: /^Hausaufgabe Was bis wann/ }))
+    await addVia('Gedicht lernen')
+    fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
+    await waitFor(() => expect(useStore.getState().hausaufgaben).toHaveLength(1))
+    // Der im Kalender gewählte Tag (heute) ist vorgewählt
+    expect(useStore.getState().hausaufgaben[0].due).toBe(dateKey(new Date()))
+    await waitFor(() => expect(text()).toMatch(/Gedicht lernen/))
+    go('#/')
+    await waitFor(() => expect(text()).toMatch(/Hausaufgabe eintragen/))
+    expect(text()).toMatch(/Arbeit eintragen/)
+    expect(text()).toMatch(/Probetest/)
+  })
+
+  it('Alte Stände mit WebUntis-Verbindung werden beim Laden bereinigt, eingetragene Arbeiten bleiben', () => {
+    const merged = useStore.persist.getOptions().merge!({ untis: { url: 'https://x', lessons: [], exams: 1 }, arbeiten: [{ id: 'untis:1', subject: 'mathe', title: 'KA', date: '2030-01-01', deckIds: [] }] }, useStore.getState()) as unknown as Record<string, unknown>
+    expect('untis' in merged).toBe(false)
+    expect((merged.arbeiten as unknown[]).length).toBe(1)
+    expect(merged.hausaufgaben).toEqual([])
   })
 })

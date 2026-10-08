@@ -51,6 +51,7 @@ const GrammarTopicPage = lazyPage(() => import('./features/grammar/GrammarPage')
 const UebenPlay = lazyPage(() => import('./features/ueben/CardFlow'), 'UebenPlay')
 const DeckImportPage = lazyPage(() => import('./features/faecher/DeckImportPage'), 'DeckImportPage')
 const KalenderPage = lazyPage(() => import('./features/kalender/KalenderPage'), 'KalenderPage')
+const HausaufgabenPage = lazyPage(() => import('./features/hausaufgaben/HausaufgabenPage'), 'HausaufgabenPage')
 const MathTrainingPage = lazyPage(() => import('./features/practice/MathPractice'), 'MathTrainingPage')
 const MathTrainPage = lazyPage(() => import('./features/practice/MathPractice'), 'MathTrainPage')
 const FachPage = lazyPage(() => import('./features/faecher/FachPage'), 'FachPage')
@@ -113,6 +114,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/test/', 'Test'],
   ['/exam/', 'Test'],
   ['/shop', 'Tier & Shop'],
+  ['/hausaufgaben', 'Hausaufgaben'],
   ['/math/train', 'Training'],
   ['/blitz', 'Blitzrunde'],
   ['/review/play', 'Wiederholung'],
@@ -161,6 +163,7 @@ export default function App() {
     if (import.meta.env.MODE === 'test') return
     const run = () => {
       void import('./features/kalender/KalenderPage')
+      void import('./features/hausaufgaben/HausaufgabenPage')
       void import('./features/profile/ProfilePage')
       void import('./features/faecher/FachPage')
       void import('./features/faecher/DeckCreatePage')
@@ -189,6 +192,7 @@ export default function App() {
             <Route path="review" element={<ReviewPage />} />
             <Route path="faecher" element={<Navigate to="/" replace />} />
             <Route path="kalender" element={<KalenderPage />} />
+            <Route path="hausaufgaben" element={<HausaufgabenPage />} />
             <Route path="faecher/mathe/training" element={<MathTrainingPage />} />
             <Route path="faecher/:subjectId/rechnen" element={<FormulaListPage />} />
             <Route path="faecher/:subjectId" element={<FachPage />} />

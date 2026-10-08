@@ -156,3 +156,13 @@ export type MathExerciseKind =
   | { kind: 'mmatch'; id: string; itemId: string; title: string; pairs: { id: string; left: string; right: string }[]; hint?: string }
 
 export type Mastery = 0 | 1 | 2 // neu, lernend, gefestigt
+
+/** Eine Hausaufgabe: Fach, Text und der Tag, bis zu dem sie fertig sein soll. */
+export interface Hausaufgabe {
+  id: string
+  subject: string
+  text: string
+  /** YYYY-MM-DD */
+  due: string
+  done?: boolean
+}

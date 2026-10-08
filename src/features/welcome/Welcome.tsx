@@ -5,8 +5,6 @@ import { EASE, SPRING } from '../../components/ui/motion'
 import { Mascot, type Mood } from '../../components/mascot/Mascot'
 import { Tour } from './Tour'
 import { MascotPicker } from '../profile/MascotPicker'
-import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
-import { EXAMPLE_PERIODS } from '../../lib/school'
 import { Confetti } from '../../components/ui/Confetti'
 import { Back, Check, Right, Sparkle } from '../../components/ui/Icons'
 import { ensureAiReady, isAiReady } from '../../lib/ai'
@@ -16,9 +14,9 @@ import { HELP_SUBJECTS } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
 import { useShallow } from 'zustand/react/shallow'
 
-type Step = 'hero' | 'tour' | 'tier' | 'subjects' | 'goal' | 'hours' | 'ready'
+type Step = 'hero' | 'tour' | 'tier' | 'subjects' | 'goal' | 'ready'
 type FlowStep = Exclude<Step, 'hero' | 'tour'>
-const FLOW: FlowStep[] = ['tier', 'subjects', 'goal', 'hours', 'ready']
+const FLOW: FlowStep[] = ['tier', 'subjects', 'goal', 'ready']
 const ORDER: Step[] = ['hero', 'tour', ...FLOW]
 
 /** Lernzeit pro Tag, solange eine Arbeit ansteht (ohne Arbeit gibt es kein Tagesziel). */
@@ -33,10 +31,9 @@ const SPEECH: Record<FlowStep, string> = {
   tier: 'Wer soll dich beim Lernen begleiten? Tipp ein Tier an. Du kannst es jederzeit wechseln.',
   subjects: 'Welche Fächer hast du? Du kannst später jederzeit mehr hinzufügen.',
   goal: 'In welcher Klasse bist du, und wie viel Zeit hast du pro Tag, wenn eine Arbeit ansteht?',
-  hours: 'Wann sind deine Schulstunden? Dann zeigt dir der Kalender „3. Stunde“ statt einer Uhrzeit.',
   ready: 'Super! Dann leg los mit deinen ersten Karteikarten.',
 }
-const MOOD: Record<FlowStep, Mood> = { tier: 'wave', subjects: 'think', goal: 'happy', hours: 'think', ready: 'cheer' }
+const MOOD: Record<FlowStep, Mood> = { tier: 'wave', subjects: 'think', goal: 'happy', ready: 'cheer' }
 
 const HOW = [
   { n: '1', title: 'Karteikarten erstellen', text: 'Schreib, was du für ein Fach brauchst, oder lass die KI die Karten machen. Auch aus einem Foto von deinem Heft.' },
@@ -54,13 +51,12 @@ const slide = {
 export function Welcome() {
   const navigate = useNavigate()
   const reduce = useReducedMotion()
-  const { grade, setGrade, schoolPeriods, setSchoolPeriods, dailyMinutes, setDailyMinutes, setOnboarded, importData, mySubjects, toggleSubject } = useStore(useShallow((s) => ({ grade: s.grade, setGrade: s.setGrade, schoolPeriods: s.schoolPeriods ?? [], setSchoolPeriods: s.setSchoolPeriods, dailyMinutes: s.dailyMinutes, setDailyMinutes: s.setDailyMinutes, setOnboarded: s.setOnboarded, importData: s.importData, mySubjects: s.mySubjects ?? [], toggleSubject: s.toggleSubject })))
+  const { grade, setGrade, dailyMinutes, setDailyMinutes, setOnboarded, importData, mySubjects, toggleSubject } = useStore(useShallow((s) => ({ grade: s.grade, setGrade: s.setGrade, dailyMinutes: s.dailyMinutes, setDailyMinutes: s.setDailyMinutes, setOnboarded: s.setOnboarded, importData: s.importData, mySubjects: s.mySubjects ?? [], toggleSubject: s.toggleSubject })))
   const hasProgress = useStore((s) => s.xp > 0 || Object.keys(s.lessons).length > 0 || s.sets.length > 0)
   const [step, setStep] = useState<Step>('hero')
   const [dir, setDir] = useState(1)
   const [importMsg, setImportMsg] = useState<string | null>(null)
   // Beim Tippen bleiben die Zeilen, wie sie sind (auch unvollständig); gespeichert wird die geprüfte Fassung
-  const [localPeriods, setLocalPeriods] = useState(() => (schoolPeriods.length ? schoolPeriods : EXAMPLE_PERIODS))
   const fileRef = useRef<HTMLInputElement>(null)
   const [aiOn, setAiOn] = useState(false)
   useEffect(() => {
@@ -252,12 +248,6 @@ export function Welcome() {
                       })}
                     </ul>
                     </>
-                  )}
-
-                  {step === 'hours' && (
-                    <div className="card p-4">
-                      <PeriodsEditor value={localPeriods} onChange={(l) => { setLocalPeriods(l); setSchoolPeriods(l) }} />
-                    </div>
                   )}
 
                   {step === 'ready' && (

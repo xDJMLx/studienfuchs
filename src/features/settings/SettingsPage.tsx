@@ -10,7 +10,6 @@ import { FeedbackSettings } from './FeedbackSettings'
 import { BackLink } from '../../components/ui/BackLink'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
-import { UntisSettings } from './UntisSettings'
 import { EXAMPLE_PERIODS } from '../../lib/school'
 import { activeDecks } from '../../lib/decks'
 import { HELP_SUBJECTS } from '../../lib/subjects'
@@ -77,7 +76,6 @@ const GROUPS: { title: string; rows: { slug: string; id: string; label: string; 
     rows: [
       { slug: 'faecher', id: 's-subjects', label: 'Meine Fächer', text: 'Welche Fächer du hast', Icon: Cards },
       { slug: 'schulzeiten', id: 's-hours', label: 'Schulzeiten', text: 'Stunden und Pausen', Icon: Target },
-      { slug: 'untis', id: 's-untis', label: 'WebUntis', text: 'Stundenplan übernehmen', Icon: Download },
     ],
   },
   {
@@ -328,14 +326,6 @@ export function SettingsPage() {
                   }}
                 />
               </div>
-            </Section>
-          </Item>
-          )}
-
-         {current === 'untis' && (
-          <Item>
-            <Section id="s-untis" icon={<Download size={22} />} title="WebUntis" description="Stundenplan und Arbeiten automatisch übernehmen">
-              <UntisSettings onToast={(ok, text) => setToast({ ok, text })} />
             </Section>
           </Item>
           )}

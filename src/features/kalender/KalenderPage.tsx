@@ -1,19 +1,17 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { Segmented, Switch } from '../../components/ui/controls'
 import { Coin, Plus, Right } from '../../components/ui/Icons'
 import { Sheet } from '../../components/ui/Sheet'
-import { UntisSettings } from '../settings/UntisSettings'
-import { Item, Stagger } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { byDay, dateKey, kindLabel, longDay, monthGrid, monthName, needsFollowUp, parseKey, shortDay } from '../../lib/calendar'
 import { whenText } from '../../lib/school'
 import { activeDecks, daysUntil, readiness } from '../../lib/decks'
 import { helpSubject } from '../../lib/subjects'
-import type { Arbeit } from '../../lib/types'
+import type { Arbeit, Hausaufgabe } from '../../lib/types'
 import { ARBEIT_COINS, useStore } from '../../store/useStore'
 import { ArbeitSheet } from '../faecher/ArbeitSheet'
-import { TimeTable } from './TimeTable'
+import { HausaufgabeSheet } from '../hausaufgaben/HausaufgabeSheet'
+import { HomeworkRow } from '../hausaufgaben/HausaufgabenPage'
 
 const when = (days: number) => (days === 0 ? 'Heute' : days === 1 ? 'Morgen' : days > 1 ? `in ${days} Tagen` : days === -1 ? 'gestern' : `vor ${-days} Tagen`)
 
@@ -53,17 +51,6 @@ export function ArbeitFollowUp({ arbeit }: { arbeit: Arbeit }) {
   )
 }
 
-const VIEW_KEY = 'studienfuchs-kalender-ansicht'
-const LESSONS_KEY = 'studienfuchs-kalender-unterricht'
-type View = 'monat' | 'woche'
-const readView = (): View => {
-  try {
-    return localStorage.getItem(VIEW_KEY) === 'monat' ? 'monat' : 'woche'
-  } catch {
-    return 'woche'
-  }
-}
-
 const WEEKDAY_HEAD = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
 
 /** Tage zwischen zwei Datums-Schlüsseln (ohne Zeitzonenärger). */
@@ -71,67 +58,46 @@ function daysBetweenKeys(from: string, to: string): number {
   return Math.round((parseKey(to).getTime() - parseKey(from).getTime()) / 86_400_000)
 }
 
+type Adding = { kind: 'arbeit' | 'hausaufgabe'; date?: string; arbeit?: Arbeit; hausaufgabe?: Hausaufgabe }
+
 /**
- * Kalender: Arbeiten, Tests und andere Termine im Monat oder in der Woche.
- * Ein Tipp auf einen Tag zeigt, was da ansteht, und lässt dort etwas eintragen; das runde Plus oben trägt immer ein.
+ * Kalender für Arbeiten, Tests und Hausaufgaben: ein ruhiger Monat, darunter der gewählte Tag und was als Nächstes ansteht.
+ * Ein Tipp auf einen Tag zeigt, was da fällig ist; das runde Plus fragt, ob es eine Arbeit oder eine Hausaufgabe ist.
  */
 export function KalenderPage() {
   const navigate = useNavigate()
   const [params, setParams] = useSearchParams()
   const arbeiten = useStore((s) => s.arbeiten) ?? []
+  const hausaufgaben = useStore((s) => s.hausaufgaben) ?? []
   const sets = useStore((s) => s.sets)
   const addedUnits = useStore((s) => s.addedUnits)
   const cards = useStore((s) => s.cards)
   const periods = useStore((s) => s.schoolPeriods) ?? []
-  const untis = useStore((s) => s.untis)
-  const [showLessons, setShowLessons] = useState(() => {
-    try {
-      return localStorage.getItem(LESSONS_KEY) !== 'aus'
-    } catch {
-      return true
-    }
-  })
-  const toggleLessons = () => {
-    setShowLessons((v) => {
-      try {
-        localStorage.setItem(LESSONS_KEY, v ? 'aus' : 'an')
-      } catch {
-        /* Speicher nicht verfügbar */
-      }
-      return !v
-    })
-  }
   const today = dateKey(new Date())
-  const [view, setViewState] = useState<View>(readView)
   const [selected, setSelected] = useState(today)
   const [cursor, setCursor] = useState(() => ({ y: new Date().getFullYear(), m: new Date().getMonth() }))
-  const [untisOpen, setUntisOpen] = useState(false)
-  const [untisMsg, setUntisMsg] = useState<{ ok: boolean; text: string } | null>(null)
-  const [sheet, setSheet] = useState<{ arbeit?: Arbeit; date?: string; time?: string; duration?: number } | null>(null)
-  // Von anderen Seiten ("Steht eine Arbeit an?") mit ?neu=1 gleich das Eintragen öffnen
+  const [choose, setChoose] = useState<string | null>(null)
+  const [adding, setAdding] = useState<Adding | null>(null)
+  // Von anderen Seiten mit ?neu=1 (Arbeit) oder ?neu=hausaufgabe gleich das Eintragen öffnen
   const wantsNew = params.get('neu')
   useEffect(() => {
     if (!wantsNew) return
     // Erst öffnen, wenn die Seite hereingeglitten ist: Zwei Bewegungen gleichzeitig wirken unruhig
-    const id = window.setTimeout(() => setSheet({ date: dateKey(new Date()) }), 300)
+    const id = window.setTimeout(() => setAdding({ kind: wantsNew === 'hausaufgabe' ? 'hausaufgabe' : 'arbeit', date: dateKey(new Date()) }), 300)
     return () => clearTimeout(id)
   }, [wantsNew])
-
-  const setView = (v: View) => {
-    setViewState(v)
-    try {
-      localStorage.setItem(VIEW_KEY, v)
-    } catch {
-      /* Speicher nicht verfügbar */
-    }
-  }
-  const closeSheet = () => {
-    setSheet(null)
+  const closeAdding = () => {
+    setAdding(null)
     if (params.get('neu')) setParams({}, { replace: true })
   }
 
   const decks = useMemo(() => activeDecks({ sets, addedUnits: addedUnits ?? [] }), [sets, addedUnits])
   const days = useMemo(() => byDay(arbeiten), [arbeiten])
+  const homeworkDays = useMemo(() => {
+    const m: Record<string, Hausaufgabe[]> = {}
+    for (const h of hausaufgaben) (m[h.due] ??= []).push(h)
+    return m
+  }, [hausaufgaben])
   const followUps = arbeiten.filter((a) => needsFollowUp(a, today))
   const upcoming = useMemo(() => arbeiten.filter((a) => a.date >= today).sort((a, b) => a.date.localeCompare(b.date)), [arbeiten, today])
   const past = useMemo(() => arbeiten.filter((a) => a.date < today && a.done).sort((a, b) => b.date.localeCompare(a.date)).slice(0, 6), [arbeiten, today])
@@ -150,7 +116,7 @@ export function KalenderPage() {
     return (
       <li key={a.id}>
         <div className="panel flex items-center gap-3 p-3">
-          <button type="button" onClick={() => setSheet({ arbeit: a })} className="press flex min-w-0 flex-1 items-center gap-3 text-left" aria-label={`${a.title} bearbeiten`}>
+          <button type="button" onClick={() => setAdding({ kind: 'arbeit', arbeit: a })} className="press flex min-w-0 flex-1 items-center gap-3 text-left" aria-label={`${a.title} bearbeiten`}>
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ background: s?.c }}>
               <HelpSubjectIcon id={a.subject} ink={s?.c ?? '#888'} size={22} />
             </span>
@@ -183,159 +149,127 @@ export function KalenderPage() {
   }
 
   const dayEvents = days[selected] ?? []
-  const next = upcoming.filter((a) => a.date !== selected || view === 'woche').slice(0, 6)
+  const dayHomework = homeworkDays[selected] ?? []
+  const next = upcoming.filter((a) => a.date !== selected).slice(0, 6)
+
+  const dayLabel = (key: string, list: Arbeit[], hw: Hausaufgabe[]) => {
+    const parts = [list.length ? `${list.length} ${list.length === 1 ? 'Arbeit' : 'Arbeiten'}` : '', hw.length ? `${hw.length} ${hw.length === 1 ? 'Hausaufgabe' : 'Hausaufgaben'}` : ''].filter(Boolean)
+    return `${longDay(key)}${parts.length ? `, ${parts.join(', ')}` : ''}`
+  }
 
   return (
-    <Stagger className="mx-auto max-w-2xl px-4 py-5 lg:py-8" stagger={0.06}>
-      <Item>
-        <div className="mb-4 flex items-center justify-between gap-3">
-          <h1 className="text-[32px] font-bold leading-tight tracking-tight">Kalender</h1>
-          <button
-            type="button"
-            aria-label="Arbeit eintragen"
-            className="press flex h-10 w-10 items-center justify-center rounded-full bg-sky text-white"
-            onClick={() => setSheet({ date: view === 'monat' ? selected : today })}
-          >
-            <Plus size={22} />
-          </button>
-        </div>
-        <Segmented<View>
-          label="Ansicht"
-          className="mb-4 w-full [&>button]:flex-1"
-          value={view}
-          onChange={setView}
-          options={[
-            { value: 'woche', label: 'Woche' },
-            { value: 'monat', label: 'Monat' },
-          ]}
-        />
-      </Item>
+    <div className="mx-auto max-w-2xl px-4 pb-6 pt-3 lg:pt-8">
+      <header className="mb-4 flex items-end justify-between gap-3 px-1">
+        <h1 className="large-title">Kalender</h1>
+        <button type="button" aria-label="Eintragen" className="press mb-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-strong text-on-brand" onClick={() => setChoose(selected)}>
+          <Plus size={22} />
+        </button>
+      </header>
 
       {followUps.map((a) => (
-        <Item key={a.id}>
-          <ArbeitFollowUp arbeit={a} />
-        </Item>
+        <ArbeitFollowUp key={a.id} arbeit={a} />
       ))}
 
-      {view === 'monat' ? (
-        <Item>
-          <section className="panel mb-5 p-3.5" aria-label={`${monthName(cursor.m)} ${cursor.y}`}>
-            <div className="mb-2 flex items-center justify-between">
-              <h2 className="px-1 text-[22px] font-bold leading-tight tracking-tight">
-                {monthName(cursor.m)} <span className="font-bold text-muted">{cursor.y}</span>
-              </h2>
-              <span className="flex items-center gap-1">
-                {!thisMonth && (
-                  <button type="button" onClick={goToday} className="press mr-1 px-1 text-[15px] font-semibold text-sky-dark">
-                    Heute
-                  </button>
-                )}
-                <button type="button" aria-label="Voriger Monat" onClick={() => step(-1)} className="press flex h-10 w-10 items-center justify-center rounded-full bg-snow text-muted">
-                  <Right size={16} style={{ transform: 'rotate(180deg)' }} />
-                </button>
-                <button type="button" aria-label="Nächster Monat" onClick={() => step(1)} className="press flex h-10 w-10 items-center justify-center rounded-full bg-snow text-muted">
-                  <Right size={16} />
-                </button>
-              </span>
-            </div>
-            <div className="grid grid-cols-7 text-center" role="grid" aria-label="Tage">
-              {WEEKDAY_HEAD.map((w) => (
-                <span key={w} className="pb-1 text-[11px] font-extrabold text-muted" role="columnheader">
-                  {w}
-                </span>
-              ))}
-              {grid.map((c) => {
-                const list = days[c.key] ?? []
-                const isToday = c.key === today
-                const on = c.key === selected
-                const dots = list.slice(0, 3)
-                return (
-                  <div key={c.key} role="gridcell" className="flex justify-center">
-                    <button
-                      type="button"
-                      onClick={() => setSelected(c.key)}
-                      aria-pressed={on}
-                      aria-label={`${longDay(c.key)}${list.length ? `, ${list.length} ${list.length === 1 ? 'Termin' : 'Termine'}` : ''}`}
-                      className={`press flex h-[3.1rem] w-full max-w-[3.4rem] flex-col items-center justify-start gap-1 rounded-2xl pt-1.5 transition-colors ${on ? 'bg-sky-soft' : ''} ${c.inMonth ? '' : 'opacity-35'} ${c.key < today && !on ? 'opacity-70' : ''}`}
-                    >
-                      <span className={`flex h-7 w-7 items-center justify-center rounded-full text-[15px] font-extrabold leading-none ${isToday ? 'bg-brand-strong text-on-brand' : ''}`}>{c.day}</span>
-                      <span className="flex h-1.5 items-center gap-0.5" aria-hidden>
-                        {dots.map((a) => (
-                          <span key={a.id} className="block h-1.5 w-1.5 rounded-full" style={{ background: helpSubject(a.subject)?.c ?? '#868a95' }} />
-                        ))}
-                      </span>
-                    </button>
-                  </div>
-                )
-              })}
-            </div>
-          </section>
-
-          <div className="mb-2 flex items-baseline justify-between gap-2 px-1">
-            <h2 className="text-[19px] font-bold tracking-tight">{selected === today ? 'Heute' : longDay(selected)}</h2>
-            <span className="text-sm font-bold text-muted">{selected === today ? longDay(selected) : when(daysBetweenKeys(today, selected))}</span>
-          </div>
-          {dayEvents.length > 0 ? (
-            <ul className="mb-5 grid gap-2.5">{dayEvents.map((a) => row(a))}</ul>
-          ) : (
-            <button type="button" onClick={() => setSheet({ date: selected })} className="press mb-5 flex w-full items-center gap-3 rounded-2xl border-2 border-dashed border-line px-4 py-4 text-left text-muted hover:bg-snow">
-              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-soft text-sky-dark">
-                <Plus size={20} />
-              </span>
-              <span>
-                <span className="block font-extrabold text-ink">Nichts geplant</span>
-                <span className="block text-sm">Tippe hier, um für diesen Tag etwas einzutragen.</span>
-              </span>
+      <section className="panel mb-5 p-3.5" aria-label={`${monthName(cursor.m)} ${cursor.y}`}>
+        <div className="mb-2 flex items-center justify-between">
+          <h2 className="px-1 text-[22px] font-bold leading-tight tracking-tight">
+            {monthName(cursor.m)} <span className="font-bold text-muted">{cursor.y}</span>
+          </h2>
+          <span className="flex items-center gap-1">
+            {!thisMonth && (
+              <button type="button" onClick={goToday} className="press mr-1 px-1 text-[15px] font-semibold text-sky-dark">
+                Heute
+              </button>
+            )}
+            <button type="button" aria-label="Voriger Monat" onClick={() => step(-1)} className="press flex h-10 w-10 items-center justify-center rounded-full bg-snow text-muted">
+              <Right size={16} style={{ transform: 'rotate(180deg)' }} />
             </button>
-          )}
-        </Item>
-      ) : (
-        <Item>
-          <div className="mb-5">
-            <TimeTable
-              arbeiten={arbeiten}
-              periods={periods}
-              lessons={showLessons ? untis?.lessons : []}
-              toolbar={
-                untis ? (
-                  untis.lessons.length > 0 ? (
-                    <div className="mb-3 flex items-center justify-between gap-3 rounded-xl bg-snow px-3 py-2">
-                      <button type="button" onClick={() => setUntisOpen(true)} className="press min-w-0 flex-1 text-left text-[14px] font-medium">
-                        Unterricht aus WebUntis
-                        <span className="block text-[12px] text-muted">Verbunden · tippen zum Abgleichen</span>
-                      </button>
-                      <Switch checked={showLessons} onChange={toggleLessons} label="Unterricht aus WebUntis anzeigen" />
-                    </div>
-                  ) : null
-                ) : (
-                  <button type="button" onClick={() => setUntisOpen(true)} className="row press mb-3 !min-h-12 rounded-xl bg-snow">
-                    <span className="min-w-0 flex-1">
-                      <span className="block text-[15px] font-extrabold leading-tight">Mit WebUntis verbinden</span>
-                      <span className="block text-[12px] font-medium text-muted">Stundenplan und Arbeiten automatisch holen</span>
-                    </span>
-                    <Right size={13} className="shrink-0 text-muted" />
-                  </button>
-                )
-              } onAdd={(date, time, duration) => setSheet({ date, time, duration })} onOpen={(a) => setSheet({ arbeit: a })} />
-          </div>
-        </Item>
+            <button type="button" aria-label="Nächster Monat" onClick={() => step(1)} className="press flex h-10 w-10 items-center justify-center rounded-full bg-snow text-muted">
+              <Right size={16} />
+            </button>
+          </span>
+        </div>
+        <div className="grid grid-cols-7 text-center" role="grid" aria-label="Tage">
+          {WEEKDAY_HEAD.map((w) => (
+            <span key={w} className="pb-1 text-[11px] font-extrabold text-muted" role="columnheader">
+              {w}
+            </span>
+          ))}
+          {grid.map((c) => {
+            const list = days[c.key] ?? []
+            const hw = (homeworkDays[c.key] ?? []).filter((h) => !h.done)
+            const isToday = c.key === today
+            const on = c.key === selected
+            return (
+              <div key={c.key} role="gridcell" className="flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setSelected(c.key)}
+                  aria-pressed={on}
+                  aria-label={dayLabel(c.key, list, hw)}
+                  className={`press flex h-[3.1rem] w-full max-w-[3.4rem] flex-col items-center justify-start gap-1 rounded-2xl pt-1.5 transition-colors ${on ? 'bg-sky-soft' : ''} ${c.inMonth ? '' : 'opacity-35'} ${c.key < today && !on ? 'opacity-70' : ''}`}
+                >
+                  <span className={`flex h-7 w-7 items-center justify-center rounded-full text-[15px] font-extrabold leading-none ${isToday ? 'bg-brand-strong text-on-brand' : ''}`}>{c.day}</span>
+                  <span className="flex h-1.5 items-center gap-0.5" aria-hidden>
+                    {/* Arbeiten: ausgefüllter Punkt in der Fachfarbe, Hausaufgaben: Ring */}
+                    {list.slice(0, 2).map((a) => (
+                      <span key={a.id} className="block h-1.5 w-1.5 rounded-full" style={{ background: helpSubject(a.subject)?.c ?? '#868a95' }} />
+                    ))}
+                    {hw.slice(0, 2).map((h) => (
+                      <span key={h.id} className="block h-1.5 w-1.5 rounded-full border-[1.5px]" style={{ borderColor: helpSubject(h.subject)?.c ?? '#868a95' }} />
+                    ))}
+                  </span>
+                </button>
+              </div>
+            )
+          })}
+        </div>
+        <p className="mt-2 flex items-center justify-center gap-4 text-[11px] font-semibold text-muted">
+          <span className="flex items-center gap-1.5">
+            <span className="block h-1.5 w-1.5 rounded-full bg-muted" /> Arbeit
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="block h-1.5 w-1.5 rounded-full border-[1.5px] border-muted" /> Hausaufgabe
+          </span>
+        </p>
+      </section>
+
+      <div className="mb-2 flex items-baseline justify-between gap-2 px-1">
+        <h2 className="text-[19px] font-bold tracking-tight">{selected === today ? 'Heute' : longDay(selected)}</h2>
+        <span className="text-sm font-bold text-muted">{selected === today ? longDay(selected) : when(daysBetweenKeys(today, selected))}</span>
+      </div>
+      {dayEvents.length > 0 && <ul className="mb-3 grid gap-2.5">{dayEvents.map((a) => row(a))}</ul>}
+      {dayHomework.length > 0 && (
+        <ul className="list mb-3">
+          {dayHomework.map((h) => (
+            <HomeworkRow key={h.id} h={h} today={today} onOpen={(x) => setAdding({ kind: 'hausaufgabe', hausaufgabe: x })} />
+          ))}
+        </ul>
       )}
+      {dayEvents.length === 0 && dayHomework.length === 0 && (
+        <button type="button" onClick={() => setChoose(selected)} className="press mb-3 flex w-full items-center gap-3 rounded-2xl border-2 border-dashed border-line px-4 py-4 text-left text-muted hover:bg-snow">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-soft text-sky-dark">
+            <Plus size={20} />
+          </span>
+          <span>
+            <span className="block font-extrabold text-ink">Nichts geplant</span>
+            <span className="block text-sm">Tippe hier, um für diesen Tag eine Arbeit oder Hausaufgabe einzutragen.</span>
+          </span>
+        </button>
+      )}
+      <div className="mb-5" />
 
       {next.length > 0 && (
-        <Item>
+        <section aria-label="Als Nächstes">
           <h2 className="mb-2 px-1 text-[19px] font-bold tracking-tight">Als Nächstes</h2>
           <ul className="mb-5 grid gap-2.5">{next.map((a) => row(a, { showDay: true }))}</ul>
-        </Item>
+        </section>
       )}
 
-      {upcoming.length === 0 && (
-        <Item>
-          <p className="mb-5 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">Steht eine Arbeit oder ein Test an? Trag ihn ein: Die App verteilt deine Karteikarten auf die Tage bis dahin und zeigt dir, wie gut alles sitzt.</p>
-        </Item>
-      )}
+      {upcoming.length === 0 && <p className="mb-5 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">Steht eine Arbeit oder ein Test an? Trag ihn ein: Die App verteilt deine Karteikarten auf die Tage bis dahin und zeigt dir, wie gut alles sitzt.</p>}
 
       {past.length > 0 && (
-        <Item>
+        <section aria-label="Schon geschrieben">
           <h2 className="mb-2 px-1 text-[19px] font-bold tracking-tight">Schon geschrieben</h2>
           <ul className="panel mb-5 divide-y divide-line overflow-hidden">
             {past.map((a) => (
@@ -350,28 +284,51 @@ export function KalenderPage() {
               </li>
             ))}
           </ul>
-        </Item>
+        </section>
       )}
 
-      <Sheet open={untisOpen} onClose={() => setUntisOpen(false)} title="WebUntis verbinden">
-        <div className="-mx-5">
-          {untisMsg && (
-            <p role="status" className={`mx-5 mb-1 rounded-xl p-3 text-sm font-semibold ${untisMsg.ok ? 'bg-good-soft text-good-dark' : 'bg-bad-soft text-bad-dark'}`}>
-              {untisMsg.text}
-            </p>
-          )}
-          <UntisSettings
-            onToast={(ok, text) => setUntisMsg({ ok, text })}
-            onDone={() => {
-              window.setTimeout(() => {
-                setUntisOpen(false)
-                setUntisMsg(null)
-              }, 1200)
+      {/* Was soll eingetragen werden? */}
+      <Sheet open={choose !== null} onClose={() => setChoose(null)} title="Was möchtest du eintragen?">
+        <div className="list mb-1">
+          <button
+            type="button"
+            className="row press"
+            onClick={() => {
+              setAdding({ kind: 'arbeit', date: choose ?? selected })
+              setChoose(null)
             }}
-          />
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px] bg-sky-soft text-sky-dark">
+              <Plus size={20} />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-[16px] font-extrabold leading-tight">Arbeit oder Test</span>
+              <span className="block text-[13px] text-muted">Mit Karteikarten zum Lernen</span>
+            </span>
+            <Right size={13} className="text-muted" />
+          </button>
+          <button
+            type="button"
+            className="row press"
+            onClick={() => {
+              setAdding({ kind: 'hausaufgabe', date: choose ?? selected })
+              setChoose(null)
+            }}
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px] bg-brand-soft text-brand-dark">
+              <Plus size={20} />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="block text-[16px] font-extrabold leading-tight">Hausaufgabe</span>
+              <span className="block text-[13px] text-muted">Was bis wann zu tun ist</span>
+            </span>
+            <Right size={13} className="text-muted" />
+          </button>
         </div>
       </Sheet>
-      <ArbeitSheet open={!!sheet} onClose={closeSheet} arbeit={sheet?.arbeit} date={sheet?.date} time={sheet?.time} duration={sheet?.duration} />
-    </Stagger>
+
+      <ArbeitSheet open={adding?.kind === 'arbeit'} onClose={closeAdding} arbeit={adding?.arbeit} date={adding?.date} />
+      <HausaufgabeSheet open={adding?.kind === 'hausaufgabe'} onClose={closeAdding} hausaufgabe={adding?.hausaufgabe} date={adding?.date} />
+    </div>
   )
 }

@@ -389,6 +389,15 @@ export const TabCalendar = ({ size, ...p }: P) => (
   </svg>
 )
 
+/** Hausaufgaben-Tab: Heft mit Haken */
+export const TabHomework = ({ size, ...p }: P) => (
+  <svg {...base(size)} {...p}>
+    <rect x="4" y="3.2" width="16" height="18.3" rx="3.2" fill="currentColor" opacity=".72" />
+    <path d="M8.4 2.4h7.2a1 1 0 0 1 1 1v2.4a1 1 0 0 1-1 1H8.4a1 1 0 0 1-1-1V3.4a1 1 0 0 1 1-1Z" fill="currentColor" />
+    <path d="m8.3 13.4 2.7 2.7 5-5.4" fill="none" stroke="#fff" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
 /** Truhe: kleine Holztruhe mit Goldbeschlag; mit open=true ist der Deckel aufgeklappt und es glänzt. */
 export const Chest = ({ size, open = false, ...p }: P & { open?: boolean }) => (
   <svg {...base(size)} {...p}>

@@ -57,7 +57,7 @@ function CalendarArt({ reduce }: { reduce: boolean }) {
   ]
   return (
     <Phone>
-      <p className="mb-1.5 text-[11px] font-bold text-muted">Kalender · Woche</p>
+      <p className="mb-1.5 text-[11px] font-bold text-muted">Kalender</p>
       <div className="grid grid-cols-5 gap-1">
         {['Mo', 'Di', 'Mi', 'Do', 'Fr'].map((d) => (
           <span key={d} className="text-center text-[9px] font-bold text-muted">
@@ -76,7 +76,7 @@ function CalendarArt({ reduce }: { reduce: boolean }) {
           </div>
         ))}
       </div>
-      <p className="mt-2 text-center text-[10px] font-semibold text-muted">Mit WebUntis oder per Hand eingetragen</p>
+      <p className="mt-2 text-center text-[10px] font-semibold text-muted">Arbeiten und Hausaufgaben</p>
     </Phone>
   )
 }
@@ -111,7 +111,7 @@ function TestArt({ reduce }: { reduce: boolean }) {
 const SLIDES: { title: string; text: string; Art: (p: { reduce: boolean }) => ReactNode }[] = [
   { title: 'Karteikarten in Sekunden', text: 'Sag der KI, was ihr gerade durchnehmt, oder fotografiere dein Heft. Daraus werden Karteikarten, Quiz und Rechenaufgaben.', Art: CardsArt },
   { title: 'Üben, wann es sich lohnt', text: 'Jeden Tag zeigt dir die App, was dran ist: genau dann, kurz bevor du es vergessen würdest. Das sind oft nur ein paar Minuten.', Art: PlanArt },
-  { title: 'Dein Plan mit Arbeiten', text: 'Trag Arbeiten und Tests im Kalender ein oder verbinde WebUntis. Die App verteilt den Stoff auf die Tage bis dahin.', Art: CalendarArt },
+  { title: 'Arbeiten und Hausaufgaben', text: 'Trag Arbeiten, Tests und Hausaufgaben ein. Die App verteilt den Stoff auf die Tage bis zur Arbeit und erinnert dich an die Hausaufgaben.', Art: CalendarArt },
   { title: 'Probearbeit mit Note', text: 'Mach Tests und Klassenarbeiten wie in der Schule, mit Punkten und ungefährer Note. Danach siehst du, was noch fehlt.', Art: TestArt },
 ]
 

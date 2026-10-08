@@ -168,7 +168,8 @@ export function UebenPage() {
               />
             )
           })}
-          <Row to="/kalender?neu=1" tint="var(--sky-soft)" icon={<Plus size={20} className="text-sky-dark" />} title={upcoming.length === 0 ? 'Arbeit eintragen' : 'Weitere Arbeit eintragen'} sub={upcoming.length === 0 ? 'Die App verteilt die Karteikarten auf die Tage bis dahin.' : undefined} />
+          <Row to="/kalender?neu=1" tint="var(--sky-soft)" icon={<Plus size={20} className="text-sky-dark" />} title="Arbeit eintragen" sub={upcoming.length === 0 ? 'Die App verteilt die Karteikarten auf die Tage bis dahin.' : undefined} />
+          <Row to="/kalender?neu=hausaufgabe" tint="var(--brand-soft)" icon={<Plus size={20} className="text-brand-dark" />} title="Hausaufgabe eintragen" sub="Was bis wann zu tun ist" />
         </div>
       </section>
 
@@ -178,7 +179,8 @@ export function UebenPage() {
         <div className="list">
           {decks.length > 0 && <Row onClick={() => setFree(true)} tint="var(--brand-soft)" icon={<Repeat size={20} className="text-brand-dark" />} title="Frei üben" sub="Fach und Art selbst wählen" />}
           {decks.length > 0 && <Row to="/blitz" tint="var(--violet-soft)" icon={<Flame size={20} className="text-violet-dark" />} title="Blitzrunde" sub="60 Sekunden, so viele wie möglich" />}
-          <Row to="/test/neu" tint="var(--sky-soft)" icon={<Trophy size={20} className="text-sky-dark" />} title="Probearbeit" sub="Test mit Punkten und Note" />
+          <Row to="/test/neu?art=arbeit" tint="var(--sky-soft)" icon={<Trophy size={20} className="text-sky-dark" />} title="Probearbeit" sub="Große Arbeit mit Punkten und Note" />
+          <Row to="/test/neu?art=test" tint="var(--violet-soft)" icon={<Trophy size={20} className="text-violet-dark" />} title="Probetest" sub="Kurzer Test zum Üben" />
           <Row to="/stapel/neu" tint="var(--good-soft)" icon={<Plus size={20} className="text-good-dark" />} title="Neu erstellen" sub="Karteikarten, Quiz, Rechenaufgaben" />
         </div>
       </section>

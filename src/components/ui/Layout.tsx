@@ -4,16 +4,17 @@ import { Link, NavLink, useLocation, useNavigate, useOutlet } from 'react-router
 import { levelFromXp } from '../../lib/xp'
 import { useStore } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
-import { Gear, TabCalendar, TabRepeat, TabUser } from './Icons'
+import { Gear, TabCalendar, TabHomework, TabRepeat, TabUser } from './Icons'
 import { useCoachComposer } from '../../lib/coachComposer'
 import { CoachComposer } from './CoachComposer'
 import { TabBar } from './TabBar'
 import { useDue } from '../../features/review/ReviewPage'
 import { ProgressBar } from './widgets'
 import { StudyTimeCard } from './StudyTime'
-import { autoSyncUntis } from '../../lib/untisSync'
 import { autoCloudSave } from '../../lib/autoCloud'
 import { maybeSendUsage } from '../../lib/feedback'
+import { dateKey } from '../../lib/calendar'
+import { dueNowCount } from '../../lib/hausaufgaben'
 
 interface NavItem {
   to: string
@@ -25,17 +26,19 @@ interface NavItem {
   t: string
 }
 
-// Drei feste Tabs: Üben (Karteikarten, alle Fächer), Kalender (Arbeiten und Tests) und Profil (Stand, Fuchs, Einstellungen).
+// Vier feste Tabs: Üben (Karteikarten, alle Fächer), Kalender (Arbeiten und Hausaufgaben), Hausaufgaben und Profil (Stand, Tier, Einstellungen).
 // Die Fächer wählt man beim Start und ändert sie in den Einstellungen.
 const NAV: NavItem[] = [
   { to: '/', label: 'Üben', Icon: TabRepeat, end: true, c: 'var(--brand)', t: 'var(--brand-text)' },
   { to: '/kalender', label: 'Kalender', Icon: TabCalendar, c: 'var(--sky)', t: 'var(--sky-text)' },
+  { to: '/hausaufgaben', label: 'Hausaufgaben', Icon: TabHomework, c: 'var(--good)', t: 'var(--good-text)' },
   { to: '/profile', label: 'Profil', Icon: TabUser, c: 'var(--violet)', t: 'var(--violet-text)' },
 ]
 
 /** Zu welchem Tab eine Seite gehört (damit er auch auf Unterseiten wie dem Kalender markiert bleibt). */
 function tabOf(path: string): string {
   if (path.startsWith('/kalender')) return '/kalender'
+  if (path.startsWith('/hausaufgaben')) return '/hausaufgaben'
   if (path.startsWith('/profile') || path.startsWith('/shop') || path.startsWith('/settings') || path.startsWith('/about')) return '/profile'
   return '/'
 }
@@ -96,6 +99,8 @@ export function Layout() {
   const navigate = useNavigate()
   const scroller = useRef<HTMLElement>(null)
   const dueCount = useDue().due.length
+  // Hausaufgaben, die heute oder schon früher fällig sind
+  const homeworkNow = useStore((st) => dueNowCount(st.hausaufgaben ?? [], dateKey(new Date())))
   const nav = NAV
   // Auf KI-Seiten (auch die Fächer-Chats) sitzt das Eingabefeld in der Tab-Leiste
   const onCoach = location.pathname.startsWith('/coach') || /^\/faecher\/[^/]+\/ki/.test(location.pathname)
@@ -105,13 +110,12 @@ export function Layout() {
     scroller.current?.scrollTo({ top: 0 })
   }, [location.pathname])
 
-  // WebUntis: beim Öffnen und wenn man in die App zurückkehrt, leise abgleichen, falls es fällig ist
+  // Beim Öffnen und wenn man in die App zurückkehrt: fällige Sicherung und freiwillige Nutzungsdaten
   useEffect(() => {
     const tick = () => {
-      autoSyncUntis()
       void autoCloudSave(() => useStore.getState().exportData())
       const st = useStore.getState()
-      void maybeSendUsage({ grade: st.grade, subjects: (st.mySubjects ?? []).length, sets: st.sets.length, cards: Object.keys(st.cards).length, arbeiten: (st.arbeiten ?? []).length, untis: !!st.untis, mascot: st.mascot })
+      void maybeSendUsage({ grade: st.grade, subjects: (st.mySubjects ?? []).length, sets: st.sets.length, cards: Object.keys(st.cards).length, arbeiten: (st.arbeiten ?? []).length, mascot: st.mascot })
     }
     tick()
     const onVisible = () => document.visibilityState === 'visible' && tick()
@@ -142,6 +146,7 @@ export function Layout() {
                     <Icon size={26} />
                     {label}
                     {to === '/' && dueCount > 0 && <DueBadge n={dueCount} className="ml-auto" />}
+                    {to === '/hausaufgaben' && homeworkNow > 0 && <DueBadge n={homeworkNow} className="ml-auto" />}
                   </span>
                 </>
               )}
@@ -177,7 +182,7 @@ export function Layout() {
             color: c,
             textColor: t,
             icon: <Icon size={24} />,
-            badge: to === '/' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : undefined,
+            badge: to === '/' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : to === '/hausaufgaben' && homeworkNow > 0 ? <DueBadge n={homeworkNow} className="absolute -right-3 -top-1.5" /> : undefined,
           }))}
           activeIndex={nav.findIndex((n) => tabOf(location.pathname) === n.to)}
           onSelect={(i) => {

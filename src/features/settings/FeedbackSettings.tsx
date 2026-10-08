@@ -29,7 +29,7 @@ export function FeedbackSettings() {
   const [busy, setBusy] = useState(false)
   const [result, setResult] = useState<SendResult | null>(null)
   const [usage, setUsage] = useState(usageOptIn())
-  const snapshot: AppSnapshot = useStore(useShallow((s) => ({ grade: s.grade, subjects: (s.mySubjects ?? []).length, sets: s.sets.length, cards: Object.keys(s.cards).length, arbeiten: (s.arbeiten ?? []).length, untis: !!s.untis, mascot: s.mascot })))
+  const snapshot: AppSnapshot = useStore(useShallow((s) => ({ grade: s.grade, subjects: (s.mySubjects ?? []).length, sets: s.sets.length, cards: Object.keys(s.cards).length, arbeiten: (s.arbeiten ?? []).length, mascot: s.mascot })))
 
   const preview = showWhat ? reportText(buildReport({ kind, message: message || '…', contact, withTech: tech, snapshot })) : ''
   const ok = message.trim().length >= 5

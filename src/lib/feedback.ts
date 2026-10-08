@@ -105,7 +105,6 @@ export interface AppSnapshot {
   sets?: number
   cards?: number
   arbeiten?: number
-  untis?: boolean
   mascot?: string
   theme?: string
 }

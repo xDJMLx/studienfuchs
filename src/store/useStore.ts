@@ -8,7 +8,6 @@ import { masteryOf, reviewCard, seedKnownCard, type Grade, type SrsCard } from '
 import { achievements as computeAchievements, type AchievementInput } from '../lib/achievements'
 import { deckAchievementStats } from '../lib/progress'
 import { UNIT_CHEST_COINS } from '../lib/rewards'
-import { mergeExams, type UntisImport, type UntisState } from '../lib/untis'
 import type { Period } from '../lib/school'
 import type { TestData, TestResult } from '../lib/tests'
 import { cleanPeriods } from '../lib/school'
@@ -17,7 +16,7 @@ import { useRewardEvents } from './useRewardEvents'
 import { allUnits, findLesson, isLessonDone, isRegular, itemMeta, mathItems, MATH_COURSE, units, type Subject } from '../content'
 import { buy, coinsForSession, itemById, toggleEquip, type Outfit } from '../lib/shop'
 import { currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
-import type { Arbeit, DeckLang, Item, VocabSet } from '../lib/types'
+import type { Arbeit, DeckLang, Hausaufgabe, Item, VocabSet } from '../lib/types'
 import { track } from '../lib/feedback'
 
 /** Münzen dafür, eine Arbeit nach dem Termin abzuhaken. */
@@ -35,8 +34,6 @@ interface Data {
   /** Erstellte Tests, Klassenarbeiten und Vokabeltests (jedes Fach) und ihre Ergebnisse */
   tests: TestData[]
   testResults: TestResult[]
-  /** Verbindung zu WebUntis (iCal-Link), Unterricht und Stand des letzten Abgleichs; null = nicht verbunden */
-  untis: UntisState | null
   /** Schulstunden mit Beginn und Ende (leer = keine eingetragen, der Kalender zeigt dann Uhrzeiten) */
   schoolPeriods: Period[]
   /** Minuten pro Tag, die man übt, solange eine Arbeit ansteht */
@@ -92,6 +89,8 @@ interface Data {
   unitChests: string[]
   /** Klassenarbeiten und Tests mit Termin */
   arbeiten: Arbeit[]
+  /** Hausaufgaben */
+  hausaufgaben: Hausaufgabe[]
   /** Wie viele Übungsrunden bisher geschafft wurden (für Erfolge) */
   rounds: number
   /** Die Fächer des Schülers (Kennungen aus subjects.ts). Leer = noch nicht gewählt: dann gelten die Fächer mit Stapeln. */
@@ -141,14 +140,11 @@ interface Actions {
   updateTest: (id: string, fn: (t: TestData) => TestData) => void
   deleteTest: (id: string) => void
   addTestResult: (r: TestResult) => void
-  /** Mit WebUntis verbinden (Link und optional Relais merken; der erste Abgleich folgt separat) */
-  connectUntis: (url: string, relay?: string) => void
-  /** Ergebnis eines Abgleichs übernehmen: Unterricht, Klassenarbeiten und (wenn nicht von Hand eingetragen) das Stundenraster */
-  applyUntis: (imp: UntisImport) => void
-  /** Abgleich ist fehlgeschlagen: Meldung merken, bisherige Daten bleiben */
-  failUntis: (message: string) => void
-  setUntisRelay: (relay: string) => void
-  disconnectUntis: () => void
+  /** Hausaufgaben mit Fach, Text und Tag, an dem sie fällig sind */
+  addHausaufgabe: (h: Omit<Hausaufgabe, 'id'>) => string
+  updateHausaufgabe: (id: string, patch: Partial<Omit<Hausaufgabe, 'id'>>) => void
+  removeHausaufgabe: (id: string) => void
+  toggleHausaufgabe: (id: string) => void
   setSoundOn: (on: boolean) => void
   setGrade: (g: number) => void
   setMascot: (id: string) => void
@@ -171,7 +167,7 @@ interface Actions {
 const initial: Data = {
   xp: 0,
   xpByDay: {},
-  untis: null,
+  hausaufgaben: [],
   tests: [],
   testResults: [],
   schoolPeriods: [],
@@ -412,33 +408,22 @@ export const useStore = create<Data & Actions>()(
         }),
 
       setDailyMinutes: (n) => set({ dailyMinutes: Math.max(5, Math.min(60, Math.round(n))) }),
-      setSchoolPeriods: (list) => set((s) => ({ schoolPeriods: cleanPeriods(list), untis: s.untis ? { ...s.untis, periodsAuto: false } : s.untis })),
+      setSchoolPeriods: (list) => set({ schoolPeriods: cleanPeriods(list) }),
 
       addTest: (t) => (track('test-erstellt'), set((s) => ({ tests: [t, ...(s.tests ?? []).filter((x) => x.id !== t.id)].slice(0, 60) }))),
       deleteTest: (id) => set((s) => ({ tests: (s.tests ?? []).filter((x) => x.id !== id), testResults: (s.testResults ?? []).filter((r) => r.testId !== id) })),
       updateTest: (id, fn) => set((s) => ({ tests: (s.tests ?? []).map((t) => (t.id === id ? fn(t) : t)) })),
       addTestResult: (r) => (track('test-gemacht'), set((s) => ({ testResults: [r, ...(s.testResults ?? [])].slice(0, 200) }))),
 
-      connectUntis: (url, relay) =>
-        set((s) => ({ untis: { url, ...(relay ? { relay } : s.untis?.relay ? { relay: s.untis.relay } : {}), lessons: s.untis?.url === url ? s.untis.lessons : [], exams: s.untis?.exams ?? 0, periodsAuto: s.untis?.periodsAuto } })),
-
-      applyUntis: (imp) =>
-        set((s) => {
-          if (!s.untis) return {}
-          // Das Stundenraster aus WebUntis übernehmen, solange keins von Hand eingetragen wurde (oder es früher auch von dort kam)
-          const takePeriods = imp.periods.length > 0 && ((s.schoolPeriods ?? []).length === 0 || s.untis.periodsAuto)
-          return {
-            arbeiten: mergeExams(s.arbeiten ?? [], imp.exams),
-            ...(takePeriods ? { schoolPeriods: imp.periods } : {}),
-            untis: { ...s.untis, lessons: imp.lessons, exams: imp.exams.length, lastSync: new Date().toISOString(), lastError: undefined, periodsAuto: takePeriods ? true : s.untis.periodsAuto },
-          }
-        }),
-
-      failUntis: (message) => set((s) => (s.untis ? { untis: { ...s.untis, lastError: message } } : {})),
-
-      setUntisRelay: (relay) => set((s) => (s.untis ? { untis: { ...s.untis, relay: relay.trim() || undefined } } : {})),
-
-      disconnectUntis: () => set((s) => ({ untis: null, arbeiten: mergeExams(s.arbeiten ?? [], []) })),
+      addHausaufgabe: (h) => {
+        track('hausaufgabe')
+        const id = `ha-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`
+        set((s) => ({ hausaufgaben: [...(s.hausaufgaben ?? []), { ...h, id }] }))
+        return id
+      },
+      updateHausaufgabe: (id, patch) => set((s) => ({ hausaufgaben: (s.hausaufgaben ?? []).map((x) => (x.id === id ? { ...x, ...patch } : x)) })),
+      removeHausaufgabe: (id) => set((s) => ({ hausaufgaben: (s.hausaufgaben ?? []).filter((x) => x.id !== id) })),
+      toggleHausaufgabe: (id) => set((s) => ({ hausaufgaben: (s.hausaufgaben ?? []).map((x) => (x.id === id ? { ...x, done: !x.done } : x)) })),
       setSoundOn: (on) => set({ soundOn: on }),
       setGrade: (g) => set({ grade: g }),
       setMascot: (id) => set({ mascot: id }),
@@ -493,6 +478,9 @@ export const useStore = create<Data & Actions>()(
           merged.addedUnits = units.filter((u) => u.lessons.some((l) => !l.review && !l.test && l.items.some((i) => learned.has(i.id)))).map((u) => u.id)
         }
         if (!Array.isArray(merged.arbeiten)) merged.arbeiten = []
+        if (!Array.isArray(merged.hausaufgaben)) merged.hausaufgaben = []
+        // WebUntis gibt es nicht mehr: die alte Verbindung (Link, Unterricht) wird entfernt, eingetragene Arbeiten bleiben
+        delete (merged as unknown as Record<string, unknown>).untis
         if (p.coins === undefined) {
           // Stand aus der Zeit vor dem Fuchs-Laden: bisher gesammelte XP zählen rückwirkend als Münzen
           merged.coins = Math.floor(((p.xp as number) ?? 0) / 2)
