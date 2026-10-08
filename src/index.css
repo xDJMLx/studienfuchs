@@ -630,6 +630,10 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
 
 /* ---------- Tastaturbedienung: gut sichtbarer Fokus (Felder mit eigenem Fokus-Stil überschreiben das über Utilities) ---------- */
 @layer base {
+  /* Kinder in einem Raster dürfen schmaler werden als ihr Inhalt, sonst schieben lange Titel die ganze Zeile aus dem Bild */
+  .grid > * {
+    min-width: 0;
+  }
   :focus-visible {
     outline: 3px solid color-mix(in oklab, var(--brand) 70%, transparent);
     outline-offset: 2px;

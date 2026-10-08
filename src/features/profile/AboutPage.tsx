@@ -2,7 +2,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useId, useState, type ReactNode } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { IconChip } from '../../components/ui/controls'
-import { Back, Camera, Chevron, Database, Hand, Info, Lock, Right, Shield, Sparkle, Speaker } from '../../components/ui/Icons'
+import { Back, Camera, Chevron, Database, Hand, Info, Lock, Right, Shield, Sparkle, Speaker, Upload } from '../../components/ui/Icons'
 import { EASE, Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { FREE_AI_URL } from '../../lib/freeAi'
 import { hasLegalContact, LEGAL, PROJECT_URL } from '../../lib/legal'
@@ -32,8 +32,8 @@ function Accordion({ title, icon, children, defaultOpen = false }: { title: stri
 }
 
 const HIGHLIGHTS = [
-  { Icon: Hand, title: 'Kein Konto', text: 'Kein Login, kein Tracking, keine Werbung. Wir bekommen keine Nutzerdaten.' },
-  { Icon: Lock, title: 'Nur auf deinem Gerät', text: 'Fortschritt, Sets, Bücher und Tests bleiben im Speicher deines Browsers.' },
+  { Icon: Hand, title: 'Kein Konto nötig', text: 'Kein Login, kein Tracking, keine Werbung. Ohne dein Zutun bekommen wir keine Nutzerdaten.' },
+  { Icon: Lock, title: 'Nur auf deinem Gerät', text: 'Fortschritt, Sets, Bücher, Tests und Hausaufgaben bleiben im Speicher deines Browsers, außer du schaltest die Online-Sicherung ein.' },
   { Icon: Sparkle, title: 'KI nur auf Klick', text: 'Daten gehen nur an eine KI, wenn du sie fragst oder einen Test oder eine Arbeit erstellen lässt.' },
 ]
 
@@ -82,12 +82,16 @@ export function AboutPage() {
           <h2 className="eyebrow mb-3 px-1">Alle Details</h2>
           <div className="card mb-7 overflow-hidden">
             <Accordion title="Speicherung und Löschen" icon={<Database size={20} />} defaultOpen>
-              <p>Dein Fortschritt, deine Vokabel-Sets und die erkannten Texte deiner Bücher liegen <b className="text-ink">nur in deinem Browser</b> (lokaler Speicher). Es werden keine Nutzerdaten an uns übertragen.</p>
+              <p>Dein Fortschritt, deine Vokabel-Sets und die erkannten Texte deiner Bücher liegen <b className="text-ink">nur in deinem Browser</b> (lokaler Speicher). Ohne dein Zutun werden keine Nutzerdaten an uns übertragen.</p>
               <p>Unter <Link to="/settings" className="font-semibold text-brand-dark underline">Einstellungen → Daten</Link> kannst du alles sichern oder mit „Zurücksetzen“ vollständig von deinem Gerät löschen.</p>
             </Accordion>
             <Accordion title="Buchseiten und Texterkennung" icon={<Camera size={20} />}>
               <p>Hochgeladene Buchseiten werden mit der Offline-Texterkennung <b className="text-ink">auf deinem Gerät</b> gelesen. Die Bilder werden nicht gespeichert und nirgends hingeschickt. In deinen Büchern bleibt nur der erkannte Text, und nur auf diesem Gerät. Die Bücher gehören dir und sind nicht Teil der App: Sie werden nicht geteilt und nicht ausgeliefert.</p>
               <p>Schriftarten und Texterkennung werden von dieser Seite selbst ausgeliefert, nicht von Drittanbietern.</p>
+            </Accordion>
+            <Accordion title="Online-Sicherung (optional)" icon={<Upload size={20} />}>
+              <p>Nur wenn du unter <Link to="/settings/daten" className="font-semibold text-brand-dark underline">Einstellungen → Daten</Link> die <b className="text-ink">Online-Sicherung</b> einschaltest, legt die App ein kostenloses Puter-Gastkonto an und speichert eine Sicherung deines Fortschritts (Karteikarten, Lernstand, Arbeiten, Hausaufgaben, Einstellungen) in diesem Konto. Danach sichert sie höchstens alle 6 Stunden von selbst. Die Sicherung liegt bei Puter, nicht bei uns; es gelten deren Datenschutzbestimmungen.</p>
+              <p>Ausschalten geht, indem du die Sicherung dort nicht mehr benutzt oder dich bei Puter abmeldest. Dein Fortschritt auf dem Gerät bleibt.</p>
             </Accordion>
             <Accordion title="Fehler melden und Rückmeldungen" icon={<Shield size={20} />}>
               <p>Unter <Link to="/settings/feedback" className="font-semibold text-brand-dark underline">Einstellungen → Fehler melden</Link> kannst du eine Nachricht schicken. Sie geht nur ab, wenn du auf „Senden“ tippst. Du siehst vorher, was mitgeschickt wird: deine Nachricht, wenn du magst ein Kontakt, und technische Infos (Version, Gerätetyp, Fenstergröße, Sprache, Seite, die letzten Fehlermeldungen, Zähler wie „Runden“). Nie deine Karteikarten, Antworten oder Namen.</p>

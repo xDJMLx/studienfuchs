@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Row, Section, Switch } from '../../components/ui/controls'
 import { InstallHelp, useInstallFlow } from '../../components/ui/InstallApp'
-import { Bug, Cards, Check, Database, Download, Gear, Right, Palette, Shield, Sparkle, Speaker, Star, Target, Upload } from '../../components/ui/Icons'
+import { Bug, Cards, Clock, Check, Database, Download, Gear, Right, Palette, Shield, Sparkle, Speaker, Star, Target, Upload } from '../../components/ui/Icons'
 import { MascotPicker } from '../profile/MascotPicker'
 import { FeedbackSettings } from './FeedbackSettings'
 import { BackLink } from '../../components/ui/BackLink'
@@ -75,7 +75,7 @@ const GROUPS: { title: string; rows: { slug: string; id: string; label: string; 
     title: 'Schule',
     rows: [
       { slug: 'faecher', id: 's-subjects', label: 'Meine Fächer', text: 'Welche Fächer du hast', Icon: Cards },
-      { slug: 'schulzeiten', id: 's-hours', label: 'Schulzeiten', text: 'Stunden und Pausen', Icon: Target },
+      { slug: 'schulzeiten', id: 's-hours', label: 'Schulzeiten', text: 'Stunden und Pausen', Icon: Clock },
     ],
   },
   {
@@ -465,7 +465,7 @@ export function SettingsPage() {
             <Section id="s-data" icon={<Database size={22} />} title="Daten" description="Alles liegt nur auf diesem Gerät">
               <Row title="Gespeichert auf diesem Gerät" hint={`${Object.keys(cards).length} geübte Karten · ${sets.length} ${sets.length === 1 ? 'Sammlung' : 'Sammlungen'}`} />
               <Row title="Fortschritt sichern" hint="Exportiere eine Sicherung oder lade eine ein, z. B. für ein neues Gerät.">
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2">
                   <button className="btn btn-ghost press !px-4 !py-2 !text-sm" onClick={doExport}><Download size={16} /> Exportieren</button>
                   <button className="btn btn-ghost press !px-4 !py-2 !text-sm" onClick={() => fileRef.current?.click()}><Upload size={16} /> Importieren</button>
                   <input ref={fileRef} type="file" accept="application/json" className="sr-only" onChange={(e) => doImport(e.target.files?.[0])} />

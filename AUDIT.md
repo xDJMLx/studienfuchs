@@ -1,57 +1,34 @@
-# Studienfuchs – Prüfbericht (Design, Animation, Nutzerführung, Lernwirkung)
+# Studienfuchs – Prüfbericht zur Veröffentlichung
 
-Stand: 1. Oktober 2026. Alles unten wurde angeschaut (Browser auf Handy- und Desktopbreite, Code, automatische Prüfungen) und, soweit „behoben“ steht, umgesetzt und getestet.
+Stand: 8. Oktober 2026. Geprüft wurden Code, automatische Tests, der Bau und die Seiten im Browser (Handybreiten 320 und 375 Pixel, Dunkel und Hell).
 
-## A) Lernwirkung und Nutzerführung
+## Automatisch
 
-| # | Problem | Folge | Status |
-|---|---------|-------|--------|
-| A1 | Die Wiederholung nach Plan (der wirksamste Teil) war nirgends erreichbar: die Seite „Wiederholen“ gab es nur per Adresse. Startseite und Navigation sagten nichts über fällige Wörter. | Wörter werden vergessen, weil niemand weiß, dass sie dran sind. | **behoben**: „Heute“-Karte auf der Startseite (Tagesziel, Serie, „N Wörter wiederholen“), Zahl am Üben-Tab, Wiederholung ganz oben im Üben-Bereich, Lernstand-Seite verlinkt (auch vom Profil) |
-| A2 | Üben-Hub: vorgewählt war „Fällig“, meist mit 0 Wörtern, dadurch waren alle Übungsarten grau. „Schreibtraining“ hatte ein Kamera-Symbol. | Erster Eindruck: „geht nicht“. | **behoben**: sinnvolle Vorauswahl, passende Symbole, Erklärung bei 0 Wörtern |
-| A3 | Einstufungstest: zwei Auswahlfragen mit je 4 Antworten. Mit Raten ließ sich ca. jede 16. Einheit überspringen, obwohl die App sonst „Raten bringt nichts“ sagt. | Lücken im Stoff. | **behoben**: je Einheit eine Auswahl- und eine Tippaufgabe, beide müssen stimmen (getestet: richtige Auswahl + falsches Tippen überspringt nichts) |
-| A4 | Nach einer Lektion ging es zurück zum Lernpfad. Kein „Weiter“, kein Hinweis auf erreichtes Tagesziel. | Mehr Klicks, weniger Dranbleiben. | **behoben**: „Nächste: …“-Knopf direkt im Ergebnis, Hinweis „Tagesziel geschafft“ |
-| A5 | Tippaufgaben ohne Hilfe. Wer nicht weiter wusste, musste „Weiß ich nicht“ drücken. | Frust, Abbruch. | **behoben**: „Tipp anzeigen“ (Länge und erster Buchstabe). Ein Treffer mit Tipp zählt nicht als „auf Anhieb richtig“ und wird vom Lernplan als schwächer gewertet |
-| A6 | Zahlen widersprachen sich: Wiederholen sagte 682 Wörter, die Wörterliste 341; Willkommen sagte 92 Lektionen, der Lernpfad 68. | Misstrauen in die App. | **behoben**: eine zentrale Zählfunktion für alle Seiten, per Test abgesichert |
-| A7 | Wörterliste: Lernstand nur als winziger Punkt ohne Erklärung; Filterleiste lief rechts aus dem Bild; in jeder Zeile ein großer oranger Knopf. | Unübersichtlich, Filter nicht bedienbar. | **behoben**: Etiketten „neu / lernt / fest“ mit Legende, scrollbare Filter, leise Sprechknöpfe |
-| A8 | Gesperrte Knoten im Lernpfad sahen alle gleich aus (Schloss), Wiederholung und Test waren nicht zu unterscheiden. | Keine Orientierung. | **behoben**: Symbole bleiben sichtbar, Screenreader-Beschriftung nennt die Art |
+- `npx tsc --noEmit`: ohne Fehler.
+- `npm test`: alle Tests grün (Oberfläche der ganzen App in happy-dom, Rechenkern, Planung, Hausaufgaben, Rückmeldungen, Sicherung, KI-Anmeldung mit nachgebautem Puter).
+- `npm run build`: läuft durch. Die Startdatei (`useStore`, mit den fertigen Französisch-Karteikarten) ist rund 173 kB gepackt, alles andere wird beim Öffnen einer Seite nachgeladen; die Seiten der Tabs werden im Leerlauf vorgeladen.
+- Deploy über GitHub Actions: Tests laufen vor dem Bau, ein Testfehler stoppt die Veröffentlichung.
 
-## B) Design
+## Beim letzten Durchgang gefunden und behoben
 
-| # | Problem | Status |
-|---|---------|--------|
-| B1 | Lernpfad: Knoten schwebten ohne Verbindung, wirkte wie lose Punkte; Startseite auf dem Desktop leer. | **behoben**: Verbindungslinien (erledigt durchgezogen, offen gepunktet), feste Zeilenhöhe, „Heute“-Karte |
-| B2 | Set-Details, Lernstand und Einstufungstest im alten Stil (Großbuchstaben-Links, uneinheitliche Überschriften, rohes Datumsfeld, gequetschtes Symbol). | **behoben**: im neuen Stil, korrekte Symbole |
-| B3 | Kontrast: weißer Text auf Orange hatte nur 3,1:1 (hell) und 2,6:1 (dunkel), Mindestwert wäre 4,5:1. | **behoben**: Knöpfe mit Text nutzen eine etwas tiefere Orange-Variante (hell) bzw. dunklen Text (dunkel) |
-| B4 | Winzige Tippflächen: Profil-Chip 28 px, Zurück-Links 20 px, Schließen-Knopf 26 px. | **behoben**: mindestens 44 px |
-| B5 | KI-Hinweis als langer grauer Textblock mitten in der Karte. | **behoben**: eine Zeile, „Details“ klappt auf |
-| B6 | Das Favicon zeigte noch ein älteres Motiv, das Manifest eine grüne Themenfarbe, PNG-App-Symbole fehlten (iPhones brauchen eines). | **behoben**: Fenni als Symbol, PNGs (192/512/maskable/Apple), Manifest in Orange-Weiß |
+| Was | Folge | Stand |
+|-----|-------|-------|
+| Einstellungen → Daten: „Exportieren“ und „Importieren“ liefen auf 320 Pixel rechts aus dem Bild | Seite ließ sich seitlich schieben | behoben (Umbruch) |
+| Lange Titel in Kartenlisten (z. B. Fach-Seite) schoben die ganze Zeile aus dem Bild, weil Rasterkinder nie schmaler als ihr Inhalt wurden | Pfeil abgeschnitten | behoben für alle Raster (`.grid > *` mit `min-width: 0`) |
+| Datenschutz: sagte noch „Wir bekommen keine Nutzerdaten“ und kannte weder Online-Sicherung noch Rückmeldungen | Text stimmte nicht mehr | angepasst, neuer Abschnitt „Online-Sicherung“ |
+| Profil: Hinweis zur Wochengrafik auch ohne geübte Minuten | Rauschen | nur noch mit Minuten |
+| Einstellungen: Schulzeiten und Lernzeit hatten dasselbe Symbol | Verwechslung | eigenes Uhr-Symbol |
+| Themenfarbe (Statusleiste), Manifest und Zwischenspeicher passten nicht zum neuen Aussehen | Weiße Leiste, alter Cache | Themenfarbe und Manifest angepasst, Zwischenspeicher-Version erhöht |
+| Reste: nicht mehr benutzte Dateien (Burst, BlitzCard) | Ballast | gelöscht |
 
-## C) Animationen
+## Bekannte Grenzen (vor der Veröffentlichung wissen)
 
-| # | Problem | Status |
-|---|---------|--------|
-| C1 | Sätze bauen: Wörter sprangen hart zwischen den Zeilen. | **behoben**: Wörter fliegen mit Federung nach oben und zurück |
-| C2 | Zuordnen: richtige Paare wurden nur blasser. | **behoben**: kurzes Federn, falscher Versuch wackelt |
-| C3 | Listen-Filter wechselten hart. | **behoben**: gleitende Markierung und gestaffeltes Einblenden |
-| C4 | Pfad ohne Fortschrittsgefühl. | **behoben**: erledigte Strecken zeichnen sich ein |
+- **Impressum:** nicht ausgefüllt (bewusst). Ohne eigene Angaben steht dort ein Hinweis auf die Projektseite bei GitHub. Für eine öffentliche Seite mit Rückmeldefunktion und Online-Sicherung braucht es nach deutschem Recht (§ 5 DDG) Name, Anschrift und E-Mail. Die Felder stehen in `src/lib/legal.ts`.
+- **KI und Puter:** nur mit nachgebauten Antworten getestet, nie mit dem echten Dienst. Die Anmeldung öffnet ein Fenster von Puter (Gastkonto ohne E-Mail). Browser mit blockierten Pop-ups zeigen ein Hilfe-Fenster.
+- **Postfach für Fehlerberichte:** `DEFAULT_FEEDBACK_URL` ist leer. Bis ein Postfach eingerichtet ist (`relay/README.md`), öffnet „Senden“ das Teilen-Fenster des Geräts. Anonyme Nutzungsdaten werden ohne Adresse nirgendwohin geschickt.
+- **Bewegung:** Seitenwechsel, Sheets und Klick-Gefühl wurden im Browser per Zahlen geprüft, nicht auf echten Handys. Bei versteckten Browser-Fenstern bleiben Animationen stehen (das ist ein Eigenheit des Prüffensters, nicht der App).
+- **Inhalte:** Die fertigen Französisch-Karteikarten (Klasse 7 bis 10) sind fachlich nicht von einer Lehrkraft gegengelesen.
 
-## D) Technik, Barrierefreiheit, Robustheit
+## Früherer Bericht
 
-| # | Problem | Status |
-|---|---------|--------|
-| D1 | Der Seitentitel war überall gleich. | **behoben**: „Üben · Studienfuchs“ usw. |
-| D2 | Ein Darstellungsfehler hätte einen weißen Bildschirm gezeigt. | **behoben**: Fehlerseite mit Neu laden / Startseite |
-| D3 | Kein sichtbarer Tastaturfokus, kein „Zum Inhalt springen“. | **behoben** |
-| D4 | Französischer Text ohne `lang="fr"` (Screenreader sprechen ihn deutsch). | **behoben** in Wörterliste, Übungen, Lernstand, Sets |
-| D5 | Das Maskottchen wurde von Screenreadern bei jeder Verwendung vorgelesen. | **behoben**: dekorativ |
-
-## E) Name
-
-**Lernfuchs → Studienfuchs** in Oberfläche, Titel, Manifest, App-Cache, Paketname, Exportdatei. Vorhandener Fortschritt, Sets und KI-Einstellung werden beim ersten Start automatisch übernommen (getestet). Alte Sicherungsdateien („Lernfuchs“) lassen sich weiter importieren.
-
-## Bekannte Grenzen (ehrlich)
-
-- Die Puter-KI wurde nie mit einem echten Gastkonto durchlaufen (dafür müsste ein Konto angelegt werden).
-- Auf einem echten Handy (Touch, Bildschirmtastatur, Ziehen am Sheet-Griff) wurde nicht getestet, nur im Browser-Pane mit Handygröße.
-- Inhalte (Vokabeln, Erklärungen) wurden nicht gegen ein bestimmtes Lehrwerk geprüft.
-- Das Impressum nennt noch keinen Namen und keine Anschrift: Sie werden in `src/lib/legal.ts` eingetragen (siehe `docs/VEROEFFENTLICHUNG.md`).
+Die Prüfung vom 1. Oktober 2026 betraf noch den Lernpfad, die Wörterliste und den Serien-Mechanismus, die es nicht mehr gibt. Sie steht in der Git-Geschichte (`git log -- AUDIT.md`).

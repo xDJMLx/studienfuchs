@@ -113,7 +113,7 @@ export function ProfilePage() {
           })}
         </div>
         )}
-        <p className="mt-3 text-xs text-muted">Grün: so viele Minuten, wie du dir für eine Arbeit vorgenommen hast ({dailyMinutes}).</p>
+        {weekMin > 0 && <p className="mt-3 text-xs text-muted">Grün: so viele Minuten, wie du dir für eine Arbeit vorgenommen hast ({dailyMinutes}).</p>}
       </section>
 
       {/* Erfolge: drei, der Rest klappt auf */}

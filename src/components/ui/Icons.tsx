@@ -145,6 +145,14 @@ export const Shield = ({ size, ...p }: P) => (
   </svg>
 )
 
+/** Uhr: Zeiten. */
+export const Clock = ({ size, ...p }: P) => (
+  <svg {...base(size)} {...p}>
+    <circle cx="12" cy="12" r="9.6" fill="currentColor" />
+    <path d="M12 6.6V12l3.6 2.2" fill="none" stroke="var(--surface)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
 /** Käfer: Fehler melden. */
 export const Bug = ({ size, ...p }: P) => (
   <svg {...base(size)} {...p}>
