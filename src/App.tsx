@@ -48,6 +48,8 @@ function lazyPage<K extends string>(load: () => Promise<Record<K, ComponentType>
   )
 }
 
+/** Nur im Entwicklungsmodus: Prüfseite für Gesichtsausdrücke und Fach-Symbole (#/augen). */
+const Augen = import.meta.env.DEV ? lazyPage(() => import('./features/entwurf/Augen'), 'Augen') : null
 const GrammarTopicPage = lazyPage(() => import('./features/grammar/GrammarPage'), 'GrammarTopicPage')
 const UebenPlay = lazyPage(() => import('./features/ueben/CardFlow'), 'UebenPlay')
 const DeckImportPage = lazyPage(() => import('./features/faecher/DeckImportPage'), 'DeckImportPage')
@@ -185,6 +187,7 @@ export default function App() {
       <Suspense fallback={<PageFallback />}>
       <Routes>
         <Route path="welcome" element={<Welcome />} />
+        {Augen && <Route path="augen" element={<Augen />} />}
         <Route element={<RequireOnboarding />}>
           <Route element={<Layout />}>
             <Route index element={<UebenPage />} />
