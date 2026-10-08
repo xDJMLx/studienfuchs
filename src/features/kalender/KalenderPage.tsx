@@ -269,6 +269,8 @@ export function KalenderPage() {
             const hw = (homeworkDays[c.key] ?? []).filter((h) => !h.done)
             const isToday = c.key === today
             const on = c.key === selected
+            // Tage der Nachbarmonate sind nur Füllung: leer, ohne Taste (wer sie braucht, blättert)
+            if (!c.inMonth) return <div key={c.key} role="gridcell" aria-hidden className="h-[3.2rem]" />
             return (
               <div key={c.key} role="gridcell" className="flex justify-center">
                 <button
