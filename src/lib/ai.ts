@@ -122,16 +122,23 @@ export const setAiGate = (g: Gate | null): void => {
 }
 
 /**
- * Stellt sicher, dass die KI benutzbar ist. Fehlt noch die Anmeldung, erklärt die App erst in einem Fenster, was passiert,
- * und der Klick dort öffnet das Fenster von Puter (so bleibt es ein echter Klick und wird nicht blockiert).
+ * Stellt sicher, dass die KI benutzbar ist. Fehlt noch die Anmeldung, öffnet sich direkt das Fenster von Puter (legt ein Gastkonto an, ohne E-Mail);
+ * wird es blockiert, hilft ein Fenster der App.
  * Bricht man ab oder scheitert es, gibt es einen AiError.
  */
 export async function ensureAiReady(): Promise<void> {
   if (getAiConfig().provider !== 'puter') return
   const puter = await loadPuter()
   if (puter.auth.isSignedIn()) return
-  if (gate) return gate()
-  await signInPuter()
+  // Zuerst direkt versuchen: Der Klick auf „Mit KI erstellen“ ist schon die Geste, die das Fenster von Puter braucht, es ist also ein Tipp weniger.
+  // Blockiert der Browser das Fenster (oder fehlt die Geste), erklärt das Anmelde-Fenster, was zu tun ist, und der nächste Klick klappt sicher.
+  try {
+    await signInPuter()
+  } catch (e) {
+    const blocked = e instanceof AiError && /blockiert/i.test(e.message)
+    if (blocked && gate) return gate()
+    throw e
+  }
 }
 
 /** Lädt den KI-Dienst schon im Voraus, damit das Anmeldefenster beim Klick nicht vom Browser blockiert wird. Sendet nichts. */

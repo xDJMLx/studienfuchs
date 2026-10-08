@@ -9,8 +9,7 @@ import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
 import { EXAMPLE_PERIODS } from '../../lib/school'
 import { Confetti } from '../../components/ui/Confetti'
 import { Back, Check, Right, Sparkle } from '../../components/ui/Icons'
-import { requestAiSignIn } from '../../components/ui/AiGateSheet'
-import { isAiReady } from '../../lib/ai'
+import { ensureAiReady, isAiReady } from '../../lib/ai'
 import { Wordmark } from '../../components/ui/Layout'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { HELP_SUBJECTS } from '../../lib/subjects'
@@ -278,7 +277,7 @@ export function Welcome() {
                       <button
                         type="button"
                         disabled={aiOn}
-                        onClick={() => void requestAiSignIn().then(() => setAiOn(true), () => undefined)}
+                        onClick={() => void ensureAiReady().then(() => setAiOn(true), () => undefined)}
                         className="card press mt-3 flex w-full items-center gap-3 p-4 text-left"
                       >
                         <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${aiOn ? 'bg-good-soft text-good-dark' : 'bg-violet-soft text-violet-dark'}`}>{aiOn ? <Check size={20} /> : <Sparkle size={20} />}</span>

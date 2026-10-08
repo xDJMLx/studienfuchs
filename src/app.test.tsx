@@ -528,7 +528,7 @@ describe('WebUntis verbinden', () => {
       { start: '10:00', end: '10:45' },
     ])
     expect(st.arbeiten.map((a) => [a.id, a.subject, a.kind])).toEqual([['untis:exam1', 'mathe', 'klassenarbeit']])
-    await waitFor(() => expect(text()).toMatch(/Aus Datei geladen: 9 Stunden, 1 Arbeit/))
+    await waitFor(() => expect(text()).toMatch(/Stundenplan geladen: 9 Stunden, 1 Arbeit/))
     // Trennen
     fireEvent.click(await screen.findByRole('button', { name: 'Trennen' }))
     await waitFor(() => expect(useStore.getState().untis).toBeNull())
@@ -754,6 +754,29 @@ describe('Neu: Lerntier, Rückmeldung, WebUntis per Zwischenablage', () => {
       await waitFor(() => expect(text()).toMatch(/Danke/))
     } finally {
       Reflect.deleteProperty(navigator, 'share')
+    }
+  })
+
+  it('WebUntis: Foto vom Stundenplan wird von der KI gelesen und übernommen', async () => {
+    useStore.setState({ onboarded: true })
+    const aiCards = await import('./lib/aiCards')
+    const spy = vi.spyOn(aiCards, 'callAi').mockResolvedValue(JSON.stringify({ lessons: [
+      { day: 0, start: '08:00', end: '08:45', name: 'Bio' }, { day: 0, start: '08:55', end: '09:40', name: 'Mathe' },
+      { day: 1, start: '08:00', end: '08:45', name: 'E' }, { day: 1, start: '08:55', end: '09:40', name: 'D' },
+    ] }))
+    const ai = await import('./lib/ai')
+    const blob = vi.spyOn(ai, 'blobToJpegBase64').mockResolvedValue('jpegdata')
+    try {
+      window.location.hash = '#/settings/untis'
+      render(<App />)
+      const input = await screen.findByLabelText('Foto vom Stundenplan')
+      fireEvent.change(input, { target: { files: [new File(['x'], 'plan.jpg', { type: 'image/jpeg' })] } })
+      await waitFor(() => expect(useStore.getState().untis?.lessons.length).toBe(40), { timeout: 4000 })
+      expect(useStore.getState().schoolPeriods).toEqual([{ start: '08:00', end: '08:45' }, { start: '08:55', end: '09:40' }])
+      await waitFor(() => expect(text()).toMatch(/4 Stunden pro Woche übernommen/))
+    } finally {
+      spy.mockRestore()
+      blob.mockRestore()
     }
   })
 

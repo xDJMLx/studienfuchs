@@ -44,27 +44,21 @@ afterEach(cleanup)
 const text = () => document.body.textContent ?? ''
 
 describe('Anmeldung zur KI: ein Fenster, das erklärt und hilft', () => {
-  it('Erst erklärt die App, dann öffnet der Klick das Puter-Fenster, danach läuft die ursprüngliche Aktion weiter', async () => {
+  it('Direkt: Der Klick öffnet das Fenster von Puter (Gastkonto), danach läuft die ursprüngliche Aktion weiter, ohne Zwischenfenster', async () => {
     render(<App />)
-    let done = false
-    const p = ensureAiReady().then(() => (done = true))
-    await waitFor(() => expect(text()).toMatch(/KI einschalten/))
-    expect(text()).toMatch(/Kostenlos/)
-    expect(done).toBe(false)
-    expect(puter.state.signed).toBe(false)
-    fireEvent.click(screen.getByRole('button', { name: 'KI einschalten' }))
     await act(async () => {
-      await p
+      await ensureAiReady()
     })
     expect(puter.state.signed).toBe(true)
-    expect(done).toBe(true)
+    expect(screen.queryByRole('button', { name: 'KI einschalten' })).toBeNull()
   })
 
-  it('Blockiertes Pop-up: verständliche Hilfe, dann klappt der zweite Versuch', async () => {
-    puter.state.failures = [{ error: 'popup_blocked' }]
+  it('Blockiertes Pop-up: Die App erklärt, was zu tun ist, dann klappt der nächste Versuch', async () => {
+    puter.state.failures = [{ error: 'popup_blocked' }, { error: 'popup_blocked' }]
     render(<App />)
     const p = ensureAiReady()
     await screen.findByRole('button', { name: 'KI einschalten' })
+    expect(text()).toMatch(/Kostenlos/)
     fireEvent.click(screen.getByRole('button', { name: 'KI einschalten' }))
     await waitFor(() => expect(screen.getByRole('alert').textContent).toMatch(/Pop-ups erlauben/))
     expect(puter.state.signed).toBe(false)
@@ -75,7 +69,17 @@ describe('Anmeldung zur KI: ein Fenster, das erklärt und hilft', () => {
     expect(puter.state.signed).toBe(true)
   })
 
-  it('Abbrechen: Die Aktion bekommt einen verständlichen Fehler, die App bleibt benutzbar', async () => {
+  it('Fenster geschlossen: verständlicher Fehler statt Zwischenfenster', async () => {
+    puter.state.failures = [{ error: 'auth_window_closed' }]
+    render(<App />)
+    const e = await ensureAiReady().catch((x) => x)
+    expect(e).toBeInstanceOf(AiError)
+    expect(e.kind).toBe('auth')
+    expect(screen.queryByRole('button', { name: 'KI einschalten' })).toBeNull()
+  })
+
+  it('Abbrechen im Hilfe-Fenster: Die Aktion bekommt einen verständlichen Fehler, die App bleibt benutzbar', async () => {
+    puter.state.failures = [{ error: 'popup_blocked' }]
     render(<App />)
     const p = ensureAiReady()
     const caught = p.catch((e) => e)

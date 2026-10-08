@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Check } from '../../components/ui/Icons'
+import { Camera, Check } from '../../components/ui/Icons'
+import { blobToJpegBase64 } from '../../lib/ai'
+import { readTimetablePhoto } from '../../lib/untisPhoto'
 import { agoText, looksLikeUntisLink, normalizeUntisUrl, UntisError } from '../../lib/untis'
 import { syncUntis } from '../../lib/untisSync'
 import { useStore } from '../../store/useStore'
@@ -36,6 +38,8 @@ export function UntisSettings({ onToast, onDone }: { onToast: (ok: boolean, text
   const [manual, setManual] = useState(false)
   const file = useRef<HTMLInputElement>(null)
   const input = useRef<HTMLInputElement>(null)
+  const photo = useRef<HTMLInputElement>(null)
+  const [photoBusy, setPhotoBusy] = useState(false)
 
   const run = useCallback(
     async (text?: string): Promise<boolean> => {
@@ -101,6 +105,26 @@ export function UntisSettings({ onToast, onDone }: { onToast: (ok: boolean, text
     if (file.current) file.current.value = ''
   }
 
+  /** Foto oder Screenshot vom Stundenplan: Die KI liest ihn, die App macht daraus Stunden und Stundenraster. */
+  const doPhoto = async (files: FileList | null) => {
+    if (!files?.length) return
+    setPhotoBusy(true)
+    try {
+      const images = await Promise.all([...files].slice(0, 3).map((f) => blobToJpegBase64(f, 1800)))
+      const imp = await readTimetablePhoto(images)
+      if (!useStore.getState().untis) connect('')
+      useStore.getState().applyUntis(imp)
+      const perWeek = new Set(imp.lessons.slice(0, imp.lessons.length / 10).map((l) => l.id)).size
+      onToast(true, `${perWeek} Stunden pro Woche übernommen. Stimmt etwas nicht, mach ein schärferes Foto.`)
+      onDone?.()
+    } catch (e) {
+      onToast(false, e instanceof Error ? e.message : 'Das Foto konnte nicht gelesen werden.')
+    } finally {
+      setPhotoBusy(false)
+      if (photo.current) photo.current.value = ''
+    }
+  }
+
   const fromFile = !!untis && !untis.url
 
   return (
@@ -109,7 +133,7 @@ export function UntisSettings({ onToast, onDone }: { onToast: (ok: boolean, text
         <>
           {fromFile && (
             <p className="mb-3 rounded-xl bg-good-soft p-3 text-sm font-semibold text-good-dark">
-              Aus Datei geladen: {untis!.lessons.length} Stunden, {untis!.exams} {untis!.exams === 1 ? 'Arbeit' : 'Arbeiten'}. Mit einem Link gleicht die App danach von selbst ab.
+              Stundenplan geladen: {untis!.lessons.length} Stunden, {untis!.exams} {untis!.exams === 1 ? 'Arbeit' : 'Arbeiten'}. Mit einem Link gleicht die App danach von selbst ab.
             </p>
           )}
 
@@ -124,6 +148,18 @@ export function UntisSettings({ onToast, onDone }: { onToast: (ok: boolean, text
               </button>
             </div>
           )}
+
+          <div className="mb-4 rounded-2xl border-2 border-sky bg-sky-soft p-4">
+            <p className="flex items-center gap-2 font-extrabold text-sky-dark">
+              <Camera size={20} /> Am einfachsten: ein Foto
+            </p>
+            <p className="mt-1 text-sm text-ink/80">Mach ein Foto von deinem Stundenplan oder einen Screenshot aus WebUntis. Die KI liest ihn, fertig. Kein Link nötig.</p>
+            <button type="button" className="btn btn-primary press mt-3 w-full" disabled={photoBusy || busy} onClick={() => photo.current?.click()}>
+              {photoBusy ? 'Die KI liest deinen Plan …' : 'Foto auswählen'}
+            </button>
+            <input ref={photo} type="file" accept="image/*" multiple className="sr-only" aria-label="Foto vom Stundenplan" onChange={(e) => void doPhoto(e.target.files)} />
+          </div>
+          <p className="mb-3 text-sm font-bold text-muted">Oder mit WebUntis verbinden (bleibt automatisch aktuell und holt auch deine Arbeiten):</p>
 
           <ol className="grid gap-4">
             <li className="flex gap-3">
