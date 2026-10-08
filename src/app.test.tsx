@@ -651,7 +651,7 @@ describe('Hausaufgaben', () => {
     // Abhaken
     fireEvent.click(screen.getByRole('checkbox', { name: /Buch Seite 52.*erledigt/ }))
     expect(useStore.getState().hausaufgaben[0].done).toBe(true)
-    await waitFor(() => expect(text()).toMatch(/Alle Hausaufgaben erledigt/))
+    await waitFor(() => expect(text()).toMatch(/Alles erledigt/))
     // Wieder öffnen
     fireEvent.click(screen.getAllByRole('checkbox', { name: /wieder offen/ })[0])
     expect(useStore.getState().hausaufgaben[0].done).toBe(false)
