@@ -58,6 +58,8 @@ const ALIASES: [string, string[]][] = [
   ['informatik', ['inf', 'info', 'informatik', 'itg']],
   ['kunst', ['ku', 'kunst', 'bk']],
   ['musik', ['mu', 'mus', 'musik']],
+  // Fächer, die die App nicht als eigenes Fach kennt (Sport, Klassenrat, Religion …) zählen als „Sonstiges“
+  ['sonstiges', ['spo', 'sport', 'tut', 'klassenrat', 'kr', 'ethik', 'reli', 'religion', 'wp', 'wpf', 'lk', 'ag']],
 ]
 
 /** "Bio", "Mathematik GK", "E 7a" → Fach der App; sonst undefined. */

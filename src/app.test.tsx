@@ -757,12 +757,12 @@ describe('Neu: Lerntier, Rückmeldung, WebUntis per Zwischenablage', () => {
     }
   })
 
-  it('WebUntis: Foto vom Stundenplan wird von der KI gelesen und übernommen', async () => {
+  it('WebUntis: Screenshot wird gelesen, zur Prüfung gezeigt und erst nach „Übernehmen“ gespeichert', async () => {
     useStore.setState({ onboarded: true })
     const aiCards = await import('./lib/aiCards')
     const spy = vi.spyOn(aiCards, 'callAi').mockResolvedValue(JSON.stringify({ lessons: [
-      { day: 0, start: '08:00', end: '08:45', name: 'Bio' }, { day: 0, start: '08:55', end: '09:40', name: 'Mathe' },
-      { day: 1, start: '08:00', end: '08:45', name: 'E' }, { day: 1, start: '08:55', end: '09:40', name: 'D' },
+      { day: 0, start: '08:00', end: '08:45', cell: ['MÜL', 'BI_4', 'A12'] }, { day: 0, start: '08:55', end: '09:40', cell: ['KRA', 'MA', '204', '7a'] },
+      { day: 1, start: '08:00', end: '08:45', cell: ['E', 'SCH'] }, { day: 1, start: '08:55', end: '09:40', cell: ['DE', 'LEH'] },
     ] }))
     const ai = await import('./lib/ai')
     const blob = vi.spyOn(ai, 'blobToJpegBase64').mockResolvedValue('jpegdata')
@@ -770,8 +770,14 @@ describe('Neu: Lerntier, Rückmeldung, WebUntis per Zwischenablage', () => {
       window.location.hash = '#/settings/untis'
       render(<App />)
       const input = await screen.findByLabelText('Foto vom Stundenplan')
-      fireEvent.change(input, { target: { files: [new File(['x'], 'plan.jpg', { type: 'image/jpeg' })] } })
+      fireEvent.change(input, { target: { files: [new File(['x'], 'plan.jpg', { type: 'image/jpeg' }), new File(['y'], 'plan2.jpg', { type: 'image/jpeg' })] } })
+      await waitFor(() => expect(text()).toMatch(/Das hat die KI gelesen/), { timeout: 4000 })
+      // zwei Bilder = zwei Anfragen, gespeichert ist noch nichts
+      expect(spy).toHaveBeenCalledTimes(2)
+      expect(useStore.getState().untis).toBeNull()
+      await click(/^Übernehmen$/)
       await waitFor(() => expect(useStore.getState().untis?.lessons.length).toBe(40), { timeout: 4000 })
+      expect(useStore.getState().untis?.lessons[0].subject).toBe('biologie')
       expect(useStore.getState().schoolPeriods).toEqual([{ start: '08:00', end: '08:45' }, { start: '08:55', end: '09:40' }])
       await waitFor(() => expect(text()).toMatch(/4 Stunden pro Woche übernommen/))
     } finally {

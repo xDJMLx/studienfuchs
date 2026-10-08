@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { Camera, Check } from '../../components/ui/Icons'
 import { blobToJpegBase64 } from '../../lib/ai'
-import { readTimetablePhoto } from '../../lib/untisPhoto'
+import { importFromWeek, readTimetablePhotos, type WeeklyLesson } from '../../lib/untisPhoto'
+import { subjectFromName } from '../../lib/untis'
 import { agoText, looksLikeUntisLink, normalizeUntisUrl, UntisError } from '../../lib/untis'
 import { syncUntis } from '../../lib/untisSync'
 import { useStore } from '../../store/useStore'
@@ -105,23 +106,32 @@ export function UntisSettings({ onToast, onDone }: { onToast: (ok: boolean, text
     if (file.current) file.current.value = ''
   }
 
-  /** Foto oder Screenshot vom Stundenplan: Die KI liest ihn, die App macht daraus Stunden und Stundenraster. */
+  /** Foto oder Screenshot vom Stundenplan: Die KI schreibt ab, die App deutet die Zeilen. Der Nutzer sieht das Ergebnis, bevor es übernommen wird. */
+  const [preview, setPreview] = useState<WeeklyLesson[] | null>(null)
   const doPhoto = async (files: FileList | null) => {
     if (!files?.length) return
     setPhotoBusy(true)
     try {
-      const images = await Promise.all([...files].slice(0, 3).map((f) => blobToJpegBase64(f, 1800)))
-      const imp = await readTimetablePhoto(images)
-      if (!useStore.getState().untis) connect('')
-      useStore.getState().applyUntis(imp)
-      const perWeek = new Set(imp.lessons.slice(0, imp.lessons.length / 10).map((l) => l.id)).size
-      onToast(true, `${perWeek} Stunden pro Woche übernommen. Stimmt etwas nicht, mach ein schärferes Foto.`)
-      onDone?.()
+      const images = await Promise.all([...files].slice(0, 4).map((f) => blobToJpegBase64(f, 2200)))
+      setPreview(await readTimetablePhotos(images))
     } catch (e) {
       onToast(false, e instanceof Error ? e.message : 'Das Foto konnte nicht gelesen werden.')
     } finally {
       setPhotoBusy(false)
       if (photo.current) photo.current.value = ''
+    }
+  }
+  const acceptPreview = () => {
+    if (!preview) return
+    try {
+      const imp = importFromWeek(preview)
+      if (!useStore.getState().untis) connect('')
+      useStore.getState().applyUntis(imp)
+      onToast(true, `${preview.length} Stunden pro Woche übernommen.`)
+      setPreview(null)
+      onDone?.()
+    } catch (e) {
+      onToast(false, e instanceof Error ? e.message : 'Das hat nicht geklappt.')
     }
   }
 
@@ -149,16 +159,12 @@ export function UntisSettings({ onToast, onDone }: { onToast: (ok: boolean, text
             </div>
           )}
 
-          <div className="mb-4 rounded-2xl border-2 border-sky bg-sky-soft p-4">
-            <p className="flex items-center gap-2 font-extrabold text-sky-dark">
-              <Camera size={20} /> Am einfachsten: ein Foto
-            </p>
-            <p className="mt-1 text-sm text-ink/80">Mach ein Foto von deinem Stundenplan oder einen Screenshot aus WebUntis. Die KI liest ihn, fertig. Kein Link nötig.</p>
-            <button type="button" className="btn btn-primary press mt-3 w-full" disabled={photoBusy || busy} onClick={() => photo.current?.click()}>
-              {photoBusy ? 'Die KI liest deinen Plan …' : 'Foto auswählen'}
-            </button>
-            <input ref={photo} type="file" accept="image/*" multiple className="sr-only" aria-label="Foto vom Stundenplan" onChange={(e) => void doPhoto(e.target.files)} />
-          </div>
+          {preview ? (
+            <TimetablePreview week={preview} onAccept={acceptPreview} onRetry={() => setPreview(null)} />
+          ) : (
+            <PhotoCard busy={photoBusy || busy} working={photoBusy} onPick={() => photo.current?.click()} />
+          )}
+          <input ref={photo} type="file" accept="image/*" multiple className="sr-only" aria-label="Foto vom Stundenplan" onChange={(e) => void doPhoto(e.target.files)} />
           <p className="mb-3 text-sm font-bold text-muted">Oder mit WebUntis verbinden (bleibt automatisch aktuell und holt auch deine Arbeiten):</p>
 
           <ol className="grid gap-4">
@@ -294,6 +300,73 @@ export function UntisSettings({ onToast, onDone }: { onToast: (ok: boolean, text
         </div>
       )}
       <p className="mt-3 text-xs text-muted">Der Link enthält einen geheimen Schlüssel für deinen Stundenplan. Er bleibt auf diesem Gerät (und in deiner Sicherung). Teile ihn nicht.</p>
+    </div>
+  )
+}
+
+function PhotoCard({ busy, working, onPick }: { busy: boolean; working: boolean; onPick: () => void }) {
+  return (
+    <div className="mb-4 rounded-2xl border-2 border-sky bg-sky-soft p-4">
+      <p className="flex items-center gap-2 font-extrabold text-sky-dark">
+        <Camera size={20} /> Am einfachsten: Screenshot oder Foto
+      </p>
+      <p className="mt-1 text-sm text-ink/80">Mach einen Screenshot von deinem Stundenplan in WebUntis (oder ein Foto). Passt er nicht auf ein Bild, wähle mehrere zusammen aus, zum Beispiel oben und unten. Die KI liest sie, du siehst das Ergebnis, bevor es übernommen wird.</p>
+      <button type="button" className="btn btn-primary press mt-3 w-full" disabled={busy} onClick={onPick}>
+        {working ? 'Die KI liest deinen Plan …' : 'Bilder auswählen'}
+      </button>
+    </div>
+  )
+}
+
+const DAYS = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
+
+/** Das gelesene Stundenplan-Raster zum Prüfen: Zeilen sind die Stunden, Spalten die Tage. */
+function TimetablePreview({ week, onAccept, onRetry }: { week: WeeklyLesson[]; onAccept: () => void; onRetry: () => void }) {
+  const days = [...new Set(week.map((l) => l.day))].sort()
+  const rows = [...new Set(week.map((l) => `${l.start}-${l.end}`))].sort()
+  const cell = (d: number, r: string) => week.find((l) => l.day === d && `${l.start}-${l.end}` === r)
+  const unknown = week.filter((l) => !subjectFromName(l.name)).length
+  return (
+    <div className="mb-4 rounded-2xl border-2 border-line p-3" role="region" aria-label="Gelesener Stundenplan">
+      <p className="font-extrabold">Das hat die KI gelesen</p>
+      <p className="mb-2 text-sm text-muted">Stimmt das? {week.length} Stunden pro Woche{unknown > 0 ? `, bei ${unknown} kenne ich das Fach nicht (steht dann so, wie es im Plan steht)` : ''}.</p>
+      <div className="overflow-x-auto">
+        <table className="w-full border-separate border-spacing-1 text-center text-[12px]">
+          <thead>
+            <tr>
+              <th className="w-12" />
+              {days.map((d) => (
+                <th key={d} className="font-extrabold text-muted">
+                  {DAYS[d]}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r}>
+                <td className="whitespace-nowrap text-left text-[11px] font-semibold text-muted">{r.slice(0, 5)}</td>
+                {days.map((d) => {
+                  const c = cell(d, r)
+                  return (
+                    <td key={d} className={`rounded-md px-1 py-1 font-bold ${c ? (subjectFromName(c.name) ? 'bg-sky-soft text-sky-dark' : 'bg-snow text-muted') : ''}`}>
+                      {c?.name ?? ''}
+                    </td>
+                  )
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="mt-3 grid gap-2 sm:grid-cols-2">
+        <button type="button" className="btn btn-primary press w-full" onClick={onAccept}>
+          Übernehmen
+        </button>
+        <button type="button" className="btn btn-ghost press w-full" onClick={onRetry}>
+          Nochmal versuchen
+        </button>
+      </div>
     </div>
   )
 }

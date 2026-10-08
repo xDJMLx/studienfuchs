@@ -50,7 +50,8 @@ describe('Fach und Art erkennen', () => {
     expect(subjectFromName('Mathematik GK')).toBe('mathe')
     expect(subjectFromName('E 7a')).toBe('englisch')
     expect(subjectFromName('Politische Bildung')).toBe('politik')
-    expect(subjectFromName('Sport')).toBeUndefined()
+    expect(subjectFromName('Sport')).toBe('sonstiges')
+    expect(subjectFromName('Latein')).toBeUndefined()
     expect(subjectFromName('')).toBeUndefined()
   })
   it('Klassenarbeit, Test, Klausur, Vokabeltest; normaler Unterricht nicht', () => {
