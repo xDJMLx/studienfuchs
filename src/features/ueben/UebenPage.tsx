@@ -166,7 +166,7 @@ export function UebenPage() {
         <div className="list">
           {hwNow.length > 0 && (
             <Row
-              to="/hausaufgaben"
+              to="/kalender"
               tint="var(--good-soft)"
               icon={<Check size={20} className="text-good-dark" />}
               title={`${hwNow.length} ${hwNow.length === 1 ? 'Hausaufgabe' : 'Hausaufgaben'} offen`}

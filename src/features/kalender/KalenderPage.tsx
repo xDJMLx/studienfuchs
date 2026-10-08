@@ -3,17 +3,17 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Coin, Plus, Right } from '../../components/ui/Icons'
 import { Sheet } from '../../components/ui/Sheet'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
-import { byDay, dateKey, KINDS, kindLabel, longDay, monthGrid, monthName, needsFollowUp, parseKey, shortDay } from '../../lib/calendar'
-import { parseQuickArbeit } from '../../lib/hausaufgaben'
+import { addDays, byDay, dateKey, KINDS, kindLabel, longDay, monthGrid, monthName, needsFollowUp, parseKey, shortDay } from '../../lib/calendar'
+import { dueText, parseQuickArbeit } from '../../lib/hausaufgaben'
 import { ownDeck } from '../../lib/decks'
 import { whenText } from '../../lib/school'
 import { activeDecks, daysUntil, readiness } from '../../lib/decks'
 import { helpSubject } from '../../lib/subjects'
-import type { Arbeit, Hausaufgabe } from '../../lib/types'
+import type { Arbeit, ArbeitKind, Hausaufgabe } from '../../lib/types'
 import { ARBEIT_COINS, useStore } from '../../store/useStore'
 import { ArbeitSheet } from '../faecher/ArbeitSheet'
 import { HausaufgabeSheet } from '../hausaufgaben/HausaufgabeSheet'
-import { HomeworkRow } from '../hausaufgaben/HausaufgabenPage'
+import { HomeworkRow } from '../hausaufgaben/HomeworkRow'
 
 const when = (days: number) => (days === 0 ? 'Heute' : days === 1 ? 'Morgen' : days > 1 ? `in ${days} Tagen` : days === -1 ? 'gestern' : `vor ${-days} Tagen`)
 
@@ -60,21 +60,40 @@ function daysBetweenKeys(from: string, to: string): number {
   return Math.round((parseKey(to).getTime() - parseKey(from).getTime()) / 86_400_000)
 }
 
+type EntryType = 'hausaufgabe' | 'test' | 'arbeit'
+const ENTRY_TYPES: { id: EntryType; label: string }[] = [
+  { id: 'hausaufgabe', label: 'Hausaufgabe' },
+  { id: 'test', label: 'Test' },
+  { id: 'arbeit', label: 'Arbeit' },
+]
+const typeOfKind = (k: ReturnType<typeof parseQuickArbeit>['kind']): EntryType => (k === 'test' || k === 'vokabeltest' ? 'test' : k ? 'arbeit' : 'hausaufgabe')
+
+type Added = { type: EntryType; date: string; subject: string; arbeit?: Arbeit; hausaufgabe?: Hausaufgabe }
+
 /**
- * Arbeit in einem Satz eintragen: „Bio Test Zelle 15.10.“ + Enter. Fach, Art, Tag und Thema werden erkannt; die einzige Karteikarten-Sammlung des Fachs
- * ist gleich dabei. Fehlt der Tag, öffnet sich das Blatt zum Ergänzen. Darunter steht, was verstanden wurde; „Ändern“ öffnet das Blatt.
+ * Alles in einem Satz eintragen: „Mathe S. 52 bis morgen“ (Hausaufgabe), „Bio Test Zelle 15.10.“ (Test), „Englisch Arbeit 3.11.“ (Arbeit).
+ * Die Art wird am Wort erkannt (Test, Arbeit, Klausur, Referat …), sonst ist es eine Hausaufgabe; die drei Knöpfe darunter zeigen sie und
+ * lassen sich antippen. Fach und Tag werden erkannt. Ohne Tag gilt der im Kalender gewählte Tag, bei Hausaufgaben sonst morgen; bei Tests und
+ * Arbeiten ohne Tag öffnet sich das Blatt zum Ergänzen. Eine Karteikarten-Sammlung des Fachs ist bei Tests und Arbeiten gleich dabei.
  */
-function QuickArbeit({ onEdit, onOpenSheet }: { onEdit: (a: Arbeit) => void; onOpenSheet: () => void }) {
+function QuickEntry({ selected, today, onEdit, onOpenSheet, onJump }: { selected: string; today: string; onEdit: (a: Added) => void; onOpenSheet: (t: EntryType) => void; onJump: (date: string) => void }) {
   const mySubjects = useStore((s) => s.mySubjects) ?? []
   const sets = useStore((s) => s.sets)
   const addArbeit = useStore((s) => s.addArbeit)
+  const addHausaufgabe = useStore((s) => s.addHausaufgabe)
   const arbeiten = useStore((s) => s.arbeiten) ?? []
+  const hausaufgaben = useStore((s) => s.hausaufgaben) ?? []
   const [text, setText] = useState('')
-  const [added, setAdded] = useState<Arbeit | null>(null)
-  const fallback = arbeiten.length ? arbeiten[arbeiten.length - 1].subject : (mySubjects[0] ?? 'mathe')
+  const [forced, setForced] = useState<EntryType | null>(null)
+  const [added, setAdded] = useState<Added | null>(null)
+  const lastSubject = hausaufgaben.length ? hausaufgaben[hausaufgaben.length - 1].subject : arbeiten.length ? arbeiten[arbeiten.length - 1].subject : undefined
+  const fallback = lastSubject ?? mySubjects[0] ?? 'mathe'
   const allowed = mySubjects.length ? [...mySubjects, 'sonstiges'] : undefined
-  const q = parseQuickArbeit(text, { fallbackSubject: fallback, allowed })
-  const kind = q.kind ?? 'klassenarbeit'
+  const q = parseQuickArbeit(text, { today, fallbackSubject: fallback, allowed })
+  const type = forced ?? typeOfKind(q.kind)
+  const tomorrow = dateKey(addDays(parseKey(today), 1))
+  // Tag: ausdrücklich genannt, sonst der gewählte (künftige) Tag, sonst bei Hausaufgaben morgen
+  const date = q.date || (selected > today ? selected : type === 'hausaufgabe' ? tomorrow : '')
   const sub = helpSubject(q.subject)
 
   useEffect(() => {
@@ -85,51 +104,75 @@ function QuickArbeit({ onEdit, onOpenSheet }: { onEdit: (a: Arbeit) => void; onO
 
   const submit = () => {
     if (!text.trim()) return
-    if (!q.date) return onOpenSheet()
-    const own = sets.map(ownDeck).filter((d) => d.subject === q.subject)
-    const data = {
-      subject: q.subject,
-      kind,
-      title: q.title || `${sub?.name ?? ''}-${KINDS.find((k) => k.id === kind)?.label ?? 'Arbeit'}`.replace(/^-/, ''),
-      date: q.date,
-      deckIds: own.length === 1 ? [own[0].id] : [],
+    if (!date) return onOpenSheet(type)
+    if (type === 'hausaufgabe') {
+      const h = { subject: q.subject, text: (q.title || text.trim()).slice(0, 200), due: date }
+      const id = addHausaufgabe(h)
+      setAdded({ type, date, subject: q.subject, hausaufgabe: { ...h, id } })
+    } else {
+      const kind: ArbeitKind = type === 'test' ? (q.kind === 'vokabeltest' ? 'vokabeltest' : 'test') : q.kind && q.kind !== 'test' && q.kind !== 'vokabeltest' ? q.kind : 'klassenarbeit'
+      const own = sets.map(ownDeck).filter((d) => d.subject === q.subject)
+      const data = {
+        subject: q.subject,
+        kind,
+        title: q.title || `${sub?.name ?? ''}-${KINDS.find((k) => k.id === kind)?.label ?? 'Arbeit'}`.replace(/^-/, ''),
+        date,
+        deckIds: own.length === 1 ? [own[0].id] : [],
+      }
+      const id = addArbeit(data)
+      setAdded({ type, date, subject: q.subject, arbeit: { ...data, id } })
     }
-    const id = addArbeit(data)
-    setAdded({ ...data, id })
+    onJump(date)
     setText('')
+    setForced(null)
   }
 
+  const typeLabel = ENTRY_TYPES.find((t) => t.id === type)?.label ?? ''
   const addedSub = added ? helpSubject(added.subject) : null
   return (
     <div className="mb-5">
       <div className="flex items-center gap-2 rounded-[20px] bg-surface py-1.5 pl-4 pr-1.5">
-        <label htmlFor="arbeit-schnell" className="sr-only">
-          Arbeit in einem Satz eintragen
+        <label htmlFor="kalender-schnell" className="sr-only">
+          Hausaufgabe, Test oder Arbeit in einem Satz eintragen
         </label>
         <input
-          id="arbeit-schnell"
+          id="kalender-schnell"
           className="min-w-0 flex-1 bg-transparent py-2 text-[16px] font-semibold outline-none placeholder:font-medium placeholder:text-muted"
-          placeholder="Neue Arbeit, z. B. Bio Test Zelle 15.10."
+          placeholder="Z. B. Mathe S. 52 bis morgen"
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && submit()}
-          maxLength={80}
+          maxLength={200}
           enterKeyHint="done"
           autoComplete="off"
         />
-        <button type="button" aria-label="Arbeit eintragen" disabled={!text.trim()} onClick={submit} className="press flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-strong text-on-brand transition-opacity disabled:opacity-30">
+        <button type="button" aria-label="Eintragen" disabled={!text.trim()} onClick={submit} className="press flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-strong text-on-brand transition-opacity disabled:opacity-30">
           <Right size={16} style={{ transform: 'rotate(-90deg)' }} />
         </button>
+      </div>
+      <div className="mt-2 flex gap-1.5 px-1" role="radiogroup" aria-label="Art">
+        {ENTRY_TYPES.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            role="radio"
+            aria-checked={type === t.id}
+            onClick={() => setForced(t.id)}
+            className={`press min-h-9 rounded-full px-3.5 text-[14px] font-extrabold transition-colors ${type === t.id ? 'bg-brand-strong text-on-brand' : 'bg-surface text-muted'}`}
+          >
+            {t.label}
+          </button>
+        ))}
       </div>
       {text.trim() ? (
         <p className="mt-1.5 px-2 text-[13px] font-semibold text-muted" aria-live="polite">
           <span className="mr-1.5 inline-block h-2 w-2 rounded-full align-middle" style={{ background: sub?.c ?? '#868a95' }} aria-hidden />
-          {sub?.name ?? 'Anderes Fach'} · {kindLabel(kind)} · {q.date ? shortDay(q.date) : 'Tag fehlt noch'}
-          {q.title ? ` · ${q.title}` : ''}
+          {sub?.name ?? 'Anderes Fach'} · {typeLabel} · {date ? dueText(date, today) : 'Tag fehlt noch'}
+          {q.title && type !== 'hausaufgabe' ? ` · ${q.title}` : ''}
         </p>
       ) : added ? (
         <p className="mt-1.5 flex items-center gap-2 px-2 text-[13px] font-semibold text-good-dark" role="status">
-          Eingetragen: {addedSub?.name ?? 'Anderes Fach'} · {kindLabel(added.kind)} · {shortDay(added.date)}
+          Eingetragen: {addedSub?.name ?? 'Anderes Fach'} · {ENTRY_TYPES.find((t) => t.id === added.type)?.label} · {dueText(added.date, today)}
           <button type="button" className="press min-h-8 rounded-lg px-1.5 font-extrabold text-sky-dark" onClick={() => onEdit(added)}>
             Ändern
           </button>
@@ -142,8 +185,8 @@ function QuickArbeit({ onEdit, onOpenSheet }: { onEdit: (a: Arbeit) => void; onO
 type Adding = { kind: 'arbeit' | 'hausaufgabe'; date?: string; arbeit?: Arbeit; hausaufgabe?: Hausaufgabe }
 
 /**
- * Kalender für Arbeiten, Tests und Hausaufgaben: ein ruhiger Monat, darunter der gewählte Tag und was als Nächstes ansteht.
- * Ein Tipp auf einen Tag zeigt, was da fällig ist; das runde Plus fragt, ob es eine Arbeit oder eine Hausaufgabe ist.
+ * Kalender für Arbeiten, Tests und Hausaufgaben (die einzige Stelle dafür): oben das Eintragen in einem Satz, dann ein ruhiger Monat, darunter der gewählte Tag,
+ * die offenen Hausaufgaben und was als Nächstes ansteht. Das runde Plus öffnet das Formular.
  */
 export function KalenderPage() {
   const navigate = useNavigate()
@@ -151,6 +194,7 @@ export function KalenderPage() {
   const arbeiten = useStore((s) => s.arbeiten) ?? []
   const hausaufgaben = useStore((s) => s.hausaufgaben) ?? []
   const sets = useStore((s) => s.sets)
+  const removeHausaufgabe = useStore((s) => s.removeHausaufgabe)
   const addedUnits = useStore((s) => s.addedUnits)
   const cards = useStore((s) => s.cards)
   const periods = useStore((s) => s.schoolPeriods) ?? []
@@ -185,6 +229,11 @@ export function KalenderPage() {
   const grid = useMemo(() => monthGrid(cursor.y, cursor.m), [cursor])
   const thisMonth = cursor.y === new Date().getFullYear() && cursor.m === new Date().getMonth()
   const step = (n: number) => setCursor((c) => ({ y: c.m + n < 0 ? c.y - 1 : c.m + n > 11 ? c.y + 1 : c.y, m: (c.m + n + 12) % 12 }))
+  const jumpTo = (key: string) => {
+    const d = parseKey(key)
+    setSelected(key)
+    setCursor({ y: d.getFullYear(), m: d.getMonth() })
+  }
   const goToday = () => {
     setCursor({ y: new Date().getFullYear(), m: new Date().getMonth() })
     setSelected(today)
@@ -215,6 +264,8 @@ export function KalenderPage() {
     )
   }
 
+  const openHomework = useMemo(() => hausaufgaben.filter((h) => !h.done && h.due !== selected).sort((a, b) => a.due.localeCompare(b.due) || a.subject.localeCompare(b.subject)), [hausaufgaben, selected])
+  const doneHomework = useMemo(() => hausaufgaben.filter((h) => h.done).sort((a, b) => b.due.localeCompare(a.due)), [hausaufgaben])
   const dayEvents = days[selected] ?? []
   const dayHomework = homeworkDays[selected] ?? []
   const next = upcoming.filter((a) => a.date !== selected).slice(0, 6)
@@ -228,12 +279,18 @@ export function KalenderPage() {
     <div className="mx-auto max-w-2xl px-4 pb-6 pt-3 lg:pt-8">
       <header className="mb-4 flex items-end justify-between gap-3 px-1">
         <h1 className="large-title">Kalender</h1>
-        <button type="button" aria-label="Eintragen" className="press mb-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand-dark" onClick={() => setChoose(selected)}>
+        <button type="button" aria-label="Neu eintragen" className="press mb-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand-dark" onClick={() => setChoose(selected)}>
           <Plus size={22} />
         </button>
       </header>
 
-      <QuickArbeit onEdit={(a) => setAdding({ kind: 'arbeit', arbeit: a })} onOpenSheet={() => setAdding({ kind: 'arbeit', date: selected })} />
+      <QuickEntry
+        selected={selected}
+        today={today}
+        onEdit={(a) => setAdding(a.hausaufgabe ? { kind: 'hausaufgabe', hausaufgabe: a.hausaufgabe } : { kind: 'arbeit', arbeit: a.arbeit })}
+        onOpenSheet={(t) => setAdding({ kind: t === 'hausaufgabe' ? 'hausaufgabe' : 'arbeit', date: selected })}
+        onJump={jumpTo}
+      />
 
       {followUps.map((a) => (
         <ArbeitFollowUp key={a.id} arbeit={a} />
@@ -333,6 +390,20 @@ export function KalenderPage() {
         </section>
       )}
 
+      {openHomework.length > 0 && (
+        <section aria-label="Offene Hausaufgaben">
+          <h2 className="mb-1.5 flex items-baseline gap-2 px-1 text-[17px] font-black">
+            Offene Hausaufgaben
+            <span className="text-[14px] font-bold text-muted">{openHomework.length}</span>
+          </h2>
+          <ul className="list mb-5" style={{ '--inset': '3.4rem' } as React.CSSProperties}>
+            {openHomework.map((h) => (
+              <HomeworkRow key={h.id} h={h} today={today} onOpen={(x) => setAdding({ kind: 'hausaufgabe', hausaufgabe: x })} />
+            ))}
+          </ul>
+        </section>
+      )}
+
       {upcoming.length === 0 && <p className="mb-5 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">Steht eine Arbeit oder ein Test an? Trag ihn ein: Die App verteilt deine Karteikarten auf die Tage bis dahin und zeigt dir, wie gut alles sitzt.</p>}
 
       {past.length > 0 && (
@@ -354,6 +425,20 @@ export function KalenderPage() {
         </section>
       )}
 
+      {doneHomework.length > 0 && (
+        <details className="mb-5">
+          <summary className="press mb-1 flex min-h-11 cursor-pointer list-none items-center px-1 text-[15px] font-extrabold text-muted">Erledigte Hausaufgaben ({doneHomework.length})</summary>
+          <ul className="list" style={{ '--inset': '3.4rem' } as React.CSSProperties}>
+            {doneHomework.slice(0, 20).map((h) => (
+              <HomeworkRow key={h.id} h={h} today={today} onOpen={(x) => setAdding({ kind: 'hausaufgabe', hausaufgabe: x })} />
+            ))}
+          </ul>
+          <button type="button" className="press mt-1 min-h-11 rounded-xl px-2 text-sm font-extrabold text-muted" onClick={() => doneHomework.forEach((h) => removeHausaufgabe(h.id))}>
+            Erledigte löschen
+          </button>
+        </details>
+      )}
+
       {/* Was soll eingetragen werden? */}
       <Sheet open={choose !== null} onClose={() => setChoose(null)} title="Was möchtest du eintragen?">
         <div className="list mb-1">
@@ -369,7 +454,7 @@ export function KalenderPage() {
               <Plus size={20} />
             </span>
             <span className="min-w-0 flex-1">
-              <span className="block text-[16px] font-extrabold leading-tight">Arbeit oder Test</span>
+              <span className="block text-[16px] font-extrabold leading-tight">Test oder Arbeit</span>
               <span className="block text-[13px] text-muted">Mit Karteikarten zum Lernen</span>
             </span>
             <Right size={13} className="text-muted" />

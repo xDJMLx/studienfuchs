@@ -85,10 +85,10 @@ describe('Messung: Tippen bis zum Ziel', () => {
 
   it('2. Hausaufgabe mit anderem Fach und Tag: ein Satz und Enter', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['mathe', 'deutsch'] })
-    window.location.hash = '#/hausaufgaben'
+    window.location.hash = '#/kalender'
     render(<App />)
     taps++
-    const box = await screen.findByLabelText('Hausaufgabe in einem Satz eintragen')
+    const box = await screen.findByLabelText('Hausaufgabe, Test oder Arbeit in einem Satz eintragen')
     fireEvent.change(box, { target: { value: 'Deutsch Gedicht lernen bis übermorgen' } })
     taps++
     fireEvent.keyDown(box, { key: 'Enter' })
@@ -116,7 +116,7 @@ describe('Messung: Tippen bis zum Ziel', () => {
     const day = dateKey(addDays(new Date(), 6))
     const [, m, d] = day.split('-')
     taps++
-    const box = await screen.findByLabelText('Arbeit in einem Satz eintragen')
+    const box = await screen.findByLabelText('Hausaufgabe, Test oder Arbeit in einem Satz eintragen')
     fireEvent.change(box, { target: { value: `Bio Test Zelle ${Number(d)}.${Number(m)}.` } })
     taps++
     fireEvent.keyDown(box, { key: 'Enter' })

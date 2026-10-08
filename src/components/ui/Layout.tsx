@@ -4,7 +4,7 @@ import { Link, NavLink, useLocation, useNavigate, useOutlet } from 'react-router
 import { levelFromXp } from '../../lib/xp'
 import { useStore } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
-import { Gear, TabCalendar, TabHomework, TabRepeat, TabUser } from './Icons'
+import { Gear, TabCalendar, TabRepeat, TabUser } from './Icons'
 import { useCoachComposer } from '../../lib/coachComposer'
 import { CoachComposer } from './CoachComposer'
 import { TabBar } from './TabBar'
@@ -26,19 +26,18 @@ interface NavItem {
   t: string
 }
 
-// Vier feste Tabs: Üben (Karteikarten, alle Fächer), Kalender (Arbeiten und Hausaufgaben), Hausaufgaben und Profil (Stand, Tier, Einstellungen).
+// Drei feste Tabs: Üben (Karteikarten, alle Fächer), Kalender (Arbeiten, Tests und Hausaufgaben) und Profil (Stand, Tier, Einstellungen).
 // Die Fächer wählt man beim Start und ändert sie in den Einstellungen.
 const NAV: NavItem[] = [
   { to: '/', label: 'Üben', Icon: TabRepeat, end: true, c: 'var(--brand)', t: 'var(--brand-text)' },
   { to: '/kalender', label: 'Kalender', Icon: TabCalendar, c: 'var(--sky)', t: 'var(--sky-text)' },
-  { to: '/hausaufgaben', label: 'Hausaufgaben', Icon: TabHomework, c: 'var(--good)', t: 'var(--good-text)' },
   { to: '/profile', label: 'Profil', Icon: TabUser, c: 'var(--violet)', t: 'var(--violet-text)' },
 ]
 
 /** Zu welchem Tab eine Seite gehört (damit er auch auf Unterseiten wie dem Kalender markiert bleibt). */
 function tabOf(path: string): string {
   if (path.startsWith('/kalender')) return '/kalender'
-  if (path.startsWith('/hausaufgaben')) return '/hausaufgaben'
+  if (path.startsWith('/hausaufgaben')) return '/kalender'
   if (path.startsWith('/profile') || path.startsWith('/shop') || path.startsWith('/settings') || path.startsWith('/about')) return '/profile'
   return '/'
 }
@@ -146,7 +145,7 @@ export function Layout() {
                     <Icon size={26} />
                     {label}
                     {to === '/' && dueCount > 0 && <DueBadge n={dueCount} className="ml-auto" />}
-                    {to === '/hausaufgaben' && homeworkNow > 0 && <DueBadge n={homeworkNow} className="ml-auto" />}
+                    {to === '/kalender' && homeworkNow > 0 && <DueBadge n={homeworkNow} className="ml-auto" />}
                   </span>
                 </>
               )}
@@ -182,7 +181,7 @@ export function Layout() {
             color: c,
             textColor: t,
             icon: <Icon size={24} />,
-            badge: to === '/' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : to === '/hausaufgaben' && homeworkNow > 0 ? <DueBadge n={homeworkNow} className="absolute -right-3 -top-1.5" /> : undefined,
+            badge: to === '/' && dueCount > 0 ? <DueBadge n={dueCount} className="absolute -right-3 -top-1.5" /> : to === '/kalender' && homeworkNow > 0 ? <DueBadge n={homeworkNow} className="absolute -right-3 -top-1.5" /> : undefined,
           }))}
           activeIndex={nav.findIndex((n) => tabOf(location.pathname) === n.to)}
           onSelect={(i) => {

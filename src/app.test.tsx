@@ -182,10 +182,10 @@ describe('Die App als Ganzes', () => {
     if (!find()) fireEvent.click(screen.getByRole('button', { name: 'Nächster Monat' }))
     fireEvent.click(find()!)
     // Das runde Plus trägt für den gewählten Tag ein
-    fireEvent.click(screen.getByRole('button', { name: 'Eintragen' }))
-    fireEvent.click(await screen.findByRole('button', { name: /Arbeit oder Test/ }))
+    fireEvent.click(screen.getByRole('button', { name: 'Neu eintragen' }))
+    fireEvent.click(await screen.findByRole('button', { name: /Test oder Arbeit/ }))
     await waitFor(() => expect(text()).toMatch(/In welchem Fach/))
-    await click(/^Test$/, 'radio')
+    fireEvent.click(screen.getAllByRole('radio', { name: /^Test$/ }).at(-1)!)
     // Ein Satz Karteikarten im Fach ist gleich dabei
     const check = await screen.findByRole('checkbox', { name: /Zelle/ }, { timeout: 4000 })
     expect(check.getAttribute('aria-checked')).toBe('true')
@@ -675,30 +675,30 @@ describe('Neu: Lerntier, Rückmeldung, Hausaufgaben', () => {
 })
 
 
-describe('Hausaufgaben', () => {
+describe('Hausaufgaben im Kalender', () => {
   const addVia = async (text: string) => {
     fireEvent.change(await screen.findByLabelText('Was ist zu tun?'), { target: { value: text } })
   }
 
-  it('Der Tab Hausaufgaben: eintragen, abhaken, wieder öffnen, löschen', async () => {
+  it('Eintragen über das Plus, abhaken, wieder öffnen, löschen; am Tab steht, wie viele fällig sind', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['mathe'] })
-    window.location.hash = '#/hausaufgaben'
+    window.location.hash = '#/kalender'
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Keine Hausaufgaben eingetragen/))
-    fireEvent.click(screen.getByRole('button', { name: 'Neue Hausaufgabe' }))
+    fireEvent.click(await screen.findByRole('button', { name: 'Neu eintragen' }))
+    fireEvent.click(await screen.findByRole('button', { name: /^Hausaufgabe Was bis wann/ }))
     await addVia('Buch Seite 52, Aufgabe 3')
     await click(/^Heute$/)
     fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
     await waitFor(() => expect(useStore.getState().hausaufgaben).toHaveLength(1))
     expect(useStore.getState().hausaufgaben[0]).toMatchObject({ subject: 'mathe', text: 'Buch Seite 52, Aufgabe 3', due: dateKey(new Date()) })
     await waitFor(() => expect(text()).toMatch(/Buch Seite 52/))
-    // Am Tab steht, wie viele heute fällig sind
+    // Am Tab Kalender steht, wie viele heute fällig sind
     const nav = screen.getAllByRole('navigation', { name: 'Hauptnavigation' }).at(-1)!
-    expect(within(nav).getByRole('button', { name: /Hausaufgaben/ }).textContent).toMatch(/1/)
+    expect(within(nav).getByRole('button', { name: /Kalender/ }).textContent).toMatch(/1/)
     // Abhaken
     fireEvent.click(screen.getByRole('checkbox', { name: /Buch Seite 52.*erledigt/ }))
     expect(useStore.getState().hausaufgaben[0].done).toBe(true)
-    await waitFor(() => expect(text()).toMatch(/Alles erledigt/))
+    await waitFor(() => expect(text()).toMatch(/Erledigte Hausaufgaben \(1\)/))
     // Wieder öffnen
     fireEvent.click(screen.getAllByRole('checkbox', { name: /wieder offen/ })[0])
     expect(useStore.getState().hausaufgaben[0].done).toBe(false)
@@ -708,30 +708,55 @@ describe('Hausaufgaben', () => {
     expect(useStore.getState().hausaufgaben).toHaveLength(0)
   })
 
-  it('Schnell eintragen: ein Satz mit Fach und Tag, Enter, fertig (zwei Handgriffe statt Formular)', async () => {
-    useStore.setState({ onboarded: true, mySubjects: ['mathe', 'deutsch'] })
-    window.location.hash = '#/hausaufgaben'
+  it('Ein Satz genügt: Hausaufgabe, Test und Arbeit, die Art wird am Wort erkannt und lässt sich umstellen', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['mathe', 'deutsch', 'biologie'] })
+    window.location.hash = '#/kalender'
     render(<App />)
-    const box = await screen.findByLabelText('Hausaufgabe in einem Satz eintragen')
+    const box = await screen.findByLabelText('Hausaufgabe, Test oder Arbeit in einem Satz eintragen')
+    const art = (name: string) => screen.getByRole('radio', { name })
+    // Ohne Art-Wort: Hausaufgabe
     fireEvent.change(box, { target: { value: 'Deutsch Gedicht lernen bis übermorgen' } })
-    // Vorschau zeigt, was verstanden wurde
-    await waitFor(() => expect(text()).toMatch(/Deutsch · fällig/))
+    await waitFor(() => expect(text()).toMatch(/Deutsch · Hausaufgabe · /))
+    expect(art('Hausaufgabe').getAttribute('aria-checked')).toBe('true')
     fireEvent.keyDown(box, { key: 'Enter' })
     await waitFor(() => expect(useStore.getState().hausaufgaben).toHaveLength(1))
     expect(useStore.getState().hausaufgaben[0]).toMatchObject({ subject: 'deutsch', text: 'Gedicht lernen', due: dateKey(addDays(new Date(), 2)) })
     expect((box as HTMLInputElement).value).toBe('')
-    await waitFor(() => expect(text()).toMatch(/Eingetragen: Deutsch/))
-    // Ohne Angaben gilt das zuletzt benutzte Fach und morgen
-    fireEvent.change(box, { target: { value: 'Aufsatz fertig schreiben' } })
+    await waitFor(() => expect(text()).toMatch(/Eingetragen: Deutsch · Hausaufgabe/))
+    // Mit „Test“ im Satz: Test mit Tag, das Fach hat eine Sammlung und wird gleich verknüpft
+    const day = dateKey(addDays(new Date(), 6))
+    const [, m, d] = day.split('-')
+    fireEvent.change(box, { target: { value: `Bio Test Zelle ${Number(d)}.${Number(m)}.` } })
+    await waitFor(() => expect(art('Test').getAttribute('aria-checked')).toBe('true'))
+    expect(text()).toMatch(/Biologie · Test/)
     fireEvent.keyDown(box, { key: 'Enter' })
-    await waitFor(() => expect(useStore.getState().hausaufgaben).toHaveLength(2))
-    expect(useStore.getState().hausaufgaben[1]).toMatchObject({ subject: 'deutsch', due: dateKey(addDays(new Date(), 1)) })
-    // „Ändern“ öffnet das ganze Blatt
+    await waitFor(() => expect(useStore.getState().arbeiten).toHaveLength(1))
+    expect(useStore.getState().arbeiten[0]).toMatchObject({ subject: 'biologie', kind: 'test', title: 'Zelle', date: day })
+    // Art umstellen: derselbe Satz wird eine Arbeit
+    fireEvent.change(box, { target: { value: `Mathe Brüche ${Number(d)}.${Number(m)}.` } })
+    fireEvent.click(art('Arbeit'))
+    expect(art('Arbeit').getAttribute('aria-checked')).toBe('true')
+    fireEvent.keyDown(box, { key: 'Enter' })
+    await waitFor(() => expect(useStore.getState().arbeiten).toHaveLength(2))
+    expect(useStore.getState().arbeiten[1]).toMatchObject({ subject: 'mathe', kind: 'klassenarbeit', title: 'Brüche', date: day })
+    // „Ändern“ öffnet das Blatt
     fireEvent.click(await screen.findByRole('button', { name: 'Ändern' }))
-    await waitFor(() => expect(text()).toMatch(/Hausaufgabe bearbeiten/))
+    await waitFor(() => expect(text()).toMatch(/Termin bearbeiten/))
   })
 
-  it('Üben erinnert an offene Hausaufgaben für heute und führt zum Tab', async () => {
+  it('Ohne Tag gilt der im Kalender gewählte Tag; ohne Tag und ohne Auswahl öffnet sich bei Tests das Blatt', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['mathe'] })
+    window.location.hash = '#/kalender'
+    render(<App />)
+    const box = await screen.findByLabelText('Hausaufgabe, Test oder Arbeit in einem Satz eintragen')
+    // Test ohne Tag, heute gewählt: das Blatt fragt nach dem Tag
+    fireEvent.change(box, { target: { value: 'Mathe Test Brüche' } })
+    fireEvent.keyDown(box, { key: 'Enter' })
+    await waitFor(() => expect(text()).toMatch(/Wann|Datum|Tag/))
+    expect(useStore.getState().arbeiten).toHaveLength(0)
+  })
+
+  it('Üben erinnert an offene Hausaufgaben für heute und führt zum Kalender', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['mathe'] })
     useStore.getState().addHausaufgabe({ subject: 'mathe', text: 'Blatt', due: dateKey(addDays(new Date(), -1)) })
     useStore.getState().addHausaufgabe({ subject: 'mathe', text: 'Später', due: dateKey(addDays(new Date(), 5)) })
@@ -739,40 +764,41 @@ describe('Hausaufgaben', () => {
     await waitFor(() => expect(text()).toMatch(/1 Hausaufgabe offen/))
     expect(text()).toMatch(/Auch Überfälliges dabei/)
     fireEvent.click(screen.getByRole('link', { name: /1 Hausaufgabe offen/ }))
-    await waitFor(() => expect(text()).toMatch(/Blatt/))
+    await waitFor(() => expect(text()).toMatch(/Offene Hausaufgaben/))
+    expect(text()).toMatch(/Blatt/)
   })
 
-  it('Sortiert nach Fälligkeit: überfällig, heute, morgen', async () => {
+  it('Offene Hausaufgaben stehen nach Fälligkeit: überfällig zuerst', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['mathe', 'deutsch'] })
     const st = useStore.getState()
     st.addHausaufgabe({ subject: 'deutsch', text: 'Später lesen', due: dateKey(addDays(new Date(), 5)) })
     st.addHausaufgabe({ subject: 'mathe', text: 'Von gestern', due: dateKey(addDays(new Date(), -1)) })
     st.addHausaufgabe({ subject: 'mathe', text: 'Für morgen', due: dateKey(addDays(new Date(), 1)) })
-    window.location.hash = '#/hausaufgaben'
+    window.location.hash = '#/kalender'
     render(<App />)
     await waitFor(() => expect(text()).toMatch(/Von gestern/))
     const t = text()
-    expect(t.indexOf('Überfällig')).toBeLessThan(t.indexOf('Für morgen'))
+    expect(t.indexOf('Von gestern')).toBeLessThan(t.indexOf('Für morgen'))
     expect(t.indexOf('Für morgen')).toBeLessThan(t.indexOf('Später lesen'))
     expect(t).toMatch(/seit gestern/)
   })
 
-  it('Im Kalender: Hausaufgabe eintragen über das Plus, sie steht am Tag, Üben führt mit „Hausaufgabe eintragen“ hin', async () => {
-    useStore.setState({ onboarded: true, mySubjects: ['deutsch'] })
-    window.location.hash = '#/kalender'
+  it('Den Tab Hausaufgaben gibt es nicht mehr: drei Tabs, die alte Adresse führt in den Kalender', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['mathe'] })
+    window.location.hash = '#/hausaufgaben'
     render(<App />)
-    fireEvent.click(await screen.findByRole('button', { name: 'Eintragen' }))
-    fireEvent.click(await screen.findByRole('button', { name: /^Hausaufgabe Was bis wann/ }))
-    await addVia('Gedicht lernen')
-    fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
-    await waitFor(() => expect(useStore.getState().hausaufgaben).toHaveLength(1))
-    // Der im Kalender gewählte Tag (heute) ist vorgewählt
-    expect(useStore.getState().hausaufgaben[0].due).toBe(dateKey(new Date()))
-    await waitFor(() => expect(text()).toMatch(/Gedicht lernen/))
-    go('#/')
+    await waitFor(() => expect(text()).toMatch(/Eintragen|Kalender/))
+    const nav = screen.getAllByRole('navigation', { name: 'Hauptnavigation' }).at(-1)!
+    expect(within(nav).queryByRole('button', { name: /^Hausaufgaben/ })).toBeNull()
+    expect(within(nav).getAllByRole('button')).toHaveLength(3)
+    expect(window.location.hash).toBe('#/kalender')
+  })
+
+  it('Üben führt mit „Hausaufgabe eintragen“ in den Kalender', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['deutsch'] })
+    render(<App />)
     await waitFor(() => expect(text()).toMatch(/Hausaufgabe eintragen/))
     expect(text()).toMatch(/Arbeit eintragen/)
-    expect(text()).toMatch(/Probetest/)
   })
 
   it('Alte Stände mit WebUntis-Verbindung werden beim Laden bereinigt, eingetragene Arbeiten bleiben', () => {
