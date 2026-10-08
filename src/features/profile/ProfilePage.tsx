@@ -2,11 +2,10 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
-import { IconChip } from '../../components/ui/controls'
-import { Bug, Coin, Gear, Right, Shield, Star } from '../../components/ui/Icons'
+import { Bug, Gear, Right, Shield, Star } from '../../components/ui/Icons'
+import { AchievementIcon } from '../../components/ui/AchievementIcons'
 import { SubjectShape } from '../../components/ui/SubjectShape'
 import { CountUp, EASE } from '../../components/ui/motion'
-import { ProgressRing } from '../../components/ui/widgets'
 import { achievements } from '../../lib/achievements'
 import { dayKey } from '../../lib/streak'
 import { levelFromXp } from '../../lib/xp'
@@ -20,9 +19,8 @@ const TITLES = ['Lernneuling', 'Neugierig', 'Wortsammler', 'Vokabelprofi', 'Spra
 const titleFor = (level: number) => TITLES[Math.min(TITLES.length - 1, Math.floor((level - 1) / 2))]
 
 
-/** Jeder Erfolg hat seine eigene Farbe und Form (statt dreizehn gleicher Pokale). */
-const BADGE_COLORS = ['#ff6a3d', '#3b82ff', '#f5a800', '#19b36b', '#7c5cff', '#ee5a8d', '#14b8a6']
-const BADGE_SHAPES = ['triangle', 'circle', 'square', 'diamond', 'hexagon', 'star', 'pentagon', 'drop', 'moon', 'heart', 'bolt', 'plus', 'ring']
+/** Farben der Erfolge (jeder hat dazu sein eigenes Symbol). */
+const BADGE_COLORS = ['#ff6a3d', '#3b82ff', '#e09500', '#19b36b', '#7c5cff', '#ee5a8d', '#14a3c7']
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
@@ -52,12 +50,15 @@ export function ProfilePage() {
   const unlocked = badges.filter((b) => b.value >= b.goal).length
 
   const shown = allBadges ? badges : [...badges].sort((x, y) => y.value / y.goal - x.value / x.goal).slice(0, 3)
-  const linkRow = 'row'
   return (
     <div className="mx-auto max-w-2xl px-4 pb-8 pt-3 lg:pt-8">
-      <h1 className="large-title mb-4 px-1">Profil</h1>
+      <header className="mb-4 flex items-center justify-between px-1">
+        <h1 className="large-title">Profil</h1>
+        <Link to="/settings" aria-label="Einstellungen" className="press flex h-11 w-11 items-center justify-center rounded-[12px] border border-line bg-surface text-ink">
+          <Gear size={22} />
+        </Link>
+      </header>
 
-      {/* Fuchs, Level und Münzen */}
       <section className="card relative overflow-visible px-5 pb-5 pt-4" aria-label="Level">
         <div className="flex items-end gap-4">
           <Link to="/settings/tier" aria-label="Lerntier wechseln" className="press relative -mt-6 shrink-0 rounded-2xl">
@@ -79,14 +80,21 @@ export function ProfilePage() {
         </p>
       </section>
 
-      <div className="list mt-4">
-        <Link to="/shop" className={linkRow}>
-          <Coin size={26} className="shrink-0" />
-          <span className="min-w-0 flex-1">
-            <span className="block text-[16px] font-extrabold leading-tight">Tier und Shop</span>
-            <span className="block text-[13px] text-muted">{coins} {coins === 1 ? 'Münze' : 'Münzen'} zum Ausgeben</span>
+      {/* Zwei Blöcke wie bei den Fächern: Shop und Lernstand */}
+      <div className="mt-4 grid grid-cols-2 gap-3">
+        <Link to="/shop" className="shape-block press" style={{ '--block': '#d98a00', '--block-edge': 'color-mix(in srgb, #d98a00 55%, black)' } as React.CSSProperties}>
+          <SubjectShape id="geografie" size={24} className="text-white/95" />
+          <span>
+            <span className="block text-[34px] font-black leading-none tabular-nums">{coins}</span>
+            <span className="mt-0.5 block text-[15px] font-extrabold">Tier und Shop</span>
           </span>
-          <Right size={13} className="shrink-0 text-muted" />
+        </Link>
+        <Link to="/review" className="shape-block press" style={{ '--block': '#2f6bff', '--block-edge': 'color-mix(in srgb, #2f6bff 55%, black)' } as React.CSSProperties}>
+          <Star size={24} className="text-white/95" />
+          <span>
+            <span className="block text-[34px] font-black leading-none tabular-nums">{learned.length}</span>
+            <span className="mt-0.5 block text-[15px] font-extrabold">Lernstand</span>
+          </span>
         </Link>
       </div>
 
@@ -125,34 +133,36 @@ export function ProfilePage() {
 
       {/* Erfolge: drei, der Rest klappt auf */}
       <section className="mt-6">
-        <div className="mb-1.5 flex items-baseline justify-between px-1">
+        <div className="mb-2 flex items-baseline justify-between px-1">
           <h2 className="text-[20px] font-black">Erfolge</h2>
           <span className="text-sm text-muted"><span className="font-extrabold text-ink">{unlocked}</span> von {badges.length}</span>
         </div>
-        <ul className="grid grid-cols-3 gap-2.5">
+        <ul className="grid grid-cols-3 gap-3">
           {shown.map((b) => {
             const done = b.value >= b.goal
             const k = badges.findIndex((x) => x.id === b.id)
             const color = BADGE_COLORS[k % BADGE_COLORS.length]
-            const shape = BADGE_SHAPES[k % BADGE_SHAPES.length]
             return (
               <li key={b.id} className="card flex flex-col items-center px-2 pb-3 pt-3.5 text-center" title={b.description}>
+                <span
+                  className="flex h-16 w-16 items-center justify-center rounded-[16px]"
+                  style={{ background: done ? color : `color-mix(in srgb, ${color} 38%, var(--snow))`, boxShadow: done ? `0 4px 0 color-mix(in srgb, ${color} 55%, black)` : 'none', opacity: done ? 1 : 0.9 }}
+                >
+                  <AchievementIcon id={b.id} color={color} size={46} />
+                </span>
+                <p className="mt-2.5 line-clamp-2 text-[13px] font-extrabold leading-tight">{b.title}</p>
                 {done ? (
-                  <span
-                    className="flex h-14 w-14 items-center justify-center rounded-[14px] text-white"
-                    style={{ background: color, boxShadow: `0 4px 0 color-mix(in srgb, ${color} 55%, black)` }}
-                  >
-                    <SubjectShape id={shape} size={26} />
-                  </span>
+                  <p className="mt-0.5 text-[12px] font-bold text-good-dark">geschafft</p>
                 ) : (
-                  <ProgressRing pct={b.value / b.goal} size={58} stroke={5} color={color} track="var(--line)">
-                    <span className="text-muted opacity-70">
-                      <SubjectShape id={shape} size={22} />
-                    </span>
-                  </ProgressRing>
+                  <div className="mt-1.5 w-full" role="progressbar" aria-valuemin={0} aria-valuemax={b.goal} aria-valuenow={b.value} aria-label={`${b.title}: ${b.value} von ${b.goal}`}>
+                    <div className="h-1.5 overflow-hidden rounded-full bg-snow">
+                      <div className="h-full rounded-full" style={{ width: `${Math.max(6, (b.value / b.goal) * 100)}%`, background: color }} />
+                    </div>
+                    <p className="mt-1 text-[11px] font-bold tabular-nums text-muted">
+                      {b.value} / {b.goal}
+                    </p>
+                  </div>
                 )}
-                <p className="mt-2 line-clamp-2 text-[13px] font-extrabold leading-tight">{b.title}</p>
-                <p className={`mt-0.5 text-[12px] font-bold tabular-nums ${done ? 'text-good-dark' : 'text-muted'}`}>{done ? 'geschafft' : `${b.value} / ${b.goal}`}</p>
               </li>
             )
           })}
@@ -165,23 +175,13 @@ export function ProfilePage() {
       </section>
 
       <div className="list mt-6">
-        <Link to="/review" className={linkRow}>
-          <IconChip tone="muted"><Star size={20} /></IconChip>
-          <span className="min-w-0 flex-1 text-[16px] font-extrabold">Lernstand und Wochenbericht</span>
-          <Right size={13} className="text-muted" />
-        </Link>
-        <Link to="/settings" className={linkRow}>
-          <IconChip tone="muted"><Gear size={20} /></IconChip>
-          <span className="min-w-0 flex-1 text-[16px] font-extrabold">Einstellungen</span>
-          <Right size={13} className="text-muted" />
-        </Link>
-        <Link to="/settings/feedback" className={linkRow}>
-          <IconChip tone="muted"><Bug size={20} /></IconChip>
+        <Link to="/settings/feedback" className="row">
+          <Bug size={20} className="shrink-0 text-muted" />
           <span className="min-w-0 flex-1 text-[16px] font-extrabold">Fehler melden und Ideen</span>
           <Right size={13} className="text-muted" />
         </Link>
-        <Link to="/about" className={linkRow}>
-          <IconChip tone="muted"><Shield size={20} /></IconChip>
+        <Link to="/about" className="row">
+          <Shield size={20} className="shrink-0 text-muted" />
           <span className="min-w-0 flex-1 text-[16px] font-extrabold">Datenschutz & Impressum</span>
           <Right size={13} className="text-muted" />
         </Link>
