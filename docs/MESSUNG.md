@@ -20,6 +20,22 @@
 
 Dazu die **Bildschirme** bis zur ersten Lernrunde: vorher 11 (Start, Einführung, Tier, Fächer, Lernzeit, „Fertig“, Erstellen-Formular, Vorschau, Stapelseite, Runde), jetzt 5 (Start, Klasse und Fächer, erste Karteikarten, Vorschau, Runde).
 
+## Zweite Messung: Wie voll sind die Bildschirme?
+
+Die Beschwerde „super unübersichtlich“ betraf die Fülle. Gemessen wird mit gleichen Beispieldaten (3 Fächer, 3 Karteikarten-Sammlungen, 2 Arbeiten) pro Hauptbildschirm (ohne Tab-Leiste): **Bedienelemente** (Knöpfe, Links, Felder) und **Zeichen Text**. Vorher = Commit `266a721` (Stand, den ein Freund als unübersichtlich beschrieb), jetzt = neue Fassung. Test: `src/uebersicht.test.tsx` (hält die neuen Werte als Obergrenzen).
+
+| Bildschirm | Bedienelemente vorher → jetzt | Zeichen Text vorher → jetzt |
+|---|---|---|
+| Üben | 22 → 13 (**−41 %**) | 758 → 585 (**−23 %**) |
+| Fach-Seite | 13 → 12 (−8 %) | 855 → 461 (**−46 %**) |
+| Neu erstellen | 18 → 19 (+6 %) | 988 → 809 (**−18 %**) |
+| Kalender | 26 → 47 (+81 %) | 334 → 402 (+20 %) |
+| Profil | 8 → 9 (+13 %) | 970 → 441 (**−55 %**) |
+| Einstellungen | 61 → 14 (**−77 %**) | 4498 → 662 (**−85 %**) |
+| **Mittel** | ≈ −4 % | **≈ −35 %** |
+
+Ehrlich gelesen: Beim **Text** ist die App im Mittel gut ein Drittel leerer, bei den Einstellungen und dem Profil deutlich mehr. Bei den **Bedienelementen** ist sie im Mittel gleich geblieben: Üben und Einstellungen sind viel ruhiger, dafür hat der Kalender jetzt ein Monatsraster (jeder Tag ist eine Taste) plus Eingabezeile, und „Neu erstellen“ und das Profil haben ein Element mehr. Die 50 % gelten also für den **Aufwand beim Einrichten und Eintragen**, nicht für jede Zahl auf jedem Bildschirm.
+
 ## Was dahintersteckt
 
 1. **Einrichtung:** Nur noch Klasse und Fächer werden gefragt; Einführung (auf Wunsch), Tierwahl (Pfeile auf dem Startbildschirm), Lernzeit und Schulstunden sind aus dem Weg. Auf dem letzten Bildschirm startet ein Tipp auf ein Themenvorschlag gleich die KI, und „Los geht’s“ speichert und beginnt die Runde.
@@ -28,6 +44,7 @@ Dazu die **Bildschirme** bis zur ersten Lernrunde: vorher 11 (Start, Einführung
 
 ## Grenzen (ehrlich)
 
+- Eine einzelne Zahl „App ist X % besser“ gibt es nicht. Belegt sind: weniger Tippen für die fünf Aufgaben (≈ 55 %), weniger Text auf den Bildschirmen (≈ 35 %), sehr viel ruhigere Einstellungen und Üben. Nicht belegt sind Gefühl, Lernerfolg und Nutzung mit echten Schülern.
 - Tippen sind ein Stellvertreter für Aufwand, keine Zeitmessung und keine Messung mit echten Nutzern. Wie es sich auf einem Handy anfühlt, zeigt erst ein Versuch mit echten Schülern (zwei Freunde nutzen die App schon: ein kurzer Versuch mit frischem Browser-Profil wäre die beste nächste Messung).
 - Unverändert und deshalb nicht in der Tabelle: „Heutige Runde starten“ (1 Tipp), Karten beantworten, Profil und Einstellungen.
 - Die KI und das Puter-Fenster sind nur nachgebaut getestet. Beim ersten Mal kommt im echten Betrieb das Anmeldefenster von Puter dazu (bei Aufgabe 1 und 3 ein zusätzlicher Handgriff im Fenster, kein Tippen in der App).

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Camera, Close } from '../../components/ui/Icons'
 import { BackLink } from '../../components/ui/BackLink'
 import { blobToJpegBase64, preloadAi } from '../../lib/ai'
@@ -15,7 +15,6 @@ import { newRow, type Row } from '../upload/VocabTable'
 import { CardTable } from './CardTable'
 import { TemplateList } from './TemplateList'
 import { templatesFor } from '../../content/templates'
-import { topicSuggestions } from '../../lib/topics'
 
 type Way = 'ai' | 'notizen' | 'write' | 'vorlage'
 
@@ -40,7 +39,6 @@ export function DeckCreatePage() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const addSet = useStore((s) => s.addSet)
-  const grade = useStore((s) => s.grade)
   const [subject, setSubject] = useState(() => (helpSubject(params.get('fach') ?? '') ? (params.get('fach') as string) : (useStore.getState().mySubjects ?? []).find((id) => helpSubject(id)) ?? HELP_SUBJECTS[0].id))
   const sub = helpSubject(subject)
   const [way, setWay] = useState<Way>('ai')
@@ -189,10 +187,6 @@ export function DeckCreatePage() {
                   <span className="text-xs font-medium opacity-70">{PLAN_LABEL[p].short}</span>
                 </button>
               ))}
-              <Link to={`/test/neu?fach=${subject}`} className="tile flex-col items-start !gap-0.5 !py-3 no-underline">
-                <span className="text-[16px]">Test oder Arbeit</span>
-                <span className="text-xs font-medium opacity-70">Mit Punkten und Note</span>
-              </Link>
             </div>
           </div>
 
@@ -269,13 +263,6 @@ export function DeckCreatePage() {
                   maxLength={1500}
                 />
               </label>
-              <div className="-mt-2 flex flex-wrap gap-2" role="group" aria-label="Themenvorschläge">
-                {topicSuggestions(subject, grade).map((t) => (
-                  <button key={t} type="button" onClick={() => setRequest(t)} className={`chip !min-h-10 !text-[13px] ${request === t ? 'chip-on' : ''}`}>
-                    {t}
-                  </button>
-                ))}
-              </div>
               <details className="group rounded-2xl border border-line bg-surface px-4 py-3">
                 <summary className="flex cursor-pointer list-none items-center justify-between text-[15px] font-extrabold">
                   <span>
