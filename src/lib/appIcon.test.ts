@@ -21,12 +21,12 @@ describe('Lerntiere und ihre Namen', () => {
 })
 
 describe('App-Symbol', () => {
-  it('hell leuchtend, dunkel schwarz', () => {
+  it('hell tiefes Indigo, dunkel schwarz', () => {
     const l = iconColors(false)
     const d = iconColors(true)
     const sum = (hex: string) => parseInt(hex.slice(1, 3), 16) + parseInt(hex.slice(3, 5), 16) + parseInt(hex.slice(5, 7), 16)
     expect(sum(d.bottom)).toBe(0)
-    expect(sum(d.top)).toBeLessThan(80)
+    expect(sum(d.top)).toBeLessThan(100)
     expect(sum(l.top)).toBeGreaterThan(sum(l.bottom))
     // Hell ist blau: Blauanteil deutlich vor Rot
     expect(parseInt(l.top.slice(5, 7), 16)).toBeGreaterThan(parseInt(l.top.slice(1, 3), 16) + 100)
@@ -39,8 +39,8 @@ describe('App-Symbol', () => {
     expect(a).toContain('rx="112"')
     expect(a).toContain('<ellipse')
     expect(buildIconSvg(false, { scale: 0.68 })).toContain('scale(0.68)')
-    expect(a).toContain('app-bg-d')
-    expect(b).toContain('app-bg-l')
+    expect(a).toContain('icd')
+    expect(b).toContain('icl')
     expect(buildIconSvg(false, { round: false })).toContain('rx="0"')
     expect(a).not.toBe(b)
   })

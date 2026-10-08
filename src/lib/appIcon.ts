@@ -1,10 +1,10 @@
 /**
- * Das App-Symbol: der Fuchs (Fenni) als eigene, bewusst einfache Zeichnung: wenige große Formen, kräftige Farben, riesige Augen.
- * So wirkt es auch klein auf dem Startbildschirm; die feine Figur aus der App hat dafür zu viele Einzelheiten.
- * Hell: leuchtendes Blau (Gegenfarbe zum Orange), dunkel: Schwarz.
+ * Das App-Symbol: der Fuchs (Fenni) als weich modellierte, eigene Zeichnung: wenige große Formen mit Licht und Schatten,
+ * wie bei den bekannten Lern-Apps und nach Apples Richtlinien (eine Hauptfigur in der Mitte, keine feinen Linien, Tiefe durch überlappende Flächen).
+ * Hell: tiefes Indigo mit warmem Lichtschein hinter dem Fuchs. Dunkel: Schwarz, dieselbe Zeichnung.
  */
-export const ICON_LIGHT = { top: '#35b6ff', bottom: '#0f8bf0' }
-export const ICON_DARK = { top: '#18181b', bottom: '#000000' }
+export const ICON_LIGHT = { top: '#463bc8', bottom: '#0d0a3c' }
+export const ICON_DARK = { top: '#1a1a20', bottom: '#000000' }
 
 /** Die zwei Farben des Hintergrund-Verlaufs (oben, unten). */
 export const iconColors = (dark: boolean): { top: string; bottom: string } => (dark ? ICON_DARK : ICON_LIGHT)
@@ -17,56 +17,64 @@ export interface IconOptions {
 }
 
 const INK = '#2b170a'
+const mirrored = (inner: string) => `<g transform="translate(512 0) scale(-1 1)">${inner}</g>${inner}`
 
-/** Das rechte Ohr (das linke ist die Spiegelung). Koordinaten 512 x 512, Kopf um x = 256. */
-const ear = (id: string) =>
-  // außen orange, innen hell, die Spitze dunkel
-  `<path d="M262 172 C300 112 348 66 392 38 Q407 30 414 48 C436 106 448 188 446 268 Z" fill="#ff7f1a"/>` +
-  `<path d="M302 186 C326 144 354 110 386 84 C400 126 408 172 406 224 Z" fill="#ffe6c4"/>` +
-  `<g clip-path="url(#${id}-tip)"><path d="M262 172 C300 112 348 66 392 38 Q407 30 414 48 C436 106 448 188 446 268 Z" fill="${INK}"/></g>`
+const HEAD = 'M256 128 C352 128 432 182 448 262 C454 292 450 318 438 340 C402 398 332 434 256 434 C180 434 110 398 74 340 C62 318 58 292 64 262 C80 182 160 128 256 128 Z'
+const EAR = 'M262 172 C300 112 348 66 392 40 Q407 32 414 50 C436 108 448 188 446 268 Z'
+const CHEEK = 'M254 338 C292 338 320 324 348 308 C384 288 432 294 466 312 C472 320 478 326 482 332 C450 334 440 350 430 364 C396 410 330 436 254 436 Z'
 
-/** Die Zeichnung (Fuchskopf) in 512 x 512, mittig und mit Rand, damit weder Ohren noch Wangenspitzen am Rand kleben. */
+/** Die Zeichnung des Fuchskopfes (512 x 512), mittig mit Rand, damit weder Ohren noch Wangenspitzen am Rand kleben. */
 function foxArt(id: string): string {
   return (
     `<defs>` +
-    `<linearGradient id="${id}-h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffab45"/><stop offset="1" stop-color="#ff7a14"/></linearGradient>` +
-    `<linearGradient id="${id}-w" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffaf2"/><stop offset="1" stop-color="#ffe9cf"/></linearGradient>` +
-    `<clipPath id="${id}-tip"><rect x="0" y="0" width="512" height="104"/></clipPath>` +
+    `<radialGradient id="${id}h" cx="0.38" cy="0.22" r="0.85"><stop offset="0" stop-color="#ffc06b"/><stop offset="0.55" stop-color="#ff8a24"/><stop offset="1" stop-color="#e1560b"/></radialGradient>` +
+    `<radialGradient id="${id}w" cx="0.5" cy="0.1" r="0.9"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#ffd9bb"/></radialGradient>` +
+    `<linearGradient id="${id}e" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a3d"/><stop offset="1" stop-color="#e1560b"/></linearGradient>` +
+    `<radialGradient id="${id}i" cx="0.4" cy="0.3" r="0.8"><stop offset="0" stop-color="#7a4a1c"/><stop offset="1" stop-color="${INK}"/></radialGradient>` +
+    `<clipPath id="${id}t"><rect width="512" height="110"/></clipPath>` +
+    `<filter id="${id}s" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="16" stdDeviation="13" flood-color="#000" flood-opacity="0.5"/></filter>` +
     `</defs>` +
-    `<g transform="translate(256 258) scale(0.92) translate(-256 -232)">` +
-    `<g transform="translate(512 0) scale(-1 1)">${ear(id)}</g>` +
-    ear(id) +
-    // Kopf über den Ohren
-    `<path d="M256 124 C352 124 428 174 446 256 C450 278 458 302 482 328 C450 330 440 346 430 360 C396 408 330 434 256 434 C182 434 116 408 82 360 C72 346 62 330 30 328 C54 302 62 278 66 256 C84 174 160 124 256 124 Z" fill="url(#${id}-h)"/>` +
-    // weiße Wangen (beide Seiten) über dem Kopf
-    `<g transform="translate(512 0) scale(-1 1)"><path d="M254 334 C292 334 320 320 348 304 C384 284 432 290 466 308 C472 316 478 322 482 328 C450 330 440 346 430 360 C396 408 330 434 254 434 Z" fill="url(#${id}-w)"/></g>` +
-    `<path d="M254 334 C292 334 320 320 348 304 C384 284 432 290 466 308 C472 316 478 322 482 328 C450 330 440 346 430 360 C396 408 330 434 254 434 Z" fill="url(#${id}-w)"/>` +
-    // Augen
-    `<g transform="translate(512 0) scale(-1 1)"><ellipse cx="322" cy="262" rx="34" ry="42" fill="${INK}"/><ellipse cx="333" cy="246" rx="13" ry="15" fill="#fff"/><circle cx="312" cy="282" r="6.5" fill="#fff"/><ellipse cx="392" cy="342" rx="24" ry="14" fill="#ff8fa3" opacity="0.5"/></g>` +
-    `<ellipse cx="322" cy="262" rx="34" ry="42" fill="${INK}"/><ellipse cx="333" cy="246" rx="13" ry="15" fill="#fff"/><circle cx="312" cy="282" r="6.5" fill="#fff"/><ellipse cx="392" cy="342" rx="24" ry="14" fill="#ff8fa3" opacity="0.5"/>` +
+    `<g transform="translate(256 262) scale(0.9) translate(-256 -236)" filter="url(#${id}s)">` +
+    // Ohren: außen Verlauf, innen hell, Spitze dunkel
+    mirrored(
+      `<path d="${EAR}" fill="url(#${id}e)"/>` +
+        `<path d="M302 186 C326 144 354 110 386 84 C400 126 408 172 406 224 Z" fill="#ffe3c2"/>` +
+        `<path d="M330 190 C346 160 366 134 386 112 C396 144 400 176 398 206 Z" fill="#ffc79a"/>` +
+        `<g clip-path="url(#${id}t)"><path d="${EAR}" fill="${INK}"/></g>`,
+    ) +
+    `<path d="${HEAD}" fill="url(#${id}h)"/>` +
+    mirrored(`<path d="${CHEEK}" fill="url(#${id}w)"/>`) +
+    `<path d="M150 190 C190 160 240 150 256 150" stroke="#fff" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.28"/>` +
+    // Augen mit Lichtpunkten, Wangenröte
+    mirrored(
+      `<ellipse cx="322" cy="268" rx="36" ry="44" fill="url(#${id}i)"/>` +
+        `<ellipse cx="322" cy="268" rx="36" ry="44" fill="none" stroke="#ffb347" stroke-width="3" opacity="0.8"/>` +
+        `<ellipse cx="334" cy="250" rx="14" ry="17" fill="#fff"/><circle cx="310" cy="292" r="7" fill="#fff" opacity="0.9"/>` +
+        `<ellipse cx="396" cy="346" rx="24" ry="13" fill="#ff8fa3" opacity="0.4"/>`,
+    ) +
     // Nase und Mund
-    `<path d="M226 334 C226 318 286 318 286 334 C286 354 268 368 256 368 C244 368 226 354 226 334 Z" fill="${INK}"/>` +
-    `<ellipse cx="244" cy="333" rx="9" ry="4.5" fill="#fff" opacity="0.5"/>` +
-    `<path d="M256 368 V386 M222 386 C234 408 278 408 290 386" stroke="${INK}" stroke-width="9" stroke-linecap="round" fill="none"/>` +
+    `<path d="M226 336 C226 320 286 320 286 336 C286 356 268 370 256 370 C244 370 226 356 226 336 Z" fill="#241208"/>` +
+    `<ellipse cx="243" cy="334" rx="10" ry="5" fill="#fff" opacity="0.45"/>` +
+    `<path d="M256 370 V388 M224 388 C236 410 276 410 288 388" stroke="#241208" stroke-width="9" stroke-linecap="round" fill="none"/>` +
     `</g>`
   )
 }
 
-/**
- * Das fertige Symbol als SVG (512 x 512): Verlauf mit leichtem Glanz, darauf der Fuchs.
- */
+/** Das fertige Symbol als SVG (512 x 512): Verlauf mit Lichtschein und Glanz, darauf der Fuchs. */
 export function buildIconSvg(dark: boolean, opts: IconOptions = {}): string {
   const { round = true, scale = 1 } = opts
   const { top, bottom } = iconColors(dark)
-  const gid = `app-bg-${dark ? 'd' : 'l'}`
+  const id = `ic${dark ? 'd' : 'l'}`
+  const rx = round ? 112 : 0
   const off = (512 - 512 * scale) / 2
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">` +
-    `<defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bottom}"/></linearGradient>` +
-    `<radialGradient id="${gid}-g" cx="0.3" cy="0.1" r="0.8"><stop offset="0" stop-color="#fff" stop-opacity="${dark ? 0.1 : 0.3}"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs>` +
-    `<rect width="512" height="512" rx="${round ? 112 : 0}" fill="url(#${gid})"/>` +
-    `<rect width="512" height="512" rx="${round ? 112 : 0}" fill="url(#${gid}-g)"/>` +
-    `<g transform="translate(${off} ${off}) scale(${scale})">${foxArt(gid + '-f')}</g></svg>`
+    `<defs><linearGradient id="${id}b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${top}"/><stop offset="1" stop-color="${bottom}"/></linearGradient>` +
+    `<radialGradient id="${id}g" cx="0.5" cy="0.55" r="0.55"><stop offset="0" stop-color="#ff8a3d" stop-opacity="${dark ? 0.4 : 0.55}"/><stop offset="1" stop-color="#ff8a3d" stop-opacity="0"/></radialGradient>` +
+    `<clipPath id="${id}c"><rect width="512" height="512" rx="${rx}"/></clipPath></defs>` +
+    `<g clip-path="url(#${id}c)"><rect width="512" height="512" fill="url(#${id}b)"/><rect width="512" height="512" fill="url(#${id}g)"/>` +
+    `<ellipse cx="256" cy="-120" rx="380" ry="230" fill="#fff" opacity="${dark ? 0.05 : 0.07}"/>` +
+    `<g transform="translate(${off} ${off}) scale(${scale})">${foxArt(id)}</g></g></svg>`
   )
 }
 
