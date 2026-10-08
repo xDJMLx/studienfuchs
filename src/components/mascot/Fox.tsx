@@ -46,13 +46,15 @@ interface FoxProps {
   alive: boolean
   /** welches Tier (Standard: Fuchs) */
   species?: SpeciesId
+  /** ohne Schwanz (für App-Symbole, wo er als Fleck am Rand stören würde) */
+  noTail?: boolean
 }
 
 const reducedMotion = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
 type Parts = Record<string, Element | null>
 
-export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, pose, alive, species }, ref) {
+export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, pose, alive, species, noTail }, ref) {
   const uid = useId().replace(/:/g, '')
   const skin = skinOf(species)
   const { kopf, gesicht, hals, hintergrund } = outfit ?? {}
@@ -252,7 +254,7 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
 
       <g style={T('translateY(calc(var(--by, 0) * 1px)) rotate(calc(var(--brot, 0) * 1deg)) scale(var(--sx, 1), var(--sy, 1))', 100, 232)}>
         {/* Schwanz */}
-        <g style={T('rotate(calc(var(--tail, 0) * 1deg))', 128, 202)}>{skin.tail(ctx)}</g>
+        {!noTail && <g style={T('rotate(calc(var(--tail, 0) * 1deg))', 128, 202)}>{skin.tail(ctx)}</g>}
 
         {/* Körper */}
         <g>

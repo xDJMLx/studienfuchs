@@ -108,11 +108,13 @@ function hsl(h, s, l) {
   return { r: Math.round(f(0) * 255), g: Math.round(f(8) * 255), b: Math.round(f(4) * 255), a: 1 }
 }
 const toHex = (c) => '#' + [c.r, c.g, c.b].map((v) => v.toString(16).padStart(2, '0')).join('')
-const FOX_HUE = 212
-const BG_TOP = hsl(FOX_HUE, 0.42, 0.27)
-const BG_BOT = hsl(FOX_HUE, 0.5, 0.13)
-const LIGHT_TOP = hsl(FOX_HUE, 0.85, 0.94)
-const LIGHT_BOT = hsl(FOX_HUE, 0.72, 0.84)
+// Kräftige Farben im Stil der bekannten Lern-Apps (gleiche Werte wie src/lib/appIcon.ts): Fuchs orange auf leuchtendem Himmelblau.
+// Die PNG-Dateien sind die helle Fassung (Standard); die favicon.svg wechselt mit dem Farbschema.
+const FOX_HUE = 203
+const BG_TOP = hsl(FOX_HUE, 0.92, 0.6)
+const BG_BOT = hsl(FOX_HUE, 0.9, 0.46)
+const DARK_TOP = hsl(FOX_HUE, 0.62, 0.34)
+const DARK_BOT = hsl(FOX_HUE, 0.7, 0.2)
 
 function inside(pts, x, y) {
   let w = 0
@@ -227,9 +229,9 @@ function png(size, rgba) {
 
 // Kopf: x 22..178, y 4..148 → Mitte (100, 76). Rund: Fuchs füllt etwa vier Fünftel; maskierbar: kleiner, Android schneidet den Rand beliebig zu.
 const place = (s) => ({ tx: 60 - 100 * s, ty: 62 - 76 * s, scale: s })
-const ROUND = { radius: 27, ...place(0.56) }
-const MASKABLE = { radius: 0, ...place(0.44) }
-const FULL = { radius: 0, ...place(0.56) }
+const ROUND = { radius: 27, ...place(0.68) }
+const MASKABLE = { radius: 0, ...place(0.55) }
+const FULL = { radius: 0, ...place(0.68) }
 
 const jobs = [
   ['public/icon-192.png', 192, ROUND],
@@ -243,9 +245,9 @@ for (const [file, size, cfg] of jobs) {
 }
 
 // favicon.svg aus denselben Formen
-const t = place(0.56)
+const t = place(0.68)
 const defs = [
-  `<style>.t{stop-color:${toHex(BG_TOP)}}.b{stop-color:${toHex(BG_BOT)}}@media (prefers-color-scheme: light){.t{stop-color:${toHex(LIGHT_TOP)}}.b{stop-color:${toHex(LIGHT_BOT)}}}</style>`,
+  `<style>.t{stop-color:${toHex(BG_TOP)}}.b{stop-color:${toHex(BG_BOT)}}@media (prefers-color-scheme: dark){.t{stop-color:${toHex(DARK_TOP)}}.b{stop-color:${toHex(DARK_BOT)}}}</style>`,
   `<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop class="t" offset="0"/><stop class="b" offset="1"/></linearGradient>`,
   ...SHAPES.map((s, i) => (s.grad ? `<linearGradient id="g${i}" gradientUnits="userSpaceOnUse" x1="0" y1="${s.grad[2]}" x2="0" y2="${s.grad[3]}"><stop offset="0" stop-color="${s.grad[0]}"/><stop offset="1" stop-color="${s.grad[1]}"/></linearGradient>` : '')),
 ].join('')
