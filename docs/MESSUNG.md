@@ -29,7 +29,7 @@ Die Beschwerde „super unübersichtlich“ betraf die Fülle. Gemessen wird mit
 | Üben | 22 → 13 (**−41 %**) | 758 → 585 (**−23 %**) |
 | Fach-Seite | 13 → 12 (−8 %) | 855 → 461 (**−46 %**) |
 | Neu erstellen | 18 → 19 (+6 %) | 988 → 809 (**−18 %**) |
-| Kalender (jetzt mit den Hausaufgaben, der eigene Tab entfällt) | 26 → 46 (+77 %) | 334 → 439 (+31 %) |
+| Kalender (jetzt mit den Hausaufgaben, der eigene Tab entfällt) | 26 → 46 (+77 %) | 334 → 441 (+32 %) |
 | Profil | 8 → 9 (+13 %) | 970 → 441 (**−55 %**) |
 | Einstellungen | 61 → 14 (**−77 %**) | 4498 → 662 (**−85 %**) |
 | **Mittel** | ≈ −5 % | **≈ −33 %** |

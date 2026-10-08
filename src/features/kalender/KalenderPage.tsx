@@ -239,22 +239,35 @@ export function KalenderPage() {
     setSelected(today)
   }
 
+  /**
+   * Ein Termin als Zeile: links die Fach-Kachel (in „Als Nächstes“ stattdessen eine Datumskachel in der Fachfarbe), Titel, darunter Art, Zeit und wie gut es sitzt;
+   * rechts eine Pille, wie viele Tage es noch sind (rot ab zwei Tagen), und „Lernen“.
+   */
   const row = (a: Arbeit, opts: { showDay?: boolean } = {}) => {
     const s = helpSubject(a.subject)
     const r = readiness(a, decks, cards)
     const d = daysUntil(a)
-    const sub = [kindLabel(a.kind), whenText(periods, a), opts.showDay ? `${shortDay(a.date)} · ${when(d)}` : '', d >= 0 ? (r.total > 0 ? `${r.pct} % sitzen` : 'noch keine Karteikarten') : ''].filter(Boolean).join(' · ')
+    const sub = [kindLabel(a.kind), whenText(periods, a), d >= 0 ? (r.total > 0 ? `${r.pct} % sitzen` : 'noch keine Karten') : ''].filter(Boolean).join(' · ')
+    const date = parseKey(a.date)
     return (
       <li key={a.id} className="row !pr-3">
         <button type="button" onClick={() => setAdding({ kind: 'arbeit', arbeit: a })} className="press flex min-w-0 flex-1 items-center gap-3 text-left" aria-label={`${a.title} bearbeiten`}>
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px]" style={{ background: s?.c }}>
-            <HelpSubjectIcon id={a.subject} ink={s?.c ?? '#888'} size={22} />
-          </span>
+          {opts.showDay ? (
+            <span className="flex h-11 w-11 shrink-0 flex-col items-center justify-center rounded-[12px] leading-none text-white" style={{ background: s?.c ?? '#868a95' }} aria-hidden>
+              <span className="text-[11px] font-bold opacity-90">{monthName(date.getMonth()).slice(0, 3)}</span>
+              <span className="mt-0.5 text-[18px] font-black">{date.getDate()}</span>
+            </span>
+          ) : (
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[12px]" style={{ background: s?.c }}>
+              <HelpSubjectIcon id={a.subject} ink={s?.c ?? '#888'} size={23} />
+            </span>
+          )}
           <span className="min-w-0 flex-1">
             <span className="block truncate text-[16px] font-extrabold leading-tight">{a.title}</span>
-            <span className={`block truncate text-[13px] font-semibold ${d >= 0 && d <= 2 ? 'text-bad-dark' : 'text-muted'}`}>{sub}</span>
+            <span className="block truncate text-[13px] font-semibold text-muted">{sub}</span>
           </span>
         </button>
+        {opts.showDay && d >= 0 && <span className={`shrink-0 rounded-full px-2.5 py-1 text-[12px] font-extrabold ${d <= 2 ? 'bg-bad-soft text-bad-dark' : 'bg-snow text-muted'}`}>{when(d)}</span>}
         {d >= 0 && r.total > 0 && (
           <button type="button" className="pill-soft press shrink-0" onClick={() => navigate(`/ueben/los?arbeit=${a.id}`)}>
             Lernen
@@ -266,6 +279,14 @@ export function KalenderPage() {
 
   const openHomework = useMemo(() => hausaufgaben.filter((h) => !h.done && h.due !== selected).sort((a, b) => a.due.localeCompare(b.due) || a.subject.localeCompare(b.subject)), [hausaufgaben, selected])
   const doneHomework = useMemo(() => hausaufgaben.filter((h) => h.done).sort((a, b) => b.due.localeCompare(a.due)), [hausaufgaben])
+  // Überblick für die nächsten sieben Tage unter dem Titel
+  const weekEnd = dateKey(addDays(parseKey(today), 6))
+  const weekTests = arbeiten.filter((a) => a.date >= today && a.date <= weekEnd).length
+  const weekHw = hausaufgaben.filter((h) => !h.done && h.due <= weekEnd).length
+  const weekSummary =
+    weekTests + weekHw === 0
+      ? 'Diese Woche ist frei'
+      : `${[weekTests ? `${weekTests} ${weekTests === 1 ? 'Termin' : 'Termine'}` : '', weekHw ? `${weekHw} ${weekHw === 1 ? 'Hausaufgabe' : 'Hausaufgaben'}` : ''].filter(Boolean).join(', ')}`
   const dayEvents = days[selected] ?? []
   const dayHomework = homeworkDays[selected] ?? []
   const next = upcoming.filter((a) => a.date !== selected).slice(0, 6)
@@ -278,7 +299,10 @@ export function KalenderPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 pb-6 pt-3 lg:pt-8">
       <header className="mb-4 flex items-end justify-between gap-3 px-1">
-        <h1 className="large-title">Kalender</h1>
+        <div className="min-w-0">
+          <p className="truncate text-[15px] font-bold text-muted">{weekSummary}</p>
+          <h1 className="large-title">Kalender</h1>
+        </div>
         <button type="button" aria-label="Neu eintragen" className="press mb-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand-dark" onClick={() => setChoose(selected)}>
           <Plus size={22} />
         </button>
@@ -335,20 +359,22 @@ export function KalenderPage() {
                   onClick={() => setSelected(c.key)}
                   aria-pressed={on}
                   aria-label={dayLabel(c.key, list, hw)}
-                  className={`press flex h-[3.2rem] w-full max-w-[3.2rem] flex-col items-center justify-start gap-0.5 pt-1 ${c.inMonth ? '' : 'opacity-30'}`}
+                  className={`press flex h-[3.4rem] w-full max-w-[3.4rem] flex-col items-center justify-start gap-1 rounded-2xl pt-1.5 transition-colors ${on ? 'bg-brand-soft' : ''}`}
                 >
                   <span
-                    className={`flex h-9 w-9 items-center justify-center rounded-full text-[16px] font-bold leading-none transition-colors ${isToday ? 'bg-brand-strong font-black text-on-brand' : on ? 'bg-snow font-black ring-2 ring-brand' : c.key < today ? 'text-muted' : ''}`}
+                    className={`flex h-8 w-8 items-center justify-center rounded-full text-[16px] leading-none transition-colors ${
+                      isToday ? 'bg-brand-strong font-black text-on-brand' : on ? 'font-black text-brand-dark' : c.key < today ? 'font-semibold text-muted' : 'font-bold'
+                    }`}
                   >
                     {c.day}
                   </span>
-                  <span className="flex h-1.5 items-center gap-[3px]" aria-hidden>
+                  <span className="flex h-2 items-center gap-[3px]" aria-hidden>
                     {/* Arbeiten: ausgefüllter Punkt in der Fachfarbe, Hausaufgaben: Ring */}
                     {list.slice(0, 2).map((a) => (
-                      <span key={a.id} className="block h-1.5 w-1.5 rounded-full" style={{ background: helpSubject(a.subject)?.c ?? '#868a95' }} />
+                      <span key={a.id} className="block h-2 w-2 rounded-full" style={{ background: helpSubject(a.subject)?.c ?? '#868a95' }} />
                     ))}
                     {hw.slice(0, 2).map((h) => (
-                      <span key={h.id} className="block h-1.5 w-1.5 rounded-full border-[1.5px]" style={{ borderColor: helpSubject(h.subject)?.c ?? '#868a95' }} />
+                      <span key={h.id} className="block h-2 w-2 rounded-full border-2" style={{ borderColor: helpSubject(h.subject)?.c ?? '#868a95' }} />
                     ))}
                   </span>
                 </button>
