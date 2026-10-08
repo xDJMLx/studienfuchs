@@ -10,12 +10,12 @@ import { useStore } from '../../store/useStore'
 export type { Mood } from './look'
 
 const PHRASES: Partial<Record<PoseName, string[]>> = {
-  wave: ['Salut !', 'Hallo!', 'Bonjour !'],
-  love: ['Hihi!', 'Du bist super!', 'Merci !'],
-  surprised: ['Oh!', 'Huch!', 'Ça va ?'],
-  wink: ['Tu peux le faire !', 'Zwinker, zwinker!', 'Allez !'],
-  laugh: ['Haha!', 'Das war lustig!', 'Hihihi!'],
-  cheer: ['Bravo !', 'Weiter so!', 'Allez !'],
+  wave: ['Hallo!', 'Na du?', 'Schön, dass du da bist.'],
+  love: ['Hihi!', 'Du bist super!', 'Danke dir!'],
+  surprised: ['Oh!', 'Huch!', 'Hoppla!'],
+  wink: ['Du schaffst das!', 'Zwinker, zwinker!', 'Los, weiter!'],
+  laugh: ['Haha!', 'Das war gut!', 'Hihihi!'],
+  cheer: ['Stark!', 'Weiter so!', 'Yeah!'],
 }
 
 const rnd = <T,>(a: T[]): T => a[Math.floor(Math.random() * a.length)]
@@ -234,7 +234,7 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
     }
     const p = rnd<PoseName>(['wave', 'love', 'surprised', 'wink', 'laugh'])
     react(p, 1700)
-    say(rnd(PHRASES[p] ?? ['Salut !']))
+    say(rnd(PHRASES[p] ?? ['Hallo!']))
     if (p === 'love' || p === 'wave' || p === 'laugh') fire('hop')
   }
 

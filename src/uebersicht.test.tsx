@@ -46,10 +46,10 @@ const SCREENS: [string, string, RegExp][] = [
 
 /** Obergrenzen: So viel darf ein Bildschirm höchstens zeigen (gemessener Stand der neuen Fassung); die Zahlen vom Stand vor dem Aufräumen (Commit 266a721) stehen in docs/MESSUNG.md. */
 const LIMIT: Record<string, { controls: number; chars: number }> = {
-  Üben: { controls: 14, chars: 600 },
+  Üben: { controls: 16, chars: 640 },
   'Fach-Seite': { controls: 12, chars: 470 },
   'Neu erstellen': { controls: 19, chars: 820 },
-  Kalender: { controls: 46, chars: 450 },
+  Kalender: { controls: 46, chars: 440 },
   Profil: { controls: 10, chars: 450 },
   Einstellungen: { controls: 15, chars: 670 },
 }

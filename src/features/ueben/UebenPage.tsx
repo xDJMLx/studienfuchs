@@ -4,6 +4,7 @@ import { Mascot } from '../../components/mascot/Mascot'
 import { Check, Flame, Plus, Repeat, Right, Trophy } from '../../components/ui/Icons'
 import { Sheet } from '../../components/ui/Sheet'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
+import { SubjectShape } from '../../components/ui/SubjectShape'
 import { dateKey, kindLabel, needsFollowUp } from '../../lib/calendar'
 import { activeDecks, cardRefs, daysUntil, planToday, readiness, SESSION_SIZE } from '../../lib/decks'
 import { isDue } from '../../lib/srs'
@@ -90,6 +91,20 @@ export function UebenPage() {
   // Hausaufgaben, die heute oder schon früher fällig und noch offen sind
   const hwNow = useMemo(() => (hausaufgaben ?? []).filter((h) => !h.done && h.due <= today).sort((a, b) => a.due.localeCompare(b.due)), [hausaufgaben, today])
   const dateText = new Date().toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' })
+  // Wie viele Karten heute je Fach dran sind (für die farbigen Blöcke)
+  const blocks = useMemo(() => {
+    const n: Record<string, number> = {}
+    for (const r of [...plan.due, ...plan.fresh]) n[r.deck.subject] = (n[r.deck.subject] ?? 0) + 1
+    const ids = [...new Set([...(mySubjects ?? []), ...decks.map((d) => d.subject)])].filter((id) => helpSubject(id) && decks.some((d) => d.subject === id))
+    return ids.map((id) => ({ id, n: n[id] ?? 0 })).sort((x, y) => y.n - x.n).slice(0, 6)
+  }, [plan, decks, mySubjects])
+  // Die Schlagzeile: Was ist das Wichtigste? Eine Arbeit in den nächsten Tagen, sonst die Karten für heute
+  const soon = upcoming.find((x) => x.days <= 7)
+  const headline = soon
+    ? [soon.days === 0 ? 'Heute' : soon.days === 1 ? 'Morgen' : `In ${soon.days} Tagen`, `${helpSubject(soon.a.subject)?.name ?? ''}-${kindLabel(soon.a.kind)}.`.replace(/^-/, '')]
+    : total > 0
+      ? ['Heute', `${total} ${total === 1 ? 'Karte' : 'Karten'}.`]
+      : ['Heute ist', 'frei.']
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-6 pt-3 lg:pt-8">
@@ -105,15 +120,19 @@ export function UebenPage() {
         </>
       )}
 
-      <header className="mb-4 px-1">
+      <header className="mb-2 px-1">
         <p className="text-[15px] font-bold text-muted">{dateText}</p>
-        <h1 className="large-title">Heute</h1>
+        <h1 className="hero-title mt-1.5">
+          {headline[0]}
+          <br />
+          {headline[1]}
+        </h1>
       </header>
 
-      {/* Die eine Hauptsache */}
-      <section className="card mb-6 p-5" aria-label="Heute">
+      {/* Die eine Hauptsache: das Tier schwebt über einer Glasfläche mit der Runde für heute */}
+      <section className="mb-7" aria-label="Heute">
         {decks.length === 0 ? (
-          <div>
+          <div className="card p-5">
             <div className="mb-4 flex items-center gap-3">
               <Mascot size={64} mood="happy" alive />
               <div className="min-w-0">
@@ -123,33 +142,66 @@ export function UebenPage() {
             </div>
             <QuickCards subjects={startSubjects} grade={grade} onStart={(id) => navigate(`/ueben/los?deck=${id}`)} />
           </div>
-        ) : total > 0 ? (
-          <>
-            <p className="text-[15px] font-bold text-muted">Heute dran</p>
-            <p className="mt-0.5 flex items-baseline gap-2">
-              <span className="text-[52px] font-black leading-none tabular-nums">{total}</span>
-              <span className="text-[18px] font-extrabold">{total === 1 ? 'Karte' : 'Karten'}</span>
-            </p>
-            <p className="mt-1 text-[15px] text-muted">
-              {[plan.fresh.length > 0 && `${plan.fresh.length} neu`, plan.due.length > 0 && `${plan.due.length} zum Wiederholen`].filter(Boolean).join(' · ')}
-              {subjectNames.length > 0 && <span className="block truncate">{subjectNames.join(', ')}</span>}
-            </p>
-            <button type="button" className="btn btn-primary btn-shine press mt-4 w-full" onClick={() => navigate('/ueben/los')} autoFocus>
-              Los geht’s ({roundSize})
-            </button>
-            {total > SESSION_SIZE && <p className="mt-2 text-center text-xs text-muted">Runden zu {SESSION_SIZE} Karten, danach geht es direkt weiter.</p>}
-          </>
         ) : (
-          <div className="flex items-center gap-4">
-            <Mascot size={72} mood="cheer" alive />
-            <div className="min-w-0 flex-1">
-              <h2 className="text-[20px] font-black leading-tight">Für heute alles geschafft</h2>
-              <p className="mt-0.5 text-[14px] text-muted">{nextDue ? `Die nächste Karte ist ${dueLabel(nextDue)} dran.` : 'Neue Karteikarten sind schnell gemacht.'}</p>
-              <button type="button" className="btn btn-ghost press mt-3 !min-h-10 !px-4 !text-[15px]" onClick={() => navigate('/ueben/los')}>
-                Trotzdem üben
-              </button>
+          <>
+            <div className="relative -mb-5 flex justify-center">
+              <div className="absolute top-10 h-40 w-40 rounded-full opacity-70" style={{ background: 'rgba(255,160,80,.5)', filter: 'blur(38px)' }} aria-hidden />
+              <div className="relative" style={{ filter: 'drop-shadow(0 18px 20px rgba(20,8,60,.35))' }}>
+                <Mascot size={total > 0 ? 168 : 150} mood={total > 0 ? 'happy' : 'cheer'} alive />
+              </div>
             </div>
-          </div>
+            <div className="card relative p-4">
+              {total > 0 ? (
+                <>
+                  <p className="px-1 text-[15px] font-bold text-muted">
+                    Heute dran
+                    <span className="text-ink"> · {total} {total === 1 ? 'Karte' : 'Karten'}</span>
+                  </p>
+                  <p className="mb-3 px-1 text-[14px] text-muted">
+                    {[plan.fresh.length > 0 && `${plan.fresh.length} neu`, plan.due.length > 0 && `${plan.due.length} zum Wiederholen`].filter(Boolean).join(' · ')}
+                    {subjectNames.length > 0 && <span className="block truncate">{subjectNames.join(', ')}</span>}
+                  </p>
+                  <button type="button" className="btn btn-primary btn-shine press w-full !min-h-14 !justify-between !px-5 !text-[19px]" onClick={() => navigate('/ueben/los')} autoFocus>
+                    <span>Los geht’s</span>
+                    <span className="text-[16px] font-bold opacity-85">{roundSize} Karten</span>
+                  </button>
+                  {total > SESSION_SIZE && <p className="mt-2 text-center text-xs text-muted">Runden zu {SESSION_SIZE} Karten, danach geht es direkt weiter.</p>}
+                </>
+              ) : (
+                <div className="px-1 py-1">
+                  <h2 className="text-[20px] font-black leading-tight">Für heute alles geschafft</h2>
+                  <p className="mt-0.5 text-[14px] text-muted">{nextDue ? `Die nächste Karte ist ${dueLabel(nextDue)} dran.` : 'Neue Karteikarten sind schnell gemacht.'}</p>
+                  <button type="button" className="btn btn-ghost press mt-3 !min-h-10 !px-4 !text-[15px]" onClick={() => navigate('/ueben/los')}>
+                    Trotzdem üben
+                  </button>
+                </div>
+              )}
+
+              {blocks.length > 0 && (
+                <div className="mt-4 grid grid-cols-2 gap-3" role="group" aria-label="Fächer">
+                  {blocks.map(({ id, n }) => {
+                    const sub = helpSubject(id)!
+                    return (
+                      <button
+                        key={id}
+                        type="button"
+                        onClick={() => navigate(`/ueben/los?fach=${id}`)}
+                        aria-label={n > 0 ? `${sub.name}, ${n} ${n === 1 ? 'Karte' : 'Karten'} heute` : `${sub.name}, heute nichts dran`}
+                        className={`shape-block press ${n > 0 ? '' : 'shape-block-quiet'}`}
+                        style={n > 0 ? ({ '--block': sub.c, '--block-hi': `color-mix(in srgb, ${sub.c} 78%, white)`, '--block-edge': `color-mix(in srgb, ${sub.c} 52%, black)` } as React.CSSProperties) : undefined}
+                      >
+                        <SubjectShape id={id} size={24} className={n > 0 ? 'text-white/95' : 'text-muted'} />
+                        <span>
+                          <span className="block text-[40px] font-black leading-none tabular-nums">{n > 0 ? n : '✓'}</span>
+                          <span className="mt-0.5 block truncate text-[15px] font-extrabold">{sub.name}</span>
+                        </span>
+                      </button>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+          </>
         )}
       </section>
 

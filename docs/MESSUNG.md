@@ -26,15 +26,15 @@ Die Beschwerde „super unübersichtlich“ betraf die Fülle. Gemessen wird mit
 
 | Bildschirm | Bedienelemente vorher → jetzt | Zeichen Text vorher → jetzt |
 |---|---|---|
-| Üben | 22 → 13 (**−41 %**) | 758 → 585 (**−23 %**) |
+| Üben (jetzt mit Fach-Blöcken zum direkten Üben) | 22 → 16 (**−27 %**) | 758 → 637 (**−16 %**) |
 | Fach-Seite | 13 → 12 (−8 %) | 855 → 461 (**−46 %**) |
 | Neu erstellen | 18 → 19 (+6 %) | 988 → 809 (**−18 %**) |
-| Kalender (jetzt mit den Hausaufgaben, der eigene Tab entfällt) | 26 → 46 (+77 %) | 334 → 441 (+32 %) |
+| Kalender (jetzt mit den Hausaufgaben, der eigene Tab entfällt) | 26 → 46 (+77 %) | 334 → 429 (+28 %) |
 | Profil | 8 → 9 (+13 %) | 970 → 441 (**−55 %**) |
 | Einstellungen | 61 → 14 (**−77 %**) | 4498 → 662 (**−85 %**) |
-| **Mittel** | ≈ −5 % | **≈ −33 %** |
+| **Mittel** | ≈ −3 % | **≈ −32 %** |
 
-Ehrlich gelesen: Beim **Text** ist die App im Mittel ein Drittel leerer, bei den Einstellungen und dem Profil deutlich mehr. Bei den **Bedienelementen** ist sie im Mittel gleich geblieben: Üben und Einstellungen sind viel ruhiger, dafür hat der Kalender jetzt ein Monatsraster (jeder Tag des Monats ist eine Taste, die Tage der Nachbarmonate sind leer) plus Eingabezeile, und „Neu erstellen“ und das Profil haben ein Element mehr. Die 50 % gelten also für den **Aufwand beim Einrichten und Eintragen**, nicht für jede Zahl auf jedem Bildschirm.
+Ehrlich gelesen: Beim **Text** ist die App im Mittel ein Drittel leerer, bei den Einstellungen und dem Profil deutlich mehr. Bei den **Bedienelementen** ist sie im Mittel gleich geblieben: Einstellungen sind viel ruhiger, Üben etwas, dafür hat der Kalender jetzt ein Monatsraster (jeder Tag des Monats ist eine Taste, die Tage der Nachbarmonate sind leer) plus Eingabezeile, und „Neu erstellen“ und das Profil haben ein Element mehr. Die 50 % gelten also für den **Aufwand beim Einrichten und Eintragen**, nicht für jede Zahl auf jedem Bildschirm.
 
 ## Was dahintersteckt
 
