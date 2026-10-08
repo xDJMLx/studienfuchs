@@ -120,7 +120,7 @@ function PracticeFlowInner({ title, items, pool, fills, explanation, lessonId, e
 
   if (stage === 'explain' && explanation) {
     return (
-      <Screen onExit={() => navigate(exitTo)} footer={<button className="btn btn-primary btn-shine press w-full justify-between sm:w-64" onClick={() => setStage('practice')} autoFocus>Verstanden <Right size={18} /></button>}>
+      <Screen onExit={() => navigate(exitTo)} footer={<button className="btn btn-primary press w-full justify-between sm:w-64" onClick={() => setStage('practice')} autoFocus>Verstanden <Right size={18} /></button>}>
         <Stagger stagger={0.09}>
           <FadeItem>
             <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-brand-soft px-3 py-1 text-xs font-semibold text-brand-dark">
@@ -272,12 +272,12 @@ export function ResultScreen({
             </button>
           )}
           {cards && onMore && (
-            <button className="btn btn-primary btn-shine press w-full sm:w-64" onClick={onMore} autoFocus>
+            <button className="btn btn-primary press w-full sm:w-64" onClick={onMore} autoFocus>
               Noch eine Runde
             </button>
           )}
           {next && (
-            <button className="btn btn-primary btn-shine press w-full justify-between sm:w-72" onClick={() => onNext(next.id)} autoFocus>
+            <button className="btn btn-primary press w-full justify-between sm:w-72" onClick={() => onNext(next.id)} autoFocus>
               <span className="truncate">Nächste: {next.title}</span>
               <Right size={18} />
             </button>

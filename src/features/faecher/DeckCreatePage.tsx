@@ -307,7 +307,7 @@ export function DeckCreatePage() {
               </div>
                 </div>
               </details>
-              <button type="button" className="btn btn-primary btn-shine press w-full sm:w-72" disabled={busy || (!request.trim() && !files.length)} onClick={run}>
+              <button type="button" className="btn btn-primary press w-full sm:w-72" disabled={busy || (!request.trim() && !files.length)} onClick={run}>
                 {busy ? 'Die KI schreibt …' : plan === 'karten' ? 'Karten erstellen' : 'Aufgaben erstellen'}
               </button>
               <AiNotice />

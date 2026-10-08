@@ -189,7 +189,7 @@ export function BlitzPage() {
                 </button>
               </>
             ) : (
-              <button type="button" className="btn btn-primary btn-shine press mt-6 w-full sm:w-64" onClick={start} autoFocus>
+              <button type="button" className="btn btn-primary press mt-6 w-full sm:w-64" onClick={start} autoFocus>
                 Los!
               </button>
             )}
@@ -305,7 +305,7 @@ export function BlitzPage() {
               </div>
             )}
             <div className="mt-6 flex w-full flex-col gap-3 sm:w-72">
-              <button type="button" className="btn btn-primary btn-shine press" onClick={start} autoFocus>
+              <button type="button" className="btn btn-primary press" onClick={start} autoFocus>
                 Nochmal
               </button>
               <button type="button" className="btn btn-ghost press" onClick={() => navigate('/practice')}>

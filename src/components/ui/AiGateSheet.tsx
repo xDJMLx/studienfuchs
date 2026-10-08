@@ -164,7 +164,7 @@ export function AiGateSheet() {
 
         {phase !== 'ok' && (
           <div className="grid gap-2">
-            <button type="button" className="btn btn-primary btn-shine press w-full" onClick={start} disabled={phase === 'working'} autoFocus>
+            <button type="button" className="btn btn-primary press w-full" onClick={start} disabled={phase === 'working'} autoFocus>
               {phase === 'working' ? 'Warte auf Puter …' : phase === 'error' ? 'Nochmal versuchen' : 'KI einschalten'}
             </button>
             <button type="button" className="btn btn-ghost press w-full" onClick={cancel} disabled={phase === 'working'}>

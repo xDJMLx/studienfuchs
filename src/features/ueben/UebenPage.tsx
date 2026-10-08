@@ -144,24 +144,31 @@ export function UebenPage() {
           </div>
         ) : (
           <>
-            <div className="relative -mb-5 flex justify-center">
-              <div className="absolute top-10 h-40 w-40 rounded-full opacity-70" style={{ background: 'rgba(255,160,80,.5)', filter: 'blur(38px)' }} aria-hidden />
-              <div className="relative" style={{ filter: 'drop-shadow(0 18px 20px rgba(20,8,60,.35))' }}>
-                <Mascot size={total > 0 ? 168 : 150} mood={total > 0 ? 'happy' : 'cheer'} alive />
+            <div className="card p-4">
+              <div className="mb-3 flex items-center gap-3">
+                <div className="-my-1 shrink-0">
+                  <Mascot size={78} mood={total > 0 ? 'happy' : 'cheer'} alive />
+                </div>
+                <div className="min-w-0 flex-1">
+                  {total > 0 ? (
+                    <>
+                      <p className="text-[15px] font-bold text-muted">Heute dran</p>
+                      <p className="text-[26px] font-black leading-tight tracking-[-0.02em]">
+                        {total} {total === 1 ? 'Karte' : 'Karten'}
+                      </p>
+                      <p className="text-[14px] text-muted">
+                        {[plan.fresh.length > 0 && `${plan.fresh.length} neu`, plan.due.length > 0 && `${plan.due.length} zum Wiederholen`].filter(Boolean).join(' · ')}
+                        {subjectNames.length > 0 && <span className="block truncate">{subjectNames.join(', ')}</span>}
+                      </p>
+                    </>
+                  ) : (
+                    <p className="text-[22px] font-black leading-tight tracking-[-0.02em]">Für heute alles geschafft</p>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="card relative p-4">
               {total > 0 ? (
                 <>
-                  <p className="px-1 text-[15px] font-bold text-muted">
-                    Heute dran
-                    <span className="text-ink"> · {total} {total === 1 ? 'Karte' : 'Karten'}</span>
-                  </p>
-                  <p className="mb-3 px-1 text-[14px] text-muted">
-                    {[plan.fresh.length > 0 && `${plan.fresh.length} neu`, plan.due.length > 0 && `${plan.due.length} zum Wiederholen`].filter(Boolean).join(' · ')}
-                    {subjectNames.length > 0 && <span className="block truncate">{subjectNames.join(', ')}</span>}
-                  </p>
-                  <button type="button" className="btn btn-primary btn-shine press w-full !min-h-14 !justify-between !px-5 !text-[19px]" onClick={() => navigate('/ueben/los')} autoFocus>
+                  <button type="button" className="btn btn-primary press w-full !min-h-14 !justify-between !px-5 !text-[19px]" onClick={() => navigate("/ueben/los")}>
                     <span>Los geht’s</span>
                     <span className="text-[16px] font-bold opacity-85">{roundSize} Karten</span>
                   </button>
@@ -169,8 +176,7 @@ export function UebenPage() {
                 </>
               ) : (
                 <div className="px-1 py-1">
-                  <h2 className="text-[20px] font-black leading-tight">Für heute alles geschafft</h2>
-                  <p className="mt-0.5 text-[14px] text-muted">{nextDue ? `Die nächste Karte ist ${dueLabel(nextDue)} dran.` : 'Neue Karteikarten sind schnell gemacht.'}</p>
+                  <p className="text-[14px] text-muted">{nextDue ? `Die nächste Karte ist ${dueLabel(nextDue)} dran.` : 'Neue Karteikarten sind schnell gemacht.'}</p>
                   <button type="button" className="btn btn-ghost press mt-3 !min-h-10 !px-4 !text-[15px]" onClick={() => navigate('/ueben/los')}>
                     Trotzdem üben
                   </button>
@@ -187,12 +193,12 @@ export function UebenPage() {
                         type="button"
                         onClick={() => navigate(`/ueben/los?fach=${id}`)}
                         aria-label={n > 0 ? `${sub.name}, ${n} ${n === 1 ? 'Karte' : 'Karten'} heute` : `${sub.name}, heute nichts dran`}
-                        className={`shape-block press ${n > 0 ? '' : 'shape-block-quiet'}`}
-                        style={n > 0 ? ({ '--block': sub.c, '--block-hi': `color-mix(in srgb, ${sub.c} 78%, white)`, '--block-edge': `color-mix(in srgb, ${sub.c} 52%, black)` } as React.CSSProperties) : undefined}
+                        className={`shape-block press ${n > 0 ? '' : 'shape-block-quiet !min-h-[88px]'}`}
+                        style={n > 0 ? ({ '--block': sub.c, '--block-edge': `color-mix(in srgb, ${sub.c} 55%, black)` } as React.CSSProperties) : undefined}
                       >
                         <SubjectShape id={id} size={24} className={n > 0 ? 'text-white/95' : 'text-muted'} />
                         <span>
-                          <span className="block text-[40px] font-black leading-none tabular-nums">{n > 0 ? n : '✓'}</span>
+                          {n > 0 ? <span className="block text-[40px] font-black leading-none tabular-nums">{n}</span> : <span aria-hidden className="block text-[22px] font-black leading-none">✓</span>}
                           <span className="mt-0.5 block truncate text-[15px] font-extrabold">{sub.name}</span>
                         </span>
                       </button>

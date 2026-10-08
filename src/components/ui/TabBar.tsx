@@ -1,179 +1,61 @@
-import { AnimatePresence, motion, useAnimationControls, useMotionValue, useReducedMotion, useSpring, useTransform, useVelocity, type MotionValue } from 'framer-motion'
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import type { ReactNode } from 'react'
 
 export interface TabDef {
   key: string
   label: string
   icon: ReactNode
   badge?: ReactNode
-  /** Farbe des Tabs (Fläche der Linse) und Schriftfarbe, wenn er aktiv ist */
+  /** Farbe des aktiven Tabs (Balken und Symbol) und seine Schriftfarbe */
   color?: string
   textColor?: string
 }
 
 /**
- * Tab-Leiste mit "Linse" wie bei iOS: Finger aufsetzen, die Glas-Linse hebt sich unter dem Finger,
- * folgt ihm von Tab zu Tab, und beim Loslassen öffnet sich der Tab darunter. Ein einfaches Antippen geht genauso.
- * Mit Tastatur oder Screenreader bleiben es ganz normale Knöpfe.
- * `extra` erscheint oben in derselben Glas-Fläche (z. B. das Eingabefeld des Lern-Coachs).
+ * Untere Leiste (Handy): durchgehend, flach, oben eine feine Linie. Der aktive Tab hat oben einen Balken in seiner Farbe, Symbol und Schrift
+ * werden dunkel; die anderen sind grau. Keine schwebende Kapsel, keine Spielereien: Man soll sofort sehen, wo man ist.
+ * `extra` erscheint oben in derselben Fläche (z. B. das Eingabefeld des Lern-Coachs).
  */
 export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[]; activeIndex: number; onSelect: (index: number) => void; extra?: ReactNode }) {
   const reduce = useReducedMotion()
-  const n = tabs.length
-  const row = useRef<HTMLDivElement>(null)
-  const raw = useMotionValue(Math.max(activeIndex, 0))
-  const pos = useSpring(raw, reduce ? { duration: 0.01 } : { stiffness: 560, damping: 40, mass: 0.8 })
-  const press = useSpring(0, { stiffness: 500, damping: 30 })
-  // Gummi-Effekt: Je schneller die Linse sich bewegt, desto mehr streckt sie sich (ganz leicht)
-  const speed = useVelocity(pos)
-  const stretchX = useTransform(speed, (v) => 1 + Math.min(0.16, Math.abs(v) * 0.028))
-  const stretchY = useTransform(speed, (v) => 1 - Math.min(0.07, Math.abs(v) * 0.01))
-  const [pressed, setPressed] = useState(false)
-  const [focusIndex, setFocusIndex] = useState(activeIndex)
-  const dragging = useRef(false)
-
-  // Im Ruhezustand liegt die Linse unter dem aktiven Tab
-  useEffect(() => {
-    if (dragging.current) return
-    raw.set(Math.max(activeIndex, 0))
-    setFocusIndex(activeIndex)
-  }, [activeIndex, raw])
-
-  const fromPointer = (clientX: number) => {
-    const rect = row.current?.getBoundingClientRect()
-    if (!rect) return 0
-    return Math.min(n - 1, Math.max(0, (clientX - rect.left) / (rect.width / n) - 0.5))
-  }
-
-  const move = (clientX: number) => {
-    const v = fromPointer(clientX)
-    raw.set(v)
-    const idx = Math.round(v)
-    setFocusIndex((prev) => {
-      if (prev !== idx) navigator.vibrate?.(6)
-      return idx
-    })
-  }
-
-  // Prozent bei translateX beziehen sich auf die Linse selbst (= ein Tab breit): reine GPU-Bewegung, kein Layout
-  const lensX = useTransform(pos, (v) => `${v * 100}%`)
-  const lensShown = activeIndex >= 0 || pressed
-
   return (
-    <nav
-      aria-label="Hauptnavigation"
-      className="tabbar fixed inset-x-4 z-40 mx-auto flex max-w-md flex-col rounded-[2rem] p-1 lg:hidden"
-      style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.5rem)', '--tab-c': tabs[Math.max(0, focusIndex)]?.color ?? 'var(--brand)' } as React.CSSProperties}
-    >
-      {/* Das Eingabefeld gleitet beim Öffnen hoch und blendet ein (nur Transform und Deckkraft, das ist flüssig).
-          Beim Verlassen blendet es aus und die Leiste klappt kurz zusammen. */}
+    <nav aria-label="Hauptnavigation" className="tabbar fixed inset-x-0 bottom-0 z-40 flex flex-col lg:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
       <AnimatePresence initial={false}>
         {extra && (
           <motion.div
             key="extra"
             initial={reduce ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0, height: 'auto' }}
-            exit={reduce ? undefined : { opacity: 0, y: 10, height: 0, transition: { duration: 0.24, ease: [0.4, 0, 0.2, 1] } }}
-            transition={{ type: 'spring', stiffness: 420, damping: 30 }}
+            exit={reduce ? undefined : { opacity: 0, y: 10, height: 0, transition: { duration: 0.2 } }}
+            transition={{ type: 'spring', stiffness: 420, damping: 32 }}
             className="overflow-hidden"
           >
-            <div className="px-1 pb-1.5 pt-0.5">{extra}</div>
+            <div className="px-3 pb-1.5 pt-2">{extra}</div>
           </motion.div>
         )}
       </AnimatePresence>
-      <div
-        ref={row}
-        className="relative flex touch-none items-stretch"
-        onPointerDown={(e) => {
-          if (e.pointerType === 'mouse' && e.button !== 0) return
-          dragging.current = true
-          try {
-            row.current?.setPointerCapture(e.pointerId)
-          } catch {
-            /* Zeiger nicht mehr aktiv */
-          }
-          setPressed(true)
-          press.set(1)
-          move(e.clientX)
-        }}
-        onPointerMove={(e) => {
-          if (dragging.current) move(e.clientX)
-        }}
-        onPointerUp={(e) => {
-          if (!dragging.current) return
-          dragging.current = false
-          const idx = Math.round(fromPointer(e.clientX))
-          setPressed(false)
-          press.set(0)
-          raw.set(idx)
-          onSelect(idx)
-        }}
-        onPointerCancel={() => {
-          dragging.current = false
-          setPressed(false)
-          press.set(0)
-          raw.set(Math.max(activeIndex, 0))
-          setFocusIndex(activeIndex)
-        }}
-      >
-        {/* Die Linse */}
-        <motion.span
-          aria-hidden
-          className="pointer-events-none absolute inset-y-0 rounded-full"
-          style={{ left: 0, x: lensX, width: `calc(100% / ${n})`, opacity: lensShown ? 1 : 0 }}
-          animate={{ scale: pressed && !reduce ? 1.1 : 1, y: pressed && !reduce ? -2 : 0 }}
-          transition={{ type: 'spring', stiffness: 420, damping: 24 }}
-        >
-          {/* Wie bei iOS: eine ruhige, leicht getönte Kapsel ohne Rand. Die Farbe steckt nur in Symbol und Schrift. */}
-          <motion.span
-            className="absolute inset-0 rounded-full transition-[background,box-shadow] duration-200"
-            style={{
-              scaleX: reduce ? 1 : stretchX,
-              scaleY: reduce ? 1 : stretchY,
-              background: pressed ? 'color-mix(in srgb, var(--tab-c) 16%, transparent)' : 'color-mix(in srgb, var(--tab-c) 11%, transparent)',
-              boxShadow: pressed ? '0 6px 16px -8px rgba(0,0,0,0.35)' : 'none',
-            }}
-          />
-        </motion.span>
-
-        {tabs.map((t, i) => (
-          <Tab key={t.key} tab={t} index={i} pos={pos} press={press} current={i === focusIndex} onKey={() => onSelect(i)} isActive={i === activeIndex} />
-        ))}
+      <div className="flex items-stretch">
+        {tabs.map((t, i) => {
+          const on = i === activeIndex
+          return (
+            <button
+              key={t.key}
+              type="button"
+              aria-current={on ? 'page' : undefined}
+              aria-label={t.label}
+              onClick={() => onSelect(i)}
+              className={`press relative flex min-h-[3.4rem] flex-1 flex-col items-center justify-center gap-0.5 text-[11px] font-bold ${on ? 'text-ink' : 'text-muted'}`}
+            >
+              <span aria-hidden className="absolute inset-x-5 top-0 h-[3px] rounded-b-full transition-opacity" style={{ background: t.color ?? 'var(--brand)', opacity: on ? 1 : 0 }} />
+              <span className="relative block" style={on ? { color: t.textColor ?? 'var(--brand-text)' } : undefined}>
+                {t.icon}
+                {t.badge}
+              </span>
+              <span>{t.label}</span>
+            </button>
+          )
+        })}
       </div>
     </nav>
-  )
-}
-
-function Tab({ tab, index, pos, press, current, isActive, onKey }: { tab: TabDef; index: number; pos: MotionValue<number>; press: MotionValue<number>; current: boolean; isActive: boolean; onKey: () => void }) {
-  // Unter der Linse wächst das Symbol, wenn der Finger drauf ist
-  const scale = useTransform([pos, press], ([v, p]: number[]) => 1 + 0.12 * p * Math.max(0, 1 - Math.abs(index - v)))
-  const reduce = useReducedMotion()
-  const bounce = useAnimationControls()
-  const wasActive = useRef(isActive)
-  // Wird dieser Tab der aktive, hüpft sein Symbol einmal (springt hoch, quetscht beim Landen, wackelt aus)
-  useEffect(() => {
-    if (isActive && !wasActive.current && !reduce) {
-      void bounce.start({ y: [0, -9, 1.5, 0], scaleY: [1, 1.14, 0.9, 1], scaleX: [1, 0.92, 1.1, 1], rotate: [0, -7, 4, 0], transition: { duration: 0.55, times: [0, 0.35, 0.7, 1], ease: 'easeOut' } })
-    }
-    wasActive.current = isActive
-  }, [isActive, bounce, reduce])
-  return (
-    <button
-      type="button"
-      aria-current={isActive ? 'page' : undefined}
-      aria-label={tab.label}
-      // Mit Maus/Finger regelt die Leiste alles selbst; echte Klicks kommen nur per Tastatur (detail = 0)
-      onClick={(e) => {
-        if (e.detail === 0) onKey()
-      }}
-      className={`relative z-10 flex min-h-[3.25rem] flex-1 flex-col items-center justify-center gap-px rounded-full text-[10px] font-semibold tracking-wide outline-offset-[-2px] transition-colors duration-200 ${current ? '' : 'text-muted'}`}
-      style={current ? { color: tab.textColor ?? 'var(--brand-text)' } : undefined}
-    >
-      <motion.span className="relative block" style={{ scale }} animate={bounce}>
-        {tab.icon}
-        {tab.badge}
-      </motion.span>
-      <span>{tab.label}</span>
-    </button>
   )
 }

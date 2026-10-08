@@ -2,9 +2,10 @@
 @import '@fontsource-variable/onest';
 
 /*
- * Design v4 "Glas und Formen": milchiges Glas auf leuchtenden Farbwolken (Muster iOS 26), dazu dicke, farbcodierte Blöcke mit Form
- * für alles, was man wählt (Muster Kahoot). Schrift: Onest. Farben mit fester Bedeutung: Orange = Lernen und Hauptknöpfe,
- * Blau = Auswahl, Violett = KI, Gold = XP und Münzen, Grün/Rot = richtig/falsch. Dunkel ist die Hauptfassung, hell die luftige Schwester.
+ * Design v5 "Flach und klar": Quizlet für die Ruhe (helle, flache Flächen, ein klarer Hauptknopf, große Schrift), Kahoot für den Spaß
+ * (dicke, farbcodierte Blöcke mit Form und harter Unterkante, nur dort, wo man etwas wählt). Bewusst ohne alles, woran man KI-Entwürfe erkennt:
+ * keine Verläufe, keine Unschärfe, kein Leuchten, kein Violett als Hauptfarbe, keine übergroßen Rundungen, keine schwebende Glas-Leiste.
+ * Farben mit fester Bedeutung: Orange = Hauptknopf und Lernen, Rot/Blau/Gelb/Grün = Fächer und Antworten, Grün/Rot = richtig/falsch.
  */
 
 /* Dark-Mode wird über die Klasse "dark" auf <html> gesteuert (System / Hell / Dunkel in den Einstellungen). */
@@ -12,37 +13,31 @@
 
 :root {
   color-scheme: light;
-  /* Grund und Farbwolken (liegen fest hinter allem) */
-  --base: #f3f0ff;
-  --mesh:
-    radial-gradient(60% 42% at 6% 0%, #ffd3b3 0, transparent 72%), radial-gradient(52% 40% at 100% 14%, #d4cdff 0, transparent 72%),
-    radial-gradient(58% 42% at 0% 100%, #bdeee0 0, transparent 72%), radial-gradient(50% 38% at 100% 100%, #ffd8e7 0, transparent 72%);
-  --page: transparent;
-  --bg: transparent;
-  --surface: rgba(255, 255, 255, 0.66);
+  --base: #f4f5f9;
+  --page: #f4f5f9;
+  --bg: #f4f5f9;
+  --surface: #ffffff;
   --surface-solid: #ffffff;
-  --snow: rgba(66, 54, 150, 0.08);
-  --line: rgba(66, 54, 150, 0.13);
-  --ink: #1b1347;
-  --muted: #5f5a85;
-  --glass-edge: rgba(255, 255, 255, 0.9);
-  --glass-blur: 22px;
+  --snow: #eceef4;
+  --line: #dfe2ea;
+  --ink: #14161f;
+  --muted: #5b6070;
 
   --brand: #ff7a1a;
   --brand-text: #b04708;
-  --brand-soft: rgba(255, 122, 26, 0.14);
-  --shade-brand: #9c3703;
+  --brand-soft: #fff0e3;
+  --shade-brand: #8f3202;
   --brand-strong: #cf4a05;
   --on-brand: #ffffff;
 
   --sky: #2f6bff;
   --sky-text: #1d4fd6;
-  --sky-soft: rgba(47, 107, 255, 0.12);
+  --sky-soft: #e8efff;
   --shade-sky: #1d4fd6;
 
   --violet: #7c5cff;
   --violet-text: #5a3ad6;
-  --violet-soft: rgba(124, 92, 255, 0.13);
+  --violet-soft: #efeaff;
   --shade-violet: #5a3ad6;
   --teal: #14b8a6;
   --teal-text: #0b7a6e;
@@ -51,11 +46,11 @@
 
   --good: #1fb866;
   --good-text: #12804a;
-  --good-soft: rgba(31, 184, 102, 0.14);
+  --good-soft: #e1f6ea;
   --shade-good: #12804a;
   --bad: #ff4b55;
   --bad-text: #cf2f39;
-  --bad-soft: rgba(255, 75, 85, 0.12);
+  --bad-soft: #ffe9ea;
   --shade-bad: #cf2f39;
 
   --gold: #ffbf1f;
@@ -63,41 +58,39 @@
   --shade-gold: #df9f00;
   --flame: #ff7a1a;
   --flame-text: #d9590a;
-  --shade-line: rgba(66, 54, 150, 0.2);
-  --shadow: 0 1px 2px rgba(40, 20, 120, 0.06);
-  --shadow-lift: 0 16px 34px -18px rgba(40, 20, 120, 0.4);
+  --shade-line: #cdd1db;
+  --shadow: none;
+  --shadow-lift: 0 10px 24px -14px rgba(20, 22, 31, 0.35);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .dark {
   color-scheme: dark;
-  --base: #15112f;
-  --mesh:
-    radial-gradient(60% 40% at 8% 0%, rgba(255, 138, 61, 0.5) 0, transparent 72%), radial-gradient(52% 40% at 100% 22%, rgba(109, 91, 255, 0.6) 0, transparent 72%),
-    radial-gradient(60% 42% at 0% 100%, rgba(23, 209, 176, 0.38) 0, transparent 72%), radial-gradient(48% 38% at 100% 100%, rgba(255, 90, 150, 0.22) 0, transparent 72%);
-  --surface: rgba(255, 255, 255, 0.1);
-  --surface-solid: #231d4d;
-  --snow: rgba(255, 255, 255, 0.09);
-  --line: rgba(255, 255, 255, 0.15);
-  --ink: #f7f4ff;
-  --muted: #b7b0dc;
-  --glass-edge: rgba(255, 255, 255, 0.28);
+  --base: #15161b;
+  --page: #15161b;
+  --bg: #15161b;
+  --surface: #1f2128;
+  --surface-solid: #1f2128;
+  --snow: #2a2d36;
+  --line: #353946;
+  --ink: #f4f5f8;
+  --muted: #a4a9b8;
 
   --brand: #ff8a2a;
   --brand-text: #ffb27a;
-  --brand-soft: rgba(255, 138, 42, 0.2);
-  --shade-brand: #9c3703;
+  --brand-soft: #3a2616;
+  --shade-brand: #8f3202;
   --brand-strong: #cf4a05;
   --on-brand: #ffffff;
 
   --sky: #5b8cff;
   --sky-text: #a9c2ff;
-  --sky-soft: rgba(91, 140, 255, 0.2);
+  --sky-soft: #1d2a4d;
   --shade-sky: #2f55c8;
 
   --violet: #a58bff;
   --violet-text: #cbbcff;
-  --violet-soft: rgba(165, 139, 255, 0.2);
+  --violet-soft: #2a2447;
   --shade-violet: #6c47d6;
   --teal: #2dd4bf;
   --teal-text: #6ee7d8;
@@ -106,20 +99,20 @@
 
   --good: #3ccf84;
   --good-text: #86efb5;
-  --good-soft: rgba(60, 207, 132, 0.2);
+  --good-soft: #16382a;
   --shade-good: #22953f;
   --bad: #ff5d66;
   --bad-text: #ffa0a6;
-  --bad-soft: rgba(255, 93, 102, 0.2);
+  --bad-soft: #3d2025;
   --shade-bad: #c4353f;
 
   --gold: #ffc533;
   --gold-text: #ffd36b;
   --shade-gold: #c99200;
   --flame-text: #ffab66;
-  --shade-line: rgba(0, 0, 0, 0.4);
+  --shade-line: #0b0c10;
   --shadow: none;
-  --shadow-lift: 0 16px 34px -16px rgba(0, 0, 0, 0.75);
+  --shadow-lift: 0 14px 30px -14px rgba(0, 0, 0, 0.75);
 }
 
 /* Schriftstärken eine Stufe kräftiger: In Nunito sehen Überschriften sonst kaum anders aus als Text */
@@ -189,8 +182,6 @@ body {
   font-weight: 600;
   color: var(--ink);
   background-color: var(--base);
-  background-image: var(--mesh);
-  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior-y: none;
@@ -452,7 +443,7 @@ h1, h2, h3 {
 .safe-bottom { padding-bottom: max(env(safe-area-inset-bottom), 0px); }
 
 /* ---------- Handy: Glas-Leiste und Bedienung ---------- */
-:root { --tabbar-h: calc(5rem + env(safe-area-inset-bottom, 0px)); }
+:root { --tabbar-h: calc(3.5rem + env(safe-area-inset-bottom, 0px)); }
 
 /* Schwebende Leiste: klare, deckende Kapsel mit Rahmen und weichem Schatten (keine Unschärfe: sauberer und schneller) */
 .glass {
@@ -854,64 +845,60 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
 .pill-soft:active { transform: scale(0.96); }
 
 
-/* ---------- Design v4: Glas ----------
-   Steht außerhalb von @layer und gewinnt deshalb gegen die Bausteine oben. Jede Fläche ist milchiges Glas mit heller Oberkante. */
+/* ---------- Design v5: flach ----------
+   Steht außerhalb von @layer und gewinnt deshalb gegen die Bausteine oben. Keine Unschärfe, keine Verläufe, kleine Rundungen. */
 .card,
 .list,
-.panel,
-.tile,
-.chip,
-.segmented,
-.glass {
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.5);
-  backdrop-filter: blur(var(--glass-blur)) saturate(1.5);
-  box-shadow: inset 0 1px 0 var(--glass-edge), 0 14px 30px -18px rgba(40, 20, 120, 0.35);
-}
-.dark .card,
-.dark .list,
-.dark .panel,
-.dark .tile,
-.dark .chip,
-.dark .segmented,
-.dark .glass {
-  box-shadow: inset 0 1px 0 var(--glass-edge), 0 18px 36px -20px rgba(0, 0, 0, 0.7);
-}
-.card {
-  border-radius: 24px;
-  border-width: 1px;
-}
-.list {
-  border-radius: 26px;
-  border: 1px solid var(--line);
-}
 .panel {
-  border-radius: 26px;
+  background: var(--surface);
   border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.list > .row:first-child,
+.list > a.row:first-child {
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
 }
 .glass {
+  background: var(--surface);
   border: 1px solid var(--line);
 }
 .tile {
-  border-radius: 20px;
+  border-radius: 12px;
+  border-width: 1.5px;
+}
+.chip {
+  border-radius: 10px;
+}
+.segmented {
+  border-radius: 12px;
+}
+.segmented > button {
+  border-radius: 9px;
 }
 .segmented > button[aria-checked='true'],
 .segmented > button[aria-pressed='true'] {
-  background: var(--surface-solid);
+  background: var(--surface);
+  box-shadow: 0 1px 0 var(--line);
 }
+/* Knöpfe: flach, mit harter Unterkante (wie ein echter Knopf); beim Drücken sinken sie ein */
 .btn {
-  border-radius: 18px;
+  border-radius: 12px;
 }
-/* Hauptknopf: leuchtendes Orange mit heller Oberkante und warmem Schein */
 .btn-primary {
-  background: linear-gradient(#ff7d2e, #de5210);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 10px 22px -10px rgba(255, 110, 30, 0.75);
+  background: var(--brand-strong);
+  box-shadow: 0 4px 0 var(--shade-brand);
+}
+.btn-primary:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--shade-brand);
 }
 .btn-ghost {
   background: var(--surface);
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  backdrop-filter: blur(var(--glass-blur));
+  border-color: var(--line);
 }
 .pill-soft {
+  border-radius: 10px;
   background: var(--brand-soft);
 }
 .hero-title {
@@ -922,45 +909,48 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
 }
 .large-title,
 .page-title {
-  font-size: 38px;
+  font-size: 36px;
   font-weight: 800;
   letter-spacing: -0.035em;
-  line-height: 1.02;
+  line-height: 1.03;
 }
+/* Untere Leiste: durchgehend, flach, oben eine feine Linie; der aktive Tab hat einen Balken */
 .tabbar {
-  background: color-mix(in srgb, var(--surface-solid) 55%, transparent);
-  border: 1px solid var(--line);
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+  box-shadow: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
-/* Eingabefelder und Blätter brauchen volle Deckkraft, damit nichts durchscheint */
 dialog,
 [role='dialog'],
 .sheet {
-  background-color: var(--surface-solid);
+  background-color: var(--surface);
 }
 
 /* ---------- Formen: farbcodierte Blöcke (Muster Kahoot) ----------
-   Ein Fach oder eine Antwort ist ein dicker Block in seiner Farbe mit seiner Form, darunter eine Kante. Farbe und Form zusammen,
-   damit man es auch ohne Farbensehen erkennt. */
+   Ein Fach oder eine Antwort ist ein dicker, flacher Block in seiner Farbe mit seiner Form, darunter eine harte Kante.
+   Farbe und Form zusammen, damit man es auch ohne Farbensehen erkennt. */
 .shape-block {
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 132px;
-  border-radius: 22px;
+  min-height: 124px;
+  border-radius: 14px;
   padding: 14px 16px;
   color: #fff;
   text-align: left;
-  background: linear-gradient(var(--block-hi, var(--block)), var(--block));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 6px 0 var(--block-edge, rgba(0, 0, 0, 0.28));
-  transition: transform 0.12s var(--ease-out), box-shadow 0.12s var(--ease-out);
+  background: var(--block);
+  box-shadow: 0 5px 0 var(--block-edge, rgba(0, 0, 0, 0.3));
+  transition: transform 0.1s var(--ease-out), box-shadow 0.1s var(--ease-out);
 }
 .shape-block:active {
   transform: translateY(4px);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), 0 2px 0 var(--block-edge, rgba(0, 0, 0, 0.28));
+  box-shadow: 0 1px 0 var(--block-edge, rgba(0, 0, 0, 0.3));
 }
 .shape-block-quiet {
-  background: var(--surface);
+  background: var(--snow);
   color: var(--muted);
-  box-shadow: inset 0 1px 0 var(--glass-edge);
+  box-shadow: none;
 }

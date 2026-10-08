@@ -190,7 +190,7 @@ export function QCardExercise({ exercise: ex, onChange, result }: ExerciseProps<
         )}
       </div>
       {!reveal ? (
-        <button type="button" className="btn btn-primary btn-shine press w-full" onClick={() => setShown(true)} autoFocus>
+        <button type="button" className="btn btn-primary press w-full" onClick={() => setShown(true)} autoFocus>
           Antwort zeigen
         </button>
       ) : (

@@ -185,7 +185,7 @@ function Runner({ test }: { test: TestData }) {
             </ul>
           </div>
         )}
-        <button type="button" className="btn btn-primary btn-shine press mt-6 w-full" onClick={start} autoFocus>
+        <button type="button" className="btn btn-primary press mt-6 w-full" onClick={start} autoFocus>
           Starten
         </button>
         <button

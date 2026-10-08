@@ -114,7 +114,7 @@ export function QuickCards({ subjects, grade, onStart, onSkip, skipLabel = 'Spä
           ))}
         </ul>
         {items.length > shown.length && <p className="mb-3 px-1 text-sm text-muted">und {items.length - shown.length} weitere. Die KI kann sich irren: Schau sie dir beim Üben an.</p>}
-        <button type="button" className="btn btn-primary btn-shine press w-full" onClick={start} autoFocus>
+        <button type="button" className="btn btn-primary press w-full" onClick={start} autoFocus>
           Los geht’s, erste Runde
         </button>
         <div className="mt-1 flex justify-center">
@@ -195,7 +195,7 @@ export function QuickCards({ subjects, grade, onStart, onSkip, skipLabel = 'Spä
         </p>
       )}
 
-      <button type="button" className="btn btn-primary btn-shine press mt-4 w-full" disabled={!topic.trim() && files.length === 0} onClick={() => void run()}>
+      <button type="button" className="btn btn-primary press mt-4 w-full" disabled={!topic.trim() && files.length === 0} onClick={() => void run()}>
         <Sparkle size={18} /> {phase === 'error' ? 'Nochmal versuchen' : 'Karteikarten machen'}
       </button>
       {!ready && phase === 'ask' && <p className="mt-2 text-center text-xs text-muted">Die KI ist kostenlos. Beim ersten Mal öffnet sich kurz ein Fenster von Puter, ohne E-Mail und ohne Passwort.</p>}

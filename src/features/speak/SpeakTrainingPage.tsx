@@ -117,7 +117,7 @@ export function SpeakTrainingPage() {
         <p className="mb-4 rounded-xl bg-snow px-4 py-3 text-sm text-muted">
           {pool.length} Wörter aus „{scopeLabel(scope)}“. Pro Runde sind es {Math.min(ROUND, pool.length)}.
         </p>
-        <button type="button" className="btn btn-primary btn-shine press mb-6 w-full justify-center" disabled={!pool.length} onClick={begin}>
+        <button type="button" className="btn btn-primary press mb-6 w-full justify-center" disabled={!pool.length} onClick={begin}>
           Runde starten
         </button>
 

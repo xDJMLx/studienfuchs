@@ -147,7 +147,7 @@ export function ReviewPage() {
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
               {due.length > 0 ? (
-                <button className="btn btn-primary btn-shine press" onClick={() => navigate('/review/play')}>
+                <button className="btn btn-primary press" onClick={() => navigate('/review/play')}>
                   <Repeat size={18} /> Wiederholung starten <Right size={14} />
                 </button>
               ) : (

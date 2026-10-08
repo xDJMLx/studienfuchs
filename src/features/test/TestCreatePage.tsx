@@ -281,7 +281,7 @@ export function TestCreatePage() {
         <div className="grid gap-2">
           {!vokabel && (
             <>
-              <button type="button" className="btn btn-primary btn-shine press w-full" disabled={busy} onClick={withAi}>
+              <button type="button" className="btn btn-primary press w-full" disabled={busy} onClick={withAi}>
                 {busy ? 'Die KI schreibt den Test …' : `${kindInfo.label} von der KI erstellen`}
               </button>
               <AiNotice />

@@ -233,7 +233,7 @@ export function ExamCreatePage() {
           </div>
         )}
 
-        <button type="button" className="btn btn-primary btn-shine press w-full justify-center" disabled={busy || !ready} onClick={create}>
+        <button type="button" className="btn btn-primary press w-full justify-center" disabled={busy || !ready} onClick={create}>
           {busy ? (
             'Wird erstellt …'
           ) : (

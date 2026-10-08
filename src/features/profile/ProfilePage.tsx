@@ -60,7 +60,7 @@ export function ProfilePage() {
       {/* Fuchs, Level und Münzen */}
       <section className="card relative overflow-visible px-5 pb-5 pt-4" aria-label="Level">
         <div className="flex items-end gap-4">
-          <Link to="/settings/tier" aria-label="Lerntier wechseln" className="press relative -mt-6 shrink-0 rounded-2xl" style={{ filter: 'drop-shadow(0 14px 14px rgba(20,8,60,.3))' }}>
+          <Link to="/settings/tier" aria-label="Lerntier wechseln" className="press relative -mt-6 shrink-0 rounded-2xl">
             <Mascot size={118} alive listen outfit={outfit} />
           </Link>
           <div className="min-w-0 flex-1 pb-1">
@@ -72,7 +72,7 @@ export function ProfilePage() {
           </div>
         </div>
         <div className="mt-5 h-3.5 w-full overflow-hidden rounded-full bg-snow" role="progressbar" aria-valuemin={0} aria-valuemax={lvl.needed} aria-valuenow={lvl.into} aria-label={`Fortschritt zu Level ${lvl.level + 1}`}>
-          <motion.div className="h-full rounded-full" style={{ background: 'linear-gradient(90deg, #ffae5c, #ff6a1a)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.5)' }} initial={reduce ? false : { width: 0 }} animate={{ width: `${Math.max(4, (lvl.into / lvl.needed) * 100)}%` }} transition={{ duration: 0.6, ease: EASE, delay: 0.1 }} />
+          <motion.div className="h-full rounded-full" style={{ background: 'var(--brand)' }} initial={reduce ? false : { width: 0 }} animate={{ width: `${Math.max(4, (lvl.into / lvl.needed) * 100)}%` }} transition={{ duration: 0.6, ease: EASE, delay: 0.1 }} />
         </div>
         <p className="mt-2 text-[13px] text-muted">
           <CountUp to={xp} /> XP · noch {lvl.needed - lvl.into} bis Level {lvl.level + 1}
@@ -139,8 +139,8 @@ export function ProfilePage() {
               <li key={b.id} className="card flex flex-col items-center px-2 pb-3 pt-3.5 text-center" title={b.description}>
                 {done ? (
                   <span
-                    className="flex h-14 w-14 items-center justify-center rounded-[18px] text-white"
-                    style={{ background: `linear-gradient(color-mix(in srgb, ${color} 78%, white), ${color})`, boxShadow: `inset 0 1px 0 rgba(255,255,255,.4), 0 4px 0 color-mix(in srgb, ${color} 52%, black)` }}
+                    className="flex h-14 w-14 items-center justify-center rounded-[14px] text-white"
+                    style={{ background: color, boxShadow: `0 4px 0 color-mix(in srgb, ${color} 55%, black)` }}
                   >
                     <SubjectShape id={shape} size={26} />
                   </span>
