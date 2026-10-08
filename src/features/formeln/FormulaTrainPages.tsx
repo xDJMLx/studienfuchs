@@ -1,7 +1,8 @@
 import { useMemo, useRef, useState } from 'react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { formulaSkill, makeFormulaSession, skillsOf } from '../../content/formulas'
-import { Back, Right } from '../../components/ui/Icons'
+import { Right } from '../../components/ui/Icons'
+import { BackLink } from '../../components/ui/BackLink'
 import { Item, Stagger } from '../../components/ui/motion'
 import { itemFromTask, taskToExercise } from '../../lib/tasks'
 import { lessonXp } from '../../lib/xp'
@@ -19,9 +20,7 @@ export function FormulaListPage() {
   return (
     <Stagger className="mx-auto max-w-2xl px-4 py-5 lg:py-8" stagger={0.05}>
       <Item>
-        <Link to={`/faecher/${subjectId}`} className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
-          <Back size={18} /> {sub.name}
-        </Link>
+        <BackLink to={`/faecher/${subjectId}`} label={sub.name} size={18} />
         <h1 className="page-title">Rechentraining</h1>
         <p className="mb-5 mt-1 text-muted">Immer neue Aufgaben, ganz ohne KI. Die App rechnet selbst, und bei einem Fehler siehst du den Rechenweg.</p>
       </Item>

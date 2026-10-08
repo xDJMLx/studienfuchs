@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react'
+import { logError } from '../../lib/feedback'
 import { Mascot } from '../mascot/Mascot'
 
 interface State {
@@ -35,6 +36,7 @@ export class ErrorBoundary extends Component<{ children: ReactNode; /** Ändert 
 
   componentDidCatch(error: Error, info: ErrorInfo) {
     console.error('Darstellungsfehler', error, info.componentStack)
+    logError(error.message, error.stack)
   }
 
   render() {
@@ -68,6 +70,15 @@ export class ErrorBoundary extends Component<{ children: ReactNode; /** Ändert 
             }}
           >
             Zur Startseite
+          </button>
+          <button
+            className="btn btn-ghost press"
+            onClick={() => {
+              window.location.hash = '#/settings/feedback'
+              this.setState({ error: null })
+            }}
+          >
+            Fehler melden
           </button>
         </div>
         <details className="mt-8 max-w-md text-left text-xs text-muted">

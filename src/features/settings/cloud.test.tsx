@@ -55,9 +55,10 @@ describe('Einstellungen: Abgleich über das Puter-Konto', () => {
     window.location.hash = '#/settings/daten'
     render(<App />)
 
-    fireEvent.click(await screen.findByRole('button', { name: /Mit Puter anmelden/ }, { timeout: 4000 }))
-    fireEvent.click(await screen.findByRole('button', { name: /In Puter sichern/ }, { timeout: 4000 }))
+    // Ein Tipp: anmelden (Gastkonto) und gleich die erste Sicherung
+    fireEvent.click(await screen.findByRole('button', { name: /Sicherung einschalten/ }, { timeout: 4000 }))
     await waitFor(() => expect(cloud.state.files.size).toBe(1))
+    expect(localStorage.getItem('studienfuchs-cloud-auto')).toContain('"on":true')
     expect(JSON.parse([...cloud.state.files.values()][0]).app).toBe('studienfuchs')
 
     // Anderes Gerät: leerer Stand

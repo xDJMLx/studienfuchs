@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Fr } from '../../components/exercises/common'
 import { ChipTabs } from '../../components/ui/controls'
 import { Karteikasten, WeeklyReport } from '../profile/ProfileExtras'
-import { Back, Repeat, Right } from '../../components/ui/Icons'
+import { Repeat, Right } from '../../components/ui/Icons'
+import { BackLink } from '../../components/ui/BackLink'
 import { CountUp, Item as FadeItem, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { activeDecks } from '../../lib/decks'
 import { SegmentedBar, ProgressRing } from '../../components/ui/widgets'
@@ -101,9 +102,7 @@ export function ReviewPage() {
 
   const header = (
     <FadeItem>
-      <Link to="/practice" className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-medium text-muted hover:text-ink">
-        <Back size={18} /> Üben
-      </Link>
+      <BackLink to="/practice" label="Üben" size={18} />
       <h1 className="page-title mb-1">Lernstand</h1>
       <p className="mb-6 text-muted">Karten kommen kurz bevor du sie vergessen würdest wieder dran. So bleiben sie dauerhaft hängen.</p>
     </FadeItem>

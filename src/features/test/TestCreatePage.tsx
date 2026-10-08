@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { Back, Camera, Close } from '../../components/ui/Icons'
+import { BackLink } from '../../components/ui/BackLink'
+import { Camera, Close } from '../../components/ui/Icons'
 import { blobToJpegBase64, preloadAi } from '../../lib/ai'
 import { DIFFICULTIES, generateTest, LENGTHS, materialFrom, type Difficulty, type TestLength } from '../../lib/aiTests'
 import { activeDecks, cardRefs } from '../../lib/decks'
@@ -126,9 +127,7 @@ export function TestCreatePage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-5 lg:py-8">
-      <Link to={fromArbeit ? '/kalender' : `/faecher/${subject}`} className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
-        <Back size={18} /> {fromArbeit ? 'Kalender' : (sub?.name ?? 'Zurück')}
-      </Link>
+      <BackLink to={fromArbeit ? '/kalender' : '/'} label={fromArbeit ? 'Kalender' : 'Üben'} />
       <h1 className="page-title mb-1">{fromArbeit ? 'Probearbeit' : 'Test erstellen'}</h1>
       <p className="mb-4 text-muted">{fromArbeit ? `Zu „${fromArbeit.title}“: Üb unter echten Bedingungen, mit Punkten und ungefährer Note.` : 'Ein Test, eine Klassenarbeit oder ein Vokabeltest, mit Punkten und ungefährer Note am Ende.'}</p>
 

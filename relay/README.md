@@ -49,3 +49,21 @@ Ohne Relais bleibt der Weg über die `.ics`-Datei (in WebUntis exportieren, in d
 Hinweis: Der iCal-Link enthält einen geheimen Schlüssel für deinen Stundenplan. Er geht beim Abgleich durch dein Relais.
 Das Relais speichert ihn nicht, aber richte es nur in deinem eigenen Cloudflare-Konto ein und teile die Adresse nicht öffentlich.
 
+
+---
+
+# Postfach für Fehlerberichte und Rückmeldungen
+
+Mit `feedback-worker.js` landen „Fehler melden“, Ideen und (nur wenn jemand es einschaltet) anonyme Nutzungszähler direkt bei dir,
+und du kannst sie jederzeit abrufen. Ohne diese Adresse öffnet „Senden“ in der App das Teilen-Fenster des Geräts (z. B. WhatsApp).
+
+1. Im Cloudflare-Dashboard **Workers & Pages → Create → Hello World** (Name z. B. `studienfuchs-feedback`), **Deploy**, dann **Edit code**,
+   den Inhalt von `relay/feedback-worker.js` einfügen, **Deploy**.
+2. Im Worker unter **Settings → Bindings → Add → KV namespace**: einen neuen Namespace anlegen (z. B. `studienfuchs-feedback`) und mit dem
+   Variablennamen **`FEEDBACK`** verbinden.
+3. Unter **Settings → Variables and Secrets → Add** ein Geheimnis **`READ_KEY`** anlegen (ein langes zufälliges Passwort, nur für dich).
+4. Die Adresse des Workers in `src/lib/feedback.ts` bei `DEFAULT_FEEDBACK_URL` eintragen und die Seite neu veröffentlichen.
+5. Lesen: `https://DEIN-WORKER.workers.dev/?key=DEIN_LESESCHLÜSSEL` im Browser oder per `curl` aufrufen (JSON, neueste zuerst).
+
+Was gespeichert wird: Art, Nachricht, Version, Seite, Gerätetyp, Fenstergröße, Sprache, die letzten Fehlermeldungen, Zähler
+(z. B. wie viele Runden) und eine zufällige Kennung ohne Namen. Nie Lerninhalte. Alles wird nach 120 Tagen gelöscht.

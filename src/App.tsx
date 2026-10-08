@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, type ComponentType } from 'react'
 import { HashRouter, Navigate, Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import { ErrorBoundary } from './components/ui/ErrorBoundary'
 import { Layout } from './components/ui/Layout'
+import { track } from './lib/feedback'
 import { AiGateSheet } from './components/ui/AiGateSheet'
 import { UpdateBanner } from './components/ui/UpdateBanner'
 import { useApplyTheme } from './lib/theme'
@@ -111,7 +112,7 @@ const TITLES: [prefix: string, title: string][] = [
   ['/training/', 'Rechentraining'],
   ['/test/', 'Test'],
   ['/exam/', 'Test'],
-  ['/shop', 'Fuchs & Shop'],
+  ['/shop', 'Tier & Shop'],
   ['/math/train', 'Training'],
   ['/blitz', 'Blitzrunde'],
   ['/review/play', 'Wiederholung'],
@@ -129,6 +130,7 @@ function RouteTitle() {
   useEffect(() => {
     const hit = TITLES.find(([p]) => (p.endsWith('/') ? pathname.startsWith(p) : pathname === p || pathname.startsWith(p + '/')))
     document.title = hit ? `${hit[1]} · Studienfuchs` : 'Studienfuchs – Üben für die Schule'
+    track(`seite${pathname === '/' ? '/ueben' : pathname.split('/').slice(0, 2).join('/')}`)
   }, [pathname])
   return null
 }

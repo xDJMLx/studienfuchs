@@ -12,6 +12,8 @@ import { useDue } from '../../features/review/ReviewPage'
 import { ProgressBar } from './widgets'
 import { StudyTimeCard } from './StudyTime'
 import { autoSyncUntis } from '../../lib/untisSync'
+import { autoCloudSave } from '../../lib/autoCloud'
+import { maybeSendUsage } from '../../lib/feedback'
 
 interface NavItem {
   to: string
@@ -105,8 +107,14 @@ export function Layout() {
 
   // WebUntis: beim Öffnen und wenn man in die App zurückkehrt, leise abgleichen, falls es fällig ist
   useEffect(() => {
-    autoSyncUntis()
-    const onVisible = () => document.visibilityState === 'visible' && autoSyncUntis()
+    const tick = () => {
+      autoSyncUntis()
+      void autoCloudSave(() => useStore.getState().exportData())
+      const st = useStore.getState()
+      void maybeSendUsage({ grade: st.grade, subjects: (st.mySubjects ?? []).length, sets: st.sets.length, cards: Object.keys(st.cards).length, arbeiten: (st.arbeiten ?? []).length, untis: !!st.untis, mascot: st.mascot })
+    }
+    tick()
+    const onVisible = () => document.visibilityState === 'visible' && tick()
     document.addEventListener('visibilitychange', onVisible)
     return () => document.removeEventListener('visibilitychange', onVisible)
   }, [])

@@ -4,6 +4,8 @@ import { idleSeconds, mascotBus, trackGaze, type MascotEvent } from '../../lib/m
 import { Fox, type FoxHandle } from './Fox'
 import { FoxBubble } from './FoxBubble'
 import { resolveLook, type Mood, type PoseName } from './look'
+import { skinOf, type SpeciesId } from './species'
+import { useStore } from '../../store/useStore'
 
 export type { Mood } from './look'
 
@@ -37,6 +39,8 @@ export interface MascotProps {
   pose?: 'bust' | 'full'
   label?: string
   outfit?: Outfit
+  /** Welches Tier; ohne Angabe das gewählte Tier des Nutzers */
+  species?: SpeciesId
   /** Begrüßung: winkt kurz nach dem Erscheinen und sagt diesen Satz */
   greet?: string
   /** Veraltet: die Sprechblase steht immer über dem Fuchs und bleibt von selbst im Bildschirm */
@@ -44,7 +48,9 @@ export interface MascotProps {
 }
 
 /** Fenni, der Fuchs: lebendiges Maskottchen mit Posen, Tippen und Reaktionen. */
-export function Mascot({ mood = 'happy', size = 120, className = '', blink = false, alive: aliveProp, listen = false, pose = 'bust', label, outfit, greet }: MascotProps) {
+export function Mascot({ mood = 'happy', size = 120, className = '', blink = false, alive: aliveProp, listen = false, pose = 'bust', label, outfit, greet, species: speciesProp }: MascotProps) {
+  const chosen = useStore((s) => s.mascot)
+  const species = skinOf(speciesProp ?? chosen).id
   const alive = (aliveProp ?? blink) && size >= 56
   const wrap = useRef<HTMLDivElement>(null)
   const [temp, setTemp] = useState<PoseName | null>(null)
@@ -269,7 +275,7 @@ export function Mascot({ mood = 'happy', size = 120, className = '', blink = fal
       onClick={onTap}
       {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}
     >
-      <Fox ref={fox} look={look} outfit={outfit} pose={pose} alive={alive} />
+      <Fox ref={fox} look={look} outfit={outfit} pose={pose} alive={alive} species={species} />
       {bubble && <FoxBubble anchor={wrap.current} text={bubble} />}
     </div>
   )

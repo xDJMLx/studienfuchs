@@ -217,6 +217,27 @@ export function normalizeUntisUrl(input: string): string {
   return u.toString()
 }
 
+/** Sieht der Text nach einem WebUntis-Kalenderlink aus (webcal:// oder https:// mit „untis“ im Namen)? */
+export function looksLikeUntisLink(text: string): boolean {
+  const t = text.trim()
+  return /^(webcals?|https):\/\/\S+$/i.test(t) && /untis/i.test(t)
+}
+
+/** Ersatzweg, wenn der Browser den Abruf blockiert (CORS): Puter holt die Adresse über eine eigene Verbindung. Null, wenn das nicht geht. */
+async function fetchViaPuter(url: string): Promise<string | null> {
+  try {
+    const mod = await import('@heyputer/puter.js')
+    const net = (mod.puter as unknown as { net?: { fetch?: typeof fetch } }).net
+    if (!net?.fetch) return null
+    const res = await Promise.race([net.fetch(url, { headers: { Accept: 'text/calendar, text/plain, */*' } }), new Promise<never>((_, rej) => setTimeout(() => rej(new Error('timeout')), 12000))])
+    if (!res.ok) return null
+    const text = await res.text()
+    return /BEGIN:VCALENDAR/i.test(text) ? text : null
+  } catch {
+    return null
+  }
+}
+
 /** Ruft den iCal-Text ab: über das Relais, wenn eines eingetragen ist, sonst direkt. */
 export async function fetchIcs(url: string, relay?: string, doFetch: typeof fetch = fetch): Promise<string> {
   const target = relay ? `${relay.replace(/\/+$/, '')}/?url=${encodeURIComponent(url)}` : url
@@ -224,10 +245,15 @@ export async function fetchIcs(url: string, relay?: string, doFetch: typeof fetc
   try {
     res = await doFetch(target, { headers: { Accept: 'text/calendar, text/plain, */*' } })
   } catch {
+    // Der Browser blockiert den Abruf oft (CORS): ohne eigenes Relais den Weg über Puter versuchen (nicht, wenn eine Abruffunktion vorgegeben ist, z. B. im Test)
+    if (!relay && doFetch === fetch) {
+      const viaPuter = await fetchViaPuter(url)
+      if (viaPuter) return viaPuter
+    }
     throw new UntisError(
       relay
         ? 'WebUntis oder das Relais ist gerade nicht erreichbar. Versuch es später nochmal oder lade die .ics-Datei.'
-        : 'WebUntis erlaubt den Abruf direkt aus dem Browser nicht. Trag in den Einstellungen ein Relais ein (siehe Anleitung) oder lade die .ics-Datei aus WebUntis.',
+        : 'Dein Browser darf den Stundenplan nicht direkt von WebUntis holen. Lade stattdessen die .ics-Datei aus WebUntis (unter „Klappt nicht?“).',
       'network',
     )
   }

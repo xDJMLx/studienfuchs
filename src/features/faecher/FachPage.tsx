@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link, Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { Segmented } from '../../components/ui/controls'
 import { Back, Check, Plus, Right, Sparkle, Star } from '../../components/ui/Icons'
+import { BackLink } from '../../components/ui/BackLink'
 import { Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { activeDecks, allCourseDecks, daysUntil, FRENCH, ownDeck, planToday, readiness } from '../../lib/decks'
@@ -60,9 +61,7 @@ export function FachPage() {
   return (
     <Stagger className="mx-auto max-w-2xl px-4 py-5 lg:py-8" stagger={0.06}>
       <Item>
-        <Link to="/" className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
-          <Back size={18} /> Üben
-        </Link>
+        <BackLink to="/" label="Üben" size={18} />
         <div className="mb-5 flex items-center gap-3.5">
           <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl" style={{ background: subject.c }} aria-hidden>
             <HelpSubjectIcon id={subject.id} ink={subject.c} size={34} />

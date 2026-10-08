@@ -89,6 +89,10 @@ export function AboutPage() {
               <p>Hochgeladene Buchseiten werden mit der Offline-Texterkennung <b className="text-ink">auf deinem Gerät</b> gelesen. Die Bilder werden nicht gespeichert und nirgends hingeschickt. In deinen Büchern bleibt nur der erkannte Text, und nur auf diesem Gerät. Die Bücher gehören dir und sind nicht Teil der App: Sie werden nicht geteilt und nicht ausgeliefert.</p>
               <p>Schriftarten und Texterkennung werden von dieser Seite selbst ausgeliefert, nicht von Drittanbietern.</p>
             </Accordion>
+            <Accordion title="Fehler melden und Rückmeldungen" icon={<Shield size={20} />}>
+              <p>Unter <Link to="/settings/feedback" className="font-semibold text-brand-dark underline">Einstellungen → Fehler melden</Link> kannst du eine Nachricht schicken. Sie geht nur ab, wenn du auf „Senden“ tippst. Du siehst vorher, was mitgeschickt wird: deine Nachricht, wenn du magst ein Kontakt, und technische Infos (Version, Gerätetyp, Fenstergröße, Sprache, Seite, die letzten Fehlermeldungen, Zähler wie „Runden“). Nie deine Karteikarten, Antworten oder Namen.</p>
+              <p>Zusätzlich kannst du <b className="text-ink">anonyme Nutzungsdaten</b> teilen (standardmäßig aus). Dann schickt die App höchstens einmal pro Woche nur Zähler und eine zufällige Kennung ohne Namen. Das hilft, die App zu verbessern. Du kannst es jederzeit ausschalten. Gespeicherte Berichte werden nach 120 Tagen gelöscht.</p>
+            </Accordion>
             <Accordion title="KI-Funktion (optional)" icon={<Sparkle size={20} />}>
               <p>Nur wenn du <b className="text-ink">„Mit KI erstellen“</b> oder <b className="text-ink">„Mit KI ergänzen“</b> klickst oder im <b className="text-ink">KI-Chat</b> eine Nachricht sendest, werden die ausgewählten Seitenbilder, Vokabeln bzw. deine Nachricht an eine KI-Plattform gesendet. Beim KI-Chat gehören dazu dein Lernstand (Klasse, Fortschritt, Klassenarbeits-Termine, Wörter, bei denen es hakt) und, wenn du Bücher angelegt hast, deren Titel, Kapitel, der Stand der Klasse und die zur Frage passenden Seitentexte, aber kein Name.</p>
               {FREE_AI_URL && (

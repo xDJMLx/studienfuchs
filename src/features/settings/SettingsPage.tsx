@@ -4,7 +4,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Row, Section, Switch } from '../../components/ui/controls'
 import { InstallHelp, useInstallFlow } from '../../components/ui/InstallApp'
-import { Back, Cards, Check, Database, Download, Gear, Right, Palette, Shield, Sparkle, Speaker, Target, Upload } from '../../components/ui/Icons'
+import { Bug, Cards, Check, Database, Download, Gear, Right, Palette, Shield, Sparkle, Speaker, Star, Target, Upload } from '../../components/ui/Icons'
+import { MascotPicker } from '../profile/MascotPicker'
+import { FeedbackSettings } from './FeedbackSettings'
+import { BackLink } from '../../components/ui/BackLink'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
 import { UntisSettings } from './UntisSettings'
@@ -14,7 +17,8 @@ import { HELP_SUBJECTS } from '../../lib/subjects'
 import { EASE, Item, Stagger, SPRING } from '../../components/ui/motion'
 import { dayKey } from '../../lib/streak'
 import { lastBackupText, markBackup, shareBackup } from '../../lib/backup'
-import { CloudError, cloudLoad, cloudSave, cloudSignIn, cloudStatus, type CloudStatus } from '../../lib/cloudSync'
+import { CloudError, cloudEnable, cloudLoad, cloudSave, cloudSignIn, cloudStatus, type CloudStatus } from '../../lib/cloudSync'
+import { enableAutoCloud } from '../../lib/autoCloud'
 import { applyUpdate, BUILD_ID, checkForUpdate } from '../../lib/updates'
 import { useStore } from '../../store/useStore'
 import { SpeechSettings } from '../profile/SpeechSettings'
@@ -65,6 +69,10 @@ function ThemePreview({ kind }: { kind: 'light' | 'dark' | 'system' }) {
 /** Die Bereiche der Einstellungen, in Gruppen wie in einer Liste. */
 const GROUPS: { title: string; rows: { slug: string; id: string; label: string; text: string; Icon: (p: { size?: number }) => React.ReactNode }[] }[] = [
   {
+    title: 'Du',
+    rows: [{ slug: 'tier', id: 's-tier', label: 'Dein Lerntier', text: 'Fuchs, Elefant, Giraffe und mehr', Icon: Star }],
+  },
+  {
     title: 'Schule',
     rows: [
       { slug: 'faecher', id: 's-subjects', label: 'Meine Fächer', text: 'Welche Fächer du hast', Icon: Cards },
@@ -87,6 +95,10 @@ const GROUPS: { title: string; rows: { slug: string; id: string; label: string; 
       { slug: 'app', id: 's-app', label: 'Installieren und Updates', text: 'Auf den Startbildschirm', Icon: Download },
       { slug: 'daten', id: 's-data', label: 'Daten und Sicherung', text: 'Sichern, laden, zwischen Geräten abgleichen', Icon: Database },
     ],
+  },
+  {
+    title: 'Hilfe',
+    rows: [{ slug: 'feedback', id: 's-feedback', label: 'Fehler melden und Ideen', text: 'Etwas kaputt oder fehlt dir etwas?', Icon: Bug }],
   },
 ]
 const SLUGS = GROUPS.flatMap((g) => g.rows.map((r) => r.slug))
@@ -191,6 +203,17 @@ export function SettingsPage() {
       setBackupInfo(lastBackupText())
       setToast({ ok: true, text: 'In deinem Puter-Konto gesichert.' })
     })
+  // Ein Tipp: Gastkonto anlegen und gleich die erste Sicherung machen
+  const cloudStart = () =>
+    cloudRun(async () => {
+      const st = await cloudEnable()
+      setCloud(st)
+      await cloudSave(exportData())
+      markBackup()
+      setBackupInfo(lastBackupText())
+      enableAutoCloud()
+      setToast({ ok: true, text: 'Sicherung ist an. Die App sichert von nun an von selbst.' })
+    })
   const cloudDown = () => cloudRun(async () => setCloudPending(await cloudLoad()))
   const cloudApply = () => {
     if (!cloudPending) return
@@ -244,9 +267,7 @@ export function SettingsPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 pb-6 pt-6 lg:pt-8">
       {current ? (
-        <Link to="/settings" className="press -ml-2 mb-3 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
-          <Back size={18} /> Einstellungen
-        </Link>
+        <BackLink to="/settings" label="Einstellungen" size={18} />
       ) : (
         <div className="mb-6 flex items-center gap-4">
           <motion.div initial={reduce ? false : { rotate: -30, scale: 0.6, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} transition={SPRING.bouncy} className="flex h-12 w-12 items-center justify-center text-brand-dark">
@@ -315,6 +336,24 @@ export function SettingsPage() {
           <Item>
             <Section id="s-untis" icon={<Download size={22} />} title="WebUntis" description="Stundenplan und Arbeiten automatisch übernehmen">
               <UntisSettings onToast={(ok, text) => setToast({ ok, text })} />
+            </Section>
+          </Item>
+          )}
+
+         {current === 'feedback' && (
+          <Item>
+            <Section id="s-feedback" icon={<Bug size={22} />} title="Fehler melden und Ideen" description="Sag, was nicht klappt oder was du dir wünschst">
+              <FeedbackSettings />
+            </Section>
+          </Item>
+          )}
+
+         {current === 'tier' && (
+          <Item>
+            <Section id="s-tier" icon={<Star size={22} />} title="Dein Lerntier" description="Wer dich beim Lernen begleitet">
+              <div className="px-5 py-4">
+                <MascotPicker />
+              </div>
             </Section>
           </Item>
           )}
@@ -450,23 +489,30 @@ export function SettingsPage() {
                 </div>
               </Row>
               <Row
-                title="Zwischen Geräten abgleichen"
+                title="Online sichern"
                 hint={
-                  cloud?.signedIn && !cloud.guest
-                    ? `Mit deinem Puter-Konto${cloud.username ? ` (${cloud.username})` : ''}: Auf dem einen Gerät sichern, auf dem anderen holen. Nur auf Knopfdruck. Auf beiden Geräten dasselbe Konto verwenden.`
-                    : 'Mit einem eigenen Puter-Konto (kostenlos) sichern und auf dem zweiten Gerät holen. Ein KI-Gastkonto reicht nicht, es gilt nur für diesen Browser.'
+                  cloud?.signedIn
+                    ? cloud.guest
+                      ? 'Dein Fortschritt liegt in einem kostenlosen Puter-Gastkonto und wird von selbst gesichert. Das Gastkonto gilt nur für diesen Browser.'
+                      : `Mit deinem Puter-Konto${cloud.username ? ` (${cloud.username})` : ''}: Auf dem einen Gerät sichern, auf dem anderen holen.`
+                    : 'Ein Tipp, kein Passwort: Die App sichert deinen Fortschritt von selbst in einem kostenlosen Puter-Gastkonto.'
                 }
               >
                 <div className="flex flex-wrap gap-2">
-                  {cloud?.signedIn && !cloud.guest ? (
+                  {cloud?.signedIn ? (
                     <>
-                      <button className="btn btn-primary press !px-4 !py-2 !text-sm" disabled={cloudBusy} onClick={cloudUp}>In Puter sichern</button>
+                      <button className="btn btn-primary press !px-4 !py-2 !text-sm" disabled={cloudBusy} onClick={cloudUp}>Jetzt sichern</button>
                       <button className="btn btn-ghost press !px-4 !py-2 !text-sm" disabled={cloudBusy} onClick={cloudDown}>Von Puter holen</button>
                     </>
                   ) : (
-                    <button className="btn btn-ghost press !px-4 !py-2 !text-sm" disabled={cloudBusy} onClick={cloudLogin}>Mit Puter anmelden</button>
+                    <button className="btn btn-primary press !px-4 !py-2 !text-sm" disabled={cloudBusy} onClick={cloudStart}>Sicherung einschalten</button>
                   )}
                 </div>
+                {(!cloud?.signedIn || cloud.guest) && (
+                  <button className="press mt-2 min-h-9 rounded-xl text-sm font-extrabold text-sky-dark" disabled={cloudBusy} onClick={cloudLogin}>
+                    Auf mehreren Geräten? Mit eigenem Puter-Konto anmelden
+                  </button>
+                )}
               </Row>
               {cloudPending && (
                 <div className="grid gap-2 border-t border-line px-5 py-4" role="alertdialog" aria-label="Sicherung aus Puter laden">

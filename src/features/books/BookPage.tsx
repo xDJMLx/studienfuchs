@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
-import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
-import { Back, Camera, Right, Sparkle, Trash } from '../../components/ui/Icons'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { Camera, Right, Sparkle, Trash } from '../../components/ui/Icons'
+import { BackLink } from '../../components/ui/BackLink'
 import { Item, Stagger } from '../../components/ui/motion'
 import { Sheet } from '../../components/ui/Sheet'
 import { chapterOf, chapterRange, sortedChapters, sortedPages, type Book, type BookPage as Page } from '../../lib/books'
@@ -46,9 +47,7 @@ function BookDetail({ book }: { book: Book }) {
   return (
     <Stagger className="mx-auto max-w-2xl px-4 py-4 lg:py-8" stagger={0.06}>
       <Item>
-        <Link to="/books" className="press -ml-2 mb-1 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 font-semibold text-muted transition-colors hover:text-ink">
-          <Back size={20} /> Bücher
-        </Link>
+        <BackLink to="/books" label="Bücher" size={20} />
         <input
           defaultValue={book.title}
           onBlur={(e) => renameBook(book.id, e.target.value)}

@@ -2,14 +2,15 @@ import { motion, useReducedMotion } from 'framer-motion'
 import { useState } from 'react'
 import { mascotBus } from '../../lib/mascotBus'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Link } from 'react-router-dom'
-import { Back, Check, Coin } from '../../components/ui/Icons'
+
+import { Check, Coin } from '../../components/ui/Icons'
+import { BackLink } from '../../components/ui/BackLink'
 import { SPRING } from '../../components/ui/motion'
 import { ITEMS, SLOTS, type Slot } from '../../lib/shop'
 import { useStore } from '../../store/useStore'
 import { useShallow } from 'zustand/react/shallow'
 
-/** Fuchs-Laden: Münzen gibt es nur fürs Lernen, hier werden sie gegen Zubehör für den Fuchs getauscht. */
+/** Tier-Laden: Münzen gibt es nur fürs Lernen, hier werden sie gegen Zubehör für dein Tier getauscht. */
 export function ShopPage() {
   const reduce = useReducedMotion()
   const { coins, owned, outfit, buyItem, equipItem } = useStore(useShallow((s) => ({ coins: s.coins, owned: s.owned, outfit: s.outfit, buyItem: s.buyItem, equipItem: s.equipItem })))
@@ -21,13 +22,11 @@ export function ShopPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 pb-6 pt-3">
-      <Link to="/profile" className="press -ml-2 mb-1 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 font-semibold text-muted transition-colors hover:text-ink">
-        <Back size={20} /> Profil
-      </Link>
-      <h1 className="mb-3 text-2xl font-bold">Fuchs &amp; Shop</h1>
+      <BackLink to="/profile" label="Profil" size={20} />
+      <h1 className="mb-3 text-2xl font-bold">Tier &amp; Shop</h1>
       <section className="card flex flex-col items-center px-5 pb-5 pt-6 text-center">
         <motion.div key={JSON.stringify(outfit)} initial={reduce ? false : { scale: 0.9 }} animate={{ scale: 1 }} transition={SPRING.bouncy}>
-          <Mascot size={190} pose="full" alive listen outfit={outfit} label="Dein Fuchs" />
+          <Mascot size={190} pose="full" alive listen outfit={outfit} label="Dein Tier" />
         </motion.div>
         <p className="mt-3 flex items-center gap-2 rounded-full bg-gold/20 px-4 py-1.5 text-lg font-bold text-gold-dark" aria-label={`${coins} Münzen`}>
           <Coin size={22} />

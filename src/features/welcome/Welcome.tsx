@@ -1,22 +1,25 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { EASE, SPRING } from '../../components/ui/motion'
 import { Mascot, type Mood } from '../../components/mascot/Mascot'
 import { Tour } from './Tour'
+import { MascotPicker } from '../profile/MascotPicker'
 import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
 import { EXAMPLE_PERIODS } from '../../lib/school'
 import { Confetti } from '../../components/ui/Confetti'
-import { Back, Right } from '../../components/ui/Icons'
+import { Back, Check, Right, Sparkle } from '../../components/ui/Icons'
+import { requestAiSignIn } from '../../components/ui/AiGateSheet'
+import { isAiReady } from '../../lib/ai'
 import { Wordmark } from '../../components/ui/Layout'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { HELP_SUBJECTS } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
 import { useShallow } from 'zustand/react/shallow'
 
-type Step = 'hero' | 'tour' | 'subjects' | 'goal' | 'hours' | 'ready'
+type Step = 'hero' | 'tour' | 'tier' | 'subjects' | 'goal' | 'hours' | 'ready'
 type FlowStep = Exclude<Step, 'hero' | 'tour'>
-const FLOW: FlowStep[] = ['subjects', 'goal', 'hours', 'ready']
+const FLOW: FlowStep[] = ['tier', 'subjects', 'goal', 'hours', 'ready']
 const ORDER: Step[] = ['hero', 'tour', ...FLOW]
 
 /** Lernzeit pro Tag, solange eine Arbeit ansteht (ohne Arbeit gibt es kein Tagesziel). */
@@ -28,12 +31,13 @@ const GOALS = [
 ]
 
 const SPEECH: Record<FlowStep, string> = {
+  tier: 'Wer soll dich beim Lernen begleiten? Tipp ein Tier an. Du kannst es jederzeit wechseln.',
   subjects: 'Welche Fächer hast du? Du kannst später jederzeit mehr hinzufügen.',
   goal: 'In welcher Klasse bist du, und wie viel Zeit hast du pro Tag, wenn eine Arbeit ansteht?',
   hours: 'Wann sind deine Schulstunden? Dann zeigt dir der Kalender „3. Stunde“ statt einer Uhrzeit.',
   ready: 'Super! Dann leg los mit deinen ersten Karteikarten.',
 }
-const MOOD: Record<FlowStep, Mood> = { subjects: 'think', goal: 'happy', hours: 'think', ready: 'cheer' }
+const MOOD: Record<FlowStep, Mood> = { tier: 'wave', subjects: 'think', goal: 'happy', hours: 'think', ready: 'cheer' }
 
 const HOW = [
   { n: '1', title: 'Karteikarten erstellen', text: 'Schreib, was du für ein Fach brauchst, oder lass die KI die Karten machen. Auch aus einem Foto von deinem Heft.' },
@@ -59,6 +63,10 @@ export function Welcome() {
   // Beim Tippen bleiben die Zeilen, wie sie sind (auch unvollständig); gespeichert wird die geprüfte Fassung
   const [localPeriods, setLocalPeriods] = useState(() => (schoolPeriods.length ? schoolPeriods : EXAMPLE_PERIODS))
   const fileRef = useRef<HTMLInputElement>(null)
+  const [aiOn, setAiOn] = useState(false)
+  useEffect(() => {
+    if (step === 'ready') void isAiReady().then(setAiOn)
+  }, [step])
 
   const go = (to: Step) => {
     setDir(ORDER.indexOf(to) >= ORDER.indexOf(step) ? 1 : -1)
@@ -189,6 +197,8 @@ export function Welcome() {
 
               <AnimatePresence mode="wait" custom={dir} initial={false}>
                 <motion.div key={step} custom={dir} variants={slide} initial="enter" animate="center" exit="exit">
+                  {step === 'tier' && <MascotPicker compact />}
+
                   {step === 'subjects' && (
                     <ul className="grid grid-cols-2 gap-2.5" role="group" aria-label="Meine Fächer">
                       {HELP_SUBJECTS.map((s) => {
@@ -265,6 +275,18 @@ export function Welcome() {
                           </li>
                         ))}
                       </ol>
+                      <button
+                        type="button"
+                        disabled={aiOn}
+                        onClick={() => void requestAiSignIn().then(() => setAiOn(true), () => undefined)}
+                        className="card press mt-3 flex w-full items-center gap-3 p-4 text-left"
+                      >
+                        <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${aiOn ? 'bg-good-soft text-good-dark' : 'bg-violet-soft text-violet-dark'}`}>{aiOn ? <Check size={20} /> : <Sparkle size={20} />}</span>
+                        <span className="min-w-0 flex-1">
+                          <span className="block font-extrabold leading-tight">{aiOn ? 'KI ist eingeschaltet' : 'KI jetzt einschalten'}</span>
+                          <span className="block text-sm text-muted">{aiOn ? 'Karteikarten, Aufgaben und Probearbeiten schreibt dir die KI.' : 'Ein Tipp, kostenlos, kein Passwort. Du kannst es auch später machen.'}</span>
+                        </span>
+                      </button>
                       <p className="mt-3 rounded-2xl bg-snow p-4 text-sm leading-relaxed text-muted">Für Französisch gibt es fertige Karteikarten zum Wortschatz aus dem Unterricht (Klasse 7 bis 10), mit Beispielsätzen und Aufnahmen.</p>
                     </div>
                   )}

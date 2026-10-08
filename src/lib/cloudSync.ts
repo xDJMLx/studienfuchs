@@ -73,6 +73,20 @@ export async function cloudSignIn(load: CloudLoader = defaultLoader): Promise<Cl
   }
 }
 
+/**
+ * Sicherung einschalten, so einfach wie möglich: ein Tipp legt (wie bei der KI) ein kostenloses Gastkonto bei Puter an, ohne Passwort.
+ * Ein Gastkonto gilt nur für diesen Browser; für mehrere Geräte gibt es `cloudSignIn` mit eigenem Konto. Nur direkt aus einem Klick aufrufen.
+ */
+export async function cloudEnable(load: CloudLoader = defaultLoader): Promise<CloudStatus> {
+  try {
+    const p = await load()
+    if (!p.auth.isSignedIn()) await p.auth.signIn({ attempt_temp_user_creation: true })
+    return await cloudStatus(load)
+  } catch (e) {
+    throw wrap(e)
+  }
+}
+
 export async function cloudSave(json: string, load: CloudLoader = defaultLoader): Promise<Date> {
   try {
     const p = await load()

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
-import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { Back, Sparkle } from '../../components/ui/Icons'
+import { useNavigate, useSearchParams } from 'react-router-dom'
+import { Sparkle } from '../../components/ui/Icons'
+import { BackLink } from '../../components/ui/BackLink'
 import { grades, units } from '../../content'
 import { AiError, ensureAiReady } from '../../lib/ai'
 import { askAi, NeedAccountError } from '../../lib/aiAsk'
@@ -108,9 +109,7 @@ export function ExamCreatePage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-4 lg:py-8">
-      <Link to="/practice" className="press -ml-2 mb-1 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 font-semibold text-muted transition-colors hover:text-ink">
-        <Back size={20} /> Üben
-      </Link>
+      <BackLink to="/practice" label="Üben" size={20} />
       <h1 className="page-title">Test erstellen</h1>
       <p className="mb-5 mt-1 text-muted">Ein Kurztest oder eine ganze Klassenarbeit zum Üben, am besten zu deinem Stoff.</p>
 

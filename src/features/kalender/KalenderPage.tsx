@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Segmented, Switch } from '../../components/ui/controls'
 import { Coin, Plus, Right } from '../../components/ui/Icons'
+import { Sheet } from '../../components/ui/Sheet'
+import { UntisSettings } from '../settings/UntisSettings'
 import { Item, Stagger } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { byDay, dateKey, kindLabel, longDay, monthGrid, monthName, needsFollowUp, parseKey, shortDay } from '../../lib/calendar'
@@ -103,11 +105,16 @@ export function KalenderPage() {
   const [view, setViewState] = useState<View>(readView)
   const [selected, setSelected] = useState(today)
   const [cursor, setCursor] = useState(() => ({ y: new Date().getFullYear(), m: new Date().getMonth() }))
+  const [untisOpen, setUntisOpen] = useState(false)
+  const [untisMsg, setUntisMsg] = useState<{ ok: boolean; text: string } | null>(null)
   const [sheet, setSheet] = useState<{ arbeit?: Arbeit; date?: string; time?: string; duration?: number } | null>(null)
   // Von anderen Seiten ("Steht eine Arbeit an?") mit ?neu=1 gleich das Eintragen öffnen
   const wantsNew = params.get('neu')
   useEffect(() => {
-    if (wantsNew) setSheet({ date: dateKey(new Date()) })
+    if (!wantsNew) return
+    // Erst öffnen, wenn die Seite hereingeglitten ist: Zwei Bewegungen gleichzeitig wirken unruhig
+    const id = window.setTimeout(() => setSheet({ date: dateKey(new Date()) }), 300)
+    return () => clearTimeout(id)
   }, [wantsNew])
 
   const setView = (v: View) => {
@@ -290,12 +297,25 @@ export function KalenderPage() {
               periods={periods}
               lessons={showLessons ? untis?.lessons : []}
               toolbar={
-                untis && untis.lessons.length > 0 ? (
-                  <div className="mb-3 flex items-center justify-between rounded-xl bg-snow px-3 py-2">
-                    <span className="text-[14px] font-medium">Unterricht aus WebUntis</span>
-                    <Switch checked={showLessons} onChange={toggleLessons} label="Unterricht aus WebUntis anzeigen" />
-                  </div>
-                ) : null
+                untis ? (
+                  untis.lessons.length > 0 ? (
+                    <div className="mb-3 flex items-center justify-between gap-3 rounded-xl bg-snow px-3 py-2">
+                      <button type="button" onClick={() => setUntisOpen(true)} className="press min-w-0 flex-1 text-left text-[14px] font-medium">
+                        Unterricht aus WebUntis
+                        <span className="block text-[12px] text-muted">Verbunden · tippen zum Abgleichen</span>
+                      </button>
+                      <Switch checked={showLessons} onChange={toggleLessons} label="Unterricht aus WebUntis anzeigen" />
+                    </div>
+                  ) : null
+                ) : (
+                  <button type="button" onClick={() => setUntisOpen(true)} className="row press mb-3 !min-h-12 rounded-xl bg-snow">
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-[15px] font-extrabold leading-tight">Mit WebUntis verbinden</span>
+                      <span className="block text-[12px] font-medium text-muted">Stundenplan und Arbeiten automatisch holen</span>
+                    </span>
+                    <Right size={13} className="shrink-0 text-muted" />
+                  </button>
+                )
               } onAdd={(date, time, duration) => setSheet({ date, time, duration })} onOpen={(a) => setSheet({ arbeit: a })} />
           </div>
         </Item>
@@ -333,6 +353,24 @@ export function KalenderPage() {
         </Item>
       )}
 
+      <Sheet open={untisOpen} onClose={() => setUntisOpen(false)} title="WebUntis verbinden">
+        <div className="-mx-5">
+          {untisMsg && (
+            <p role="status" className={`mx-5 mb-1 rounded-xl p-3 text-sm font-semibold ${untisMsg.ok ? 'bg-good-soft text-good-dark' : 'bg-bad-soft text-bad-dark'}`}>
+              {untisMsg.text}
+            </p>
+          )}
+          <UntisSettings
+            onToast={(ok, text) => setUntisMsg({ ok, text })}
+            onDone={() => {
+              window.setTimeout(() => {
+                setUntisOpen(false)
+                setUntisMsg(null)
+              }, 1200)
+            }}
+          />
+        </div>
+      </Sheet>
       <ArbeitSheet open={!!sheet} onClose={closeSheet} arbeit={sheet?.arbeit} date={sheet?.date} time={sheet?.time} duration={sheet?.duration} />
     </Stagger>
   )

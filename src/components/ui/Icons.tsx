@@ -145,6 +145,16 @@ export const Shield = ({ size, ...p }: P) => (
   </svg>
 )
 
+/** Käfer: Fehler melden. */
+export const Bug = ({ size, ...p }: P) => (
+  <svg {...base(size)} {...p}>
+    <path d="M8.2 7.6a3.8 3.8 0 0 1 7.6 0Z" fill="currentColor" />
+    <ellipse cx="12" cy="14" rx="5.2" ry="6.4" fill="currentColor" />
+    <path d="M12 8.6v11.6M3.6 12.4l3.2 1.2M3.6 18l3.4-1.6M20.4 12.4l-3.2 1.2M20.4 18l-3.4-1.6M8.4 4.6 6.6 2.8M15.6 4.6l1.8-1.8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    <path d="M12 8.6v11.6" fill="none" stroke="var(--surface)" strokeWidth="1.3" opacity="0.55" />
+  </svg>
+)
+
 export const Chevron = ({ size, ...p }: P) => (
   <svg {...base(size)} {...line(3.2)} {...p}>
     <path d="m5.6 9.4 6.4 6.4 6.4-6.4" />

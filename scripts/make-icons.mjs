@@ -1,16 +1,14 @@
-// Erzeugt die App-Symbole (PNG) aus der Maskottchen-Zeichnung, ganz ohne Zusatzprogramme.
-// Aufruf: node scripts/make-icons.mjs   → schreibt public/icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png
-// Die Geometrie entspricht public/favicon.svg (Fenni, der Fuchs); ein kleiner Rasterizer mit 4x4-Kantenglättung.
+// Erzeugt die App-Symbole (PNG und favicon.svg) aus der Zeichnung des Fuchses, ganz ohne Zusatzprogramme.
+// Aufruf: node scripts/make-icons.mjs   → schreibt public/favicon.svg, icon-192.png, icon-512.png, icon-maskable-512.png, apple-touch-icon.png
+// Die Formen sind die des Fuchses aus der App (src/components/mascot/species.tsx, Koordinaten 200 x 240, Kopf um (100, 90)).
+// Ein kleiner Rasterizer mit 4x4-Kantenglättung; Flächen können einen senkrechten Farbverlauf haben.
 import fs from 'node:fs'
 import zlib from 'node:zlib'
 
 const rgb = (hex, a = 1) => ({ r: parseInt(hex.slice(1, 3), 16), g: parseInt(hex.slice(3, 5), 16), b: parseInt(hex.slice(5, 7), 16), a })
-const ORANGE = rgb('#ff8a2a')
-const DARK = rgb('#3b2a1a')
-const WHITE = rgb('#ffffff')
-const CREAM = rgb('#fff1e5')
+const mix = (c1, c2, t) => ({ r: c1.r + (c2.r - c1.r) * t, g: c1.g + (c2.g - c1.g) * t, b: c1.b + (c2.b - c1.b) * t, a: c1.a + (c2.a - c1.a) * t })
 
-/** Pfad-Text (M, L, C, q, Z) in Punktliste umwandeln. */
+/** Pfad-Text (M, L, C, Q und die kleinen q) in Punktliste umwandeln. */
 function flatten(d) {
   const tokens = d.match(/[a-zA-Z]|-?\d*\.?\d+/g)
   let i = 0
@@ -19,6 +17,15 @@ function flatten(d) {
   let cy = 0
   const pts = []
   const num = () => parseFloat(tokens[i++])
+  const quad = (x1, y1, x, y) => {
+    for (let k = 1; k <= 16; k++) {
+      const t = k / 16
+      const u = 1 - t
+      pts.push([u * u * cx + 2 * u * t * x1 + t * t * x, u * u * cy + 2 * u * t * y1 + t * t * y])
+    }
+    cx = x
+    cy = y
+  }
   while (i < tokens.length) {
     if (/[a-zA-Z]/.test(tokens[i])) cmd = tokens[i++]
     if (cmd === 'Z' || cmd === 'z') {
@@ -39,16 +46,11 @@ function flatten(d) {
       }
       cx = x
       cy = y
+    } else if (cmd === 'Q') {
+      quad(num(), num(), num(), num())
     } else if (cmd === 'q') {
       const [dx1, dy1, dx, dy] = [num(), num(), num(), num()]
-      const [x1, y1, x, y] = [cx + dx1, cy + dy1, cx + dx, cy + dy]
-      for (let k = 1; k <= 16; k++) {
-        const t = k / 16
-        const u = 1 - t
-        pts.push([u * u * cx + 2 * u * t * x1 + t * t * x, u * u * cy + 2 * u * t * y1 + t * t * y])
-      }
-      cx = x
-      cy = y
+      quad(cx + dx1, cy + dy1, cx + dx, cy + dy)
     } else {
       throw new Error('Pfadbefehl nicht unterstützt: ' + cmd)
     }
@@ -62,23 +64,45 @@ const ellipse = (cx, cy, rx, ry) => {
   return pts
 }
 
-/** Alle Formen der Maskottchen-Zeichnung (Koordinaten im Raster 0..120). */
-const MASCOT = [
-  { pts: flatten('M18 14 L44 36 L22 52 Z'), color: ORANGE },
-  { pts: flatten('M102 14 L76 36 L98 52 Z'), color: ORANGE },
-  { pts: flatten('M24 26 L38 38 L26 46 Z'), color: { ...DARK, a: 0.85 } },
-  { pts: flatten('M96 26 L82 38 L94 46 Z'), color: { ...DARK, a: 0.85 } },
-  { pts: flatten('M12 58 C12 36 34 26 60 26 C86 26 108 36 108 58 C108 86 86 104 60 104 C34 104 12 86 12 58 Z'), color: ORANGE },
-  { pts: flatten('M12 64 C26 60 38 66 48 80 C54 88 66 88 72 80 C82 66 94 60 108 64 C106 88 86 104 60 104 C34 104 14 88 12 64 Z'), color: WHITE },
-  { pts: ellipse(40, 54, 6, 7.5), color: DARK },
-  { pts: ellipse(80, 54, 6, 7.5), color: DARK },
-  { pts: ellipse(42, 51, 2.2, 2.2), color: WHITE },
-  { pts: ellipse(82, 51, 2.2, 2.2), color: WHITE },
-  { pts: ellipse(60, 76, 7, 5), color: DARK },
-  { pts: ellipse(26, 72, 5, 5), color: rgb('#ff9aa2', 0.6) },
-  { pts: ellipse(94, 72, 5, 5), color: rgb('#ff9aa2', 0.6) },
-  { stroke: flatten('M50 84 q10 10 20 0'), width: 3.5, color: DARK },
+const DARK = '#2e1a0d'
+const ORANGE_TOP = '#ffac4d'
+const ORANGE_BOT = '#f2750f'
+
+/** Die Formen des Fuchskopfes. `path`/`ellipse` für SVG und Raster; `grad` = senkrechter Verlauf [oben, unten, y0, y1]. */
+const SHAPES = [
+  { path: 'M38 72 C20 46 20 20 32 4 C52 10 74 26 88 44 Z', fill: '#ff8a1c' },
+  { path: 'M162 72 C180 46 180 20 168 4 C148 10 126 26 112 44 Z', fill: '#ff8a1c' },
+  { path: 'M48 58 C40 42 38 28 42 18 C54 24 66 32 74 44 Z', fill: '#fff0dc' },
+  { path: 'M152 58 C160 42 162 28 158 18 C146 24 134 32 126 44 Z', fill: '#fff0dc' },
+  { path: 'M32 4 C52 10 60 14 66 21 L24 25 C21 17 25 8 32 4 Z', fill: DARK },
+  { path: 'M168 4 C148 10 140 14 134 21 L176 25 C179 17 175 8 168 4 Z', fill: DARK },
+  { path: 'M100 28 C142 28 170 54 172 90 C173 121 146 148 100 148 C54 148 27 121 28 90 C30 54 58 28 100 28 Z', grad: [ORANGE_TOP, ORANGE_BOT, 28, 148] },
+  { path: 'M28 98 C46 92 70 98 82 114 C88 122 94 127 100 127 C106 127 112 122 118 114 C130 98 154 92 172 98 C172.5 121 146 148 100 148 C54 148 27.5 121 28 98 Z', grad: ['#ffffff', '#ffe9d0', 92, 148] },
+  { ellipse: [46, 115, 9, 5.8], fill: '#ff6f7a', alpha: 0.5 },
+  { ellipse: [154, 115, 9, 5.8], fill: '#ff6f7a', alpha: 0.5 },
+  { ellipse: [69, 90, 15, 19], fill: '#ffffff' },
+  { ellipse: [131, 90, 15, 19], fill: '#ffffff' },
+  { ellipse: [69, 91, 10.5, 13.5], fill: '#2a170a' },
+  { ellipse: [131, 91, 10.5, 13.5], fill: '#2a170a' },
+  { ellipse: [65.4, 85, 4, 4], fill: '#ffffff' },
+  { ellipse: [134.6, 85, 4, 4], fill: '#ffffff' },
+  { path: 'M90 106 Q100 101 110 106 Q108 117 100 121 Q92 117 90 106 Z', fill: DARK },
+  { stroke: 'M85 129 Q92 138 100 130 Q108 138 115 129', width: 3.6, fill: DARK },
 ]
+
+const shapeColor = (s, ly) => {
+  if (s.grad) {
+    const [c1, c2, y0, y1] = s.grad
+    return mix(rgb(c1), rgb(c2), Math.max(0, Math.min(1, (ly - y0) / (y1 - y0))))
+  }
+  return rgb(s.fill, s.alpha ?? 1)
+}
+
+const MASCOT = SHAPES.map((s) => (s.path ? { ...s, pts: flatten(s.path) } : s.ellipse ? { ...s, pts: ellipse(...s.ellipse) } : { ...s, line: flatten(s.stroke) }))
+
+/** Hintergrund: Farbverlauf von oben nach unten (dunkles Petrol wie der Dunkelmodus der App). */
+const BG_TOP = rgb('#2c4a5c')
+const BG_BOT = rgb('#12212a')
 
 function inside(pts, x, y) {
   let w = 0
@@ -119,7 +143,6 @@ function render(size, { radius, tx, ty, scale }) {
         for (let sx = 0; sx < SS; sx++) {
           const dx = ((px + (sx + 0.5) / SS) / size) * 120
           const dy = ((py + (sy + 0.5) / SS) / size) * 120
-          // Hintergrund (abgerundetes Quadrat)
           let inBg = true
           if (radius > 0) {
             const qx = Math.max(radius - dx, 0, dx - (120 - radius))
@@ -127,18 +150,19 @@ function render(size, { radius, tx, ty, scale }) {
             inBg = qx * qx + qy * qy <= radius * radius
           }
           if (!inBg) continue
-          let r = CREAM.r
-          let g = CREAM.g
-          let b = CREAM.b
+          const bg = mix(BG_TOP, BG_BOT, dy / 120)
+          let r = bg.r
+          let g = bg.g
+          let b = bg.b
           const lx = (dx - tx) / scale
           const ly = (dy - ty) / scale
           for (const s of MASCOT) {
-            const hit = s.pts ? inside(s.pts, lx, ly) : nearStroke(s.stroke, lx, ly, s.width / 2)
+            const hit = s.pts ? inside(s.pts, lx, ly) : nearStroke(s.line, lx, ly, s.width / 2)
             if (!hit) continue
-            const a = s.color.a
-            r = r * (1 - a) + s.color.r * a
-            g = g * (1 - a) + s.color.g * a
-            b = b * (1 - a) + s.color.b * a
+            const c = shapeColor(s, ly)
+            r = r * (1 - c.a) + c.r * c.a
+            g = g * (1 - c.a) + c.g * c.a
+            b = b * (1 - c.a) + c.b * c.a
           }
           R += r
           G += g
@@ -191,9 +215,11 @@ function png(size, rgba) {
   return Buffer.concat([Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), chunk('IHDR', ihdr), chunk('IDAT', zlib.deflateSync(raw, { level: 9 })), chunk('IEND', Buffer.alloc(0))])
 }
 
-const ROUND = { radius: 28, tx: 9, ty: 11, scale: 0.85 }
-const MASKABLE = { radius: 0, tx: 23, ty: 23.5, scale: 0.62 } // Fuchs in der "sicheren Zone", Android schneidet den Rand beliebig zu
-const FULL = { radius: 0, tx: 9, ty: 11, scale: 0.85 }
+// Kopf: x 22..178, y 4..148 → Mitte (100, 76). Rund: Fuchs füllt etwa vier Fünftel; maskierbar: kleiner, Android schneidet den Rand beliebig zu.
+const place = (s) => ({ tx: 60 - 100 * s, ty: 62 - 76 * s, scale: s })
+const ROUND = { radius: 27, ...place(0.56) }
+const MASKABLE = { radius: 0, ...place(0.44) }
+const FULL = { radius: 0, ...place(0.56) }
 
 const jobs = [
   ['public/icon-192.png', 192, ROUND],
@@ -205,3 +231,21 @@ for (const [file, size, cfg] of jobs) {
   fs.writeFileSync(file, png(size, render(size, cfg)))
   console.log('geschrieben:', file, `${size}x${size}`)
 }
+
+// favicon.svg aus denselben Formen
+const t = place(0.56)
+const defs = [
+  `<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c4a5c"/><stop offset="1" stop-color="#12212a"/></linearGradient>`,
+  ...SHAPES.map((s, i) => (s.grad ? `<linearGradient id="g${i}" gradientUnits="userSpaceOnUse" x1="0" y1="${s.grad[2]}" x2="0" y2="${s.grad[3]}"><stop offset="0" stop-color="${s.grad[0]}"/><stop offset="1" stop-color="${s.grad[1]}"/></linearGradient>` : '')),
+].join('')
+const body = SHAPES.map((s, i) => {
+  const fill = s.grad ? `url(#g${i})` : s.fill
+  if (s.path) return `<path d="${s.path}" fill="${fill}"/>`
+  if (s.ellipse) return `<ellipse cx="${s.ellipse[0]}" cy="${s.ellipse[1]}" rx="${s.ellipse[2]}" ry="${s.ellipse[3]}" fill="${fill}"${s.alpha ? ` opacity="${s.alpha}"` : ''}/>`
+  return `<path d="${s.stroke}" fill="none" stroke="${fill}" stroke-width="${s.width}" stroke-linecap="round"/>`
+}).join('')
+fs.writeFileSync(
+  'public/favicon.svg',
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs>${defs}</defs><rect width="120" height="120" rx="27" fill="url(#bg)"/><g transform="translate(${t.tx.toFixed(2)} ${t.ty.toFixed(2)}) scale(${t.scale})">${body}</g></svg>\n`,
+)
+console.log('geschrieben: public/favicon.svg')

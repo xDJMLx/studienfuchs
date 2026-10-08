@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
-import { Back, Cards, Pencil, Star, Trash, Trophy } from '../../components/ui/Icons'
+import { Cards, Pencil, Star, Trash, Trophy } from '../../components/ui/Icons'
+import { BackLink } from '../../components/ui/BackLink'
 import { Item, Stagger } from '../../components/ui/motion'
 import { allCourseDecks, ownDeck, planToday } from '../../lib/decks'
 import { deckStars } from '../../lib/progress'
@@ -92,9 +93,7 @@ export function DeckPage() {
   return (
     <Stagger className="mx-auto max-w-2xl px-4 py-5 lg:py-8" stagger={0.06}>
       <Item>
-        <Link to={`/faecher/${deck.subject}`} className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
-          <Back size={18} /> {sub?.name ?? 'Fächer'}
-        </Link>
+        <BackLink to={`/faecher/${deck.subject}`} label={sub?.name ?? 'Fächer'} size={18} />
         <h1 className="page-title">{deck.title}</h1>
         <p className="mb-5 mt-1 flex flex-wrap items-center gap-x-2 text-muted">
           <span>{deck.items.length} Karten{deck.sub ? ` · ${deck.sub}` : ''}</span>

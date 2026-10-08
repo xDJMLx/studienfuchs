@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
-import { Back, Camera, Close } from '../../components/ui/Icons'
+import { Camera, Close } from '../../components/ui/Icons'
+import { BackLink } from '../../components/ui/BackLink'
 import { blobToJpegBase64, preloadAi } from '../../lib/ai'
 import { generateCards } from '../../lib/aiCards'
 import { defaultPlan, generateTasks, PLAN_LABEL, type TaskPlan } from '../../lib/aiTasks'
@@ -153,9 +154,7 @@ export function DeckCreatePage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-5 lg:py-8">
-      <Link to={`/faecher/${subject}`} className="press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted hover:text-ink">
-        <Back size={18} /> {sub?.name ?? 'Fächer'}
-      </Link>
+      <BackLink to={`/faecher/${subject}`} label={sub?.name ?? 'Fächer'} size={18} />
       <h1 className="large-title mb-5">Neu erstellen</h1>
 
       {!rows && (

@@ -79,6 +79,11 @@ describe('Die App als Ganzes', () => {
     await click(/^Weiter$/)
     await waitFor(() => expect(text()).toMatch(/Probearbeit mit Note/))
     await click(/^Einrichten$/)
+    // Lerntier wählen
+    await waitFor(() => expect(text()).toMatch(/Wer soll dich beim Lernen begleiten/))
+    await click(/Elefant/, 'radio')
+    expect(useStore.getState().mascot).toBe('elefant')
+    await click(/Weiter/)
     await waitFor(() => expect(text()).toMatch(/Welche Fächer hast du/))
     await click(/Biologie/)
     await click(/Mathe/)
@@ -510,7 +515,7 @@ describe('WebUntis verbinden', () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/settings/untis'
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Mit WebUntis verbinden/))
+    await waitFor(() => expect(text()).toMatch(/Link in WebUntis kopieren/))
     const input = await screen.findByLabelText('iCal-Datei')
     const file = new File([ICS], 'stundenplan.ics', { type: 'text/calendar' })
     Object.defineProperty(file, 'text', { value: async () => ICS })
@@ -530,7 +535,7 @@ describe('WebUntis verbinden', () => {
     expect(useStore.getState().arbeiten).toHaveLength(0)
   })
 
-  it('Mit Link verbinden ruft ab; ohne Relais gibt es eine verständliche Meldung statt eines Absturzes', async () => {
+  it('Mit Link verbinden ruft ab; ohne Zugriff gibt es eine verständliche Meldung statt eines Absturzes', async () => {
     useStore.setState({ onboarded: true })
     const real = globalThis.fetch
     globalThis.fetch = (async () => {
@@ -539,11 +544,12 @@ describe('WebUntis verbinden', () => {
     try {
       window.location.hash = '#/settings/untis'
       render(<App />)
-      fireEvent.change(await screen.findByLabelText('iCal-Link'), { target: { value: 'webcal://test.webuntis.com/WebUntis/Ical.do?school=x&key=1' } })
-      fireEvent.click(screen.getByRole('button', { name: 'Mit WebUntis verbinden' }))
+      fireEvent.click(await screen.findByRole('button', { name: 'Link selbst eintippen' }))
+      fireEvent.change(await screen.findByLabelText('Link hier einfügen'), { target: { value: 'webcal://test.webuntis.com/WebUntis/Ical.do?school=x&key=1' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Verbinden' }))
       await waitFor(() => expect(useStore.getState().untis?.url).toBe('https://test.webuntis.com/WebUntis/Ical.do?school=x&key=1'))
-      await waitFor(() => expect(useStore.getState().untis?.lastError).toMatch(/Relais/), { timeout: 4000 })
-      await waitFor(() => expect(text()).toMatch(/Relais/))
+      await waitFor(() => expect(useStore.getState().untis?.lastError).toMatch(/\.ics-Datei/), { timeout: 4000 })
+      await waitFor(() => expect(text()).toMatch(/\.ics-Datei/))
     } finally {
       globalThis.fetch = real
     }
@@ -698,7 +704,7 @@ describe('Einführung überspringen', () => {
     render(<App />)
     await click(/Jetzt starten/)
     await click(/Überspringen/)
-    await waitFor(() => expect(text()).toMatch(/Welche Fächer hast du/))
+    await waitFor(() => expect(text()).toMatch(/Wer soll dich beim Lernen begleiten/))
   })
 })
 
@@ -716,5 +722,54 @@ describe('Übersicht: Einstieg, Einstellungen als Liste', () => {
     expect(text()).not.toMatch(/Mach die App zu deiner/)
     fireEvent.click(screen.getAllByRole('link', { name: /Einstellungen/ })[0])
     await waitFor(() => expect(text()).toMatch(/Schulzeiten/))
+  })
+})
+
+
+describe('Neu: Lerntier, Rückmeldung, WebUntis per Zwischenablage', () => {
+  it('Das Lerntier wechselt man in den Einstellungen, die Figur ändert sich überall', async () => {
+    useStore.setState({ onboarded: true })
+    window.location.hash = '#/settings/tier'
+    render(<App />)
+    await click(/Giraffe/, 'radio')
+    expect(useStore.getState().mascot).toBe('giraffe')
+    expect(document.body.textContent).toMatch(/Gina/)
+  })
+
+  it('Fehler melden: Nachricht schreiben, Vorschau zeigt die Technik, Senden öffnet das Teilen-Fenster', async () => {
+    useStore.setState({ onboarded: true })
+    const shared: ShareData[] = []
+    Object.defineProperty(navigator, 'share', { configurable: true, value: async (d: ShareData) => void shared.push(d) })
+    try {
+      window.location.hash = '#/settings/feedback'
+      render(<App />)
+      const box = await screen.findByLabelText('Nachricht')
+      expect((screen.getByRole('button', { name: /Senden/ }) as HTMLButtonElement).disabled).toBe(true)
+      fireEvent.change(box, { target: { value: 'Die Blitzrunde hängt nach 10 Karten' } })
+      await click(/Was wird gesendet/)
+      expect(document.body.textContent).toMatch(/Version/)
+      await click(/^Senden/)
+      await waitFor(() => expect(shared).toHaveLength(1))
+      expect(shared[0].text).toContain('Blitzrunde')
+      await waitFor(() => expect(text()).toMatch(/Danke/))
+    } finally {
+      Reflect.deleteProperty(navigator, 'share')
+    }
+  })
+
+  it('WebUntis: Link aus der Zwischenablage wird mit einem Tipp verbunden', async () => {
+    useStore.setState({ onboarded: true })
+    const real = globalThis.fetch
+    globalThis.fetch = (async () => new Response('BEGIN:VCALENDAR END:VCALENDAR', { status: 200 })) as typeof fetch
+    Object.defineProperty(navigator, 'clipboard', { configurable: true, value: { readText: async () => 'webcal://x.webuntis.com/WebUntis/Ical.do?school=s&token=abc' } })
+    try {
+      window.location.hash = '#/settings/untis'
+      render(<App />)
+      await click(/Link einfügen und verbinden/)
+      await waitFor(() => expect(useStore.getState().untis?.url).toBe('https://x.webuntis.com/WebUntis/Ical.do?school=s&token=abc'))
+    } finally {
+      globalThis.fetch = real
+      Reflect.deleteProperty(navigator, 'clipboard')
+    }
   })
 })

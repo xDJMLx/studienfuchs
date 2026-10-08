@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { IconChip } from '../../components/ui/controls'
-import { Coin, Gear, Right, Shield, Star, Trophy } from '../../components/ui/Icons'
+import { Bug, Coin, Gear, Right, Shield, Star, Trophy } from '../../components/ui/Icons'
 import { CountUp, EASE } from '../../components/ui/motion'
 import { ProgressRing } from '../../components/ui/widgets'
 import { achievements } from '../../lib/achievements'
@@ -15,7 +15,7 @@ import { useLearned } from '../review/ReviewPage'
 import { useShallow } from 'zustand/react/shallow'
 
 const WEEKDAYS = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
-const TITLES = ['Fuchsjunges', 'Neugieriger Fuchs', 'Wortsammler', 'Vokabelprofi', 'Sprachfuchs', 'Grammatikmeister', 'Studienfuchs-Legende']
+const TITLES = ['Lernneuling', 'Neugierig', 'Wortsammler', 'Vokabelprofi', 'Sprachprofi', 'Grammatikmeister', 'Studienfuchs-Legende']
 const titleFor = (level: number) => TITLES[Math.min(TITLES.length - 1, Math.floor((level - 1) / 2))]
 
 
@@ -55,7 +55,10 @@ export function ProfilePage() {
       {/* Fuchs, Level und Münzen */}
       <section className="card relative overflow-hidden p-5" aria-label="Level">
         <div className="flex items-center gap-4">
-          <Mascot size={92} alive listen outfit={outfit} />
+          <Link to="/settings/tier" aria-label="Lerntier wechseln" className="press relative shrink-0 rounded-2xl">
+            <Mascot size={92} alive listen outfit={outfit} />
+            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-snow px-2 py-0.5 text-[11px] font-extrabold text-muted">wechseln</span>
+          </Link>
           <div className="min-w-0 flex-1">
             <p className="text-[14px] font-bold text-muted">Level {lvl.level}</p>
             <h2 className="text-[22px] font-black leading-tight">{titleFor(lvl.level)}</h2>
@@ -73,7 +76,7 @@ export function ProfilePage() {
         <Link to="/shop" className={linkRow}>
           <Coin size={26} className="shrink-0" />
           <span className="min-w-0 flex-1">
-            <span className="block text-[16px] font-extrabold leading-tight">Fuchs und Shop</span>
+            <span className="block text-[16px] font-extrabold leading-tight">Tier und Shop</span>
             <span className="block text-[13px] text-muted">{coins} {coins === 1 ? 'Münze' : 'Münzen'} zum Ausgeben</span>
           </span>
           <Right size={13} className="shrink-0 text-muted" />
@@ -155,6 +158,11 @@ export function ProfilePage() {
         <Link to="/settings" className={linkRow}>
           <IconChip tone="muted"><Gear size={20} /></IconChip>
           <span className="min-w-0 flex-1 text-[16px] font-extrabold">Einstellungen</span>
+          <Right size={13} className="text-muted" />
+        </Link>
+        <Link to="/settings/feedback" className={linkRow}>
+          <IconChip tone="muted"><Bug size={20} /></IconChip>
+          <span className="min-w-0 flex-1 text-[16px] font-extrabold">Fehler melden und Ideen</span>
           <Right size={13} className="text-muted" />
         </Link>
         <Link to="/about" className={linkRow}>

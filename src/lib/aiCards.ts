@@ -1,6 +1,7 @@
 import { restoreAccents } from './accents'
 import { AiError, chatCoach, ensureAiReady, extractJson, normalizeAiVocab, type AiVocab } from './ai'
 import { chatFree, shouldUseFree } from './freeAi'
+import { track } from './feedback'
 import { helpSubject } from './subjects'
 
 /** Sprachvorgaben für die KI je Kartensprache. */
@@ -42,6 +43,17 @@ export interface CardRequest {
  * Muss direkt aus einem Klick aufgerufen werden (Anmeldefenster des KI-Dienstes).
  */
 export async function callAi(system: string, content: string, images: string[] = [], maxTokens = 6000): Promise<string> {
+  try {
+    const out = await callAiInner(system, content, images, maxTokens)
+    track('ki')
+    return out
+  } catch (e) {
+    track('ki-fehler')
+    throw e
+  }
+}
+
+async function callAiInner(system: string, content: string, images: string[], maxTokens: number): Promise<string> {
   const messages = [{ role: 'user' as const, content }]
   const useFree = await shouldUseFree(images.length > 0)
   if (!useFree) await ensureAiReady()

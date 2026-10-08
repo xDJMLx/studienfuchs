@@ -142,7 +142,7 @@ describe('Link und Abruf', () => {
     const blocked = (async () => {
       throw new TypeError('Failed to fetch')
     }) as unknown as typeof fetch
-    await expect(fetchIcs('https://a.webuntis.com/x', undefined, blocked)).rejects.toThrow(/Relais/)
+    await expect(fetchIcs('https://a.webuntis.com/x', undefined, blocked)).rejects.toThrow(/\.ics-Datei/)
     const denied = (async () => new Response('', { status: 403 })) as unknown as typeof fetch
     await expect(fetchIcs('https://a.webuntis.com/x', undefined, denied)).rejects.toThrow(/abgelaufen/)
   })
@@ -155,5 +155,16 @@ describe('Link und Abruf', () => {
     expect(syncDue(st(new Date(NOW.getTime() - 7 * 3_600_000).toISOString()), NOW)).toBe(true)
     expect(agoText(undefined)).toBe('noch nie')
     expect(agoText(new Date(NOW.getTime() - 3 * 3_600_000).toISOString(), NOW)).toBe('vor 3 Std.')
+  })
+})
+
+describe('Link erkennen', () => {
+  it('erkennt WebUntis-Links in der Zwischenablage, andere nicht', async () => {
+    const { looksLikeUntisLink } = await import('./untis')
+    expect(looksLikeUntisLink('webcal://xyz.webuntis.com/WebUntis/Ical.do?school=a&token=1')).toBe(true)
+    expect(looksLikeUntisLink('  https://xyz.webuntis.com/WebUntis/Ical.do?k=1\n')).toBe(true)
+    expect(looksLikeUntisLink('https://example.com/kalender.ics')).toBe(false)
+    expect(looksLikeUntisLink('Hallo Welt')).toBe(false)
+    expect(looksLikeUntisLink('')).toBe(false)
   })
 })

@@ -18,6 +18,7 @@ import { allUnits, findLesson, isLessonDone, isRegular, itemMeta, mathItems, MAT
 import { buy, coinsForSession, itemById, toggleEquip, type Outfit } from '../lib/shop'
 import { currentStreak, dayKey, initialStreak, registerActivity, type StreakState } from '../lib/streak'
 import type { Arbeit, DeckLang, Item, VocabSet } from '../lib/types'
+import { track } from '../lib/feedback'
 
 /** Münzen dafür, eine Arbeit nach dem Termin abzuhaken. */
 export const ARBEIT_COINS = 15
@@ -49,6 +50,8 @@ interface Data {
   examDates: Record<string, string> // setId → YYYY-MM-DD
   soundOn: boolean
   grade: number
+  /** Welches Tier begleitet dich (Kennung aus species.tsx) */
+  mascot: string
   /** Aktuelles Fach: Französisch oder Mathe */
   subject: Subject
   speechOn: boolean
@@ -148,6 +151,7 @@ interface Actions {
   disconnectUntis: () => void
   setSoundOn: (on: boolean) => void
   setGrade: (g: number) => void
+  setMascot: (id: string) => void
   setSubject: (s: Subject) => void
   setTheme: (t: Data['theme']) => void
   setOnboarded: (v: boolean) => void
@@ -180,6 +184,7 @@ const initial: Data = {
   examDates: {},
   soundOn: true,
   grade: 7,
+  mascot: 'fuchs',
   subject: 'fr',
   speechOn: true,
   voiceName: '',
@@ -262,6 +267,7 @@ export const useStore = create<Data & Actions>()(
       },
 
       finishSession: ({ xp, grades, lessonId, accuracy, minutes }) => {
+        track('runde')
         const s = get()
         const now = new Date()
         const cards = { ...s.cards }
@@ -322,6 +328,7 @@ export const useStore = create<Data & Actions>()(
       equipItem: (id) => set((s) => ({ outfit: toggleEquip(s.outfit ?? {}, s.owned ?? [], id) })),
 
       addSet: (title, items, metaIn) => {
+        track(items.some((i) => i.task) ? 'aufgaben-set' : 'karten-set')
         const meta: DeckMeta = typeof metaIn === 'string' ? { book: metaIn } : (metaIn ?? {})
         const book = meta.book
         const id = `set-${Date.now().toString(36)}`
@@ -343,6 +350,7 @@ export const useStore = create<Data & Actions>()(
         })),
 
       addArbeit: (a) => {
+        track('arbeit')
         const id = `arbeit-${Date.now().toString(36)}`
         set((s) => ({ arbeiten: [...(s.arbeiten ?? []), { ...a, id }] }))
         return id
@@ -406,10 +414,10 @@ export const useStore = create<Data & Actions>()(
       setDailyMinutes: (n) => set({ dailyMinutes: Math.max(5, Math.min(60, Math.round(n))) }),
       setSchoolPeriods: (list) => set((s) => ({ schoolPeriods: cleanPeriods(list), untis: s.untis ? { ...s.untis, periodsAuto: false } : s.untis })),
 
-      addTest: (t) => set((s) => ({ tests: [t, ...(s.tests ?? []).filter((x) => x.id !== t.id)].slice(0, 60) })),
+      addTest: (t) => (track('test-erstellt'), set((s) => ({ tests: [t, ...(s.tests ?? []).filter((x) => x.id !== t.id)].slice(0, 60) }))),
       deleteTest: (id) => set((s) => ({ tests: (s.tests ?? []).filter((x) => x.id !== id), testResults: (s.testResults ?? []).filter((r) => r.testId !== id) })),
       updateTest: (id, fn) => set((s) => ({ tests: (s.tests ?? []).map((t) => (t.id === id ? fn(t) : t)) })),
-      addTestResult: (r) => set((s) => ({ testResults: [r, ...(s.testResults ?? [])].slice(0, 200) })),
+      addTestResult: (r) => (track('test-gemacht'), set((s) => ({ testResults: [r, ...(s.testResults ?? [])].slice(0, 200) }))),
 
       connectUntis: (url, relay) =>
         set((s) => ({ untis: { url, ...(relay ? { relay } : s.untis?.relay ? { relay: s.untis.relay } : {}), lessons: s.untis?.url === url ? s.untis.lessons : [], exams: s.untis?.exams ?? 0, periodsAuto: s.untis?.periodsAuto } })),
@@ -433,6 +441,7 @@ export const useStore = create<Data & Actions>()(
       disconnectUntis: () => set((s) => ({ untis: null, arbeiten: mergeExams(s.arbeiten ?? [], []) })),
       setSoundOn: (on) => set({ soundOn: on }),
       setGrade: (g) => set({ grade: g }),
+      setMascot: (id) => set({ mascot: id }),
       setSubject: (subject) => set({ subject }),
       setSpeech: (patch) => set(patch),
       setTheme: (t) => set({ theme: t }),
