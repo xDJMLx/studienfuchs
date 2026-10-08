@@ -66,7 +66,9 @@ export function ShopPage() {
           const confirm = pending === it.id
           return (
             <li key={it.id} className={`card flex flex-col items-center p-3 text-center ${on ? 'ring-2 ring-brand' : ''}`}>
-              <Mascot size={84} outfit={{ [it.slot]: it.id }} />
+              <span className="mb-5 block h-[84px] w-[84px]">
+                <Mascot size={84} outfit={{ [it.slot]: it.id }} />
+              </span>
               <p className="mt-1 text-sm font-semibold leading-tight">{it.label}</p>
               {has ? (
                 <button type="button" onClick={() => {

@@ -5,6 +5,7 @@ import { Back, Check, Plus, Right, Sparkle, Star } from '../../components/ui/Ico
 import { BackLink } from '../../components/ui/BackLink'
 import { Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
+import { SubjectShape } from '../../components/ui/SubjectShape'
 import { activeDecks, allCourseDecks, daysUntil, FRENCH, ownDeck, planToday, readiness } from '../../lib/decks'
 import { deckStars, subjectStats } from '../../lib/progress'
 import { masteryOf } from '../../lib/srs'
@@ -63,7 +64,7 @@ export function FachPage() {
       <Item>
         <BackLink to="/" label="Üben" size={18} />
         <div className="mb-5 flex items-center gap-3.5">
-          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl" style={{ background: subject.c }} aria-hidden>
+          <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[20px]" style={{ background: `linear-gradient(color-mix(in srgb, ${subject.c} 78%, white), ${subject.c})`, boxShadow: `inset 0 1px 0 rgba(255,255,255,.4), 0 5px 0 color-mix(in srgb, ${subject.c} 52%, black)` }} aria-hidden>
             <HelpSubjectIcon id={subject.id} ink={subject.c} size={34} />
           </span>
           <div className="min-w-0 flex-1">
@@ -97,8 +98,9 @@ export function FachPage() {
             <>
           {plan.due.length + plan.fresh.length > 0 && (
             <Item>
-              <button type="button" className="press mb-5 flex w-full items-center gap-3 rounded-[14px] bg-brand-strong px-4 py-3 text-left text-on-brand" onClick={() => navigate(`/ueben/los?fach=${subjectId}`)}>
-                <span className="min-w-0 flex-1 font-extrabold">
+              <button type="button" className="press mb-6 flex w-full items-center gap-3 rounded-[20px] px-4 py-3.5 text-left text-white" style={{ background: `linear-gradient(color-mix(in srgb, ${subject.c} 78%, white), ${subject.c})`, boxShadow: `inset 0 1px 0 rgba(255,255,255,.4), 0 5px 0 color-mix(in srgb, ${subject.c} 52%, black)` }} onClick={() => navigate(`/ueben/los?fach=${subjectId}`)}>
+                <SubjectShape id={subject.id} size={26} className="shrink-0 text-white/95" />
+                <span className="min-w-0 flex-1 text-[18px] font-black">
                   {subject.name} üben
                   <span className="block text-sm font-bold opacity-90">
                     {plan.due.length > 0 && `${plan.due.length} fällig`}
