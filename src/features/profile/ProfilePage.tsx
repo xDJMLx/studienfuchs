@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { IconChip } from '../../components/ui/controls'
-import { Bug, Coin, Gear, Right, Shield, Star, Trophy } from '../../components/ui/Icons'
+import { Bug, Coin, Gear, Right, Shield, Star } from '../../components/ui/Icons'
+import { SubjectShape } from '../../components/ui/SubjectShape'
 import { CountUp, EASE } from '../../components/ui/motion'
 import { ProgressRing } from '../../components/ui/widgets'
 import { achievements } from '../../lib/achievements'
@@ -18,6 +19,10 @@ const WEEKDAYS = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']
 const TITLES = ['Lernneuling', 'Neugierig', 'Wortsammler', 'Vokabelprofi', 'Sprachprofi', 'Grammatikmeister', 'Studienfuchs-Legende']
 const titleFor = (level: number) => TITLES[Math.min(TITLES.length - 1, Math.floor((level - 1) / 2))]
 
+
+/** Jeder Erfolg hat seine eigene Farbe und Form (statt dreizehn gleicher Pokale). */
+const BADGE_COLORS = ['#ff6a3d', '#3b82ff', '#f5a800', '#19b36b', '#7c5cff', '#ee5a8d', '#14b8a6']
+const BADGE_SHAPES = ['triangle', 'circle', 'square', 'diamond', 'hexagon', 'star', 'pentagon', 'drop', 'moon', 'heart', 'bolt', 'plus', 'ring']
 
 export function ProfilePage() {
   const reduce = useReducedMotion()
@@ -53,23 +58,25 @@ export function ProfilePage() {
       <h1 className="large-title mb-4 px-1">Profil</h1>
 
       {/* Fuchs, Level und Münzen */}
-      <section className="card relative overflow-hidden p-5" aria-label="Level">
-        <div className="flex items-center gap-4">
-          <Link to="/settings/tier" aria-label="Lerntier wechseln" className="press relative shrink-0 rounded-2xl">
-            <Mascot size={92} alive listen outfit={outfit} />
-            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-snow px-2 py-0.5 text-[11px] font-extrabold text-muted">wechseln</span>
+      <section className="card relative overflow-visible px-5 pb-5 pt-4" aria-label="Level">
+        <div className="flex items-end gap-4">
+          <Link to="/settings/tier" aria-label="Lerntier wechseln" className="press relative -mt-6 shrink-0 rounded-2xl" style={{ filter: 'drop-shadow(0 14px 14px rgba(20,8,60,.3))' }}>
+            <Mascot size={118} alive listen outfit={outfit} />
           </Link>
-          <div className="min-w-0 flex-1">
-            <p className="text-[14px] font-bold text-muted">Level {lvl.level}</p>
-            <h2 className="text-[22px] font-black leading-tight">{titleFor(lvl.level)}</h2>
-            <div className="mt-2.5 h-2.5 w-full overflow-hidden rounded-full bg-snow" role="progressbar" aria-valuemin={0} aria-valuemax={lvl.needed} aria-valuenow={lvl.into} aria-label={`Fortschritt zu Level ${lvl.level + 1}`}>
-              <motion.div className="h-full rounded-full bg-brand" initial={reduce ? false : { width: 0 }} animate={{ width: `${Math.max(3, (lvl.into / lvl.needed) * 100)}%` }} transition={{ duration: 0.6, ease: EASE, delay: 0.1 }} />
-            </div>
-            <p className="mt-1.5 text-[13px] text-muted">
-              <CountUp to={xp} /> XP · noch {lvl.needed - lvl.into} bis Level {lvl.level + 1}
+          <div className="min-w-0 flex-1 pb-1">
+            <p className="text-[14px] font-bold text-muted">Level</p>
+            <p className="flex items-baseline gap-2.5">
+              <span className="text-[60px] font-black leading-[0.85] tracking-[-0.04em]">{lvl.level}</span>
+              <span className="truncate text-[20px] font-extrabold leading-tight">{titleFor(lvl.level)}</span>
             </p>
           </div>
         </div>
+        <div className="mt-5 h-3.5 w-full overflow-hidden rounded-full bg-snow" role="progressbar" aria-valuemin={0} aria-valuemax={lvl.needed} aria-valuenow={lvl.into} aria-label={`Fortschritt zu Level ${lvl.level + 1}`}>
+          <motion.div className="h-full rounded-full" style={{ background: 'linear-gradient(90deg, #ffae5c, #ff6a1a)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.5)' }} initial={reduce ? false : { width: 0 }} animate={{ width: `${Math.max(4, (lvl.into / lvl.needed) * 100)}%` }} transition={{ duration: 0.6, ease: EASE, delay: 0.1 }} />
+        </div>
+        <p className="mt-2 text-[13px] text-muted">
+          <CountUp to={xp} /> XP · noch {lvl.needed - lvl.into} bis Level {lvl.level + 1}
+        </p>
       </section>
 
       <div className="list mt-4">
@@ -90,7 +97,7 @@ export function ProfilePage() {
           <span className="text-sm text-muted"><span className="font-extrabold text-ink">{weekMin}</span> Minuten</span>
         </div>
         {weekMin === 0 ? (
-          <p className="py-6 text-center text-[15px] text-muted">Diese Woche hast du noch nicht geübt. Eine Runde dauert nur ein paar Minuten.</p>
+          <p className="py-6 text-center text-[15px] text-muted">Noch keine Runde diese Woche. Eine dauert nur ein paar Minuten.</p>
         ) : (
         <div className="flex h-28 items-end gap-2.5" role="img" aria-label="Geübte Minuten der letzten 7 Tage">
           {days.map((d, i) => {
@@ -125,19 +132,27 @@ export function ProfilePage() {
         <ul className="grid grid-cols-3 gap-2.5">
           {shown.map((b) => {
             const done = b.value >= b.goal
+            const k = badges.findIndex((x) => x.id === b.id)
+            const color = BADGE_COLORS[k % BADGE_COLORS.length]
+            const shape = BADGE_SHAPES[k % BADGE_SHAPES.length]
             return (
               <li key={b.id} className="card flex flex-col items-center px-2 pb-3 pt-3.5 text-center" title={b.description}>
                 {done ? (
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-gold text-white">
-                    <Trophy size={28} />
+                  <span
+                    className="flex h-14 w-14 items-center justify-center rounded-[18px] text-white"
+                    style={{ background: `linear-gradient(color-mix(in srgb, ${color} 78%, white), ${color})`, boxShadow: `inset 0 1px 0 rgba(255,255,255,.4), 0 4px 0 color-mix(in srgb, ${color} 52%, black)` }}
+                  >
+                    <SubjectShape id={shape} size={26} />
                   </span>
                 ) : (
-                  <ProgressRing pct={b.value / b.goal} size={58} stroke={5} color="var(--gold)" track="var(--line)">
-                    <span className="text-muted opacity-70"><Trophy size={24} /></span>
+                  <ProgressRing pct={b.value / b.goal} size={58} stroke={5} color={color} track="var(--line)">
+                    <span className="text-muted opacity-70">
+                      <SubjectShape id={shape} size={22} />
+                    </span>
                   </ProgressRing>
                 )}
                 <p className="mt-2 line-clamp-2 text-[13px] font-extrabold leading-tight">{b.title}</p>
-                <p className={`mt-0.5 text-[12px] font-bold tabular-nums ${done ? 'text-gold-dark' : 'text-muted'}`}>{done ? 'geschafft' : `${b.value} / ${b.goal}`}</p>
+                <p className={`mt-0.5 text-[12px] font-bold tabular-nums ${done ? 'text-good-dark' : 'text-muted'}`}>{done ? 'geschafft' : `${b.value} / ${b.goal}`}</p>
               </li>
             )
           })}
