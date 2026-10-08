@@ -150,10 +150,17 @@ describe('Die App als Ganzes', () => {
     render(<App />)
     await waitFor(() => expect(text()).toMatch(/Neu erstellen/))
     await click(/Selbst schreiben/, 'radio')
-    const area = await screen.findByLabelText(/Eine Karte pro Zeile/)
-    fireEvent.change(area, { target: { value: 'Zellkern – steuert die Zelle\nRibosom – baut Eiweiße\nVakuole – Speicher\nZellwand – Halt\nMitochondrium – Kraftwerk' } })
-    await click(/^Weiter$/)
-    await waitFor(() => expect(text()).toMatch(/5 Karten erkannt/))
+    // Drei leere Karten stehen schon da, weitere kommen mit „+ Karte“
+    await screen.findAllByLabelText('Vorderseite')
+    await click(/\+? ?Karte$/)
+    await click(/\+? ?Karte$/)
+    const pairs = [['Zellkern', 'steuert die Zelle'], ['Ribosom', 'baut Eiweiße'], ['Vakuole', 'Speicher'], ['Zellwand', 'Halt'], ['Mitochondrium', 'Kraftwerk']]
+    const fronts = screen.getAllByLabelText('Vorderseite')
+    const backs = screen.getAllByLabelText('Rückseite')
+    pairs.forEach(([f, b], i) => {
+      fireEvent.change(fronts[i], { target: { value: f } })
+      fireEvent.change(backs[i], { target: { value: b } })
+    })
     fireEvent.change(screen.getByLabelText(/^Name/), { target: { value: 'Zelle' } })
     await click(/^Nur speichern$/)
     await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))

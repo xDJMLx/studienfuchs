@@ -72,7 +72,11 @@ async function callAiInner(system: string, content: string, images: string[], ma
 /** Karten von der KI erzeugen lassen. Muss direkt aus einem Klick aufgerufen werden (Anmeldefenster des KI-Dienstes). */
 export async function generateCards({ subjectId, request, count, images = [] }: CardRequest): Promise<AiVocab> {
   const system = buildCardsPrompt(subjectId, count)
-  const content = request.trim() || (images.length ? 'Mach Karteikarten aus diesen Seiten.' : '')
+  const content = images.length
+    ? request.trim()
+      ? `Mach Karteikarten aus den Seiten auf den Fotos. Halte dich genau an diese Anweisung des Schülers und lass alles weg, was nicht dazu passt: ${request.trim()}`
+      : 'Mach Karteikarten aus diesen Seiten.'
+    : request.trim()
   if (!content) throw new AiError('Schreib kurz, wozu du Karten brauchst, oder hänge ein Foto an.', 'format')
   const text = await callAi(system, content, images)
   const vocab = normalizeAiVocab(extractJson<unknown>(text))

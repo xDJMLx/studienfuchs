@@ -43,6 +43,9 @@ const PLAN_LOOK: Record<TaskPlan, { c: string; shape: string }> = {
   rechnen: { c: '#1fb866', shape: 'franzoesisch' },
 }
 
+/** Schnelle Anweisungen für die KI, wenn Fotos dabei sind (man muss selten alles auf einer Seite lernen). */
+const PHOTO_HINTS = ['Nur die Vokabeln', 'Nur das Fettgedruckte', 'Nur Merksätze und Definitionen', 'Ohne Beispielsätze', 'Nur die Aufgaben vom Arbeitsblatt']
+
 export function DeckCreatePage() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
@@ -218,7 +221,7 @@ export function DeckCreatePage() {
                     ...(templatesFor(subject).length ? [{ id: 'vorlage' as Way, label: 'Fertige' }] : []),
                   ] as { id: Way; label: string }[]
                 ).map((w) => (
-                  <button key={w.id} type="button" role="radio" aria-checked={way === w.id} onClick={() => setWay(w.id)} className={`chip ${way === w.id ? 'chip-on' : ''}`}>
+                  <button key={w.id} type="button" role="radio" aria-checked={way === w.id} onClick={() => { setWay(w.id); if (w.id === 'write') { setRows([newRow(), newRow(), newRow()]); setNotice(null) } }} className={`chip ${way === w.id ? 'chip-on' : ''}`}>
                     {w.label}
                   </button>
                 ))}
@@ -269,16 +272,45 @@ export function DeckCreatePage() {
             </>
           ) : way === 'ai' ? (
             <>
+              <div>
+                <p className="mb-1.5 text-sm font-bold text-muted">Foto von Heft, Buch oder Arbeitsblatt (optional)</p>
+                <div className="flex flex-wrap gap-2">
+                  {previews.map((u, i) => (
+                    <span key={u} className="relative">
+                      <img src={u} alt={`Foto ${i + 1}`} className="h-20 w-16 rounded-lg border-2 border-line object-cover" />
+                      <button type="button" aria-label={`Foto ${i + 1} entfernen`} onClick={() => setFiles((f) => f.filter((_, k) => k !== i))} className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-ink text-surface">
+                        <Close size={12} />
+                      </button>
+                    </span>
+                  ))}
+                  {files.length < 8 && (
+                    <button type="button" onClick={() => fileRef.current?.click()} className="press flex h-20 w-16 flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-line text-xs font-bold text-muted hover:bg-snow">
+                      <Camera size={22} />
+                      Foto
+                    </button>
+                  )}
+                </div>
+                <input ref={fileRef} type="file" accept="image/*" multiple className="sr-only" onChange={(e) => setFiles((f) => [...f, ...Array.from(e.target.files ?? [])].slice(0, 8))} />
+              </div>
               <label className="grid gap-1.5 text-sm font-bold text-muted">
-                Was brauchst du?
+                {files.length > 0 ? 'Was soll die KI aus den Fotos machen?' : 'Was brauchst du?'}
                 <textarea
                   className={`${field} min-h-28 resize-y font-medium`}
                   value={request}
                   onChange={(e) => setRequest(e.target.value)}
-                  placeholder={EXAMPLES[subject] ?? 'z. B. Das Thema, das ihr gerade im Unterricht habt'}
+                  placeholder={files.length > 0 ? 'z. B. Nur die Vokabeln von Lektion 3, die Grammatik brauche ich nicht' : (EXAMPLES[subject] ?? 'z. B. Das Thema, das ihr gerade im Unterricht habt')}
                   maxLength={1500}
                 />
               </label>
+              {files.length > 0 && (
+                <div className="-mt-2 flex flex-wrap gap-2" aria-label="Vorschläge für die Anweisung">
+                  {PHOTO_HINTS.map((h) => (
+                    <button key={h} type="button" className="chip !min-h-9 !text-[13px]" onClick={() => setRequest((r) => (r.trim() ? `${r.trim()}. ${h}` : h))}>
+                      + {h}
+                    </button>
+                  ))}
+                </div>
+              )}
               <details className="group rounded-2xl border border-line bg-surface px-4 py-3">
                 <summary className="flex cursor-pointer list-none items-center justify-between text-[15px] font-extrabold">
                   <span>
@@ -300,26 +332,6 @@ export function DeckCreatePage() {
                     </button>
                   ))}
                 </div>
-              </div>
-              <div>
-                <p className="mb-1.5 text-sm font-bold text-muted">Fotos von Heft, Buch oder Arbeitsblatt (optional)</p>
-                <div className="flex flex-wrap gap-2">
-                  {previews.map((u, i) => (
-                    <span key={u} className="relative">
-                      <img src={u} alt={`Foto ${i + 1}`} className="h-20 w-16 rounded-lg border-2 border-line object-cover" />
-                      <button type="button" aria-label={`Foto ${i + 1} entfernen`} onClick={() => setFiles((f) => f.filter((_, k) => k !== i))} className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-ink text-surface">
-                        <Close size={12} />
-                      </button>
-                    </span>
-                  ))}
-                  {files.length < 8 && (
-                    <button type="button" onClick={() => fileRef.current?.click()} className="press flex h-20 w-16 flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-line text-xs font-bold text-muted hover:bg-snow">
-                      <Camera size={22} />
-                      Foto
-                    </button>
-                  )}
-                </div>
-                <input ref={fileRef} type="file" accept="image/*" multiple className="sr-only" onChange={(e) => setFiles((f) => [...f, ...Array.from(e.target.files ?? [])].slice(0, 8))} />
               </div>
                 </div>
               </details>
@@ -392,7 +404,7 @@ export function DeckCreatePage() {
               Nur speichern
             </button>
             <button type="button" className="btn btn-ghost press w-full sm:w-auto" onClick={() => { setRows(null); setNotice(null) }}>
-              Zurück
+              {way === 'write' && !valid.length ? 'Viele auf einmal einfügen' : 'Zurück'}
             </button>
           </div>
         </div>

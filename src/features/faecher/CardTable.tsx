@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Plus, Swap, Trash } from '../../components/ui/Icons'
 import { restoreAccents } from '../../lib/accents'
 import { TASK_LABEL } from '../../lib/tasks'
@@ -8,6 +9,13 @@ const cell = 'min-w-0 w-full resize-none rounded-xl border-2 border-line bg-snow
 
 /** Karten bearbeiten: Vorderseite und Rückseite je Zeile. KI und Foto-Erkennung machen Fehler, deshalb prüft man hier alles. */
 export function CardTable({ rows, onChange, lang, labels = ['Vorderseite', 'Rückseite'] }: { rows: Row[]; onChange: (rows: Row[]) => void; lang?: DeckLang; labels?: [string, string] }) {
+  // Eine neue Karte (per Knopf oder Eingabetaste in der letzten Rückseite) bekommt gleich den Cursor
+  const [focusKey, setFocusKey] = useState<string | null>(null)
+  const addRow = () => {
+    const r = newRow()
+    setFocusKey(r.key)
+    onChange([...rows, r])
+  }
   const update = (key: string, patch: Partial<Row>) => onChange(rows.map((r) => (r.key === key ? { ...r, ...patch } : r)))
   const fixFront = (key: string, value: string) => {
     // Französisch: fehlende Akzente beim Verlassen des Feldes ergänzen
@@ -42,13 +50,26 @@ export function CardTable({ rows, onChange, lang, labels = ['Vorderseite', 'Rüc
                   value={r.front}
                   lang={lang}
                   spellCheck={false}
+                  autoFocus={r.key === focusKey}
                   onChange={(e) => update(r.key, { front: e.target.value })}
                   onBlur={(e) => fixFront(r.key, e.target.value)}
                 />
               </label>
               <label className="grid gap-1 text-xs font-bold text-muted">
                 {labels[1]}
-                <textarea rows={2} className={cell} value={r.back} onChange={(e) => update(r.key, { back: e.target.value })} />
+                <textarea
+                  rows={2}
+                  className={cell}
+                  value={r.back}
+                  onChange={(e) => update(r.key, { back: e.target.value })}
+                  onKeyDown={(e) => {
+                    // Eingabetaste in der letzten Rückseite: gleich die nächste Karte anfangen (Umschalt + Eingabe macht einen Zeilenumbruch)
+                    if (e.key === 'Enter' && !e.shiftKey && i === rows.length - 1 && r.back.trim()) {
+                      e.preventDefault()
+                      addRow()
+                    }
+                  }}
+                />
               </label>
             </div>
             )}
@@ -56,7 +77,7 @@ export function CardTable({ rows, onChange, lang, labels = ['Vorderseite', 'Rüc
         ))}
       </ul>
       <div className="mt-3 flex flex-wrap gap-2">
-        <button type="button" className="btn btn-ghost press !px-3 !py-2 !text-sm" onClick={() => onChange([...rows, newRow()])}>
+        <button type="button" className="btn btn-ghost press !px-3 !py-2 !text-sm" onClick={addRow}>
           <Plus size={16} /> Karte
         </button>
         <button type="button" className="btn btn-ghost press !px-3 !py-2 !text-sm" onClick={() => onChange(rows.map((r) => (r.task ? r : { ...r, front: r.back, back: r.front })))}>
