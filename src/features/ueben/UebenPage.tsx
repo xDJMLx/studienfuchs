@@ -11,6 +11,7 @@ import { helpSubject } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
 import { BackupBanner } from '../../components/ui/BackupBanner'
 import { InstallBanner } from '../../components/ui/InstallApp'
+import { IconNotice } from '../../components/ui/IconNotice'
 import { backupDue } from '../../lib/backup'
 import { ArbeitFollowUp } from '../kalender/KalenderPage'
 import { useStudyToday } from '../../components/ui/StudyTime'
@@ -97,7 +98,12 @@ export function UebenPage() {
       ))}
 
       {/* Höchstens ein Hinweis gleichzeitig: Sichern geht vor Installieren */}
-      {backupDue(decks.length > 0 || Object.keys(cards).length > 0) ? <BackupBanner /> : <InstallBanner />}
+      {backupDue(decks.length > 0 || Object.keys(cards).length > 0) ? <BackupBanner /> : (
+        <>
+          <InstallBanner />
+          <IconNotice />
+        </>
+      )}
 
       <header className="mb-4 px-1">
         <p className="text-[15px] font-bold text-muted">{dateText}</p>
