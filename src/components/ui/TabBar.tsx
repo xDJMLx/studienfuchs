@@ -6,20 +6,20 @@ export interface TabDef {
   label: string
   icon: ReactNode
   badge?: ReactNode
-  /** Farbe des aktiven Tabs (Balken und Symbol) und seine Schriftfarbe */
+  /** Farbe des aktiven Tabs (Symbol) und seine Schriftfarbe */
   color?: string
   textColor?: string
 }
 
 /**
- * Untere Leiste (Handy): durchgehend, flach, oben eine feine Linie. Der aktive Tab ist ein farbiger Block mit harter Unterkante (wie die Fach-Blöcke), die anderen sind graue Symbole.
- * Keine schwebende Kapsel, keine Spielereien: Man soll sofort sehen, wo man ist.
- * `extra` erscheint oben in derselben Fläche (z. B. das Eingabefeld des Lern-Coachs).
+ * Untere Leiste (Handy) wie die Glasleiste bei Apple: eine schwebende Kapsel aus milchigem Glas (Unschärfe, helle Oberkante, weicher Schatten),
+ * darin gleitet eine zweite, hellere Glas-Kapsel unter den aktiven Tab. Die Leiste ist das einzige Glas der App.
+ * `extra` erscheint oben in derselben Glasfläche (z. B. das Eingabefeld des Lern-Coachs).
  */
 export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[]; activeIndex: number; onSelect: (index: number) => void; extra?: ReactNode }) {
   const reduce = useReducedMotion()
   return (
-    <nav aria-label="Hauptnavigation" className="tabbar fixed inset-x-0 bottom-0 z-40 flex flex-col lg:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+    <nav aria-label="Hauptnavigation" className="tabbar fixed inset-x-4 z-40 mx-auto flex max-w-md flex-col p-1.5 lg:hidden" style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 0.6rem)' }}>
       <AnimatePresence initial={false}>
         {extra && (
           <motion.div
@@ -30,14 +30,13 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
             transition={{ type: 'spring', stiffness: 420, damping: 32 }}
             className="overflow-hidden"
           >
-            <div className="px-3 pb-1.5 pt-2">{extra}</div>
+            <div className="px-1 pb-1.5 pt-0.5">{extra}</div>
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="flex items-stretch">
+      <div className="relative flex items-stretch">
         {tabs.map((t, i) => {
           const on = i === activeIndex
-          const c = t.color ?? 'var(--brand)'
           return (
             <button
               key={t.key}
@@ -45,17 +44,16 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
               aria-current={on ? 'page' : undefined}
               aria-label={t.label}
               onClick={() => onSelect(i)}
-              className={`press relative flex min-h-[3.7rem] flex-1 flex-col items-center justify-center gap-1 pb-0.5 pt-1.5 text-[11px] font-extrabold ${on ? 'text-ink' : 'text-muted'}`}
+              className={`relative flex min-h-[3.35rem] flex-1 flex-col items-center justify-center gap-0.5 rounded-[22px] text-[11px] font-bold transition-transform active:scale-95 ${on ? 'text-ink' : 'text-muted'}`}
             >
-              {/* Aktiv: ein farbiger Block mit harter Unterkante wie die Fach-Blöcke; sonst nur das graue Symbol */}
-              <span
-                className="relative flex h-8 w-12 items-center justify-center rounded-[10px] transition-[background-color,box-shadow,transform] duration-150"
-                style={on ? { background: c, color: '#fff', boxShadow: `0 3px 0 color-mix(in srgb, ${c} 55%, black)`, transform: 'translateY(-1px)' } : undefined}
-              >
+              {on && (
+                <motion.span layoutId="tab-lens" aria-hidden className="tab-lens absolute inset-0 rounded-[22px]" transition={reduce ? { duration: 0 } : { type: 'spring', stiffness: 520, damping: 38 }} />
+              )}
+              <span className="relative block" style={on ? { color: t.color ?? 'var(--brand)' } : undefined}>
                 {t.icon}
                 {t.badge}
               </span>
-              <span>{t.label}</span>
+              <span className="relative">{t.label}</span>
             </button>
           )
         })}

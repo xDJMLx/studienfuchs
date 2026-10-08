@@ -120,7 +120,9 @@ export function lidCurve(p: EyeParams, cx: number, cy: number, mirror: boolean):
 export function eyeWindow(p: EyeParams, cx: number, cy: number, mirror: boolean): string {
   const c = lidCurve(p, cx, cy, mirror)
   const bottom = cy + EYE_RY * p.scale + 4
-  const lift = p.cheek * EYE_RY * 1.5
+  // Die Wange darf das Fenster nie über das Oberlid hinaus anheben, sonst kreuzen sich die Kanten und es bleiben Reste von Weiß und Pupille stehen
+  const topMid = (c.yl + 2 * c.cy + c.yr) / 4
+  const lift = Math.min(p.cheek * EYE_RY * 1.5, Math.max(0, (bottom - topMid) / 0.9))
   return `M${r(c.xl)} ${r(c.yl)} Q${r(cx)} ${r(c.cy)} ${r(c.xr)} ${r(c.yr)} L${r(c.xr)} ${r(bottom)} Q${r(cx)} ${r(bottom - lift * 1.8)} ${r(c.xl)} ${r(bottom)} Z`
 }
 

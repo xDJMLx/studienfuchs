@@ -443,7 +443,7 @@ h1, h2, h3 {
 .safe-bottom { padding-bottom: max(env(safe-area-inset-bottom), 0px); }
 
 /* ---------- Handy: Glas-Leiste und Bedienung ---------- */
-:root { --tabbar-h: calc(3.9rem + env(safe-area-inset-bottom, 0px)); }
+:root { --tabbar-h: calc(5rem + env(safe-area-inset-bottom, 0px)); }
 
 /* Schwebende Leiste: klare, deckende Kapsel mit Rahmen und weichem Schatten (keine Unschärfe: sauberer und schneller) */
 .glass {
@@ -914,13 +914,32 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
   letter-spacing: -0.035em;
   line-height: 1.03;
 }
-/* Untere Leiste: durchgehend, flach, oben eine feine Linie; der aktive Tab hat einen Balken */
+/* Untere Leiste: das einzige Glas der App (Apple-Stil): schwebende Kapsel, milchig, helle Oberkante */
 .tabbar {
-  background: var(--surface);
-  border-top: 1px solid var(--line);
-  box-shadow: none;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
+  border-radius: 32px;
+  background: color-mix(in srgb, var(--surface) 58%, transparent);
+  -webkit-backdrop-filter: blur(28px) saturate(2);
+  backdrop-filter: blur(28px) saturate(2);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 -1px 0 rgba(255, 255, 255, 0.25), 0 14px 34px -12px rgba(20, 22, 31, 0.38);
+}
+.dark .tabbar {
+  background: color-mix(in srgb, var(--surface) 50%, transparent);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), inset 0 -1px 0 rgba(255, 255, 255, 0.05), 0 16px 36px -12px rgba(0, 0, 0, 0.7);
+}
+.tab-lens {
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: inset 0 1px 0 #fff, 0 6px 14px -6px rgba(20, 22, 31, 0.3);
+}
+.dark .tab-lens {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 6px 14px -6px rgba(0, 0, 0, 0.6);
+}
+@supports not (backdrop-filter: blur(1px)) {
+  .tabbar { background: var(--surface); }
 }
 dialog,
 [role='dialog'],

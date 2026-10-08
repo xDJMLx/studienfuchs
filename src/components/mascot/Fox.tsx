@@ -463,6 +463,8 @@ function drawEye(p: EyeParams, cx: number, cy: number, mirror: boolean, side: 'L
   set('lid' + side, 'stroke-opacity', String(lidOpacity(p)))
   set('arc' + side, 'd', eyeArc(p, cx, cy))
   set('arc' + side, 'stroke-opacity', String(Math.round(p.arcOn * 100) / 100))
+  // Bogenaugen (froh, zwinkernd, schlafend) sind nur die Linie: Weiß und Pupille blenden aus, damit keine Reste unter dem Bogen stehen
+  set('scale' + side, 'opacity', String(Math.round((1 - Math.min(1, p.arcOn * 1.6)) * 100) / 100))
   set('pup' + side, 'transform', 'translate(' + gx + ' ' + gy + ') translate(' + cx + ' ' + (cy + 1) + ') scale(' + Math.round(p.pupil * 100) / 100 + ') translate(' + -cx + ' ' + -(cy + 1) + ')')
   const piv = cy + SHUT_PIVOT * p.shut
   const sx = Math.round(p.scale * 100) / 100
