@@ -1,3 +1,4 @@
+import { AnswerMark } from './AnswerMark'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useMemo, useState } from 'react'
 import { shuffle } from '../../lib/generateExercises'
@@ -63,7 +64,7 @@ export function MChoiceExercise({ exercise: ex, answer, onChange, result }: Exer
           }
           return (
             <button key={opt} type="button" role="radio" aria-checked={selected} disabled={locked} onClick={() => onChange(opt)} className={`tile ${cls}`}>
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-2 border-current text-sm opacity-70">{i + 1}</span>
+              <AnswerMark i={i} />
               <MathText className="min-w-0 text-[19px]">{opt}</MathText>
             </button>
           )

@@ -1,3 +1,4 @@
+import { AnswerMark } from './AnswerMark'
 import { animate, motion, useMotionValue, useReducedMotion, useTransform } from 'framer-motion'
 import { useEffect, useState } from 'react'
 import { makeHint } from '../../lib/hint'
@@ -66,7 +67,7 @@ export function QChoiceExercise({ exercise: ex, answer, onChange, result }: Exer
           }
           return (
             <button key={opt} type="button" role="radio" aria-checked={selected} disabled={locked} onClick={() => onChange(opt)} className={`tile ${cls}`}>
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-2 border-current text-sm opacity-70">{i + 1}</span>
+              <AnswerMark i={i} />
               <span className="min-w-0 whitespace-pre-wrap text-[17px]">{opt}</span>
             </button>
           )

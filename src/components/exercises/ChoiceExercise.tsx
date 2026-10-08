@@ -1,3 +1,4 @@
+import { AnswerMark } from './AnswerMark'
 import { useEffect } from 'react'
 import { speak } from '../../lib/speech'
 import { Instruction, PromptBubble, type ExerciseProps } from './common'
@@ -42,7 +43,7 @@ export function ChoiceExercise({ exercise: ex, answer, onChange, result }: Exerc
               onClick={() => onChange(opt)}
               className={`tile ${cls}`}
             >
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border-2 border-current text-sm opacity-70">{i + 1}</span>
+              <AnswerMark i={i} />
               <span lang={ex.promptLang === 'de' ? 'fr' : 'de'}>{opt}</span>
             </button>
           )

@@ -25,7 +25,7 @@ export function ArbeitFollowUp({ arbeit }: { arbeit: Arbeit }) {
   if (coins !== null)
     return (
       <p className="mb-3 flex items-center gap-2 rounded-2xl bg-gold/15 px-4 py-3 font-extrabold text-gold-dark" role="status">
-        <Coin size={20} /> +{coins} Münzen. Gut, dass du dranbleibst!
+        <Coin size={20} /> +{coins} Münzen fürs Eintragen.
       </p>
     )
   return (
