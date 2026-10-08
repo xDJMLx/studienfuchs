@@ -32,7 +32,7 @@ export function ShopPage() {
           <Coin size={22} />
           <span className="tabular-nums">{coins}</span>
         </p>
-        <p className="mt-3 max-w-xs text-sm text-muted">Münzen verdienst du nur beim Lernen. Je 2 XP gibt es eine Münze, dazu 10 fürs Tagesziel, 5 je Bonusziel und 15 für jede geschaffte Arbeit.</p>
+        <p className="mt-3 max-w-xs text-sm text-muted">Münzen gibt es nur fürs Lernen: eine Münze je 2 XP, dazu 15, wenn du die Note einer Arbeit einträgst.</p>
         {worn > 0 && (
           <button type="button" className="press mt-3 text-sm font-semibold text-brand-dark" onClick={() => Object.values(outfit).forEach((id) => id && equipItem(id))}>
             Alles abnehmen

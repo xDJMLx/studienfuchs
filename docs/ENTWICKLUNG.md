@@ -230,8 +230,23 @@ Verlauf: v4 („Glas und Formen“: Farbwolken, milchiges Glas, Indigo, schweben
 
 - **Quizlet für die Ruhe**: flacher, heller Grund (`#f4f5f9`, dunkel neutral `#15161b`, kein Indigo), weiße Flächen mit 1-Pixel-Linie, kleine Rundungen (12 bis 14 px), ein klarer Hauptknopf in Orange mit harter Unterkante, große Schrift (Onest 800, enge Laufweite).
 - **Kahoot für den Spaß**: `.shape-block` (dicke, flache Blöcke in Fachfarbe mit Form und harter Unterkante, nur wo man wählt: Fächer auf Üben und Fach-Seite), `AnswerMark` (Dreieck, Kreis, Quadrat, Raute in Rot, Blau, Gelb, Grün bei Mehrfachauswahl), Erfolge im Profil mit eigener Farbe und Form.
-- **Weg damit**: Farbwolken, Glas, Verläufe, Glanz (`btn-shine`), Schein und Schlagschatten ums Tier, die schwebende Kapsel-Leiste mit Gummi-Linse. `TabBar` ist jetzt eine durchgehende, flache Leiste; der aktive Tab ist ein farbiger Block mit harter Unterkante (Üben orange, Kalender blau, Profil grün), die anderen sind graue Symbole.
+- **Weg damit**: Farbwolken, Glas, Verläufe, Glanz (`btn-shine`), Schein und Schlagschatten ums Tier, die schwebende Kapsel-Leiste mit Gummi-Linse. Die untere Leiste (`TabBar`) ist auf ausdrücklichen Wunsch das einzige Glas der App: schwebende Kapsel aus milchigem Glas (Unschärfe, helle Oberkante, weicher Schatten) mit einer gleitenden hellen Glas-Linse (`layoutId`) unter dem aktiven Tab; das aktive Symbol hat die Tab-Farbe (Üben orange, Kalender blau, Profil grün).
 - Einstellungen: große Überschrift, Listen mit farbigen Symbol-Quadraten je Gruppe, „Meine Fächer“ (auch in der Einrichtung) und „Was willst du erstellen?“ als Fach-/Art-Blöcke mit Form. Fachfarben ohne Violett (Mathe rot, Französisch türkis, Informatik und Politik Schiefer).
 - Üben: Schlagzeile nach Lage („Morgen Biologie-Test.“), darunter eine flache Karte mit Tier, Zahl, dem „Los geht’s“-Knopf und den Fach-Blöcken.
 - Mascot-Sprechblasen sind deutsch (vorher französisch).
 - Vorsicht beim Benennen von Klassen: `.block` kollidiert mit Tailwinds `block`; deshalb `shape-block`.
+
+
+## Nachtrag zu v5: App-Gefühl, Profil, Symbole, Zubehör (2026-10-08, später)
+
+Rückmeldung des Nutzers (komplett): Gut sind Kahoot/Quizlet-System, Arbeiten und Hausaufgaben eintragen, Probetests, Karteikarten per KI-Foto; schlecht sind Shop und Zubehör, Üben unübersichtlich, Profil langweilig ohne Erfolgs-Symbole, Fach-Symbole, Webseiten-Gefühl, Einstellungen nur durch Scrollen erreichbar, Augen beim Zwinkern, Tiere außer Fenni nur mittel, untere Leiste soll wie Apples Glas sein.
+
+- **Webseiten-Gefühl**: obere Leiste (Zurück und Titel) auf allen Seiten, die kein Tab sind (`Layout`, `lib/pageTitle.ts`; `BackLink` ist nur noch am Computer sichtbar), Scroll-Stand wird beim Zurückgehen wiederhergestellt, kein Pinch-Zoom, Zeiger wie in einer App, `overscroll-behavior: contain`. Einstellungen: Zahnrad oben rechts im Profil.
+- **Profil**: Level groß mit schwebendem Tier, Shop und Lernstand als Blöcke, Erfolge mit eigenen Symbolen (`AchievementIcons.tsx`) und Fortschrittsbalken.
+- **Fach-Symbole** (`SubjectIcons.tsx`): kleine mehrfarbige Illustrationen auf 48er-Raster.
+- **Zwinkern/Lachen**: Bogenaugen blenden Weiß und Pupille aus; Wangen heben das Augenfenster nie über das Oberlid (`eyeWindow`).
+- **Zubehör** (`Fox.tsx`): neu gezeichnet; Kopf, Gesicht und Hals mit Schatten, Lichtkanten und Fransen. Prüfseite: `#/augen` (nur im Entwicklungsmodus; `?x=icons`, `?x=shop&set=A..E`, `?m=wink&t=tiger`).
+- **Tiere**: `snout` wird endlich gezeichnet (Elefant: Rüssel vor dem Mund und Stoßzähne; Krokodil: Zähne), Krokodil mit Augenwülsten.
+- **Foto-Anweisung**: Fotos stehen jetzt im Hauptablauf von „Neu erstellen“; das Textfeld heißt dann „Was soll die KI aus den Fotos machen?“, mit Vorschlägen („Nur die Vokabeln“ …); `generateCards` und `generateTasks` weisen die KI an, sich genau daran zu halten.
+- **Selbst schreiben**: öffnet gleich die Kartenliste (drei leere Karten, Eingabetaste in der letzten Rückseite macht die nächste Karte); das alte Zeilenfeld bleibt unter „Viele auf einmal einfügen“.
+- **Probetests**: Der Prompt verlangt jetzt ausdrücklich das Niveau der Klassenstufe und echte Arbeiten (Teilaufgaben, Transfer, 50 % knapp bestanden).
