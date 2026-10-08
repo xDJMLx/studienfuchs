@@ -113,37 +113,23 @@ export function KalenderPage() {
     const s = helpSubject(a.subject)
     const r = readiness(a, decks, cards)
     const d = daysUntil(a)
+    const sub = [kindLabel(a.kind), whenText(periods, a), opts.showDay ? `${shortDay(a.date)} · ${when(d)}` : '', d >= 0 ? (r.total > 0 ? `${r.pct} % sitzen` : 'noch keine Karteikarten') : ''].filter(Boolean).join(' · ')
     return (
-      <li key={a.id}>
-        <div className="panel flex items-center gap-3 p-3">
-          <button type="button" onClick={() => setAdding({ kind: 'arbeit', arbeit: a })} className="press flex min-w-0 flex-1 items-center gap-3 text-left" aria-label={`${a.title} bearbeiten`}>
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ background: s?.c }}>
-              <HelpSubjectIcon id={a.subject} ink={s?.c ?? '#888'} size={22} />
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block truncate text-[16px] font-semibold leading-tight">{a.title}</span>
-              <span className="block text-[13px] text-muted">
-                {kindLabel(a.kind)}
-                {whenText(periods, a) ? ` · ${whenText(periods, a)}` : ''}
-                {opts.showDay ? ` · ${shortDay(a.date)} · ${when(d)}` : ''}
-              </span>
-              {d >= 0 && r.total > 0 && (
-                <span className="mt-1.5 flex items-center gap-2">
-                  <span className="block h-1 flex-1 overflow-hidden rounded-full bg-ink/10">
-                    <span className="block h-full rounded-full bg-good" style={{ width: `${Math.max(r.pct, r.seen ? 4 : 0)}%` }} />
-                  </span>
-                  <span className="text-[12px] font-semibold tabular-nums text-muted">{r.pct} %</span>
-                </span>
-              )}
-              {d >= 0 && r.total === 0 && <span className="block text-xs text-muted">Noch keine Karteikarten dabei</span>}
-            </span>
+      <li key={a.id} className="row !pr-3">
+        <button type="button" onClick={() => setAdding({ kind: 'arbeit', arbeit: a })} className="press flex min-w-0 flex-1 items-center gap-3 text-left" aria-label={`${a.title} bearbeiten`}>
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[11px]" style={{ background: s?.c }}>
+            <HelpSubjectIcon id={a.subject} ink={s?.c ?? '#888'} size={22} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-[16px] font-extrabold leading-tight">{a.title}</span>
+            <span className={`block truncate text-[13px] font-semibold ${d >= 0 && d <= 2 ? 'text-bad-dark' : 'text-muted'}`}>{sub}</span>
+          </span>
+        </button>
+        {d >= 0 && r.total > 0 && (
+          <button type="button" className="pill-soft press shrink-0" onClick={() => navigate(`/ueben/los?arbeit=${a.id}`)}>
+            Lernen
           </button>
-          {d >= 0 && r.total > 0 && (
-            <button type="button" className="pill-soft press" onClick={() => navigate(`/ueben/los?arbeit=${a.id}`)}>
-              Lernen
-            </button>
-          )}
-        </div>
+        )}
       </li>
     )
   }
@@ -161,7 +147,7 @@ export function KalenderPage() {
     <div className="mx-auto max-w-2xl px-4 pb-6 pt-3 lg:pt-8">
       <header className="mb-4 flex items-end justify-between gap-3 px-1">
         <h1 className="large-title">Kalender</h1>
-        <button type="button" aria-label="Eintragen" className="press mb-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-strong text-on-brand" onClick={() => setChoose(selected)}>
+        <button type="button" aria-label="Eintragen" className="press mb-1 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand-dark" onClick={() => setChoose(selected)}>
           <Plus size={22} />
         </button>
       </header>
@@ -170,9 +156,9 @@ export function KalenderPage() {
         <ArbeitFollowUp key={a.id} arbeit={a} />
       ))}
 
-      <section className="panel mb-5 p-3.5" aria-label={`${monthName(cursor.m)} ${cursor.y}`}>
+      <section className="panel mb-6 px-3 pb-2 pt-3.5" aria-label={`${monthName(cursor.m)} ${cursor.y}`}>
         <div className="mb-2 flex items-center justify-between">
-          <h2 className="px-1 text-[22px] font-bold leading-tight tracking-tight">
+          <h2 className="px-1 text-[20px] font-black leading-tight tracking-tight">
             {monthName(cursor.m)} <span className="font-bold text-muted">{cursor.y}</span>
           </h2>
           <span className="flex items-center gap-1">
@@ -189,9 +175,9 @@ export function KalenderPage() {
             </button>
           </span>
         </div>
-        <div className="grid grid-cols-7 text-center" role="grid" aria-label="Tage">
+        <div className="grid grid-cols-7 gap-y-1 text-center" role="grid" aria-label="Tage">
           {WEEKDAY_HEAD.map((w) => (
-            <span key={w} className="pb-1 text-[11px] font-extrabold text-muted" role="columnheader">
+            <span key={w} className="pb-1 text-[12px] font-bold text-muted" role="columnheader">
               {w}
             </span>
           ))}
@@ -207,10 +193,14 @@ export function KalenderPage() {
                   onClick={() => setSelected(c.key)}
                   aria-pressed={on}
                   aria-label={dayLabel(c.key, list, hw)}
-                  className={`press flex h-[3.1rem] w-full max-w-[3.4rem] flex-col items-center justify-start gap-1 rounded-2xl pt-1.5 transition-colors ${on ? 'bg-sky-soft' : ''} ${c.inMonth ? '' : 'opacity-35'} ${c.key < today && !on ? 'opacity-70' : ''}`}
+                  className={`press flex h-[3.2rem] w-full max-w-[3.2rem] flex-col items-center justify-start gap-0.5 pt-1 ${c.inMonth ? '' : 'opacity-30'}`}
                 >
-                  <span className={`flex h-7 w-7 items-center justify-center rounded-full text-[15px] font-extrabold leading-none ${isToday ? 'bg-brand-strong text-on-brand' : ''}`}>{c.day}</span>
-                  <span className="flex h-1.5 items-center gap-0.5" aria-hidden>
+                  <span
+                    className={`flex h-9 w-9 items-center justify-center rounded-full text-[16px] font-bold leading-none transition-colors ${isToday ? 'bg-brand-strong font-black text-on-brand' : on ? 'bg-snow font-black ring-2 ring-brand' : c.key < today ? 'text-muted' : ''}`}
+                  >
+                    {c.day}
+                  </span>
+                  <span className="flex h-1.5 items-center gap-[3px]" aria-hidden>
                     {/* Arbeiten: ausgefüllter Punkt in der Fachfarbe, Hausaufgaben: Ring */}
                     {list.slice(0, 2).map((a) => (
                       <span key={a.id} className="block h-1.5 w-1.5 rounded-full" style={{ background: helpSubject(a.subject)?.c ?? '#868a95' }} />
@@ -224,36 +214,28 @@ export function KalenderPage() {
             )
           })}
         </div>
-        <p className="mt-2 flex items-center justify-center gap-4 text-[11px] font-semibold text-muted">
-          <span className="flex items-center gap-1.5">
-            <span className="block h-1.5 w-1.5 rounded-full bg-muted" /> Arbeit
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="block h-1.5 w-1.5 rounded-full border-[1.5px] border-muted" /> Hausaufgabe
-          </span>
-        </p>
       </section>
 
       <div className="mb-2 flex items-baseline justify-between gap-2 px-1">
-        <h2 className="text-[19px] font-bold tracking-tight">{selected === today ? 'Heute' : longDay(selected)}</h2>
+        <h2 className="text-[17px] font-black">{selected === today ? 'Heute' : longDay(selected)}</h2>
         <span className="text-sm font-bold text-muted">{selected === today ? longDay(selected) : when(daysBetweenKeys(today, selected))}</span>
       </div>
-      {dayEvents.length > 0 && <ul className="mb-3 grid gap-2.5">{dayEvents.map((a) => row(a))}</ul>}
+      {dayEvents.length > 0 && <ul className="list mb-3">{dayEvents.map((a) => row(a))}</ul>}
       {dayHomework.length > 0 && (
-        <ul className="list mb-3">
+        <ul className="list mb-3" style={{ '--inset': '3.4rem' } as React.CSSProperties}>
           {dayHomework.map((h) => (
             <HomeworkRow key={h.id} h={h} today={today} onOpen={(x) => setAdding({ kind: 'hausaufgabe', hausaufgabe: x })} />
           ))}
         </ul>
       )}
       {dayEvents.length === 0 && dayHomework.length === 0 && (
-        <button type="button" onClick={() => setChoose(selected)} className="press mb-3 flex w-full items-center gap-3 rounded-2xl border-2 border-dashed border-line px-4 py-4 text-left text-muted hover:bg-snow">
-          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-sky-soft text-sky-dark">
+        <button type="button" onClick={() => setChoose(selected)} className="press mb-3 flex w-full items-center gap-3 rounded-[20px] bg-surface px-4 py-4 text-left text-muted">
+          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-soft text-brand-dark">
             <Plus size={20} />
           </span>
           <span>
             <span className="block font-extrabold text-ink">Nichts geplant</span>
-            <span className="block text-sm">Tippe hier, um für diesen Tag eine Arbeit oder Hausaufgabe einzutragen.</span>
+            <span className="block text-sm">Tippe, um etwas einzutragen.</span>
           </span>
         </button>
       )}
@@ -261,8 +243,8 @@ export function KalenderPage() {
 
       {next.length > 0 && (
         <section aria-label="Als Nächstes">
-          <h2 className="mb-2 px-1 text-[19px] font-bold tracking-tight">Als Nächstes</h2>
-          <ul className="mb-5 grid gap-2.5">{next.map((a) => row(a, { showDay: true }))}</ul>
+          <h2 className="mb-1.5 px-1 text-[17px] font-black">Als Nächstes</h2>
+          <ul className="list mb-5">{next.map((a) => row(a, { showDay: true }))}</ul>
         </section>
       )}
 
@@ -270,10 +252,10 @@ export function KalenderPage() {
 
       {past.length > 0 && (
         <section aria-label="Schon geschrieben">
-          <h2 className="mb-2 px-1 text-[19px] font-bold tracking-tight">Schon geschrieben</h2>
-          <ul className="panel mb-5 divide-y divide-line overflow-hidden">
+          <h2 className="mb-1.5 px-1 text-[17px] font-black">Schon geschrieben</h2>
+          <ul className="list mb-5" style={{ '--inset': '1rem' } as React.CSSProperties}>
             {past.map((a) => (
-              <li key={a.id} className="flex items-center gap-3 px-4 py-2.5">
+              <li key={a.id} className="row !min-h-12">
                 <span className="min-w-0 flex-1">
                   <span className="block truncate font-bold">{a.title}</span>
                   <span className="block text-xs text-muted">

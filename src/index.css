@@ -283,20 +283,23 @@ h1, h2, h3 {
     @apply rounded-[18px] border border-line bg-surface;
   }
 
-  /* Liste wie in iOS: eine Fläche, Zeilen mit feiner Trennlinie, ganze Zeile antippbar */
+  /* Liste wie in iOS: eine Fläche ohne Rahmen, Zeilen mit feiner Trennlinie, die erst nach dem Symbol beginnt, ganze Zeile antippbar */
   .list {
-    @apply overflow-hidden rounded-[18px] bg-surface;
-    border: 1px solid var(--line);
+    --inset: 4.25rem;
+    @apply overflow-hidden rounded-[20px] bg-surface;
   }
   .list > * + * {
-    border-top: 1px solid var(--line);
+    background-image: linear-gradient(var(--line), var(--line));
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-size: calc(100% - var(--inset)) 1px;
   }
   .row {
     @apply flex min-h-14 w-full items-center gap-3 px-4 py-2.5 text-left;
     transition: background-color 0.12s;
   }
   .row:active {
-    background: var(--snow);
+    background-color: var(--snow);
   }
   /* Große Seitenüberschrift (wie bei iOS) */
   .large-title {
@@ -817,8 +820,7 @@ button, [role='button'], [role='tab'], nav a { -webkit-user-select: none; user-s
 /* ---------- Ruhige Flächen (Kalender): feine Kante statt dickem Rahmen, kein Schatten ---------- */
 .panel {
   background: var(--surface);
-  border: 1px solid color-mix(in srgb, var(--ink) 9%, transparent);
-  border-radius: 18px;
+  border-radius: 20px;
 }
 .pill-soft {
   display: inline-flex;
