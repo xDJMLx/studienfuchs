@@ -112,6 +112,24 @@ describe('Die App als Ganzes', () => {
     expect(useStore.getState().mascot).toBe('fuchs')
   })
 
+  it('Einrichtung: Hängt die KI, bricht man ab, und eine späte Antwort startet nichts mehr', async () => {
+    let late: (v: { title: string; items: { front: string; back: string }[] }) => void = () => undefined
+    vi.mocked(generateCards).mockImplementation(() => new Promise((res) => (late = res)))
+    render(<App />)
+    await click(/Jetzt starten/)
+    await click(/Mathe/)
+    await click(/^Weiter$/)
+    await click(/Brüche kürzen/)
+    await waitFor(() => expect(text()).toMatch(/Die KI schreibt deine Karten/))
+    await click(/^Abbrechen$/)
+    await waitFor(() => expect(text()).toMatch(/Was lernt ihr gerade/))
+    // Die alte Anfrage kommt doch noch zurück: Das Thema bleibt unverändert, es erscheint keine Vorschau
+    late({ title: 'Spät', items: [{ front: 'a', back: 'b' }] })
+    await new Promise((r) => setTimeout(r, 50))
+    expect(text()).not.toMatch(/Los geht’s, erste Runde/)
+    expect(useStore.getState().sets).toHaveLength(0)
+  })
+
   it('Einrichtung: Ohne KI geht es trotzdem weiter (Fehler, später, ohne Karten)', async () => {
     vi.mocked(generateCards).mockRejectedValue(new Error('Der KI-Dienst konnte nicht geladen werden. Bist du online?'))
     render(<App />)

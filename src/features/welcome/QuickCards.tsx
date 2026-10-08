@@ -10,6 +10,8 @@ import type { AiItem } from '../../lib/ai'
 import { useStore } from '../../store/useStore'
 
 const COUNT = 12
+/** So lange wartet die App auf die KI (inklusive Puter-Fenster), dann gibt es eine klare Meldung statt endlosem Drehen. */
+const WAIT_MS = 75_000
 
 /**
  * Die ersten Karteikarten in einem Bildschirm: Fach wählen, Thema antippen (oder selbst schreiben, oder ein Foto vom Heft), die KI macht
@@ -27,6 +29,8 @@ export function QuickCards({ subjects, grade, onStart, onSkip, skipLabel = 'Spä
   const [items, setItems] = useState<AiItem[]>([])
   const [ready, setReady] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
+  // Zählt Anfragen hoch: Nach „Abbrechen“ oder Zeitablauf wird die späte Antwort einer alten Anfrage ignoriert
+  const ticket = useRef(0)
   const sub = helpSubject(subject)
   const suggestions = topicSuggestions(subject, grade)
 
@@ -35,20 +39,36 @@ export function QuickCards({ subjects, grade, onStart, onSkip, skipLabel = 'Spä
     void isAiReady().then(setReady)
   }, [])
 
+  const cancel = () => {
+    ticket.current++
+    setPhase('ask')
+  }
+
   const run = async (override?: string) => {
     const request = override ?? topic
+    const mine = ++ticket.current
     setPhase('busy')
     setError('')
+    const timer = window.setTimeout(() => {
+      if (ticket.current !== mine) return
+      ticket.current++
+      setError('Die KI antwortet gerade nicht. Prüfe deine Verbindung und versuch es nochmal, oder fang später an.')
+      setPhase('error')
+    }, WAIT_MS)
     try {
       const images = await Promise.all(files.map((f) => blobToJpegBase64(f)))
       const vocab = await generateCards({ subjectId: subject, request, count: COUNT, images })
+      if (ticket.current !== mine) return
       if (vocab.items.length === 0) throw new Error('Die KI hat keine Karten gefunden. Schreib genauer, was ihr lernt, oder nimm ein anderes Thema.')
       setItems(vocab.items)
       setTitle(request.trim() ? request.trim().slice(0, 50) : vocab.title)
       setPhase('preview')
     } catch (e) {
+      if (ticket.current !== mine) return
       setError(e instanceof Error ? e.message : 'Das hat nicht geklappt.')
       setPhase('error')
+    } finally {
+      clearTimeout(timer)
     }
   }
 
@@ -72,6 +92,9 @@ export function QuickCards({ subjects, grade, onStart, onSkip, skipLabel = 'Spä
             <div key={i} className="h-12 animate-pulse rounded-2xl bg-snow" style={{ animationDelay: `${i * 0.15}s` }} />
           ))}
         </div>
+        <button type="button" className="press mt-4 min-h-11 rounded-xl px-4 text-sm font-extrabold text-muted" onClick={cancel}>
+          Abbrechen
+        </button>
       </div>
     )
   }
