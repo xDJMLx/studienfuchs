@@ -32,18 +32,16 @@ describe('App-Symbol', () => {
     expect(parseInt(l.top.slice(5, 7), 16)).toBeGreaterThan(parseInt(l.top.slice(1, 3), 16) + 100)
   })
 
-  it('das Symbol setzt die Zeichnung in einen abgerundeten Rahmen mit eigener Verlaufs-Kennung', () => {
-    const art = '<svg viewBox="8 0 184 196" width="100%" height="100%" class="overflow-visible" preserveAspectRatio="xMidYMax meet"><circle r="5"/></svg>'
-    const a = buildIconSvg(art, true)
-    const b = buildIconSvg(art, false)
+  it('das Symbol ist ein abgerundetes Quadrat mit eigener Verlaufs-Kennung und dem Fuchs darin', () => {
+        const a = buildIconSvg(true)
+    const b = buildIconSvg(false)
     expect(a).toContain('viewBox="0 0 512 512"')
     expect(a).toContain('rx="112"')
-    expect(a).toContain('<circle r="5"/>')
-    expect(a).not.toContain('class="overflow-visible"')
-    expect(a).not.toContain('width="100%"')
+    expect(a).toContain('<ellipse')
+    expect(buildIconSvg(false, { scale: 0.68 })).toContain('scale(0.68)')
     expect(a).toContain('app-bg-d')
     expect(b).toContain('app-bg-l')
-    expect(buildIconSvg(art, false, { round: false })).toContain('rx="0"')
+    expect(buildIconSvg(false, { round: false })).toContain('rx="0"')
     expect(a).not.toBe(b)
   })
 })

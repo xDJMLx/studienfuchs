@@ -46,15 +46,13 @@ interface FoxProps {
   alive: boolean
   /** welches Tier (Standard: Fuchs) */
   species?: SpeciesId
-  /** nur Kopf: ohne Schwanz, Körper und Arme (für das App-Symbol) */
-  headOnly?: boolean
 }
 
 const reducedMotion = () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
 type Parts = Record<string, Element | null>
 
-export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, pose, alive, species, headOnly }, ref) {
+export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, pose, alive, species }, ref) {
   const uid = useId().replace(/:/g, '')
   const skin = skinOf(species)
   const { kopf, gesicht, hals, hintergrund } = outfit ?? {}
@@ -254,10 +252,9 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
 
       <g style={T('translateY(calc(var(--by, 0) * 1px)) rotate(calc(var(--brot, 0) * 1deg)) scale(var(--sx, 1), var(--sy, 1))', 100, 232)}>
         {/* Schwanz */}
-        {!headOnly && <g style={T('rotate(calc(var(--tail, 0) * 1deg))', 128, 202)}>{skin.tail(ctx)}</g>}
+        <g style={T('rotate(calc(var(--tail, 0) * 1deg))', 128, 202)}>{skin.tail(ctx)}</g>
 
         {/* Körper */}
-        {!headOnly && (
         <g>
           {/* Füße */}
           <path d="M64 210 C58 224 66 233 82 233 C96 233 99 222 94 212 Z" fill={skin.foot} />
@@ -278,9 +275,8 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           {/* Schatten unter dem Kopf */}
           <ellipse cx="100" cy="148" rx="44" ry="8" fill={skin.shade} opacity="0.12" />
         </g>
-        )}
 
-        {!headOnly && !look.armFront && arms}
+        {!look.armFront && arms}
 
         {/* Halsschmuck (gekauft) */}
         {hals === 'schal' && (
@@ -427,7 +423,7 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           )}
         </g>
 
-        {!headOnly && look.armFront && arms}
+        {look.armFront && arms}
       </g>
 
       <Effects fx={look.fx} />

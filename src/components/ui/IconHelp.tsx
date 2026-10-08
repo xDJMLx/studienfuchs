@@ -1,29 +1,15 @@
-import { useEffect, useState } from 'react'
+import { buildIconSvg } from '../../lib/appIcon'
 import { isIos } from '../../lib/install'
 import { Sheet } from './Sheet'
 
-/** Das Symbol des gewählten Tieres in Hell und Dunkel (so wie es aufs Handy kommt), gezeichnet wie beim Hinzufügen. */
+const dataUrl = (dark: boolean) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(buildIconSvg(dark))}`
+
+/** Das Symbol in Hell und Dunkel, so wie es aufs Handy kommt. */
 export function IconPreview() {
-  const [urls, setUrls] = useState<{ light: string; dark: string } | null>(null)
-  useEffect(() => {
-    if (import.meta.env.MODE === 'test') return
-    let alive = true
-    void Promise.all([import('../../components/mascot/snapshot'), import('../../lib/appIcon')])
-      .then(async ([snap, icon]) => {
-        const markup = await snap.renderMascotMarkup('fuchs')
-        const url = (dark: boolean) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(icon.buildIconSvg(markup, dark))}`
-        if (alive) setUrls({ light: url(false), dark: url(true) })
-      })
-      .catch(() => undefined)
-    return () => {
-      alive = false
-    }
-  }, [])
-  if (!urls) return <div className="h-[84px]" aria-hidden="true" />
   return (
     <div className="flex justify-center gap-5" aria-hidden="true">
-      <img src={urls.light} alt="" width={84} height={84} className="rounded-[22px] shadow-sm" />
-      <img src={urls.dark} alt="" width={84} height={84} className="rounded-[22px] shadow-sm" />
+      <img src={dataUrl(false)} alt="" width={84} height={84} className="rounded-[22px] shadow-sm" />
+      <img src={dataUrl(true)} alt="" width={84} height={84} className="rounded-[22px] shadow-sm" />
     </div>
   )
 }

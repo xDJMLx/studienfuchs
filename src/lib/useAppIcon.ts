@@ -13,12 +13,7 @@ export function useAppIcon() {
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
     const run = () => {
       const dark = theme === 'dark' || (theme === 'system' && mq.matches)
-      void Promise.all([import('../components/mascot/snapshot'), import('./appIcon')])
-        .then(async ([snap, icon]) => {
-          const markup = await snap.renderMascotMarkup('fuchs')
-          if (alive) await icon.applyAppIcon(dark, markup)
-        })
-        .catch(() => undefined)
+      void import('./appIcon').then((icon) => (alive ? icon.applyAppIcon(dark) : undefined)).catch(() => undefined)
     }
     const id = window.setTimeout(run, 400)
     mq.addEventListener('change', run)
