@@ -118,7 +118,7 @@ const SLIDES: { title: string; text: string; Art: (p: { reduce: boolean }) => Re
 /**
  * Vier Seiten, die zeigen, was man mit der App machen kann: zum Wischen oder Tippen, jederzeit überspringbar.
  */
-export function Tour({ onDone, onBack }: { onDone: () => void; onBack: () => void }) {
+export function Tour({ onDone, onBack, doneLabel = 'Los geht’s' }: { onDone: () => void; onBack: () => void; doneLabel?: string }) {
   const reduce = !!useReducedMotion()
   const [i, setI] = useState(0)
   const [dir, setDir] = useState(1)
@@ -174,7 +174,7 @@ export function Tour({ onDone, onBack }: { onDone: () => void; onBack: () => voi
           ))}
         </div>
         <button type="button" className="btn btn-primary press w-full !py-4 text-base" onClick={() => (last ? onDone() : go(i + 1))} autoFocus>
-          {last ? 'Einrichten' : 'Weiter'}
+          {last ? doneLabel : 'Weiter'}
         </button>
       </footer>
     </div>

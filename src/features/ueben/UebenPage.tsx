@@ -1,7 +1,7 @@
 import { useMemo, useState, type ReactNode } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Flame, Plus, Repeat, Right, Trophy } from '../../components/ui/Icons'
+import { Check, Flame, Plus, Repeat, Right, Trophy } from '../../components/ui/Icons'
 import { Sheet } from '../../components/ui/Sheet'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { dateKey, kindLabel, needsFollowUp } from '../../lib/calendar'
@@ -15,6 +15,7 @@ import { backupDue } from '../../lib/backup'
 import { ArbeitFollowUp } from '../kalender/KalenderPage'
 import { useStudyToday } from '../../components/ui/StudyTime'
 import { dueLabel } from '../review/ReviewPage'
+import { QuickCards } from '../welcome/QuickCards'
 
 const when = (days: number) => (days === 0 ? 'heute' : days === 1 ? 'morgen' : `in ${days} Tagen`)
 
@@ -53,6 +54,11 @@ export function UebenPage() {
   const arbeiten = useStore((s) => s.arbeiten)
   const cards = useStore((s) => s.cards)
   const st = useStudyToday()
+  const hausaufgaben = useStore((s) => s.hausaufgaben)
+  const grade = useStore((s) => s.grade)
+  const mySubjects = useStore((s) => s.mySubjects)
+  // Für die ersten Karteikarten: die eigenen Fächer, sonst die üblichen
+  const startSubjects = (mySubjects ?? []).length > 0 ? mySubjects : ['mathe', 'deutsch', 'englisch', 'biologie']
 
   const decks = useMemo(() => activeDecks({ sets, addedUnits: addedUnits ?? [] }), [sets, addedUnits])
   const plan = useMemo(() => planToday(decks, arbeiten ?? [], cards), [decks, arbeiten, cards])
@@ -79,6 +85,8 @@ export function UebenPage() {
     const future = refs.map((r) => cards[r.item.id]).filter((c) => c && !isDue(c)).map((c) => new Date(c.due).getTime())
     return future.length ? new Date(Math.min(...future)) : null
   }, [refs, cards])
+  // Hausaufgaben, die heute oder schon früher fällig und noch offen sind
+  const hwNow = useMemo(() => (hausaufgaben ?? []).filter((h) => !h.done && h.due <= today).sort((a, b) => a.due.localeCompare(b.due)), [hausaufgaben, today])
   const dateText = new Date().toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long' })
 
   return (
@@ -98,13 +106,15 @@ export function UebenPage() {
       {/* Die eine Hauptsache */}
       <section className="card mb-6 p-5" aria-label="Heute">
         {decks.length === 0 ? (
-          <div className="flex flex-col items-center text-center">
-            <Mascot size={88} mood="happy" alive />
-            <h2 className="mt-2 text-[22px] font-black leading-tight">Was willst du üben?</h2>
-            <p className="mt-1 max-w-sm text-[15px] text-muted">Schreib der KI, was ihr gerade durchnehmt: Die Karteikarten sind in Sekunden da.</p>
-            <Link to="/stapel/neu" className="btn btn-primary press mt-4 w-full">
-              Karteikarten erstellen
-            </Link>
+          <div>
+            <div className="mb-4 flex items-center gap-3">
+              <Mascot size={64} mood="happy" alive />
+              <div className="min-w-0">
+                <h2 className="text-[21px] font-black leading-tight">Deine ersten Karteikarten</h2>
+                <p className="text-[14px] text-muted">Tipp ein Thema an, die KI schreibt sie dir.</p>
+              </div>
+            </div>
+            <QuickCards subjects={startSubjects} grade={grade} onStart={(id) => navigate(`/ueben/los?deck=${id}`)} />
           </div>
         ) : total > 0 ? (
           <>
@@ -147,6 +157,15 @@ export function UebenPage() {
           )}
         </div>
         <div className="list">
+          {hwNow.length > 0 && (
+            <Row
+              to="/hausaufgaben"
+              tint="var(--good-soft)"
+              icon={<Check size={20} className="text-good-dark" />}
+              title={`${hwNow.length} ${hwNow.length === 1 ? 'Hausaufgabe' : 'Hausaufgaben'} offen`}
+              sub={hwNow.some((h) => h.due < today) ? 'Auch Überfälliges dabei' : hwNow.slice(0, 2).map((h) => helpSubject(h.subject)?.name ?? h.text).join(', ')}
+            />
+          )}
           {upcoming.slice(0, 2).map(({ a, days, r }) => {
             const s = helpSubject(a.subject)
             const timeLeft = st && st.arbeit.id === a.id ? (st.reached ? 'Lernzeit geschafft' : `heute ${Math.floor(st.minutes)} von ${st.target} Min`) : null

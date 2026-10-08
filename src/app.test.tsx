@@ -66,41 +66,65 @@ const go = (hash: string) => {
 }
 
 describe('Die App als Ganzes', () => {
-  it('Einführung: Fächer wählen, Ziel wählen, Start auf der Üben-Seite', async () => {
+  it('Einrichtung: von der ersten Seite bis in die erste Lernrunde mit KI-Karten in höchstens 9 Tippen', async () => {
+    vi.mocked(generateCards).mockResolvedValue({
+      title: 'Zellorganellen',
+      items: Array.from({ length: 12 }, (_, i) => ({ front: `Organell ${i}`, back: `Aufgabe ${i}` })),
+    })
+    let taps = 0
+    const tap = async (name: RegExp | string, role: 'button' | 'radio' | 'checkbox' = 'button') => {
+      taps++
+      await click(name, role)
+    }
     render(<App />)
     await waitFor(() => expect(text()).toMatch(/Dein Übungsplan/))
-    await click(/Jetzt starten/)
-    // Einführung: vier Seiten, die zeigen, was man machen kann
-    await waitFor(() => expect(text()).toMatch(/Karteikarten in Sekunden/))
-    await click(/^Weiter$/)
-    await waitFor(() => expect(text()).toMatch(/Üben, wann es sich lohnt/))
-    await click(/^Weiter$/)
-    await waitFor(() => expect(text()).toMatch(/Arbeiten und Hausaufgaben/))
-    await click(/^Weiter$/)
-    await waitFor(() => expect(text()).toMatch(/Probearbeit mit Note/))
-    await click(/^Einrichten$/)
-    // Lerntier wählen
-    await waitFor(() => expect(text()).toMatch(/Wer soll dich beim Lernen begleiten/))
-    await click(/Elefant/, 'radio')
-    expect(useStore.getState().mascot).toBe('elefant')
-    await click(/Weiter/)
-    await waitFor(() => expect(text()).toMatch(/Welche Fächer hast du/))
-    await click(/Biologie/)
-    await click(/Mathe/)
-    expect(useStore.getState().mySubjects).toEqual(['biologie', 'mathe'])
-    await click(/Weiter/)
+    await tap(/Jetzt starten/)
     await waitFor(() => expect(text()).toMatch(/In welcher Klasse bist du/))
-    await click(/^9$/, 'radio')
+    await tap(/^9$/, 'radio')
     expect(useStore.getState().grade).toBe(9)
-    await click(/Ernsthaft/, 'radio')
-    expect(useStore.getState().dailyMinutes).toBe(15)
-    await click(/Weiter/)
-    await waitFor(() => expect(text()).toMatch(/Karteikarten erstellen|Erst umschauen/))
-    await click(/Erst umschauen/)
-    await waitFor(() => expect(text()).toMatch(/Was willst du üben/))
-    // Vier Tabs, keine Reste des alten Lernpfads
-    const nav = screen.getAllByRole('navigation', { name: 'Hauptnavigation' }).at(-1)!
-    expect(within(nav).getAllByRole('button').map((b) => b.getAttribute('aria-label'))).toEqual(['Üben', 'Kalender', 'Hausaufgaben', 'Profil'])
+    await tap(/Biologie/)
+    await tap(/Mathe/)
+    expect(useStore.getState().mySubjects).toEqual(['biologie', 'mathe'])
+    await tap(/^Weiter$/)
+    // Themen zum Antippen, passend zu Fach und Klasse
+    await waitFor(() => expect(text()).toMatch(/Was lernt ihr gerade in Biologie/))
+    await tap(/Zellorganellen und ihre Aufgaben/)
+    await tap(/Karteikarten machen/)
+    await waitFor(() => expect(text()).toMatch(/12 Karten/), { timeout: 4000 })
+    expect(vi.mocked(generateCards)).toHaveBeenCalledWith(expect.objectContaining({ subjectId: 'biologie', request: 'Zellorganellen und ihre Aufgaben' }))
+    await tap(/Los geht’s, erste Runde/)
+    // Gespeichert und mitten in der ersten Runde
+    expect(useStore.getState().onboarded).toBe(true)
+    expect(useStore.getState().sets).toHaveLength(1)
+    expect(useStore.getState().sets[0]).toMatchObject({ title: 'Zellorganellen und ihre Aufgaben', subject: 'biologie' })
+    await waitFor(() => expect(window.location.hash).toMatch(/^#\/ueben\/los\?deck=/))
+    await waitFor(() => expect(text()).toMatch(/Organell \d/), { timeout: 4000 })
+    expect(taps).toBeLessThanOrEqual(9)
+  })
+
+  it('Einrichtung: Das Lerntier wechselt man gleich auf dem Startbildschirm, ohne eigenen Schritt', async () => {
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/Ich bin Fenni/))
+    await click(/Nächstes Tier/)
+    expect(useStore.getState().mascot).toBe('elefant')
+    await waitFor(() => expect(text()).toMatch(/Ich bin Elli/))
+    await click(/Vorheriges Tier/)
+    expect(useStore.getState().mascot).toBe('fuchs')
+  })
+
+  it('Einrichtung: Ohne KI geht es trotzdem weiter (Fehler, später, ohne Karten)', async () => {
+    vi.mocked(generateCards).mockRejectedValue(new Error('Der KI-Dienst konnte nicht geladen werden. Bist du online?'))
+    render(<App />)
+    await click(/Jetzt starten/)
+    await click(/Mathe/)
+    await click(/^Weiter$/)
+    await click(/Brüche kürzen/)
+    await click(/Karteikarten machen/)
+    await waitFor(() => expect(screen.getByRole('alert').textContent).toMatch(/nicht geladen/), { timeout: 4000 })
+    await click(/Später, erst umschauen/)
+    await waitFor(() => expect(text()).toMatch(/Deine ersten Karteikarten|Heute/))
+    expect(useStore.getState().onboarded).toBe(true)
+    expect(useStore.getState().sets).toHaveLength(0)
   })
 
   it('Karteikarten von Hand erstellen, danach steht er auf der Startseite zum Üben bereit', async () => {
@@ -114,7 +138,7 @@ describe('Die App als Ganzes', () => {
     await click(/^Weiter$/)
     await waitFor(() => expect(text()).toMatch(/5 Karten erkannt/))
     fireEvent.change(screen.getByLabelText(/^Name/), { target: { value: 'Zelle' } })
-    await click(/Karteikarten speichern \(5\)/)
+    await click(/^Nur speichern$/)
     await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
     const set = useStore.getState().sets[0]
     expect(set).toMatchObject({ title: 'Zelle', subject: 'biologie' })
@@ -219,7 +243,7 @@ describe('Die App als Ganzes', () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/faecher'
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Was willst du üben/))
+    await waitFor(() => expect(text()).toMatch(/Deine ersten Karteikarten/))
   })
 })
 
@@ -228,7 +252,7 @@ describe('Alte Adressen führen weiter', () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/practice'
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Was willst du üben/))
+    await waitFor(() => expect(text()).toMatch(/Deine ersten Karteikarten/))
     go('#/coach')
     await waitFor(() => expect(text()).toMatch(/Französisch: KI/))
     expect(text()).not.toMatch(/schiefgelaufen/)
@@ -297,7 +321,7 @@ describe('Karteikarten mit der KI erstellen', () => {
     expect(vi.mocked(generateCards)).toHaveBeenCalledWith(expect.objectContaining({ subjectId: 'biologie', request: 'Genetik, Grundbegriffe', count: 20 }))
     // Name wurde von der KI vorgeschlagen
     expect((screen.getByLabelText(/^Name/) as HTMLInputElement).value).toBe('Genetik')
-    await click(/Karteikarten speichern \(3\)/)
+    await click(/^Nur speichern$/)
     await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
     expect(useStore.getState().sets[0]).toMatchObject({ title: 'Genetik', subject: 'biologie' })
   })
@@ -321,7 +345,7 @@ describe('Karteikarten mit der KI erstellen', () => {
     expect(vi.mocked(generateTasks)).toHaveBeenCalledWith(expect.objectContaining({ subjectId: 'physik', plan: 'rechnen', count: 20 }))
     // In der Liste: Frage und von der App berechnete Lösung
     expect(text()).toMatch(/75 km\/h|75/)
-    await click(/Speichern \(3\)/)
+    await click(/^Nur speichern$/)
     await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
     const set = useStore.getState().sets[0]
     expect(set).toMatchObject({ title: 'Geschwindigkeit', subject: 'physik' })
@@ -355,7 +379,7 @@ describe('Karten aus Notizen, ohne KI', () => {
     await waitFor(() => expect(text()).toMatch(/3 Karten vorgeschlagen/))
     expect((screen.getAllByLabelText('Vorderseite') as HTMLTextAreaElement[]).map((t) => t.value)).toEqual(['Was geschah 1789?', 'Was ist die Reformation?', 'Bastille'])
     fireEvent.change(screen.getByLabelText(/^Name/), { target: { value: 'Revolution' } })
-    await click(/Karteikarten speichern \(3\)/)
+    await click(/^Nur speichern$/)
     await waitFor(() => expect(useStore.getState().sets).toHaveLength(1))
     expect(useStore.getState().sets[0]).toMatchObject({ title: 'Revolution', subject: 'geschichte' })
   })
@@ -568,12 +592,18 @@ describe('Formel-Training ohne KI', () => {
   })
 })
 
-describe('Einführung überspringen', () => {
-  it('Wer die Einführung überspringt, landet direkt bei der Einrichtung', async () => {
+describe('Einführung auf Wunsch', () => {
+  it('„So funktioniert’s“ zeigt die vier Seiten, am Ende geht es zur Einrichtung', async () => {
     render(<App />)
-    await click(/Jetzt starten/)
-    await click(/Überspringen/)
-    await waitFor(() => expect(text()).toMatch(/Wer soll dich beim Lernen begleiten/))
+    await click(/So funktioniert’s/)
+    await waitFor(() => expect(text()).toMatch(/Karteikarten in Sekunden/))
+    await click(/^Weiter$/)
+    await waitFor(() => expect(text()).toMatch(/Üben, wann es sich lohnt/))
+    await click(/^Weiter$/)
+    await click(/^Weiter$/)
+    await waitFor(() => expect(text()).toMatch(/Probearbeit mit Note/))
+    await click(/^Los geht’s$/)
+    await waitFor(() => expect(text()).toMatch(/In welcher Klasse bist du/))
   })
 })
 
@@ -659,6 +689,40 @@ describe('Hausaufgaben', () => {
     fireEvent.click(await screen.findByRole('button', { name: /Buch Seite 52.*bearbeiten/ }))
     fireEvent.click(await screen.findByRole('button', { name: 'Löschen' }))
     expect(useStore.getState().hausaufgaben).toHaveLength(0)
+  })
+
+  it('Schnell eintragen: ein Satz mit Fach und Tag, Enter, fertig (zwei Handgriffe statt Formular)', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['mathe', 'deutsch'] })
+    window.location.hash = '#/hausaufgaben'
+    render(<App />)
+    const box = await screen.findByLabelText('Hausaufgabe in einem Satz eintragen')
+    fireEvent.change(box, { target: { value: 'Deutsch Gedicht lernen bis übermorgen' } })
+    // Vorschau zeigt, was verstanden wurde
+    await waitFor(() => expect(text()).toMatch(/Deutsch · fällig/))
+    fireEvent.keyDown(box, { key: 'Enter' })
+    await waitFor(() => expect(useStore.getState().hausaufgaben).toHaveLength(1))
+    expect(useStore.getState().hausaufgaben[0]).toMatchObject({ subject: 'deutsch', text: 'Gedicht lernen', due: dateKey(addDays(new Date(), 2)) })
+    expect((box as HTMLInputElement).value).toBe('')
+    await waitFor(() => expect(text()).toMatch(/Eingetragen: Deutsch/))
+    // Ohne Angaben gilt das zuletzt benutzte Fach und morgen
+    fireEvent.change(box, { target: { value: 'Aufsatz fertig schreiben' } })
+    fireEvent.keyDown(box, { key: 'Enter' })
+    await waitFor(() => expect(useStore.getState().hausaufgaben).toHaveLength(2))
+    expect(useStore.getState().hausaufgaben[1]).toMatchObject({ subject: 'deutsch', due: dateKey(addDays(new Date(), 1)) })
+    // „Ändern“ öffnet das ganze Blatt
+    fireEvent.click(await screen.findByRole('button', { name: 'Ändern' }))
+    await waitFor(() => expect(text()).toMatch(/Hausaufgabe bearbeiten/))
+  })
+
+  it('Üben erinnert an offene Hausaufgaben für heute und führt zum Tab', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['mathe'] })
+    useStore.getState().addHausaufgabe({ subject: 'mathe', text: 'Blatt', due: dateKey(addDays(new Date(), -1)) })
+    useStore.getState().addHausaufgabe({ subject: 'mathe', text: 'Später', due: dateKey(addDays(new Date(), 5)) })
+    render(<App />)
+    await waitFor(() => expect(text()).toMatch(/1 Hausaufgabe offen/))
+    expect(text()).toMatch(/Auch Überfälliges dabei/)
+    fireEvent.click(screen.getByRole('link', { name: /1 Hausaufgabe offen/ }))
+    await waitFor(() => expect(text()).toMatch(/Blatt/))
   })
 
   it('Sortiert nach Fälligkeit: überfällig, heute, morgen', async () => {

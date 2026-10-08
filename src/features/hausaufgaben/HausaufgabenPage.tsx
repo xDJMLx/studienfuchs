@@ -1,9 +1,9 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Mascot } from '../../components/mascot/Mascot'
-import { Check, Plus } from '../../components/ui/Icons'
+import { Check, Plus, Right } from '../../components/ui/Icons'
 import { dateKey } from '../../lib/calendar'
-import { dueText, groupHomework } from '../../lib/hausaufgaben'
+import { dueText, groupHomework, parseQuickHomework } from '../../lib/hausaufgaben'
 import { helpSubject } from '../../lib/subjects'
 import type { Hausaufgabe } from '../../lib/types'
 import { useStore } from '../../store/useStore'
@@ -57,6 +57,80 @@ export function HomeworkRow({ h, today, onOpen }: { h: Hausaufgabe; today: strin
   )
 }
 
+/**
+ * Eintragen in einem Satz, wie bei „Erinnerungen“: „Mathe S. 52 bis morgen“ + Enter. Fach und Tag werden erkannt, sonst gilt das zuletzt
+ * benutzte Fach und morgen. Darunter steht, was verstanden wurde; „Ändern“ öffnet das ganze Blatt.
+ */
+function QuickAdd({ onEdit }: { onEdit: (h: Hausaufgabe) => void }) {
+  const list = useStore((s) => s.hausaufgaben) ?? []
+  const mySubjects = useStore((s) => s.mySubjects) ?? []
+  const add = useStore((s) => s.addHausaufgabe)
+  const [text, setText] = useState('')
+  const [added, setAdded] = useState<Hausaufgabe | null>(null)
+  const today = dateKey(new Date())
+  const fallback = list.length ? list[list.length - 1].subject : (mySubjects[0] ?? 'mathe')
+  const allowed = mySubjects.length ? [...mySubjects, 'sonstiges'] : undefined
+  const parsed = parseQuickHomework(text, { today, fallbackSubject: fallback, allowed })
+
+  // Die Bestätigung verschwindet nach ein paar Sekunden von selbst
+  useEffect(() => {
+    if (!added) return
+    const id = window.setTimeout(() => setAdded(null), 6000)
+    return () => clearTimeout(id)
+  }, [added])
+
+  const submit = () => {
+    if (!text.trim()) return
+    const h = { subject: parsed.subject, text: parsed.text, due: parsed.due }
+    const id = add(h)
+    setAdded({ ...h, id })
+    setText('')
+    try {
+      navigator.vibrate?.(12)
+    } catch {
+      /* nicht überall verfügbar */
+    }
+  }
+
+  const sub = helpSubject(parsed.subject)
+  const addedSub = added ? helpSubject(added.subject) : null
+  return (
+    <div className="mb-5">
+      <div className="flex items-center gap-2 rounded-[20px] bg-surface py-1.5 pl-4 pr-1.5">
+        <label htmlFor="ha-quick" className="sr-only">
+          Hausaufgabe in einem Satz eintragen
+        </label>
+        <input
+          id="ha-quick"
+          className="min-w-0 flex-1 bg-transparent py-2 text-[16px] font-semibold outline-none placeholder:font-medium placeholder:text-muted"
+          placeholder="Neue Hausaufgabe, z. B. Mathe S. 52 bis morgen"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && submit()}
+          maxLength={200}
+          enterKeyHint="done"
+        />
+        <button type="button" aria-label="Eintragen" disabled={!text.trim()} onClick={submit} className="press flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-strong text-on-brand transition-opacity disabled:opacity-30">
+          <Right size={16} style={{ transform: 'rotate(-90deg)' }} />
+        </button>
+      </div>
+      {text.trim() ? (
+        <p className="mt-1.5 px-2 text-[13px] font-semibold text-muted" aria-live="polite">
+          <span className="mr-1.5 inline-block h-2 w-2 rounded-full align-middle" style={{ background: sub?.c ?? '#868a95' }} aria-hidden />
+          {sub?.name ?? 'Anderes Fach'} · fällig {dueText(parsed.due, today)}
+        </p>
+      ) : added ? (
+        <p className="mt-1.5 flex items-center gap-2 px-2 text-[13px] font-semibold text-good-dark" role="status">
+          <Check size={14} /> Eingetragen: {addedSub?.name ?? 'Anderes Fach'} · {dueText(added.due, today)}
+          <button type="button" className="press min-h-8 rounded-lg px-1.5 font-extrabold text-sky-dark" onClick={() => onEdit(added)}>
+            Ändern
+          </button>
+        </p>
+      ) : null}
+    </div>
+  )
+}
+
 /** Hausaufgaben: oben das Wichtigste für heute, darunter die offenen nach Fälligkeit, erledigte unten eingeklappt. */
 export function HausaufgabenPage() {
   const list = useStore((s) => s.hausaufgaben) ?? []
@@ -82,6 +156,8 @@ export function HausaufgabenPage() {
           <Plus size={22} />
         </button>
       </header>
+
+      <QuickAdd onEdit={(h) => setSheet({ h })} />
 
       {list.length === 0 && (
         <section className="flex flex-col items-center rounded-[20px] bg-surface p-6 text-center">

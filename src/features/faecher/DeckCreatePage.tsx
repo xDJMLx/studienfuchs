@@ -15,6 +15,7 @@ import { newRow, type Row } from '../upload/VocabTable'
 import { CardTable } from './CardTable'
 import { TemplateList } from './TemplateList'
 import { templatesFor } from '../../content/templates'
+import { topicSuggestions } from '../../lib/topics'
 
 type Way = 'ai' | 'notizen' | 'write' | 'vorlage'
 
@@ -39,6 +40,7 @@ export function DeckCreatePage() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const addSet = useStore((s) => s.addSet)
+  const grade = useStore((s) => s.grade)
   const [subject, setSubject] = useState(() => (helpSubject(params.get('fach') ?? '') ? (params.get('fach') as string) : (useStore.getState().mySubjects ?? []).find((id) => helpSubject(id)) ?? HELP_SUBJECTS[0].id))
   const sub = helpSubject(subject)
   const [way, setWay] = useState<Way>('ai')
@@ -140,7 +142,7 @@ export function DeckCreatePage() {
 
   const valid = useMemo(() => (rows ?? []).filter((r) => r.front.trim() && r.back.trim()), [rows])
 
-  const save = () => {
+  const save = (practice = false) => {
     const items = valid.map((r) => ({
       front: r.front.trim(),
       back: r.back.trim(),
@@ -149,7 +151,7 @@ export function DeckCreatePage() {
       ...(r.task ? { task: r.task } : {}),
     }))
     const id = addSet(title.trim() || (items.some((i) => i.task) ? 'Neue Aufgaben' : 'Neue Karteikarten'), items, { subject, lang: sub?.lang, both })
-    navigate(`/stapel/${id}`, { replace: true })
+    navigate(practice ? `/ueben/los?deck=${id}` : `/stapel/${id}`, { replace: true })
   }
 
   return (
@@ -267,6 +269,13 @@ export function DeckCreatePage() {
                   maxLength={1500}
                 />
               </label>
+              <div className="-mt-2 flex flex-wrap gap-2" role="group" aria-label="Themenvorschläge">
+                {topicSuggestions(subject, grade).map((t) => (
+                  <button key={t} type="button" onClick={() => setRequest(t)} className={`chip !min-h-10 !text-[13px] ${request === t ? 'chip-on' : ''}`}>
+                    {t}
+                  </button>
+                ))}
+              </div>
               <details className="group rounded-2xl border border-line bg-surface px-4 py-3">
                 <summary className="flex cursor-pointer list-none items-center justify-between text-[15px] font-extrabold">
                   <span>
@@ -373,8 +382,11 @@ export function DeckCreatePage() {
           </label>
           )}
           <div className="flex flex-col gap-2 sm:flex-row-reverse">
-            <button type="button" className="btn btn-primary press w-full sm:w-64" disabled={valid.length === 0} onClick={save}>
-              {valid.some((r) => r.task) ? `Speichern (${valid.length})` : `Karteikarten speichern (${valid.length})`}
+            <button type="button" className="btn btn-primary press w-full sm:w-64" disabled={valid.length === 0} onClick={() => save(true)}>
+              Speichern und üben ({valid.length})
+            </button>
+            <button type="button" className="btn btn-ghost press w-full sm:w-auto" disabled={valid.length === 0} onClick={() => save(false)}>
+              Nur speichern
             </button>
             <button type="button" className="btn btn-ghost press w-full sm:w-auto" onClick={() => { setRows(null); setNotice(null) }}>
               Zurück
