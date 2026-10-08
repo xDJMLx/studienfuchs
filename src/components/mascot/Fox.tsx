@@ -280,25 +280,35 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
 
         {/* Halsschmuck (gekauft) */}
         {hals === 'schal' && (
-          <g>
-            <path d="M54 140 C76 160 124 160 146 140 L150 158 C128 180 72 180 50 158 Z" fill="#e5484d" />
-            <path d="M60 156 q40 18 80 0" stroke="#fff" strokeWidth="4" fill="none" opacity="0.7" strokeLinecap="round" />
-            <path d="M116 164 l8 34 l20 -6 l-8 -34 Z" fill="#c93a40" />
-            <path d="M122 190 l18 -5 M120 180 l18 -5" stroke="#fff" strokeWidth="3" opacity="0.7" strokeLinecap="round" />
+          <g strokeLinejoin="round">
+            {/* Wulst um den Hals mit Streifen */}
+            <path d="M52 142 C74 162 126 162 148 142 L152 160 C128 182 72 182 48 160 Z" fill="#e5484d" />
+            <path d="M50 150 C74 170 126 170 150 150" stroke="#fff" strokeWidth="3.2" fill="none" opacity="0.85" strokeLinecap="round" />
+            <path d="M49 160 C73 180 127 180 151 160" stroke="#b8343a" strokeWidth="3.2" fill="none" opacity="0.6" strokeLinecap="round" />
+            <path d="M62 146 C80 156 96 158 112 156" stroke="#ff8f93" strokeWidth="3" fill="none" opacity="0.7" strokeLinecap="round" />
+            {/* hängendes Ende mit Fransen */}
+            <path d="M114 166 l10 32 l22 -7 l-8 -32 Z" fill="#c93a40" />
+            <path d="M118 178 l22 -7 M121 188 l22 -7" stroke="#fff" strokeWidth="3" opacity="0.85" strokeLinecap="round" />
+            <path d="M126 198 l-1 7 M133 196 l-1 7 M140 194 l-1 7 M146 191 l0 6" stroke="#e5484d" strokeWidth="2.6" strokeLinecap="round" />
           </g>
         )}
         {hals === 'fliege' && (
           <g strokeLinejoin="round">
-            <path d="M100 152 L72 138 L72 168 Z" fill="#3b6fe0" stroke="#24429a" strokeWidth="3" />
-            <path d="M100 152 L128 138 L128 168 Z" fill="#3b6fe0" stroke="#24429a" strokeWidth="3" />
-            <rect x="91" y="143" width="18" height="18" rx="5" fill="#2a56c4" stroke="#24429a" strokeWidth="3" />
+            <path d="M100 154 C86 140 70 134 62 140 C56 152 56 164 62 174 C70 178 86 168 100 154 Z" fill="#e5484d" stroke="#b8343a" strokeWidth="2.6" />
+            <path d="M100 154 C114 140 130 134 138 140 C144 152 144 164 138 174 C130 178 114 168 100 154 Z" fill="#e5484d" stroke="#b8343a" strokeWidth="2.6" />
+            <path d="M68 142 C76 144 86 148 92 153 M132 142 C124 144 114 148 108 153" stroke="#ff9a9d" strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.8" />
+            <rect x="91" y="144" width="18" height="20" rx="6" fill="#c93a40" stroke="#b8343a" strokeWidth="2.6" />
+            <path d="M96 148 v12" stroke="#ff9a9d" strokeWidth="2.4" strokeLinecap="round" opacity="0.7" />
           </g>
         )}
         {hals === 'medaille' && (
           <g strokeLinejoin="round">
-            <path d="M72 142 L100 180 L128 142" stroke="#e5484d" strokeWidth="9" fill="none" strokeLinecap="round" />
-            <circle cx="100" cy="186" r="14" fill="#f5b82e" stroke="#b8860b" strokeWidth="3.5" />
-            <path d="M100 178 l2.6 5.2 5.8 .8 -4.2 4 1 5.8 -5.2 -2.8 -5.2 2.8 1 -5.8 -4.2 -4 5.8 -.8 Z" fill="#b8860b" />
+            <path d="M70 142 L96 176 M130 142 L104 176" stroke="#e5484d" strokeWidth="10" fill="none" strokeLinecap="round" />
+            <path d="M77 146 L93 168 M123 146 L107 168" stroke="#fff" strokeWidth="2.6" fill="none" strokeLinecap="round" opacity="0.8" />
+            <circle cx="100" cy="188" r="17" fill="#f6b91a" stroke="#c98a00" strokeWidth="3.6" />
+            <circle cx="100" cy="188" r="11.5" fill="none" stroke="#fff3b0" strokeWidth="2" opacity="0.9" />
+            <path d="M100 178 l2.9 5.9 6.5 .9 -4.7 4.6 1.1 6.5 -5.8 -3.1 -5.8 3.1 1.1 -6.5 -4.7 -4.6 6.5 -.9 Z" fill="#c98a00" />
+            <path d="M89 181 C92 176 97 174 102 174" stroke="#fff" strokeWidth="3" fill="none" strokeLinecap="round" opacity="0.7" />
           </g>
         )}
 
@@ -370,55 +380,80 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
 
           {/* Gesichtsschmuck (gekauft) */}
           {gesicht === 'brille' && (
-            <g fill="none" stroke="#2e1a0d" strokeWidth="4">
-              <circle cx="69" cy="90" r="23" fill="rgba(255,255,255,0.16)" />
-              <circle cx="131" cy="90" r="23" fill="rgba(255,255,255,0.16)" />
-              <path d="M92 88 q8 -6 16 0" strokeLinecap="round" />
-              <path d="M46 86 l-14 -6 M154 86 l14 -6" strokeLinecap="round" />
-              <path d="M56 76 q6 -6 14 -6" stroke="#fff" strokeWidth="3" opacity="0.6" strokeLinecap="round" />
+            <g fill="none" strokeLinecap="round">
+              <circle cx="69" cy="90" r="24" fill="rgba(190,220,255,0.18)" stroke="#2b2f4a" strokeWidth="4.2" />
+              <circle cx="131" cy="90" r="24" fill="rgba(190,220,255,0.18)" stroke="#2b2f4a" strokeWidth="4.2" />
+              <path d="M93 86 q7 -6 14 0" stroke="#2b2f4a" strokeWidth="4" />
+              <path d="M46 84 l-15 -7 M154 84 l15 -7" stroke="#2b2f4a" strokeWidth="4" />
+              <path d="M55 76 q7 -8 16 -8" stroke="#fff" strokeWidth="3.4" opacity="0.75" />
+              <path d="M117 76 q7 -8 16 -8" stroke="#fff" strokeWidth="3.4" opacity="0.75" />
             </g>
           )}
           {gesicht === 'sonnenbrille' && (
-            <g>
-              <path d="M44 74 h50 v14 a16 16 0 0 1 -16 16 h-18 a16 16 0 0 1 -16 -16 Z" fill="#1d1d22" />
-              <path d="M106 74 h50 v14 a16 16 0 0 1 -16 16 h-18 a16 16 0 0 1 -16 -16 Z" fill="#1d1d22" />
-              <path d="M94 78 q6 -4 12 0" stroke="#1d1d22" strokeWidth="5" fill="none" strokeLinecap="round" />
-              <path d="M44 78 l-14 -4 M156 78 l14 -4" stroke="#1d1d22" strokeWidth="5" strokeLinecap="round" />
-              <path d="M52 82 l14 0 M114 82 l14 0" stroke="#fff" strokeWidth="3" strokeLinecap="round" opacity="0.45" />
+            <g strokeLinecap="round" strokeLinejoin="round">
+              <path d="M42 76 h54 v12 a17 17 0 0 1 -17 17 h-20 a17 17 0 0 1 -17 -17 Z" fill="#17171d" stroke="#0c0c10" strokeWidth="3" />
+              <path d="M104 76 h54 v12 a17 17 0 0 1 -17 17 h-20 a17 17 0 0 1 -17 -17 Z" fill="#17171d" stroke="#0c0c10" strokeWidth="3" />
+              <path d="M96 80 q4 -5 8 0" stroke="#0c0c10" strokeWidth="5" fill="none" />
+              <path d="M42 80 l-13 -5 M158 80 l13 -5" stroke="#0c0c10" strokeWidth="5" fill="none" />
+              <path d="M50 82 l16 0 M112 82 l16 0" stroke="#fff" strokeWidth="3.4" opacity="0.5" fill="none" />
+              <path d="M54 92 l8 0 M116 92 l8 0" stroke="#fff" strokeWidth="2.6" opacity="0.3" fill="none" />
             </g>
           )}
           {gesicht === 'schnurrbart' && (
-            <path d="M100 125 C94 117 78 118 72 130 C82 128 92 130 100 135 C108 130 118 128 128 130 C122 118 106 117 100 125 Z" fill={C.brown} stroke={C.brown} strokeWidth="2" strokeLinejoin="round" />
+            <g strokeLinejoin="round" strokeLinecap="round">
+              <path d="M100 126 C93 116 76 116 66 127 C61 133 67 137 73 134 C83 129 92 130 100 136 C108 130 117 129 127 134 C133 137 139 133 134 127 C124 116 107 116 100 126 Z" fill="#4a2b14" stroke="#33200f" strokeWidth="2" />
+              <path d="M80 122 C88 120 94 123 98 128 M120 122 C112 120 106 123 102 128" stroke="#9a6a3c" strokeWidth="2.6" fill="none" opacity="0.7" />
+            </g>
           )}
 
           {/* Kopfschmuck (gekauft) */}
           {kopf === 'muetze' && (
-            <g>
-              <path d="M62 62 C58 22 142 22 138 62 Z" fill="#3b82f6" />
-              <path d="M60 60 C80 54 120 54 140 60 L138 74 C118 68 82 68 62 74 Z" fill="#1d4ed8" />
-              <circle cx="100" cy="22" r="10" fill="#fff" />
+            <g transform="translate(0 -6)" strokeLinejoin="round" strokeLinecap="round">
+              <path d="M60 58 C56 26 74 10 100 10 C126 10 144 26 140 58 Z" fill="#3f7df0" />
+              <path d="M118 12 C134 20 143 36 140 58 L124 58 C128 40 124 24 108 11 Z" fill="#2c63cf" opacity="0.55" />
+              <path d="M76 54 C74 36 80 22 90 14 M92 56 C91 38 93 24 97 12 M108 56 C109 38 107 24 103 12 M124 54 C126 36 120 22 110 14" stroke="#2c63cf" strokeWidth="2.4" fill="none" opacity="0.5" />
+              <path d="M54 52 C72 61 128 61 146 52 L148 68 C128 78 72 78 52 68 Z" fill="#1f4fbf" />
+              <path d="M54 52 C72 61 128 61 146 52" stroke="#7aa8ff" strokeWidth="2.6" fill="none" opacity="0.8" />
+              <path d="M58 64 C76 72 124 72 142 64" stroke="#163b94" strokeWidth="2.4" fill="none" opacity="0.6" />
+              <circle cx="100" cy="9" r="10.5" fill="#fff" />
+              <circle cx="95.500" cy="5.500" r="4" fill="#eef2ff" />
+              <path d="M91 12 C94 17 106 17 109 12" stroke="#dfe5fb" strokeWidth="2" fill="none" />
             </g>
           )}
           {kopf === 'kappe' && (
-            <g strokeLinejoin="round">
-              <path d="M60 58 C60 22 140 22 140 58 C120 52 80 52 60 58 Z" fill="#e5484d" stroke="#b8343a" strokeWidth="3" />
-              <path d="M96 56 C122 52 158 56 168 66 C146 70 118 68 94 62 Z" fill="#b8343a" />
-              <circle cx="100" cy="27" r="5" fill="#b8343a" />
+            <g transform="translate(0 -5)" strokeLinejoin="round" strokeLinecap="round">
+              <path d="M60 58 C58 28 76 14 100 14 C124 14 142 28 140 58 Z" fill="#ef4444" />
+              <path d="M112 16 C132 24 142 38 140 58 L124 58 C127 40 122 26 108 15 Z" fill="#c62828" opacity="0.5" />
+              <path d="M100 14 L100 58 M100 14 C88 22 82 40 83 58 M100 14 C112 22 118 40 117 58" stroke="#c62828" strokeWidth="2.2" fill="none" opacity="0.6" />
+              <circle cx="100" cy="14" r="5" fill="#c62828" />
+              <path d="M58 54 C76 62 124 62 142 54 L143 63 C124 71 76 71 57 63 Z" fill="#b71c1c" />
+              <path d="M64 58 C80 66 120 66 136 58 C142 62 140 69 132 71 C116 78 84 78 68 71 C60 69 58 62 64 58 Z" fill="#9f1717" />
+              <path d="M72 66 C88 72 112 72 128 66" stroke="#ff8d8d" strokeWidth="2.4" fill="none" opacity="0.6" />
+              <path d="M74 28 C80 22 88 19 96 18" stroke="#fff" strokeWidth="3.4" fill="none" opacity="0.4" />
             </g>
           )}
           {kopf === 'zylinder' && (
-            <g strokeLinejoin="round">
-              <rect x="70" y="2" width="60" height="44" rx="4" fill="#2a2a30" />
-              <rect x="70" y="32" width="60" height="10" fill="#e5484d" />
-              <ellipse cx="100" cy="47" rx="48" ry="8" fill="#2a2a30" />
+            <g transform="rotate(-6 100 48) translate(0 -4)" strokeLinejoin="round">
+              <ellipse cx="100" cy="51" rx="52" ry="9.500" fill="#14141a" />
+              <path d="M72 48 L74 8 C74 3 80 1 86 1 H114 C120 1 126 3 126 8 L128 48 C118 54 82 54 72 48 Z" fill="#2c2c35" />
+              <path d="M73 34 C84 40 116 40 127 34 L128 46 C118 53 82 53 72 46 Z" fill="#e5484d" />
+              <path d="M73 34 C84 40 116 40 127 34" stroke="#ff8f93" strokeWidth="2" fill="none" opacity="0.7" />
+              <path d="M81 8 L80 30" stroke="#fff" strokeWidth="4" strokeLinecap="round" opacity="0.2" />
+              <ellipse cx="100" cy="47" rx="52" ry="8.500" fill="#1d1d24" />
+              <path d="M52 47 C72 54 128 54 148 47" stroke="#3a3a46" strokeWidth="2" fill="none" />
             </g>
           )}
           {kopf === 'krone' && (
-            <g>
-              <path d="M64 54 L68 14 L86 36 L100 8 L114 36 L132 14 L136 54 Z" fill="#f5b82e" stroke="#b8860b" strokeWidth="4" strokeLinejoin="round" />
-              <circle cx="100" cy="34" r="4" fill="#e5484d" />
-              <circle cx="78" cy="42" r="3" fill="#3b82f6" />
-              <circle cx="122" cy="42" r="3" fill="#3b82f6" />
+            <g transform="translate(0 -2)" strokeLinejoin="round" strokeLinecap="round">
+              <path d="M62 56 L64 16 L84 38 L100 8 L116 38 L136 16 L138 56 Z" fill="#f6b91a" stroke="#c98a00" strokeWidth="3.600" />
+              <path d="M62 47 C84 54 116 54 138 47 L138 57 C116 63 84 63 62 57 Z" fill="#e39a00" stroke="#c98a00" strokeWidth="2" />
+              <path d="M70 22 L72 42 M96 18 L92 34" stroke="#fff" strokeWidth="3.200" opacity="0.55" />
+              <circle cx="100" cy="35" r="5.500" fill="#e5484d" stroke="#fff" strokeWidth="1.600" />
+              <circle cx="82" cy="51" r="3.600" fill="#3b82f6" stroke="#fff" strokeWidth="1.400" />
+              <circle cx="118" cy="51" r="3.600" fill="#3b82f6" stroke="#fff" strokeWidth="1.400" />
+              <circle cx="64" cy="14" r="4.200" fill="#fff6c0" stroke="#c98a00" strokeWidth="2" />
+              <circle cx="100" cy="6" r="4.200" fill="#fff6c0" stroke="#c98a00" strokeWidth="2" />
+              <circle cx="136" cy="14" r="4.200" fill="#fff6c0" stroke="#c98a00" strokeWidth="2" />
             </g>
           )}
         </g>
