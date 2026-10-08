@@ -49,6 +49,7 @@ function Row({ to, onClick, tint, icon, title, sub, right }: { to?: string; onCl
 export function UebenPage() {
   const navigate = useNavigate()
   const [free, setFree] = useState(false)
+  const [create, setCreate] = useState(false)
   const sets = useStore((s) => s.sets)
   const addedUnits = useStore((s) => s.addedUnits)
   const arbeiten = useStore((s) => s.arbeiten)
@@ -200,9 +201,24 @@ export function UebenPage() {
           {decks.length > 0 && <Row to="/blitz" tint="var(--violet-soft)" icon={<Flame size={20} className="text-violet-dark" />} title="Blitzrunde" sub="60 Sekunden, so viele wie möglich" />}
           <Row to="/test/neu?art=arbeit" tint="var(--sky-soft)" icon={<Trophy size={20} className="text-sky-dark" />} title="Probearbeit" sub="Große Arbeit mit Punkten und Note" />
           <Row to="/test/neu?art=test" tint="var(--violet-soft)" icon={<Trophy size={20} className="text-violet-dark" />} title="Probetest" sub="Kurzer Test zum Üben" />
-          <Row to="/stapel/neu" tint="var(--good-soft)" icon={<Plus size={20} className="text-good-dark" />} title="Neu erstellen" sub="Karteikarten, Quiz, Rechenaufgaben" />
+          <Row onClick={() => setCreate(true)} tint="var(--good-soft)" icon={<Plus size={20} className="text-good-dark" />} title="Neu erstellen" sub="Karteikarten per KI, Foto oder selbst" />
         </div>
       </section>
+
+      {/* Neue Karteikarten: Thema antippen, die KI macht sie, Runde starten. Alles andere (selbst schreiben, Aufgaben, Rechnen) steht auf der großen Seite. */}
+      <Sheet open={create} onClose={() => setCreate(false)} title="Neue Karteikarten">
+        <QuickCards
+          subjects={startSubjects}
+          grade={grade}
+          onStart={(id) => {
+            setCreate(false)
+            navigate(`/ueben/los?deck=${id}`)
+          }}
+        />
+        <Link to="/stapel/neu" onClick={() => setCreate(false)} className="press mt-1 flex min-h-11 items-center justify-center rounded-xl text-sm font-extrabold text-sky-dark">
+          Selbst schreiben, Aufgaben, Rechnen oder Tests
+        </Link>
+      </Sheet>
 
       <FreePractice open={free} onClose={() => setFree(false)} />
     </div>

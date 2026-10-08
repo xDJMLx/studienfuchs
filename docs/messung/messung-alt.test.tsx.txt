@@ -1,0 +1,137 @@
+// @vitest-environment happy-dom
+import fs from 'node:fs'
+import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { MotionGlobalConfig } from 'framer-motion'
+import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest'
+import App from './App'
+import { generateCards } from './lib/aiCards'
+import { addDays, dateKey } from './lib/calendar'
+import { useStore } from './store/useStore'
+
+vi.mock('./lib/aiCards', async () => {
+  const real = await vi.importActual<typeof import('./lib/aiCards')>('./lib/aiCards')
+  return { ...real, generateCards: vi.fn() }
+})
+vi.hoisted(() => {
+  globalThis.fetch = (async () => new Response('{}', { status: 404 })) as typeof fetch
+})
+
+beforeAll(() => {
+  MotionGlobalConfig.skipAnimations = true
+  const anim = (window as unknown as { Animation?: { prototype: { cancel: () => void; finished?: Promise<unknown> } } }).Animation?.prototype
+  if (anim) {
+    const cancel = anim.cancel
+    anim.cancel = function (this: { finished?: Promise<unknown> }) {
+      this.finished?.catch(() => undefined)
+      return cancel.call(this)
+    }
+  }
+  window.HTMLElement.prototype.scrollIntoView = () => undefined
+  window.HTMLElement.prototype.scrollTo = (() => undefined) as typeof window.HTMLElement.prototype.scrollTo
+})
+beforeEach(() => {
+  useStore.getState().resetAll()
+  window.location.hash = '#/'
+  vi.mocked(generateCards).mockResolvedValue({ title: 'Zellorganellen', items: Array.from({ length: 12 }, (_, i) => ({ front: `Organell ${i}`, back: `Aufgabe ${i}` })) })
+  taps = 0
+})
+afterEach(cleanup)
+
+const text = () => document.body.textContent ?? ''
+let taps = 0
+const tap = async (name: RegExp | string, role: 'button' | 'radio' | 'checkbox' | 'link' = 'button') => {
+  taps++
+  fireEvent.click(await screen.findByRole(role, { name }, { timeout: 4000 }))
+}
+const enterField = async (label: RegExp | string, value: string) => {
+  taps++
+  fireEvent.change(await screen.findByLabelText(label), { target: { value } })
+}
+
+describe('Messung der alten Fassung (Commit 93a233f)', () => {
+  it('1a. Einrichtung, Mindestweg', async () => {
+    render(<App />)
+    await tap(/Jetzt starten/)
+    await tap(/Überspringen/)
+    await waitFor(() => expect(text()).toMatch(/Wer soll dich/))
+    await tap(/^Weiter$/) // Tier
+    await waitFor(() => expect(text()).toMatch(/Welche Fächer/), { timeout: 4000 })
+    await tap(/Biologie/)
+    await tap(/^Weiter$/)
+    await tap(/^Weiter$/) // Ziel
+    await tap(/Erste Karteikarten erstellen/)
+    await enterField(/Was brauchst du/, 'Brüche kürzen')
+    await tap(/Karten erstellen/)
+    await tap(/Karteikarten speichern/)
+    await tap(/Jetzt üben|Trotzdem üben/)
+    await waitFor(() => expect(text()).toMatch(/Organell \d/), { timeout: 4000 })
+    fs.appendFileSync('C:/Users/Maxim/Documents/studienfuchs-old/messung-ergebnis.txt', 'ALT 1a Tippen: ' + taps + '\n')
+  })
+
+  it('1b. Einrichtung, wie die meisten sie machen', async () => {
+    render(<App />)
+    await tap(/Jetzt starten/)
+    await tap(/^Weiter$/)
+    await tap(/^Weiter$/)
+    await tap(/^Weiter$/)
+    await tap(/^Einrichten$/)
+    await tap(/Elefant/, 'radio')
+    await tap(/^Weiter$/)
+    await tap(/Biologie/)
+    await tap(/Mathe/)
+    await tap(/^Weiter$/)
+    await tap(/^9$/, 'radio')
+    await tap(/Ernsthaft/, 'radio')
+    await tap(/^Weiter$/)
+    await tap(/Erste Karteikarten erstellen/)
+    await enterField(/Was brauchst du/, 'Zellorganellen und ihre Aufgaben')
+    await tap(/Karten erstellen/)
+    await tap(/Karteikarten speichern/)
+    await tap(/Jetzt üben|Trotzdem üben/)
+    await waitFor(() => expect(text()).toMatch(/Organell \d/), { timeout: 4000 })
+    fs.appendFileSync('C:/Users/Maxim/Documents/studienfuchs-old/messung-ergebnis.txt', 'ALT 1b Tippen: ' + taps + '\n')
+  })
+
+  it('2. Hausaufgabe mit anderem Fach und Tag', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['mathe', 'deutsch'] })
+    window.location.hash = '#/hausaufgaben'
+    render(<App />)
+    await tap(/Neue Hausaufgabe/)
+    await enterField('Was ist zu tun?', 'Gedicht lernen')
+    await tap(/Deutsch/, 'radio')
+    await tap(/^Übermorgen$/)
+    await tap(/^Eintragen$/)
+    await waitFor(() => expect(useStore.getState().hausaufgaben).toHaveLength(1))
+    expect(useStore.getState().hausaufgaben[0]).toMatchObject({ subject: 'deutsch', due: dateKey(addDays(new Date(), 2)) })
+    fs.appendFileSync('C:/Users/Maxim/Documents/studienfuchs-old/messung-ergebnis.txt', 'ALT 2 Tippen: ' + taps + '\n')
+  })
+
+  it('3. Neue Karteikarten zu einem Thema und gleich üben, von Üben aus', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['biologie'], grade: 9 })
+    useStore.getState().addSet('Schon da', [{ front: 'a', back: 'b' }], { subject: 'biologie' })
+    render(<App />)
+    await tap(/Neu erstellen/, 'link')
+    await enterField(/Was brauchst du/, 'Zellorganellen und ihre Aufgaben')
+    await tap(/Karten erstellen/)
+    await tap(/Karteikarten speichern/)
+    await tap(/Jetzt üben|Trotzdem üben/)
+    await waitFor(() => expect(text()).toMatch(/Organell \d/), { timeout: 4000 })
+    fs.appendFileSync('C:/Users/Maxim/Documents/studienfuchs-old/messung-ergebnis.txt', 'ALT 3 Tippen: ' + taps + '\n')
+  })
+
+  it('4. Arbeit im Kalender eintragen', async () => {
+    useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
+    window.location.hash = '#/kalender'
+    render(<App />)
+    const day = dateKey(addDays(new Date(), 6))
+    await tap(/^Eintragen$/)
+    await tap(/Arbeit oder Test/)
+    await tap(/^Test$/, 'radio')
+    await enterField('Datum', day)
+    taps++
+    fireEvent.click(screen.getAllByRole('button', { name: /^Eintragen$/ }).at(-1)!)
+    await waitFor(() => expect(useStore.getState().arbeiten).toHaveLength(1))
+    expect(useStore.getState().arbeiten[0]).toMatchObject({ subject: 'biologie', kind: 'test', date: day })
+    fs.appendFileSync('C:/Users/Maxim/Documents/studienfuchs-old/messung-ergebnis.txt', 'ALT 4 Tippen: ' + taps + '\n')
+  })
+})

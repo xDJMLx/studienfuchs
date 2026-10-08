@@ -15,7 +15,7 @@ const COUNT = 12
  * Die ersten Karteikarten in einem Bildschirm: Fach wählen, Thema antippen (oder selbst schreiben, oder ein Foto vom Heft), die KI macht
  * die Karten, man schaut sie kurz an und startet sofort die erste Runde. Wird in der Einrichtung und auf dem leeren Üben-Bildschirm benutzt.
  */
-export function QuickCards({ subjects, grade, onStart, onSkip, skipLabel = 'Später' }: { subjects: string[]; grade: number; onStart: (setId: string) => void; onSkip?: () => void; skipLabel?: string }) {
+export function QuickCards({ subjects, grade, onStart, onSkip, skipLabel = 'Später', instant = true }: { subjects: string[]; grade: number; onStart: (setId: string) => void; onSkip?: () => void; skipLabel?: string; /** Ein Tipp auf einen Themenvorschlag startet die KI gleich (sonst füllt er nur das Feld) */ instant?: boolean }) {
   const addSet = useStore((s) => s.addSet)
   const ids = subjects.filter((id) => helpSubject(id))
   const [subject, setSubject] = useState(ids[0] ?? 'sonstiges')
@@ -35,15 +35,16 @@ export function QuickCards({ subjects, grade, onStart, onSkip, skipLabel = 'Spä
     void isAiReady().then(setReady)
   }, [])
 
-  const run = async () => {
+  const run = async (override?: string) => {
+    const request = override ?? topic
     setPhase('busy')
     setError('')
     try {
       const images = await Promise.all(files.map((f) => blobToJpegBase64(f)))
-      const vocab = await generateCards({ subjectId: subject, request: topic, count: COUNT, images })
+      const vocab = await generateCards({ subjectId: subject, request, count: COUNT, images })
       if (vocab.items.length === 0) throw new Error('Die KI hat keine Karten gefunden. Schreib genauer, was ihr lernt, oder nimm ein anderes Thema.')
       setItems(vocab.items)
-      setTitle(topic.trim() ? topic.trim().slice(0, 50) : vocab.title)
+      setTitle(request.trim() ? request.trim().slice(0, 50) : vocab.title)
       setPhase('preview')
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Das hat nicht geklappt.')
@@ -94,7 +95,7 @@ export function QuickCards({ subjects, grade, onStart, onSkip, skipLabel = 'Spä
           Los geht’s, erste Runde
         </button>
         <div className="mt-1 flex justify-center">
-          <button type="button" className="press min-h-11 rounded-xl px-3 text-sm font-extrabold text-sky-dark" onClick={run}>
+          <button type="button" className="press min-h-11 rounded-xl px-3 text-sm font-extrabold text-sky-dark" onClick={() => void run()}>
             Andere Karten
           </button>
         </div>
@@ -124,7 +125,15 @@ export function QuickCards({ subjects, grade, onStart, onSkip, skipLabel = 'Spä
       <p className="mb-2 text-[15px] font-extrabold">Was lernt ihr gerade in {sub?.name ?? 'dem Fach'}?</p>
       <div className="mb-3 flex flex-wrap gap-2" role="group" aria-label="Themenvorschläge">
         {suggestions.map((t) => (
-          <button key={t} type="button" onClick={() => setTopic(t)} className={`chip !min-h-10 !text-[13px] ${topic === t ? 'chip-on' : ''}`}>
+          <button
+            key={t}
+            type="button"
+            onClick={() => {
+              setTopic(t)
+              if (instant) void run(t)
+            }}
+            className={`chip !min-h-10 !text-[13px] ${topic === t ? 'chip-on' : ''}`}
+          >
             {t}
           </button>
         ))}

@@ -91,7 +91,7 @@ export interface QuickHomework {
  * „Mathe S. 52 Nr. 3 bis morgen“ → Fach Mathe, fällig morgen, Text „S. 52 Nr. 3“.
  * Ohne Angabe gilt das zuletzt benutzte Fach (sonst das erste eigene) und der nächste Tag.
  */
-export function parseQuickHomework(input: string, opts: { today?: string; fallbackSubject: string; allowed?: string[] }): QuickHomework {
+export function parseQuickHomework(input: string, opts: { today?: string; fallbackSubject: string; allowed?: string[]; /** Bleibt nichts als Text übrig, leer lassen statt den ganzen Satz zu nehmen */ keepEmpty?: boolean }): QuickHomework {
   const today = opts.today ?? dateKey(new Date())
   let rest = ` ${input.trim()} `
   let subject = opts.fallbackSubject
@@ -149,5 +149,42 @@ export function parseQuickHomework(input: string, opts: { today?: string; fallba
   }
 
   const cleaned = rest.replace(/\s+/g, ' ').replace(/^[\s:,\-–]+|[\s:,\-–]+$/g, '')
-  return { text: (cleaned || input.trim()).slice(0, 200), subject, due, found: { subject: foundSubject, due: foundDue } }
+  return { text: (cleaned || (opts.keepEmpty ? '' : input.trim())).slice(0, 200), subject, due, found: { subject: foundSubject, due: foundDue } }
+}
+
+export interface QuickArbeit {
+  kind: 'klassenarbeit' | 'test' | 'vokabeltest' | 'klausur' | 'praesentation' | null
+  subject: string
+  /** Leer, wenn kein Tag erkannt wurde */
+  date: string
+  /** Rest des Satzes, z. B. das Thema; leer, wenn nichts übrig ist */
+  title: string
+  found: { subject: boolean; due: boolean; kind: boolean }
+}
+
+const KIND_WORDS: [NonNullable<QuickArbeit['kind']>, RegExp][] = [
+  ['vokabeltest', /(?<![\p{L}])(vokabeltest|vokabel-test|vt)(?![\p{L}])/iu],
+  ['klausur', /(?<![\p{L}])klausur(?![\p{L}])/iu],
+  ['praesentation', /(?<![\p{L}])(referat|präsentation|praesentation|vortrag)(?![\p{L}])/iu],
+  ['klassenarbeit', /(?<![\p{L}])(klassenarbeit|ka|schulaufgabe|arbeit)(?![\p{L}])/iu],
+  ['test', /(?<![\p{L}])(test|lzk|lernzielkontrolle)(?![\p{L}])/iu],
+]
+
+/**
+ * „Bio Test Zelle 15.10.“ → Fach Biologie, Art Test, Tag 15.10., Thema Zelle. Wie bei den Hausaufgaben; was nicht erkannt wird, bleibt leer
+ * (dann gilt, was im Blatt gewählt ist).
+ */
+export function parseQuickArbeit(input: string, opts: { today?: string; fallbackSubject: string; allowed?: string[] }): QuickArbeit {
+  let rest = ` ${input.trim()} `
+  let kind: QuickArbeit['kind'] = null
+  for (const [k, re] of KIND_WORDS) {
+    const m = re.exec(rest)
+    if (m) {
+      kind = k
+      rest = rest.replace(re, ' ')
+      break
+    }
+  }
+  const r = parseQuickHomework(rest, { ...opts, keepEmpty: true })
+  return { kind, subject: r.subject, date: r.found.due ? r.due : '', title: r.text, found: { subject: r.found.subject, due: r.found.due, kind: kind !== null } }
 }

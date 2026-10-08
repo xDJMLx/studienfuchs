@@ -583,7 +583,7 @@ const zebra: Skin = {
 const affe: Skin = {
   id: 'affe',
   label: 'Affe',
-  name: 'Affi',
+  name: 'Anton',
   blurb: 'Immer neugierig',
   fur: ['#c98a5a', '#ab6c40', '#8a5230'],
   light: ['#f7dcb8', '#edc696'],

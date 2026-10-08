@@ -66,7 +66,7 @@ const go = (hash: string) => {
 }
 
 describe('Die App als Ganzes', () => {
-  it('Einrichtung: von der ersten Seite bis in die erste Lernrunde mit KI-Karten in höchstens 9 Tippen', async () => {
+  it('Einrichtung: von der ersten Seite bis in die erste Lernrunde mit KI-Karten in höchstens 7 Tippen', async () => {
     vi.mocked(generateCards).mockResolvedValue({
       title: 'Zellorganellen',
       items: Array.from({ length: 12 }, (_, i) => ({ front: `Organell ${i}`, back: `Aufgabe ${i}` })),
@@ -88,8 +88,8 @@ describe('Die App als Ganzes', () => {
     await tap(/^Weiter$/)
     // Themen zum Antippen, passend zu Fach und Klasse
     await waitFor(() => expect(text()).toMatch(/Was lernt ihr gerade in Biologie/))
+    // Ein Tipp auf einen Vorschlag startet die KI gleich
     await tap(/Zellorganellen und ihre Aufgaben/)
-    await tap(/Karteikarten machen/)
     await waitFor(() => expect(text()).toMatch(/12 Karten/), { timeout: 4000 })
     expect(vi.mocked(generateCards)).toHaveBeenCalledWith(expect.objectContaining({ subjectId: 'biologie', request: 'Zellorganellen und ihre Aufgaben' }))
     await tap(/Los geht’s, erste Runde/)
@@ -99,7 +99,7 @@ describe('Die App als Ganzes', () => {
     expect(useStore.getState().sets[0]).toMatchObject({ title: 'Zellorganellen und ihre Aufgaben', subject: 'biologie' })
     await waitFor(() => expect(window.location.hash).toMatch(/^#\/ueben\/los\?deck=/))
     await waitFor(() => expect(text()).toMatch(/Organell \d/), { timeout: 4000 })
-    expect(taps).toBeLessThanOrEqual(9)
+    expect(taps).toBeLessThanOrEqual(7)
   })
 
   it('Einrichtung: Das Lerntier wechselt man gleich auf dem Startbildschirm, ohne eigenen Schritt', async () => {
@@ -119,7 +119,6 @@ describe('Die App als Ganzes', () => {
     await click(/Mathe/)
     await click(/^Weiter$/)
     await click(/Brüche kürzen/)
-    await click(/Karteikarten machen/)
     await waitFor(() => expect(screen.getByRole('alert').textContent).toMatch(/nicht geladen/), { timeout: 4000 })
     await click(/Später, erst umschauen/)
     await waitFor(() => expect(text()).toMatch(/Deine ersten Karteikarten|Heute/))

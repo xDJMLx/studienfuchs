@@ -3,7 +3,9 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Coin, Plus, Right } from '../../components/ui/Icons'
 import { Sheet } from '../../components/ui/Sheet'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
-import { byDay, dateKey, kindLabel, longDay, monthGrid, monthName, needsFollowUp, parseKey, shortDay } from '../../lib/calendar'
+import { byDay, dateKey, KINDS, kindLabel, longDay, monthGrid, monthName, needsFollowUp, parseKey, shortDay } from '../../lib/calendar'
+import { parseQuickArbeit } from '../../lib/hausaufgaben'
+import { ownDeck } from '../../lib/decks'
 import { whenText } from '../../lib/school'
 import { activeDecks, daysUntil, readiness } from '../../lib/decks'
 import { helpSubject } from '../../lib/subjects'
@@ -56,6 +58,85 @@ const WEEKDAY_HEAD = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So']
 /** Tage zwischen zwei Datums-Schlüsseln (ohne Zeitzonenärger). */
 function daysBetweenKeys(from: string, to: string): number {
   return Math.round((parseKey(to).getTime() - parseKey(from).getTime()) / 86_400_000)
+}
+
+/**
+ * Arbeit in einem Satz eintragen: „Bio Test Zelle 15.10.“ + Enter. Fach, Art, Tag und Thema werden erkannt; die einzige Karteikarten-Sammlung des Fachs
+ * ist gleich dabei. Fehlt der Tag, öffnet sich das Blatt zum Ergänzen. Darunter steht, was verstanden wurde; „Ändern“ öffnet das Blatt.
+ */
+function QuickArbeit({ onEdit, onOpenSheet }: { onEdit: (a: Arbeit) => void; onOpenSheet: () => void }) {
+  const mySubjects = useStore((s) => s.mySubjects) ?? []
+  const sets = useStore((s) => s.sets)
+  const addArbeit = useStore((s) => s.addArbeit)
+  const arbeiten = useStore((s) => s.arbeiten) ?? []
+  const [text, setText] = useState('')
+  const [added, setAdded] = useState<Arbeit | null>(null)
+  const fallback = arbeiten.length ? arbeiten[arbeiten.length - 1].subject : (mySubjects[0] ?? 'mathe')
+  const allowed = mySubjects.length ? [...mySubjects, 'sonstiges'] : undefined
+  const q = parseQuickArbeit(text, { fallbackSubject: fallback, allowed })
+  const kind = q.kind ?? 'klassenarbeit'
+  const sub = helpSubject(q.subject)
+
+  useEffect(() => {
+    if (!added) return
+    const id = window.setTimeout(() => setAdded(null), 6000)
+    return () => clearTimeout(id)
+  }, [added])
+
+  const submit = () => {
+    if (!text.trim()) return
+    if (!q.date) return onOpenSheet()
+    const own = sets.map(ownDeck).filter((d) => d.subject === q.subject)
+    const data = {
+      subject: q.subject,
+      kind,
+      title: q.title || `${sub?.name ?? ''}-${KINDS.find((k) => k.id === kind)?.label ?? 'Arbeit'}`.replace(/^-/, ''),
+      date: q.date,
+      deckIds: own.length === 1 ? [own[0].id] : [],
+    }
+    const id = addArbeit(data)
+    setAdded({ ...data, id })
+    setText('')
+  }
+
+  const addedSub = added ? helpSubject(added.subject) : null
+  return (
+    <div className="mb-5">
+      <div className="flex items-center gap-2 rounded-[20px] bg-surface py-1.5 pl-4 pr-1.5">
+        <label htmlFor="arbeit-schnell" className="sr-only">
+          Arbeit in einem Satz eintragen
+        </label>
+        <input
+          id="arbeit-schnell"
+          className="min-w-0 flex-1 bg-transparent py-2 text-[16px] font-semibold outline-none placeholder:font-medium placeholder:text-muted"
+          placeholder="Neue Arbeit, z. B. Bio Test Zelle 15.10."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && submit()}
+          maxLength={80}
+          enterKeyHint="done"
+          autoComplete="off"
+        />
+        <button type="button" aria-label="Arbeit eintragen" disabled={!text.trim()} onClick={submit} className="press flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-strong text-on-brand transition-opacity disabled:opacity-30">
+          <Right size={16} style={{ transform: 'rotate(-90deg)' }} />
+        </button>
+      </div>
+      {text.trim() ? (
+        <p className="mt-1.5 px-2 text-[13px] font-semibold text-muted" aria-live="polite">
+          <span className="mr-1.5 inline-block h-2 w-2 rounded-full align-middle" style={{ background: sub?.c ?? '#868a95' }} aria-hidden />
+          {sub?.name ?? 'Anderes Fach'} · {kindLabel(kind)} · {q.date ? shortDay(q.date) : 'Tag fehlt noch'}
+          {q.title ? ` · ${q.title}` : ''}
+        </p>
+      ) : added ? (
+        <p className="mt-1.5 flex items-center gap-2 px-2 text-[13px] font-semibold text-good-dark" role="status">
+          Eingetragen: {addedSub?.name ?? 'Anderes Fach'} · {kindLabel(added.kind)} · {shortDay(added.date)}
+          <button type="button" className="press min-h-8 rounded-lg px-1.5 font-extrabold text-sky-dark" onClick={() => onEdit(added)}>
+            Ändern
+          </button>
+        </p>
+      ) : null}
+    </div>
+  )
 }
 
 type Adding = { kind: 'arbeit' | 'hausaufgabe'; date?: string; arbeit?: Arbeit; hausaufgabe?: Hausaufgabe }
@@ -151,6 +232,8 @@ export function KalenderPage() {
           <Plus size={22} />
         </button>
       </header>
+
+      <QuickArbeit onEdit={(a) => setAdding({ kind: 'arbeit', arbeit: a })} onOpenSheet={() => setAdding({ kind: 'arbeit', date: selected })} />
 
       {followUps.map((a) => (
         <ArbeitFollowUp key={a.id} arbeit={a} />

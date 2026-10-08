@@ -4,6 +4,7 @@ import { Sheet } from '../../components/ui/Sheet'
 import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { dateKey, defaultMinutes, KINDS, longDay, quickDates, toMinutes } from '../../lib/calendar'
 import { allCourseDecks, cardRefs, FRENCH, ownDeck, type Deck } from '../../lib/decks'
+import { parseQuickArbeit } from '../../lib/hausaufgaben'
 import { periodsOf, slotForPeriods } from '../../lib/school'
 import { helpSubject, HELP_SUBJECTS } from '../../lib/subjects'
 import type { Arbeit, ArbeitKind } from '../../lib/types'
@@ -44,6 +45,7 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
     setTime(arbeit?.time ?? presetTime ?? '')
     setDuration(arbeit?.duration ?? presetDuration ?? null)
     setFreeTime(false)
+    setQuick('')
     setDeckIds(arbeit?.deckIds ?? (presetDeckId ? [presetDeckId] : onlyDeck(subjectId ?? mySubjects?.[0] ?? HELP_SUBJECTS[0].id)))
     // mySubjects bewusst nicht als Abhängigkeit: Das Blatt soll beim Öffnen starten, nicht bei jeder Änderung
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,6 +81,22 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
     return { total: refs.length, unseen, days, perDay: days <= 1 ? unseen : Math.ceil(unseen / Math.max(1, days - 1)) }
   }, [date, deckIds, choices, cards, today])
 
+  /** Schnell eintragen: Ein Satz wie „Bio Test Zelle 15.10.“ füllt Fach, Art, Tag und Thema aus; das Blatt darunter zeigt, was verstanden wurde. */
+  const [quick, setQuick] = useState('')
+  const onQuick = (v: string) => {
+    setQuick(v)
+    if (!v.trim()) return
+    const allowed = mySubjects?.length ? [...mySubjects, 'sonstiges'] : undefined
+    const q = parseQuickArbeit(v, { fallbackSubject: subject, allowed })
+    if (q.found.subject) {
+      setSubject(q.subject)
+      setDeckIds(onlyDeck(q.subject))
+    }
+    if (q.kind) setKind(q.kind)
+    if (q.date) setDate(q.date)
+    setTitle(q.title)
+  }
+
   const save = () => {
     const kindName = KINDS.find((k) => k.id === kind)?.label ?? 'Arbeit'
     const hasTime = toMinutes(time) !== null
@@ -98,6 +116,14 @@ export function ArbeitSheet({ open, onClose, subjectId, arbeit, presetDeckId, da
   return (
     <Sheet open={open} onClose={onClose} title={arbeit ? 'Termin bearbeiten' : 'Arbeit eintragen'}>
       <div className="grid gap-5">
+        {!arbeit && (
+          <div>
+            <label htmlFor="arbeit-quick" className="mb-1.5 block text-sm font-bold text-muted">
+              Schnell: ein Satz genügt
+            </label>
+            <input id="arbeit-quick" className={field} value={quick} onChange={(e) => onQuick(e.target.value)} placeholder="z. B. Bio Test Zelle 15.10." maxLength={80} autoComplete="off" />
+          </div>
+        )}
         {!subjectId && !arbeit?.subject && (
           <div>
             <p className="mb-1.5 text-sm font-bold text-muted">In welchem Fach?</p>
