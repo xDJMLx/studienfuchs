@@ -16,7 +16,7 @@ export function renderMascotMarkup(species: SpeciesId): Promise<string> {
     document.body.appendChild(host)
     const root = createRoot(host)
     try {
-      flushSync(() => root.render(<Fox look={resolveLook('happy', false, false)} pose="bust" alive={false} species={species} noTail />))
+      flushSync(() => root.render(<Fox look={resolveLook('happy', false, false)} pose="bust" alive={false} species={species} headOnly />))
       const svg = host.querySelector('svg')
       if (!svg) throw new Error('Keine Zeichnung')
       resolve(svg.outerHTML)

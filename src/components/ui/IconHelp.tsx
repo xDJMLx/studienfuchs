@@ -1,25 +1,24 @@
 import { useEffect, useState } from 'react'
 import { isIos } from '../../lib/install'
-import type { SpeciesId } from '../mascot/species'
 import { Sheet } from './Sheet'
 
 /** Das Symbol des gewählten Tieres in Hell und Dunkel (so wie es aufs Handy kommt), gezeichnet wie beim Hinzufügen. */
-export function IconPreview({ species }: { species: SpeciesId }) {
+export function IconPreview() {
   const [urls, setUrls] = useState<{ light: string; dark: string } | null>(null)
   useEffect(() => {
     if (import.meta.env.MODE === 'test') return
     let alive = true
     void Promise.all([import('../../components/mascot/snapshot'), import('../../lib/appIcon')])
       .then(async ([snap, icon]) => {
-        const markup = await snap.renderMascotMarkup(species)
-        const url = (dark: boolean) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(icon.buildIconSvg(markup, species, dark))}`
+        const markup = await snap.renderMascotMarkup('fuchs')
+        const url = (dark: boolean) => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(icon.buildIconSvg(markup, dark))}`
         if (alive) setUrls({ light: url(false), dark: url(true) })
       })
       .catch(() => undefined)
     return () => {
       alive = false
     }
-  }, [species])
+  }, [])
   if (!urls) return <div className="h-[84px]" aria-hidden="true" />
   return (
     <div className="flex justify-center gap-5" aria-hidden="true">
@@ -30,7 +29,7 @@ export function IconPreview({ species }: { species: SpeciesId }) {
 }
 
 /** Erklärt, warum sich ein schon aufgelegtes Symbol nicht von allein ändert, und wie man es neu holt. */
-export function IconHelp({ open, onClose, species, name }: { open: boolean; onClose: () => void; species: SpeciesId; name: string }) {
+export function IconHelp({ open, onClose }: { open: boolean; onClose: () => void }) {
   const steps = isIos()
     ? [
         'Halte das alte Symbol gedrückt und wähle „Lesezeichen entfernen“ (oder „App entfernen“, dann „Vom Home-Bildschirm entfernen“).',
@@ -44,9 +43,9 @@ export function IconHelp({ open, onClose, species, name }: { open: boolean; onCl
       ]
   return (
     <Sheet open={open} onClose={onClose} title="Neues Symbol aufs Handy">
-      <IconPreview species={species} />
+      <IconPreview />
       <p className="mt-4 text-muted">
-        So sieht das Symbol von {name} aus, hell und dunkel. Eine Webseite kann ein Symbol auf deinem Startbildschirm nicht austauschen: Das Handy merkt es sich beim Hinzufügen. Dafür einmal neu holen:
+        So sieht das neue Symbol aus, hell und dunkel. Eine Webseite kann ein Symbol auf deinem Startbildschirm nicht austauschen: Das Handy merkt es sich beim Hinzufügen. Dafür einmal neu holen:
       </p>
       <ol className="mt-4 grid gap-3">
         {steps.map((t, i) => (

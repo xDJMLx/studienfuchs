@@ -1,7 +1,6 @@
 // @vitest-environment happy-dom
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { useStore } from '../../store/useStore'
 import { IconNotice } from './IconNotice'
 
 const standalone = (on: boolean) => {
@@ -10,8 +9,6 @@ const standalone = (on: boolean) => {
 
 beforeEach(() => {
   localStorage.clear()
-  useStore.getState().resetAll()
-  useStore.getState().setMascot('tiger')
 })
 afterEach(() => {
   cleanup()
@@ -22,21 +19,17 @@ describe('Hinweis auf das neue Startbildschirm-Symbol', () => {
   it('erscheint nur in der installierten App', () => {
     standalone(false)
     render(<IconNotice />)
-    expect(screen.queryByText(/Neues Symbol/)).toBeNull()
+    expect(screen.queryByText(/Neues App-Symbol/)).toBeNull()
   })
 
-  it('erscheint einmal, verschwindet beim Ausblenden und kommt bei neuem Tier wieder', () => {
+  it('erscheint einmal und verschwindet beim Ausblenden', () => {
     standalone(true)
     const { unmount } = render(<IconNotice />)
-    expect(screen.getByText('Neues Symbol für Rocco')).toBeTruthy()
+    expect(screen.getByText('Neues App-Symbol')).toBeTruthy()
     fireEvent.click(screen.getByLabelText('Hinweis ausblenden'))
-    expect(screen.queryByText(/Neues Symbol/)).toBeNull()
+    expect(screen.queryByText(/Neues App-Symbol/)).toBeNull()
     unmount()
     render(<IconNotice />)
-    expect(screen.queryByText(/Neues Symbol/)).toBeNull()
-    cleanup()
-    useStore.getState().setMascot('panda')
-    render(<IconNotice />)
-    expect(screen.getByText('Neues Symbol für Momo')).toBeTruthy()
+    expect(screen.queryByText(/Neues App-Symbol/)).toBeNull()
   })
 })

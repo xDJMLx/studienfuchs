@@ -1,13 +1,11 @@
 import { useEffect } from 'react'
-import { skinOf } from '../components/mascot/species'
 import { useStore } from '../store/useStore'
 
 /**
- * Hält das App-Symbol (Tab, Startbildschirm-Symbol, Manifest) auf dem gewählten Lerntier und passend zu Hell oder Dunkel.
- * Läuft im Leerlauf nach dem Start und bei jedem Wechsel von Tier oder Farbschema. Im Test passiert nichts.
+ * Hält das App-Symbol (Tab, Startbildschirm-Symbol, Manifest) passend zu Hell oder Dunkel; es zeigt immer den Fuchs.
+ * Läuft kurz nach dem Start und bei jedem Wechsel des Farbschemas. Im Test passiert nichts.
  */
 export function useAppIcon() {
-  const mascot = useStore((s) => s.mascot)
   const theme = useStore((s) => s.theme)
   useEffect(() => {
     if (import.meta.env.MODE === 'test' || typeof window === 'undefined' || typeof document === 'undefined') return
@@ -17,9 +15,8 @@ export function useAppIcon() {
       const dark = theme === 'dark' || (theme === 'system' && mq.matches)
       void Promise.all([import('../components/mascot/snapshot'), import('./appIcon')])
         .then(async ([snap, icon]) => {
-          const species = skinOf(mascot).id
-          const markup = await snap.renderMascotMarkup(species)
-          if (alive) await icon.applyAppIcon(species, dark, markup)
+          const markup = await snap.renderMascotMarkup('fuchs')
+          if (alive) await icon.applyAppIcon(dark, markup)
         })
         .catch(() => undefined)
     }
@@ -30,5 +27,5 @@ export function useAppIcon() {
       clearTimeout(id)
       mq.removeEventListener('change', run)
     }
-  }, [mascot, theme])
+  }, [theme])
 }

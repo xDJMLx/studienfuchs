@@ -62,9 +62,9 @@ export function MascotPicker({ onPick, compact = false }: { onPick?: (id: string
       {!compact && (
         <>
           <button type="button" onClick={() => setHelp(true)} className="press mt-3 w-full rounded-xl px-1 py-2 text-left text-[13px] font-bold text-brand-dark">
-            Symbol auf dem Startbildschirm erneuern
+            Neues App-Symbol auf den Startbildschirm holen
           </button>
-          <IconHelp open={help} onClose={() => setHelp(false)} species={skin.id} name={skin.name} />
+          <IconHelp open={help} onClose={() => setHelp(false)} />
         </>
       )}
     </div>

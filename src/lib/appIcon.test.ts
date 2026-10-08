@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { SKINS, SPECIES_IDS } from '../components/mascot/species'
-import { buildIconSvg, hsl, ICON_HUE, iconColors } from './appIcon'
+import { buildIconSvg, iconColors } from './appIcon'
 
 describe('Lerntiere und ihre Namen', () => {
   it('die vom Nutzer gewählten Namen stehen fest, alle Namen sind verschieden', () => {
@@ -20,36 +20,30 @@ describe('Lerntiere und ihre Namen', () => {
   })
 })
 
-describe('App-Symbol je Tier', () => {
-  it('HSL → Hex', () => {
-    expect(hsl(0, 1, 0.5)).toBe('#ff0000')
-    expect(hsl(120, 1, 0.5)).toBe('#00ff00')
-    expect(hsl(240, 1, 0.5)).toBe('#0000ff')
-    expect(hsl(0, 0, 1)).toBe('#ffffff')
-  })
-
-  it('jedes Tier hat einen Farbton; dunkel ist dunkler als hell', () => {
-    for (const id of SPECIES_IDS) {
-      expect(ICON_HUE[id], id).toBeGreaterThanOrEqual(0)
-      const d = iconColors(id, true)
-      const l = iconColors(id, false)
-      const lum = (hex: string) => parseInt(hex.slice(1, 3), 16) + parseInt(hex.slice(3, 5), 16) + parseInt(hex.slice(5, 7), 16)
-      expect(lum(d.top), id).toBeLessThan(lum(l.top))
-      expect(lum(d.bottom), id).toBeLessThan(lum(d.top))
-    }
+describe('App-Symbol', () => {
+  it('hell leuchtend, dunkel schwarz', () => {
+    const l = iconColors(false)
+    const d = iconColors(true)
+    const sum = (hex: string) => parseInt(hex.slice(1, 3), 16) + parseInt(hex.slice(3, 5), 16) + parseInt(hex.slice(5, 7), 16)
+    expect(sum(d.bottom)).toBe(0)
+    expect(sum(d.top)).toBeLessThan(80)
+    expect(sum(l.top)).toBeGreaterThan(sum(l.bottom))
+    // Hell ist blau: Blauanteil deutlich vor Rot
+    expect(parseInt(l.top.slice(5, 7), 16)).toBeGreaterThan(parseInt(l.top.slice(1, 3), 16) + 100)
   })
 
   it('das Symbol setzt die Zeichnung in einen abgerundeten Rahmen mit eigener Verlaufs-Kennung', () => {
     const art = '<svg viewBox="8 0 184 196" width="100%" height="100%" class="overflow-visible" preserveAspectRatio="xMidYMax meet"><circle r="5"/></svg>'
-    const a = buildIconSvg(art, 'tiger', true)
-    const b = buildIconSvg(art, 'tiger', false)
+    const a = buildIconSvg(art, true)
+    const b = buildIconSvg(art, false)
     expect(a).toContain('viewBox="0 0 512 512"')
     expect(a).toContain('rx="112"')
     expect(a).toContain('<circle r="5"/>')
     expect(a).not.toContain('class="overflow-visible"')
     expect(a).not.toContain('width="100%"')
-    expect(a).toContain('app-bg-tiger-d')
-    expect(b).toContain('app-bg-tiger-l')
+    expect(a).toContain('app-bg-d')
+    expect(b).toContain('app-bg-l')
+    expect(buildIconSvg(art, false, { round: false })).toContain('rx="0"')
     expect(a).not.toBe(b)
   })
 })
