@@ -31,7 +31,7 @@ interface NavItem {
 const NAV: NavItem[] = [
   { to: '/', label: 'Üben', Icon: TabRepeat, end: true, c: 'var(--brand)', t: 'var(--brand-text)' },
   { to: '/kalender', label: 'Kalender', Icon: TabCalendar, c: 'var(--sky)', t: 'var(--sky-text)' },
-  { to: '/profile', label: 'Profil', Icon: TabUser, c: 'var(--violet)', t: 'var(--violet-text)' },
+  { to: '/profile', label: 'Profil', Icon: TabUser, c: 'var(--good)', t: 'var(--good-text)' },
 ]
 
 /** Zu welchem Tab eine Seite gehört (damit er auch auf Unterseiten wie dem Kalender markiert bleibt). */

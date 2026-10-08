@@ -4,6 +4,7 @@ import { Camera, Close } from '../../components/ui/Icons'
 import { BackLink } from '../../components/ui/BackLink'
 import { blobToJpegBase64, preloadAi } from '../../lib/ai'
 import { generateCards } from '../../lib/aiCards'
+import { SubjectShape } from '../../components/ui/SubjectShape'
 import { defaultPlan, generateTasks, PLAN_LABEL, type TaskPlan } from '../../lib/aiTasks'
 import { itemFromTask } from '../../lib/tasks'
 import { cardsFromNotes } from '../../lib/notesToCards'
@@ -35,6 +36,13 @@ const EXAMPLES: Record<string, string> = {
 }
 
 /** Neue Karteikarten: von der KI erstellen lassen (Beschreibung und/oder Fotos) oder selbst schreiben. Vor dem Speichern prüft man alle Karten. */
+/** Farbe und Form der drei Arten (wie bei den Fächern). */
+const PLAN_LOOK: Record<TaskPlan, { c: string; shape: string }> = {
+  karten: { c: '#2f6bff', shape: 'englisch' },
+  aufgaben: { c: '#e5484d', shape: 'mathe' },
+  rechnen: { c: '#1fb866', shape: 'franzoesisch' },
+}
+
 export function DeckCreatePage() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
@@ -171,22 +179,30 @@ export function DeckCreatePage() {
           <div>
             <p className="mb-1.5 text-sm font-bold text-muted">Was willst du erstellen?</p>
             <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Art">
-              {(Object.keys(PLAN_LABEL) as TaskPlan[]).map((p) => (
-                <button
-                  key={p}
-                  type="button"
-                  role="radio"
-                  aria-checked={plan === p}
-                  onClick={() => {
-                    setPlan(p)
-                    if (p !== 'karten') setWay('ai')
-                  }}
-                  className={`tile flex-col items-start !gap-0.5 !py-3 ${plan === p ? 'tile-selected' : ''}`}
-                >
-                  <span className="text-[16px]">{PLAN_LABEL[p].label}</span>
-                  <span className="text-xs font-medium opacity-70">{PLAN_LABEL[p].short}</span>
-                </button>
-              ))}
+              {(Object.keys(PLAN_LABEL) as TaskPlan[]).map((p) => {
+                const on = plan === p
+                const look = PLAN_LOOK[p]
+                return (
+                  <button
+                    key={p}
+                    type="button"
+                    role="radio"
+                    aria-checked={on}
+                    onClick={() => {
+                      setPlan(p)
+                      if (p !== 'karten') setWay('ai')
+                    }}
+                    className={`shape-block press !min-h-[92px] ${on ? '' : 'shape-block-quiet'}`}
+                    style={on ? ({ '--block': look.c, '--block-edge': `color-mix(in srgb, ${look.c} 55%, black)` } as React.CSSProperties) : undefined}
+                  >
+                    <SubjectShape id={look.shape} size={20} className={on ? 'text-white/95' : 'text-muted'} />
+                    <span>
+                      <span className="block text-[16px] font-extrabold leading-tight">{PLAN_LABEL[p].label}</span>
+                      <span className="block text-xs font-medium opacity-80">{PLAN_LABEL[p].short}</span>
+                    </span>
+                  </button>
+                )
+              })}
             </div>
           </div>
 

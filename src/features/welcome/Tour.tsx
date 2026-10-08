@@ -52,7 +52,7 @@ function PlanArt({ reduce }: { reduce: boolean }) {
 function CalendarArt({ reduce }: { reduce: boolean }) {
   const blocks = [
     { c: 1, r: 1, h: 1, bg: '#58c234', t: 'Bio' },
-    { c: 3, r: 2, h: 2, bg: '#8b5cf6', t: 'Mathe' },
+    { c: 3, r: 2, h: 2, bg: '#e5484d', t: 'Mathe' },
     { c: 4, r: 0, h: 1, bg: '#1e96fa', t: 'Engl' },
   ]
   return (

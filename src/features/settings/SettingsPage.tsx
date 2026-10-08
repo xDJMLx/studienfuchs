@@ -1,14 +1,14 @@
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Row, Section, Switch } from '../../components/ui/controls'
 import { InstallHelp, useInstallFlow } from '../../components/ui/InstallApp'
-import { Bug, Cards, Clock, Check, Database, Download, Gear, Right, Palette, Shield, Sparkle, Speaker, Star, Target, Upload } from '../../components/ui/Icons'
+import { Bug, Cards, Clock, Check, Database, Download, Right, Palette, Shield, Sparkle, Speaker, Star, Target, Upload } from '../../components/ui/Icons'
 import { MascotPicker } from '../profile/MascotPicker'
 import { FeedbackSettings } from './FeedbackSettings'
 import { BackLink } from '../../components/ui/BackLink'
-import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
+import { SubjectShape } from '../../components/ui/SubjectShape'
 import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
 import { EXAMPLE_PERIODS } from '../../lib/school'
 import { activeDecks } from '../../lib/decks'
@@ -66,13 +66,15 @@ function ThemePreview({ kind }: { kind: 'light' | 'dark' | 'system' }) {
 }
 
 /** Die Bereiche der Einstellungen, in Gruppen wie in einer Liste. */
-const GROUPS: { title: string; rows: { slug: string; id: string; label: string; text: string; Icon: (p: { size?: number }) => React.ReactNode }[] }[] = [
+const GROUPS: { title: string; c: string; rows: { slug: string; id: string; label: string; text: string; Icon: (p: { size?: number }) => React.ReactNode }[] }[] = [
   {
     title: 'Du',
+    c: '#ff7a1a',
     rows: [{ slug: 'tier', id: 's-tier', label: 'Dein Lerntier', text: 'Fuchs, Elefant, Giraffe und mehr', Icon: Star }],
   },
   {
     title: 'Schule',
+    c: '#2f6bff',
     rows: [
       { slug: 'faecher', id: 's-subjects', label: 'Meine Fächer', text: 'Welche Fächer du hast', Icon: Cards },
       { slug: 'schulzeiten', id: 's-hours', label: 'Schulzeiten', text: 'Stunden und Pausen', Icon: Clock },
@@ -80,6 +82,7 @@ const GROUPS: { title: string; rows: { slug: string; id: string; label: string; 
   },
   {
     title: 'Lernen',
+    c: '#1fb866',
     rows: [
       { slug: 'lernen', id: 's-learn', label: 'Lernzeit', text: 'Minuten pro Tag bei einer Arbeit', Icon: Target },
       { slug: 'ki', id: 's-ai', label: 'KI', text: 'Anmeldung und eigener Schlüssel', Icon: Sparkle },
@@ -88,6 +91,7 @@ const GROUPS: { title: string; rows: { slug: string; id: string; label: string; 
   },
   {
     title: 'App',
+    c: '#5b6070',
     rows: [
       { slug: 'darstellung', id: 's-look', label: 'Darstellung', text: 'Hell, Dunkel und Töne', Icon: Palette },
       { slug: 'app', id: 's-app', label: 'Installieren und Updates', text: 'Auf den Startbildschirm', Icon: Download },
@@ -96,6 +100,7 @@ const GROUPS: { title: string; rows: { slug: string; id: string; label: string; 
   },
   {
     title: 'Hilfe',
+    c: '#e8404a',
     rows: [{ slug: 'feedback', id: 's-feedback', label: 'Fehler melden und Ideen', text: 'Etwas kaputt oder fehlt dir etwas?', Icon: Bug }],
   },
 ]
@@ -106,12 +111,12 @@ function SettingsList() {
     <div className="mb-8 grid gap-6">
       {GROUPS.map((g) => (
         <section key={g.title} aria-label={g.title}>
-          <h2 className="mb-2 px-1 text-sm font-bold text-muted">{g.title}</h2>
-          <ul className="overflow-hidden rounded-2xl border border-ink/10 bg-surface">
+          <h2 className="mb-2 px-1 text-[15px] font-extrabold text-muted">{g.title}</h2>
+          <ul className="overflow-hidden rounded-[14px] border border-line bg-surface">
             {g.rows.map((r, i) => (
-              <li key={r.slug} className={i > 0 ? 'border-t border-ink/10' : ''}>
+              <li key={r.slug} className={i > 0 ? 'border-t border-line' : ''}>
                 <Link to={`/settings/${r.slug}`} className="press flex min-h-14 items-center gap-3.5 px-4 py-2.5 hover:bg-snow">
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-brand-soft text-brand-dark">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] text-white" style={{ background: g.c, boxShadow: `0 2px 0 color-mix(in srgb, ${g.c} 55%, black)` }}>
                     <r.Icon size={20} />
                   </span>
                   <span className="min-w-0 flex-1">
@@ -130,7 +135,6 @@ function SettingsList() {
 }
 
 export function SettingsPage() {
-  const reduce = useReducedMotion()
   const navigate = useNavigate()
   const setOnboarded = useStore((s) => s.setOnboarded)
   const mySubjects = useStore((s) => s.mySubjects)
@@ -267,12 +271,7 @@ export function SettingsPage() {
       {current ? (
         <BackLink to="/settings" label="Einstellungen" size={18} />
       ) : (
-        <div className="mb-6 flex items-center gap-4">
-          <motion.div initial={reduce ? false : { rotate: -30, scale: 0.6, opacity: 0 }} animate={{ rotate: 0, scale: 1, opacity: 1 }} transition={SPRING.bouncy} className="flex h-12 w-12 items-center justify-center text-brand-dark">
-            <Gear size={28} />
-          </motion.div>
-          <h1 className="page-title">Einstellungen</h1>
-        </div>
+        <h1 className="hero-title mb-6 px-1">Einstellungen</h1>
       )}
 
       <div>
@@ -283,7 +282,7 @@ export function SettingsPage() {
             <Section id="s-subjects" icon={<Cards size={22} />} title="Meine Fächer" description="Die Fächer, die du in der Schule hast">
               <div className="px-5 py-4">
                 <p className="mb-3 text-sm text-muted">Tipp ein Fach an, um es hinzuzufügen oder wegzunehmen. Fächer, in denen schon Karteikarten liegen, bleiben, bis du die Karteikarten löschst.</p>
-                <ul className="flex flex-wrap gap-2" aria-label="Fächer">
+                <ul className="grid grid-cols-2 gap-3" aria-label="Fächer">
                   {HELP_SUBJECTS.map((sub) => {
                     const hasCards = activeDecks({ sets, addedUnits: addedUnits ?? [] }).some((d) => d.subject === sub.id)
                     const on = hasCards || (mySubjects ?? []).includes(sub.id)
@@ -296,13 +295,14 @@ export function SettingsPage() {
                           aria-label={sub.name}
                           disabled={hasCards}
                           onClick={() => toggleSubject(sub.id)}
-                          className={`press flex min-h-11 items-center gap-2 rounded-2xl border-2 py-1.5 pl-1.5 pr-3 text-[14px] font-extrabold transition-colors disabled:opacity-100 ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface text-muted'}`}
+                          className={`shape-block w-full !min-h-[92px] disabled:opacity-100 ${on ? '' : 'shape-block-quiet'}`}
+                          style={on ? ({ '--block': sub.c, '--block-edge': `color-mix(in srgb, ${sub.c} 55%, black)` } as React.CSSProperties) : undefined}
                         >
-                          <span className="flex h-8 w-8 items-center justify-center rounded-xl" style={{ background: sub.c, opacity: on ? 1 : 0.55 }}>
-                            <HelpSubjectIcon id={sub.id} ink={sub.c} size={20} />
+                          <span className="flex w-full items-start justify-between">
+                            <SubjectShape id={sub.id} size={22} className={on ? 'text-white/95' : 'text-muted'} />
+                            {on && <Check size={18} />}
                           </span>
-                          {sub.name}
-                          {on && <Check size={14} />}
+                          <span className="block truncate text-[16px] font-extrabold">{sub.name}</span>
                         </button>
                       </li>
                     )

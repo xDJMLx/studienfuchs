@@ -79,15 +79,12 @@ export function IconChip({ children, tone = 'brand', size = 40 }: { children: Re
 }
 
 /** Abschnittskarte mit Kopf (Symbol, Titel, Beschreibung). */
-export function Section({ id, icon, title, description, children }: { id?: string; icon: ReactNode; title: string; description?: string; children: ReactNode }) {
+export function Section({ id, title, description, children }: { id?: string; /** (nicht mehr gezeigt, bleibt für die Aufrufer) */ icon?: ReactNode; title: string; description?: string; children: ReactNode }) {
   return (
     <section id={id} className="scroll-mt-20">
-      <div className="mb-3 flex items-center gap-3 px-1">
-        <IconChip>{icon}</IconChip>
-        <div className="min-w-0">
-          <h2 className="text-lg font-semibold leading-tight">{title}</h2>
-          {description && <p className="text-sm text-muted">{description}</p>}
-        </div>
+      <div className="mb-3 px-1">
+        <h2 className="text-[26px] font-black leading-tight tracking-[-0.03em]">{title}</h2>
+        {description && <p className="text-[15px] text-muted">{description}</p>}
       </div>
       <div className="card divide-y divide-line">{children}</div>
     </section>

@@ -12,8 +12,8 @@ export interface TabDef {
 }
 
 /**
- * Untere Leiste (Handy): durchgehend, flach, oben eine feine Linie. Der aktive Tab hat oben einen Balken in seiner Farbe, Symbol und Schrift
- * werden dunkel; die anderen sind grau. Keine schwebende Kapsel, keine Spielereien: Man soll sofort sehen, wo man ist.
+ * Untere Leiste (Handy): durchgehend, flach, oben eine feine Linie. Der aktive Tab ist ein farbiger Block mit harter Unterkante (wie die Fach-Blöcke), die anderen sind graue Symbole.
+ * Keine schwebende Kapsel, keine Spielereien: Man soll sofort sehen, wo man ist.
  * `extra` erscheint oben in derselben Fläche (z. B. das Eingabefeld des Lern-Coachs).
  */
 export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[]; activeIndex: number; onSelect: (index: number) => void; extra?: ReactNode }) {
@@ -37,6 +37,7 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
       <div className="flex items-stretch">
         {tabs.map((t, i) => {
           const on = i === activeIndex
+          const c = t.color ?? 'var(--brand)'
           return (
             <button
               key={t.key}
@@ -44,10 +45,13 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
               aria-current={on ? 'page' : undefined}
               aria-label={t.label}
               onClick={() => onSelect(i)}
-              className={`press relative flex min-h-[3.4rem] flex-1 flex-col items-center justify-center gap-0.5 text-[11px] font-bold ${on ? 'text-ink' : 'text-muted'}`}
+              className={`press relative flex min-h-[3.7rem] flex-1 flex-col items-center justify-center gap-1 pb-0.5 pt-1.5 text-[11px] font-extrabold ${on ? 'text-ink' : 'text-muted'}`}
             >
-              <span aria-hidden className="absolute inset-x-5 top-0 h-[3px] rounded-b-full transition-opacity" style={{ background: t.color ?? 'var(--brand)', opacity: on ? 1 : 0 }} />
-              <span className="relative block" style={on ? { color: t.textColor ?? 'var(--brand-text)' } : undefined}>
+              {/* Aktiv: ein farbiger Block mit harter Unterkante wie die Fach-Blöcke; sonst nur das graue Symbol */}
+              <span
+                className="relative flex h-8 w-12 items-center justify-center rounded-[10px] transition-[background-color,box-shadow,transform] duration-150"
+                style={on ? { background: c, color: '#fff', boxShadow: `0 3px 0 color-mix(in srgb, ${c} 55%, black)`, transform: 'translateY(-1px)' } : undefined}
+              >
                 {t.icon}
                 {t.badge}
               </span>

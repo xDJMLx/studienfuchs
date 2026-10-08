@@ -230,7 +230,8 @@ Verlauf: v4 („Glas und Formen“: Farbwolken, milchiges Glas, Indigo, schweben
 
 - **Quizlet für die Ruhe**: flacher, heller Grund (`#f4f5f9`, dunkel neutral `#15161b`, kein Indigo), weiße Flächen mit 1-Pixel-Linie, kleine Rundungen (12 bis 14 px), ein klarer Hauptknopf in Orange mit harter Unterkante, große Schrift (Onest 800, enge Laufweite).
 - **Kahoot für den Spaß**: `.shape-block` (dicke, flache Blöcke in Fachfarbe mit Form und harter Unterkante, nur wo man wählt: Fächer auf Üben und Fach-Seite), `AnswerMark` (Dreieck, Kreis, Quadrat, Raute in Rot, Blau, Gelb, Grün bei Mehrfachauswahl), Erfolge im Profil mit eigener Farbe und Form.
-- **Weg damit**: Farbwolken, Glas, Verläufe, Glanz (`btn-shine`), Schein und Schlagschatten ums Tier, die schwebende Kapsel-Leiste mit Gummi-Linse. `TabBar` ist jetzt eine durchgehende, flache Leiste mit Balken über dem aktiven Tab.
+- **Weg damit**: Farbwolken, Glas, Verläufe, Glanz (`btn-shine`), Schein und Schlagschatten ums Tier, die schwebende Kapsel-Leiste mit Gummi-Linse. `TabBar` ist jetzt eine durchgehende, flache Leiste; der aktive Tab ist ein farbiger Block mit harter Unterkante (Üben orange, Kalender blau, Profil grün), die anderen sind graue Symbole.
+- Einstellungen: große Überschrift, Listen mit farbigen Symbol-Quadraten je Gruppe, „Meine Fächer“ (auch in der Einrichtung) und „Was willst du erstellen?“ als Fach-/Art-Blöcke mit Form. Fachfarben ohne Violett (Mathe rot, Französisch türkis, Informatik und Politik Schiefer).
 - Üben: Schlagzeile nach Lage („Morgen Biologie-Test.“), darunter eine flache Karte mit Tier, Zahl, dem „Los geht’s“-Knopf und den Fach-Blöcken.
 - Mascot-Sprechblasen sind deutsch (vorher französisch).
 - Vorsicht beim Benennen von Klassen: `.block` kollidiert mit Tailwinds `block`; deshalb `shape-block`.

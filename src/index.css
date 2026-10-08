@@ -443,7 +443,7 @@ h1, h2, h3 {
 .safe-bottom { padding-bottom: max(env(safe-area-inset-bottom), 0px); }
 
 /* ---------- Handy: Glas-Leiste und Bedienung ---------- */
-:root { --tabbar-h: calc(3.5rem + env(safe-area-inset-bottom, 0px)); }
+:root { --tabbar-h: calc(3.9rem + env(safe-area-inset-bottom, 0px)); }
 
 /* Schwebende Leiste: klare, deckende Kapsel mit Rahmen und weichem Schatten (keine Unschärfe: sauberer und schneller) */
 .glass {

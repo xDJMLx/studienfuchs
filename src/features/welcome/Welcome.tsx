@@ -8,7 +8,7 @@ import { Tour } from './Tour'
 import { QuickCards } from './QuickCards'
 import { Back, Chevron, Right } from '../../components/ui/Icons'
 import { Wordmark } from '../../components/ui/Layout'
-import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
+import { SubjectShape } from '../../components/ui/SubjectShape'
 import { HELP_SUBJECTS } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
 import { useShallow } from 'zustand/react/shallow'
@@ -215,12 +215,18 @@ export function Welcome() {
                           const on = mySubjects.includes(s.id)
                           return (
                             <li key={s.id} className="min-w-0">
-                              <button type="button" aria-pressed={on} onClick={() => toggleSubject(s.id)} className={`press relative flex w-full items-center gap-2.5 rounded-2xl border-[1.5px] p-2.5 text-left transition-colors ${on ? 'border-brand bg-brand-soft' : 'border-line bg-surface'}`}>
-                                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl" style={{ background: s.c }}>
-                                  <HelpSubjectIcon id={s.id} ink={s.c} size={24} />
+                              <button
+                                type="button"
+                                aria-pressed={on}
+                                onClick={() => toggleSubject(s.id)}
+                                className={`shape-block w-full !min-h-[88px] ${on ? '' : 'shape-block-quiet'}`}
+                                style={on ? ({ '--block': s.c, '--block-edge': `color-mix(in srgb, ${s.c} 55%, black)` } as React.CSSProperties) : undefined}
+                              >
+                                <span className="flex w-full items-start justify-between">
+                                  <SubjectShape id={s.id} size={22} className={on ? 'text-white/95' : 'text-muted'} />
+                                  {on && <span aria-hidden className="text-[16px] font-black leading-none">✓</span>}
                                 </span>
-                                <span className={`min-w-0 flex-1 truncate text-[15px] font-extrabold ${on ? 'text-brand-dark' : ''}`}>{s.name}</span>
-                                {on && <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-[12px] text-on-brand">✓</span>}
+                                <span className="block truncate text-[16px] font-extrabold">{s.name}</span>
                               </button>
                             </li>
                           )

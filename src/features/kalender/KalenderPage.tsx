@@ -158,7 +158,7 @@ function QuickEntry({ selected, today, onEdit, onOpenSheet, onJump }: { selected
             role="radio"
             aria-checked={type === t.id}
             onClick={() => setForced(t.id)}
-            className={`press min-h-9 rounded-full px-3.5 text-[14px] font-extrabold transition-colors ${type === t.id ? 'bg-brand-strong text-on-brand' : 'bg-surface text-muted'}`}
+            className={`press min-h-9 rounded-[10px] px-3.5 text-[14px] font-extrabold transition-colors ${type === t.id ? 'bg-brand-strong text-on-brand' : 'border border-line bg-surface text-muted'}`}
           >
             {t.label}
           </button>
