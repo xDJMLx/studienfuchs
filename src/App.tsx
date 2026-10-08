@@ -6,6 +6,7 @@ import { track } from './lib/feedback'
 import { AiGateSheet } from './components/ui/AiGateSheet'
 import { UpdateBanner } from './components/ui/UpdateBanner'
 import { useApplyTheme } from './lib/theme'
+import { useAppIcon } from './lib/useAppIcon'
 import { useStore } from './store/useStore'
 import { UebenPage } from './features/ueben/UebenPage'
 import { Welcome } from './features/welcome/Welcome'
@@ -147,6 +148,7 @@ function RequireOnboarding() {
 // HashRouter: funktioniert auf GitHub Pages ohne Server-Umleitungen.
 export default function App() {
   useApplyTheme()
+  useAppIcon()
   // Lief die Seite stabil, darf ein späterer Ladefehler (neue Version) wieder einmal neu laden
   useEffect(() => {
     const id = window.setTimeout(() => {

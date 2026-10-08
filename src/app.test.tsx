@@ -631,7 +631,7 @@ describe('Neu: Lerntier, Rückmeldung, Hausaufgaben', () => {
     render(<App />)
     await click(/Giraffe/, 'radio')
     expect(useStore.getState().mascot).toBe('giraffe')
-    expect(document.body.textContent).toMatch(/Gina/)
+    expect(document.body.textContent).toMatch(/Greta/)
   })
 
   it('Fehler melden: Nachricht schreiben, Vorschau zeigt die Technik, Senden öffnet das Teilen-Fenster', async () => {

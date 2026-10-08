@@ -200,7 +200,7 @@ const elefant: Skin = {
 const krokodil: Skin = {
   id: 'krokodil',
   label: 'Krokodil',
-  name: 'Kroko',
+  name: 'Boris',
   blurb: 'Hat immer gute Laune',
   fur: ['#8fdc74', '#5cc15a', '#3f9f49'],
   light: ['#e8f7b8', '#cfe98f'],
@@ -259,7 +259,7 @@ const krokodil: Skin = {
 const giraffe: Skin = {
   id: 'giraffe',
   label: 'Giraffe',
-  name: 'Gina',
+  name: 'Greta',
   blurb: 'Hat den Überblick',
   fur: ['#ffe083', '#fcc949', '#eba926'],
   light: ['#fff6dc', '#f8e2ae'],
@@ -415,7 +415,7 @@ const loewe: Skin = {
 const panda: Skin = {
   id: 'panda',
   label: 'Panda',
-  name: 'Pandi',
+  name: 'Momo',
   blurb: 'Entspannt und gemütlich',
   fur: ['#ffffff', '#f6f6f8', '#e4e5ea'],
   light: ['#ffffff', '#f0f0f4'],
@@ -459,7 +459,7 @@ const panda: Skin = {
 const pinguin: Skin = {
   id: 'pinguin',
   label: 'Pinguin',
-  name: 'Pingo',
+  name: 'Pablo',
   blurb: 'Cool bleiben',
   fur: ['#4a5166', '#323848', '#232734'],
   light: ['#ffffff', '#e6ecf5'],
@@ -621,7 +621,7 @@ const affe: Skin = {
 const tiger: Skin = {
   id: 'tiger',
   label: 'Tiger',
-  name: 'Tigo',
+  name: 'Rocco',
   blurb: 'Leise und schnell',
   fur: ['#ffb45c', '#fb9330', '#e87414'],
   light: ['#ffffff', '#ffe6cc'],
@@ -672,10 +672,13 @@ const tiger: Skin = {
       <path d="M142 194 C132 190 124 192 120 198 C128 198 136 202 142 208 Z" />
     </g>
   ),
-  tail: (c) => (
-    <g>
-      <path d="M126 210 C160 222 200 204 198 164 C197 146 188 134 176 132 C176 146 170 160 158 170 C148 178 138 184 126 186 Z" fill={fur(c)} />
-      <path d="M150 204 C148 198 150 192 154 190 M170 198 C168 190 170 184 176 182 M186 184 C184 176 186 170 192 168 M194 168 C192 160 192 154 196 152" stroke="#2a160a" strokeWidth="5" strokeLinecap="round" fill="none" />
+  // Der Schwanz: dick, nach oben gebogen, Streifen genau auf dem Schwanz (gleicher Pfad, gestrichelt), dunkle Spitze
+  tail: () => (
+    <g fill="none" strokeLinecap="round">
+      <path d="M126 206 C160 222 198 206 194 166" stroke="#fb9330" strokeWidth="15" />
+      <path d="M126 206 C160 222 198 206 194 166" stroke="#e87414" strokeWidth="4" opacity="0.5" transform="translate(0 4)" />
+      <path d="M126 206 C160 222 198 206 194 166" stroke="#2a160a" strokeWidth="15" strokeLinecap="butt" strokeDasharray="5 15" strokeDashoffset="-16" />
+      <circle cx="194" cy="166" r="7.5" fill="#2a160a" stroke="none" />
     </g>
   ),
 }

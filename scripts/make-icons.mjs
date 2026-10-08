@@ -100,9 +100,19 @@ const shapeColor = (s, ly) => {
 
 const MASCOT = SHAPES.map((s) => (s.path ? { ...s, pts: flatten(s.path) } : s.ellipse ? { ...s, pts: ellipse(...s.ellipse) } : { ...s, line: flatten(s.stroke) }))
 
-/** Hintergrund: Farbverlauf von oben nach unten (dunkles Petrol wie der Dunkelmodus der App). */
-const BG_TOP = rgb('#2c4a5c')
-const BG_BOT = rgb('#12212a')
+/** HSL (Grad, 0 bis 1, 0 bis 1) → Farbe; gleiche Rechnung wie in src/lib/appIcon.ts, damit das feste Fuchs-Symbol zu den berechneten passt. */
+function hsl(h, s, l) {
+  const k = (n) => (n + h / 30) % 12
+  const a = s * Math.min(l, 1 - l)
+  const f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)))
+  return { r: Math.round(f(0) * 255), g: Math.round(f(8) * 255), b: Math.round(f(4) * 255), a: 1 }
+}
+const toHex = (c) => '#' + [c.r, c.g, c.b].map((v) => v.toString(16).padStart(2, '0')).join('')
+const FOX_HUE = 212
+const BG_TOP = hsl(FOX_HUE, 0.42, 0.27)
+const BG_BOT = hsl(FOX_HUE, 0.5, 0.13)
+const LIGHT_TOP = hsl(FOX_HUE, 0.85, 0.94)
+const LIGHT_BOT = hsl(FOX_HUE, 0.72, 0.84)
 
 function inside(pts, x, y) {
   let w = 0
@@ -235,7 +245,8 @@ for (const [file, size, cfg] of jobs) {
 // favicon.svg aus denselben Formen
 const t = place(0.56)
 const defs = [
-  `<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c4a5c"/><stop offset="1" stop-color="#12212a"/></linearGradient>`,
+  `<style>.t{stop-color:${toHex(BG_TOP)}}.b{stop-color:${toHex(BG_BOT)}}@media (prefers-color-scheme: light){.t{stop-color:${toHex(LIGHT_TOP)}}.b{stop-color:${toHex(LIGHT_BOT)}}}</style>`,
+  `<linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop class="t" offset="0"/><stop class="b" offset="1"/></linearGradient>`,
   ...SHAPES.map((s, i) => (s.grad ? `<linearGradient id="g${i}" gradientUnits="userSpaceOnUse" x1="0" y1="${s.grad[2]}" x2="0" y2="${s.grad[3]}"><stop offset="0" stop-color="${s.grad[0]}"/><stop offset="1" stop-color="${s.grad[1]}"/></linearGradient>` : '')),
 ].join('')
 const body = SHAPES.map((s, i) => {

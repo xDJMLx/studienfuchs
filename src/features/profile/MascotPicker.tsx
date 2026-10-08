@@ -41,7 +41,7 @@ export function MascotPicker({ onPick, compact = false }: { onPick?: (id: string
               type="button"
               role="radio"
               aria-checked={on}
-              aria-label={`${s.label} (${s.name})`}
+              aria-label={`${s.name}, ${s.label}`}
               onClick={() => {
                 setMascot(id)
                 onPick?.(id)
@@ -51,11 +51,12 @@ export function MascotPicker({ onPick, compact = false }: { onPick?: (id: string
               <span className="mb-3.5 block h-[72px] w-[72px]">
                 <Mascot size={72} species={id} mood="happy" />
               </span>
-              <span className={`mt-1 block w-full truncate text-[13px] font-extrabold leading-tight ${on ? 'text-brand-dark' : ''}`}>{s.label}</span>
+              <span className={`mt-1 block w-full truncate text-[13px] font-extrabold leading-tight ${on ? 'text-brand-dark' : ''}`}>{s.name}</span>
             </button>
           )
         })}
       </div>
+      {!compact && <p className="mt-3 px-1 text-xs text-muted">Das App-Symbol (Browser-Tab und neu zum Startbildschirm hinzugefügt) zeigt dein Tier, hell oder dunkel je nach Einstellung. Ein schon hinzugefügtes Symbol ändert sich nicht von selbst: Entferne es und füge die App neu hinzu.</p>}
     </div>
   )
 }
