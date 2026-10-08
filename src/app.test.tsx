@@ -794,11 +794,12 @@ describe('Hausaufgaben im Kalender', () => {
     expect(window.location.hash).toBe('#/kalender')
   })
 
-  it('Üben führt mit „Hausaufgabe eintragen“ in den Kalender', async () => {
+  it('Üben zeigt vier Kacheln (Probetest, Neu erstellen …); Eintragen gibt es nur im Kalender', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['deutsch'] })
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Hausaufgabe eintragen/))
-    expect(text()).toMatch(/Arbeit eintragen/)
+    await waitFor(() => expect(text()).toMatch(/Probetest/))
+    expect(text()).toMatch(/Neu erstellen/)
+    expect(text()).not.toMatch(/Hausaufgabe eintragen|Arbeit eintragen/)
   })
 
   it('Alte Stände mit WebUntis-Verbindung werden beim Laden bereinigt, eingetragene Arbeiten bleiben', () => {

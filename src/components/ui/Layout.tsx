@@ -1,10 +1,11 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useEffect, useRef } from 'react'
-import { Link, NavLink, useLocation, useNavigate, useOutlet } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate, useNavigationType, useOutlet } from 'react-router-dom'
 import { levelFromXp } from '../../lib/xp'
 import { useStore } from '../../store/useStore'
 import { Mascot } from '../mascot/Mascot'
-import { Gear, TabCalendar, TabRepeat, TabUser } from './Icons'
+import { Back, Gear, TabCalendar, TabRepeat, TabUser } from './Icons'
+import { pageTitle } from '../../lib/pageTitle'
 import { useCoachComposer } from '../../lib/coachComposer'
 import { CoachComposer } from './CoachComposer'
 import { TabBar } from './TabBar'
@@ -105,9 +106,33 @@ export function Layout() {
   const onCoach = location.pathname.startsWith('/coach') || /^\/faecher\/[^/]+\/ki/.test(location.pathname)
   const hasPages = useCoachComposer((c) => c.pages.length > 0)
 
+  // Wie in einer richtigen App: Beim Zurückgehen steht die Seite wieder dort, wo man sie verlassen hat; sonst beginnt sie oben
+  const navType = useNavigationType()
+  const savedScroll = useRef(new Map<string, number>())
+  const lastKey = useRef(location.key)
   useEffect(() => {
+    const el = scroller.current
+    if (!el) return
+    const onScroll = () => savedScroll.current.set(lastKey.current, el.scrollTop)
+    el.addEventListener('scroll', onScroll, { passive: true })
+    return () => el.removeEventListener('scroll', onScroll)
+  }, [])
+  useEffect(() => {
+    lastKey.current = location.key
+    const target = navType === 'POP' ? (savedScroll.current.get(location.key) ?? 0) : 0
     scroller.current?.scrollTo({ top: 0 })
-  }, [location.pathname])
+    if (target > 0) {
+      // Der Inhalt braucht einen Moment, bis er so hoch ist
+      const ids = [60, 200, 450].map((ms) => window.setTimeout(() => scroller.current?.scrollTo({ top: target }), ms))
+      return () => ids.forEach(clearTimeout)
+    }
+  }, [location.key, navType])
+
+  // Obere Leiste (Handy) auf allen Seiten, die kein Tab sind: Zurück und Titel, immer sichtbar
+  const isRoot = ['/', '/kalender', '/profile'].includes(location.pathname)
+  const canGoBack = location.key !== 'default'
+  const goBack = () => (canGoBack ? navigate(-1) : navigate(tabOf(location.pathname)))
+  const title = pageTitle(location.pathname)
 
   // Beim Öffnen und wenn man in die App zurückkehrt: fällige Sicherung und freiwillige Nutzungsdaten
   useEffect(() => {
@@ -159,6 +184,14 @@ export function Layout() {
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
+        {!isRoot && (
+          <header className="relative z-30 flex h-12 shrink-0 items-center px-1.5 lg:hidden" style={{ background: 'color-mix(in srgb, var(--base) 82%, transparent)', WebkitBackdropFilter: 'blur(18px) saturate(1.6)', backdropFilter: 'blur(18px) saturate(1.6)', borderBottom: '1px solid var(--line)' }}>
+            <button type="button" onClick={goBack} className="press flex min-h-11 items-center gap-0.5 rounded-xl px-2 text-[16px] font-bold text-brand-dark" aria-label="Zurück">
+              <Back size={20} /> Zurück
+            </button>
+            {title && <span className="pointer-events-none absolute inset-x-24 truncate text-center text-[16px] font-extrabold">{title}</span>}
+          </header>
+        )}
         <main ref={scroller} tabIndex={-1} className="flex-1 overflow-y-auto overflow-x-hidden pb-[calc(var(--tabbar-h)+1rem)] outline-none lg:pb-10">
           <div className="mx-auto flex max-w-[1040px] justify-center gap-8 px-0 lg:px-8">
             <div className="relative min-w-0 flex-1">

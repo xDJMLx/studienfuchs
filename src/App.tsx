@@ -1,4 +1,5 @@
 import { Suspense, lazy, useEffect, type ComponentType } from 'react'
+import { pageTitle } from './lib/pageTitle'
 import { HashRouter, Navigate, Outlet, Route, Routes, useLocation, useParams } from 'react-router-dom'
 import { ErrorBoundary } from './components/ui/ErrorBoundary'
 import { Layout } from './components/ui/Layout'
@@ -100,39 +101,11 @@ function PageFallback() {
   return <div role="status" aria-label="Lädt" className="flex h-full min-h-[40vh] items-center justify-center"><span className="h-8 w-8 animate-spin rounded-full border-4 border-line border-t-brand" /></div>
 }
 
-/** Seitentitel pro Seite: wichtig für Tabs, Verlauf und Screenreader (die Adresse ändert sich nur nach dem #). */
-const TITLES: [prefix: string, title: string][] = [
-  ['/welcome', 'Willkommen'],
-  ['/faecher', 'Karteikarten'],
-  ['/kalender', 'Kalender'],
-  ['/stapel', 'Karteikarten'],
-  ['/ueben/los', 'Üben'],
-  ['/math/train', 'Rechentraining'],
-  ['/books', 'Bücher'],
-  ['/speak', 'Sprechtraining'],
-  ['/exam/new', 'Test erstellen'],
-  ['/test/neu', 'Test erstellen'],
-  ['/training/', 'Rechentraining'],
-  ['/test/', 'Test'],
-  ['/exam/', 'Test'],
-  ['/shop', 'Tier & Shop'],
-  ['/math/train', 'Training'],
-  ['/blitz', 'Blitzrunde'],
-  ['/review/play', 'Wiederholung'],
-  ['/review', 'Lernstand'],
-  ['/words', 'Wörter'],
-  ['/grammar', 'Grammatik'],
-  ['/sets', 'Eigene Liste'],
-  ['/profile', 'Profil'],
-  ['/settings', 'Einstellungen'],
-  ['/about', 'Datenschutz & Impressum'],
-]
-
 function RouteTitle() {
   const { pathname } = useLocation()
   useEffect(() => {
-    const hit = TITLES.find(([p]) => (p.endsWith('/') ? pathname.startsWith(p) : pathname === p || pathname.startsWith(p + '/')))
-    document.title = hit ? `${hit[1]} · Studienfuchs` : 'Studienfuchs – Üben für die Schule'
+    const title = pageTitle(pathname)
+    document.title = title ? `${title} · Studienfuchs` : 'Studienfuchs – Üben für die Schule'
     track(`seite${pathname === '/' ? '/ueben' : pathname.split('/').slice(0, 2).join('/')}`)
   }, [pathname])
   return null

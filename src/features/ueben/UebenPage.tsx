@@ -211,61 +211,73 @@ export function UebenPage() {
         )}
       </section>
 
-      {/* Arbeiten, die anstehen */}
-      <section className="mb-6" aria-label="Als Nächstes">
-        <div className="mb-1.5 flex items-center justify-between px-1">
-          <h2 className="text-[20px] font-black">Als Nächstes</h2>
-          {upcoming.length > 0 && (
+      {/* Was ansteht: offene Hausaufgaben und die nächsten Arbeiten (eintragen geht im Kalender) */}
+      {(hwNow.length > 0 || upcoming.length > 0) && (
+        <section className="mb-6" aria-label="Als Nächstes">
+          <div className="mb-1.5 flex items-center justify-between px-1">
+            <h2 className="text-[20px] font-black">Als Nächstes</h2>
             <Link to="/kalender" className="press -mr-1 flex min-h-9 items-center gap-0.5 rounded-xl px-2 text-[15px] font-bold text-sky-dark">
               Kalender <Right size={12} />
             </Link>
-          )}
-        </div>
-        <div className="list">
-          {hwNow.length > 0 && (
-            <Row
-              to="/kalender"
-              tint="var(--good-soft)"
-              icon={<Check size={20} className="text-good-dark" />}
-              title={`${hwNow.length} ${hwNow.length === 1 ? 'Hausaufgabe' : 'Hausaufgaben'} offen`}
-              sub={hwNow.some((h) => h.due < today) ? 'Auch Überfälliges dabei' : hwNow.slice(0, 2).map((h) => helpSubject(h.subject)?.name ?? h.text).join(', ')}
-            />
-          )}
-          {upcoming.slice(0, 2).map(({ a, days, r }) => {
-            const s = helpSubject(a.subject)
-            const timeLeft = st && st.arbeit.id === a.id ? (st.reached ? 'Lernzeit geschafft' : `heute ${Math.floor(st.minutes)} von ${st.target} Min`) : null
-            return (
+          </div>
+          <div className="list">
+            {hwNow.length > 0 && (
               <Row
-                key={a.id}
-                to={r.total === 0 ? `/stapel/neu?fach=${a.subject}` : `/ueben/los?arbeit=${a.id}`}
-                tint={s?.c ?? '#868a95'}
-                icon={<HelpSubjectIcon id={a.subject} ink={s?.c ?? '#888'} size={24} />}
-                title={a.title}
-                sub={
-                  <>
-                    <span className={days <= 2 ? 'font-extrabold text-bad-dark' : ''}>
-                      {kindLabel(a.kind)} {when(days)}
-                    </span>
-                    {r.total === 0 ? ' · noch keine Karteikarten' : timeLeft ? ` · ${timeLeft}` : ` · ${r.solid} von ${r.total} sitzen`}
-                  </>
-                }
+                to="/kalender"
+                tint="var(--good-soft)"
+                icon={<Check size={20} className="text-good-dark" />}
+                title={`${hwNow.length} ${hwNow.length === 1 ? 'Hausaufgabe' : 'Hausaufgaben'} offen`}
+                sub={hwNow.some((h) => h.due < today) ? 'Auch Überfälliges dabei' : hwNow.slice(0, 2).map((h) => helpSubject(h.subject)?.name ?? h.text).join(', ')}
               />
-            )
-          })}
-          <Row to="/kalender?neu=1" tint="var(--sky-soft)" icon={<Plus size={20} className="text-sky-dark" />} title="Arbeit eintragen" sub={upcoming.length === 0 ? 'Die App verteilt die Karteikarten auf die Tage bis dahin.' : undefined} />
-          <Row to="/kalender?neu=hausaufgabe" tint="var(--brand-soft)" icon={<Plus size={20} className="text-brand-dark" />} title="Hausaufgabe eintragen" sub="Was bis wann zu tun ist" />
-        </div>
-      </section>
+            )}
+            {upcoming.slice(0, 2).map(({ a, days, r }) => {
+              const s = helpSubject(a.subject)
+              const timeLeft = st && st.arbeit.id === a.id ? (st.reached ? 'Lernzeit geschafft' : `heute ${Math.floor(st.minutes)} von ${st.target} Min`) : null
+              return (
+                <Row
+                  key={a.id}
+                  to={r.total === 0 ? `/stapel/neu?fach=${a.subject}` : `/ueben/los?arbeit=${a.id}`}
+                  tint={s?.c ?? '#868a95'}
+                  icon={<HelpSubjectIcon id={a.subject} ink={s?.c ?? '#888'} size={30} />}
+                  title={a.title}
+                  sub={
+                    <>
+                      <span className={days <= 2 ? 'font-extrabold text-bad-dark' : ''}>
+                        {kindLabel(a.kind)} {when(days)}
+                      </span>
+                      {r.total === 0 ? ' · noch keine Karteikarten' : timeLeft ? ` · ${timeLeft}` : ` · ${r.solid} von ${r.total} sitzen`}
+                    </>
+                  }
+                />
+              )
+            })}
+          </div>
+        </section>
+      )}
 
-      {/* Alles Weitere, jeweils eine Zeile */}
+      {/* Alles Weitere: vier Kacheln statt einer langen Liste */}
       <section aria-label="Mehr">
-        <h2 className="mb-1.5 px-1 text-[20px] font-black">Mehr</h2>
-        <div className="list">
-          {decks.length > 0 && <Row onClick={() => setFree(true)} tint="var(--brand-soft)" icon={<Repeat size={20} className="text-brand-dark" />} title="Frei üben" sub="Fach und Art selbst wählen" />}
-          {decks.length > 0 && <Row to="/blitz" tint="var(--violet-soft)" icon={<Flame size={20} className="text-violet-dark" />} title="Blitzrunde" sub="60 Sekunden, so viele wie möglich" />}
-          <Row to="/test/neu?art=arbeit" tint="var(--sky-soft)" icon={<Trophy size={20} className="text-sky-dark" />} title="Probearbeit" sub="Große Arbeit mit Punkten und Note" />
-          <Row to="/test/neu?art=test" tint="var(--violet-soft)" icon={<Trophy size={20} className="text-violet-dark" />} title="Probetest" sub="Kurzer Test zum Üben" />
-          <Row onClick={() => setCreate(true)} tint="var(--good-soft)" icon={<Plus size={20} className="text-good-dark" />} title="Neu erstellen" sub="Karteikarten per KI, Foto oder selbst" />
+        <div className="grid grid-cols-2 gap-3">
+          {decks.length > 0 && (
+            <button type="button" onClick={() => setFree(true)} className="tile press flex-col !items-start !gap-2 !py-3.5">
+              <Repeat size={22} className="text-brand-dark" />
+              <span className="text-[16px] font-extrabold leading-tight">Frei üben</span>
+            </button>
+          )}
+          {decks.length > 0 && (
+            <Link to="/blitz" className="tile press flex-col !items-start !gap-2 !py-3.5">
+              <Flame size={22} className="text-sky-dark" />
+              <span className="text-[16px] font-extrabold leading-tight">Blitzrunde</span>
+            </Link>
+          )}
+          <Link to="/test/neu?art=test" className="tile press flex-col !items-start !gap-2 !py-3.5">
+            <Trophy size={22} className="text-good-dark" />
+            <span className="text-[16px] font-extrabold leading-tight">Probetest</span>
+          </Link>
+          <button type="button" onClick={() => setCreate(true)} className="tile press flex-col !items-start !gap-2 !py-3.5">
+            <Plus size={22} className="text-bad-dark" />
+            <span className="text-[16px] font-extrabold leading-tight">Neu erstellen</span>
+          </button>
         </div>
       </section>
 

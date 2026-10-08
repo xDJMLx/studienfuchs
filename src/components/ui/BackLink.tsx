@@ -17,7 +17,7 @@ export function BackLink({ to, label, size = 18, className = '' }: { to: string;
         e.preventDefault()
         navigate(-1)
       }}
-      className={`press -ml-2 mb-2 inline-flex min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted transition-colors hover:text-ink ${className}`}
+      className={`press -ml-2 mb-2 hidden min-h-11 items-center gap-1 rounded-xl px-2 text-sm font-semibold text-muted transition-colors hover:text-ink lg:inline-flex ${className}`}
     >
       <Back size={size} /> {canGoBack ? 'Zurück' : label}
     </Link>

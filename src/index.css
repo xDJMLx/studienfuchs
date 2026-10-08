@@ -973,3 +973,9 @@ dialog,
   color: var(--muted);
   box-shadow: none;
 }
+
+/* ---------- Wie eine App, nicht wie eine Webseite ---------- */
+main { overscroll-behavior: contain; }
+button, [role='button'], [role='tab'], [role='radio'], [role='switch'], [role='checkbox'], summary, label, a { cursor: default; }
+input, textarea { cursor: text; }
+a { text-decoration: none; }
