@@ -378,6 +378,9 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
             <path ref={reg('mLower')} {...stroke(3.6, skin.ink)} />
           </g>
 
+          {/* Rüssel, Zähne und anderes, das vor dem Mund liegt */}
+          {skin.snout?.(ctx)}
+
           {/* Gesichtsschmuck (gekauft) */}
           {gesicht === 'brille' && (
             <g fill="none" strokeLinecap="round">

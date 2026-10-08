@@ -177,15 +177,20 @@ const elefant: Skin = {
       <path d="M92 38 C90 46 94 52 100 56 C106 52 110 46 108 38" fill="#8f9bb0" opacity="0.55" />
     </g>
   ),
-  nose: () => (
+  nose: () => <g />,
+  snout: () => (
     <g>
-      {/* Rüssel */}
-      <path d="M88 82 C87 100 84 114 88 124 C92 133 108 133 112 124 C116 114 113 100 112 82 Z" fill="#aab5c6" />
-      <path d="M88 82 C87 100 84 114 88 124 C92 133 108 133 112 124 C116 114 113 100 112 82" fill="none" stroke="#7d8ba1" strokeWidth="1.6" opacity="0.55" />
-      <path d="M90 100 q10 3 20 0 M89 108 q11 3 22 0 M89 116 q11 3 22 0" stroke="#8f9bb0" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.7" />
-      <ellipse cx="94" cy="127" rx="2.6" ry="1.9" fill="#4a566b" />
-      <ellipse cx="106" cy="127" rx="2.6" ry="1.9" fill="#4a566b" />
-      <path d="M93 86 C92 98 91 108 92 118" stroke="#fff" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.32" />
+      {/* Stoßzähne links und rechts vom Rüssel */}
+      <path d="M78 112 C68 122 68 138 78 148 C76 136 82 124 90 118 Z" fill="#fff7e4" stroke="#d9c9a3" strokeWidth="1.4" />
+      <path d="M122 112 C132 122 132 138 122 148 C124 136 118 124 110 118 Z" fill="#fff7e4" stroke="#d9c9a3" strokeWidth="1.4" />
+      {/* Rüssel: hängt bis über das Kinn, die Spitze ist breiter */}
+      <path d="M88 80 C87 104 85 124 86 136 C87 148 113 148 114 136 C115 124 113 104 112 80 Z" fill="#aab5c6" />
+      <path d="M88 80 C87 104 85 124 86 136 C87 148 113 148 114 136 C115 124 113 104 112 80" fill="none" stroke="#7d8ba1" strokeWidth="1.6" opacity="0.55" />
+      <ellipse cx="100" cy="139" rx="14" ry="7" fill="#9aa7bb" />
+      <path d="M89 98 q11 3 22 0 M88 108 q12 3 24 0 M87 118 q13 3 26 0" stroke="#8f9bb0" strokeWidth="1.8" strokeLinecap="round" fill="none" opacity="0.7" />
+      <ellipse cx="94" cy="141" rx="2.8" ry="2" fill="#4a566b" />
+      <ellipse cx="106" cy="141" rx="2.8" ry="2" fill="#4a566b" />
+      <path d="M93 86 C92 98 91 112 92 126" stroke="#fff" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.32" />
     </g>
   ),
   tail: () => (
@@ -231,6 +236,9 @@ const krokodil: Skin = {
       {/* Nasenwülste */}
       <ellipse cx="86" cy="104" rx="9" ry="7" fill="#e8f7b8" />
       <ellipse cx="114" cy="104" rx="9" ry="7" fill="#e8f7b8" />
+      {/* Augenwülste */}
+      <ellipse cx="69" cy="68" rx="21" ry="9" fill="#4cb054" opacity="0.65" />
+      <ellipse cx="131" cy="68" rx="21" ry="9" fill="#4cb054" opacity="0.65" />
       <g fill="#3f9f49" opacity="0.4">
         <circle cx="52" cy="66" r="3" />
         <circle cx="66" cy="58" r="3" />
@@ -246,6 +254,14 @@ const krokodil: Skin = {
     </g>
   ),
   noStem: true,
+  snout: () => (
+    <g fill="#fff" stroke="#c9d9a0" strokeWidth="1" strokeLinejoin="round">
+      <path d="M66 126 l5 9 l5 -9 Z" />
+      <path d="M124 126 l5 9 l5 -9 Z" />
+      <path d="M80 130 l4 7 l4 -7 Z" />
+      <path d="M112 130 l4 7 l4 -7 Z" />
+    </g>
+  ),
   tail: (c) => (
     <g>
       <path d="M126 204 C150 214 182 224 204 220 C196 208 170 196 126 190 Z" fill={fur(c)} />
