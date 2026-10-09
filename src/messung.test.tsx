@@ -12,7 +12,7 @@ import { useStore } from './store/useStore'
  * Jeder Klick und jede Eingabe zählt als 1. Dieselben Aufgaben wurden mit der Fassung vor der Überarbeitung (Commit 93a233f) gemessen:
  *   1. Einrichtung bis in die erste Lernrunde: vorher 11 (Mindestweg) bzw. 18 (mit Einführung, Tier, Klasse und Lernzeit), jetzt 5 bzw. 7
  *   2. Hausaufgabe „Gedicht lernen, Deutsch, bis übermorgen“ eintragen: vorher 5, jetzt 2
- *   3. Neue Karteikarten zu einem Thema anlegen und gleich üben (von „Üben“ aus): vorher 5, jetzt 3
+ *   3. Neue Karteikarten zu einem Thema anlegen und gleich üben (von „Üben“ aus): vorher 5, jetzt 4 (eine Wahl mehr: erst die Art, dann das Thema; dafür weiß man, was man tut)
  *   4. Arbeit „Bio-Test am Datum“ im Kalender eintragen: vorher 5, jetzt 2
  * Die Zahlen stehen mit Rechnung in docs/MESSUNG.md. Dieser Test hält sie fest, damit sie nicht wieder schlechter werden.
  */
@@ -102,11 +102,12 @@ describe('Messung: Tippen bis zum Ziel', () => {
     useStore.getState().addSet('Schon da', [{ front: 'a', back: 'b' }], { subject: 'biologie' })
     render(<App />)
     await tap(/Neu erstellen/)
+    await tap(/Von der KI/)
     await tap(/Zellorganellen und ihre Aufgaben/)
     await tap(/Los geht’s, erste Runde/)
     await waitFor(() => expect(text()).toMatch(/Organell \d/), { timeout: 4000 })
     expect(useStore.getState().sets).toHaveLength(2)
-    expect(taps).toBe(3)
+    expect(taps).toBe(4)
   })
 
   it('4. Arbeit im Kalender eintragen: ein Satz und Enter', async () => {

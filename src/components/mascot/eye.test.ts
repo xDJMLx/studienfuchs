@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { BLINK_TOTAL, EYE_OPEN, blinkClosed, blinked, eyeArc, eyeLid, eyeTarget, eyeWindow, lidCurve, lidOpacity, shutScale, stepEye } from './eye'
+import { BLINK_TOTAL, EYE_OPEN, blinkClosed, blinked, eyeArc, eyeLid, eyeTarget, eyeWindow, lidCurve, lidOpacity, stepEye } from './eye'
 import { FoxEngine } from './engine'
 import { resolveLook } from './look'
 
@@ -65,35 +65,32 @@ describe('Blinzeln', () => {
     expect(down).toBeLessThan(up)
   })
 
-  it('beim Blinzeln staucht sich das Auge senkrecht, die Pose selbst bleibt unverändert', () => {
+  it('beim Blinzeln fährt das Oberlid herunter, die Pose selbst bleibt unverändert', () => {
     const base = { ...EYE_OPEN }
     const b = blinked(base, 1)
-    expect(b.shut).toBe(1)
-    expect(b.open).toBe(1)
-    expect(base.shut).toBe(0)
+    expect(b.open).toBe(0)
+    expect(b.scale).toBe(1)
+    expect(base.open).toBe(1)
     expect(blinked(base, 0)).toBe(base)
-    expect(shutScale(base)).toBe(1)
-    expect(shutScale(blinked(base, 0.5))).toBeLessThan(0.7)
-    expect(shutScale(b)).toBeLessThan(0.1)
-    expect(shutScale(b)).toBeGreaterThan(0)
+    expect(blinked(base, 0.5).open).toBeCloseTo(0.5)
   })
 
-  it('die Stauchung läuft gleichmäßig und ohne Sprünge mit dem Blinzelverlauf', () => {
-    let prev = shutScale(blinked(EYE_OPEN, blinkClosed(0)))
+  it('das Lid fährt gleichmäßig und ohne Sprünge mit dem Blinzelverlauf', () => {
+    let prev = blinked(EYE_OPEN, blinkClosed(0)).open
     for (let d = 0.004; d <= BLINK_TOTAL; d += 0.004) {
-      const cur = shutScale(blinked(EYE_OPEN, blinkClosed(d)))
+      const cur = blinked(EYE_OPEN, blinkClosed(d)).open
       expect(Math.abs(cur - prev)).toBeLessThan(0.35)
       prev = cur
     }
   })
 
-  it('ganz zu liegt die Schlusslinie leicht unter der Augenmitte und im Auge', () => {
+  it('ganz zu liegt die Schlusslinie im unteren Teil des Auges', () => {
     const d = eyeLid(blinked(EYE_OPEN, 1), 69, 90, false)
     const nums = d.match(/-?[0-9]+(?:[.][0-9]+)?/g)!.map(Number)
-    expect(nums[1]).toBeGreaterThan(90)
-    expect(nums[1]).toBeLessThan(100)
-    expect(nums[0]).toBeGreaterThan(69 - 16)
-    expect(nums[4]).toBeLessThan(69 + 16)
+    expect(nums[1]).toBeGreaterThan(95)
+    expect(nums[1]).toBeLessThan(115)
+    expect(nums[0]).toBeGreaterThan(69 - 22)
+    expect(nums[4]).toBeLessThan(69 + 22)
   })
 
   it('die Lidlinie ist beim Blinzeln deckend und bei Bogenaugen aus', () => {
@@ -112,15 +109,14 @@ describe('Blinzeln', () => {
     let closed = false
     for (let i = 0; i < 60 * 40; i++) {
       e.tick(16)
-      const o = e.out.eyeL.shut
+      const o = 1 - e.out.eyeL.open
       if (!closed && o > 0.95) { closed = true; blinks++ }
       if (closed && o < 0.02) closed = false
     }
     expect(blinks).toBeGreaterThanOrEqual(4)
     expect(blinks).toBeLessThanOrEqual(20)
     expect(e.out.eyeL.open).toBeGreaterThan(0.9)
-    expect(e.out.eyeL.shut).toBeLessThan(0.5)
-  })
+      })
 
   it('beim Zwinkern blinzelt das zwinkernde Auge nicht', () => {
     const e = new FoxEngine({ idle: true, rnd: () => 0.5 })

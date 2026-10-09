@@ -77,6 +77,7 @@ const ShopPage = lazyPage(() => import('./features/shop/ShopPage'), 'ShopPage')
 const ReviewPage = lazyPage(() => import('./features/review/ReviewPage'), 'ReviewPage')
 const SettingsPage = lazyPage(() => import('./features/settings/SettingsPage'), 'SettingsPage')
 const FoxLab = import.meta.env.DEV ? lazyPage(() => import('./features/dev/FoxLab'), 'FoxLab') : null
+const ZooLab = import.meta.env.DEV ? lazyPage(() => import('./features/dev/FoxLab'), 'ZooLab') : null
 const ResultLab = import.meta.env.DEV ? lazyPage(() => import('./features/dev/ResultLab'), 'ResultLab') : null
 
 /** Fehlermeldung verschwindet, sobald man zu einer anderen Seite wechselt (z. B. über die Tab-Leiste). */
@@ -197,6 +198,7 @@ export default function App() {
             <Route path="catchup" element={<Navigate to="/" replace />} />
             <Route path="lesson/:lessonId" element={<Navigate to="/" replace />} />
             {FoxLab && <Route path="fox" element={<FoxLab />} />}
+            {ZooLab && <Route path="zoo" element={<ZooLab />} />}
           </Route>
           {/* Übungs-Durchgänge ohne Navigation, damit nichts ablenkt */}
           <Route path="ueben/los" element={<UebenPlay />} />

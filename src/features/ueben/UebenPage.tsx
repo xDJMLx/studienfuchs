@@ -16,6 +16,7 @@ import { backupDue } from '../../lib/backup'
 import { ArbeitFollowUp } from '../kalender/KalenderPage'
 import { useStudyToday } from '../../components/ui/StudyTime'
 import { dueLabel } from '../review/ReviewPage'
+import { CreateChoices, type CreateWay } from '../faecher/CreateChoices'
 import { QuickCards } from '../welcome/QuickCards'
 
 const when = (days: number) => (days === 0 ? 'heute' : days === 1 ? 'morgen' : `in ${days} Tagen`)
@@ -57,8 +58,8 @@ export function UebenPage() {
   const cards = useStore((s) => s.cards)
   const st = useStudyToday()
   const hausaufgaben = useStore((s) => s.hausaufgaben)
-  const grade = useStore((s) => s.grade)
   const mySubjects = useStore((s) => s.mySubjects)
+  const grade = useStore((s) => s.grade)
   // Für die ersten Karteikarten: die eigenen Fächer, sonst die üblichen
   const startSubjects = (mySubjects ?? []).length > 0 ? mySubjects : ['mathe', 'deutsch', 'englisch', 'biologie']
 
@@ -136,10 +137,10 @@ export function UebenPage() {
               <Mascot size={64} mood="happy" alive />
               <div className="min-w-0">
                 <h2 className="text-[21px] font-black leading-tight">Deine ersten Karteikarten</h2>
-                <p className="text-[14px] text-muted">Tipp ein Thema an, die KI schreibt sie dir.</p>
+                <p className="text-[14px] text-muted">Such dir einen Weg aus, es dauert eine Minute.</p>
               </div>
             </div>
-            <QuickCards subjects={startSubjects} grade={grade} onStart={(id) => navigate(`/ueben/los?deck=${id}`)} />
+            <CreateFlow subjects={startSubjects} grade={grade} onDone={() => undefined} />
           </div>
         ) : (
           <>
@@ -280,23 +281,56 @@ export function UebenPage() {
         </div>
       </section>
 
-      {/* Neue Karteikarten: Thema antippen, die KI macht sie, Runde starten. Alles andere (selbst schreiben, Aufgaben, Rechnen) steht auf der großen Seite. */}
+      {/* Neue Karteikarten: erst die Art wählen, dann führt jede in genau einen Schritt. */}
       <Sheet open={create} onClose={() => setCreate(false)} title="Neue Karteikarten">
-        <QuickCards
-          subjects={startSubjects}
-          grade={grade}
-          onStart={(id) => {
-            setCreate(false)
-            navigate(`/ueben/los?deck=${id}`)
-          }}
-        />
-        <Link to="/stapel/neu" onClick={() => setCreate(false)} className="press mt-1 flex min-h-11 items-center justify-center rounded-xl text-sm font-extrabold text-sky-dark">
-          Selbst schreiben, Aufgaben, Rechnen oder Tests
+        <CreateFlow subjects={startSubjects} grade={grade} onDone={() => setCreate(false)} />
+        <Link to="/stapel/neu" onClick={() => setCreate(false)} className="press mt-2 flex min-h-11 items-center justify-center rounded-xl text-sm font-extrabold text-sky-dark">
+          Quiz-Aufgaben oder Rechenaufgaben
         </Link>
       </Sheet>
 
       <FreePractice open={free} onClose={() => setFree(false)} />
     </div>
+  )
+}
+
+/** Neue Karteikarten starten: erst die Art wählen. „Von der KI“ bleibt hier (Thema antippen, Runde starten), die anderen führen auf die Erstellen-Seite. */
+function CreateFlow({ subjects, grade, onDone }: { subjects: string[]; grade: number; onDone: () => void }) {
+  const navigate = useNavigate()
+  const [subject, setSubject] = useState(() => subjects[0] ?? 'mathe')
+  const [ki, setKi] = useState(false)
+  const current = subjects.includes(subject) ? subject : (subjects[0] ?? 'mathe')
+  if (ki) {
+    return (
+      <div>
+        <button type="button" className="press -ml-2 mb-2 flex min-h-10 items-center gap-1 rounded-xl px-2 text-[15px] font-extrabold text-sky-dark" onClick={() => setKi(false)}>
+          <span aria-hidden>‹</span> Andere Art
+        </button>
+        <QuickCards
+          subjects={[current]}
+          grade={grade}
+          onStart={(id) => {
+            onDone()
+            navigate(`/ueben/los?deck=${id}`)
+          }}
+        />
+      </div>
+    )
+  }
+  return (
+    <CreateChoices
+      subjects={subjects}
+      subject={current}
+      onSubject={setSubject}
+      onPick={(way: CreateWay) => {
+        if (way === 'ki') {
+          setKi(true)
+          return
+        }
+        onDone()
+        navigate(`/stapel/neu?fach=${current}&art=${way}`)
+      }}
+    />
   )
 }
 

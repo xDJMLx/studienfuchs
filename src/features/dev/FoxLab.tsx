@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Mascot, type Mood } from '../../components/mascot/Mascot'
 import { mascotBus } from '../../lib/mascotBus'
+import { SPECIES_IDS } from '../../components/mascot/species'
 
 /** Nur in der Entwicklung: alle Posen und Reaktionen des Fuchses auf einen Blick. */
 const MOODS: Mood[] = ['happy', 'cheer', 'sad', 'think', 'wave', 'sleep', 'surprised', 'love', 'wink', 'laugh', 'yawn', 'dance', 'proud', 'determined']
@@ -33,6 +34,23 @@ export function FoxLab() {
         <Mascot size={56} />
         <Mascot size={34} />
       </div>
+    </div>
+  )
+}
+
+/** Nur in der Entwicklung: alle Tiere nebeneinander (Zeichnung prüfen). */
+export function ZooLab() {
+  const q = new URLSearchParams(location.hash.split('?')[1] ?? '')
+  const mood = (q.get('mood') as Mood) || 'happy'
+  const size = Number(q.get('size')) || 220
+  return (
+    <div className={q.get("only") ? "flex justify-center bg-white p-2" : "grid grid-cols-3 gap-2 bg-white p-2"} id="zoo">
+      {SPECIES_IDS.filter((id) => !q.get('only') || id === q.get('only')).map((id) => (
+        <div key={id} className="text-center" data-species={id}>
+          <Mascot species={id} size={size} pose="full" alive mood={mood} />
+          <p className="text-xs">{id}</p>
+        </div>
+      ))}
     </div>
   )
 }

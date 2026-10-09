@@ -48,6 +48,8 @@ export interface Skin {
   /** Ohren: im Ohrgelenk, links und rechts */
   earL: (c: Ctx) => ReactNode
   earR: (c: Ctx) => ReactNode
+  /** Drehpunkt der Ohren (Ansatz am Kopf), links und rechts; Standard wie beim Fuchs. Sonst schwingen weit außen sitzende Ohren um einen Punkt mitten im Kopf. */
+  earPivot?: [[number, number], [number, number]]
   /** Muster im Gesicht (vor dem Fell, hinter den Augen) */
   face?: (c: Ctx) => ReactNode
   /** Muster auf dem Kopf, das über Ohren und Gesicht liegt (z. B. Zebrastreifen) */
@@ -144,6 +146,7 @@ const fuchs: Skin = {
 /** Der Elefant: große Ohren, kurzer Rüssel, Stoßzähne. */
 const elefant: Skin = {
   id: 'elefant',
+  earPivot: [[46, 72], [154, 72]],
   label: 'Elefant',
   name: 'Elli',
   blurb: 'Vergisst nie etwas',
@@ -204,6 +207,7 @@ const elefant: Skin = {
 /** Das Krokodil: breite Schnauze mit Nasenlöchern, kleine Augenwülste, Zacken. */
 const krokodil: Skin = {
   id: 'krokodil',
+  earPivot: [[50, 48], [150, 48]],
   label: 'Krokodil',
   name: 'Boris',
   blurb: 'Hat immer gute Laune',
@@ -274,6 +278,7 @@ const krokodil: Skin = {
 /** Die Giraffe: Hörnchen, Flecken, helle Schnauze. */
 const giraffe: Skin = {
   id: 'giraffe',
+  earPivot: [[46, 66], [154, 66]],
   label: 'Giraffe',
   name: 'Greta',
   blurb: 'Hat den Überblick',
@@ -340,6 +345,7 @@ const giraffe: Skin = {
 /** Das Erdmännchen: dunkle Augenringe, aufrechter Blick. */
 const erdmaennchen: Skin = {
   id: 'erdmaennchen',
+  earPivot: [[42, 76], [158, 76]],
   label: 'Erdmännchen',
   name: 'Emil',
   blurb: 'Hält Ausschau',
@@ -389,6 +395,7 @@ const erdmaennchen: Skin = {
 /** Der Löwe: Mähne rund um das Gesicht. */
 const loewe: Skin = {
   id: 'loewe',
+  earPivot: [[48, 50], [152, 50]],
   label: 'Löwe',
   name: 'Leo',
   blurb: 'Mutig und stark',
@@ -430,6 +437,7 @@ const loewe: Skin = {
 /** Der Panda: schwarze Ohren, Augenflecken, schwarze Arme und Füße. */
 const panda: Skin = {
   id: 'panda',
+  earPivot: [[48, 52], [152, 52]],
   label: 'Panda',
   name: 'Momo',
   blurb: 'Entspannt und gemütlich',
@@ -503,6 +511,7 @@ const pinguin: Skin = {
 /** Das Nilpferd: breite rosa Schnauze, kleine Ohren. */
 const nilpferd: Skin = {
   id: 'nilpferd',
+  earPivot: [[48, 46], [152, 46]],
   label: 'Nilpferd',
   name: 'Hilda',
   blurb: 'Gemütlich, aber stark',
@@ -536,6 +545,7 @@ const nilpferd: Skin = {
 /** Das Zebra: schwarz-weiße Streifen, Stehmähne. */
 const zebra: Skin = {
   id: 'zebra',
+  earPivot: [[54, 60], [146, 60]],
   label: 'Zebra',
   name: 'Zora',
   blurb: 'Fällt gern auf',
@@ -598,6 +608,7 @@ const zebra: Skin = {
 /** Der Affe: braunes Fell, helles Herzgesicht, große Ohren. */
 const affe: Skin = {
   id: 'affe',
+  earPivot: [[44, 84], [156, 84]],
   label: 'Affe',
   name: 'Anton',
   blurb: 'Immer neugierig',
@@ -636,6 +647,7 @@ const affe: Skin = {
 /** Der Tiger: orange mit schwarzen Streifen. */
 const tiger: Skin = {
   id: 'tiger',
+  earPivot: [[48, 50], [152, 50]],
   label: 'Tiger',
   name: 'Rocco',
   blurb: 'Leise und schnell',

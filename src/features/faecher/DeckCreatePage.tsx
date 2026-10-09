@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { Camera, Close } from '../../components/ui/Icons'
+import { Camera, Close, Right } from '../../components/ui/Icons'
 import { BackLink } from '../../components/ui/BackLink'
 import { blobToJpegBase64, preloadAi } from '../../lib/ai'
 import { generateCards } from '../../lib/aiCards'
-import { SubjectShape } from '../../components/ui/SubjectShape'
 import { defaultPlan, generateTasks, PLAN_LABEL, type TaskPlan } from '../../lib/aiTasks'
 import { itemFromTask } from '../../lib/tasks'
 import { cardsFromNotes } from '../../lib/notesToCards'
@@ -14,6 +13,7 @@ import { useStore } from '../../store/useStore'
 import { AiNotice } from '../settings/AiNotice'
 import { newRow, type Row } from '../upload/VocabTable'
 import { CardTable } from './CardTable'
+import { CreateChoices, hasReady, type CreateWay } from './CreateChoices'
 import { TemplateList } from './TemplateList'
 import { templatesFor } from '../../content/templates'
 
@@ -35,16 +35,11 @@ const EXAMPLES: Record<string, string> = {
   franzoesisch: 'z. B. Vokabeln zum Thema Essen und Trinken',
 }
 
-/** Neue Karteikarten: von der KI erstellen lassen (Beschreibung und/oder Fotos) oder selbst schreiben. Vor dem Speichern prüft man alle Karten. */
-/** Farbe und Form der drei Arten (wie bei den Fächern). */
-const PLAN_LOOK: Record<TaskPlan, { c: string; shape: string }> = {
-  karten: { c: '#2f6bff', shape: 'englisch' },
-  aufgaben: { c: '#e5484d', shape: 'mathe' },
-  rechnen: { c: '#1fb866', shape: 'franzoesisch' },
-}
-
 /** Schnelle Anweisungen für die KI, wenn Fotos dabei sind (man muss selten alles auf einer Seite lernen). */
 const PHOTO_HINTS = ['Nur die Vokabeln', 'Nur das Fettgedruckte', 'Nur Merksätze und Definitionen', 'Ohne Beispielsätze', 'Nur die Aufgaben vom Arbeitsblatt']
+
+/** Neue Karteikarten: erst die Art wählen (fertig, Foto, selbst, KI), dann ein Schritt. Vor dem Speichern prüft man alle Karten. */
+const WAY_OF: Record<CreateWay, Way> = { fertig: 'vorlage', foto: 'notizen', schreiben: 'write', ki: 'ai' }
 
 export function DeckCreatePage() {
   const navigate = useNavigate()
@@ -52,17 +47,25 @@ export function DeckCreatePage() {
   const addSet = useStore((s) => s.addSet)
   const [subject, setSubject] = useState(() => (helpSubject(params.get('fach') ?? '') ? (params.get('fach') as string) : (useStore.getState().mySubjects ?? []).find((id) => helpSubject(id)) ?? HELP_SUBJECTS[0].id))
   const sub = helpSubject(subject)
-  const [way, setWay] = useState<Way>('ai')
+  const mine = useStore((st) => st.mySubjects)
+  // Die eigenen Fächer (sonst die üblichen) und das gewählte; alle anderen gibt es im Fach-Menü der Formulare
+  const [firstSubject] = useState(subject)
+  const subjectIds = useMemo(() => [...new Set([...((mine ?? []).length > 0 ? (mine ?? []) : ['mathe', 'deutsch', 'englisch', 'biologie']), firstSubject])].filter((id) => helpSubject(id)), [mine, firstSubject])
+  const [way, setWay] = useState<Way | null>(() => {
+    const art = params.get('art') as CreateWay | null
+    return art && art in WAY_OF && (art !== 'fertig' || hasReady(subject)) ? WAY_OF[art] : null
+  })
+  const [autoRead, setAutoRead] = useState(false)
   const [request, setRequest] = useState('')
   const [count, setCount] = useState(20)
   // Was die KI machen soll: Karteikarten, Quiz & Aufgaben oder Rechenaufgaben (die App rechnet nach)
-  const [plan, setPlan] = useState<TaskPlan>(() => defaultPlan(subject))
+  const [plan, setPlan] = useState<TaskPlan>('karten')
   const [files, setFiles] = useState<File[]>([])
   const [previews, setPreviews] = useState<string[]>([])
   const [text, setText] = useState('')
   const [notes, setNotes] = useState('')
   const [reading, setReading] = useState<string | null>(null)
-  const [rows, setRows] = useState<Row[] | null>(null)
+  const [rows, setRows] = useState<Row[] | null>(() => (params.get('art') === 'schreiben' ? [newRow(), newRow(), newRow()] : null))
   const [title, setTitle] = useState('')
   const [both, setBoth] = useState(!!sub?.lang)
   const [busy, setBusy] = useState(false)
@@ -72,7 +75,6 @@ export function DeckCreatePage() {
 
   useEffect(() => preloadAi(), [])
   useEffect(() => setBoth(!!helpSubject(subject)?.lang), [subject])
-  useEffect(() => setPlan(defaultPlan(subject)), [subject])
   useEffect(() => {
     const urls = files.map((f) => URL.createObjectURL(f))
     setPreviews(urls)
@@ -139,6 +141,16 @@ export function DeckCreatePage() {
     }
   }
 
+  // Foto gewählt: Text gleich lesen, damit man nichts mehr tippen muss
+  useEffect(() => {
+    if (autoRead && way === 'notizen' && files.length > 0 && reading === null) {
+      setAutoRead(false)
+      void readPhotos()
+    }
+    // readPhotos liest nur Zustand
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoRead, way, files, reading])
+
   const fromNotes = () => {
     const { cards, skipped } = cardsFromNotes(notes)
     setRows(cards.map((c) => newRow(c.front, c.back)))
@@ -163,71 +175,84 @@ export function DeckCreatePage() {
     navigate(practice ? `/ueben/los?deck=${id}` : `/stapel/${id}`, { replace: true })
   }
 
+  const pick = (w: CreateWay) => {
+    setError(null)
+    setNotice(null)
+    setPlan('karten')
+    if (w === 'fertig' && subject === 'franzoesisch') {
+      navigate('/faecher/franzoesisch')
+      return
+    }
+    if (w === 'foto') {
+      setAutoRead(true)
+      fileRef.current?.click()
+      return
+    }
+    if (w === 'schreiben') setRows([newRow(), newRow(), newRow()])
+    setWay(WAY_OF[w])
+  }
+  const back = () => {
+    setWay(null)
+    setRows(null)
+    setPlan('karten')
+    setError(null)
+    setNotice(null)
+  }
+  const kind = plan === 'karten' ? 'Karteikarten' : PLAN_LABEL[plan].label
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-5 lg:py-8">
       <BackLink to={`/faecher/${subject}`} label={sub?.name ?? 'Fächer'} size={18} />
-      <h1 className="large-title mb-5">Neu erstellen</h1>
+      <h1 className="large-title mb-5">{way === null && !rows ? 'Neue Karteikarten' : kind}</h1>
+      <input
+        ref={fileRef}
+        type="file"
+        accept="image/*"
+        multiple
+        className="sr-only"
+        aria-label="Fotos auswählen"
+        onChange={(e) => {
+          const picked = Array.from(e.target.files ?? [])
+          e.target.value = ''
+          if (!picked.length) return
+          setFiles((f) => [...f, ...picked].slice(0, 8))
+          if (way === null) setWay('notizen')
+        }}
+      />
 
-      {!rows && (
-        <div className="grid gap-4">
-          <label className="grid gap-1.5 text-sm font-bold text-muted">
-            Fach
-            <select className={field} value={subject} onChange={(e) => setSubject(e.target.value)}>
-              {HELP_SUBJECTS.map((s) => (
-                <option key={s.id} value={s.id}>{s.name}</option>
-              ))}
-            </select>
-          </label>
-
-          <div>
-            <p className="mb-1.5 text-sm font-bold text-muted">Was willst du erstellen?</p>
-            <div className="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Art">
-              {(Object.keys(PLAN_LABEL) as TaskPlan[]).map((p) => {
-                const on = plan === p
-                const look = PLAN_LOOK[p]
-                return (
-                  <button
-                    key={p}
-                    type="button"
-                    role="radio"
-                    aria-checked={on}
-                    onClick={() => {
-                      setPlan(p)
-                      if (p !== 'karten') setWay('ai')
-                    }}
-                    className={`shape-block press !min-h-[92px] ${on ? '' : 'shape-block-quiet'}`}
-                    style={on ? ({ '--block': look.c, '--block-edge': `color-mix(in srgb, ${look.c} 55%, black)` } as React.CSSProperties) : undefined}
-                  >
-                    <SubjectShape id={look.shape} size={20} className={on ? 'text-white/95' : 'text-muted'} />
-                    <span>
-                      <span className="block text-[16px] font-extrabold leading-tight">{PLAN_LABEL[p].label}</span>
-                      <span className="block text-xs font-medium opacity-80">{PLAN_LABEL[p].short}</span>
-                    </span>
-                  </button>
-                )
-              })}
-            </div>
+      {!rows && way === null && (
+        <>
+          <CreateChoices subjects={subjectIds} subject={subject} onSubject={setSubject} onPick={pick} />
+          <p className="mb-2 mt-6 px-1 text-[15px] font-extrabold">Oder etwas anderes</p>
+          <div className="list">
+            {(['aufgaben', 'rechnen'] as TaskPlan[]).map((p) => (
+              <button key={p} type="button" className="row" onClick={() => { setPlan(p); setWay('ai') }}>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[16px] font-extrabold leading-tight">{PLAN_LABEL[p].label}</span>
+                  <span className="block text-[13px] font-semibold text-muted">{PLAN_LABEL[p].short}{defaultPlan(subject) === p ? ' · passt zu ' + (sub?.name ?? 'dem Fach') : ''}</span>
+                </span>
+                <Right size={13} className="shrink-0 text-muted" />
+              </button>
+            ))}
           </div>
+        </>
+      )}
 
-          {plan === 'karten' && (
-            <div>
-              <p className="mb-1.5 text-sm font-bold text-muted">Wie?</p>
-              <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Wie erstellen?">
-                {(
-                  [
-                    { id: 'ai' as Way, label: 'Von der KI' },
-                    { id: 'notizen' as Way, label: 'Aus Notizen' },
-                    { id: 'write' as Way, label: 'Selbst schreiben' },
-                    ...(templatesFor(subject).length ? [{ id: 'vorlage' as Way, label: 'Fertige' }] : []),
-                  ] as { id: Way; label: string }[]
-                ).map((w) => (
-                  <button key={w.id} type="button" role="radio" aria-checked={way === w.id} onClick={() => { setWay(w.id); if (w.id === 'write') { setRows([newRow(), newRow(), newRow()]); setNotice(null) } }} className={`chip ${way === w.id ? 'chip-on' : ''}`}>
-                    {w.label}
-                  </button>
+      {!rows && way !== null && (
+        <div className="grid gap-4">
+          <div className="flex items-center justify-between gap-3">
+            <button type="button" className="press -ml-2 flex min-h-10 items-center gap-1 rounded-xl px-2 text-[15px] font-extrabold text-sky-dark" onClick={back}>
+              <span aria-hidden>‹</span> Andere Art
+            </button>
+            <label className="flex items-center gap-2 text-sm font-bold text-muted">
+              Fach
+              <select className="rounded-xl border-2 border-line bg-snow px-2.5 py-1.5 font-extrabold text-ink outline-none focus:border-sky" value={subject} onChange={(e) => setSubject(e.target.value)} aria-label="Fach">
+                {HELP_SUBJECTS.map((s) => (
+                  <option key={s.id} value={s.id}>{s.name}</option>
                 ))}
-              </div>
-            </div>
-          )}
+              </select>
+            </label>
+          </div>
 
           {way === 'notizen' ? (
             <>
@@ -259,7 +284,6 @@ export function DeckCreatePage() {
                     </button>
                   )}
                 </div>
-                <input ref={fileRef} type="file" accept="image/*" multiple className="sr-only" onChange={(e) => setFiles((f) => [...f, ...Array.from(e.target.files ?? [])].slice(0, 8))} />
               </div>
               <button type="button" className="btn btn-primary press w-full sm:w-72" disabled={!notes.trim()} onClick={fromNotes}>
                 Karten vorschlagen
@@ -290,7 +314,6 @@ export function DeckCreatePage() {
                     </button>
                   )}
                 </div>
-                <input ref={fileRef} type="file" accept="image/*" multiple className="sr-only" onChange={(e) => setFiles((f) => [...f, ...Array.from(e.target.files ?? [])].slice(0, 8))} />
               </div>
               <label className="grid gap-1.5 text-sm font-bold text-muted">
                 {files.length > 0 ? 'Was soll die KI aus den Fotos machen?' : 'Was brauchst du?'}

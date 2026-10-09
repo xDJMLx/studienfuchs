@@ -317,8 +317,8 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           {skin.behind?.(ctx)}
 
           {/* Ohren */}
-          <g style={T('rotate(calc(var(--eL, 0) * 1deg))', 56, 62)}>{skin.earL(ctx)}</g>
-          <g style={T('rotate(calc(var(--eR, 0) * 1deg))', 144, 62)}>{skin.earR(ctx)}</g>
+          <g style={T('rotate(calc(var(--eL, 0) * 1deg))', ...(skin.earPivot?.[0] ?? [56, 62]))}>{skin.earL(ctx)}</g>
+          <g style={T('rotate(calc(var(--eR, 0) * 1deg))', ...(skin.earPivot?.[1] ?? [144, 62]))}>{skin.earR(ctx)}</g>
 
           {/* Kopfform und helle Schnauze */}
           <path d={skin.head ?? 'M100 28 C142 28 170 54 172 90 C173 121 146 148 100 148 C54 148 27 121 28 90 C30 54 58 28 100 28 Z'} fill={`url(#${g('face')})`} />

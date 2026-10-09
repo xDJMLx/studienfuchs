@@ -78,10 +78,11 @@ export function blinkClosed(d: number): number {
   return Math.pow(1 - u, 1.8)
 }
 
-/** Das Auge während des Blinzelns: Ober- und Unterlid laufen zur Augenmitte zusammen. */
+/** Das Auge während des Blinzelns: das Oberlid fährt von oben herunter, die Wange hebt sich leicht; Weiß und Pupille werden nur abgedeckt, nie verformt. */
 export function blinked(base: EyeParams, k: number): EyeParams {
   if (k <= 0) return base
-  return { ...base, shut: Math.max(base.shut, k) }
+  const c = Math.min(1, k)
+  return { ...base, open: base.open * (1 - c), cheek: Math.max(base.cheek, c * 0.42), shut: Math.max(base.shut, 0) }
 }
 
 export const EYE_RX = 15

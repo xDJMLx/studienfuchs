@@ -148,8 +148,8 @@ describe('Die App als Ganzes', () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
     window.location.hash = '#/stapel/neu?fach=biologie'
     render(<App />)
-    await waitFor(() => expect(text()).toMatch(/Neu erstellen/))
-    await click(/Selbst schreiben/, 'radio')
+    await waitFor(() => expect(text()).toMatch(/Neue Karteikarten/))
+    await click(/Selbst schreiben/)
     // Drei leere Karten stehen schon da, weitere kommen mit „+ Karte“
     await screen.findAllByLabelText('Vorderseite')
     await click(/\+? ?Karte$/)
@@ -306,8 +306,7 @@ describe('Fertige Karteikarten', () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/stapel/neu?fach=physik'
     render(<App />)
-    await click(/^Karteikarten/, 'radio')
-    await click(/Fertige/, 'radio')
+    await click(/Fertige Karten/)
     await waitFor(() => expect(text()).toMatch(/Größen, Einheiten und Formeln/))
   })
 })
@@ -337,9 +336,9 @@ describe('Karteikarten mit der KI erstellen', () => {
     useStore.setState({ onboarded: true, mySubjects: ['biologie'] })
     window.location.hash = '#/stapel/neu?fach=biologie'
     render(<App />)
+    await click(/Von der KI/)
     const area = await screen.findByLabelText(/Was brauchst du/)
     fireEvent.change(area, { target: { value: 'Genetik, Grundbegriffe' } })
-    await click(/^Karteikarten/, 'radio')
     await click(/Karten erstellen/)
     await waitFor(() => expect(text()).toMatch(/3 Karten erstellt/))
     expect(vi.mocked(generateCards)).toHaveBeenCalledWith(expect.objectContaining({ subjectId: 'biologie', request: 'Genetik, Grundbegriffe', count: 20 }))
@@ -362,7 +361,8 @@ describe('Karteikarten mit der KI erstellen', () => {
     window.location.hash = '#/stapel/neu?fach=physik'
     render(<App />)
     // Physik schlägt Rechenaufgaben vor
-    expect((await screen.findByRole('radio', { name: /Rechenaufgaben/ })).getAttribute('aria-checked')).toBe('true')
+    expect(await screen.findByRole('button', { name: /Rechenaufgaben.*passt zu Physik/ })).toBeTruthy()
+    await click(/Rechenaufgaben/)
     fireEvent.change(await screen.findByLabelText(/Was brauchst du/), { target: { value: 'Geschwindigkeit, Klasse 7' } })
     await click(/Aufgaben erstellen/)
     await waitFor(() => expect(text()).toMatch(/3 Aufgaben erstellt, bei 2 Rechenaufgaben hat die App das Ergebnis selbst ausgerechnet \(1 unbrauchbare/))
@@ -383,8 +383,8 @@ describe('Karteikarten mit der KI erstellen', () => {
     useStore.setState({ onboarded: true })
     window.location.hash = '#/stapel/neu?fach=biologie'
     render(<App />)
+    await click(/Von der KI/)
     fireEvent.change(await screen.findByLabelText(/Was brauchst du/), { target: { value: 'x' } })
-    await click(/^Karteikarten/, 'radio')
     await click(/Karten erstellen/)
     await waitFor(() => expect(text()).toMatch(/Bist du online/))
     await click(/selbst schreiben/)
@@ -395,9 +395,8 @@ describe('Karteikarten mit der KI erstellen', () => {
 describe('Karten aus Notizen, ohne KI', () => {
   it('Text einfügen, Vorschläge prüfen, speichern', async () => {
     useStore.setState({ onboarded: true, mySubjects: ['geschichte'] })
-    window.location.hash = '#/stapel/neu?fach=geschichte'
+    window.location.hash = '#/stapel/neu?fach=geschichte&art=foto'
     render(<App />)
-    await click(/Aus Notizen/, 'radio')
     fireEvent.change(await screen.findByLabelText(/Deine Notizen/), { target: { value: '1789 Beginn der Französischen Revolution\nDie Reformation ist eine Erneuerungsbewegung der Kirche.\nBastille – Gefängnis in Paris' } })
     await click(/Karten vorschlagen/)
     await waitFor(() => expect(text()).toMatch(/3 Karten vorgeschlagen/))

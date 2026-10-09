@@ -111,8 +111,8 @@ describe('Fuchs-Gerüst', () => {
     let max = 0
     let reopened = false
     run(e, 9, 16, () => {
-      max = Math.max(max, e.out.eyeL.shut)
-      if (max > 0.95 && e.out.eyeL.shut < 0.02) reopened = true
+      max = Math.max(max, 1 - e.out.eyeL.open)
+      if (max > 0.95 && 1 - e.out.eyeL.open < 0.02) reopened = true
     })
     expect(max).toBeGreaterThan(0.95)
     expect(reopened).toBe(true)
