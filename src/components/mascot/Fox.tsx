@@ -59,6 +59,11 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
   const g = (n: string) => `${n}-${uid}`
   const reg0 = useRef<(k: string) => (el: Element | null) => void>(() => () => undefined)
   const ctx = { g, reg: (k: string) => reg0.current(k) }
+  // Augen: Höhe und halber Abstand lassen sich je Tier ändern (Krokodil: hoch auf der Schnauze, Elefant: etwas tiefer)
+  const ey = skin.eyeY ?? 90
+  const exh = skin.eyeX ?? 31
+  const cxL = 100 - exh
+  const cxR = 100 + exh
   const viewBox = pose === 'full' ? '0 0 200 240' : '8 0 184 196'
 
   const root = useRef<SVGSVGElement>(null)
@@ -108,8 +113,8 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
       w[id] = value
       parts.current[key]?.setAttribute(name, value)
     }
-    drawEye(o.eyeL, 69, 90, false, 'L', set, o.vars.gx, o.vars.gy)
-    drawEye(o.eyeR, 131, 90, true, 'R', set, o.vars.gx, o.vars.gy)
+    drawEye(o.eyeL, cxL, ey, false, 'L', set, o.vars.gx, o.vars.gy)
+    drawEye(o.eyeR, cxR, ey, true, 'R', set, o.vars.gx, o.vars.gy)
     drawMouth(skin.shapeMouth ? skin.shapeMouth(o.mouth) : o.mouth, set, skin.speech, typeof skin.teeth === 'number' ? skin.teeth : 1)
   }
 
@@ -218,7 +223,7 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           <rect x="140" y="120" width="70" height="48" />
         </clipPath>
         <clipPath id={g('bodyClip')}>
-          <path d="M56 150 C46 180 52 210 74 219 C90 225 110 225 126 219 C148 210 154 180 144 150 C126 136 74 136 56 150 Z" />
+          <path d={skin.torso ?? 'M56 150 C46 180 52 210 74 219 C90 225 110 225 126 219 C148 210 154 180 144 150 C126 136 74 136 56 150 Z'} />
         </clipPath>
         <clipPath id={g('eyeL')}>
           <path ref={reg('clipL')} />
@@ -266,7 +271,7 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           <path d="M136 210 C142 224 134 233 118 233 C104 233 101 222 106 212 Z" fill={skin.foot} />
           <path d="M70 224 q8 3 16 0 M114 224 q8 3 16 0" stroke="#4a2c18" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.8" />
           {/* Rumpf */}
-          <path d="M56 150 C46 180 52 210 74 219 C90 225 110 225 126 219 C148 210 154 180 144 150 C126 136 74 136 56 150 Z" fill={`url(#${g('fur')})`} />
+          <path d={skin.torso ?? 'M56 150 C46 180 52 210 74 219 C90 225 110 225 126 219 C148 210 154 180 144 150 C126 136 74 136 56 150 Z'} fill={`url(#${g('fur')})`} />
           {skin.belly && <path d="M72 146 C70 178 80 207 100 211 C120 207 130 178 128 146 C116 156 84 156 72 146 Z" fill={`url(#${g('white')})`} />}
           {skin.id === 'fuchs' && <path d="M82 200 C92 208 108 208 118 200" stroke="#f0c9a0" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.6" />}
           {skin.body && <g clipPath={`url(#${g('bodyClip')})`}>{skin.body(ctx)}</g>}
@@ -275,7 +280,6 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           {/* Zehen */}
           <path d="M72 228 v4 M80 229 v4 M120 228 v4 M128 229 v4" stroke="#14090a" strokeWidth="1.6" strokeLinecap="round" opacity="0.55" />
           {/* Lichtkante links und Schatten rechts geben dem Körper Rundung */}
-          <path d="M62 158 C55 182 59 204 72 214" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" fill="none" opacity="0.28" />
           <path d="M140 160 C147 184 143 204 130 214" stroke={skin.shade} strokeWidth="5" strokeLinecap="round" fill="none" opacity="0.22" />
           {/* Schatten unter dem Kopf */}
           <ellipse cx="100" cy="148" rx="44" ry="8" fill={skin.shade} opacity="0.12" />
@@ -328,7 +332,6 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           {/* Kopfform und helle Schnauze */}
           <path d={skin.head ?? 'M100 28 C142 28 170 54 172 90 C173 121 146 148 100 148 C54 148 27 121 28 90 C30 54 58 28 100 28 Z'} fill={`url(#${g('face')})`} />
           {skin.muzzle && <path d={skin.muzzle} fill={`url(#${g('white')})`} />}
-          <path d="M60 52 C74 40 92 36 106 36" stroke="#fff" strokeWidth="5" strokeLinecap="round" fill="none" opacity="0.28" />
           {skin.tuft && (
             <>
               <path d="M96 31 C90 17 102 8 112 14 C104 16 102 24 104 31 Z" fill={skin.fur[0]} />
@@ -339,15 +342,19 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           {skin.overlay?.(ctx)}
 
           {/* Augen */}
-          <Eye cx={69} cy={90} clipId={g('eyeL')} flip={1} side="L" reg={reg} ink={skin.ink} />
-          <Eye cx={131} cy={90} clipId={g('eyeR')} flip={-1} side="R" reg={reg} ink={skin.ink} />
+          <Eye cx={cxL} cy={ey} clipId={g('eyeL')} flip={1} side="L" reg={reg} ink={skin.ink} />
+          <Eye cx={cxR} cy={ey} clipId={g('eyeR')} flip={-1} side="R" reg={reg} ink={skin.ink} />
 
           {/* Augenbrauen */}
-          <g style={T('translateY(calc(var(--blY, 0) * 1px)) rotate(calc(var(--blR, 0) * 1deg))', 69, 66)}>
-            <path d="M55 68 Q69 59 83 66" {...stroke(5, skin.id === 'panda' ? '#fff' : skin.ink)} />
+          <g transform={`translate(${cxL - 69} ${ey - 90})`}>
+            <g style={T('translateY(calc(var(--blY, 0) * 1px)) rotate(calc(var(--blR, 0) * 1deg))', 69, 66)}>
+              <path d="M55 68 Q69 59 83 66" {...stroke(5, skin.id === 'panda' ? '#fff' : skin.ink)} />
+            </g>
           </g>
-          <g style={T('translateY(calc(var(--brY, 0) * 1px)) rotate(calc(var(--brR, 0) * 1deg))', 131, 66)}>
-            <path d="M117 66 Q131 59 145 68" {...stroke(5, skin.id === 'panda' ? '#fff' : skin.ink)} />
+          <g transform={`translate(${cxR - 131} ${ey - 90})`}>
+            <g style={T('translateY(calc(var(--brY, 0) * 1px)) rotate(calc(var(--brR, 0) * 1deg))', 131, 66)}>
+              <path d="M117 66 Q131 59 145 68" {...stroke(5, skin.id === 'panda' ? '#fff' : skin.ink)} />
+            </g>
           </g>
 
           {/* Wangen */}
@@ -395,6 +402,7 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           {skin.snout?.(ctx)}
 
           {/* Gesichtsschmuck (gekauft) */}
+          <g transform={`translate(0 ${ey - 90})`}>
           {gesicht === 'brille' && (
             <g fill="none" strokeLinecap="round">
               <circle cx="69" cy="90" r="24" fill="rgba(190,220,255,0.18)" stroke="#2b2f4a" strokeWidth="4.2" />
@@ -422,7 +430,10 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
             </g>
           )}
 
+          </g>
+
           {/* Kopfschmuck (gekauft) */}
+          <g transform={`translate(0 ${skin.topDy ?? 0})`}>
           {kopf === 'muetze' && (
             <g transform="translate(0 -6)" strokeLinejoin="round" strokeLinecap="round">
               <path d="M60 58 C56 26 74 10 100 10 C126 10 144 26 140 58 Z" fill="#3f7df0" />
@@ -472,6 +483,7 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
               <circle cx="136" cy="14" r="4.200" fill="#fff6c0" stroke="#c98a00" strokeWidth="2" />
             </g>
           )}
+          </g>
         </g>
 
         {look.armFront && arms}

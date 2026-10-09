@@ -66,6 +66,13 @@ export interface Skin {
   speech?: 'beak' | 'trunk'
   /** Mundform des Tieres anpassen (z. B. breiter beim Krokodil) */
   shapeMouth?: (m: MouthParams) => MouthParams
+  /** Höhe der Augen (Standard 90) und halber Abstand voneinander (Standard 31) */
+  eyeY?: number
+  eyeX?: number
+  /** Hüte und Kronen sitzen höher oder tiefer, wenn der Kopf höher oder tiefer endet (Standard 0) */
+  topDy?: number
+  /** eigene Rumpfform */
+  torso?: string
   /** Zähne an Ober- und Unterkiefer (Krokodil); eine Zahl macht sie größer (1 = normal) */
   teeth?: boolean | number
   tail: (c: Ctx) => ReactNode
@@ -155,63 +162,66 @@ const fuchs: Skin = {
 /** Der Elefant: große Ohren, kurzer Rüssel, Stoßzähne. */
 const elefant: Skin = {
   id: 'elefant',
-  earPivot: [[46, 72], [154, 72]],
   label: 'Elefant',
   name: 'Elli',
   blurb: 'Vergisst nie etwas',
-  fur: ['#bcc6d4', '#a3afc0', '#8896ab'],
-  light: ['#dde3ec', '#c5cedb'],
+  fur: ['#b6c2d4', '#9eacc1', '#8696ae'],
+  light: ['#e4e9f1', '#cdd5e1'],
   ink: '#2b3340',
   shade: '#5d6a80',
-  paw: '#8896ab',
-  foot: '#7c8aa0',
-  muzzle: false,
+  paw: '#8696ae',
+  foot: '#7a8aa3',
   cheek: '#f4a6b8',
-  belly: false,
+  eyeY: 84,
+  muzzle: false,
+  belly: true,
+  speech: 'trunk',
   noStem: true,
+  head: 'M100 30 C146 30 172 58 172 94 C172 130 146 150 100 150 C54 150 28 130 28 94 C28 58 54 30 100 30 Z',
   earL: () => (
     <g>
-      <ellipse cx="22" cy="86" rx="32" ry="42" fill="#a3afc0" />
-      <ellipse cx="26" cy="88" rx="21" ry="30" fill="#f1b4c3" />
-      <path d="M12 70 q-4 18 4 34" stroke="#d98aa0" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.6" />
+      <path d="M52 52 C20 34 -2 58 4 94 C10 128 36 142 56 122 Z" fill="#9eacc1" />
+      <path d="M50 64 C28 54 14 70 18 94 C22 114 38 122 52 108 Z" fill="#f3b6c5" />
+      <path d="M30 76 q-5 14 4 26" stroke="#dc8fa4" strokeWidth="2.400" strokeLinecap="round" fill="none" opacity="0.7" />
     </g>
   ),
   earR: () => (
     <g>
-      <ellipse cx="178" cy="86" rx="32" ry="42" fill="#a3afc0" />
-      <ellipse cx="174" cy="88" rx="21" ry="30" fill="#f1b4c3" />
-      <path d="M188 70 q4 18 -4 34" stroke="#d98aa0" strokeWidth="2" strokeLinecap="round" fill="none" opacity="0.6" />
+      <path d="M148 52 C180 34 202 58 196 94 C190 128 164 142 144 122 Z" fill="#9eacc1" />
+      <path d="M150 64 C172 54 186 70 182 94 C178 114 162 122 148 108 Z" fill="#f3b6c5" />
+      <path d="M170 76 q5 14 -4 26" stroke="#dc8fa4" strokeWidth="2.400" strokeLinecap="round" fill="none" opacity="0.7" />
     </g>
   ),
   face: () => (
     <g>
-      <path d="M62 52 C76 42 92 40 106 40" stroke="#fff" strokeWidth="5" strokeLinecap="round" fill="none" opacity="0.3" />
+      {/* ein paar Haare auf der Stirn */}
+      <path d="M96 32 C92 20 98 14 104 18 M104 31 C104 21 110 17 114 22" stroke="#7a8aa3" strokeWidth="3.600" strokeLinecap="round" fill="none" />
     </g>
   ),
   nose: () => <g />,
-  speech: 'trunk',
   snout: (c) => (
     <g>
-      {/* Stoßzähne: klein, links und rechts unter dem Rüssel, die Spitzen zeigen nach außen */}
-      <path d="M82 127 C76 130 71 138 72 149 C76 147 80 139 87 133 Z" fill="#fff7e4" stroke="#d9c9a3" strokeWidth="1.4" strokeLinejoin="round" />
-      <path d="M118 127 C124 130 129 138 128 149 C124 147 120 139 113 133 Z" fill="#fff7e4" stroke="#d9c9a3" strokeWidth="1.4" strokeLinejoin="round" />
+      {/* Stoßzähne: klein, links und rechts unter dem Rüsselansatz */}
+      <path d="M86 126 C78 128 72 138 74 150 C78 148 84 140 92 134 Z" fill="#fff8e6" stroke="#d9c9a3" strokeWidth="1.600" strokeLinejoin="round" />
+      <path d="M114 126 C122 128 128 138 126 150 C122 148 116 140 108 134 Z" fill="#fff8e6" stroke="#d9c9a3" strokeWidth="1.600" strokeLinejoin="round" />
       {/* Der Mund steckt links und rechts neben dem Rüssel */}
-      <path ref={c.reg('smileL')} stroke="#2b3340" strokeWidth="3.2" strokeLinecap="round" fill="none" />
-      <path ref={c.reg('smileR')} stroke="#2b3340" strokeWidth="3.2" strokeLinecap="round" fill="none" />
-      {/* Rüssel: breit an der Stirn, nach unten schmaler, am Ende ein kleiner Schwung; dunkler als der Kopf, damit man ihn sieht */}
-      <g ref={c.reg('trunk')} strokeLinejoin="round" strokeLinecap="round">
-        <path d="M84 80 C83 102 85 122 88 136 C90 148 100 155 110 151 C118 148 118 139 111 138 C107 138 106 142 103 142 C100 142 102 134 103 124 C106 108 116 98 116 80 Z" fill="#97a4ba" stroke="#6f7d95" strokeWidth="2" />
-        <path d="M108 84 C108 100 104 110 101 124 C100 132 99 138 103 142 C106 142 107 138 111 138 C118 139 118 148 110 151 C100 155 90 148 88 136 L100 128 C102 110 112 100 116 80 Z" fill="#7d8ba1" opacity="0.45" />
-        <path d="M87 96 q12 4 26 -2 M88 108 q12 4 24 -2 M90 120 q10 4 18 -1" stroke="#6f7d95" strokeWidth="2" fill="none" opacity="0.7" />
-        <path d="M91 84 C90 98 91 112 93 126" stroke="#fff" strokeWidth="3.4" fill="none" opacity="0.4" />
-        <ellipse cx="108.500" cy="146" rx="2.400" ry="1.700" fill="#46526a" />
+      <path ref={c.reg('smileL')} stroke="#2b3340" strokeWidth="3.200" strokeLinecap="round" fill="none" />
+      <path ref={c.reg('smileR')} stroke="#2b3340" strokeWidth="3.200" strokeLinecap="round" fill="none" />
+      {/* Rüssel: ein dicker Schlauch von der Stirn bis über das Kinn, unten etwas breiter, mit Falten */}
+      <g ref={c.reg('trunk')} fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M100 92 C99 112 98 128 100 142" stroke="#6f7d95" strokeWidth="29" />
+        <path d="M100 92 C99 112 98 128 100 142" stroke="#a9b6ca" strokeWidth="24" />
+        <path d="M93 98 C92 112 92 126 93 138" stroke="#cdd7e6" strokeWidth="5" opacity="0.75" />
+        <path d="M90 108 q10 4 20 0 M89 119 q11 4 22 0 M89 130 q11 4 22 0" stroke="#7f8da4" strokeWidth="2.400" opacity="0.85" />
+        <ellipse cx="95" cy="145" rx="2.600" ry="2" fill="#46526a" stroke="none" />
+        <ellipse cx="105" cy="145" rx="2.600" ry="2" fill="#46526a" stroke="none" />
       </g>
     </g>
   ),
   tail: () => (
     <g>
-      <path d="M126 206 C150 210 160 196 158 178 C156 190 142 196 126 194 Z" fill="#8896ab" />
-      <path d="M158 178 C158 170 162 166 166 168 C166 174 162 180 158 182 Z" fill="#5d6a80" />
+      <path d="M126 206 C150 210 160 196 158 178" fill="none" stroke="#8696ae" strokeWidth="5" strokeLinecap="round" />
+      <path d="M158 178 C154 170 160 164 166 168 C166 175 163 180 160 182 Z" fill="#5d6a80" />
     </g>
   ),
 }
@@ -219,68 +229,70 @@ const elefant: Skin = {
 /** Das Krokodil: breite Schnauze mit Nasenlöchern, kleine Augenwülste, Zacken. */
 const krokodil: Skin = {
   id: 'krokodil',
-  earPivot: [[50, 48], [150, 48]],
   label: 'Krokodil',
   name: 'Boris',
   blurb: 'Hat immer gute Laune',
-  fur: ['#8fdc74', '#5cc15a', '#3f9f49'],
-  light: ['#e8f7b8', '#cfe98f'],
-  ink: '#173d1f',
+  fur: ['#86d968', '#52c04c', '#3aa245'],
+  light: ['#f2f8c6', '#dbed9e'],
+  ink: '#143a1d',
   shade: '#1f6a2e',
-  paw: '#3f9f49',
+  paw: '#3aa245',
   foot: '#2f8a3e',
   cheek: '#ffa8a0',
-  head: 'M100 34 C148 34 178 58 178 92 C178 124 150 148 100 148 C50 148 22 124 22 92 C22 58 52 34 100 34 Z',
-  muzzle: 'M26 96 C34 84 56 84 74 92 C88 98 94 100 100 100 C106 100 112 98 126 92 C144 84 166 84 174 96 C178 126 150 148 100 148 C50 148 22 126 26 96 Z',
+  // Augen oben auf zwei Höckern, darunter eine breite, flache Schnauze: so erkennt man ein Krokodil von vorn
+  eyeY: 72,
+  eyeX: 34,
+  topDy: 10,
+  head: 'M30 100 C30 84 52 74 100 74 C148 74 170 84 170 100 L172 120 C172 141 148 153 100 153 C52 153 28 141 28 120 Z',
+  muzzle: 'M31 116 C62 126 138 126 169 116 C171 141 148 153 100 153 C52 153 29 141 31 116 Z',
   belly: true,
-  earL: () => (
+  teeth: 1.5,
+  // Ein breites Krokodilgrinsen über die ganze Schnauze, die Mundwinkel hoch
+  shapeMouth: (m) => ({ ...m, w: m.w * 3.2, cornerY: m.cornerY - 4, centerY: m.centerY + 1, bump: m.bump * 0.1 }),
+  behind: (c) => (
     <g>
-      <ellipse cx="50" cy="44" rx="13" ry="11" fill="#4cb054" />
-      <ellipse cx="50" cy="43" rx="7" ry="5.5" fill="#8fdc74" />
+      {/* Rückenzacken zwischen den Augenhöckern */}
+      <path d="M84 76 L92 56 L100 76 Z M98 74 L108 52 L116 76 Z" fill="#2f8a3e" />
+      {/* Augenhöcker */}
+      <circle cx="66" cy="68" r="29" fill={`url(#${c.g('face')})`} />
+      <circle cx="134" cy="68" r="29" fill={`url(#${c.g('face')})`} />
     </g>
   ),
-  earR: () => (
-    <g>
-      <ellipse cx="150" cy="44" rx="13" ry="11" fill="#4cb054" />
-      <ellipse cx="150" cy="43" rx="7" ry="5.5" fill="#8fdc74" />
-    </g>
-  ),
+  earL: () => <g />,
+  earR: () => <g />,
   face: () => (
     <g>
-      {/* Zacken auf der Stirn */}
-      <path d="M86 38 L90 26 L95 38 Z M96 36 L100 22 L105 36 Z M106 38 L110 26 L114 38 Z" fill="#3f9f49" />
-      {/* Nasenwülste */}
-      <ellipse cx="86" cy="104" rx="9" ry="7" fill="#e8f7b8" />
-      <ellipse cx="114" cy="104" rx="9" ry="7" fill="#e8f7b8" />
-      {/* Augenhöcker: Krokodile haben die Augen auf kleinen Erhebungen */}
-      <ellipse cx="69" cy="86" rx="26" ry="25" fill="#7fd36a" />
-      <ellipse cx="131" cy="86" rx="26" ry="25" fill="#7fd36a" />
-      <path d="M46 78 C50 62 70 58 86 66 M154 78 C150 62 130 58 114 66" stroke="#4cb054" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.7" />
-      {/* Unterkiefer: eine dunklere Kante unter dem Grinsen */}
-      <path d="M44 128 C62 150 138 150 156 128" stroke="#3f9f49" strokeWidth="3.4" strokeLinecap="round" fill="none" opacity="0.35" />
-      <g fill="#3f9f49" opacity="0.4">
-        <circle cx="52" cy="66" r="3" />
-        <circle cx="66" cy="58" r="3" />
-        <circle cx="134" cy="58" r="3" />
-        <circle cx="148" cy="66" r="3" />
+      {/* Nasenhöcker obenauf der Schnauze */}
+      <ellipse cx="86" cy="96" rx="9" ry="7" fill="#9be27d" />
+      <ellipse cx="114" cy="96" rx="9" ry="7" fill="#9be27d" />
+      {/* Schuppenflecken an den Wangen */}
+      <g fill="#2f8a3e" opacity="0.28">
+        <circle cx="44" cy="104" r="3.4" />
+        <circle cx="54" cy="112" r="2.6" />
+        <circle cx="156" cy="104" r="3.4" />
+        <circle cx="146" cy="112" r="2.6" />
       </g>
+      {/* Kinnkante unter dem Grinsen */}
+      <path d="M40 132 C62 150 138 150 160 132" stroke="#2f8a3e" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.28" />
     </g>
   ),
   nose: () => (
     <g>
-      <ellipse cx="86" cy="104" rx="3.6" ry="2.8" fill="#173d1f" />
-      <ellipse cx="114" cy="104" rx="3.6" ry="2.8" fill="#173d1f" />
+      <ellipse cx="86" cy="96.500" rx="3.200" ry="2.400" fill="#143a1d" />
+      <ellipse cx="114" cy="96.500" rx="3.200" ry="2.400" fill="#143a1d" />
     </g>
   ),
   noStem: true,
-  teeth: 1.5,
-  // Ein breites Krokodilgrinsen: weit über die Schnauze, die Mundwinkel hoch
-  shapeMouth: (m) => ({ ...m, w: m.w * 3.1, cornerY: m.cornerY - 5, bump: m.bump * 0.1 }),
+  body: () => (
+    <g stroke="#b8d77f" strokeWidth="2.600" strokeLinecap="round" fill="none" opacity="0.8">
+      <path d="M84 160 q16 6 32 0 M82 172 q18 6 36 0 M82 184 q18 6 36 0 M84 196 q16 6 32 0" />
+    </g>
+  ),
   tail: (c) => (
     <g>
-      <path d="M126 204 C150 214 182 224 204 220 C196 208 170 196 126 190 Z" fill={fur(c)} />
-      <path d="M150 198 L156 188 L162 200 Z M166 204 L173 193 L178 207 Z M182 210 L190 200 L193 214 Z" fill="#2f8a3e" />
-      <path d="M126 204 C150 214 182 224 204 220" fill="none" stroke="#1f6a2e" strokeWidth="4" strokeLinecap="round" opacity="0.3" />
+      <path d="M126 204 C152 214 184 226 208 220 C198 206 170 194 126 188 Z" fill={fur(c)} />
+      <path d="M148 197 L155 185 L162 200 Z M166 204 L174 191 L180 207 Z M184 211 L192 199 L196 214 Z" fill="#2f8a3e" />
+      <path d="M130 207 C152 217 184 226 208 220" fill="none" stroke="#1f6a2e" strokeWidth="3" strokeLinecap="round" opacity="0.3" />
     </g>
   ),
 }
@@ -495,40 +507,40 @@ const pinguin: Skin = {
   label: 'Pinguin',
   name: 'Pablo',
   blurb: 'Cool bleiben',
-  fur: ['#4a5166', '#323848', '#232734'],
-  light: ['#ffffff', '#e6ecf5'],
+  fur: ['#4f566c', '#383f52', '#252a38'],
+  light: ['#ffffff', '#e9eef7'],
   ink: '#10131c',
   shade: '#10131c',
   paw: '#2a3040',
-  foot: '#ff9a2e',
+  foot: '#ffa022',
   arm: '#2e3444',
   cheek: '#ff8fa3',
-  muzzle: 'M30 92 C34 74 52 68 70 78 C84 86 92 98 100 100 C108 98 116 86 130 78 C148 68 166 74 170 92 C172 124 146 148 100 148 C54 148 28 124 30 92 Z',
+  eyeY: 84,
   belly: true,
+  speech: 'beak',
+  noStem: true,
+  // Kopf dunkel, das Gesicht eine weiße Maske, die sich in zwei Bögen um die Augen nach oben zieht
+  muzzle: 'M34 100 C28 76 44 58 66 64 C82 69 92 80 100 96 C108 80 118 69 134 64 C156 58 172 76 166 100 C166 130 142 150 100 150 C58 150 34 130 34 100 Z',
   earL: () => <g />,
   earR: () => <g />,
   nose: () => <g />,
-  speech: 'beak',
   snout: (c) => (
-    <g>
+    <g strokeLinejoin="round" strokeLinecap="round">
       {/* Rachen: wird sichtbar, wenn der Unterschnabel aufklappt */}
-      <ellipse ref={c.reg('beakGape')} cx="100" cy="117" rx="9" ry="0.01" fill="#6d1f2c" />
+      <ellipse ref={c.reg('beakGape')} cx="100" cy="118" rx="10" ry="0.01" fill="#6d1f2c" />
       {/* Unterschnabel: klappt beim Sprechen nach unten */}
       <g ref={c.reg('beakLow')}>
-        <path d="M89 116 C93 126 107 126 111 116 Q100 120 89 116 Z" fill="#f08400" />
-        <path d="M93 119 Q100 123 107 119" stroke="#ffb54d" strokeWidth="1.4" fill="none" strokeLinecap="round" opacity="0.8" />
+        <path d="M89 117 C93 127 107 127 111 117 Q100 121 89 117 Z" fill="#f08400" />
       </g>
-      {/* Oberschnabel: breit an der Wurzel, abgerundete Spitze, mit Kamm und Nasenlöchern */}
-      <path d="M84 100 C86 92 114 92 116 100 C117 109 109 118 100 120 C91 118 83 109 84 100 Z" fill="#ffa726" />
-      <path d="M84 100 C86 92 114 92 116 100" stroke="#ff8f00" strokeWidth="1.4" fill="none" opacity="0.6" />
-      <path d="M100 96 V114" stroke="#ff8f00" strokeWidth="1.8" strokeLinecap="round" opacity="0.4" />
-      <ellipse cx="93" cy="101" rx="2.2" ry="1.3" fill="#c76a00" opacity="0.7" />
-      <ellipse cx="107" cy="101" rx="2.2" ry="1.3" fill="#c76a00" opacity="0.7" />
-      <path d="M90 98 C94 95 100 95 104 96" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" fill="none" opacity="0.55" />
+      {/* Oberschnabel: breite Wurzel zwischen den Augen, läuft nach unten spitz zu, mit Mundlinie */}
+      <path d="M84 99 C87 92 113 92 116 99 C117 109 109 121 100 126 C91 121 83 109 84 99 Z" fill="#ffb020" />
+      <path d="M87 107 Q100 115 113 107" stroke="#e07c00" strokeWidth="2.200" fill="none" />
+      <path d="M89 96 C94 93 106 93 111 96" stroke="#ffd36b" strokeWidth="3" fill="none" opacity="0.8" />
+      <ellipse cx="93" cy="100" rx="2" ry="1.300" fill="#c76a00" opacity="0.8" />
+      <ellipse cx="107" cy="100" rx="2" ry="1.300" fill="#c76a00" opacity="0.8" />
     </g>
   ),
-  noStem: true,
-  tail: () => <path d="M126 210 C146 220 158 216 164 204 C150 204 138 198 126 192 Z" fill="#232734" />,
+  tail: () => <path d="M126 212 C146 224 160 218 166 204 C150 206 138 200 126 194 Z" fill="#252a38" />,
 }
 
 /** Das Nilpferd: breite rosa Schnauze, kleine Ohren. */
