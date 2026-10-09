@@ -9,7 +9,7 @@ import { EASE, SPRING } from '../../components/ui/motion'
 import { evaluate, type Answer, type Evaluation } from '../../lib/evaluate'
 import { fillSentence } from '../../lib/fillSentence'
 import { makeHint } from '../../lib/hint'
-import { buzz, playCorrect, playWrong } from '../../lib/sound'
+import { playCorrect, playWrong } from '../../lib/sound'
 import { speak } from '../../lib/speech'
 import type { Grade } from '../../lib/srs'
 import type { Exercise } from '../../lib/types'
@@ -94,7 +94,6 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
       if (ev.status === 'almost' && !isMatch) almostCount.current[ex.itemId] = (almostCount.current[ex.itemId] ?? 0) + 1
       if (ev.status === 'wrong') {
         playWrong()
-        buzz([25, 40, 25])
         setCombo(0)
         if (!noRetry) {
           // Gleiche Aufgabe wiederholen, bis sie sitzt (nach ein paar anderen, damit es kein Auswendig-Klicken wird)
@@ -110,7 +109,6 @@ export function Session({ exercises, gradedItemIds, onExit, onComplete, noRetry 
           })
         }
       } else {
-        buzz(12)
         playCorrect(!isRetry && !ex.warm && ev.status === 'correct' ? combo + 1 : 0)
         if (!isRetry && !ex.warm && ev.status === 'correct') {
           firstTry.current += 1

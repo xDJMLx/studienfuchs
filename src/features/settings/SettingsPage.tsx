@@ -374,7 +374,7 @@ export function SettingsPage() {
                   })}
                 </div>
               </div>
-              <Row title="Töne und Vibration" hint="Kurze Signale bei richtig, falsch und am Ende einer Lektion; auf dem Handy auch ein kurzes Vibrieren.">
+              <Row title="Töne und Vibration" hint="Kurze Signale bei richtig, falsch und am Ende einer Lektion. Auf dem Handy tickt es außerdem leise bei jedem Tippen.">
                 <Switch checked={soundOn} onChange={setSoundOn} label="Töne" />
               </Row>
             </Section>

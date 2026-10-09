@@ -215,6 +215,9 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
         <clipPath id={g('tailTip')}>
           <rect x="140" y="120" width="70" height="48" />
         </clipPath>
+        <clipPath id={g('bodyClip')}>
+          <path d="M56 150 C46 180 52 210 74 219 C90 225 110 225 126 219 C148 210 154 180 144 150 C126 136 74 136 56 150 Z" />
+        </clipPath>
         <clipPath id={g('eyeL')}>
           <path ref={reg('clipL')} />
         </clipPath>
@@ -264,7 +267,7 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
           <path d="M56 150 C46 180 52 210 74 219 C90 225 110 225 126 219 C148 210 154 180 144 150 C126 136 74 136 56 150 Z" fill={`url(#${g('fur')})`} />
           {skin.belly && <path d="M72 146 C70 178 80 207 100 211 C120 207 130 178 128 146 C116 156 84 156 72 146 Z" fill={`url(#${g('white')})`} />}
           {skin.id === 'fuchs' && <path d="M82 200 C92 208 108 208 118 200" stroke="#f0c9a0" strokeWidth="2" fill="none" strokeLinecap="round" opacity="0.6" />}
-          {skin.body?.(ctx)}
+          {skin.body && <g clipPath={`url(#${g('bodyClip')})`}>{skin.body(ctx)}</g>}
           {/* Fellbüschel an der Brust */}
           {skin.id === 'fuchs' && <path d="M86 152 l4 9 l5 -7 l5 9 l5 -9 l5 7 l4 -9" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" fill="none" opacity="0.7" />}
           {/* Zehen */}

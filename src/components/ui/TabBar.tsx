@@ -1,6 +1,6 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { useRef, useState, type PointerEvent as RPointerEvent, type ReactNode } from 'react'
-import { buzz } from '../../lib/sound'
+import { haptic } from '../../lib/haptics'
 
 export interface TabDef {
   key: string
@@ -38,7 +38,7 @@ export function TabBar({ tabs, activeIndex, onSelect, extra }: { tabs: TabDef[];
     if (heldRef.current === i) return
     heldRef.current = i
     setHeld(i)
-    if (i !== null) buzz(6)
+    if (i !== null) haptic('select')
   }
   const down = (e: RPointerEvent) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return

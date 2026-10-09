@@ -5,9 +5,11 @@ import { createRoot } from 'react-dom/client'
 import App from './App'
 import './index.css'
 import { installFeel } from './lib/feel'
+import { installHaptics } from './lib/haptics'
 import { installErrorLog } from './lib/feedback'
 
 installFeel()
+installHaptics()
 installErrorLog()
 
 createRoot(document.getElementById('root')!).render(
