@@ -86,3 +86,84 @@ export function mouthLower(p: MouthParams): string {
   const rx = 100 + p.w
   return `M${r(rx)} ${r(p.cornerY)} Q100 ${r(Math.max(p.cornerY, p.centerY) + p.open * 1.55)} ${r(lx)} ${r(p.cornerY)}`
 }
+
+/** Höhe der Oberkante des Mundes bei der Stelle x (die Linie besteht aus zwei Kurven; x wird per Halbieren gesucht). */
+export function upperY(p: MouthParams, x: number): number {
+  const lx = 100 - p.w
+  const rx = 100 + p.w
+  const midY = (p.cornerY + p.centerY) / 2
+  const left = x <= 100
+  const x0 = left ? lx : 100
+  const x1 = left ? 100 : rx
+  const y0 = left ? p.cornerY : p.centerY
+  const y1 = left ? p.centerY : p.cornerY
+  const cx = left ? 100 - p.w / 2 : 100 + p.w / 2
+  const cy = midY + p.bump
+  let a = 0
+  let b = 1
+  for (let i = 0; i < 18; i++) {
+    const t = (a + b) / 2
+    const xt = (1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * cx + t * t * x1
+    if (xt < x) a = t
+    else b = t
+  }
+  const t = (a + b) / 2
+  return (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * cy + t * t * y1
+}
+
+/** Höhe der Unterkante des geöffneten Mundes bei x. */
+export function lowerY(p: MouthParams, x: number): number {
+  const lx = 100 - p.w
+  const rx = 100 + p.w
+  const base = Math.max(p.cornerY, p.centerY)
+  const cy = base + p.open * 1.55
+  let a = 0
+  let b = 1
+  for (let i = 0; i < 18; i++) {
+    const t = (a + b) / 2
+    const xt = (1 - t) * (1 - t) * rx + 2 * (1 - t) * t * 100 + t * t * lx
+    if (xt > x) a = t
+    else b = t
+  }
+  const t = (a + b) / 2
+  return (1 - t) * (1 - t) * p.cornerY + 2 * (1 - t) * t * cy + t * t * p.cornerY
+}
+
+const TEETH_UP: [number, number, number][] = [
+  [-0.86, 3.4, 7],
+  [-0.6, 2.7, 4.6],
+  [-0.34, 2.7, 4.6],
+  [-0.1, 2.5, 4],
+  [0.1, 2.5, 4],
+  [0.34, 2.7, 4.6],
+  [0.6, 2.7, 4.6],
+  [0.86, 3.4, 7],
+]
+const TEETH_LOW: [number, number, number][] = [
+  [-0.72, 2.6, 4.4],
+  [-0.4, 2.4, 3.6],
+  [0.4, 2.4, 3.6],
+  [0.72, 2.6, 4.4],
+]
+
+/** Zähne des Oberkiefers: Dreiecke, die von der Mundlinie hängen (Krokodil). */
+export function teethUpper(p: MouthParams, k = 1): string {
+  return TEETH_UP.map(([u, hw0, h0]) => {
+    const hw = hw0 * k
+    const h = h0 * k
+    const x = 100 + u * p.w
+    const y = upperY(p, x) - 0.6
+    return `M${r(x - hw)} ${r(upperY(p, x - hw) - 0.6)} L${r(x + hw)} ${r(upperY(p, x + hw) - 0.6)} L${r(x)} ${r(y + h)} Z`
+  }).join(' ')
+}
+
+/** Zähne des Unterkiefers: kleine Dreiecke nach oben, nur bei offenem Mund zu sehen. */
+export function teethLower(p: MouthParams, k = 1): string {
+  return TEETH_LOW.map(([u, hw0, h0]) => {
+    const hw = hw0 * k
+    const h = h0 * k
+    const x = 100 + u * p.w
+    const y = lowerY(p, x) + 0.6
+    return `M${r(x - hw)} ${r(lowerY(p, x - hw) + 0.6)} L${r(x + hw)} ${r(lowerY(p, x + hw) + 0.6)} L${r(x)} ${r(y - h)} Z`
+  }).join(' ')
+}

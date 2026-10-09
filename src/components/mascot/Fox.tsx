@@ -3,7 +3,7 @@ import type { Outfit } from '../../lib/shop'
 import { FoxEngine } from './engine'
 import { eyeArc, eyeLid, eyeWindow, lidOpacity, shutScale, SHUT_PIVOT, EYE_RX, EYE_RY, type EyeParams } from './eye'
 import type { Fx, Look } from './look'
-import { mouthLine, mouthLower, mouthPath, tonguePos, type MouthParams } from './mouth'
+import { mouthLine, mouthLower, mouthPath, teethLower, teethUpper, tonguePos, type MouthParams } from './mouth'
 import { skinOf, type SpeciesId } from './species'
 
 /**
@@ -57,7 +57,8 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
   const skin = skinOf(species)
   const { kopf, gesicht, hals, hintergrund } = outfit ?? {}
   const g = (n: string) => `${n}-${uid}`
-  const ctx = { g }
+  const reg0 = useRef<(k: string) => (el: Element | null) => void>(() => () => undefined)
+  const ctx = { g, reg: (k: string) => reg0.current(k) }
   const viewBox = pose === 'full' ? '0 0 200 240' : '8 0 184 196'
 
   const root = useRef<SVGSVGElement>(null)
@@ -65,6 +66,7 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
   const reg = (k: string) => (el: Element | null) => {
     parts.current[k] = el
   }
+  reg0.current = reg
   const reduced = useMemo(reducedMotion, [])
   const engine = useMemo(() => new FoxEngine({ idle: false, reduced }), [reduced])
   const raf = useRef(0)
@@ -108,7 +110,7 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
     }
     drawEye(o.eyeL, 69, 90, false, 'L', set, o.vars.gx, o.vars.gy)
     drawEye(o.eyeR, 131, 90, true, 'R', set, o.vars.gx, o.vars.gy)
-    drawMouth(o.mouth, set)
+    drawMouth(skin.shapeMouth ? skin.shapeMouth(o.mouth) : o.mouth, set, skin.speech, typeof skin.teeth === 'number' ? skin.teeth : 1)
   }
 
   // Pose ans Gerüst geben; kleine, ruhende Füchse springen einfach dorthin, lebende erst beim Erscheinen (kein Rohzustand im ersten Bild), danach gleiten sie
@@ -370,8 +372,8 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
             </g>
           )}
 
-          {/* Mund */}
-          <g>
+          {/* Mund (Pinguin und Elefant sprechen anders: Schnabel und Rüssel stehen im „snout“ des Tieres) */}
+          <g style={skin.speech ? { display: 'none' } : undefined}>
             <path ref={reg('mFill')} fill={C.mouth} />
             <g clipPath={`url(#${g('mouthClip')})`}>
               <ellipse ref={reg('tongue')} cx="100" fill={C.tongue} />
@@ -381,7 +383,15 @@ export const Fox = forwardRef<FoxHandle, FoxProps>(function Fox({ look, outfit, 
             <path ref={reg('mLower')} {...stroke(3.6, skin.ink)} />
           </g>
 
-          {/* Rüssel, Zähne und anderes, das vor dem Mund liegt */}
+          {/* Zähne (Krokodil): hängen von der Mundlinie und folgen ihr */}
+          {skin.teeth && (
+            <g fill="#fff" stroke="#d3e0a6" strokeWidth="0.9" strokeLinejoin="round">
+              <path ref={reg('teethUp')} />
+              <path ref={reg('teethLow')} />
+            </g>
+          )}
+
+          {/* Rüssel, Schnabel und anderes, das vor oder statt dem Mund liegt */}
           {skin.snout?.(ctx)}
 
           {/* Gesichtsschmuck (gekauft) */}
@@ -513,7 +523,7 @@ function drawEye(p: EyeParams, cx: number, cy: number, mirror: boolean, side: 'L
   set('scale' + side, 'transform', 'translate(' + cx + ' ' + piv + ') scale(' + sx + ' ' + sy + ') translate(' + -cx + ' ' + -piv + ')')
 }
 
-function drawMouth(m: MouthParams, set: Setter) {
+function drawMouth(m: MouthParams, set: Setter, speech?: 'beak' | 'trunk', teethK = 1) {
   const full = mouthPath(m)
   set('mFill', 'd', full)
   set('mFill', 'fill-opacity', String(Math.min(1, Math.round((m.open / 4) * 100) / 100)))
@@ -526,6 +536,24 @@ function drawMouth(m: MouthParams, set: Setter) {
   set('tongue', 'cy', String(Math.round(t.cy * 100) / 100))
   set('tongue', 'rx', String(Math.round(t.rx * 100) / 100))
   set('tongue', 'ry', String(Math.round(t.ry * 100) / 100))
+  // Zähne folgen der Mundlinie; unten nur bei offenem Mund
+  set('teethUp', 'd', teethUpper(m, teethK))
+  set('teethLow', 'd', teethLower(m, teethK))
+  set('teethLow', 'opacity', String(Math.min(1, Math.round((m.open / 6) * 100) / 100)))
+  if (speech === 'beak') {
+    // Schnabel: der Unterschnabel klappt mit dem Mund auf, dazwischen wird der Rachen sichtbar
+    set('beakLow', 'transform', 'translate(0 ' + Math.round(m.open * 0.4 * 100) / 100 + ')')
+    set('beakGape', 'ry', String(Math.round(Math.max(0.01, m.open * 0.21) * 100) / 100))
+  }
+  if (speech === 'trunk') {
+    // Rüssel: Der Mund steckt links und rechts neben dem Rüssel und lächelt oder hängt mit der Stimmung
+    const lift = (134 - m.cornerY) * 0.6
+    const ya = Math.round((119 - lift * 0.9) * 100) / 100
+    const yc = Math.round((124 - lift * 0.3) * 100) / 100
+    set('smileL', 'd', 'M85 120 Q78 ' + yc + ' 68 ' + ya)
+    set('smileR', 'd', 'M115 120 Q122 ' + yc + ' 132 ' + ya)
+    set('trunk', 'transform', 'translate(0 ' + Math.round(-m.open * 0.12 * 100) / 100 + ')')
+  }
 }
 
 /** Kleine Effekte rund um den Fuchs: Funken, Träne, Fragezeichen, Zzz, Herzen, Konfetti. */
