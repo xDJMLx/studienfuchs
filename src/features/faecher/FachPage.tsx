@@ -4,8 +4,7 @@ import { Segmented } from '../../components/ui/controls'
 import { Back, Check, Plus, Right, Sparkle, Star } from '../../components/ui/Icons'
 import { BackLink } from '../../components/ui/BackLink'
 import { Item, ItemLi, Stagger, StaggerList } from '../../components/ui/motion'
-import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
-import { SubjectShape } from '../../components/ui/SubjectShape'
+import { FachIcon, HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { activeDecks, allCourseDecks, daysUntil, FRENCH, ownDeck, planToday, readiness } from '../../lib/decks'
 import { deckStars, subjectStats } from '../../lib/progress'
 import { masteryOf } from '../../lib/srs'
@@ -99,7 +98,7 @@ export function FachPage() {
           {plan.due.length + plan.fresh.length > 0 && (
             <Item>
               <button type="button" className="press mb-6 flex w-full items-center gap-3 rounded-[14px] px-4 py-3.5 text-left text-white" style={{ background: subject.c, boxShadow: `0 5px 0 color-mix(in srgb, ${subject.c} 55%, black)` }} onClick={() => navigate(`/ueben/los?fach=${subjectId}`)}>
-                <SubjectShape id={subject.id} size={26} className="shrink-0 text-white/95" />
+                <FachIcon id={subject.id} ink={subject.c} size={34} />
                 <span className="min-w-0 flex-1 text-[18px] font-black">
                   {subject.name} üben
                   <span className="block text-sm font-bold opacity-90">

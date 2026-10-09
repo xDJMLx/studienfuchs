@@ -8,7 +8,7 @@ import { Tour } from './Tour'
 import { QuickCards } from './QuickCards'
 import { Back, Chevron, Right } from '../../components/ui/Icons'
 import { Wordmark } from '../../components/ui/Layout'
-import { SubjectShape } from '../../components/ui/SubjectShape'
+import { FachIcon } from '../../components/ui/SubjectIcons'
 import { HELP_SUBJECTS } from '../../lib/subjects'
 import { useStore } from '../../store/useStore'
 import { useShallow } from 'zustand/react/shallow'
@@ -223,7 +223,7 @@ export function Welcome() {
                                 style={on ? ({ '--block': s.c, '--block-edge': `color-mix(in srgb, ${s.c} 55%, black)` } as React.CSSProperties) : undefined}
                               >
                                 <span className="flex w-full items-start justify-between">
-                                  <SubjectShape id={s.id} size={22} className={on ? 'text-white/95' : 'text-muted'} />
+                                  <FachIcon id={s.id} ink={s.c} size={30} tile={!on} />
                                   {on && <span aria-hidden className="text-[16px] font-black leading-none">✓</span>}
                                 </span>
                                 <span className="block truncate text-[16px] font-extrabold">{s.name}</span>

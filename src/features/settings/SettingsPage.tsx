@@ -8,7 +8,7 @@ import { Bug, Cards, Clock, Check, Database, Download, Right, Palette, Shield, S
 import { MascotPicker } from '../profile/MascotPicker'
 import { FeedbackSettings } from './FeedbackSettings'
 import { BackLink } from '../../components/ui/BackLink'
-import { SubjectShape } from '../../components/ui/SubjectShape'
+import { FachIcon } from '../../components/ui/SubjectIcons'
 import { PeriodsEditor } from '../../components/ui/PeriodsEditor'
 import { EXAMPLE_PERIODS } from '../../lib/school'
 import { activeDecks } from '../../lib/decks'
@@ -299,7 +299,7 @@ export function SettingsPage() {
                           style={on ? ({ '--block': sub.c, '--block-edge': `color-mix(in srgb, ${sub.c} 55%, black)` } as React.CSSProperties) : undefined}
                         >
                           <span className="flex w-full items-start justify-between">
-                            <SubjectShape id={sub.id} size={22} className={on ? 'text-white/95' : 'text-muted'} />
+                            <FachIcon id={sub.id} ink={sub.c} size={30} tile={!on} />
                             {on && <Check size={18} />}
                           </span>
                           <span className="block truncate text-[16px] font-extrabold">{sub.name}</span>

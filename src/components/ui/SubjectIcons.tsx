@@ -230,3 +230,13 @@ export function HelpSubjectIcon({ id, ink, size = 28 }: { id: string; ink: strin
 }
 
 export const hasSubjectIcon = (id: string): boolean => id in DRAW
+
+/** Fach-Symbol für farbige Blöcke: auf der Fachfarbe direkt, auf grauem Grund (ruhiger Block) in einer kleinen Kachel der Fachfarbe. */
+export function FachIcon({ id, ink, size = 30, tile = false }: { id: string; ink: string; size?: number; tile?: boolean }) {
+  if (!tile) return <HelpSubjectIcon id={id} ink={ink} size={size} />
+  return (
+    <span aria-hidden className="inline-flex shrink-0 items-center justify-center rounded-[10px]" style={{ background: ink, width: size + 8, height: size + 8 }}>
+      <HelpSubjectIcon id={id} ink={ink} size={size} />
+    </span>
+  )
+}

@@ -3,8 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Mascot } from '../../components/mascot/Mascot'
 import { Check, Flame, Plus, Repeat, Right, Trophy } from '../../components/ui/Icons'
 import { Sheet } from '../../components/ui/Sheet'
-import { HelpSubjectIcon } from '../../components/ui/SubjectIcons'
-import { SubjectShape } from '../../components/ui/SubjectShape'
+import { FachIcon, HelpSubjectIcon } from '../../components/ui/SubjectIcons'
 import { dateKey, kindLabel, needsFollowUp } from '../../lib/calendar'
 import { activeDecks, cardRefs, daysUntil, planToday, readiness, SESSION_SIZE } from '../../lib/decks'
 import { isDue } from '../../lib/srs'
@@ -196,7 +195,7 @@ export function UebenPage() {
                         className={`shape-block press ${n > 0 ? '' : 'shape-block-quiet !min-h-[88px]'}`}
                         style={n > 0 ? ({ '--block': sub.c, '--block-edge': `color-mix(in srgb, ${sub.c} 55%, black)` } as React.CSSProperties) : undefined}
                       >
-                        <SubjectShape id={id} size={24} className={n > 0 ? 'text-white/95' : 'text-muted'} />
+                        <FachIcon id={id} ink={sub.c} size={32} tile={n === 0} />
                         <span>
                           {n > 0 ? <span className="block text-[40px] font-black leading-none tabular-nums">{n}</span> : <span aria-hidden className="block text-[22px] font-black leading-none">✓</span>}
                           <span className="mt-0.5 block truncate text-[15px] font-extrabold">{sub.name}</span>
