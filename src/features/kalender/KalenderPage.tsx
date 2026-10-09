@@ -297,7 +297,9 @@ export function KalenderPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 pb-6 pt-3 lg:pt-8">
+    <div className="mx-auto max-w-2xl px-4 pb-6 pt-3 lg:max-w-none lg:px-0 lg:pt-10">
+      <div className="lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:items-start lg:gap-10">
+      <div>
       <header className="mb-4 flex items-end justify-between gap-3 px-1">
         <div className="min-w-0">
           <p className="truncate text-[15px] font-bold text-muted">{weekSummary}</p>
@@ -383,6 +385,8 @@ export function KalenderPage() {
           })}
         </div>
       </section>
+      </div>
+      <div>
 
       <div className="mb-2 flex items-baseline justify-between gap-2 px-1">
         <h2 className="text-[17px] font-black">{selected === today ? 'Heute' : longDay(selected)}</h2>
@@ -464,6 +468,9 @@ export function KalenderPage() {
           </button>
         </details>
       )}
+
+      </div>
+      </div>
 
       {/* Was soll eingetragen werden? */}
       <Sheet open={choose !== null} onClose={() => setChoose(null)} title="Was möchtest du eintragen?">

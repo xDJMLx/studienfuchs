@@ -14,7 +14,7 @@ import { InstallBanner } from '../../components/ui/InstallApp'
 import { IconNotice } from '../../components/ui/IconNotice'
 import { backupDue } from '../../lib/backup'
 import { ArbeitFollowUp } from '../kalender/KalenderPage'
-import { useStudyToday } from '../../components/ui/StudyTime'
+import { StudyTimeCard, useStudyToday } from '../../components/ui/StudyTime'
 import { dueLabel } from '../review/ReviewPage'
 import { CreateChoices, type CreateWay } from '../faecher/CreateChoices'
 import { QuickCards } from '../welcome/QuickCards'
@@ -107,7 +107,7 @@ export function UebenPage() {
       : ['Heute ist', 'frei.']
 
   return (
-    <div className="mx-auto max-w-2xl px-4 pb-6 pt-3 lg:pt-8">
+    <div className="mx-auto max-w-2xl px-4 pb-6 pt-3 lg:max-w-none lg:px-0 lg:pt-10">
       {followUps.map((a) => (
         <ArbeitFollowUp key={a.id} arbeit={a} />
       ))}
@@ -120,17 +120,18 @@ export function UebenPage() {
         </>
       )}
 
-      <header className="mb-2 px-1">
+      <header className="mb-2 px-1 lg:mb-8 lg:px-0">
         <p className="text-[15px] font-bold text-muted">{dateText}</p>
-        <h1 className="hero-title mt-1.5">
+        <h1 className="hero-title mt-1.5 lg:text-[64px]">
           {headline[0]}
           <br />
           {headline[1]}
         </h1>
       </header>
 
-      {/* Die eine Hauptsache: das Tier schwebt über einer Glasfläche mit der Runde für heute */}
-      <section className="mb-7" aria-label="Heute">
+      <div className="lg:grid lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)] lg:items-start lg:gap-10">
+      {/* Die eine Hauptsache: das Tier mit der Runde für heute und den Fächern */}
+      <section className="mb-7 lg:mb-0" aria-label="Heute">
         {decks.length === 0 ? (
           <div className="card p-5">
             <div className="mb-4 flex items-center gap-3">
@@ -184,7 +185,7 @@ export function UebenPage() {
               )}
 
               {blocks.length > 0 && (
-                <div className="mt-4 grid grid-cols-2 gap-3" role="group" aria-label="Fächer">
+                <div className={`mt-4 grid grid-cols-2 gap-3 ${blocks.length > 4 ? 'lg:grid-cols-3' : ''}`} role="group" aria-label="Fächer">
                   {blocks.map(({ id, n }) => {
                     const sub = helpSubject(id)!
                     return (
@@ -211,6 +212,10 @@ export function UebenPage() {
         )}
       </section>
 
+      <div>
+      <div className="mb-6 hidden lg:block">
+        <StudyTimeCard />
+      </div>
       {/* Was ansteht: offene Hausaufgaben und die nächsten Arbeiten (eintragen geht im Kalender) */}
       {(hwNow.length > 0 || upcoming.length > 0) && (
         <section className="mb-6" aria-label="Als Nächstes">
@@ -280,6 +285,8 @@ export function UebenPage() {
           </button>
         </div>
       </section>
+      </div>
+      </div>
 
       {/* Neue Karteikarten: erst die Art wählen, dann führt jede in genau einen Schritt. */}
       <Sheet open={create} onClose={() => setCreate(false)} title="Neue Karteikarten">

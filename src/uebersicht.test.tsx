@@ -24,6 +24,8 @@ beforeAll(() => {
   window.HTMLElement.prototype.scrollTo = (() => undefined) as typeof window.HTMLElement.prototype.scrollTo
 })
 beforeEach(() => {
+  // Gemessen wird die Handy-Ansicht (am Computer steht in den Einstellungen die Liste neben einem Bereich)
+  ;(window as unknown as { happyDOM?: { setViewport: (v: { width: number; height: number }) => void } }).happyDOM?.setViewport({ width: 390, height: 800 })
   useStore.getState().resetAll()
   const mk = (t: string, subj: string, n: number) => useStore.getState().addSet(t, Array.from({ length: n }, (_, i) => ({ front: `F${i}`, back: `B${i}` })), { subject: subj })
   useStore.setState({ onboarded: true, mySubjects: ['biologie', 'mathe', 'englisch'], grade: 8 })

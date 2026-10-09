@@ -51,7 +51,9 @@ export function ProfilePage() {
 
   const shown = allBadges ? badges : [...badges].sort((x, y) => y.value / y.goal - x.value / x.goal).slice(0, 3)
   return (
-    <div className="mx-auto max-w-2xl px-4 pb-8 pt-3 lg:pt-8">
+    <div className="mx-auto max-w-2xl px-4 pb-8 pt-3 lg:max-w-none lg:px-0 lg:pt-10">
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-start lg:gap-10">
+      <div>
       <header className="mb-4 flex items-center justify-between px-1">
         <h1 className="large-title">Profil</h1>
         <Link to="/settings" aria-label="Einstellungen" className="press flex h-11 w-11 items-center justify-center rounded-[12px] border border-line bg-surface text-ink">
@@ -98,8 +100,10 @@ export function ProfilePage() {
         </Link>
       </div>
 
+      </div>
+      <div>
       {/* Eine Woche auf einen Blick */}
-      <section className="card mt-4 p-5">
+      <section className="card mt-4 p-5 lg:mt-0">
         <div className="mb-3 flex items-baseline justify-between">
           <h2 className="text-[17px] font-extrabold">Diese Woche</h2>
           <span className="text-sm text-muted"><span className="font-extrabold text-ink">{weekMin}</span> Minuten</span>
@@ -185,6 +189,8 @@ export function ProfilePage() {
           <span className="min-w-0 flex-1 text-[16px] font-extrabold">Datenschutz & Impressum</span>
           <Right size={13} className="text-muted" />
         </Link>
+      </div>
+      </div>
       </div>
     </div>
   )

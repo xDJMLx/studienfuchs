@@ -210,7 +210,7 @@ export function Welcome() {
                         ))}
                       </div>
                       <p className="mb-2 text-sm font-bold text-muted">Meine Fächer</p>
-                      <ul className="grid grid-cols-2 gap-2.5" role="group" aria-label="Meine Fächer">
+                      <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-4" role="group" aria-label="Meine Fächer">
                         {HELP_SUBJECTS.filter((s) => s.id !== 'sonstiges').map((s) => {
                           const on = mySubjects.includes(s.id)
                           return (

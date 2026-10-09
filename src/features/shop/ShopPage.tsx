@@ -21,10 +21,11 @@ export function ShopPage() {
   const worn = Object.keys(outfit).length
 
   return (
-    <div className="mx-auto max-w-2xl px-4 pb-6 pt-3">
+    <div className="mx-auto max-w-2xl px-4 pb-6 pt-3 lg:max-w-none lg:px-0 lg:pt-10">
       <BackLink to="/profile" label="Profil" size={20} />
-      <h1 className="mb-3 text-2xl font-bold">Tier &amp; Shop</h1>
-      <section className="card flex flex-col items-center px-5 pb-5 pt-6 text-center">
+      <h1 className="large-title mb-4 px-1 lg:mb-8 lg:px-0">Tier &amp; Shop</h1>
+      <div className="lg:grid lg:grid-cols-[360px_minmax(0,1fr)] lg:items-start lg:gap-10">
+      <section className="card flex flex-col items-center px-5 pb-5 pt-6 text-center lg:sticky lg:top-6">
         <motion.div key={JSON.stringify(outfit)} initial={reduce ? false : { scale: 0.9 }} animate={{ scale: 1 }} transition={SPRING.bouncy}>
           <Mascot size={190} pose="full" alive listen outfit={outfit} label="Dein Tier" />
         </motion.div>
@@ -40,7 +41,8 @@ export function ShopPage() {
         )}
       </section>
 
-      <div className="mt-5 flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Zubehör nach Platz">
+      <div className="min-w-0">
+      <div className="mt-5 flex gap-2 overflow-x-auto pb-1 lg:mt-0" role="tablist" aria-label="Zubehör nach Platz">
         {SLOTS.map((s) => (
           <button
             key={s.id}
@@ -51,14 +53,14 @@ export function ShopPage() {
               setSlot(s.id)
               setPending(null)
             }}
-            className={`press min-h-11 shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition-colors ${slot === s.id ? 'bg-brand-strong text-on-brand' : 'bg-snow text-muted'}`}
+            className={`press min-h-11 shrink-0 rounded-[10px] px-4 py-2 text-sm font-extrabold transition-colors ${slot === s.id ? 'bg-brand-strong text-on-brand' : 'bg-snow text-muted'}`}
           >
             {s.label}
           </button>
         ))}
       </div>
 
-      <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
+      <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {items.map((it) => {
           const has = owned.includes(it.id)
           const on = outfit[it.slot] === it.id
@@ -114,6 +116,8 @@ export function ShopPage() {
           )
         })}
       </ul>
+      </div>
+      </div>
     </div>
   )
 }

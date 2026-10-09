@@ -309,14 +309,24 @@ h1, h2, h3 {
     @apply text-[34px] font-black leading-[1.05] tracking-tight text-ink;
   }
 
-  /* Seitenleiste (Computer): große, fette Einträge, aktiv mit blauem Rahmen */
+  /* Seitenleiste (Computer): Einträge sind schlicht; der aktive hat seinen Symbol-Block in der Tab-Farbe mit harter Unterkante */
   .nav-link {
-    @apply flex items-center gap-4 rounded-2xl border-2 border-transparent px-4 py-2.5 text-[16px] font-extrabold text-muted hover:bg-snow;
+    @apply flex items-center rounded-[14px] px-2 py-1.5 text-[16px] font-extrabold text-muted transition-colors hover:bg-snow;
   }
-  .nav-link-active {
-    border-color: var(--nav-c, var(--sky));
-    background: color-mix(in srgb, var(--nav-c, var(--sky)) 13%, var(--surface));
-    color: var(--nav-t, var(--sky-text));
+  .nav-link .nav-icon {
+    transition: background-color 0.15s, color 0.15s;
+  }
+  .nav-link[data-active] {
+    color: var(--ink);
+  }
+  .nav-link[data-active] .nav-icon {
+    background: var(--nav-c);
+    color: #fff;
+    box-shadow: 0 3px 0 color-mix(in srgb, var(--nav-c) 55%, black);
+  }
+  .nav-link-soft {
+    background: var(--snow);
+    color: var(--ink);
   }
 
   .eyebrow {

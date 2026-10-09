@@ -11,7 +11,6 @@ import { CoachComposer } from './CoachComposer'
 import { TabBar } from './TabBar'
 import { useDue } from '../../features/review/ReviewPage'
 import { ProgressBar } from './widgets'
-import { StudyTimeCard } from './StudyTime'
 import { autoCloudSave } from '../../lib/autoCloud'
 import { maybeSendUsage } from '../../lib/feedback'
 import { dateKey } from '../../lib/calendar'
@@ -84,7 +83,9 @@ function AnimatedOutlet() {
     dirRef.current = from !== to ? Math.sign(to - from) : Math.sign(depth(pathname) - depth(last.current))
     last.current = pathname
   }
-  const dir = reduce ? 0 : dirRef.current
+  // Am Computer wechseln die Seiten ohne Schiebebewegung (das Wischen gehört zum Handy)
+  const desktop = typeof window !== 'undefined' && !!window.matchMedia?.('(min-width: 1024px)').matches
+  const dir = reduce || desktop ? 0 : dirRef.current
   return (
     <AnimatePresence mode="popLayout" initial={false} custom={dir}>
       <motion.div key={pathname} custom={dir} variants={pageVariants} initial={dir === 0 ? false : 'enter'} animate="center" exit={dir === 0 ? undefined : 'exit'}>
@@ -156,31 +157,46 @@ export function Layout() {
       >
         Zum Inhalt springen
       </button>
-      {/* Seitenleiste (Desktop) */}
-      <aside className="hidden w-[256px] shrink-0 flex-col border-r-2 border-line bg-surface px-4 py-6 lg:flex">
-        <Link to="/" className="mb-7 px-2" aria-label="Zur Startseite">
+      {/* Seitenleiste (Computer): die drei Tabs als Blöcke, unten Level und Einstellungen */}
+      <aside className="hidden w-[248px] shrink-0 flex-col border-r border-line bg-surface px-4 py-6 lg:flex">
+        <Link to="/" className="mb-8 px-2" aria-label="Zur Startseite">
           <Wordmark />
         </Link>
-        <nav className="grid gap-1" aria-label="Hauptnavigation">
-          {nav.map(({ to, label, Icon, end, c, t }) => (
-            <NavLink key={to} to={to} end={end} style={{ '--nav-c': c, '--nav-t': t } as React.CSSProperties} className={() => `nav-link press relative ${tabOf(location.pathname) === to ? 'nav-link-active' : ''}`}>
-              {() => (
-                <>
-                  <span className="relative flex w-full items-center gap-4">
-                    <Icon size={26} />
-                    {label}
-                    {to === '/' && dueCount > 0 && <DueBadge n={dueCount} className="ml-auto" />}
-                    {to === '/kalender' && homeworkNow > 0 && <DueBadge n={homeworkNow} className="ml-auto" />}
+        <nav className="grid gap-2" aria-label="Hauptnavigation">
+          {nav.map(({ to, label, Icon, end, c }) => {
+            const on = tabOf(location.pathname) === to
+            return (
+              <NavLink
+                key={to}
+                to={to}
+                end={end}
+                style={{ '--nav-c': c } as React.CSSProperties}
+                className="nav-link press relative"
+                data-active={on || undefined}
+              >
+                <span className="relative flex w-full items-center gap-3.5">
+                  <span className="nav-icon flex h-9 w-11 items-center justify-center rounded-[10px]">
+                    <Icon size={24} />
                   </span>
-                </>
-              )}
-            </NavLink>
-          ))}
+                  <span className="text-[16px] font-extrabold">{label}</span>
+                  {to === '/' && dueCount > 0 && <DueBadge n={dueCount} className="ml-auto" />}
+                  {to === '/kalender' && homeworkNow > 0 && <DueBadge n={homeworkNow} className="ml-auto" />}
+                </span>
+              </NavLink>
+            )
+          })}
         </nav>
-        <NavLink to="/settings" className={({ isActive }) => `nav-link press mt-auto ${isActive ? 'nav-link-active' : ''}`}>
-          <Gear size={26} />
-          Einstellungen
-        </NavLink>
+        <div className="mt-auto grid gap-3">
+          <SidebarLevel />
+          <NavLink to="/settings" className={({ isActive }) => `nav-link press ${isActive ? 'nav-link-soft' : ''}`}>
+            <span className="relative flex w-full items-center gap-3.5">
+              <span className="flex h-9 w-11 items-center justify-center">
+                <Gear size={24} />
+              </span>
+              <span className="text-[16px] font-extrabold">Einstellungen</span>
+            </span>
+          </NavLink>
+        </div>
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
@@ -193,15 +209,8 @@ export function Layout() {
           </header>
         )}
         <main ref={scroller} tabIndex={-1} className="flex-1 overflow-y-auto overflow-x-hidden pb-[calc(var(--tabbar-h)+1rem)] outline-none lg:pb-10">
-          <div className="mx-auto flex max-w-[1040px] justify-center gap-8 px-0 lg:px-8">
-            <div className="relative min-w-0 flex-1">
-              <AnimatedOutlet />
-            </div>
-            <aside className="hidden w-[320px] shrink-0 pt-6 xl:block">
-              <div className="sticky top-6">
-                <RightRail />
-              </div>
-            </aside>
+          <div className="relative mx-auto w-full max-w-[1180px] min-w-0 lg:px-10">
+            <AnimatedOutlet />
           </div>
         </main>
 
@@ -245,19 +254,17 @@ function DueBadge({ n, className = '' }: { n: number; className?: string }) {
   )
 }
 
-export function RightRail() {
+/** Unten in der Seitenleiste: Level mit Fortschritt, führt ins Profil. */
+function SidebarLevel() {
   const xp = useStore((s) => s.xp)
   const lvl = levelFromXp(xp)
   return (
-    <div className="grid gap-4">
-      <StudyTimeCard />
-      <Link to="/profile" className="card lift block p-5">
-        <div className="mb-2 flex items-baseline justify-between">
-          <p className="text-[18px] font-extrabold">Level {lvl.level}</p>
-          <p className="text-sm font-bold text-muted">{lvl.into} / {lvl.needed} XP</p>
-        </div>
-        <ProgressBar pct={lvl.into / lvl.needed} color="bg-gold" className="!h-3" />
-      </Link>
-    </div>
+    <Link to="/profile" className="press block rounded-[14px] border border-line bg-snow p-3.5">
+      <div className="mb-2 flex items-baseline justify-between">
+        <p className="text-[15px] font-extrabold">Level {lvl.level}</p>
+        <p className="text-xs font-bold text-muted">{lvl.into} / {lvl.needed} XP</p>
+      </div>
+      <ProgressBar pct={lvl.into / lvl.needed} color="bg-brand" className="!h-2.5" />
+    </Link>
   )
 }

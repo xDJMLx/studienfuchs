@@ -106,7 +106,7 @@ const GROUPS: { title: string; c: string; rows: { slug: string; id: string; labe
 ]
 const SLUGS = GROUPS.flatMap((g) => g.rows.map((r) => r.slug))
 
-function SettingsList() {
+function SettingsList({ active }: { active?: string }) {
   return (
     <div className="mb-8 grid gap-6">
       {GROUPS.map((g) => (
@@ -115,7 +115,7 @@ function SettingsList() {
           <ul className="overflow-hidden rounded-[14px] border border-line bg-surface">
             {g.rows.map((r, i) => (
               <li key={r.slug} className={i > 0 ? 'border-t border-line' : ''}>
-                <Link to={`/settings/${r.slug}`} className="press flex min-h-14 items-center gap-3.5 px-4 py-2.5 hover:bg-snow">
+                <Link to={`/settings/${r.slug}`} aria-current={active === r.slug ? 'page' : undefined} className={`press flex min-h-14 items-center gap-3.5 px-4 py-2.5 hover:bg-snow ${active === r.slug ? 'lg:bg-snow' : ''}`}>
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] text-white" style={{ background: g.c, boxShadow: `0 2px 0 color-mix(in srgb, ${g.c} 55%, black)` }}>
                     <r.Icon size={20} />
                   </span>
@@ -151,6 +151,16 @@ export function SettingsPage() {
   const [confirmReset, setConfirmReset] = useState(false)
   const { section } = useParams()
   const current = section && SLUGS.includes(section) ? section : undefined
+  // Am Computer steht links immer die Liste und rechts der gewählte Bereich (ohne Wahl: „Dein Lerntier“)
+  const [wide, setWide] = useState(() => typeof window !== 'undefined' && !!window.matchMedia?.('(min-width: 1024px)').matches)
+  useEffect(() => {
+    const mq = window.matchMedia?.('(min-width: 1024px)')
+    if (!mq) return
+    const on = () => setWide(mq.matches)
+    mq.addEventListener('change', on)
+    return () => mq.removeEventListener('change', on)
+  }, [])
+  const shown = current ?? (wide ? 'tier' : undefined)
 
   // Meldung nach ein paar Sekunden wieder ausblenden
   useEffect(() => {
@@ -267,22 +277,22 @@ export function SettingsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-2xl px-4 pb-6 pt-6 lg:pt-8">
-      {current ? (
-        <BackLink to="/settings" label="Einstellungen" size={18} />
-      ) : (
-        <h1 className="hero-title mb-6 px-1">Einstellungen</h1>
-      )}
+    <div className="mx-auto max-w-2xl px-4 pb-6 pt-6 lg:max-w-none lg:px-0 lg:pt-10">
+      {current && <BackLink to="/settings" label="Einstellungen" size={18} className="lg:!hidden" />}
+      {(!current || wide) && <h1 className="hero-title mb-6 px-1 lg:mb-8 lg:px-0">Einstellungen</h1>}
 
-      <div>
-        {!current && <SettingsList />}
+      <div className="lg:grid lg:grid-cols-[340px_minmax(0,1fr)] lg:items-start lg:gap-12">
+        <div className={current ? 'hidden lg:block lg:sticky lg:top-6' : 'lg:sticky lg:top-6'}>
+          <SettingsList active={shown} />
+        </div>
+        <div className="min-w-0">
         <Stagger className="grid gap-8" stagger={0.09}>
-{current === 'faecher' && (
+{shown === 'faecher' && (
           <Item>
             <Section id="s-subjects" icon={<Cards size={22} />} title="Meine Fächer" description="Die Fächer, die du in der Schule hast">
               <div className="px-5 py-4">
                 <p className="mb-3 text-sm text-muted">Tipp ein Fach an, um es hinzuzufügen oder wegzunehmen. Fächer, in denen schon Karteikarten liegen, bleiben, bis du die Karteikarten löschst.</p>
-                <ul className="grid grid-cols-2 gap-3" aria-label="Fächer">
+                <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3" aria-label="Fächer">
                   {HELP_SUBJECTS.map((sub) => {
                     const hasCards = activeDecks({ sets, addedUnits: addedUnits ?? [] }).some((d) => d.subject === sub.id)
                     const on = hasCards || (mySubjects ?? []).includes(sub.id)
@@ -313,7 +323,7 @@ export function SettingsPage() {
           </Item>
           )}
 
-         {current === 'schulzeiten' && (
+         {shown === 'schulzeiten' && (
           <Item>
             <Section id="s-hours" icon={<Target size={22} />} title="Schulzeiten" description="Stunden und Pausen für den Kalender">
               <div className="px-5 py-4">
@@ -330,7 +340,7 @@ export function SettingsPage() {
           </Item>
           )}
 
-         {current === 'feedback' && (
+         {shown === 'feedback' && (
           <Item>
             <Section id="s-feedback" icon={<Bug size={22} />} title="Fehler melden und Ideen" description="Sag, was nicht klappt oder was du dir wünschst">
               <FeedbackSettings />
@@ -338,7 +348,7 @@ export function SettingsPage() {
           </Item>
           )}
 
-         {current === 'tier' && (
+         {shown === 'tier' && (
           <Item>
             <Section id="s-tier" icon={<Star size={22} />} title="Dein Lerntier" description="Wer dich beim Lernen begleitet">
               <div className="px-5 py-4">
@@ -348,7 +358,7 @@ export function SettingsPage() {
           </Item>
           )}
 
-         {current === 'darstellung' && (
+         {shown === 'darstellung' && (
           <Item>
             <Section id="s-look" icon={<Palette size={22} />} title="Darstellung" description="Farben und Töne">
               <div className="px-5 py-4">
@@ -381,7 +391,7 @@ export function SettingsPage() {
           </Item>
           )}
 
-         {current === 'lernen' && (
+         {shown === 'lernen' && (
           <Item>
             <Section id="s-learn" icon={<Target size={22} />} title="Lernen" description="Lernzeit für Arbeiten">
               <div className="px-5 py-4">
@@ -417,7 +427,7 @@ export function SettingsPage() {
           </Item>
           )}
 
-         {current === 'sprache' && (
+         {shown === 'sprache' && (
           <Item>
             <Section id="s-voice" icon={<Speaker size={22} />} title="Sprache" description="Vorlesen und Aussprache">
               <SpeechSettings />
@@ -425,7 +435,7 @@ export function SettingsPage() {
           </Item>
           )}
 
-         {current === 'ki' && (
+         {shown === 'ki' && (
           <Item>
             <Section id="s-ai" icon={<Sparkle size={22} />} title="KI" description="Lernkarten aus deinen Buchseiten">
               <AiSettings />
@@ -433,7 +443,7 @@ export function SettingsPage() {
           </Item>
           )}
 
-         {current === 'app' && (
+         {shown === 'app' && (
           <Item>
             <Section id="s-app" icon={<Download size={22} />} title="App" description="Auf dem Startbildschirm">
               <Row title="Als App installieren" hint={install.state === 'installed' ? 'Studienfuchs läuft schon als App auf diesem Gerät.' : 'Öffnet sich wie eine normale App, ohne Adressleiste und mit eigenem Symbol.'}>
@@ -460,7 +470,7 @@ export function SettingsPage() {
           </Item>
           )}
 
-         {current === 'daten' && (
+         {shown === 'daten' && (
           <Item>
             <Section id="s-data" icon={<Database size={22} />} title="Daten" description="Alles liegt nur auf diesem Gerät">
               <Row title="Gespeichert auf diesem Gerät" hint={`${Object.keys(cards).length} geübte Karten · ${sets.length} ${sets.length === 1 ? 'Sammlung' : 'Sammlungen'}`} />
@@ -581,6 +591,7 @@ export function SettingsPage() {
             </>
           )}
         </Stagger>
+        </div>
       </div>
 
       <AnimatePresence>
