@@ -47,6 +47,16 @@ class HoldMapperTest(unittest.TestCase):
         self.h.press()
         self.assertEqual(self.m.events, [("press", "left")])
 
+    def test_failed_press_does_not_stay_held(self):
+        class Broken(FakeMouse):
+            def press(self, b):
+                raise OSError("kein Zugriff")
+
+        h = HoldMapper(Broken(), "left")
+        with self.assertRaises(OSError):
+            h.press()
+        self.assertFalse(h.held)
+
 
 if __name__ == "__main__":
     unittest.main()
