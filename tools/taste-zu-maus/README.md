@@ -4,7 +4,19 @@ Solange du **F** gedrückt hältst, wird die **linke Maustaste** gehalten.
 Lässt du F los, wird auch die Maustaste losgelassen. Es ist kein Klick und kein
 Dauerfeuer, sondern wirklich „gedrückt halten“.
 
-## Windows: App installieren (mit Desktop-Verknüpfung)
+## Am einfachsten: eine einzelne Datei
+
+**`TasteZuMaus.pyw`** ist die komplette App in einer Datei.
+
+1. Python von <https://www.python.org/downloads/> installieren (Haken bei **Add python.exe to PATH**).
+2. `TasteZuMaus.pyw` irgendwohin legen und **doppelklicken**. Beim allerersten Start installiert sie
+   einmalig die Bibliothek `pynput` (kleines Fenster „Einmalige Einrichtung“, braucht Internet).
+3. Desktop-Verknüpfung: Rechtsklick auf die Datei → *Senden an* → *Desktop (Verknüpfung erstellen)*.
+
+Die Datei wird aus `taste_zu_maus.py` und `app.py` erzeugt (`python einzeldatei_bauen.py`).
+Eine echte `.exe` ohne Python-Installation geht über `exe_bauen.bat` (siehe unten), muss aber auf Windows gebaut werden.
+
+## Alternative: Ordner-Variante (mit fertiger Desktop-Verknüpfung und Icon)
 
 1. Python von <https://www.python.org/downloads/> installieren (Haken bei **Add python.exe to PATH**).
 2. Diesen Ordner (`tools/taste-zu-maus`) auf den PC laden.
