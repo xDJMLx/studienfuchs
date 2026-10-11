@@ -166,7 +166,7 @@ class Service:
     Listener-Thread aufgerufen.
     """
 
-    def __init__(self, spec, button_name, suppress=True, on_toggle=None, delay_ms=0.0):
+    def __init__(self, spec, button_name, suppress=False, on_toggle=None, delay_ms=0.0):
         from pynput import keyboard, mouse
         buttons = {"left": mouse.Button.left, "right": mouse.Button.right,
                    "middle": mouse.Button.middle}
@@ -336,7 +336,7 @@ class App:
 
         self.key_spec = spec_from_char("f")
         self.button = "left"
-        self.suppress = True
+        self.suppress = False  # Taste geht standardmäßig auch an das Programm/Spiel
         self.delay_ms = 1.0
         self._load_config()
 
@@ -373,7 +373,7 @@ class App:
             self.key_spec = KeySpec.from_dict(d["key"])
             if d.get("button") in BUTTON_NAMES:
                 self.button = d["button"]
-            self.suppress = bool(d.get("suppress", True))
+            self.suppress = bool(d.get("block_key", False))
             if d.get("delay_ms") in DELAYS:
                 self.delay_ms = float(d["delay_ms"])
         except Exception:
@@ -384,7 +384,7 @@ class App:
             CONFIG_PATH.write_text(json.dumps({
                 "key": self.key_spec.to_dict(),
                 "button": self.button,
-                "suppress": self.suppress,
+                "block_key": self.suppress,
                 "delay_ms": self.delay_ms,
             }), encoding="utf-8")
         except Exception:
@@ -453,7 +453,7 @@ class App:
         tk.Label(row, text="ms", font=self.f_small, bg=CARD, fg=MUTED).pack(side="right", padx=(0, px(6)))
 
         # Zeile: Taste blockieren
-        sub = "Taste wird nicht zusätzlich getippt" if IS_WIN else "nur unter Windows"
+        sub = "Aus: Taste geht auch ans Programm" if IS_WIN else "nur unter Windows"
         row = self._row(card, "Taste blockieren", sub, sep=True)
         self.sw = tk.Canvas(row, width=px(46), height=px(26), bg=CARD,
                             highlightthickness=0, cursor="hand2")

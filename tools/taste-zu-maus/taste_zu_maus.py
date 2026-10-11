@@ -146,7 +146,7 @@ class Service:
     Listener-Thread aufgerufen.
     """
 
-    def __init__(self, spec, button_name, suppress=True, on_toggle=None, delay_ms=0.0):
+    def __init__(self, spec, button_name, suppress=False, on_toggle=None, delay_ms=0.0):
         from pynput import keyboard, mouse
         buttons = {"left": mouse.Button.left, "right": mouse.Button.right,
                    "middle": mouse.Button.middle}
@@ -249,12 +249,13 @@ def main():
                    help="Maustaste (Standard: left)")
     p.add_argument("--delay-ms", type=float, default=0.0,
                    help=f"Feste Verzögerung vor dem Maus-Ereignis in ms, 0 bis {MAX_DELAY_MS:g} (Standard: 0)")
-    p.add_argument("--nicht-unterdruecken", action="store_true",
-                   help="Taste zusätzlich normal an das Programm durchreichen (Windows)")
+    p.add_argument("--blockieren", action="store_true",
+                   help="Taste NICHT an das Programm weitergeben (nur Windows). "
+                        "Standard: Die Taste geht zusätzlich normal ans Programm/Spiel.")
     args = p.parse_args()
     if len(args.taste) != 1 or not args.taste.isalnum():
         p.error("--taste muss ein einzelner Buchstabe oder eine Ziffer sein")
-    run(spec_from_char(args.taste), args.maus, suppress=not args.nicht_unterdruecken,
+    run(spec_from_char(args.taste), args.maus, suppress=args.blockieren,
         delay_ms=args.delay_ms)
 
 

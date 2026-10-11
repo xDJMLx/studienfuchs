@@ -35,7 +35,7 @@ Optional als einzelne `.exe`: erst **`exe_bauen.bat`**, danach noch einmal `Inst
 - **Verzögerung:** feste Wartezeit vor dem Maus-Ereignis (Aus, 0,1, 1, 5 oder 10 ms; Standard 1 ms). Sie gilt beim Drücken
   und beim Loslassen gleich, die Haltedauer bleibt also unverändert. Sie macht die Eingabe **nicht** unauffälliger für
   Anti-Cheat-Systeme (siehe Hinweise). Auf der Konsole: `--delay-ms 0.1` (maximal 50).
-- **Taste blockieren** (nur Windows): F wird nicht zusätzlich als „f“ getippt, solange das Tool aktiv ist.
+- **Taste blockieren** (nur Windows, Standard **aus**): Ist es aus, geht F **auch** an das Programm/Spiel – nötig, wenn F dort selbst etwas auslösen soll (z. B. eine Spiel-Taste). Ist es an, wird F verschluckt und tippt kein „f“.
 - **F8** pausiert / setzt fort – auch wenn die App im Hintergrund ist. Beim Pausieren wird eine gehaltene Maustaste sofort losgelassen.
 - Die Einstellungen werden in `~/.taste_zu_maus.json` gemerkt. Einstellungen sind nur im gestoppten Zustand änderbar.
 
