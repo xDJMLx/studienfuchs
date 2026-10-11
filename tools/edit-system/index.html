@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edit-System Demo</title>
+<style>
+  :root {
+    --bg: #0b0e14; --card: #131822; --line: #252d3b; --text: #e8edf5; --muted: #7f8aa0;
+    --green: #2ee6a6; --blue: #4f8cff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 "Segoe UI", system-ui, sans-serif; display: flex; justify-content: center; }
+  main { width: 100%; max-width: 560px; padding: 20px 16px 32px; }
+  h1 { font-size: 24px; margin: 4px 0 2px; }
+  p.sub { margin: 0 0 16px; color: var(--muted); }
+  canvas { display: block; width: 100%; max-width: 480px; aspect-ratio: 1; margin: 0 auto;
+           background: var(--card); border: 1px solid var(--line); border-radius: 16px; cursor: crosshair; touch-action: none; }
+  .row { display: flex; gap: 12px; align-items: center; justify-content: space-between;
+         margin: 14px auto 0; max-width: 480px; flex-wrap: wrap; }
+  #status { font-weight: 600; }
+  #status.selecting { color: var(--green); }
+  #status.pending { color: #ffb454; }
+  label { color: var(--muted); cursor: pointer; user-select: none; }
+  kbd { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 1px 7px; color: var(--text); }
+  #log { max-width: 480px; margin: 14px auto 0; color: var(--muted); font-size: 13px; min-height: 2.6em; }
+  button { background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 8px;
+           padding: 6px 12px; font: inherit; cursor: pointer; }
+  button:hover { border-color: var(--green); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Edit-System</h1>
+  <p class="sub">Halte <kbd>F</kbd> und fahre mit der Maus über die Felder. Beim Loslassen von <kbd>F</kbd> wird bestätigt.</p>
+
+  <canvas id="c" width="480" height="480" tabindex="0"></canvas>
+
+  <div class="row">
+    <span id="status">Bereit</span>
+    <label><input type="checkbox" id="cor" checked> Beim Loslassen bestätigen</label>
+    <button id="reset" type="button">Zurücksetzen</button>
+  </div>
+  <div id="log"></div>
+  <p class="sub" style="max-width:480px;margin:10px auto 0">
+    <kbd>Esc</kbd> bricht ab · ohne Häkchen bestätigst du mit <kbd>Enter</kbd> · Logik: <code>edit-session.js</code>
+  </p>
+</main>
+
+<script src="edit-session.js"></script>
+<script>
+(function () {
+  "use strict";
+  const { EditSession, cellAt, cellsOnSegment } = EditSystem;
+  const EDIT_KEY = "f";
+
+  const canvas = document.getElementById("c");
+  const ctx = canvas.getContext("2d");
+  const statusEl = document.getElementById("status");
+  const logEl = document.getElementById("log");
+  const corEl = document.getElementById("cor");
+
+  const session = new EditSession({ cols: 3, rows: 3, confirmOnRelease: true });
+  const grid = { cols: 3, rows: 3, cellW: canvas.width / 3, cellH: canvas.height / 3 };
+  let last = null; // letzte Zeigerposition in Canvas-Pixeln, null = außerhalb
+
+  const css = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const pad = 6, r = 14;
+    for (let i = 0; i < session.open.length; i++) {
+      const col = i % grid.cols, row = Math.floor(i / grid.cols);
+      const x = col * grid.cellW + pad, y = row * grid.cellH + pad;
+      const w = grid.cellW - pad * 2, h = grid.cellH - pad * 2;
+      const isOpen = session.open[i], isSel = session.selected.has(i);
+      ctx.beginPath();
+      ctx.roundRect(x, y, w, h, r);
+      ctx.fillStyle = isOpen ? "#0b0e14" : "#2a3446";   // offen = dunkel, geschlossen = Wandfeld
+      ctx.fill();
+      if (isSel) {
+        ctx.fillStyle = "rgba(46,230,166,0.35)";
+        ctx.fill();
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = css("--green");
+      } else {
+        ctx.lineWidth = 1.5;
+        ctx.strokeStyle = isOpen ? "#3a4558" : "#3d4a63";
+        if (isOpen) ctx.setLineDash([6, 6]);
+      }
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    if (session.state !== "idle" && last) {
+      ctx.beginPath();
+      ctx.arc(last.x, last.y, 6, 0, Math.PI * 2);
+      ctx.fillStyle = css("--green");
+      ctx.fill();
+    }
+    const names = { idle: "Bereit", selecting: "Auswählen … (F loslassen = bestätigen)", pending: "Warten: Enter = bestätigen, Esc = abbrechen" };
+    if (!session.confirmOnRelease && session.state === "selecting") names.selecting = "Auswählen … (F loslassen, dann Enter)";
+    statusEl.textContent = names[session.state];
+    statusEl.className = session.state;
+  }
+
+  function note(text) { logEl.textContent = text; }
+
+  function pointerPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * canvas.width;
+    const y = ((e.clientY - rect.top) / rect.height) * canvas.height;
+    const inside = x >= 0 && y >= 0 && x < canvas.width && y < canvas.height;
+    return inside ? { x, y } : null;
+  }
+
+  canvas.addEventListener("pointermove", (e) => {
+    const p = pointerPos(e);
+    if (p && last && session.state === "selecting") {
+      for (const idx of cellsOnSegment(last.x, last.y, p.x, p.y, grid)) session.hover(idx);
+    } else if (p && session.state === "selecting") {
+      session.hover(cellAt(p.x, p.y, grid));
+    }
+    last = p;
+    draw();
+  });
+  canvas.addEventListener("pointerleave", () => { last = null; draw(); });
+
+  window.addEventListener("keydown", (e) => {
+    if (e.key.toLowerCase() === EDIT_KEY) {
+      if (session.begin()) {
+        if (last) session.hover(cellAt(last.x, last.y, grid)); // Feld unter dem Zeiger sofort mitnehmen
+        note("");
+      }
+    } else if (e.key === "Escape") {
+      if (session.cancel()) note("Abgebrochen – nichts geändert.");
+    } else if (e.key === "Enter") {
+      report(session.confirm());
+    } else return;
+    draw();
+  });
+
+  window.addEventListener("keyup", (e) => {
+    if (e.key.toLowerCase() === EDIT_KEY) { report(session.end()); draw(); }
+  });
+
+  // Fenster verliert den Fokus, während F gehalten wird: nie halb-ausgewählt hängen bleiben
+  window.addEventListener("blur", () => { if (session.cancel()) { note("Fokus verloren – abgebrochen."); draw(); } });
+
+  function report(r) {
+    if (!r || !r.confirmed) return;
+    note(r.changed.length ? `Bestätigt: Feld ${r.changed.map((i) => i + 1).join(", ")} umgeschaltet.` : "Bestätigt – keine Felder gewählt.");
+  }
+
+  corEl.addEventListener("change", () => { session.confirmOnRelease = corEl.checked; draw(); });
+  document.getElementById("reset").addEventListener("click", () => {
+    session.cancel();
+    session.open.fill(false);
+    note("Zurückgesetzt.");
+    draw();
+  });
+
+  window.__edit = { session, grid }; // für automatische Tests
+  draw();
+})();
+</script>
+</body>
+</html>
