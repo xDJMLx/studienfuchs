@@ -12,12 +12,14 @@ Pause:   F8 schaltet das Tool an/aus
 import argparse
 import sys
 import threading
+import time
 
 # Windows-Tastaturnachrichten (nur für den Windows-Weg mit Unterdrückung)
 WM_KEYDOWN, WM_KEYUP, WM_SYSKEYDOWN, WM_SYSKEYUP = 0x100, 0x101, 0x104, 0x105
 VK_F8 = 0x77
 
 BUTTON_NAMES = ("left", "right", "middle")
+MAX_DELAY_MS = 50.0  # Obergrenze: die Verzögerung läuft im Tastatur-Hook und darf ihn nicht blockieren
 
 
 class HoldMapper:
@@ -28,9 +30,10 @@ class HoldMapper:
     Maustaste trotzdem nur einmal gedrückt und einmal losgelassen.
     """
 
-    def __init__(self, mouse, button):
+    def __init__(self, mouse, button, delay_ms=0.0):
         self._mouse = mouse
         self._button = button
+        self.delay_s = max(0.0, min(float(delay_ms), MAX_DELAY_MS)) / 1000.0
         self._held = False
         self._lock = threading.Lock()
         self.enabled = True
@@ -39,6 +42,19 @@ class HoldMapper:
     def held(self):
         return self._held
 
+    def _wait(self):
+        """Feste Verzögerung vor dem Maus-Ereignis (unter ~2 ms aktiv gewartet,
+        weil time.sleep dort auf Windows zu grob ist)."""
+        d = self.delay_s
+        if d <= 0:
+            return
+        if d >= 0.002:
+            time.sleep(d)
+        else:
+            end = time.perf_counter() + d
+            while time.perf_counter() < end:
+                pass
+
     def press(self):
         with self._lock:
             if self.enabled and not self._held:
@@ -46,6 +62,7 @@ class HoldMapper:
                 # sehen und muss dann schon wissen, dass er von uns kommt.
                 self._held = True
                 try:
+                    self._wait()
                     self._mouse.press(self._button)
                 except Exception:
                     self._held = False
@@ -56,6 +73,7 @@ class HoldMapper:
         # damit die Maustaste nie hängen bleibt.
         with self._lock:
             if self._held:
+                self._wait()
                 self._mouse.release(self._button)
                 self._held = False
 
@@ -128,12 +146,12 @@ class Service:
     Listener-Thread aufgerufen.
     """
 
-    def __init__(self, spec, button_name, suppress=True, on_toggle=None):
+    def __init__(self, spec, button_name, suppress=True, on_toggle=None, delay_ms=0.0):
         from pynput import keyboard, mouse
         buttons = {"left": mouse.Button.left, "right": mouse.Button.right,
                    "middle": mouse.Button.middle}
         self.spec = spec
-        self.mapper = HoldMapper(mouse.Controller(), buttons[button_name])
+        self.mapper = HoldMapper(mouse.Controller(), buttons[button_name], delay_ms)
         self.suppress = suppress and sys.platform == "win32"
         self._on_toggle = on_toggle or (lambda enabled: None)
         self._toggle_down = False  # verhindert Mehrfach-Umschalten durch Auto-Repeat
@@ -204,11 +222,11 @@ class Service:
             self._listener.stop()
 
 
-def run(spec, button_name, suppress):
+def run(spec, button_name, suppress, delay_ms=0.0):
     def status(enabled):
         print("Tool AN" if enabled else "Tool PAUSIERT (F8 zum Einschalten)", flush=True)
 
-    service = Service(spec, button_name, suppress, on_toggle=status)
+    service = Service(spec, button_name, suppress, on_toggle=status, delay_ms=delay_ms)
     if suppress and sys.platform != "win32":
         print("Hinweis: Unterdrücken der Taste geht nur unter Windows; "
               f"'{spec.label}' wird zusätzlich normal getippt.")
@@ -229,12 +247,15 @@ def main():
     p.add_argument("--taste", default="f", help="Auslösende Taste, ein Zeichen (Standard: f)")
     p.add_argument("--maus", default="left", choices=list(BUTTON_NAMES),
                    help="Maustaste (Standard: left)")
+    p.add_argument("--delay-ms", type=float, default=0.0,
+                   help=f"Feste Verzögerung vor dem Maus-Ereignis in ms, 0 bis {MAX_DELAY_MS:g} (Standard: 0)")
     p.add_argument("--nicht-unterdruecken", action="store_true",
                    help="Taste zusätzlich normal an das Programm durchreichen (Windows)")
     args = p.parse_args()
     if len(args.taste) != 1 or not args.taste.isalnum():
         p.error("--taste muss ein einzelner Buchstabe oder eine Ziffer sein")
-    run(spec_from_char(args.taste), args.maus, suppress=not args.nicht_unterdruecken)
+    run(spec_from_char(args.taste), args.maus, suppress=not args.nicht_unterdruecken,
+        delay_ms=args.delay_ms)
 
 
 if __name__ == "__main__":

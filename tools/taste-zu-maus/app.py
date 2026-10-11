@@ -28,6 +28,7 @@ BODY = "#1d2431"
 
 CONFIG_PATH = Path.home() / ".taste_zu_maus.json"
 BUTTON_LABELS = {"left": "Links", "right": "Rechts", "middle": "Mitte"}
+DELAYS = (0.0, 0.1, 1.0, 5.0, 10.0)  # ms; Auswahl in der Oberfläche
 IS_WIN = sys.platform == "win32"
 
 
@@ -96,6 +97,7 @@ class App:
         self.key_spec = core.spec_from_char("f")
         self.button = "left"
         self.suppress = True
+        self.delay_ms = 1.0
         self._load_config()
 
         fam = "Segoe UI"
@@ -132,6 +134,8 @@ class App:
             if d.get("button") in core.BUTTON_NAMES:
                 self.button = d["button"]
             self.suppress = bool(d.get("suppress", True))
+            if d.get("delay_ms") in DELAYS:
+                self.delay_ms = float(d["delay_ms"])
         except Exception:
             pass  # keine oder kaputte Einstellungen: Standardwerte
 
@@ -141,6 +145,7 @@ class App:
                 "key": self.key_spec.to_dict(),
                 "button": self.button,
                 "suppress": self.suppress,
+                "delay_ms": self.delay_ms,
             }), encoding="utf-8")
         except Exception:
             pass
@@ -193,6 +198,20 @@ class App:
             lb.bind("<Button-1>", lambda e, n=name: self.set_button(n))
             self.seg_labels[name] = lb
 
+        # Zeile: Verzögerung
+        row = self._row(card, "Verzögerung", "feste Zeit vor dem Mausklick", sep=True)
+        dseg = tk.Frame(row, bg=CARD2)
+        dseg.pack(side="right")
+        self.delay_labels = {}
+        for ms in DELAYS:
+            text = "Aus" if ms == 0 else f"{ms:g}".replace(".", ",")
+            lb = tk.Label(dseg, text=text, font=self.f_row,
+                          padx=px(9), pady=px(5), cursor="hand2")
+            lb.pack(side="left", padx=px(2), pady=px(2))
+            lb.bind("<Button-1>", lambda e, v=ms: self.set_delay(v))
+            self.delay_labels[ms] = lb
+        tk.Label(row, text="ms", font=self.f_small, bg=CARD, fg=MUTED).pack(side="right", padx=(0, px(6)))
+
         # Zeile: Taste blockieren
         sub = "Taste wird nicht zusätzlich getippt" if IS_WIN else "nur unter Windows"
         row = self._row(card, "Taste blockieren", sub, sep=True)
@@ -243,6 +262,13 @@ class App:
         self._save_config()
         self._refresh()
 
+    def set_delay(self, ms):
+        if self.locked:
+            return
+        self.delay_ms = ms
+        self._save_config()
+        self._refresh()
+
     def toggle_suppress(self):
         if self.locked or not IS_WIN:
             return
@@ -277,7 +303,8 @@ class App:
             try:
                 self.service = core.Service(
                     self.key_spec, self.button, suppress=self.suppress,
-                    on_toggle=lambda enabled: self.q.put(("toggle", enabled)))
+                    on_toggle=lambda enabled: self.q.put(("toggle", enabled)),
+                    delay_ms=self.delay_ms)
                 self.service.start()
             except Exception as e:  # z. B. fehlende Rechte (macOS) oder kein X-Server
                 self.service = None
@@ -339,6 +366,11 @@ class App:
                                   cursor="arrow" if locked else "hand2")
         for name, lb in self.seg_labels.items():
             sel = name == self.button
+            lb.configure(bg=GREEN if sel else CARD2,
+                         fg=BG if sel else (MUTED if locked else TEXT),
+                         cursor="arrow" if locked else "hand2")
+        for ms, lb in self.delay_labels.items():
+            sel = ms == self.delay_ms
             lb.configure(bg=GREEN if sel else CARD2,
                          fg=BG if sel else (MUTED if locked else TEXT),
                          cursor="arrow" if locked else "hand2")

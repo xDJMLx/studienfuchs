@@ -32,6 +32,9 @@ Optional als einzelne `.exe`: erst **`exe_bauen.bat`**, danach noch einmal `Inst
 - **START / STOP** schaltet das Tool ein und aus.
 - **Ändern** neben „Auslöser-Taste“: danach die gewünschte Taste drücken (Esc bricht ab). F8 ist reserviert.
 - **Maustaste:** Links, Rechts oder Mitte.
+- **Verzögerung:** feste Wartezeit vor dem Maus-Ereignis (Aus, 0,1, 1, 5 oder 10 ms; Standard 1 ms). Sie gilt beim Drücken
+  und beim Loslassen gleich, die Haltedauer bleibt also unverändert. Sie macht die Eingabe **nicht** unauffälliger für
+  Anti-Cheat-Systeme (siehe Hinweise). Auf der Konsole: `--delay-ms 0.1` (maximal 50).
 - **Taste blockieren** (nur Windows): F wird nicht zusätzlich als „f“ getippt, solange das Tool aktiv ist.
 - **F8** pausiert / setzt fort – auch wenn die App im Hintergrund ist. Beim Pausieren wird eine gehaltene Maustaste sofort losgelassen.
 - Die Einstellungen werden in `~/.taste_zu_maus.json` gemerkt. Einstellungen sind nur im gestoppten Zustand änderbar.
@@ -49,6 +52,8 @@ python taste_zu_maus.py --taste g --maus right
 - **Windows:** Für Programme, die als Administrator laufen, muss auch diese App als Administrator gestartet werden.
 - **macOS:** Dem Terminal unter *Datenschutz & Sicherheit* → *Bedienungshilfen* und *Eingabeüberwachung* Zugriff geben. F wird zusätzlich getippt.
 - **Linux:** Unter X11 getestet; unter Wayland sind globale Tastatur-/Mausereignisse meist blockiert. F wird zusätzlich getippt.
+- Die Verzögerung ist nur eine feste, kleine Wartezeit. Von Programmen erzeugte Eingaben bleiben für Windows als solche erkennbar,
+  und die Regeln mancher Spiele (z. B. Fortnite: Macros gelten als Cheating) ändert eine Millisekunde nicht.
 - Manche Spiele/Anti-Cheat-Systeme verbieten Eingabe-Automatisierung. Prüfe die Regeln, bevor du es dort nutzt.
 
 ## Tests

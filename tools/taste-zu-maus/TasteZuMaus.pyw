@@ -32,12 +32,14 @@ except ImportError:
 import argparse
 import sys
 import threading
+import time
 
 # Windows-Tastaturnachrichten (nur für den Windows-Weg mit Unterdrückung)
 WM_KEYDOWN, WM_KEYUP, WM_SYSKEYDOWN, WM_SYSKEYUP = 0x100, 0x101, 0x104, 0x105
 VK_F8 = 0x77
 
 BUTTON_NAMES = ("left", "right", "middle")
+MAX_DELAY_MS = 50.0  # Obergrenze: die Verzögerung läuft im Tastatur-Hook und darf ihn nicht blockieren
 
 
 class HoldMapper:
@@ -48,9 +50,10 @@ class HoldMapper:
     Maustaste trotzdem nur einmal gedrückt und einmal losgelassen.
     """
 
-    def __init__(self, mouse, button):
+    def __init__(self, mouse, button, delay_ms=0.0):
         self._mouse = mouse
         self._button = button
+        self.delay_s = max(0.0, min(float(delay_ms), MAX_DELAY_MS)) / 1000.0
         self._held = False
         self._lock = threading.Lock()
         self.enabled = True
@@ -59,6 +62,19 @@ class HoldMapper:
     def held(self):
         return self._held
 
+    def _wait(self):
+        """Feste Verzögerung vor dem Maus-Ereignis (unter ~2 ms aktiv gewartet,
+        weil time.sleep dort auf Windows zu grob ist)."""
+        d = self.delay_s
+        if d <= 0:
+            return
+        if d >= 0.002:
+            time.sleep(d)
+        else:
+            end = time.perf_counter() + d
+            while time.perf_counter() < end:
+                pass
+
     def press(self):
         with self._lock:
             if self.enabled and not self._held:
@@ -66,6 +82,7 @@ class HoldMapper:
                 # sehen und muss dann schon wissen, dass er von uns kommt.
                 self._held = True
                 try:
+                    self._wait()
                     self._mouse.press(self._button)
                 except Exception:
                     self._held = False
@@ -76,6 +93,7 @@ class HoldMapper:
         # damit die Maustaste nie hängen bleibt.
         with self._lock:
             if self._held:
+                self._wait()
                 self._mouse.release(self._button)
                 self._held = False
 
@@ -148,12 +166,12 @@ class Service:
     Listener-Thread aufgerufen.
     """
 
-    def __init__(self, spec, button_name, suppress=True, on_toggle=None):
+    def __init__(self, spec, button_name, suppress=True, on_toggle=None, delay_ms=0.0):
         from pynput import keyboard, mouse
         buttons = {"left": mouse.Button.left, "right": mouse.Button.right,
                    "middle": mouse.Button.middle}
         self.spec = spec
-        self.mapper = HoldMapper(mouse.Controller(), buttons[button_name])
+        self.mapper = HoldMapper(mouse.Controller(), buttons[button_name], delay_ms)
         self.suppress = suppress and sys.platform == "win32"
         self._on_toggle = on_toggle or (lambda enabled: None)
         self._toggle_down = False  # verhindert Mehrfach-Umschalten durch Auto-Repeat
@@ -250,6 +268,7 @@ BODY = "#1d2431"
 
 CONFIG_PATH = Path.home() / ".taste_zu_maus.json"
 BUTTON_LABELS = {"left": "Links", "right": "Rechts", "middle": "Mitte"}
+DELAYS = (0.0, 0.1, 1.0, 5.0, 10.0)  # ms; Auswahl in der Oberfläche
 IS_WIN = sys.platform == "win32"
 
 
@@ -318,6 +337,7 @@ class App:
         self.key_spec = spec_from_char("f")
         self.button = "left"
         self.suppress = True
+        self.delay_ms = 1.0
         self._load_config()
 
         fam = "Segoe UI"
@@ -354,6 +374,8 @@ class App:
             if d.get("button") in BUTTON_NAMES:
                 self.button = d["button"]
             self.suppress = bool(d.get("suppress", True))
+            if d.get("delay_ms") in DELAYS:
+                self.delay_ms = float(d["delay_ms"])
         except Exception:
             pass  # keine oder kaputte Einstellungen: Standardwerte
 
@@ -363,6 +385,7 @@ class App:
                 "key": self.key_spec.to_dict(),
                 "button": self.button,
                 "suppress": self.suppress,
+                "delay_ms": self.delay_ms,
             }), encoding="utf-8")
         except Exception:
             pass
@@ -415,6 +438,20 @@ class App:
             lb.bind("<Button-1>", lambda e, n=name: self.set_button(n))
             self.seg_labels[name] = lb
 
+        # Zeile: Verzögerung
+        row = self._row(card, "Verzögerung", "feste Zeit vor dem Mausklick", sep=True)
+        dseg = tk.Frame(row, bg=CARD2)
+        dseg.pack(side="right")
+        self.delay_labels = {}
+        for ms in DELAYS:
+            text = "Aus" if ms == 0 else f"{ms:g}".replace(".", ",")
+            lb = tk.Label(dseg, text=text, font=self.f_row,
+                          padx=px(9), pady=px(5), cursor="hand2")
+            lb.pack(side="left", padx=px(2), pady=px(2))
+            lb.bind("<Button-1>", lambda e, v=ms: self.set_delay(v))
+            self.delay_labels[ms] = lb
+        tk.Label(row, text="ms", font=self.f_small, bg=CARD, fg=MUTED).pack(side="right", padx=(0, px(6)))
+
         # Zeile: Taste blockieren
         sub = "Taste wird nicht zusätzlich getippt" if IS_WIN else "nur unter Windows"
         row = self._row(card, "Taste blockieren", sub, sep=True)
@@ -465,6 +502,13 @@ class App:
         self._save_config()
         self._refresh()
 
+    def set_delay(self, ms):
+        if self.locked:
+            return
+        self.delay_ms = ms
+        self._save_config()
+        self._refresh()
+
     def toggle_suppress(self):
         if self.locked or not IS_WIN:
             return
@@ -499,7 +543,8 @@ class App:
             try:
                 self.service = Service(
                     self.key_spec, self.button, suppress=self.suppress,
-                    on_toggle=lambda enabled: self.q.put(("toggle", enabled)))
+                    on_toggle=lambda enabled: self.q.put(("toggle", enabled)),
+                    delay_ms=self.delay_ms)
                 self.service.start()
             except Exception as e:  # z. B. fehlende Rechte (macOS) oder kein X-Server
                 self.service = None
@@ -561,6 +606,11 @@ class App:
                                   cursor="arrow" if locked else "hand2")
         for name, lb in self.seg_labels.items():
             sel = name == self.button
+            lb.configure(bg=GREEN if sel else CARD2,
+                         fg=BG if sel else (MUTED if locked else TEXT),
+                         cursor="arrow" if locked else "hand2")
+        for ms, lb in self.delay_labels.items():
+            sel = ms == self.delay_ms
             lb.configure(bg=GREEN if sel else CARD2,
                          fg=BG if sel else (MUTED if locked else TEXT),
                          cursor="arrow" if locked else "hand2")
